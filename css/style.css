@@ -186,9 +186,10 @@ body::before {
 .floating-badge {
     position: absolute;
     background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.05), 0 8px 32px rgba(0, 0, 0, 0.3);
     border-radius: 12px;
     padding: 12px 16px;
     display: flex;
@@ -197,7 +198,6 @@ body::before {
     font-size: 0.85rem;
     font-weight: 500;
     color: var(--white);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
     z-index: 2;
     animation: float 3s ease-in-out infinite;
 }
