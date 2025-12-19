@@ -1,0 +1,102 @@
+# .gitignore for Azure Landing Zones Project
+
+# Sensitive Information
+*.key
+*.pem
+*.pfx
+*.p12
+secrets.json
+*.env
+.env.*
+credentials.json
+service-principal.json
+
+# Customer-specific data
+*customer*
+*client*
+*confidential*
+*nda*
+
+# Azure CLI
+.azure/
+
+# Terraform
+*.tfstate
+*.tfstate.*
+*.tfvars
+.terraform/
+.terraform.lock.hcl
+crash.log
+override.tf
+override.tf.json
+
+# ARM Templates - Sensitive
+*parameters.json
+*parameters.*.json
+
+# PowerShell
+*.ps1xml
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# JetBrains IDEs
+.idea/
+*.iml
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+logs/
+*.log.*
+
+# Temporary files
+*.tmp
+*.temp
+~$*
+*.swp
+*.swo
+*~
+
+# Build outputs
+bin/
+obj/
+dist/
+build/
+
+# Node modules (if using any JS tools)
+node_modules/
+package-lock.json
+
+# Python (if using any Python tools)
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+venv/
+env/
+.venv
+
+# Documentation build artifacts
+_site/
+.jekyll-cache/
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# Keep directory structure
+!.gitkeep

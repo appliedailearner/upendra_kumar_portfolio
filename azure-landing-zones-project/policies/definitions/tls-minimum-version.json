@@ -1,0 +1,81 @@
+{
+    "properties": {
+        "displayName": "Require Minimum TLS 1.3 for All Services",
+        "policyType": "Custom",
+        "mode": "All",
+        "description": "Enforces minimum TLS version 1.3 for all Azure services to meet security requirements",
+        "metadata": {
+            "version": "1.0.0",
+            "category": "Security",
+            "compliance": [
+                "PCI-DSS 4.1",
+                "HIPAA 164.312(e)(1)",
+                "SOC 2 CC6.7"
+            ]
+        },
+        "parameters": {
+            "effect": {
+                "type": "String",
+                "metadata": {
+                    "displayName": "Effect",
+                    "description": "Enable or disable the execution of the policy"
+                },
+                "allowedValues": [
+                    "Audit",
+                    "Deny",
+                    "Disabled"
+                ],
+                "defaultValue": "Deny"
+            }
+        },
+        "policyRule": {
+            "if": {
+                "anyOf": [
+                    {
+                        "allOf": [
+                            {
+                                "field": "type",
+                                "equals": "Microsoft.Storage/storageAccounts"
+                            },
+                            {
+                                "anyOf": [
+                                    {
+                                        "field": "Microsoft.Storage/storageAccounts/minimumTlsVersion",
+                                        "notEquals": "TLS1_3"
+                                    },
+                                    {
+                                        "field": "Microsoft.Storage/storageAccounts/minimumTlsVersion",
+                                        "exists": "false"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "field": "type",
+                                "equals": "Microsoft.Web/sites"
+                            },
+                            {
+                                "anyOf": [
+                                    {
+                                        "field": "Microsoft.Web/sites/siteConfig.minTlsVersion",
+                                        "notEquals": "1.3"
+                                    },
+                                    {
+                                        "field": "Microsoft.Web/sites/siteConfig.minTlsVersion",
+                                        "exists": "false"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "then": {
+                "effect": "[parameters('effect')]"
+            }
+        }
+    }
+}

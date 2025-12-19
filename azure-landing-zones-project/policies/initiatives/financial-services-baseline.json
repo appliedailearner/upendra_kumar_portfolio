@@ -1,0 +1,60 @@
+{
+    "properties": {
+        "displayName": "Financial Services Compliance Baseline",
+        "policyType": "Custom",
+        "description": "Comprehensive policy initiative for Financial Services compliance (PCI-DSS, SOC 2, GDPR)",
+        "metadata": {
+            "version": "1.0.0",
+            "category": "Compliance",
+            "compliance": [
+                "PCI-DSS",
+                "SOC 2",
+                "GDPR"
+            ]
+        },
+        "parameters": {
+            "effect": {
+                "type": "String",
+                "metadata": {
+                    "displayName": "Effect",
+                    "description": "Enable or disable the execution of the policies"
+                },
+                "allowedValues": [
+                    "Audit",
+                    "Deny",
+                    "Disabled"
+                ],
+                "defaultValue": "Deny"
+            }
+        },
+        "policyDefinitions": [
+            {
+                "policyDefinitionReferenceId": "RequireCMKForStorage",
+                "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/{managementGroupId}/providers/Microsoft.Authorization/policyDefinitions/storage-cmk-required",
+                "parameters": {
+                    "effect": {
+                        "value": "[parameters('effect')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionReferenceId": "RequirePrivateEndpoints",
+                "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/{managementGroupId}/providers/Microsoft.Authorization/policyDefinitions/private-endpoints-required",
+                "parameters": {
+                    "effect": {
+                        "value": "[parameters('effect')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionReferenceId": "RequireMinimumTLS",
+                "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/{managementGroupId}/providers/Microsoft.Authorization/policyDefinitions/tls-minimum-version",
+                "parameters": {
+                    "effect": {
+                        "value": "[parameters('effect')]"
+                    }
+                }
+            }
+        ]
+    }
+}

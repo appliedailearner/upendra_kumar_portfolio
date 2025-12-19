@@ -1,0 +1,53 @@
+{
+  "properties": {
+    "displayName": "Require Customer-Managed Keys for Storage Accounts",
+    "policyType": "Custom",
+    "mode": "All",
+    "description": "Enforces customer-managed encryption keys (CMK) for all storage accounts to meet PCI-DSS requirement 3.4",
+    "metadata": {
+      "version": "1.0.0",
+      "category": "Storage",
+      "compliance": ["PCI-DSS 3.4", "HIPAA 164.312(a)(2)(iv)", "SOC 2 CC6.1"]
+    },
+    "parameters": {
+      "effect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "Audit",
+          "Deny",
+          "Disabled"
+        ],
+        "defaultValue": "Deny"
+      }
+    },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Storage/storageAccounts"
+          },
+          {
+            "anyOf": [
+              {
+                "field": "Microsoft.Storage/storageAccounts/encryption.keySource",
+                "notEquals": "Microsoft.Keyvault"
+              },
+              {
+                "field": "Microsoft.Storage/storageAccounts/encryption.keySource",
+                "exists": "false"
+              }
+            ]
+          }
+        ]
+      },
+      "then": {
+        "effect": "[parameters('effect')]"
+      }
+    }
+  }
+}
