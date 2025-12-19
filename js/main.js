@@ -212,20 +212,32 @@ const statsObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
             entry.target.classList.add('counted');
-            const value = entry.target.textContent;
+            const value = entry.target.textContent.trim();
 
             if (value.includes('%')) {
                 const num = parseInt(value);
-                animateCounter(entry.target, num);
-                setTimeout(() => {
-                    entry.target.textContent = num + '%';
-                }, 2000);
-            } else if (value.includes('K')) {
-                const num = parseInt(value.replace('K', ''));
-                animateCounter(entry.target, num);
-                setTimeout(() => {
-                    entry.target.textContent = '$' + num + 'K+';
-                }, 2000);
+                if (!isNaN(num)) {
+                    animateCounter(entry.target, num);
+                    setTimeout(() => {
+                        entry.target.textContent = num + '%';
+                    }, 2000);
+                }
+            } else if (value.includes('K') || value.includes('$')) {
+                // Handle formats like "$55K+" or "55K" or "4x"
+                const cleanValue = value.replace(/[$K+x]/g, '');
+                const num = parseInt(cleanValue);
+                if (!isNaN(num)) {
+                    animateCounter(entry.target, num);
+                    setTimeout(() => {
+                        if (value.includes('$')) {
+                            entry.target.textContent = '$' + num + 'K+';
+                        } else if (value.includes('x')) {
+                            entry.target.textContent = num + 'x';
+                        } else {
+                            entry.target.textContent = num + '%';
+                        }
+                    }, 2000);
+                }
             }
         }
     });
