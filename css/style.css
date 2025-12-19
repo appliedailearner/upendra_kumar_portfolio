@@ -1,22 +1,27 @@
-/* ===== CSS Variables - Dark Theme (upendrakumar.com) ===== */
+/* ===== CSS Variables - Premium Design System ===== */
 :root {
-    --primary-color: #0078d4;
-    --secondary-color: #50e6ff;
-    --gradient-primary: linear-gradient(135deg, #0078d4, #c026d3);
+    --primary-color: #0078D4;
+    /* Azure Blue */
+    --secondary-gradient: linear-gradient(135deg, #7c3aed, #9333ea);
+    /* Purple Gradient */
+    --accent-purple: #7c3aed;
     --bg-dark: #0a0a0f;
+    --bg-navy: #0f0f23;
     --card-bg: rgba(255, 255, 255, 0.03);
-    --light-bg: #0a0a0f;
-    --text-dark: #f1f5f9;
-    --text-light: #94a3b8;
-    --text-premium: #f1f5f9;
+    --text-main: #f8fafc;
+    /* Soft White */
+    --text-muted: #cbd5e1;
+    /* Muted Soft White */
     --white: #ffffff;
-    --success: #28a745;
-    --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
-    --border-color: rgba(255, 255, 255, 0.1);
+    --success: #10b981;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.6);
+    --border-color: rgba(255, 255, 255, 0.08);
+    /* Finer border for glassmorphism */
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ===== Global Styles - Dark Theme ===== */
+/* ===== Global Styles ===== */
 * {
     margin: 0;
     padding: 0;
@@ -26,11 +31,12 @@
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     line-height: 1.8;
-    color: var(--text-premium);
+    color: var(--text-main);
     background: var(--bg-dark);
     overflow-x: hidden;
     font-size: 16px;
     position: relative;
+    -webkit-font-smoothing: antialiased;
 }
 
 /* Grid Background Pattern */
@@ -142,6 +148,90 @@ body::before {
     z-index: 1;
 }
 
+/* Hero Grid Layout */
+.hero-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+/* Profile Photo Section */
+.hero-image-wrapper {
+    position: relative;
+    width: 380px;
+    height: 380px;
+    margin: 0 auto;
+}
+
+.hero-image-glow {
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(circle, rgba(0, 120, 212, 0.3), transparent 70%);
+    filter: blur(40px);
+    z-index: 0;
+}
+
+.hero-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 24px;
+    object-fit: cover;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+/* Floating Glassmorphism Badges */
+.floating-badge {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--white);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    animation: float 3s ease-in-out infinite;
+}
+
+.floating-badge i {
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+}
+
+/* Badge Positions */
+.badge-1 {
+    top: -10px;
+    right: -20px;
+    animation-delay: 0s;
+}
+
+.badge-2 {
+    bottom: 40px;
+    right: -30px;
+    animation-delay: 0.5s;
+}
+
+.badge-3 {
+    top: 80px;
+    left: -40px;
+    animation-delay: 1s;
+}
+
+.badge-4 {
+    bottom: -10px;
+    left: -30px;
+    animation-delay: 1.5s;
+}
+
 .hero-content {
     text-align: center;
 }
@@ -207,24 +297,25 @@ body::before {
 }
 
 .btn-primary {
-    background: var(--white);
-    color: var(--primary-color);
+    background: var(--secondary-gradient);
+    color: var(--white);
 }
 
 .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(124, 58, 237, 0.4);
 }
 
 .btn-secondary {
-    background: transparent;
+    background: rgba(255, 255, 255, 0.05);
     color: var(--white);
-    border-color: var(--white);
+    border-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
 }
 
 .btn-secondary:hover {
-    background: var(--white);
-    color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--white);
 }
 
 /* ===== Sections ===== */
@@ -245,12 +336,12 @@ h6 {
 
 .section-title {
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-weight: 800;
-    margin-bottom: 3rem;
-    color: var(--text-dark);
+    margin-bottom: 4rem;
+    color: var(--text-main);
     position: relative;
-    background: var(--gradient-primary);
+    background: var(--secondary-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -259,10 +350,11 @@ h6 {
 .section-title::after {
     content: '';
     display: block;
-    width: 60px;
+    width: 80px;
     height: 4px;
-    background: var(--gradient-primary);
-    margin: 1rem auto 0;
+    background: var(--secondary-gradient);
+    margin: 1.5rem auto 0;
+    border-radius: 2px;
 }
 
 /* ===== About Section ===== */
