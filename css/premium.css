@@ -1,5 +1,115 @@
 /* Premium Interactive Features & Animations */
 
+/* ===== Theme Toggle Button ===== */
+.theme-toggle {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-left: 1rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.1) rotate(15deg);
+}
+
+.theme-toggle:active {
+    transform: scale(0.95);
+}
+
+.theme-toggle i {
+    font-size: 1.2rem;
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.theme-toggle:hover i {
+    transform: rotate(360deg);
+}
+
+/* Dark Theme Variables */
+body.dark-theme {
+    --bg-color: #0a0e27;
+    --text-color: #e4e6eb;
+    --card-bg: #1a1f3a;
+    --border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Dark Theme Styles */
+body.dark-theme {
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+body.dark-theme .navbar {
+    background: rgba(10, 14, 39, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.dark-theme .leadership-card,
+body.dark-theme .cert-platform,
+body.dark-theme .expertise-category,
+body.dark-theme .pillar {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+body.dark-theme .theme-toggle {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+body.dark-theme .contact-form input,
+body.dark-theme .contact-form textarea,
+body.dark-theme .contact-form select {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+body.dark-theme .footer {
+    background: var(--card-bg);
+    border-top: 1px solid var(--border-color);
+}
+
+body.dark-theme ::-webkit-scrollbar-track {
+    background: #1a1f3a;
+}
+
+body.dark-theme ::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #0078d4, #50e6ff);
+}
+
+/* Smooth theme transition */
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar,
+.leadership-card,
+.cert-platform,
+.expertise-category,
+.pillar,
+.contact-form input,
+.contact-form textarea,
+.contact-form select,
+.footer {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+
 /* ===== Page Loader ===== */
 .page-loader {
     position: fixed;
