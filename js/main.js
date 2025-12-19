@@ -11,6 +11,15 @@ window.addEventListener('load', () => {
     }
 });
 
+// Fallback: Force hide loader after 2 seconds if page load event doesn't fire
+setTimeout(() => {
+    const loader = document.querySelector('.page-loader');
+    if (loader && !loader.classList.contains('fade-out')) {
+        loader.classList.add('fade-out');
+        setTimeout(() => loader.remove(), 500);
+    }
+}, 2000);
+
 // ===== Mobile Navigation Toggle =====
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
