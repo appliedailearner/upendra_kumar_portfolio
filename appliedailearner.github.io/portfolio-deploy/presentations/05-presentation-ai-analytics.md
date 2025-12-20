@@ -2,14 +2,14 @@
 marp: true
 theme: default
 paginate: true
-footer: 'Microsoft Confidential | Senior Director, Cloud Strategy & Architecture'
+footer: 'Azure Strategic Architecture | Azure Solutions Architect'
 ---
 
 # AI-Powered Analytics Platform
 ## Unlocking Business Value with Data & AI
 
 **Presented for:** E-Commerce Company
-**Presented by:** Senior Director, Cloud Strategy & Architecture, Microsoft
+**Presented by:** Azure Solutions Architect
 
 ---
 

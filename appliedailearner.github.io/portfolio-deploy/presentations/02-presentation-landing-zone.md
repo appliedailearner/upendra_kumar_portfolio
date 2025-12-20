@@ -2,14 +2,14 @@
 marp: true
 theme: default
 paginate: true
-footer: 'Microsoft Confidential | Senior Director, Cloud Strategy & Architecture'
+footer: 'Azure Strategic Architecture | Azure Solutions Architect'
 ---
 
 # Secure Azure Landing Zone Foundation
 ## Accelerating Innovation with Governance and Compliance
 
 **Presented for:** FinTech Startup
-**Presented by:** Senior Director, Cloud Strategy & Architecture, Microsoft
+**Presented by:** Azure Solutions Architect
 
 ---
 
