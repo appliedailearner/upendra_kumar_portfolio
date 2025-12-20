@@ -1,23 +1,9 @@
 ---
 marp: true
-theme: gaia
-class: invert
+theme: default
 paginate: true
-footer: 'Upendra Kumar - Azure Solutions Architect | Leadership Portfolio'
+footer: 'Microsoft Confidential | Senior Director, Cloud Strategy & Architecture'
 ---
-
-<!-- style
-section {
-  background-color: #0a0a0f;
-  color: #f8fafc;
-}
-h1, h2 {
-  color: #0078D4;
-}
-footer {
-  color: #cbd5e1;
-}
--->
 
 # Well-Architected Review & Optimization
 ## Maximizing Value and Reliability in Healthcare SaaS
@@ -75,18 +61,15 @@ footer {
 **Next Steps:**
 1. Implement "Quick Win" cost savings (unused resources).
 2. Configure VM Scale Sets for High Availability.
+
+---
+
+# Visual Journey: The Optimization Cycle
+
+![Well-Architected Optimization Cycle](../assets/images/projects/03-well-architected-cycle.png)
+<!-- 
+Infographic Placeholder: 
+Use the prompt in INFOGRAPHIC_PROMPTS.md to generate this image.
+Visual: Assess -> Remediate -> Monitor -> Value Loop
+-->
 3. Conduct Disaster Recovery drill.
-
----
-
-# Visual Journey: The Optimization Loop
-
-![Well-Architected Optimization Cycle](../images/projects/03-well-architected.png)
-
----
-# Thank You
-## Let's Build the Future of Cloud Together
-**Upendra Kumar**
-Azure Solutions Architect
-upendra25312@gmail.com
-[Portfolio Site](https://appliedailearner.github.io/upendra_kumar_portfolio/)

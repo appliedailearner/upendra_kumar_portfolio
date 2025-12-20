@@ -1,23 +1,9 @@
 ---
 marp: true
-theme: gaia
-class: invert
+theme: default
 paginate: true
-footer: 'Upendra Kumar - Azure Solutions Architect | Leadership Portfolio'
+footer: 'Microsoft Confidential | Senior Director, Cloud Strategy & Architecture'
 ---
-
-<!-- style
-section {
-  background-color: #0a0a0f;
-  color: #f8fafc;
-}
-h1, h2 {
-  color: #0078D4;
-}
-footer {
-  color: #cbd5e1;
-}
--->
 
 # Application Modernization Blueprint
 ## Scaling Retail Operations for the Digital Era
@@ -78,14 +64,11 @@ footer {
 
 ---
 
-# Visual Journey: The Modernization Path
+# Visual Journey: Modernization Pipeline
 
-![App Modernization Multi-Stage Delivery](../images/projects/04-app-modernization.png)
-
----
-# Thank You
-## Let's Build the Future of Cloud Together
-**Upendra Kumar**
-Azure Solutions Architect
-upendra25312@gmail.com
-[Portfolio Site](https://appliedailearner.github.io/upendra_kumar_portfolio/)
+![App Modernization Pipeline](../assets/images/projects/04-app-modernization-pipeline.png)
+<!-- 
+Infographic Placeholder: 
+Use the prompt in INFOGRAPHIC_PROMPTS.md to generate this image.
+Visual: Monolith -> Containerize -> DevOps Loop -> Global Scale -> User Experience
+-->

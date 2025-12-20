@@ -1,23 +1,9 @@
 ---
 marp: true
-theme: gaia
-class: invert
+theme: default
 paginate: true
-footer: 'Upendra Kumar - Azure Solutions Architect | Leadership Portfolio'
+footer: 'Microsoft Confidential | Senior Director, Cloud Strategy & Architecture'
 ---
-
-<!-- style
-section {
-  background-color: #0a0a0f;
-  color: #f8fafc;
-}
-h1, h2 {
-  color: #0078D4;
-}
-footer {
-  color: #cbd5e1;
-}
--->
 
 # Strategic Data Center Migration & Modernization
 ## Transforming Infrastructure for Agility and Cost Efficiency
@@ -79,12 +65,9 @@ footer {
 
 # Visual Journey: The Strategic Path
 
-![Strategic Data Center Migration Journey](../images/projects/01-datacenter-migration.png)
-
----
-# Thank You
-## Let's Build the Future of Cloud Together
-**Upendra Kumar**
-Azure Solutions Architect
-upendra25312@gmail.com
-[Portfolio Site](https://appliedailearner.github.io/upendra_kumar_portfolio/)
+![Strategic Data Center Migration Journey](../assets/images/projects/01-datacenter-migration-journey.png)
+<!-- 
+Infographic Placeholder: 
+Use the prompt in INFOGRAPHIC_PROMPTS.md to generate this image.
+Visual: Legacy Data Center -> Azure Migrate Hub -> Cloud Optimization -> 30% TCO Reduction
+-->

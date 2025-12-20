@@ -1,23 +1,9 @@
 ---
 marp: true
-theme: gaia
-class: invert
+theme: default
 paginate: true
-footer: 'Upendra Kumar - Azure Solutions Architect | Leadership Portfolio'
+footer: 'Microsoft Confidential | Senior Director, Cloud Strategy & Architecture'
 ---
-
-<!-- style
-section {
-  background-color: #0a0a0f;
-  color: #f8fafc;
-}
-h1, h2 {
-  color: #0078D4;
-}
-footer {
-  color: #cbd5e1;
-}
--->
 
 # AI-Powered Analytics Platform
 ## Unlocking Business Value with Data & AI
@@ -75,24 +61,16 @@ footer {
 
 **Next Steps:**
 1. Provision Synapse Workspace and Data Lake.
-2. Ingest historical sales data.
-3. Develop Proof-of-Concept (PoC) Recommendation Model.
 
 ---
 
-# Visual Journey: The AI Value Chain
+# Visual Journey: Data-to-Value Pipeline
 
-![AI & Analytics Value Chain](../images/projects/05-ai-analytics.png)
-<!--
-Infographic Placeholder:
+![AI & Analytics Value Chain](../assets/images/projects/05-ai-analytics-value-chain.png)
+<!-- 
+Infographic Placeholder: 
 Use the prompt in INFOGRAPHIC_PROMPTS.md to generate this image.
 Visual: Raw Data -> Data Lake -> Synapse/AI -> Power BI -> Revenue Uplift
 -->
-
----
-# Thank You
-## Let's Build the Future of Cloud Together
-**Upendra Kumar**
-Azure Solutions Architect
-upendra25312@gmail.com
-[Portfolio Site](https://appliedailearner.github.io/upendra_kumar_portfolio/)
+2. Ingest historical sales data.
+3. Develop Proof-of-Concept (PoC) Recommendation Model.
