@@ -4,12 +4,49 @@
 window.addEventListener('load', () => {
     const loader = document.querySelector('.page-loader');
     if (loader) {
-        setTimeout(() => {
-            loader.classList.add('fade-out');
-            setTimeout(() => loader.remove(), 500);
-        }, 1000);
+        // Remove artificial delay to make site load instantly
+        loader.classList.add('fade-out');
+        setTimeout(() => loader.remove(), 500);
     }
 });
+
+// Fallback: Force hide loader after 1 second (reduced from 2s)
+setTimeout(() => {
+    const loader = document.querySelector('.page-loader');
+    if (loader && !loader.classList.contains('fade-out')) {
+        loader.classList.add('fade-out');
+        setTimeout(() => loader.remove(), 500);
+    }
+}, 1000);
+
+// ===== Dark/Light Theme Toggle =====
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = themeToggle.querySelector('i');
+
+// Check for saved theme preference or default to light mode
+const currentTheme = localStorage.getItem('theme') || 'light';
+if (currentTheme === 'dark') {
+    document.body.classList.add('dark-theme');
+    themeIcon.classList.remove('fa-moon');
+    themeIcon.classList.add('fa-sun');
+}
+
+// Theme toggle click handler
+themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-theme');
+
+    // Update icon
+    if (document.body.classList.contains('dark-theme')) {
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+        localStorage.setItem('theme', 'dark');
+    } else {
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+        localStorage.setItem('theme', 'light');
+    }
+});
+
 
 // ===== Mobile Navigation Toggle =====
 const hamburger = document.querySelector('.hamburger');
@@ -73,13 +110,19 @@ function highlightNav() {
     const scrollY = window.pageYOffset;
 
     sections.forEach(section => {
-        const sectionTop = section.offsetTop - 100;
+        // Adjusted offset for sticky navbar + clearer active state
+        const sectionTop = section.offsetTop - 150;
         const sectionHeight = section.offsetHeight;
 
         if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
             current = section.getAttribute('id');
         }
     });
+
+    // Fallback for bottom of page (Contact)
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+        current = 'contact';
+    }
 
     navItems.forEach(item => {
         item.classList.remove('active');
@@ -174,20 +217,32 @@ const statsObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
             entry.target.classList.add('counted');
-            const value = entry.target.textContent;
+            const value = entry.target.textContent.trim();
 
             if (value.includes('%')) {
                 const num = parseInt(value);
-                animateCounter(entry.target, num);
-                setTimeout(() => {
-                    entry.target.textContent = num + '%';
-                }, 2000);
-            } else if (value.includes('K')) {
-                const num = parseInt(value.replace('K', ''));
-                animateCounter(entry.target, num);
-                setTimeout(() => {
-                    entry.target.textContent = '$' + num + 'K+';
-                }, 2000);
+                if (!isNaN(num)) {
+                    animateCounter(entry.target, num);
+                    setTimeout(() => {
+                        entry.target.textContent = num + '%';
+                    }, 2000);
+                }
+            } else if (value.includes('K') || value.includes('$')) {
+                // Handle formats like "$55K+" or "55K" or "4x"
+                const cleanValue = value.replace(/[$K+x]/g, '');
+                const num = parseInt(cleanValue);
+                if (!isNaN(num)) {
+                    animateCounter(entry.target, num);
+                    setTimeout(() => {
+                        if (value.includes('$')) {
+                            entry.target.textContent = '$' + num + 'K+';
+                        } else if (value.includes('x')) {
+                            entry.target.textContent = num + 'x';
+                        } else {
+                            entry.target.textContent = num + '%';
+                        }
+                    }, 2000);
+                }
             }
         }
     });
@@ -387,3 +442,25 @@ if ('PerformanceObserver' in window) {
 }
 
 console.log('🚀 Portfolio loaded successfully!');
+
+// ===== Scroll to Top Logic =====
+const scrollToTopBtn = document.getElementById('scrollToTop');
+
+if (scrollToTopBtn) {
+    // Show button when scrolling down
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+            scrollToTopBtn.classList.add('visible');
+        } else {
+            scrollToTopBtn.classList.remove('visible');
+        }
+    });
+
+    // Scroll to top when clicked
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
