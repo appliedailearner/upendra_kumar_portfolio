@@ -1,0 +1,164 @@
+/* style.css - Main stylesheet for portfolio */
+
+:root {
+  --primary-bg: #181a1b;
+  --primary-text: #f5f6fa;
+  --accent: #4f8cff;
+  --card-bg: #23272a;
+  --border-radius: 12px;
+  --transition: 0.3s;
+  --font-main: 'Inter', Arial, sans-serif;
+}
+
+body {
+  background: var(--primary-bg);
+  color: var(--primary-text);
+  font-family: var(--font-main);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  transition: background var(--transition), color var(--transition);
+}
+
+header, footer {
+  width: 100%;
+  padding: 1.5rem 0;
+  background: var(--card-bg);
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 1rem 0;
+}
+
+nav a {
+  color: var(--primary-text);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  transition: background var(--transition), color var(--transition);
+}
+
+nav a:hover, nav a.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.theme-toggle {
+  position: absolute;
+  right: 2rem;
+  top: 2rem;
+  background: var(--card-bg);
+  border: none;
+  color: var(--primary-text);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.theme-toggle:hover {
+  background: var(--accent);
+}
+
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  gap: 1.2rem;
+}
+
+.hero-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+}
+
+.hero-subtitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 0.2rem;
+  letter-spacing: 0.01em;
+}
+.hero-role, .hero-leader {
+  background: rgba(79,140,255,0.08);
+  padding: 0.2em 0.7em;
+  border-radius: 8px;
+}
+.hero-divider {
+  color: #b0b3b8;
+  font-size: 1.5rem;
+}
+.hero-summary {
+  font-size: 1.1rem;
+  color: #b0b3b8;
+  max-width: 540px;
+  margin: 0 auto 1.5rem auto;
+  line-height: 1.7;
+}
+.hero-highlight {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: #b0b3b8;
+  margin: 0 0 1.5rem 0;
+}
+
+.cta-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: var(--border-radius);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(79,140,255,0.08);
+  transition: background var(--transition), color var(--transition);
+}
+
+.cta-btn:hover {
+  background: #3561b7;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .hero h1 { font-size: 2rem; }
+  nav { gap: 1rem; }
+  .theme-toggle { right: 1rem; top: 1rem; }
+}
+
+/* Light Theme */
+body.light {
+  --primary-bg: #f5f6fa;
+  --primary-text: #181a1b;
+  --card-bg: #fff;
+  --accent: #4f8cff;
+}
