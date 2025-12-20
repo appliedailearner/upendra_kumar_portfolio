@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Case Study: Strategic Data Center Migration to Azure - Upendra Kumar">
+    <title>Case Study: Data Center Migration | Upendra Kumar</title>
+
+    <!-- CSS Path fixed for subdirectory -->
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/leadership.css">
+    <link rel="stylesheet" href="../../css/premium.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="dark-theme">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h2>Upendra Kumar</h2>
+                <p class="nav-tagline">Professional Services Delivery Architect</p>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/#about">About</a></li>
+                <li><a href="/pages/projects.html" class="active">Projects</a></li>
+                <li><a href="/#expertise">Expertise</a></li>
+                <li><a href="/#contact">Contact</a></li>
+                <li><a href="/assets/pdf/Upendra_Kumar_Resume.pdf" target="_blank" class="nav-resume-btn"><i
+                            class="fas fa-download"></i> Resume</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero" style="min-height: 50vh; padding-top: 120px; align-items: center;">
+        <div class="container">
+            <span class="tech-tag" style="margin-bottom: 1rem; display: inline-block;">Infrastructure
+                Modernization</span>
+            <h1
+                style="font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(135deg, #f8fafc 0%, #94a3b8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                Strategic Data Center Migration</h1>
+            <p class="lead" style="max-width: 800px; color: var(--text-secondary); font-size: 1.25rem;">Orchestrating a
+                high-stakes, zero-downtime exit from aging on-premises infrastructure to a scalable Azure foundation.
+            </p>
+        </div>
+    </header>
+
+    <main class="container reading-container" style="margin-top: -50px; position: relative; z-index: 2;">
+
+        <!-- Quick Stats Card -->
+        <div
+            style="background: var(--card-bg); padding: 2rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-bottom: 4rem;">
+            <div style="text-align: center;">
+                <h3 style="font-size: 2.5rem; color: #38bdf8; margin-bottom: 0.5rem;">30%</h3>
+                <p style="color: var(--text-secondary);">TCO Reduction</p>
+            </div>
+            <div style="text-align: center;">
+                <h3 style="font-size: 2.5rem; color: #10b981; margin-bottom: 0.5rem;">Zero</h3>
+                <p style="color: var(--text-secondary);">Planned Downtime</p>
+            </div>
+            <div style="text-align: center;">
+                <h3 style="font-size: 2.5rem; color: #f59e0b; margin-bottom: 0.5rem;">50+</h3>
+                <p style="color: var(--text-secondary);">VMs Migrated</p>
+            </div>
+        </div>
+
+        <article style="max-width: 800px; margin: 0 auto; line-height: 1.8; color: #cbd5e1;">
+
+            <section style="margin-bottom: 4rem;">
+                <h2 style="color: #fff; margin-bottom: 1.5rem; border-left: 4px solid #38bdf8; padding-left: 1rem;">The
+                    Challenge</h2>
+                <p>The client, a mid-sized enterprise, was facing a critical "compelling event": their primary
+                    colocation lease was expiring in 6 months, and the aging hardware stack was becoming a liability.
+                    Maintenance costs were skyrocketing, and the lack of agility was stifling business innovation.</p>
+                <p><strong>Key Constraints:</strong></p>
+                <ul style="list-style: disc; padding-left: 1.5rem; margin-top: 1rem;">
+                    <li>Strict regulatory compliance requirements prohibiting data loss.</li>
+                    <li>A rigid clear-cut deadline with significant financial penalties for delays.</li>
+                    <li>An internal team skilled in VMware but new to Azure.</li>
+                </ul>
+            </section>
+
+            <section style="margin-bottom: 4rem;">
+                <h2 style="color: #fff; margin-bottom: 1.5rem; border-left: 4px solid #38bdf8; padding-left: 1rem;">The
+                    Solution Strategy</h2>
+                <p>As the Lead Architect, I rejected a simple "Lift & Shift" approach that would merely move technical
+                    debt to the cloud. Instead, I designed a "Move & Improve" strategy.</p>
+
+                <h3 style="color: #e2e8f0; margin-top: 2rem; margin-bottom: 1rem;">1. Architecture Design</h3>
+                <p>I architected a <strong>Hub-and-Spoke topology</strong> to centralize connectivity and security while
+                    allowing application teams autonomy in their respective spokes.</p>
+                <ul style="list-style: disc; padding-left: 1.5rem; margin-top: 1rem;">
+                    <li><strong>Connectivity:</strong> Implemented Azure ExpressRoute for a private, high-throughput
+                        link to the datacenter, ensuring replication speed and security.</li>
+                    <li><strong>Security:</strong> Deployed Azure Firewall in the Hub for centralized egress filtering
+                        and traffic inspection.</li>
+                    <li><strong>Identity:</strong> Extended Active Directory to Azure via domain controllers in a
+                        dedicated identity subnet.</li>
+                </ul>
+
+                <h3 style="color: #e2e8f0; margin-top: 2rem; margin-bottom: 1rem;">2. Risk Mitigation: "Pilot-First"
+                </h3>
+                <p>Rather than attempting a "big bang" cutover, I structured the migration into waves. We started with
+                    non-critical workloads to validate the landing zone and build team confidence. This iterative
+                    approach allowed us to refine our runbooks before touching mission-critical systems.</p>
+            </section>
+
+            <section style="margin-bottom: 4rem;">
+                <h2 style="color: #fff; margin-bottom: 1.5rem; border-left: 4px solid #38bdf8; padding-left: 1rem;">
+                    Implementation & Tech Stack</h2>
+                <div
+                    style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                    <h4 style="margin-bottom: 1rem; color: #fff;">Core Technologies</h4>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <span class="tech-tag">Azure Migrate</span>
+                        <span class="tech-tag">ExpressRoute</span>
+                        <span class="tech-tag">Azure Site Recovery (ASR)</span>
+                        <span class="tech-tag">Azure Cost Management</span>
+                        <span class="tech-tag">PowerShell / Cli</span>
+                    </div>
+                </div>
+                <p>We utilized <strong>Azure Migrate</strong> for assessment and replication. The deep dependency
+                    mapping feature was crucial—it revealed undocumented connections between legacy servers, preventing
+                    potential outages during the move.</p>
+            </section>
+
+            <section style="margin-bottom: 4rem;">
+                <h2 style="color: #fff; margin-bottom: 1.5rem; border-left: 4px solid #38bdf8; padding-left: 1rem;">
+                    Results & Impact</h2>
+                <p>The project was delivered two weeks ahead of the lease expiration, avoiding all penalty clauses.
+                    Beyond the schedule, the transformation delivered lasting value:</p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
+                    <div>
+                        <h4
+                            style="color: #fff; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; margin-bottom: 1rem;">
+                            Business Impact</h4>
+                        <p><strong>Cost Efficiency:</strong> Shifted from high CapEx refreshes to a predictable OpEx
+                            model, reducing TCO by roughly 30% over 3 years.</p>
+                        <p><strong>Agility:</strong> Provisioning new resources now takes hours instead of weeks.</p>
+                    </div>
+                    <div>
+                        <h4
+                            style="color: #fff; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; margin-bottom: 1rem;">
+                            Technical Wins</h4>
+                        <p><strong>Resilience:</strong> Automated DR capabilities with Azure Site Recovery improved
+                            RPO/RTO metrics by 60%.</p>
+                        <p><strong>Security:</strong> All data at rest and in transit is now encrypted by default.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section style="margin-top: 4rem; text-align: center; border-top: 1px solid #334155; padding-top: 4rem;">
+                <h3 style="margin-bottom: 2rem;">Want to see the executive summary?</h3>
+                <a href="../../presentations/01-presentation-datacenter-migration.html" class="btn btn-secondary"
+                    style="margin-right: 1rem;"><i class="fas fa-desktop"></i> View Presentation Deck</a>
+                <a href="/#contact" class="btn btn-primary"><i class="fas fa-envelope"></i> Discuss This Project</a>
+            </section>
+
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Upendra Kumar - Professional Services Delivery Architect. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
