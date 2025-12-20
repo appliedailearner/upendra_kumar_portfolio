@@ -20,6 +20,8 @@ setTimeout(() => {
 }, 1000);
 
 // ===== Dark/Light Theme Toggle =====
+// Theme toggle removed as per user request
+/*
 const themeToggle = document.getElementById('themeToggle');
 const themeIcon = themeToggle.querySelector('i');
 
@@ -46,6 +48,7 @@ themeToggle.addEventListener('click', () => {
         localStorage.setItem('theme', 'light');
     }
 });
+*/
 
 
 // ===== Mobile Navigation Toggle =====
