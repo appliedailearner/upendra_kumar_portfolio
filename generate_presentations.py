@@ -102,13 +102,13 @@ template = """<!DOCTYPE html>
             <h1>{title}</h1>
             <h2>{subtitle}</h2>
             <p><strong>Presented for:</strong> {client}</p>
-            <p><strong>Presented by:</strong> Senior Director, Cloud Strategy & Architecture, Microsoft</p>
+            <p><strong>Presented by:</strong> Azure Solutions Architect</p>
         </div>
 
         {slides_html}
 
         <div class="footer">
-            <span>Microsoft Confidential | Senior Director, Cloud Strategy & Architecture</span>
+            <span>Azure Strategic Architecture | Upendra Kumar</span>
             <span>&copy; 2024 Upendra Kumar</span>
         </div>
     </div>

@@ -2,14 +2,14 @@
 marp: true
 theme: default
 paginate: true
-footer: 'Microsoft Confidential | Senior Director, Cloud Strategy & Architecture'
+footer: 'Azure Strategic Architecture | Azure Solutions Architect'
 ---
 
 # Application Modernization Blueprint
 ## Scaling Retail Operations for the Digital Era
 
 **Presented for:** Retail Enterprise
-**Presented by:** Senior Director, Cloud Strategy & Architecture, Microsoft
+**Presented by:** Azure Solutions Architect
 
 ---
 

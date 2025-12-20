@@ -2,14 +2,14 @@
 marp: true
 theme: default
 paginate: true
-footer: 'Microsoft Confidential | Senior Director, Cloud Strategy & Architecture'
+footer: 'Azure Strategic Architecture | Azure Solutions Architect'
 ---
 
 # Well-Architected Review & Optimization
 ## Maximizing Value and Reliability in Healthcare SaaS
 
 **Presented for:** Healthcare SaaS Provider
-**Presented by:** Senior Director, Cloud Strategy & Architecture, Microsoft
+**Presented by:** Azure Solutions Architect
 
 ---
 

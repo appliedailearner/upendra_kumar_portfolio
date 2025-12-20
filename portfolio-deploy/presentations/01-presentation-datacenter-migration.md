@@ -2,14 +2,14 @@
 marp: true
 theme: default
 paginate: true
-footer: 'Microsoft Confidential | Senior Director, Cloud Strategy & Architecture'
+footer: 'Azure Strategic Architecture | Azure Solutions Architect'
 ---
 
 # Strategic Data Center Migration & Modernization
 ## Transforming Infrastructure for Agility and Cost Efficiency
 
 **Presented for:** Global Tech Firm
-**Presented by:** Senior Director, Cloud Strategy & Architecture, Microsoft
+**Presented by:** Azure Solutions Architect
 
 ---
 
