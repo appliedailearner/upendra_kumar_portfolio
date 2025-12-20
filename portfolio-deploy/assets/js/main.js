@@ -1,6 +1,7 @@
 // main.js - Theme switcher and nav logic
 
 document.addEventListener('DOMContentLoaded', function() {
+  /*
   const themeToggle = document.getElementById('theme-toggle');
   const body = document.body;
 
@@ -20,4 +21,5 @@ document.addEventListener('DOMContentLoaded', function() {
       localStorage.setItem('theme', 'dark');
     }
   });
+  */
 });
