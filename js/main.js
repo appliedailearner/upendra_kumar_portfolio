@@ -4,21 +4,20 @@
 window.addEventListener('load', () => {
     const loader = document.querySelector('.page-loader');
     if (loader) {
-        setTimeout(() => {
-            loader.classList.add('fade-out');
-            setTimeout(() => loader.remove(), 500);
-        }, 1000);
+        // Remove artificial delay to make site load instantly
+        loader.classList.add('fade-out');
+        setTimeout(() => loader.remove(), 500);
     }
 });
 
-// Fallback: Force hide loader after 2 seconds if page load event doesn't fire
+// Fallback: Force hide loader after 1 second (reduced from 2s)
 setTimeout(() => {
     const loader = document.querySelector('.page-loader');
     if (loader && !loader.classList.contains('fade-out')) {
         loader.classList.add('fade-out');
         setTimeout(() => loader.remove(), 500);
     }
-}, 2000);
+}, 1000);
 
 // ===== Dark/Light Theme Toggle =====
 const themeToggle = document.getElementById('themeToggle');
@@ -111,13 +110,19 @@ function highlightNav() {
     const scrollY = window.pageYOffset;
 
     sections.forEach(section => {
-        const sectionTop = section.offsetTop - 100;
+        // Adjusted offset for sticky navbar + clearer active state
+        const sectionTop = section.offsetTop - 150;
         const sectionHeight = section.offsetHeight;
 
         if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
             current = section.getAttribute('id');
         }
     });
+
+    // Fallback for bottom of page (Contact)
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+        current = 'contact';
+    }
 
     navItems.forEach(item => {
         item.classList.remove('active');
