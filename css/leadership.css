@@ -485,6 +485,19 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    background: #0f172a;
+    /* Slate 900 */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+}
+
+.project-card-structured:hover {
+    border-color: rgba(56, 189, 248, 0.3);
+    /* Sky 400 hint on hover */
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 .project-card-image-wrapper {
@@ -498,17 +511,54 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    /* Ensure full fill */
     display: block;
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .project-card-structured:hover .project-card-image-wrapper img {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 .project-card-content {
     padding: 2rem;
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Bottom Card Typography Consistencies */
+.project-card-content h3 {
+    color: #f8fafc;
+    /* Slate 50 */
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.project-card-content p.project-summary {
+    color: #cbd5e1 !important;
+    /* Slate 300 */
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Bottom Card Buttons - High Contrast Outline */
+.project-card-content .btn-secondary {
+    margin-top: auto;
+    /* Push to bottom */
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #f8fafc;
+    width: fit-content;
+    padding: 0.5rem 1.25rem;
+    font-weight: 500;
+}
+
+.project-card-content .btn-secondary:hover {
+    border-color: #38bdf8;
+    /* Sky 400 */
+    color: #38bdf8;
+    background: rgba(56, 189, 248, 0.1);
 }
 
 /* 2. Featured Card Redesign (Topology Only) */
@@ -534,16 +584,33 @@
     border-right: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+/* Gradient Overlay for Top Card */
+.project-featured-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 30%;
+    /* Smooth fade width */
+    background: linear-gradient(to right, transparent, #0f172a);
+    pointer-events: none;
+    z-index: 2;
+}
+
 .project-featured-image img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    /* CRITICAL: Ensure full diagram is visible */
+    object-fit: cover;
+    /* IMMERSIVE: Fill the space */
+    object-position: center;
+    /* Focus on center of diagram */
     position: absolute;
     left: 0;
     top: 0;
-    padding: 1rem;
-    /* Padding so text/lines aren't cut off */
+    padding: 0;
+    /* Remove padding to avoid gaps */
+    z-index: 1;
 }
 
 .project-featured-content {
@@ -553,6 +620,9 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    position: relative;
+    z-index: 2;
+    /* Ensure content is above any bleed */
 }
 
 /* Typography & Contrast Overrides */
@@ -639,6 +709,14 @@
         min-height: auto;
         border-right: none;
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .project-featured-image::after {
+        width: 100%;
+        height: 30%;
+        background: linear-gradient(to bottom, transparent, #0f172a);
+        top: auto;
+        bottom: 0;
     }
 
     .project-featured-content {
