@@ -437,3 +437,25 @@ if ('PerformanceObserver' in window) {
 }
 
 console.log('🚀 Portfolio loaded successfully!');
+
+// ===== Scroll to Top Logic =====
+const scrollToTopBtn = document.getElementById('scrollToTop');
+
+if (scrollToTopBtn) {
+    // Show button when scrolling down
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+            scrollToTopBtn.classList.add('visible');
+        } else {
+            scrollToTopBtn.classList.remove('visible');
+        }
+    });
+
+    // Scroll to top when clicked
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
