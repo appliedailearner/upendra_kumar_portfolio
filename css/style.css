@@ -147,13 +147,41 @@ body::before {
     transition: 0.3s;
 }
 
+/* Accessibility Skip Link */
+.skip-to-content {
+    position: absolute;
+    top: -200px;
+    /* Moved further up to ensure it's completely hidden */
+    left: 0;
+    background: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    z-index: 10001;
+    /* Higher z-index to be above everything when focused */
+    transition: top 0.3s;
+    border-radius: 0 0 10px 0;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.skip-to-content:focus {
+    top: 0;
+}
+
 /* ===== Hero Section ===== */
 .hero {
     background: var(--bg-dark);
     color: var(--white);
-    padding: 120px 0 80px;
-    margin-top: 70px;
+    padding: 60px 0 80px;
+    /* Balanced padding to prevent overlap but keep it tight */
+    margin-top: 80px;
+    /* Adjusted to account for fixed header */
     position: relative;
+    min-height: calc(100vh - 80px);
+    /* Ensure it fills screen minus header */
+    display: flex;
+    align-items: center;
+    /* Vertically center content */
 }
 
 /* Subtle glow effect */
