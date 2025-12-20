@@ -8,17 +8,41 @@
     --bg-dark: #0a0a0f;
     --bg-navy: #0f0f23;
     --card-bg: rgba(255, 255, 255, 0.03);
+    /* Typography Scale */
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+    /* Type Scale - Desktop */
+    --h1-size: 3.25rem;
+    /* ~52px */
+    --h1-height: 1.15;
+
+    --h2-size: 2.25rem;
+    /* ~36px */
+    --h2-height: 1.2;
+
+    --h3-size: 1.75rem;
+    /* ~28px */
+    --h3-height: 1.3;
+
+    --subhead-size: 1.25rem;
+    /* ~20px */
+    --subhead-height: 1.6;
+
+    --body-size: 1.125rem;
+    /* ~18px */
+    --body-height: 1.7;
+
+    --small-size: 0.875rem;
+    /* ~14px */
+
+    /* Colors - Enhanced Contrast */
     --text-main: #f8fafc;
-    /* Soft White */
-    --text-muted: #dbeafe;
-    /* Lighter shade/Blue-tinted white for better contrast */
-    /* Muted Soft White */
-    --white: #ffffff;
-    --success: #10b981;
-    --shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.6);
-    --border-color: rgba(255, 255, 255, 0.08);
-    /* Finer border for glassmorphism */
+    /* Slate 50 - High Brightness */
+    --text-secondary: #e2e8f0;
+    /* Slate 200 - Better readbility than 300 */
+    --text-muted: #94a3b8;
+    /* Slate 400 - Meta info */
+
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -30,14 +54,73 @@
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    line-height: 1.8;
-    color: var(--text-main);
+    font-family: var(--font-primary);
+    line-height: var(--body-height);
+    color: var(--text-mobile);
+    /* Default, overridden by styles */
     background: var(--bg-dark);
     overflow-x: hidden;
-    font-size: 16px;
+    font-size: var(--body-size);
     position: relative;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Defaults */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--text-main);
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    /* Tighten headings slightly for professional look */
+}
+
+h1 {
+    font-size: var(--h1-size);
+    line-height: var(--h1-height);
+}
+
+h2 {
+    font-size: var(--h2-size);
+    line-height: var(--h2-height);
+    margin-top: 2rem;
+}
+
+h3 {
+    font-size: var(--h3-size);
+    line-height: var(--h3-height);
+    font-weight: 600;
+    margin-top: 1.5rem;
+}
+
+p {
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+    max-width: 75ch;
+}
+
+/* Readability Max Width */
+
+/* Mobile Type Scale */
+@media (max-width: 768px) {
+    :root {
+        --h1-size: 2.25rem;
+        /* ~36px */
+        --h2-size: 1.75rem;
+        /* ~28px */
+        --h3-size: 1.375rem;
+        /* ~22px */
+        --subhead-size: 1.125rem;
+        /* 18px */
+        --body-size: 1rem;
+        /* 16px */
+    }
 }
 
 section {
@@ -94,7 +177,8 @@ body::before {
 .nav-brand h2 {
     color: var(--white);
     font-size: 1.5rem;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-primary);
+    font-weight: 700;
 }
 
 .nav-tagline {

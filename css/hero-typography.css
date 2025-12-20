@@ -1,0 +1,103 @@
+/* Hero Specific Typography & Layout */
+
+/* 1. Credential Badge (The "Meta" Label) */
+.credentials-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    /* 13px */
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #38bdf8;
+    /* Sky Blue */
+    background: rgba(56, 189, 248, 0.1);
+    padding: 0.4rem 0.8rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    margin-bottom: 1.5rem;
+}
+
+/* 2. Hero Headline */
+.hero-title {
+    font-size: var(--h1-size);
+    line-height: var(--h1-height);
+    font-weight: 800;
+    /* Extra boldness for impact */
+    margin-bottom: 1.25rem;
+    background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    max-width: 20ch;
+    /* Prevent overly long lines */
+}
+
+/* 3. Hero Subtitle (The "Lead") */
+.hero-subtitle {
+    font-size: var(--subhead-size);
+    line-height: var(--subhead-height);
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    max-width: 60ch;
+}
+
+/* 4. Proof Bullets (The Checklist) */
+.hero-proof-bullets {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.hero-proof-bullets li {
+    position: relative;
+    padding-left: 1.75rem;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.hero-proof-bullets li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--success);
+    font-weight: bold;
+}
+
+/* 5. Value Props Grid Styling */
+.hero-value-props {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+}
+
+.value-prop {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.value-prop i {
+    color: var(--primary-color);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .credentials-badge {
+        font-size: 0.75rem;
+    }
+
+    .hero-value-props {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
