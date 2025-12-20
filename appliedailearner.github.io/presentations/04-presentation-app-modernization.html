@@ -22,7 +22,7 @@
             padding: 2rem 0;
             line-height: 1.6;
         }
-        .container { max-width: 900px; }
+        .container { max-width: 1000px; }
         .slide { 
             background: var(--card-bg); 
             border-radius: 16px; 
@@ -32,26 +32,31 @@
             border: 1px solid var(--border);
             position: relative;
             overflow: hidden;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         .slide::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 4px;
+            width: 6px;
             height: 100%;
             background: var(--accent);
         }
-        h1 { color: var(--accent); font-weight: 800; margin-bottom: 1.5rem; font-size: 2.5rem; }
-        h2 { color: var(--text-secondary); font-weight: 600; margin-bottom: 2rem; font-size: 1.5rem; }
-        h3 { color: var(--accent); font-size: 1.25rem; margin-top: 2rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        h1 { color: var(--accent); font-weight: 800; margin-bottom: 1.5rem; font-size: 3rem; }
+        h2 { color: var(--text-secondary); font-weight: 600; margin-bottom: 2rem; font-size: 1.75rem; }
+        h3 { color: var(--accent); font-size: 1.5rem; margin-top: 0; margin-bottom: 2rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
         ul { list-style-type: none; padding-left: 0; }
-        li { margin-bottom: 1rem; position: relative; padding-left: 1.5rem; }
+        li { margin-bottom: 1.25rem; position: relative; padding-left: 2rem; font-size: 1.1rem; }
         li::before {
             content: '→';
             position: absolute;
             left: 0;
             color: var(--accent);
+            font-weight: bold;
         }
         .footer { 
             font-size: 0.85rem; 
@@ -62,14 +67,19 @@
             display: flex;
             justify-content: space-between;
         }
+        .img-container {
+            text-align: center;
+            margin-top: 1rem;
+        }
         img { 
             max-width: 100%; 
+            max-height: 450px;
+            object-fit: contain;
             border-radius: 12px; 
-            margin-top: 2rem; 
             border: 1px solid var(--border);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
-        .btn-back { 
+        .btn-back, .btn-print { 
             margin-bottom: 3rem; 
             color: var(--accent); 
             text-decoration: none; 
@@ -77,24 +87,41 @@
             align-items: center;
             font-weight: 600;
             transition: all 0.2s;
+            background: none;
+            border: 1px solid var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            margin-right: 1rem;
         }
-        .btn-back:hover { transform: translateX(-5px); color: #7dd3fc; }
-        .btn-back i { margin-right: 0.5rem; }
-        .badge-tech {
-            background: rgba(56, 189, 248, 0.1);
-            color: var(--accent);
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            border: 1px solid rgba(56, 189, 248, 0.2);
+        .btn-back:hover, .btn-print:hover { background: rgba(56, 189, 248, 0.1); color: #7dd3fc; }
+        .btn-back i, .btn-print i { margin-right: 0.5rem; }
+        
+        @media print {
+            body { background-color: white; color: black; padding: 0; }
+            .container { max-width: 100%; width: 100%; }
+            .slide { 
+                box-shadow: none; 
+                border: 1px solid #eee; 
+                margin-bottom: 0; 
+                page-break-after: always; 
+                min-height: 100vh;
+                padding: 2rem;
+                justify-content: flex-start;
+            }
+            .btn-back, .btn-print { display: none; }
+            h1, h3, strong, li::before { color: #0284c7 !important; }
+            h2, .footer { color: #475569 !important; }
+            .slide::before { background: #0284c7 !important; }
         }
         strong { color: var(--accent); }
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="../index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+        <div class="d-flex justify-content-between align-items-center">
+            <a href="../index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+            <button onclick="window.print()" class="btn-print"><i class="fas fa-print"></i> Save as PDF</button>
+        </div>
         
         <div class="slide">
             <h1>Application Modernization Blueprint</h1>
@@ -121,7 +148,7 @@
         
         <div class="slide">
             <h3>Visual Journey: Modernization Pipeline</h3>
-            <div><img src="../assets/images/projects/04-app-modernization-pipeline.png" alt="Modernization Pipeline"></div>
+            <div><div class="img-container"><img src="../assets/images/projects/04-app-modernization-pipeline.png" alt="Modernization Pipeline"></div></div>
         </div>
         
 
