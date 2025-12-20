@@ -12,6 +12,413 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap"
     rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+  <header>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#skills">Skills</a>
+      <a href="projects.html" class="active">Projects</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+  </header>
+  <main>
+    <section
+      style="max-width:1100px;margin:3rem auto 2rem auto;padding:2rem;background:var(--card-bg);border-radius:var(--border-radius);box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+      <h2>Strategic Azure Projects</h2>
+      <p style="margin-bottom: 2rem; color: var(--text-secondary);">A selection of high-impact cloud transformation
+        initiatives led as an Azure Solutions Architect.</p>
+
+      <div class="projects-grid">
+
+        <!-- Project 1: Migration -->
+        <div class="project-card-detailed">
+          <div class="project-header">
+            <h3>Strategic Data Center Migration</h3>
+            <span class="role-badge">Azure Solutions Architect (Infrastructure Modernization)</span>
+          </div>
+          <p class="project-problem"><strong>Challenge:</strong> Aging on-premise hardware causing high OpEx, security
+            risks, and inability to scale.</p>
+
+          <div class="project-body-grid">
+            <div class="col-outcomes">
+              <h4>Key Outcomes</h4>
+              <ul>
+                <li><i class="fas fa-check-circle"></i> 30% TCO reduction via OpEx shift.</li>
+                <li><i class="fas fa-check-circle"></i> Zero business downtime during cutover.</li>
+                <li><i class="fas fa-check-circle"></i> Migrated 50+ VMs ahead of schedule.</li>
+              </ul>
+            </div>
+            <div class="col-actions">
+              <h4>What I Did</h4>
+              <ul>
+                <li>Architected Hub-Spoke network topology with ExpressRoute.</li>
+                <li>Designed "Pilot-First" migration strategy to mitigate risk.</li>
+                <li>Implemented Azure Site Recovery (ASR) for business continuity.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="project-tech-row">
+            <span class="tech-tag">Azure Migrate</span>
+            <span class="tech-tag">ExpressRoute</span>
+            <span class="tech-tag">IaaS</span>
+            <span class="tech-tag">Cost Management</span>
+          </div>
+
+          <div class="project-footer">
+            <a href="../presentations/01-presentation-datacenter-migration.html" class="evidence-link">
+              <i class="fas fa-external-link-alt"></i> Evidence: View Architecture Deck
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 2: Landing Zone -->
+        <div class="project-card-detailed">
+          <div class="project-header">
+            <h3>Secure Azure Landing Zone</h3>
+            <span class="role-badge">Azure Solutions Architect (Security & Governance)</span>
+          </div>
+          <p class="project-problem"><strong>Challenge:</strong> Slow manual provisioning impacting developer velocity
+            and creating compliance gaps.</p>
+
+          <div class="project-body-grid">
+            <div class="col-outcomes">
+              <h4>Key Outcomes</h4>
+              <ul>
+                <li><i class="fas fa-check-circle"></i> Reduced provisioning time from 2 weeks to 4 hours.</li>
+                <li><i class="fas fa-check-circle"></i> Achieved 100% SOC2 compliance readiness.</li>
+                <li><i class="fas fa-check-circle"></i> Scalable "Vending Machine" for subscriptions.</li>
+              </ul>
+            </div>
+            <div class="col-actions">
+              <h4>What I Did</h4>
+              <ul>
+                <li>Architected ALZ foundation with Management Groups.</li>
+                <li>Enforced "Policy-as-Code" for automated guardrails.</li>
+                <li>Designed Identity model with RBAC and PIM for Zero Trust.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="project-tech-row">
+            <span class="tech-tag">Bicep / Terraform</span>
+            <span class="tech-tag">Azure Policy</span>
+            <span class="tech-tag">Sentinel</span>
+            <span class="tech-tag">GitHub Actions</span>
+          </div>
+
+          <div class="project-footer">
+            <a href="../presentations/02-presentation-landing-zone.html" class="evidence-link">
+              <i class="fas fa-external-link-alt"></i> Evidence: View Architecture Deck
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 3: Optimization -->
+        <div class="project-card-detailed">
+          <div class="project-header">
+            <h3>Well-Architected Review & Optimization</h3>
+            <span class="role-badge">Azure Solutions Architect (FinOps & Reliability)</span>
+          </div>
+          <p class="project-problem"><strong>Challenge:</strong> Escalating cloud costs and instability threatening
+            Healthcare SaaS SLAs.</p>
+
+          <div class="project-body-grid">
+            <div class="col-outcomes">
+              <h4>Key Outcomes</h4>
+              <ul>
+                <li><i class="fas fa-check-circle"></i> Identified 20% ($55k/yr) cost savings.</li>
+                <li><i class="fas fa-check-circle"></i> Elevated Service Level to 99.99% uptime.</li>
+                <li><i class="fas fa-check-circle"></i> Enhanced HIPAA compliance posture.</li>
+              </ul>
+            </div>
+            <div class="col-actions">
+              <h4>What I Did</h4>
+              <ul>
+                <li>Right-sized compute and storage via Azure Advisor analysis.</li>
+                <li>Refactored specific workload to Availability Zones.</li>
+                <li>Centralized secret management in Key Vault.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="project-tech-row">
+            <span class="tech-tag">Azure Advisor</span>
+            <span class="tech-tag">Cost Management</span>
+            <span class="tech-tag">WAF</span>
+            <span class="tech-tag">Monitor</span>
+          </div>
+
+          <div class="project-footer">
+            <a href="../presentations/03-presentation-well-architected.html" class="evidence-link">
+              <i class="fas fa-external-link-alt"></i> Evidence: View Architecture Deck
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 4: Modernization -->
+        <div class="project-card-detailed">
+          <div class="project-header">
+            <h3>Application Modernization</h3>
+            <span class="role-badge">Azure Solutions Architect (App Innovation)</span>
+          </div>
+          <p class="project-problem"><strong>Challenge:</strong> Legacy monolithic retail app unable to scale for Black
+            Friday traffic spikes.</p>
+
+          <div class="project-body-grid">
+            <div class="col-outcomes">
+              <h4>Key Outcomes</h4>
+              <ul>
+                <li><i class="fas fa-check-circle"></i> Enabled daily deployments via CI/CD.</li>
+                <li><i class="fas fa-check-circle"></i> 50% faster page load performance.</li>
+                <li><i class="fas fa-check-circle"></i> Elastic scaling for peak retail traffic.</li>
+              </ul>
+            </div>
+            <div class="col-actions">
+              <h4>What I Did</h4>
+              <ul>
+                <li>Decoupled monolith into scalable App Service PaaS.</li>
+                <li>Built automated GitHub Actions deployment pipelines.</li>
+                <li>Implemented Front Door for global caching/security.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="project-tech-row">
+            <span class="tech-tag">App Service</span>
+            <span class="tech-tag">Azure SQL</span>
+            <span class="tech-tag">Front Door</span>
+            <span class="tech-tag">Redis</span>
+          </div>
+
+          <div class="project-footer">
+            <a href="../presentations/04-presentation-app-modernization.html" class="evidence-link">
+              <i class="fas fa-external-link-alt"></i> Evidence: View Architecture Deck
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 5: AI Analytics -->
+        <div class="project-card-detailed">
+          <div class="project-header">
+            <h3>AI-Powered Analytics Platform</h3>
+            <span class="role-badge">Azure Solutions Architect (Data & AI)</span>
+          </div>
+          <p class="project-problem"><strong>Challenge:</strong> Data trapped in silos preventing actionable customer
+            insights and cross-sell.</p>
+
+          <div class="project-body-grid">
+            <div class="col-outcomes">
+              <h4>Key Outcomes</h4>
+              <ul>
+                <li><i class="fas fa-check-circle"></i> Unified enterprise data estate.</li>
+                <li><i class="fas fa-check-circle"></i> 15% revenue lift via predictive models.</li>
+                <li><i class="fas fa-check-circle"></i> Reduced insight time from days to minutes.</li>
+              </ul>
+            </div>
+            <div class="col-actions">
+              <h4>What I Did</h4>
+              <ul>
+                <li>Architected Synapse + Data Lake Mesh topology.</li>
+                <li>Implemented ML Ops for model lifecycle management.</li>
+                <li>Established Data Governance Council and policies.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="project-tech-row">
+            <span class="tech-tag">Synapse Analytics</span>
+            <span class="tech-tag">Data Lake Gen2</span>
+            <span class="tech-tag">Azure ML</span>
+            <span class="tech-tag">Purview</span>
+          </div>
+
+          <div class="project-footer">
+            <a href="../presentations/05-presentation-ai-analytics.html" class="evidence-link">
+              <i class="fas fa-external-link-alt"></i> Evidence: View Architecture Deck
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+  <footer>
+    <small>&copy; 2025 Upendra Kumar. All rights reserved.</small>
+  </footer>
+  <script src="../assets/js/main.js"></script>
+  <style>
+    .projects-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .project-card-detailed {
+      background: var(--primary-bg);
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      padding: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .project-header {
+      margin-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 1rem;
+    }
+
+    .project-header h3 {
+      margin: 0;
+      color: var(--text-primary);
+      font-size: 1.5rem;
+    }
+
+    .role-badge {
+      display: inline-block;
+      font-size: 0.85rem;
+      color: #94a3b8;
+      margin-top: 0.5rem;
+      font-weight: 500;
+    }
+
+    .role-badge span {
+      color: #64748b;
+    }
+
+    .project-problem {
+      background: rgba(56, 189, 248, 0.05);
+      /* very light blue tint */
+      padding: 0.75rem;
+      border-left: 3px solid #38bdf8;
+      border-radius: 4px;
+      margin-bottom: 1.5rem;
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+
+    .project-body-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .col-outcomes h4,
+    .col-actions h4 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #94a3b8;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+      display: inline-block;
+      padding-bottom: 0.25rem;
+    }
+
+    .col-outcomes ul,
+    .col-actions ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .col-outcomes li,
+    .col-actions li {
+      margin-bottom: 0.75rem;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      display: flex;
+      align-items: start;
+      gap: 0.5rem;
+    }
+
+    .col-outcomes li i {
+      color: #10b981;
+      /* Green check */
+      margin-top: 4px;
+      font-size: 0.8rem;
+    }
+
+    .col-actions li::before {
+      content: "•";
+      color: #38bdf8;
+      font-weight: bold;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
+    }
+
+    .project-tech-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .tech-tag {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-secondary);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-family: monospace;
+    }
+
+    .project-footer {
+      text-align: right;
+    }
+
+    .evidence-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+      border: 1px solid #38bdf8;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+    }
+
+    .evidence-link:hover {
+      background: rgba(56, 189, 248, 0.1);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .project-body-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .project-footer {
+        text-align: left;
+      }
+    }
+  </style>
+</body>
+
+</html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Projects - Upendra Kumar Portfolio">
+<title>Projects | Upendra Kumar</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/leadership.css">
+<link rel="stylesheet" href="../css/premium.css">
+<link
+  href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap"
+  rel="stylesheet">
 </head>
 
 <body>
