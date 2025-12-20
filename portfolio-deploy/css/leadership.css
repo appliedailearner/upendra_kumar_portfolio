@@ -473,3 +473,94 @@
 .leadership-card:hover .project-card-image img {
     transform: scale(1.05);
 }
+
+/* =========================================
+   Robust & Premium Project Card Layouts
+   ========================================= */
+
+/* 1. Grid Cards (Migration, AI) - Image Top, Content Bottom */
+.project-card-structured {
+    padding: 0 !important;
+    /* Override default padded card */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card-image-wrapper {
+    width: 100%;
+    height: 220px;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.project-card-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card-structured:hover .project-card-image-wrapper img {
+    transform: scale(1.1);
+}
+
+.project-card-content {
+    padding: 2rem;
+    flex-grow: 1;
+}
+
+/* 2. Featured Card (Landing Zones) - Split View (Image Left, Content Right) */
+.project-featured-premium {
+    padding: 0 !important;
+    display: flex;
+    align-items: stretch;
+    overflow: hidden;
+    background: var(--card-bg);
+    /* Ensure background matches */
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.project-featured-image {
+    width: 45%;
+    position: relative;
+    min-height: 100%;
+}
+
+.project-featured-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.project-featured-content {
+    width: 55%;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .project-featured-premium {
+        flex-direction: column;
+    }
+
+    .project-featured-image {
+        width: 100%;
+        height: 300px;
+        /* Fixed height for mobile */
+        min-height: auto;
+    }
+
+    .project-featured-content {
+        width: 100%;
+        padding: 2rem;
+    }
+}
