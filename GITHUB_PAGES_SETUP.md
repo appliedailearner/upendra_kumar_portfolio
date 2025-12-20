@@ -13,7 +13,7 @@ You'll create a professional portfolio website hosted on GitHub Pages (free) fea
 - Contact information
 - Responsive design (mobile-friendly)
 
-**Live URL**: `https://[your-username].github.io/`
+**Live URL**: `https://portfolio.upendrakumar.com/`
 
 ---
 
@@ -38,7 +38,7 @@ You'll create a professional portfolio website hosted on GitHub Pages (free) fea
 4. Click "Save"
 5. Wait 1-2 minutes for deployment
 
-**Your site will be live at**: `https://[your-username].github.io/`
+**Your site will be live at**: `https://portfolio.upendrakumar.com/`
 
 ### Step 3: Clone Repository Locally (1 minute)
 

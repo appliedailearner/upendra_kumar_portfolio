@@ -4,7 +4,7 @@
 
 Professional portfolio website tailored for **Azure Solutions Architect seeking leadership roles**.
 
-**Live URL**: `https://[your-username].github.io/`
+**Live URL**: `https://portfolio.upendrakumar.com/`
 
 ---
 

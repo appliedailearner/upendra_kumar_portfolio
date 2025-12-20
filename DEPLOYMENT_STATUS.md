@@ -26,7 +26,7 @@ I'm enabling GitHub Pages for you now...
 
 ## 🚀 Your Portfolio Will Be Live At
 
-**URL:** https://appliedailearner.github.io/upendra_kumar_portfolio/
+**URL:** https://portfolio.upendrakumar.com/
 
 **Deployment time:** 1-2 minutes after enabling GitHub Pages
 
