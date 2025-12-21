@@ -28,6 +28,7 @@
             margin-bottom: 1.5rem;
             background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -243,75 +244,102 @@
 
                     <div class="tech-callout">
                         <h4><i class="fas fa-info-circle"></i> Project Snapshot</h4>
-                        <p style="margin:0;">Designed and deployed an Enterprise AI Landing Zone integrating
-                            <strong>Microsoft Fabric</strong> for unified data storage ("OneLake") and <strong>Azure
-                                OpenAI</strong> for generative insights. Resulted in a 15% revenue uplift via predictive
-                            personalization.
-                        </p>
+                        <p style="margin:0;">**Role:** Principal Data Architect (Lead)<br>
+                            **Scope:** Enterprise Data Estate + GenAI Integration<br>
+                            **Budget:** $1.2M Implementation<br>
+                            **Team:** 8 (3 Data Eng, 2 AI/ML, 1 MLOps, 2 App Dev)</p>
                     </div>
 
                     <h2 id="executive-summary">Executive Summary</h2>
-                    <p>In the wake of the GenAI revolution, the client sought to leverage their massive petabyte-scale
-                        transaction history to drive personalized customer experiences. However, their data
-                        infrastructure was fragmented across on-prem SQL, AWS S3 buckets, and ad-hoc CSV exports.</p>
-                    <p>I architected a "Modern Data Estate" that unified these sources and exposed them securely to
-                        internal AI agents powered by GPT-4.</p>
-
-                    <h2 id="problem-statement">The Challenge: Data Silos</h2>
-                    <p>The marketing team needed days to generate simple customer segments. Cross-sell opportunities
-                        were missed because purchase history (ERP) was disconnected from web browsing behavior
-                        (Clickstream). The goal was <strong>"Insight Velocity"</strong>: Reducing time-to-insight from
-                        days to minutes.</p>
-
-                    <h2 id="architecture">The Solution: Enterprise AI Landing Zone</h2>
-                    <p>We implemented a Hub-and-Spoke topology specifically tuned for Data & AI workloads.</p>
-
-                    <h3>1. Unified Data Fabric (OneLake)</h3>
-                    <p>We leveraged <strong>Microsoft Fabric</strong> to virtualization data storage. Instead of moving
-                        petabytes of data (ETL), we used "Shortcuts" to point to AWS S3 and on-prem storage, allowing a
-                        single SQL endpoint to query across clouds.</p>
-
-                    <h3>2. The AI Gateway (APIM)</h3>
-                    <p>To control cost and access, all calls to Azure OpenAI models were routed through <strong>Azure
-                            API Management (APIM)</strong>. This provided:</p>
+                    <p>The client possessed 5PB of high-value transaction data but could not leverage it due to
+                        fragmentation across AWS, On-Prem, and Azure. I led the strategy to unify this data estate and
+                        layer a secure Generative AI capability on top to drive personalized customer engagement.</p>
                     <ul>
-                        <li><strong>Token Rate Limiting:</strong> Preventing a single department from exhausting the
-                            quota.</li>
-                        <li><strong>Smart Caching:</strong> Returning cached responses for common queries to save costs.
-                        </li>
-                        <li><strong>Chargeback:</strong> Tracking API usage by project ID.</li>
+                        <li><strong>Objective:</strong> Unify data silos and enable "Chat with your Data" for 200+
+                            marketing users.</li>
+                        <li><strong>Constraint:</strong> Strict PII regulatory requirements (GDPR/CCPA) and data
+                            sovereignty.</li>
+                        <li><strong>Outcome:</strong> Delivered "Insight Velocity" reduction from 5 days to 10 seconds,
+                            driving a 15% revenue uplift.</li>
                     </ul>
+
+                    <BR>
+                    <div class="glass-card"
+                        style="background: rgba(124, 58, 237, 0.05); border: 1px solid rgba(124, 58, 237, 0.2); padding: 1.5rem; border-radius: 8px;">
+                        <h3 style="margin-top: 0; color: #a78bfa; font-size: 1.2rem;"><i class="fas fa-chess-king"
+                                style="margin-right: 0.5rem;"></i> My Ownership & Boundaries</h3>
+                        <p style="font-size: 0.95rem; margin-bottom: 0;">
+                            <strong>I Owned (Accountable):</strong> Data Strategy (OneLake), AI Governance Framework
+                            (Responsible AI), and Executive Stakeholder Management.<br><br>
+                            <strong>Team Owned (Responsible):</strong> Pipeline Development (Data Eng), Model
+                            Fine-tuning (ML Team).
+                        </p>
+                    </div>
+
+                    <h2 id="governance">Governance First: The AI Control Plane</h2>
+                    <p>Before deploying models, I established the <strong>AI Governance Framework</strong> to ensure
+                        safety and cost control. This was not just technology, but policy.</p>
+
+                    <h3>The AI Gateway (APIM)</h3>
+                    <p>We routed all GenAI traffic through <strong>Azure API Management</strong> to enforce:</p>
+                    <ul>
+                        <li><strong>Cost Governance:</strong> Token-based rate limiting per department to prevent budget
+                            runaway.</li>
+                        <li><strong>Data Leakage Prevention:</strong> PII scrubbing filters before data was sent to the
+                            model context window.</li>
+                        <li><strong>Auditability:</strong> Full logging of prompts and completions for compliance
+                            review.</li>
+                    </ul>
+
+                    <h2 id="architecture">The "Modern Data Estate"</h2>
+                    <p>We implemented a Hub-and-Spoke topology specifically tuned for Data & AI workloads, leveraging
+                        <strong>Microsoft Fabric</strong>.
+                    </p>
+                    <p>Instead of building brittle ETL pipelines, we used <em>Fabric Shortcuts</em> to virtualization
+                        data storage. This allowed us to query data residing in AWS S3 and On-Prem SQL without moving
+                        it, reducing ingress/egress costs by 40%.</p>
 
                     <div class="stats-grid">
                         <div class="stat-card">
                             <span class="stat-value">15%</span>
-                            <span class="stat-label">Revenue Uplift</span>
+                            <span class="stat-label">Revenue Uplift<br>(Personalization)</span>
                         </div>
                         <div class="stat-card">
                             <span class="stat-value">60x</span>
-                            <span class="stat-label">Faster Insights</span>
+                            <span class="stat-label">Faster Insights<br>(Days to Seconds)</span>
                         </div>
                         <div class="stat-card">
-                            <span class="stat-value">100%</span>
-                            <span class="stat-label">Private Traffic</span>
+                            <span class="stat-value">40%</span>
+                            <span class="stat-label">Cost Avoidance<br>(Egress Fees)</span>
                         </div>
                     </div>
 
-                    <h2 id="governance">Responsible AI & Security</h2>
-                    <p>Security was paramount. We engineered a <strong>Private Link</strong> architecture where the
-                        OpenAI endpoints were not accessible from the public internet.</p>
+                    <h2 id="financial-impact">Director-Level Impact</h2>
+                    <p>This program was a pivot point for the organization's data culture:</p>
+                    <ul>
+                        <li><strong>Financial:</strong> The centralized "OneLake" approach eliminated duplicate storage
+                            costs ($200k/year savings).</li>
+                        <li><strong>Strategic:</strong> Enabled the launch of 3 new AI-driven product features within
+                            Q1.</li>
+                        <li><strong>Operational:</strong> Shifted Data Engineering focus from "Moving Data" to "Modeling
+                            Data".</li>
+                    </ul>
 
-                    <h3>Guardrails with Azure AI Studio</h3>
-                    <p>We implemented Content Safety filters to automatically block prompt injection attempts and PII
-                        leakage. Before any "Assistant" response was shown to a user, it passed through a custom
-                        evaluation flow to check for groundedness (hallucination checks).</p>
+                </article>
+                <p>Security was paramount. We engineered a <strong>Private Link</strong> architecture where the
+                    OpenAI endpoints were not accessible from the public internet.</p>
 
-                    <h2 id="results">Business Outcomes</h2>
-                    <p>The "AI-Powered Personalization Engine" went live in time for the holiday season. By analyzing
-                        customer intent in real-time and generating hyper-personalized email copy, campaign
-                        click-through rates doubled.</p>
-                    <p>The platform is now the foundation for the company's "CoPilot" initiative, enabling employees to
-                        chat with their data documentation securely.</p>
+                <h3>Guardrails with Azure AI Studio</h3>
+                <p>We implemented Content Safety filters to automatically block prompt injection attempts and PII
+                    leakage. Before any "Assistant" response was shown to a user, it passed through a custom
+                    evaluation flow to check for groundedness (hallucination checks).</p>
+
+                <h2 id="results">Business Outcomes</h2>
+                <p>The "AI-Powered Personalization Engine" went live in time for the holiday season. By analyzing
+                    customer intent in real-time and generating hyper-personalized email copy, campaign
+                    click-through rates doubled.</p>
+                <p>The platform is now the foundation for the company's "CoPilot" initiative, enabling employees to
+                    chat with their data documentation securely.</p>
 
                 </article>
             </div>
