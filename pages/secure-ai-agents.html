@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Secure AI Agents on Azure - Reference Architecture - Upendra Kumar">
+    <title>Secure AI Agents | Upendra Kumar</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/premium.css">
+    <link rel="stylesheet" href="../css/hero-typography.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="dark-theme">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h2>Upendra Kumar</h2>
+                <p class="nav-tagline">Professional Services Delivery Architect</p>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/pages/operating-model.html">Operating Model</a></li>
+                <li><a href="/pages/secure-ai-agents.html" class="active">Secure AI Agents</a></li>
+                <li><a href="/pages/projects.html">Projects</a></li>
+                <li><a href="/#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero" style="min-height: 50vh; padding-top: 120px;">
+        <div class="container">
+            <div class="credentials-badge">Flagship Architecture</div>
+            <h1 class="hero-title">Secure AI Agents on Azure</h1>
+            <p class="hero-subtitle">A reference architecture for deploying production-grade Geneative AI agents within
+                a secure, governed enterprise perimeter.</p>
+        </div>
+    </header>
+
+    <main class="container" style="padding-bottom: 4rem;">
+
+        <!-- Architecture Diagram -->
+        <div style="max-width: 1000px; margin: 0 auto 3rem auto; text-align: center;">
+            <img src="../images/projects/secure-ai-architecture.png" alt="Secure AI Agents Reference Architecture"
+                class="w-full h-auto"
+                style="border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); filter: invert(0.93) hue-rotate(180deg) contrast(1.1);">
+            <p
+                style="color: #cbd5e1; margin-top: 0.5rem; font-size: 0.95rem; font-weight: 500; letter-spacing: 0.025em;">
+                Figure 1: High-Level Architecture for Secure Enterprise AI Agents
+            </p>
+        </div>
+
+        <!-- Key Pillars -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+
+            <div>
+                <h3 style="color: #38bdf8; margin-bottom: 1rem;">1. Network Security (Private Perimeter)</h3>
+                <ul class="hero-proof-bullets">
+                    <li><strong>No Public Access:</strong> All AI services (OpenAI, Search, Cosmos DB) accessible
+                        <em>only</em> via Private Endpoints.
+                    </li>
+                    <li><strong>Hub-Spoke Topology:</strong> Traffic Inspection via Azure Firewall in the Hub before
+                        reaching the AI Spoke.</li>
+                    <li><strong>VNET Integration:</strong> App Services and Function Apps strictly VNET-integrated.</li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 style="color: #38bdf8; margin-bottom: 1rem;">2. Identity & Access (Zero Trust)</h3>
+                <ul class="hero-proof-bullets">
+                    <li><strong>Managed Identities:</strong> No secrets in code. Use System-Assigned MI for all
+                        service-to-service auth.</li>
+                    <li><strong>Entra ID RBAC:</strong> Granular "Cognitive Services User" roles; no broad contributor
+                        access.</li>
+                    <li><strong>Key Vault:</strong> Minimal usage (only for 3rd party API keys), backed by RBAC.</li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 style="color: #38bdf8; margin-bottom: 1rem;">3. Operational Excellence (GenAIOps)</h3>
+                <ul class="hero-proof-bullets">
+                    <li><strong>Evaluation Framework:</strong> Automated testing of prompts using prompt flow in CI/CD.
+                    </li>
+                    <li><strong>Content Safety:</strong> Azure AI Content Safety filters enabled and tuned for Jailbreak
+                        detection.</li>
+                    <li><strong>Cost Guardrails:</strong> Token usage limits and budget alerts configured per
+                        department.</li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 style="color: #38bdf8; margin-bottom: 1rem;">4. Integration Patterns</h3>
+                <ul class="hero-proof-bullets">
+                    <li><strong>Orchestration:</strong> Semantic Kernel or LangChain hosted on Container Apps.</li>
+                    <li><strong>RAG Pattern:</strong> Hybrid Search (Vector + Keyword) using Azure AI Search for
+                        grounding.</li>
+                    <li><strong>API Gateway:</strong> APIM as the front door for throttling and consumption tracking.
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Upendra Kumar. Built with Azure & AI.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

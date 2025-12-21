@@ -4,19 +4,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Case Study: Enterprise AI-Powered Analytics Platform - Upendra Kumar">
-    <title>Case Study: AI Analytics Platform | Upendra Kumar</title>
-
+    <meta name="description" content="Case Study: Enterprise AI & Analytics Platform - Upendra Kumar">
+    <title>Case Study: AI-Powered Analytics | Upendra Kumar</title>
     <link rel="stylesheet" href="../../css/style.css">
-    <link rel="stylesheet" href="../../css/leadership.css">
     <link rel="stylesheet" href="../../css/premium.css">
     <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Reusing inline styles from migration.html would be DRYer but for this artifact we duplicate to ensure standalone correctness -->
+    <style>
+        /* Case Study Specific Styles - Duplicated for standalone */
+        .case-study-hero {
+            padding: 120px 0 60px;
+            background: radial-gradient(circle at top right, rgba(124, 58, 237, 0.15), transparent 60%);
+            /* Purple for AI */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .case-study-title {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .case-study-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 2rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meta-item i {
+            color: #8b5cf6;
+        }
+
+        /* Purple */
+
+        .case-study-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 4rem;
+            margin-top: 4rem;
+        }
+
+        /* Sticky TOC */
+        .sticky-toc {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .sticky-toc h4 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-list li {
+            margin-bottom: 0.8rem;
+        }
+
+        .toc-list a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            display: block;
+            border-left: 2px solid transparent;
+            padding-left: 1rem;
+        }
+
+        .toc-list a:hover {
+            color: #a78bfa;
+            border-left-color: #a78bfa;
+        }
+
+        /* Content */
+        .case-content {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .case-content h2 {
+            color: var(--white);
+            font-size: 2rem;
+            margin-top: 4rem;
+            margin-bottom: 1.5rem;
+            scroll-margin-top: 100px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1rem;
+        }
+
+        .case-content h3 {
+            color: #e2e8f0;
+            font-size: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .case-content ul {
+            margin-bottom: 2rem;
+            padding-left: 1.5rem;
+        }
+
+        .tech-callout {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-left: 4px solid #8b5cf6;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .tech-callout h4 {
+            color: #a78bfa;
+            margin-bottom: 0.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #a78bfa;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 992px) {
+            .case-study-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sticky-toc {
+                display: none;
+            }
+        }
+    </style>
 </head>
 
-<body class="dark-theme">
+<body>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
@@ -26,151 +198,130 @@
             </div>
             <ul class="nav-menu">
                 <li><a href="/">Home</a></li>
-                <li><a href="/#about">About</a></li>
-                <li><a href="/pages/projects.html" class="active">Projects</a></li>
-                <li><a href="/#expertise">Expertise</a></li>
-                <li><a href="/#contact">Contact</a></li>
+                <li><a href="../../pages/projects.html">Back to Projects</a></li>
                 <li><a href="/assets/pdf/Upendra_Kumar_Resume.pdf" target="_blank" class="nav-resume-btn"><i
                             class="fas fa-download"></i> Resume</a></li>
             </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
         </div>
     </nav>
 
-    <header class="hero" style="min-height: 50vh; padding-top: 120px; align-items: center;">
-        <div class="container">
-            <span class="tech-tag"
-                style="margin-bottom: 1rem; display: inline-block; background: rgba(139, 92, 246, 0.1); color: #a78bfa; border-color: rgba(139, 92, 246, 0.2);">Data
-                & AI Innovation</span>
-            <h1
-                style="font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(135deg, #f8fafc 0%, #a78bfa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                AI-Powered Analytics Platform</h1>
-            <p class="lead" style="max-width: 800px; color: var(--text-secondary); font-size: 1.25rem;">Democratizing
-                data access and driving revenue growth through a unified, multi-cloud Data Mesh architecture.</p>
-        </div>
-    </header>
-
-    <main class="container reading-container" style="margin-top: -50px; position: relative; z-index: 2;">
-
-        <!-- Quick Stats Card -->
-        <div
-            style="background: var(--card-bg); padding: 2rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-bottom: 4rem;">
-            <div style="text-align: center;">
-                <h3 style="font-size: 2.5rem; color: #38bdf8; margin-bottom: 0.5rem;">15%</h3>
-                <p style="color: var(--text-secondary);">Revenue Uplift</p>
-            </div>
-            <div style="text-align: center;">
-                <h3 style="font-size: 2.5rem; color: #10b981; margin-bottom: 0.5rem;">10x</h3>
-                <p style="color: var(--text-secondary);">Faster Insights</p>
-            </div>
-            <div style="text-align: center;">
-                <h3 style="font-size: 2.5rem; color: #f59e0b; margin-bottom: 0.5rem;">100+</h3>
-                <p style="color: var(--text-secondary);">Users Onboarded</p>
-            </div>
-        </div>
-
-        <article style="max-width: 800px; margin: 0 auto; line-height: 1.8; color: #cbd5e1;">
-
-            <section style="margin-bottom: 4rem;">
-                <h2 style="color: #fff; margin-bottom: 1.5rem; border-left: 4px solid #a78bfa; padding-left: 1rem;">The
-                    Challenge</h2>
-                <p>The organization was data-rich but insight-poor. Critical customer data was fragmented across
-                    on-premises SQL servers, AWS S3 buckets, and third-party SaaS tools. This fragmentation created
-                    massive delays in reporting; business analysts waited days for basic extracts, and the marketing
-                    team missed cross-sell opportunities because they couldn't see the full customer journey.</p>
-                <p><strong>Key Issues:</strong></p>
-                <ul style="list-style: disc; padding-left: 1.5rem; margin-top: 1rem;">
-                    <li>Data Silos preventing a "Single Source of Truth."</li>
-                    <li>Shadow IT as teams built fragile, unmanaged data pipelines.</li>
-                    <li>Security risks due to inconsistent access controls.</li>
-                </ul>
-            </section>
-
-            <section style="margin-bottom: 4rem;">
-                <h2 style="color: #fff; margin-bottom: 1.5rem; border-left: 4px solid #a78bfa; padding-left: 1rem;">The
-                    Solution Strategy</h2>
-                <p>I led the design of a modern <strong>Data Mesh Architecture</strong> anchored on Azure Synapse
-                    Analytics. This approach shifted us from a monolithic data warehouse model to a domain-oriented
-                    decentralized data ownership model, governed centrally.</p>
-
-                <h3 style="color: #e2e8f0; margin-top: 2rem; margin-bottom: 1rem;">1. Unified Data Estate</h3>
-                <p>We established a <strong>Multi-Cloud Data Landing Zone</strong>. Using Azure Data Factory and Synapse
-                    Pipelines, we ingested data from AWS and Google Cloud via secure site-to-site VPNs, centralizing it
-                    into Azure Data Lake Storage Gen2 (ADLS).</p>
-
-                <h3 style="color: #e2e8f0; margin-top: 2rem; margin-bottom: 1rem;">2. AI & Predictive Modeling</h3>
-                <p>With clean data available, we integrated <strong>Azure Machine Learning</strong> to build predictive
-                    churn models and recommendation engines. These models were exposed as APIs, allowing the CRM system
-                    to display "Next Best Action" recommendations to sales agents in real-time.</p>
-
-                <h3 style="color: #e2e8f0; margin-top: 2rem; margin-bottom: 1rem;">3. Governance & Discovery</h3>
-                <p>To prevent a "Data Swamp," we implemented <strong>Microsoft Purview</strong>. This assisted with
-                    automated data scanning, classification, and lineage tracking, ensuring we met GDPR compliance while
-                    allowing users to easily discover trusted datasets.</p>
-            </section>
-
-            <section style="margin-bottom: 4rem;">
-                <h2 style="color: #fff; margin-bottom: 1.5rem; border-left: 4px solid #a78bfa; padding-left: 1rem;">Tech
-                    Stack</h2>
-                <div
-                    style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
-                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                        <span class="tech-tag">Azure Synapse Analytics</span>
-                        <span class="tech-tag">Azure Machine Learning</span>
-                        <span class="tech-tag">Data Lake Gen2</span>
-                        <span class="tech-tag">Microsoft Purview</span>
-                        <span class="tech-tag">Power BI</span>
-                        <span class="tech-tag">Python / Spark</span>
-                    </div>
+    <main>
+        <!-- Hero Section -->
+        <section class="case-study-hero">
+            <div class="container">
+                <span class="tech-tag"
+                    style="color: #a78bfa; border-color: #8b5cf6; background: rgba(139,92,246,0.1); margin-bottom: 1rem; display: inline-block;">Data
+                    & AI Innovation</span>
+                <h1 class="case-study-title">AI-Powered Enterprise Analytics Platform</h1>
+                <div class="case-study-meta">
+                    <div class="meta-item"><i class="fas fa-industry"></i> Retail / E-commerce</div>
+                    <div class="meta-item"><i class="fas fa-clock"></i> Duration: 8 Months</div>
+                    <div class="meta-item"><i class="fas fa-brain"></i> Azure OpenAI, Fabric, APIM</div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <section style="margin-bottom: 4rem;">
-                <h2 style="color: #fff; margin-bottom: 1.5rem; border-left: 4px solid #a78bfa; padding-left: 1rem;">
-                    Results & Impact</h2>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
-                    <div>
-                        <h4
-                            style="color: #fff; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; margin-bottom: 1rem;">
-                            Business Growth</h4>
-                        <p><strong>Revenue:</strong> The recommendation engine drove a direct 15% uplift in cross-sell
-                            revenue within the first quarter.</p>
-                        <p><strong>Speed:</strong> Reports that took 3 days to generate are now available in near
-                            real-time (minutes).</p>
+        <!-- Content -->
+        <section class="container">
+            <div class="case-study-layout">
+                <!-- Sidebar TOC -->
+                <aside>
+                    <div class="sticky-toc">
+                        <h4>Contents</h4>
+                        <ul class="toc-list">
+                            <li><a href="#executive-summary">Executive Summary</a></li>
+                            <li><a href="#problem-statement">The Data Silo Problem</a></li>
+                            <li><a href="#architecture">AI Landing Zone</a></li>
+                            <li><a href="#governance">Security & Governance</a></li>
+                            <li><a href="#results">Business Results</a></li>
+                        </ul>
                     </div>
-                    <div>
-                        <h4
-                            style="color: #fff; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; margin-bottom: 1rem;">
-                            Organizational Change</h4>
-                        <p><strong>Culture:</strong> Shifted to a data-driven culture with over 100 business users
-                            actively using Power BI self-service dashboards.</p>
-                        <p><strong>Governance:</strong> Achieved clear data lineage and ownership, significantly
-                            reducing compliance audit preparation time.</p>
+                </aside>
+
+                <!-- Article Body -->
+                <article class="case-content">
+
+                    <div class="tech-callout">
+                        <h4><i class="fas fa-info-circle"></i> Project Snapshot</h4>
+                        <p style="margin:0;">Designed and deployed an Enterprise AI Landing Zone integrating
+                            <strong>Microsoft Fabric</strong> for unified data storage ("OneLake") and <strong>Azure
+                                OpenAI</strong> for generative insights. Resulted in a 15% revenue uplift via predictive
+                            personalization.</p>
                     </div>
-                </div>
-            </section>
 
-            <section style="margin-top: 4rem; text-align: center; border-top: 1px solid #334155; padding-top: 4rem;">
-                <h3 style="margin-bottom: 2rem;">Want to see the executive summary?</h3>
-                <a href="../../presentations/05-presentation-ai-analytics.html" class="btn btn-secondary"
-                    style="margin-right: 1rem;"><i class="fas fa-desktop"></i> View Presentation Deck</a>
-                <a href="/#contact" class="btn btn-primary"><i class="fas fa-envelope"></i> Discuss This Project</a>
-            </section>
+                    <h2 id="executive-summary">Executive Summary</h2>
+                    <p>In the wake of the GenAI revolution, the client sought to leverage their massive petabyte-scale
+                        transaction history to drive personalized customer experiences. However, their data
+                        infrastructure was fragmented across on-prem SQL, AWS S3 buckets, and ad-hoc CSV exports.</p>
+                    <p>I architected a "Modern Data Estate" that unified these sources and exposed them securely to
+                        internal AI agents powered by GPT-4.</p>
 
-        </article>
+                    <h2 id="problem-statement">The Challenge: Data Silos</h2>
+                    <p>The marketing team needed days to generate simple customer segments. Cross-sell opportunities
+                        were missed because purchase history (ERP) was disconnected from web browsing behavior
+                        (Clickstream). The goal was <strong>"Insight Velocity"</strong>: Reducing time-to-insight from
+                        days to minutes.</p>
+
+                    <h2 id="architecture">The Solution: Enterprise AI Landing Zone</h2>
+                    <p>We implemented a Hub-and-Spoke topology specifically tuned for Data & AI workloads.</p>
+
+                    <h3>1. Unified Data Fabric (OneLake)</h3>
+                    <p>We leveraged <strong>Microsoft Fabric</strong> to virtualization data storage. Instead of moving
+                        petabytes of data (ETL), we used "Shortcuts" to point to AWS S3 and on-prem storage, allowing a
+                        single SQL endpoint to query across clouds.</p>
+
+                    <h3>2. The AI Gateway (APIM)</h3>
+                    <p>To control cost and access, all calls to Azure OpenAI models were routed through <strong>Azure
+                            API Management (APIM)</strong>. This provided:</p>
+                    <ul>
+                        <li><strong>Token Rate Limiting:</strong> Preventing a single department from exhausting the
+                            quota.</li>
+                        <li><strong>Smart Caching:</strong> Returning cached responses for common queries to save costs.
+                        </li>
+                        <li><strong>Chargeback:</strong> Tracking API usage by project ID.</li>
+                    </ul>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-value">15%</span>
+                            <span class="stat-label">Revenue Uplift</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">60x</span>
+                            <span class="stat-label">Faster Insights</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">100%</span>
+                            <span class="stat-label">Private Traffic</span>
+                        </div>
+                    </div>
+
+                    <h2 id="governance">Responsible AI & Security</h2>
+                    <p>Security was paramount. We engineered a <strong>Private Link</strong> architecture where the
+                        OpenAI endpoints were not accessible from the public internet.</p>
+
+                    <h3>Guardrails with Azure AI Studio</h3>
+                    <p>We implemented Content Safety filters to automatically block prompt injection attempts and PII
+                        leakage. Before any "Assistant" response was shown to a user, it passed through a custom
+                        evaluation flow to check for groundedness (hallucination checks).</p>
+
+                    <h2 id="results">Business Outcomes</h2>
+                    <p>The "AI-Powered Personalization Engine" went live in time for the holiday season. By analyzing
+                        customer intent in real-time and generating hyper-personalized email copy, campaign
+                        click-through rates doubled.</p>
+                    <p>The platform is now the foundation for the company's "CoPilot" initiative, enabling employees to
+                        chat with their data documentation securely.</p>
+
+                </article>
+            </div>
+        </section>
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 Upendra Kumar - Professional Services Delivery Architect. All rights reserved.</p>
+    <footer>
+        <div class="container" style="text-align: center; padding: 2rem; color: var(--text-muted);">
+            <small>&copy; 2025 Upendra Kumar. All rights reserved.</small>
         </div>
     </footer>
-
 </body>
 
 </html>

@@ -6,18 +6,199 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Case Study: Strategic Data Center Migration to Azure - Upendra Kumar">
     <title>Case Study: Data Center Migration | Upendra Kumar</title>
-
-    <!-- CSS Path fixed for subdirectory -->
     <link rel="stylesheet" href="../../css/style.css">
-    <link rel="stylesheet" href="../../css/leadership.css">
     <link rel="stylesheet" href="../../css/premium.css">
     <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Case Study Specific Styles */
+        .case-study-hero {
+            padding: 120px 0 60px;
+            background: radial-gradient(circle at top right, rgba(0, 120, 212, 0.1), transparent 60%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .case-study-title {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .case-study-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 2rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meta-item i {
+            color: var(--primary-color);
+        }
+
+        .case-study-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 4rem;
+            margin-top: 4rem;
+        }
+
+        /* Sticky TOC */
+        .sticky-toc {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .sticky-toc h4 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-list li {
+            margin-bottom: 0.8rem;
+        }
+
+        .toc-list a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            display: block;
+            border-left: 2px solid transparent;
+            padding-left: 1rem;
+        }
+
+        .toc-list a:hover,
+        .toc-list a.active {
+            color: var(--primary-color);
+            border-left-color: var(--primary-color);
+        }
+
+        /* Content Typography */
+        .case-content {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .case-content h2 {
+            color: var(--white);
+            font-size: 2rem;
+            margin-top: 4rem;
+            margin-bottom: 1.5rem;
+            scroll-margin-top: 100px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1rem;
+        }
+
+        .case-content h3 {
+            color: #e2e8f0;
+            font-size: 1.5rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .case-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .case-content ul {
+            margin-bottom: 2rem;
+            padding-left: 1.5rem;
+        }
+
+        .case-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Technical Callouts */
+        .tech-callout {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-left: 4px solid #0ea5e9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .tech-callout h4 {
+            color: #38bdf8;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #4ade80;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 992px) {
+            .case-study-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sticky-toc {
+                display: none;
+            }
+        }
+    </style>
 </head>
 
-<body class="dark-theme">
+<body>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
@@ -27,155 +208,163 @@
             </div>
             <ul class="nav-menu">
                 <li><a href="/">Home</a></li>
-                <li><a href="/#about">About</a></li>
-                <li><a href="/pages/projects.html" class="active">Projects</a></li>
-                <li><a href="/#expertise">Expertise</a></li>
-                <li><a href="/#contact">Contact</a></li>
+                <li><a href="../../pages/projects.html">Back to Projects</a></li>
                 <li><a href="/assets/pdf/Upendra_Kumar_Resume.pdf" target="_blank" class="nav-resume-btn"><i
                             class="fas fa-download"></i> Resume</a></li>
             </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
         </div>
     </nav>
 
-    <header class="hero" style="min-height: 50vh; padding-top: 120px; align-items: center;">
-        <div class="container">
-            <span class="tech-tag" style="margin-bottom: 1rem; display: inline-block;">Infrastructure
-                Modernization</span>
-            <h1
-                style="font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(135deg, #f8fafc 0%, #94a3b8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                Strategic Data Center Migration</h1>
-            <p class="lead" style="max-width: 800px; color: var(--text-secondary); font-size: 1.25rem;">Orchestrating a
-                high-stakes, zero-downtime exit from aging on-premises infrastructure to a scalable Azure foundation.
-            </p>
-        </div>
-    </header>
-
-    <main class="container reading-container" style="margin-top: -50px; position: relative; z-index: 2;">
-
-        <!-- Quick Stats Card -->
-        <div
-            style="background: var(--card-bg); padding: 2rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-bottom: 4rem;">
-            <div style="text-align: center;">
-                <h3 style="font-size: 2.5rem; color: #38bdf8; margin-bottom: 0.5rem;">30%</h3>
-                <p style="color: var(--text-secondary);">TCO Reduction</p>
-            </div>
-            <div style="text-align: center;">
-                <h3 style="font-size: 2.5rem; color: #10b981; margin-bottom: 0.5rem;">Zero</h3>
-                <p style="color: var(--text-secondary);">Planned Downtime</p>
-            </div>
-            <div style="text-align: center;">
-                <h3 style="font-size: 2.5rem; color: #f59e0b; margin-bottom: 0.5rem;">50+</h3>
-                <p style="color: var(--text-secondary);">VMs Migrated</p>
-            </div>
-        </div>
-
-        <article style="max-width: 800px; margin: 0 auto; line-height: 1.8; color: #cbd5e1;">
-
-            <section style="margin-bottom: 4rem;">
-                <h2 style="color: #fff; margin-bottom: 1.5rem; border-left: 4px solid #38bdf8; padding-left: 1rem;">The
-                    Challenge</h2>
-                <p>The client, a mid-sized enterprise, was facing a critical "compelling event": their primary
-                    colocation lease was expiring in 6 months, and the aging hardware stack was becoming a liability.
-                    Maintenance costs were skyrocketing, and the lack of agility was stifling business innovation.</p>
-                <p><strong>Key Constraints:</strong></p>
-                <ul style="list-style: disc; padding-left: 1.5rem; margin-top: 1rem;">
-                    <li>Strict regulatory compliance requirements prohibiting data loss.</li>
-                    <li>A rigid clear-cut deadline with significant financial penalties for delays.</li>
-                    <li>An internal team skilled in VMware but new to Azure.</li>
-                </ul>
-            </section>
-
-            <section style="margin-bottom: 4rem;">
-                <h2 style="color: #fff; margin-bottom: 1.5rem; border-left: 4px solid #38bdf8; padding-left: 1rem;">The
-                    Solution Strategy</h2>
-                <p>As the Lead Architect, I rejected a simple "Lift & Shift" approach that would merely move technical
-                    debt to the cloud. Instead, I designed a "Move & Improve" strategy.</p>
-
-                <h3 style="color: #e2e8f0; margin-top: 2rem; margin-bottom: 1rem;">1. Architecture Design</h3>
-                <p>I architected a <strong>Hub-and-Spoke topology</strong> to centralize connectivity and security while
-                    allowing application teams autonomy in their respective spokes.</p>
-                <ul style="list-style: disc; padding-left: 1.5rem; margin-top: 1rem;">
-                    <li><strong>Connectivity:</strong> Implemented Azure ExpressRoute for a private, high-throughput
-                        link to the datacenter, ensuring replication speed and security.</li>
-                    <li><strong>Security:</strong> Deployed Azure Firewall in the Hub for centralized egress filtering
-                        and traffic inspection.</li>
-                    <li><strong>Identity:</strong> Extended Active Directory to Azure via domain controllers in a
-                        dedicated identity subnet.</li>
-                </ul>
-
-                <h3 style="color: #e2e8f0; margin-top: 2rem; margin-bottom: 1rem;">2. Risk Mitigation: "Pilot-First"
-                </h3>
-                <p>Rather than attempting a "big bang" cutover, I structured the migration into waves. We started with
-                    non-critical workloads to validate the landing zone and build team confidence. This iterative
-                    approach allowed us to refine our runbooks before touching mission-critical systems.</p>
-            </section>
-
-            <section style="margin-bottom: 4rem;">
-                <h2 style="color: #fff; margin-bottom: 1.5rem; border-left: 4px solid #38bdf8; padding-left: 1rem;">
-                    Implementation & Tech Stack</h2>
-                <div
-                    style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
-                    <h4 style="margin-bottom: 1rem; color: #fff;">Core Technologies</h4>
-                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                        <span class="tech-tag">Azure Migrate</span>
-                        <span class="tech-tag">ExpressRoute</span>
-                        <span class="tech-tag">Azure Site Recovery (ASR)</span>
-                        <span class="tech-tag">Azure Cost Management</span>
-                        <span class="tech-tag">PowerShell / Cli</span>
-                    </div>
+    <main>
+        <!-- Hero Section -->
+        <section class="case-study-hero">
+            <div class="container">
+                <span class="tech-tag"
+                    style="color: #38bdf8; border-color: #38bdf8; background: rgba(56,189,248,0.1); margin-bottom: 1rem; display: inline-block;">Infrastructure
+                    Modernization</span>
+                <h1 class="case-study-title">Strategic Data Center Migration Strategy</h1>
+                <div class="case-study-meta">
+                    <div class="meta-item"><i class="fas fa-building"></i> Enterprise Financial Services</div>
+                    <div class="meta-item"><i class="fas fa-clock"></i> Duration: 6 Months</div>
+                    <div class="meta-item"><i class="fas fa-tools"></i> Azure Migrate, ExpressRoute, Terraform</div>
                 </div>
-                <p>We utilized <strong>Azure Migrate</strong> for assessment and replication. The deep dependency
-                    mapping feature was crucial—it revealed undocumented connections between legacy servers, preventing
-                    potential outages during the move.</p>
-            </section>
+            </div>
+        </section>
 
-            <section style="margin-bottom: 4rem;">
-                <h2 style="color: #fff; margin-bottom: 1.5rem; border-left: 4px solid #38bdf8; padding-left: 1rem;">
-                    Results & Impact</h2>
-                <p>The project was delivered two weeks ahead of the lease expiration, avoiding all penalty clauses.
-                    Beyond the schedule, the transformation delivered lasting value:</p>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
-                    <div>
-                        <h4
-                            style="color: #fff; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; margin-bottom: 1rem;">
-                            Business Impact</h4>
-                        <p><strong>Cost Efficiency:</strong> Shifted from high CapEx refreshes to a predictable OpEx
-                            model, reducing TCO by roughly 30% over 3 years.</p>
-                        <p><strong>Agility:</strong> Provisioning new resources now takes hours instead of weeks.</p>
+        <!-- Content -->
+        <section class="container">
+            <div class="case-study-layout">
+                <!-- Sidebar TOC -->
+                <aside>
+                    <div class="sticky-toc">
+                        <h4>Contents</h4>
+                        <ul class="toc-list">
+                            <li><a href="#executive-summary">Executive Summary</a></li>
+                            <li><a href="#architecture">Target Architecture</a></li>
+                            <li><a href="#migration-process">Migration Strategy</a></li>
+                            <li><a href="#challenges">Challenges & Solutions</a></li>
+                            <li><a href="#outcomes">Business Impact</a></li>
+                        </ul>
                     </div>
-                    <div>
-                        <h4
-                            style="color: #fff; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; margin-bottom: 1rem;">
-                            Technical Wins</h4>
-                        <p><strong>Resilience:</strong> Automated DR capabilities with Azure Site Recovery improved
-                            RPO/RTO metrics by 60%.</p>
-                        <p><strong>Security:</strong> All data at rest and in transit is now encrypted by default.</p>
+                </aside>
+
+                <!-- Article Body -->
+                <article class="case-content">
+
+                    <div class="tech-callout">
+                        <h4><i class="fas fa-info-circle"></i> Project Snapshot</h4>
+                        <p style="margin:0;">This initiative involved the complete retirement of a legacy on-premises
+                            data center, migrating 50+ mission-critical VMs to Azure, establishing a hybrid connectivity
+                            model via ExpressRoute, and achieving a projected 30% TCO reduction.</p>
                     </div>
-                </div>
-            </section>
 
-            <section style="margin-top: 4rem; text-align: center; border-top: 1px solid #334155; padding-top: 4rem;">
-                <h3 style="margin-bottom: 2rem;">Want to see the executive summary?</h3>
-                <a href="../../presentations/01-presentation-datacenter-migration.html" class="btn btn-secondary"
-                    style="margin-right: 1rem;"><i class="fas fa-desktop"></i> View Presentation Deck</a>
-                <a href="/#contact" class="btn btn-primary"><i class="fas fa-envelope"></i> Discuss This Project</a>
-            </section>
+                    <h2 id="executive-summary">Executive Summary</h2>
+                    <p>The client, a mid-sized enterprise, was facing a critical "compelling event": their on-premises
+                        hardware lease was expiring within 8 months, and the capital expenditure (CapEx) required to
+                        refresh standard 3-tier architecture hardware was prohibitive (+40% year-over-year increase).
+                    </p>
+                    <p>My role as Lead Architect was to design a lift-and-shift optimization strategy that would not
+                        only exit the data center on time but also modernize the operational model from static
+                        provisioning to dynamic, cloud-native scalability.</p>
 
-        </article>
+                    <h2 id="architecture">Target Architecture & Connectivity</h2>
+                    <p>To ensure a seamless transition with minimal latency, we adopted a classic
+                        <strong>Hub-and-Spoke</strong> network topology.
+                    </p>
+
+                    <h3>Hybrid Connectivity (ExpressRoute)</h3>
+                    <p>We implemented a <strong>1 Gbps ExpressRoute Circuit</strong> with Premium add-on to facilitate
+                        global reach if needed later. This dedicated private connection was crucial for:</p>
+                    <ul>
+                        <li><strong>Data Replication:</strong> Facilitating the initial bulk data sync of ~20TB of
+                            storage without saturating the public internet pipe.</li>
+                        <li><strong>Security Compliance:</strong> Ensuring database traffic remained on private
+                            networks.</li>
+                        <li><strong>Latency:</strong> Achieving sub-5ms round-trip time (RTT) for hybrid applications
+                            during the transitional phase.</li>
+                    </ul>
+
+                    <h3>The Landing Zone</h3>
+                    <p>The target environment was deployed using <strong>Terraform (IaC)</strong>, ensuring that the
+                        Virtual Networks (VNETs), Network Security Groups (NSGs), and Azure Firewall policies were
+                        immutable and reproducible. We utilized the <em>Cloud Adoption Framework (CAF)</em>
+                        Enterprise-Scale architecture patterns.</p>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-value">30%</span>
+                            <span class="stat-label">TCO Reduction</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">50+</span>
+                            <span class="stat-label">VMs Migrated</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">0</span>
+                            <span class="stat-label">Unplanned Downtime</span>
+                        </div>
+                    </div>
+
+                    <h2 id="migration-process">The Migration Strategy (The 6 R's)</h2>
+                    <p>We utilized <strong>Azure Migrate</strong> as the central orchestration plane. The process was
+                        aligned with the industry-standard "6 Rs" framework to ensure every workload found its optimal
+                        home.</p>
+
+                    <h3>1. Rehost (Lift & Shift)</h3>
+                    <p>For ~60% of the estate (core SQL Server backends and legacy .NET apps), we used <strong>ASR
+                            (Azure Site Recovery)</strong> for block-level replication. This minimized risk and allowed
+                        us to seed data over weeks while keeping systems live.</p>
+
+                    <h3>2. Replatform (Tinker & Shift)</h3>
+                    <p>Select IIS web front-ends were moved to <strong>Azure App Service</strong> containers. This
+                        provided immediate benefits like auto-patching and slot-swapping without a full code rewrite.
+                    </p>
+
+                    <h3>3. Refactor (Re-architect)</h3>
+                    <p>We identified a critical inventory processing service that was a bottleneck. We rewrote this
+                        component as an <strong>Azure Function</strong> (Serverless) to handle burst scaling during
+                        end-of-month processing.</p>
+
+                    <h3>4. Repurchase (Drop & Shop)</h3>
+                    <p>An aging on-premise ticket management system was retired in favor of adopting
+                        <strong>ServiceNow</strong> (SaaS), eliminating maintenance overhead entirely.</p>
+
+                    <h3>5. Retire (Turn Off)</h3>
+                    <p>During the assessment phase, we discovered that 15% of the "critical" servers were actually
+                        zombies (idle). These were decommissioned immediately, saving estimated $2k/month upfront.</p>
+
+                    <h3>6. Retain (Do Nothing)</h3>
+                    <p>A specific mainframe-connected legacy gateway was retained on-premise due to strict latency
+                        requirements, connected via the new ExpressRoute circuit.</p>
+
+                    <h2 id="challenges">Technical Challenges Solved</h2>
+
+                    <div class="tech-callout" style="border-left-color: #a855f7;">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Challenge: Hardcoded IP Addresses</h4>
+                        <p><strong>Scenario:</strong> Legacy code relied on hardcoded IPs for database connections.<br>
+                            <strong>Solution:</strong> We implemented an internal DNS Private Zone and used IP
+                            forwarding combined with Load Balancer NAT rules to mask the new Azure IPs, allowing
+                            applications to function without code rewrites during the migration window.
+                        </p>
+                    </div>
+
+                    <h2 id="outcomes">Final Outcomes</h2>
+                    <p>The project was delivered 2 weeks ahead of the hardware lease expiration. Post-migration
+                        optimization (sizing down oversised VMs based on Azure Advisor metrics) resulted in an
+                        additional 15% monthly saving compared to the initial estimate.</p>
+                    <p>The organization now operates on a fully OpEx model, with improved disaster recovery capabilities
+                        (RPO of 15 minutes) and strengthened security posture through Azure Defender for Cloud.</p>
+
+                </article>
+            </div>
+        </section>
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 Upendra Kumar - Professional Services Delivery Architect. All rights reserved.</p>
+    <footer>
+        <div class="container" style="text-align: center; padding: 2rem; color: var(--text-muted);">
+            <small>&copy; 2025 Upendra Kumar. All rights reserved.</small>
         </div>
     </footer>
-
 </body>
 
 </html>
