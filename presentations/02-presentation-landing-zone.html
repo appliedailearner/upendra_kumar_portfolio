@@ -1,134 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Presentation - Secure Azure Landing Zone Foundation</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --bg-dark: #0f172a;
-            --card-bg: #1e293b;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --accent: #38bdf8;
-            --border: #334155;
-        }
-        body { 
-            background-color: var(--bg-dark); 
-            color: var(--text-primary); 
-            font-family: 'Inter', -apple-system, sans-serif; 
-            padding: 2rem 0;
-            line-height: 1.6;
-        }
-        .container { max-width: 900px; }
-        .slide { 
-            background: var(--card-bg); 
-            border-radius: 16px; 
-            padding: 4rem; 
-            margin-bottom: 3rem; 
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2); 
-            border: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-        }
-        .slide::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--accent);
-        }
-        h1 { color: var(--accent); font-weight: 800; margin-bottom: 1.5rem; font-size: 2.5rem; }
-        h2 { color: var(--text-secondary); font-weight: 600; margin-bottom: 2rem; font-size: 1.5rem; }
-        h3 { color: var(--accent); font-size: 1.25rem; margin-top: 2rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
-        ul { list-style-type: none; padding-left: 0; }
-        li { margin-bottom: 1rem; position: relative; padding-left: 1.5rem; }
-        li::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-        }
-        .footer { 
-            font-size: 0.85rem; 
-            color: #64748b; 
-            margin-top: 3rem; 
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-        }
-        img { 
-            max-width: 100%; 
-            border-radius: 12px; 
-            margin-top: 2rem; 
-            border: 1px solid var(--border);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-        .btn-back { 
-            margin-bottom: 3rem; 
-            color: var(--accent); 
-            text-decoration: none; 
-            display: inline-flex; 
-            align-items: center;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-        .btn-back:hover { transform: translateX(-5px); color: #7dd3fc; }
-        .btn-back i { margin-right: 0.5rem; }
-        .badge-tech {
-            background: rgba(56, 189, 248, 0.1);
-            color: var(--accent);
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            border: 1px solid rgba(56, 189, 248, 0.2);
-        }
-        strong { color: var(--accent); }
-    </style>
+    <title>Deck: Secure Azure Landing Zone | Upendra Kumar</title>
+    <link rel="stylesheet" href="../css/presentation.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
-    <div class="container">
-        <a href="../index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
-        
-        <div class="slide">
-            <h1>Secure Azure Landing Zone Foundation</h1>
-            <h2>Accelerating Innovation with Governance and Compliance</h2>
-            <p><strong>Presented for:</strong> FinTech Startup</p>
-            <p><strong>Presented by:</strong> Azure Solutions Architect</p>
-        </div>
 
-        
-        <div class="slide">
-            <h3>Executive Summary: Speed with Control</h3>
-            <div><ul><li><strong>'Vending Machine' Model:</strong> Reduces provisioning time from weeks to hours.</li><li><strong>Compliance Ready:</strong> Built-in guardrails ensure SOC2/PCI-DSS alignment.</li><li><strong>Scalability:</strong> Hub-and-Spoke topology supports future growth.</li></ul></div>
-        </div>
-        
-        <div class="slide">
-            <h3>Leadership & Strategic Challenges</h3>
-            <div><ul><li><strong>Governance at Speed:</strong> Implemented 'Policy-as-Code' for automated compliance.</li><li><strong>Organizational Design:</strong> Defined the RACI matrix for the Cloud CCoE.</li><li><strong>Executive Visibility:</strong> Established 'Cloud Governance Scorecards' for the CTO.</li></ul></div>
-        </div>
-        
-        <div class="slide">
-            <h3>Solution Architecture: The 'Vending Machine'</h3>
-            <div><ul><li><strong>Hub-and-Spoke Network:</strong> Centralized security with Azure Firewall Premium.</li><li><strong>Identity & Access:</strong> Azure AD RBAC with PIM for JIT access.</li><li><strong>Observability:</strong> Azure Sentinel (SIEM) + Log Analytics.</li></ul></div>
-        </div>
-        
-        <div class="slide">
-            <h3>Visual Journey: The Governance Model</h3>
-            <div><img src="../assets/images/projects/02-landing-zone-governance.png" alt="Governance Model"></div>
-        </div>
-        
+    <div class="deck-container">
 
-        <div class="footer">
-            <span>Azure Strategic Architecture | Azure Solutions Architect</span>
-            <span>&copy; 2024 Upendra Kumar</span>
-        </div>
+        <!-- Slide 1: Title -->
+        <section class="slide title-slide" id="slide-1">
+            <div class="slide-content">
+                <h1 class="animate-in">Secure Azure Landing Zone (ALZ)</h1>
+                <p class="animate-in delay-1">Enterprise-Scale Governance & Zero Trust Foundation</p>
+                <div style="margin-top: 3rem;" class="animate-in delay-2">
+                    <span
+                        style="border:1px solid #38bdf8; padding: 0.5rem 1rem; border-radius: 50px; color: #38bdf8; font-family: 'Inter'; font-size: 0.9rem;">Architecture
+                        & Billing Strategy</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: The Challenge -->
+        <section class="slide" id="slide-2">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">The Governance Gap</h2>
+                    <span class="slide-number">01</span>
+                </div>
+                <div class="slide-grid">
+                    <div class="slide-text">
+                        <p><strong>Friction:</strong> Manual subscription vending was creating a "Wild West"
+                            environment. Developer velocity was hampered by 2-week provisioning SLAs.</p>
+                        <ul style="margin-top: 2rem;">
+                            <li><strong>Security Risk:</strong> Inconsistent RBAC and public endpoints exposed to the
+                                internet.</li>
+                            <li><strong>Compliance:</strong> No audit trail for SOC2 readiness.</li>
+                            <li><strong>Shadow IT:</strong> Uncontrolled spending due to lack of policy enforcement.
+                            </li>
+                        </ul>
+                    </div>
+                    <div
+                        style="background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                        <h3 style="color: #cbd5e1; margin-bottom: 2rem;">Solution: Subscription Democratization</h3>
+                        <div
+                            style="display: flex; align-items: end; justify-content: center; gap: 2rem; height: 200px;">
+                            <div
+                                style="width: 80px; height: 100%; background: #ef4444; border-radius: 8px 8px 0 0; position: relative;">
+                                <span
+                                    style="position: absolute; top: -30px; left: 0; right: 0; color: #ef4444; font-weight: bold;">2
+                                    Weeks</span>
+                            </div>
+                            <div style="font-size: 2rem; color: #fff;">➔</div>
+                            <div
+                                style="width: 80px; height: 10%; background: #4ade80; border-radius: 8px 8px 0 0; position: relative;">
+                                <span
+                                    style="position: absolute; top: -30px; left: 0; right: 0; color: #4ade80; font-weight: bold;">4
+                                    Hours</span>
+                            </div>
+                        </div>
+                        <p style="margin-top: 1rem; color: #94a3b8;">Automated "Vending" vs Manual Ticket</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Architecture -->
+        <section class="slide" id="slide-3">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">Architecture: Policy-Driven Governance</h2>
+                    <span class="slide-number">02</span>
+                </div>
+                <div class="slide-grid">
+                    <div>
+                        <ul class="slide-text">
+                            <li><strong>Management Groups:</strong> Hierarchical organization (Root > Corp > Landing
+                                Zones) to inherit policies efficiently.</li>
+                            <li><strong>Policy-as-Code:</strong> Azure Policy definitions deployed via GitHub Actions
+                                pipelines.</li>
+                            <li><strong>Zero Trust:</strong> Identity-first security with PIM (Privileged Identity
+                                Management) and JIT access.</li>
+                            <li><strong>Vending Machine:</strong> Terraform module to vend fully-compliant subscriptions
+                                in minutes.</li>
+                        </ul>
+                    </div>
+                    <div
+                        style="background: rgba(15, 23, 42, 0.8); padding: 1.5rem; border-radius: 12px; border: 1px dashed #38bdf8;">
+                        <h4
+                            style="color: #38bdf8; margin-top:0; border-bottom: 1px solid rgba(56,189,248,0.3); padding-bottom: 0.5rem; margin-bottom: 1rem;">
+                            Core Architecture Concepts</h4>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <strong style="color: #fff;">1. Platform vs App Zones</strong>
+                            <p style="font-size: 0.9rem; color: #cbd5e1; margin-top: 0.5rem;">
+                                <i class="fas fa-layer-group" style="color: #94a3b8;"></i> <strong>Platform:</strong>
+                                Shared Services (Identity, Connectivity, Management)<br>
+                                <i class="fas fa-box" style="color: #94a3b8;"></i> <strong>Application:</strong>
+                                Workload subscriptions (Corp, Online)
+                            </p>
+                        </div>
+
+                        <div>
+                            <strong style="color: #fff;">2. The 8 Design Areas</strong>
+                            <div
+                                style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 0.8rem; color: #94a3b8; margin-top: 0.5rem;">
+                                <span>• Billing & AD Tenant</span>
+                                <span>• Identity & Access</span>
+                                <span>• Network Topology</span>
+                                <span>• Resource Org</span>
+                                <span>• Security</span>
+                                <span>• Management</span>
+                                <span>• Governance</span>
+                                <span>• Automation/DevOps</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: SPECIAL MODULE - Billing Strategy -->
+        <section class="slide" id="slide-4"
+            style="background: radial-gradient(circle at center, rgba(16, 185, 129, 0.1) 0%, var(--bg-dark) 100%);">
+            <div class="slide-content animate-in" style="border-color: rgba(16, 185, 129, 0.3);">
+                <div class="slide-header" style="border-bottom-color: #10b981;">
+                    <h2 class="slide-title"
+                        style="background: linear-gradient(to right, #fff, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                        Module: Modern Azure Billing Strategy</h2>
+                    <span class="slide-number" style="color: #10b981;">03</span>
+                </div>
+                <div class="slide-grid">
+                    <div class="slide-text">
+                        <p><strong>Buying Smartly (EA vs. MCA):</strong></p>
+                        <p>Transitioned from "Pay-As-You-Go" to a consolidated Enterprise Agreement (EA) structure,
+                            enabling volume discounts and unified billing scopes.</p>
+                        <ul style="margin-top: 1.5rem;">
+                            <li><strong>Commitment:</strong> Leveraged Azure Hybrid Benefit (AHB) for Windows/SQL to
+                                save ~40% on compute.</li>
+                            <li><strong>Reservations (RIs):</strong> Purchased 1-year and 3-year PIs for stable
+                                "always-on" workloads (Landing Zone hubs).</li>
+                            <li><strong>Tagging Taxonomy:</strong> Enforced strict "CostCenter" tags at the subscription
+                                level to enable granular chargeback.</li>
+                        </ul>
+                    </div>
+                    <div
+                        style="background: rgba(16, 185, 129, 0.05); padding: 2rem; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.2);">
+                        <h3 style="color: #10b981; margin-top: 0;"><i class="fas fa-dollar-sign"></i> Optimization
+                            Levers</h3>
+                        <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem;">
+                            <div
+                                style="display: flex; justify-content: space-between; padding: 1rem; background: rgba(0,0,0,0.2); border-left: 3px solid #10b981;">
+                                <span>Azure Hybrid Benefit</span>
+                                <span style="color: #10b981; font-weight: bold;">-40%</span>
+                            </div>
+                            <div
+                                style="display: flex; justify-content: space-between; padding: 1rem; background: rgba(0,0,0,0.2); border-left: 3px solid #10b981;">
+                                <span>3-Year Reservations</span>
+                                <span style="color: #10b981; font-weight: bold;">-62%</span>
+                            </div>
+                            <div
+                                style="display: flex; justify-content: space-between; padding: 1rem; background: rgba(0,0,0,0.2); border-left: 3px solid #10b981;">
+                                <span>Spot Instances (Dev)</span>
+                                <span style="color: #10b981; font-weight: bold;">-80%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Recap -->
+        <section class="slide" id="slide-5">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">Recap & Impact</h2>
+                    <span class="slide-number">04</span>
+                </div>
+                <div style="text-align: center; margin-bottom: 3rem;">
+                    <p style="font-size: 1.5rem; color: #cbd5e1; max-width: 800px; margin: 0 auto;">"By codifying our
+                        governance and adopting a strategic billing model, we transformed IT from a cost center
+                        bottle-neck into an effortless enabler of innovation."</p>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; text-align: center;">
+                    <div>
+                        <i class="fas fa-shield-alt"
+                            style="font-size: 2.5rem; color: #38bdf8; margin-bottom: 1rem;"></i>
+                        <h3 style="color: #fff; margin:0;">SOC2 Ready</h3>
+                        <p style="font-size: 0.9rem; color: #94a3b8;">Compliance by default</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-robot" style="font-size: 2.5rem; color: #38bdf8; margin-bottom: 1rem;"></i>
+                        <h3 style="color: #fff; margin:0;">Self-Service</h3>
+                        <p style="font-size: 0.9rem; color: #94a3b8;">Vending Machine model</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-wallet" style="font-size: 2.5rem; color: #38bdf8; margin-bottom: 1rem;"></i>
+                        <h3 style="color: #fff; margin:0;">100% Visibility</h3>
+                        <p style="font-size: 0.9rem; color: #94a3b8;">Granular Cost Analysis</p>
+                    </div>
+                </div>
+                <div style="margin-top: 4rem; text-align: center;">
+                    <a href="../pages/projects.html"
+                        style="display: inline-block; padding: 1rem 2rem; background: transparent; border: 1px solid #38bdf8; color: #38bdf8; text-decoration: none; border-radius: 50px; font-weight: 700;">Back
+                        to Projects</a>
+                </div>
+            </div>
+        </section>
+
     </div>
+
+    <!-- Navigation Dots -->
+    <div class="deck-nav">
+        <a href="#slide-1" class="deck-btn"><i class="fas fa-arrow-up"></i></a>
+        <a href="#slide-5" class="deck-btn"><i class="fas fa-arrow-down"></i></a>
+    </div>
+
 </body>
+
 </html>
