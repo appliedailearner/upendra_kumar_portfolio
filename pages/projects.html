@@ -13,9 +13,35 @@
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* HOTFIX: Force Navbar Visibility */
+    .navbar {
+      background: #0a0a0f !important;
+      /* Solid dark background, no transparent/blur artifacts */
+      backdrop-filter: none !important;
+    }
+
+    .nav-brand h2 {
+      color: #ffffff !important;
+      opacity: 1 !important;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-menu a {
+      color: #e2e8f0 !important;
+      /* High contrast slate-200 */
+    }
+
+    .nav-menu a.active,
+    .nav-menu a:hover {
+      color: #ffffff !important;
+      text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+      /* Glowing effect for readability */
+    }
+  </style>
 </head>
 
-<body>
+<body class="dark-theme">
   <!-- Navigation -->
   <nav class="navbar">
     <div class="container">
