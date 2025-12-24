@@ -70,9 +70,11 @@
                     <line x1="6" y1="6" x2="6.01" y2="6"></line>
                     <line x1="6" y1="18" x2="6.01" y2="18"></line>
                 </svg>
-                <h4 style="color: #38bdf8; margin-bottom: 0.5rem; font-size: 1.2rem;">VNET Integration</h4>
-                <p style="color: #cbd5e1; line-height: 1.6;">The entire backend, including the Orchestrator (Container
-                    Apps) and data layer, is isolated within an Azure VNET.</p>
+                <h4 style="color: #38bdf8; margin-bottom: 0.5rem; font-size: 1.2rem;">Zero-Trust Network Architecture
+                </h4>
+                <p style="color: #cbd5e1; line-height: 1.6;">Achieving complete isolation by injecting the Orchestrator
+                    (ACA) and data layer into private subnets. This architecture eliminates public internet exposure,
+                    relying on strictly governed NSGs and subnet delegation to secure the perimeter.</p>
             </div>
 
             <div
@@ -83,9 +85,10 @@
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                     <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                 </svg>
-                <h4 style="color: #38bdf8; margin-bottom: 0.5rem; font-size: 1.2rem;">Private Endpoints</h4>
-                <p style="color: #cbd5e1; line-height: 1.6;">Azure OpenAI, AI Search, and SQL Database are accessed
-                    privately, keeping traffic entirely on the Microsoft backbone network.</p>
+                <h4 style="color: #38bdf8; margin-bottom: 0.5rem; font-size: 1.2rem;">Private Backbone Connectivity</h4>
+                <p style="color: #cbd5e1; line-height: 1.6;">Leveraging Azure Private Link to ensure all traffic between
+                    the Orchestrator, Azure OpenAI, and Vector Search traverses solely over the Microsoft backbone
+                    network—mitigating data exfiltration risks and meeting compliance mandates.</p>
             </div>
 
             <div
@@ -96,9 +99,10 @@
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                     <circle cx="12" cy="7" r="4"></circle>
                 </svg>
-                <h4 style="color: #38bdf8; margin-bottom: 0.5rem; font-size: 1.2rem;">Managed Identity</h4>
-                <p style="color: #cbd5e1; line-height: 1.6;">The containerized application authenticates to backend
-                    resources without developers ever handling secrets.</p>
+                <h4 style="color: #38bdf8; margin-bottom: 0.5rem; font-size: 1.2rem;">Identity-First Security</h4>
+                <p style="color: #cbd5e1; line-height: 1.6;">Replacing vulnerable keys with Microsoft Entra Workload ID.
+                    The GenAI pipeline authenticates via Managed Identities, enforcing granular Role-Based Access
+                    Control (RBAC) and adhereing to least-privilege principles.</p>
             </div>
 
             <div
@@ -109,9 +113,10 @@
                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                     <circle cx="12" cy="12" r="3"></circle>
                 </svg>
-                <h4 style="color: #38bdf8; margin-bottom: 0.5rem; font-size: 1.2rem;">Observability</h4>
-                <p style="color: #cbd5e1; line-height: 1.6;">Full integration with Azure Monitor and Sentinel to track
-                    performance, token usage, and potential security anomalies.</p>
+                <h4 style="color: #38bdf8; margin-bottom: 0.5rem; font-size: 1.2rem;">Full-Stack AI Observability</h4>
+                <p style="color: #cbd5e1; line-height: 1.6;">Integrated Azure Monitor and Application Insights provide
+                    end-to-end visibility. Custom dashboards track LLM token usage (FinOps), request latency, and
+                    Content Safety violations to ensure operational reliability.</p>
             </div>
 
         </div>
