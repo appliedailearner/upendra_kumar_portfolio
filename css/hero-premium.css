@@ -1,0 +1,202 @@
+/* Hero Premium Design - hero-premium.css */
+
+:root {
+    --navy-bg: #020617;
+    --navy-card: #1e293b;
+    --text-slate: #94a3b8;
+    --text-white: #ffffff;
+    --accent-blue: #38bdf8;
+    --accent-purple: #a855f7;
+    --glow-primary: rgba(124, 58, 237, 0.15);
+}
+
+/* Global Hero Reset */
+.hero {
+    background-color: var(--navy-bg) !important;
+    background-image: radial-gradient(circle at 10% 20%, var(--glow-primary) 0%, transparent 60%);
+    position: relative;
+    overflow: hidden;
+    padding-top: 120px;
+    padding-bottom: 80px;
+}
+
+.hero-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* Left Content */
+.hero-content-left {
+    z-index: 10;
+}
+
+.hero-headline {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 3.5rem;
+    line-height: 1.1;
+    color: var(--text-white);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+}
+
+.text-highlight-gradient {
+    background: linear-gradient(135deg, #a78bfa 0%, #38bdf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: block;
+    /* Breaks to new line for emphasis */
+}
+
+.hero-subtext {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-slate);
+    font-size: 1.125rem;
+    line-height: 1.6;
+    max-width: 90%;
+    margin-bottom: 2.5rem;
+}
+
+/* Resume Button Premium */
+.btn-premium {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: linear-gradient(90deg, #3b82f6 0%, #06b6d4 100%);
+    color: white;
+    font-weight: 600;
+    padding: 0.85rem 2rem;
+    border-radius: 9999px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(56, 189, 248, 0.4);
+}
+
+.btn-premium:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(56, 189, 248, 0.5);
+}
+
+/* Right Content - Clean Profile */
+.hero-image-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-clean-frame {
+    position: relative;
+    border-radius: 32px;
+    overflow: hidden;
+    /* Soft border glow */
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1),
+        0 20px 50px -10px rgba(0, 0, 0, 0.5);
+    background: var(--navy-card);
+    max-width: 480px;
+    width: 100%;
+    aspect-ratio: 1/1;
+    /* Keeps it square-ish */
+}
+
+.profile-clean-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Qualitative Highlights Row */
+.hero-highlights-row {
+    margin-top: 4rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* 2x2 grid on standard, 4x1 on large if space */
+    gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+    .hero-highlights-row {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+.highlight-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.highlight-icon {
+    font-size: 1.5rem;
+    color: var(--accent-blue);
+    margin-bottom: 0.25rem;
+}
+
+.highlight-text {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: var(--text-white);
+    line-height: 1.2;
+}
+
+.highlight-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    color: var(--text-slate);
+    font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .hero-wrapper {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 3rem;
+    }
+
+    .hero-headline {
+        font-size: 2.75rem;
+    }
+
+    .hero-subtext {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-image-container {
+        order: -1;
+        /* Image on top for mobile/tablet */
+    }
+
+    .profile-clean-frame {
+        max-width: 320px;
+    }
+
+    .hero-highlights-row {
+        text-align: left;
+        /* Keep stats aligned nicely */
+        justify-content: center;
+        max-width: 600px;
+        margin: 3rem auto 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-headline {
+        font-size: 2.25rem;
+    }
+
+    .hero-highlights-row {
+        grid-template-columns: 1fr;
+        /* Stack highlights on very small screens */
+        gap: 2rem;
+    }
+}
