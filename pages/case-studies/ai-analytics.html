@@ -185,6 +185,15 @@
             .sticky-toc {
                 display: none;
             }
+
+            .mobile-toc {
+                display: block;
+            }
+        }
+
+        /* Default Mobile TOC Hidden */
+        .mobile-toc {
+            display: none;
         }
     </style>
 </head>
@@ -225,19 +234,35 @@
         <!-- Content -->
         <section class="container">
             <div class="case-study-layout">
-                <!-- Sidebar TOC -->
+                <!-- Sidebar TOC (Desktop) -->
                 <aside>
                     <div class="sticky-toc">
                         <h4>Contents</h4>
                         <ul class="toc-list">
                             <li><a href="#executive-summary">Executive Summary</a></li>
                             <li><a href="#problem-statement">The Data Silo Problem</a></li>
-                            <li><a href="#architecture">AI Landing Zone</a></li>
-                            <li><a href="#governance">Security & Governance</a></li>
-                            <li><a href="#results">Business Results</a></li>
+                            <li><a href="#governance">Governance & Security</a></li>
+                            <li><a href="#architecture">Modern Data Architecture</a></li>
+                            <li><a href="#results">Business Outcomes</a></li>
                         </ul>
                     </div>
                 </aside>
+
+                <!-- Mobile TOC (Visible only on mobile) -->
+                <div class="mobile-toc"
+                    style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 1rem; margin-bottom: 2rem;">
+                    <details>
+                        <summary style="cursor: pointer; font-weight: 600; color: var(--primary-color);">Table of
+                            Contents</summary>
+                        <ul class="toc-list" style="margin-top: 1rem; padding-left: 0;">
+                            <li><a href="#executive-summary">Executive Summary</a></li>
+                            <li><a href="#problem-statement">The Data Silo Problem</a></li>
+                            <li><a href="#governance">Governance & Security</a></li>
+                            <li><a href="#architecture">Modern Data Architecture</a></li>
+                            <li><a href="#results">Business Outcomes</a></li>
+                        </ul>
+                    </details>
+                </div>
 
                 <!-- Article Body -->
                 <article class="case-content">
@@ -252,6 +277,14 @@
 
                     <h2 id="executive-summary" class="section-title">Executive <span
                             class="gradient-text">Summary</span></h2>
+
+                    <div style="margin-bottom: 2rem; border-left: 3px solid #ef4444; padding-left: 1.5rem;">
+                        <p style="font-style: italic; color: #cbd5e1;"><strong>Board-Level Risk:</strong> The
+                            organization faced an "existential gap" in customer understanding. Competitors were
+                            deploying hyper-personalized offers while our data remained locked in silos, risking a 15%
+                            market share erosion.</p>
+                    </div>
+
                     <p>The client possessed 5PB of high-value transaction data but could not leverage it due to
                         fragmentation across AWS, On-Prem, and Azure. I led the strategy to unify this data estate and
                         layer a secure Generative AI capability on top to drive personalized customer engagement.</p>
@@ -300,7 +333,18 @@
                         data storage. This allowed us to query data residing in AWS S3 and On-Prem SQL without moving
                         it, reducing ingress/egress costs by 40%.</p>
 
-                    <div class="stats-grid">
+                    <p>Security was paramount. We engineered a <strong>Private Link</strong> architecture where the
+                        OpenAI endpoints were not accessible from the public internet.</p>
+
+                    <h3 id="guardrails">Guardrails with Azure AI Studio</h3>
+                    <p>We implemented Content Safety filters to automatically block prompt injection attempts and PII
+                        leakage. Before any "Assistant" response was shown to a user, it passed through a custom
+                        evaluation flow to check for groundedness (hallucination checks).</p>
+
+                    <h2 id="results">Business Outcomes</h2>
+
+                    <div class="stats-grid"
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin: 3rem 0;">
                         <div class="stat-card">
                             <span class="stat-value">15%</span>
                             <span class="stat-label">Revenue Uplift<br>(Personalization)</span>
@@ -315,7 +359,8 @@
                         </div>
                     </div>
 
-                    <h2 id="financial-impact">Director-Level Impact</h2>
+                    <h3 id="financial-impact" style="color: #e2e8f0; font-size: 1.5rem; margin-top: 2.5rem;">
+                        Director-Level Impact</h3>
                     <p>This program was a pivot point for the organization's data culture:</p>
                     <ul>
                         <li><strong>Financial:</strong> The centralized "OneLake" approach eliminated duplicate storage
@@ -325,22 +370,8 @@
                         <li><strong>Operational:</strong> Shifted Data Engineering focus from "Moving Data" to "Modeling
                             Data".</li>
                     </ul>
-
-                </article>
-                <p>Security was paramount. We engineered a <strong>Private Link</strong> architecture where the
-                    OpenAI endpoints were not accessible from the public internet.</p>
-
-                <h3>Guardrails with Azure AI Studio</h3>
-                <p>We implemented Content Safety filters to automatically block prompt injection attempts and PII
-                    leakage. Before any "Assistant" response was shown to a user, it passed through a custom
-                    evaluation flow to check for groundedness (hallucination checks).</p>
-
-                <h2 id="results">Business Outcomes</h2>
-                <p>The "AI-Powered Personalization Engine" went live in time for the holiday season. By analyzing
-                    customer intent in real-time and generating hyper-personalized email copy, campaign
-                    click-through rates doubled.</p>
-                <p>The platform is now the foundation for the company's "CoPilot" initiative, enabling employees to
-                    chat with their data documentation securely.</p>
+                    <p>The platform is now the foundation for the company's "CoPilot" initiative, enabling employees to
+                        chat with their data documentation securely.</p>
 
                 </article>
             </div>

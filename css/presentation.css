@@ -47,6 +47,9 @@ body {
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     position: relative;
     overflow: hidden;
+    /* Ensure content fits */
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 /* Slide Header */
@@ -79,6 +82,8 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
+    align-items: center;
+    /* Center items vertically */
 }
 
 .slide-text {
@@ -122,13 +127,9 @@ body {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    /* Circle */
     display: flex;
-    /* Flexbox execution */
     align-items: center;
-    /* Center Vertically */
     justify-content: center;
-    /* Center Horizontally */
     cursor: pointer;
     transition: all 0.3s;
     text-decoration: none;
@@ -146,6 +147,8 @@ body {
     background: transparent;
     border: none;
     box-shadow: none;
+    padding: 0;
+    /* Remove padding for center alignment */
 }
 
 .slide.title-slide h1 {
@@ -182,5 +185,65 @@ body {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* 📱 Mobile Responsiveness (Senior UX Expert Addition) */
+@media (max-width: 768px) {
+    .slide-content {
+        padding: 1.5rem;
+        width: 95%;
+        border-radius: 16px;
+    }
+
+    .slide-header {
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .slide-title {
+        font-size: 1.75rem;
+        /* Smaller title */
+        line-height: 1.2;
+    }
+
+    .slide.title-slide h1 {
+        font-size: 2.75rem;
+        /* Smaller hero title */
+    }
+
+    .slide.title-slide p {
+        font-size: 1.1rem;
+    }
+
+    .slide-grid {
+        grid-template-columns: 1fr;
+        /* Stack columns */
+        gap: 1.5rem;
+    }
+
+    .slide-text {
+        font-size: 1rem;
+        /* Readable body text */
+    }
+
+    .slide-text li {
+        margin-bottom: 0.8rem;
+    }
+
+    .deck-nav {
+        bottom: 1rem;
+        right: 1rem;
+    }
+
+    .deck-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    /* Adjust specific layouts that use inline flex/grid */
+    .stats-grid,
+    [style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
     }
 }

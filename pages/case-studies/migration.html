@@ -195,6 +195,14 @@
             .sticky-toc {
                 display: none;
             }
+
+            .mobile-toc {
+                display: block !important;
+            }
+        }
+
+        .mobile-toc {
+            display: none;
         }
     </style>
 </head>
@@ -235,19 +243,35 @@
         <!-- Content -->
         <section class="container">
             <div class="case-study-layout">
-                <!-- Sidebar TOC -->
+                <!-- Sidebar TOC (Desktop) -->
                 <aside>
                     <div class="sticky-toc">
                         <h4>Contents</h4>
                         <ul class="toc-list">
                             <li><a href="#executive-summary">Executive Summary</a></li>
-                            <li><a href="#architecture">Target Architecture</a></li>
+                            <li><a href="#architecture">Governance & Architecture</a></li>
                             <li><a href="#migration-process">Migration Strategy</a></li>
                             <li><a href="#challenges">Challenges & Solutions</a></li>
-                            <li><a href="#outcomes">Business Impact</a></li>
+                            <li><a href="#outcomes">Director-Level Impact</a></li>
                         </ul>
                     </div>
                 </aside>
+
+                <!-- Mobile TOC (Visible only on mobile) -->
+                <div class="mobile-toc"
+                    style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 1rem; margin-bottom: 2rem;">
+                    <details>
+                        <summary style="cursor: pointer; font-weight: 600; color: var(--primary-color);">Table of
+                            Contents</summary>
+                        <ul class="toc-list" style="margin-top: 1rem; padding-left: 0;">
+                            <li><a href="#executive-summary">Executive Summary</a></li>
+                            <li><a href="#architecture">Governance & Architecture</a></li>
+                            <li><a href="#migration-process">The Strategy (6 R's)</a></li>
+                            <li><a href="#challenges">Challenges & Solutions</a></li>
+                            <li><a href="#outcomes">Director-Level Impact</a></li>
+                        </ul>
+                    </details>
+                </div>
 
                 <!-- Article Body -->
                 <article class="case-content">
@@ -262,6 +286,14 @@
 
                     <h2 id="executive-summary" class="section-title">Executive <span
                             class="gradient-text">Summary</span></h2>
+
+                    <div style="margin-bottom: 2rem; border-left: 3px solid #f59e0b; padding-left: 1.5rem;">
+                        <p style="font-style: italic; color: #cbd5e1;"><strong>Board-Level Risk:</strong> Relying on
+                            end-of-life hardware exposed the firm to potential catastrophic failure and compliance
+                            fines. The "do nothing" cost was estimated at $50k/month in maintenance and lost agility.
+                        </p>
+                    </div>
+
                     <p>Faced with a critical hardware refresh cycle (+40% YoY cost increase) and an expiring data center
                         lease, I led the strategic migration of the organization's core financial systems to Azure. This
                         program was not merely a "lift and shift" but a foundational modernization effort.</p>
@@ -304,7 +336,8 @@
                             proven 15-minute RPO.</li>
                     </ul>
 
-                    <div class="stats-grid">
+                    <div class="stats-grid"
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin: 3rem 0;">
                         <div class="stat-card">
                             <span class="stat-value">30%</span>
                             <span class="stat-label">TCO Reduction<br>(vs On-Prem Refresh)</span>
