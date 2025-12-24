@@ -49,61 +49,51 @@
                 class="w-full h-auto"
                 style="border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);">
             <p
-                style="color: #cbd5e1; margin-top: 0.5rem; font-size: 0.95rem; font-weight: 500; letter-spacing: 0.025em;">
-                Figure 1: High-Level Architecture for Secure Enterprise AI Agents
+                style="color: #cbd5e1; margin-top: 1.5rem; font-size: 1.1rem; line-height: 1.6; max-width: 800px; margin-left: auto; margin-right: auto;">
+                This reference architecture demonstrates how to deploy a robust GenAI pipeline using Azure AI Foundry
+                while adhering to strict security standards.
             </p>
         </div>
 
-        <!-- Key Pillars -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+        <!-- Highlights Grid -->
+        <h3 style="text-align: center; font-size: 1.8rem; margin-bottom: 2rem; color: #f8fafc;">Highlights of this
+            pattern</h3>
 
-            <div>
-                <h3 style="color: #38bdf8; margin-bottom: 1rem;">1. Network Security (Private Perimeter)</h3>
-                <ul class="hero-proof-bullets">
-                    <li><strong>No Public Access:</strong> All AI services (OpenAI, Search, Cosmos DB) accessible
-                        <em>only</em> via Private Endpoints.
-                    </li>
-                    <li><strong>Hub-Spoke Topology:</strong> Traffic Inspection via Azure Firewall in the Hub before
-                        reaching the AI Spoke.</li>
-                    <li><strong>VNET Integration:</strong> App Services and Function Apps strictly VNET-integrated.</li>
-                </ul>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem;">
+
+            <div
+                style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+                <h4 style="color: #38bdf8; margin-bottom: 0.5rem; font-size: 1.2rem;">VNET Integration</h4>
+                <p style="color: #cbd5e1; line-height: 1.6;">The entire backend, including the Orchestrator (Container
+                    Apps) and data layer, is isolated within an Azure VNET.</p>
             </div>
 
-            <div>
-                <h3 style="color: #38bdf8; margin-bottom: 1rem;">2. Identity & Access (Zero Trust)</h3>
-                <ul class="hero-proof-bullets">
-                    <li><strong>Managed Identities:</strong> No secrets in code. Use System-Assigned MI for all
-                        service-to-service auth.</li>
-                    <li><strong>Entra ID RBAC:</strong> Granular "Cognitive Services User" roles; no broad contributor
-                        access.</li>
-                    <li><strong>Key Vault:</strong> Minimal usage (only for 3rd party API keys), backed by RBAC.</li>
-                </ul>
+            <div
+                style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+                <h4 style="color: #38bdf8; margin-bottom: 0.5rem; font-size: 1.2rem;">Private Endpoints</h4>
+                <p style="color: #cbd5e1; line-height: 1.6;">Azure OpenAI, AI Search, and SQL Database are accessed
+                    privately, keeping traffic entirely on the Microsoft backbone network.</p>
             </div>
 
-            <div>
-                <h3 style="color: #38bdf8; margin-bottom: 1rem;">3. Operational Excellence (GenAIOps)</h3>
-                <ul class="hero-proof-bullets">
-                    <li><strong>Evaluation Framework:</strong> Automated testing of prompts using prompt flow in CI/CD.
-                    </li>
-                    <li><strong>Content Safety:</strong> Azure AI Content Safety filters enabled and tuned for Jailbreak
-                        detection.</li>
-                    <li><strong>Cost Guardrails:</strong> Token usage limits and budget alerts configured per
-                        department.</li>
-                </ul>
+            <div
+                style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+                <h4 style="color: #38bdf8; margin-bottom: 0.5rem; font-size: 1.2rem;">Managed Identity</h4>
+                <p style="color: #cbd5e1; line-height: 1.6;">The containerized application authenticates to backend
+                    resources without developers ever handling secrets.</p>
             </div>
 
-            <div>
-                <h3 style="color: #38bdf8; margin-bottom: 1rem;">4. Integration Patterns</h3>
-                <ul class="hero-proof-bullets">
-                    <li><strong>Orchestration:</strong> Semantic Kernel or LangChain hosted on Container Apps.</li>
-                    <li><strong>RAG Pattern:</strong> Hybrid Search (Vector + Keyword) using Azure AI Search for
-                        grounding.</li>
-                    <li><strong>API Gateway:</strong> APIM as the front door for throttling and consumption tracking.
-                    </li>
-                </ul>
+            <div
+                style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+                <h4 style="color: #38bdf8; margin-bottom: 0.5rem; font-size: 1.2rem;">Observability</h4>
+                <p style="color: #cbd5e1; line-height: 1.6;">Full integration with Azure Monitor and Sentinel to track
+                    performance, token usage, and potential security anomalies.</p>
             </div>
 
         </div>
+
+        <p style="text-align: center; font-size: 1.2rem; font-weight: 500; color: #7dd3fc; margin-bottom: 4rem;">
+            This is how you build a foundation for AI that is scalable, auditable, and secure by design.
+        </p>
 
     </main>
 
