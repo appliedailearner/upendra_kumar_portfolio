@@ -232,6 +232,306 @@
         <img src="../images/blog/diagrams/blog3_well_architected_roadmap.png"
             alt="WAR pipeline from signals to prioritized roadmap and guardrails">
 
+        <h2><span class="gradient-text">Well-Architected Framework: The Five Pillars</span></h2>
+        <p>
+            The Well-Architected Framework provides a structured approach to evaluating your architecture across five
+            critical pillars. Understanding these pillars is essential for conducting effective reviews and creating
+            actionable roadmaps.
+        </p>
+
+        <h3>The Five Pillars</h3>
+        <img src="../images/blog/diagrams/waf_five_pillars.png" alt="Azure Well-Architected Framework 5 Pillars">
+
+        <h4>1. 🛡️ Reliability</h4>
+        <p><strong>Focus:</strong> Resiliency, availability, and recovery capabilities</p>
+        <p><strong>Key Concerns:</strong></p>
+        <ul>
+            <li>Design for business requirements and SLA targets</li>
+            <li>Build resilience at every layer (application, data, infrastructure)</li>
+            <li>Implement automated recovery and failover mechanisms</li>
+            <li>Test disaster recovery procedures regularly</li>
+        </ul>
+        <p><strong>Common Findings:</strong> Single points of failure, inadequate backup strategies, untested DR plans
+        </p>
+
+        <h4>2. 🔒 Security</h4>
+        <p><strong>Focus:</strong> Data protection, threat detection, and mitigation</p>
+        <p><strong>Key Concerns:</strong></p>
+        <ul>
+            <li>Protect confidentiality, integrity, and availability</li>
+            <li>Implement defense in depth with multiple security layers</li>
+            <li>Use identity as the primary security perimeter</li>
+            <li>Enable continuous threat detection and response</li>
+        </ul>
+        <p><strong>Common Findings:</strong> Exposed secrets, overly permissive access, missing encryption, no threat
+            monitoring</p>
+
+        <h4>3. 💰 Cost Optimization</h4>
+        <p><strong>Focus:</strong> Cost modeling, budgets, and waste reduction</p>
+        <p><strong>Key Concerns:</strong></p>
+        <ul>
+            <li>Optimize on usage and rate utilization</li>
+            <li>Implement cost allocation and chargeback</li>
+            <li>Right-size resources based on actual utilization</li>
+            <li>Leverage commitment-based discounts (Reserved Instances, Savings Plans)</li>
+        </ul>
+        <p><strong>Common Findings:</strong> Oversized VMs, orphaned resources, no tagging strategy, missing budget
+            alerts</p>
+
+        <h4>4. ⚙️ Operational Excellence</h4>
+        <p><strong>Focus:</strong> Holistic observability and DevOps practices</p>
+        <p><strong>Key Concerns:</strong></p>
+        <ul>
+            <li>Streamline operations with standards and automation</li>
+            <li>Implement comprehensive monitoring and alerting</li>
+            <li>Use Infrastructure as Code for all deployments</li>
+            <li>Enable safe deployment practices (blue/green, canary)</li>
+        </ul>
+        <p><strong>Common Findings:</strong> Manual deployments, inadequate monitoring, no runbooks, configuration drift
+        </p>
+
+        <h4>5. ⚡ Performance Efficiency</h4>
+        <p><strong>Focus:</strong> Scalability and load testing</p>
+        <p><strong>Key Concerns:</strong></p>
+        <ul>
+            <li>Scale horizontally to meet demand</li>
+            <li>Test performance early and often</li>
+            <li>Monitor and optimize continuously</li>
+            <li>Use caching and CDN strategically</li>
+        </ul>
+        <p><strong>Common Findings:</strong> No auto-scaling, untested performance, missing caching, inefficient queries
+        </p>
+
+        <h3>Understanding Pillar Tradeoffs</h3>
+        <p>
+            Every architectural decision involves tradeoffs. The key is making informed choices aligned with business
+            priorities:
+        </p>
+
+        <div style="overflow-x: auto; margin: 2rem 0;">
+            <table
+                style="width: 100%; border-collapse: collapse; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1);">
+                <thead>
+                    <tr style="background: rgba(168, 85, 247, 0.1); border-bottom: 2px solid rgba(168, 85, 247, 0.3);">
+                        <th style="padding: 1rem; text-align: left; color: var(--text-main);">Decision</th>
+                        <th style="padding: 1rem; text-align: center; color: var(--text-main);">Reliability</th>
+                        <th style="padding: 1rem; text-align: center; color: var(--text-main);">Security</th>
+                        <th style="padding: 1rem; text-align: center; color: var(--text-main);">Cost</th>
+                        <th style="padding: 1rem; text-align: center; color: var(--text-main);">Performance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                        <td style="padding: 1rem;">Multi-region deployment</td>
+                        <td style="padding: 1rem; text-align: center; color: #10b981;">✅ High availability</td>
+                        <td style="padding: 1rem; text-align: center; color: #10b981;">✅ Geographic redundancy</td>
+                        <td style="padding: 1rem; text-align: center; color: #ef4444;">❌ 2x infrastructure cost</td>
+                        <td style="padding: 1rem; text-align: center; color: #10b981;">✅ Lower latency</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                        <td style="padding: 1rem;">Azure Firewall Premium</td>
+                        <td style="padding: 1rem; text-align: center; color: #94a3b8;">➡️ Neutral</td>
+                        <td style="padding: 1rem; text-align: center; color: #10b981;">✅ Advanced threat protection</td>
+                        <td style="padding: 1rem; text-align: center; color: #ef4444;">❌ Higher monthly cost</td>
+                        <td style="padding: 1rem; text-align: center; color: #f59e0b;">⚠️ Slight latency increase</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                        <td style="padding: 1rem;">Reserved Instances (3-year)</td>
+                        <td style="padding: 1rem; text-align: center; color: #94a3b8;">➡️ Neutral</td>
+                        <td style="padding: 1rem; text-align: center; color: #94a3b8;">➡️ Neutral</td>
+                        <td style="padding: 1rem; text-align: center; color: #10b981;">✅ 30-70% savings</td>
+                        <td style="padding: 1rem; text-align: center; color: #94a3b8;">➡️ Neutral</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1rem;">Aggressive auto-scaling</td>
+                        <td style="padding: 1rem; text-align: center; color: #10b981;">✅ Better resilience</td>
+                        <td style="padding: 1rem; text-align: center; color: #94a3b8;">➡️ Neutral</td>
+                        <td style="padding: 1rem; text-align: center; color: #ef4444;">❌ Higher variable costs</td>
+                        <td style="padding: 1rem; text-align: center; color: #10b981;">✅ Handles traffic spikes</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2><span class="gradient-text">Conducting the Well-Architected Review</span></h2>
+        <p>
+            A structured review process ensures comprehensive coverage and actionable outcomes.
+        </p>
+
+        <h3>Continuous Improvement Cycle</h3>
+        <img src="../images/blog/diagrams/continuous_improvement_cycle.png"
+            alt="Well-Architected continuous improvement cycle">
+
+        <h3>When to Conduct Reviews</h3>
+
+        <h4>Greenfield Workloads (New Deployments)</h4>
+        <ul>
+            <li><strong>Timing:</strong> During initial design process</li>
+            <li><strong>Approach:</strong> Enter proposed decisions, use guidance as baseline</li>
+            <li><strong>Benefit:</strong> Refine design before deployment, avoid costly rework</li>
+            <li><strong>Cadence:</strong> Re-assess at each major design milestone</li>
+        </ul>
+
+        <h4>Brownfield Workloads (Existing Environments)</h4>
+        <ul>
+            <li><strong>Timing:</strong> Part of continuous improvement cycle</li>
+            <li><strong>Approach:</strong> Assess current state, identify gaps</li>
+            <li><strong>Benefit:</strong> Track improvements over time with milestones</li>
+            <li><strong>Cadence:</strong> Every 4 months (quarterly reviews recommended)</li>
+        </ul>
+
+        <h3>Assessment Workflow</h3>
+        <img src="../images/blog/diagrams/review_process_workflow.png" alt="Well-Architected Review process workflow">
+
+        <h4>Step 1: Take the Assessment</h4>
+        <ul>
+            <li>Use the <a href="https://aka.ms/assessments/azure-architecture-review" target="_blank">Azure
+                    Well-Architected Review</a> tool</li>
+            <li>Answer 60 questions across all 5 pillars (or focus on one pillar at a time)</li>
+            <li><strong>Important:</strong> Always sign in to enable milestone tracking</li>
+            <li>Choose meaningful assessment and milestone names</li>
+        </ul>
+
+        <h4>Step 2: Receive and Integrate Recommendations</h4>
+        <ul>
+            <li>Export recommendations to CSV from the assessment guidance page</li>
+            <li>Share with stakeholders for review and prioritization</li>
+            <li>Import into your backlog (Azure DevOps or GitHub) for SDLC integration</li>
+            <li>Use <a href="https://github.com/Azure/WellArchitected-Tools/tree/main/WARP/devops"
+                    target="_blank">DevOps Tooling for WAR Process</a> for automation</li>
+        </ul>
+
+        <h4>Step 3: Prioritize and Implement</h4>
+        <ul>
+            <li>Workload owners and stakeholders prioritize based on business impact</li>
+            <li>Factor in applicability and tradeoffs of each recommendation</li>
+            <li>Assign owners to specific recommendations</li>
+            <li>Track progress through completion as part of standard SDLC</li>
+        </ul>
+
+        <h4>Step 4: Monitor Improvements</h4>
+        <ul>
+            <li>Use milestone feature to track changes over time</li>
+            <li>Compare current state against prior milestones</li>
+            <li>Monitor Azure Advisor score improvements</li>
+            <li>Document lessons learned and update runbooks</li>
+        </ul>
+
+        <h2><span class="gradient-text">Tools and Automation</span></h2>
+        <p>
+            Leverage Microsoft's comprehensive tools to streamline your Well-Architected Review process.
+        </p>
+
+        <h3>Azure Review Checklists</h3>
+        <p>
+            The <a href="https://github.com/Azure/review-checklists" target="_blank">Azure Review Checklists</a>
+            repository provides structured validation:
+        </p>
+
+        <h4>Available Formats</h4>
+        <ol>
+            <li>
+                <strong>Excel Spreadsheets:</strong> Offline review and team collaboration
+                <ul>
+                    <li>Landing Zone Review checklist</li>
+                    <li>Security Baseline checklist</li>
+                    <li>Networking Configuration checklist</li>
+                    <li>Cost Optimization checklist</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Azure Resource Graph Queries:</strong> Automated compliance checking
+                <ul>
+                    <li>Query your environment programmatically</li>
+                    <li>Identify configuration gaps automatically</li>
+                    <li>Generate compliance reports</li>
+                </ul>
+            </li>
+        </ol>
+
+        <h4>Example: Automated NSG Validation</h4>
+        <pre><code>// Azure Resource Graph query to check NSG rules
+Resources
+| where type == "microsoft.network/networksecuritygroups"
+| extend rules = properties.securityRules
+| mv-expand rules
+| where rules.properties.access == "Allow" 
+    and rules.properties.direction == "Inbound"
+    and rules.properties.sourceAddressPrefix == "*"
+| project name, location, ruleName = rules.name, 
+    priority = rules.properties.priority
+| order by priority asc</code></pre>
+
+        <h3>Well-Architected Tools</h3>
+        <p>
+            The <a href="https://github.com/Azure/WellArchitected-Tools" target="_blank">Well-Architected Tools</a>
+            repository provides automation scripts for:
+        </p>
+        <ul>
+            <li><strong>DevOps Integration:</strong> Import WAR recommendations into Azure DevOps or GitHub</li>
+            <li><strong>Backlog Automation:</strong> Automatically create work items from assessment CSV</li>
+            <li><strong>Tracking:</strong> Monitor recommendation implementation progress</li>
+            <li><strong>Reporting:</strong> Generate compliance and improvement reports</li>
+        </ul>
+
+        <h3>Azure Advisor Integration</h3>
+        <p>
+            Azure Advisor uses the Well-Architected Framework pillars to analyze your resource configuration:
+        </p>
+        <ul>
+            <li><strong>Automated recommendations:</strong> Continuous analysis of your environment</li>
+            <li><strong>Azure Advisor Score:</strong> Aggregated score across all five pillars</li>
+            <li><strong>Prioritization:</strong> Focus on actions that yield biggest improvement</li>
+            <li><strong>Cost impact:</strong> Estimated savings for cost optimization recommendations</li>
+        </ul>
+
+        <h2><span class="gradient-text">Making Recommendations Fundable</span></h2>
+        <p>
+            Transform technical findings into business-aligned proposals that executives will approve.
+        </p>
+
+        <h3>The Fundable Recommendation Template</h3>
+        <p>Each recommendation should include:</p>
+
+        <h4>1. Business Risk Statement</h4>
+        <p><strong>Bad:</strong> "No backup for production database"</p>
+        <p><strong>Good:</strong> "Production database has no backup. Data loss would result in 48-72 hours downtime and
+            estimated $500K revenue impact based on Q3 sales data."</p>
+
+        <h4>2. A/B Options with Cost Deltas</h4>
+        <ul>
+            <li><strong>Option A (Recommended):</strong> Azure Backup with 7-day retention + geo-redundant storage
+                <ul>
+                    <li>Monthly cost: $450</li>
+                    <li>RPO: 24 hours, RTO: 4 hours</li>
+                    <li>Implementation: 2 weeks</li>
+                </ul>
+            </li>
+            <li><strong>Option B (Minimum):</strong> Azure Backup with 3-day retention + locally redundant storage
+                <ul>
+                    <li>Monthly cost: $180</li>
+                    <li>RPO: 24 hours, RTO: 8 hours</li>
+                    <li>Implementation: 1 week</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>3. 30/60/90 Day Plan</h4>
+        <ul>
+            <li><strong>30 days:</strong> Configure Azure Backup, test restore procedure</li>
+            <li><strong>60 days:</strong> Implement geo-redundant storage, document runbooks</li>
+            <li><strong>90 days:</strong> Conduct DR drill, validate RTO/RPO targets</li>
+        </ul>
+
+        <h3>Best Practices for Executive Presentations</h3>
+        <ul>
+            <li><strong>Lead with business impact:</strong> Revenue risk, compliance violations, security breaches</li>
+            <li><strong>Use visuals:</strong> Tradeoffs table, risk heat maps, cost comparison charts</li>
+            <li><strong>Provide options:</strong> Never present a single solution—give choices with clear tradeoffs</li>
+            <li><strong>Show quick wins:</strong> Highlight low-effort, high-impact items for immediate approval</li>
+            <li><strong>Link to strategy:</strong> Connect recommendations to business objectives and KPIs</li>
+        </ul>
+
         <h2><span class="gradient-text">References</span></h2>
 
         <h3>Microsoft Learn</h3>
