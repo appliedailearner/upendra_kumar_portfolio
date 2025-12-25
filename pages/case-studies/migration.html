@@ -261,6 +261,7 @@
                             <li><a href="#executive-summary">Executive Summary</a></li>
                             <li><a href="#architecture">Governance & Architecture</a></li>
                             <li><a href="#app-profiling">App Profiling & Mapping</a></li>
+                            <li><a href="#security-governance">Security & Governance</a></li>
                             <li><a href="#migration-process">Migration Strategy</a></li>
                             <li><a href="#wave-planning">Wave Planning & Comms</a></li>
                             <li><a href="#checklists">Operational Checklists</a></li>
@@ -280,6 +281,7 @@
                             <li><a href="#executive-summary">Executive Summary</a></li>
                             <li><a href="#architecture">Governance & Architecture</a></li>
                             <li><a href="#app-profiling">App Profiling & Mapping</a></li>
+                            <li><a href="#security-governance">Security & Governance</a></li>
                             <li><a href="#migration-process">The Strategy (6 R's)</a></li>
                             <li><a href="#challenges">Challenges & Solutions</a></li>
                             <li><a href="#business-value">Strategic Business Value</a></li>
@@ -404,7 +406,55 @@
                     <p>Identified "Zombie Servers" during the assessment phase. Decommissioning these <strong>saved
                             $2k/month</strong> immediately, fully funding the ExpressRoute circuit.</p>
 
-                    <h2 id="wave-planning">Wave Planning & Communication</h2>
+                    <h2 id="security-governance">Security & Governance Enforcement</h2>
+                    <p>For this mission-critical migration, we bypassed the public internet for all discovery and
+                        metadata collection.</p>
+
+                    <div class="tech-callout"
+                        style="border-left: 4px solid #a855f7; background: rgba(168, 85, 247, 0.05); margin: 2rem 0;">
+                        <h4 style="color: #a855f7; margin-top: 0;"><i class="fas fa-link"></i> Azure Private Link
+                            Architecture</h4>
+                        <p style="font-size: 0.95rem;">Configured <strong>Azure Migrate Projects over Private
+                                Endpoints</strong>. This ensured that the discovery data from the on-prem appliance was
+                            tunneled through a Site-to-Site VPN directly into the Hub VNET via Private Link, meeting the
+                            client's "Zero Internet Discovery" mandate.</p>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 2rem 0;">
+                        <div class="glass-card" style="padding: 1.2rem;">
+                            <h4 style="color: #fbbf24; margin-top: 0;"><i class="fas fa-network-wired"></i> Network
+                                Requirements</h4>
+                            <p style="font-size: 0.85rem; color: #94a3b8;">Ensured the following ports were opened on
+                                the internal firewall for the appliance:</p>
+                            <ul style="font-size: 0.85rem; color: #cbd5e1; padding-left: 1.2rem;">
+                                <li><strong>443 (HTTPS):</strong> Outbound to Azure APIs.</li>
+                                <li><strong>445 (SMB) & 135 (RPC):</strong> Inbound for agentless discovery.</li>
+                            </ul>
+                        </div>
+                        <div class="glass-card" style="padding: 1.2rem;">
+                            <h4 style="color: #10b981; margin-top: 0;"><i class="fas fa-user-lock"></i> RBAC Matrix</h4>
+                            <p style="font-size: 0.85rem; color: #94a3b8;">Personas mapped for the migration lifecycle:
+                            </p>
+                            <ul style="font-size: 0.85rem; color: #cbd5e1; padding-left: 1.2rem;">
+                                <li><strong>Migration Lead:</strong> Project Contributor.</li>
+                                <li><strong>Ops Team:</strong> VM & Site Recovery Contributor.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3 style="color: #a855f7; margin-top: 2rem;">Enterprise Billing Hierarchy (EA/MCA)</h3>
+                    <p>Designed the billing skeleton to support accurate chargeback for the 60+ applications across 8
+                        departments. We structured the <strong>Microsoft Enterprise Agreement (EA)</strong> environment
+                        as follows:</p>
+                    <div
+                        style="background: rgba(15, 23, 42, 0.4); border-radius: 8px; padding: 1.5rem; font-family: 'Inter'; border: 1px solid rgba(168, 85, 247, 0.1);">
+                        <code style="color: #cbd5e1; display: block; line-height: 1.6;">
+                            [EA Enrollment] ➔ [Department: Financial Svcs] ➔ [Account: Prod Ops] ➔ [Subscriptions]
+                        </code>
+                        <p style="font-size: 0.85rem; color: #94a3b8; margin-top: 1rem;">Managed the transition from
+                            traditional EA enrollment to <strong>Microsoft Customer Agreement (MCA)</strong> to leverage
+                            enhanced cost-analysis APIs and unified billing for modern Azure workloads.</p>
+                    </div>
                     <p>Success in large-scale moves depends on the "Socialization" of the plan. I established a
                         <strong>T-Minus Communication Strategy</strong> to manage business expectations:
                     </p>
