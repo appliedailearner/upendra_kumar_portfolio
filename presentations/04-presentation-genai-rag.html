@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deck: Secure GenAI RAG Platform | Upendra Kumar</title>
+    <link rel="stylesheet" href="../css/presentation.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Top Navigation -->
+    <div style="position: fixed; top: 2rem; left: 2rem; z-index: 100;">
+        <a href="../pages/projects.html"
+            style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.9rem; font-family: 'Inter'; display: flex; align-items: center; gap: 0.5rem; transition: color 0.3s;">
+            <i class="fas fa-chevron-left"></i> Projects
+        </a>
+    </div>
+
+    <div class="deck-container">
+
+        <!-- Slide 1: Title -->
+        <section class="slide title-slide" id="slide-1">
+            <div class="slide-content">
+                <h1 class="animate-in">Secure Enterprise GenAI Knowledge Platform (RAG)</h1>
+                <p class="animate-in delay-1">Zero-Trust RAG Architecture for Regulated Enterprises</p>
+                <div style="margin-top: 3rem;" class="animate-in delay-2">
+                    <span
+                        style="border:1px solid #a855f7; padding: 0.5rem 1rem; border-radius: 50px; color: #a855f7; font-family: 'Inter'; font-size: 0.9rem;">Production
+                        – Architecture Validated & Deployed</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: The Shadow AI Crisis -->
+        <section class="slide" id="slide-2">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">The Shadow AI Crisis</h2>
+                    <span class="slide-number">01</span>
+                </div>
+                <div class="slide-grid">
+                    <div class="slide-text">
+                        <p><strong>Challenge:</strong> A regulated enterprise client required a Generative AI solution
+                            to democratize access to internal knowledge bases. However, the initiative was previously
+                            blocked by the CISO due to critical "Shadow AI" risks.</p>
+                        <ul style="margin-top: 2rem;">
+                            <li><strong>Public Data Leakage:</strong> Risk of sensitive corporate data being sent to
+                                public LLM endpoints</li>
+                            <li><strong>Hallucinations:</strong> AI generating false information not grounded in company
+                                documents</li>
+                            <li><strong>No Audit Trail:</strong> Inability to track who accessed what information and
+                                when</li>
+                            <li><strong>Compliance Gap:</strong> Failure to meet Microsoft's Responsible AI Standard v2
+                            </li>
+                        </ul>
+                    </div>
+                    <div
+                        style="background: rgba(239, 68, 68, 0.05); padding: 2rem; border-radius: 12px; border: 1px solid rgba(239, 68, 68, 0.2); text-align: center;">
+                        <h3 style="color: #ef4444; margin-bottom: 2rem;"><i class="fas fa-exclamation-triangle"></i>
+                            CISO Blockers</h3>
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <p style="font-size: 1.5rem; color: #ef4444; font-weight: 800; margin: 0;">0%</p>
+                                <p style="font-size: 0.8rem; color: #94a3b8; margin: 0.3rem 0 0 0;">Network Isolation
+                                </p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <p style="font-size: 1.5rem; color: #ef4444; font-weight: 800; margin: 0;">0%</p>
+                                <p style="font-size: 0.8rem; color: #94a3b8; margin: 0.3rem 0 0 0;">Response Determinism
+                                </p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <p style="font-size: 1.5rem; color: #ef4444; font-weight: 800; margin: 0;">0%</p>
+                                <p style="font-size: 0.8rem; color: #94a3b8; margin: 0.3rem 0 0 0;">Audit Capability</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: RAG Architecture Overview -->
+        <section class="slide" id="slide-3">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">RAG Architecture Overview</h2>
+                    <span class="slide-number">02</span>
+                </div>
+                <div class="slide-grid" style="grid-template-columns: 1fr;">
+                    <div>
+                        <h4 style="color: #a855f7; margin-top: 0;"><i class="fas fa-brain"></i> What is RAG
+                            (Retrieval-Augmented Generation)?</h4>
+                        <p style="font-size: 0.9rem; color: #cbd5e1;">RAG combines the power of large language models
+                            with enterprise data retrieval. Instead of relying solely on the model's training data, RAG
+                            retrieves relevant context from your documents and feeds it to the LLM, ensuring responses
+                            are grounded in your actual data.</p>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
+                            <div
+                                style="background: rgba(168, 85, 247, 0.1); padding: 1.5rem; border-radius: 12px; border-top: 3px solid #a855f7;">
+                                <h5 style="color: #a855f7; margin: 0 0 1rem 0;">Enterprise RAG</h5>
+                                <ul style="font-size: 0.8rem; color: #cbd5e1; padding-left: 1.2rem; margin: 0;">
+                                    <li>Private networking (VNet + Private Endpoints)</li>
+                                    <li>Automated evaluation (Groundedness, Relevance)</li>
+                                    <li>Identity-based access (Entra ID)</li>
+                                    <li>Semantic ranking for accuracy</li>
+                                    <li>Audit trail for compliance</li>
+                                </ul>
+                            </div>
+                            <div
+                                style="background: rgba(239, 68, 68, 0.1); padding: 1.5rem; border-radius: 12px; border-top: 3px solid #ef4444;">
+                                <h5 style="color: #ef4444; margin: 0 0 1rem 0;">Basic RAG (Public)</h5>
+                                <ul style="font-size: 0.8rem; color: #cbd5e1; padding-left: 1.2rem; margin: 0;">
+                                    <li>Public internet endpoints</li>
+                                    <li>No automated quality testing</li>
+                                    <li>API key authentication</li>
+                                    <li>Basic keyword search</li>
+                                    <li>No compliance controls</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div
+                            style="margin-top: 2rem; text-align: center; padding: 1.5rem; background: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+                            <p style="font-size: 0.9rem; color: #cbd5e1; margin: 0;"><strong style="color: #10b981;">Why
+                                    RAG over Fine-Tuning?</strong> RAG allows you to update knowledge without retraining
+                                the model. It's cost-effective, maintains data sovereignty, and provides explainability
+                                through source citations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Zero-Trust Network Design -->
+        <section class="slide" id="slide-4">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">Zero-Trust Network Design</h2>
+                    <span class="slide-number">03</span>
+                </div>
+                <div class="slide-grid">
+                    <div>
+                        <h4 style="color: #38bdf8; margin-top: 0;"><i class="fas fa-network-wired"></i> Hub-and-Spoke
+                            Topology</h4>
+                        <p style="font-size: 0.9rem; color: #cbd5e1;">The AI workload resides in a dedicated Spoke VNet,
+                            peered with the corporate Hub (Azure Firewall). All PaaS services are accessed via Private
+                            Endpoints.</p>
+                        <ul style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.8; margin-top: 1rem;">
+                            <li><strong>Hub VNet:</strong> Azure Firewall, Bastion Host, shared services</li>
+                            <li><strong>Spoke VNet:</strong> App Service (VNET-integrated), Private Link subnet</li>
+                            <li><strong>Private Endpoints:</strong> Azure OpenAI, AI Search, Storage Blob</li>
+                            <li><strong>Shared Private Links:</strong> Secure indexer connectivity to data sources</li>
+                        </ul>
+                        <div
+                            style="background: rgba(56, 189, 248, 0.05); padding: 1rem; border-radius: 8px; margin-top: 1.5rem; border: 1px solid rgba(56, 189, 248, 0.2);">
+                            <h5 style="color: #fff; margin: 0 0 0.5rem 0; font-size: 0.9rem;"><i
+                                    class="fas fa-shield-alt"></i> Zero Public Traffic</h5>
+                            <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">All communication between Web App,
+                                Azure OpenAI, and AI Search occurs via Private Endpoints. No data traverses the public
+                                internet.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 style="color: #fff; margin-top: 0;"><i class="fas fa-lock"></i> Network Isolation Metrics
+                        </h4>
+                        <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                            <div
+                                style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px; border-left: 3px solid #10b981;">
+                                <strong style="color: #10b981; font-size: 0.9rem;">100% Private Connectivity</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">All Azure OpenAI
+                                    and AI Search traffic via Private Endpoints</p>
+                            </div>
+                            <div
+                                style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px; border-left: 3px solid #10b981;">
+                                <strong style="color: #10b981; font-size: 0.9rem;">0 Public IPs</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">No PaaS services
+                                    exposed to the public internet</p>
+                            </div>
+                            <div
+                                style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px; border-left: 3px solid #10b981;">
+                                <strong style="color: #10b981; font-size: 0.9rem;">CISO Approved</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">Satisfies "Private
+                                    Networking with Azure OpenAI" requirement</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Azure AI Foundry & Prompt Flow -->
+        <section class="slide" id="slide-5">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">Azure AI Foundry & Prompt Flow</h2>
+                    <span class="slide-number">04</span>
+                </div>
+                <div class="slide-grid">
+                    <div>
+                        <h4 style="color: #a855f7; margin-top: 0;"><i class="fas fa-robot"></i> Orchestration with
+                            Prompt Flow</h4>
+                        <p style="font-size: 0.9rem; color: #cbd5e1;">Azure AI Prompt Flow provides a visual development
+                            environment to build, test, and deploy RAG workflows. It enables LLMOps best practices with
+                            automated evaluation and monitoring.</p>
+                        <ul style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.8; margin-top: 1rem;">
+                            <li><strong>Build:</strong> Visual flow designer for retrieval → augmentation → generation
+                            </li>
+                            <li><strong>Evaluate:</strong> Automated testing for groundedness, relevance, and coherence
+                            </li>
+                            <li><strong>Deploy:</strong> One-click deployment to Azure App Service or AKS</li>
+                            <li><strong>Monitor:</strong> Real-time metrics on response quality and latency</li>
+                        </ul>
+                        <div
+                            style="background: rgba(168, 85, 247, 0.05); padding: 1rem; border-radius: 8px; margin-top: 1.5rem; border: 1px solid rgba(168, 85, 247, 0.2);">
+                            <h5 style="color: #fff; margin: 0 0 0.5rem 0; font-size: 0.9rem;"><i
+                                    class="fas fa-code"></i> LLMOps Workflow</h5>
+                            <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">Version-controlled flows with
+                                CI/CD integration for continuous deployment and A/B testing.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 style="color: #fff; margin-top: 0;"><i class="fas fa-project-diagram"></i> Prompt Flow
+                            Components</h4>
+                        <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <strong style="color: #a855f7; font-size: 0.9rem;">Query Rewriting</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">Optimize user
+                                    queries for better retrieval accuracy</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <strong style="color: #a855f7; font-size: 0.9rem;">Vector Search</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">Retrieve top-k
+                                    relevant documents from Azure AI Search</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <strong style="color: #a855f7; font-size: 0.9rem;">Context Augmentation</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">Inject retrieved
+                                    context into the LLM prompt</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <strong style="color: #a855f7; font-size: 0.9rem;">Response Generation</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">GPT-4o generates
+                                    grounded response with citations</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Vector Search & Semantic Ranking -->
+        <section class="slide" id="slide-6">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">Vector Search & Semantic Ranking</h2>
+                    <span class="slide-number">05</span>
+                </div>
+                <div class="slide-grid">
+                    <div>
+                        <h4 style="color: #06b6d4; margin-top: 0;"><i class="fas fa-search"></i> Azure AI Search
+                            Capabilities</h4>
+                        <p style="font-size: 0.9rem; color: #cbd5e1;">Azure AI Search provides hybrid search (keyword +
+                            vector) with semantic ranking to ensure the most relevant context is retrieved for the LLM.
+                        </p>
+                        <ul style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.8; margin-top: 1rem;">
+                            <li><strong>Vector Embeddings:</strong> Convert documents and queries into high-dimensional
+                                vectors using Azure OpenAI embeddings (text-embedding-ada-002)</li>
+                            <li><strong>Hybrid Search:</strong> Combine keyword (BM25) and vector (cosine similarity)
+                                search for best recall</li>
+                            <li><strong>Semantic Ranker:</strong> Re-rank results using deep learning to prioritize the
+                                most contextually relevant documents</li>
+                            <li><strong>Chunking Strategy:</strong> Smart chunking with overlap to preserve context
+                                across document boundaries</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: #fff; margin-top: 0;"><i class="fas fa-chart-line"></i> Search Quality Metrics
+                        </h4>
+                        <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                            <div
+                                style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px; border-left: 3px solid #06b6d4;">
+                                <strong style="color: #06b6d4; font-size: 0.9rem;">95% Recall</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">Hybrid search
+                                    retrieves relevant docs 95% of the time</p>
+                            </div>
+                            <div
+                                style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px; border-left: 3px solid #06b6d4;">
+                                <strong style="color: #06b6d4; font-size: 0.9rem;">Semantic Ranking</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">Significantly
+                                    reduced hallucinations by prioritizing context</p>
+                            </div>
+                            <div
+                                style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px; border-left: 3px solid #06b6d4;">
+                                <strong style="color: #06b6d4; font-size: 0.9rem;">Smart Chunking</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">Optimized chunk
+                                    size (500 tokens) with 50-token overlap</p>
+                            </div>
+                        </div>
+                        <div
+                            style="margin-top: 1.5rem; text-align: center; padding: 1.5rem; background: rgba(6, 182, 212, 0.1); border-radius: 8px;">
+                            <p style="font-size: 1.2rem; color: #06b6d4; font-weight: 800; margin: 0;">Hallucination
+                                Control</p>
+                            <p style="font-size: 0.8rem; color: #94a3b8; margin: 0.3rem 0 0 0;">Semantic Ranking ensures
+                                the LLM receives the most relevant context</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Evaluation & Quality Metrics -->
+        <section class="slide" id="slide-7">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">Evaluation & Quality Metrics</h2>
+                    <span class="slide-number">06</span>
+                </div>
+                <div class="slide-grid" style="grid-template-columns: 1fr;">
+                    <div>
+                        <h4 style="color: #10b981; margin-top: 0;"><i class="fas fa-check-double"></i> Automated
+                            Evaluation Pipelines</h4>
+                        <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 2rem;">Implemented automated testing
+                            pipelines to continuously measure response quality across three critical dimensions:</p>
+
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+                            <div
+                                style="background: rgba(16, 185, 129, 0.1); padding: 1.5rem; border-radius: 12px; border-top: 3px solid #10b981;">
+                                <div style="text-align: center; margin-bottom: 1rem;">
+                                    <i class="fas fa-anchor" style="font-size: 2.5rem; color: #10b981;"></i>
+                                </div>
+                                <h5 style="color: #10b981; margin: 0 0 0.5rem 0; text-align: center;">Groundedness</h5>
+                                <p
+                                    style="font-size: 0.75rem; color: #cbd5e1; text-align: center; margin: 0.5rem 0 1rem 0;">
+                                    Factual accuracy - does the response cite actual document content?</p>
+                                <div
+                                    style="text-align: center; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                    <p style="font-size: 1.8rem; color: #10b981; font-weight: 800; margin: 0;">92%</p>
+                                    <p style="font-size: 0.7rem; color: #94a3b8; margin: 0.3rem 0 0 0;">Grounded Score
+                                    </p>
+                                </div>
+                            </div>
+                            <div
+                                style="background: rgba(59, 130, 246, 0.1); padding: 1.5rem; border-radius: 12px; border-top: 3px solid #3b82f6;">
+                                <div style="text-align: center; margin-bottom: 1rem;">
+                                    <i class="fas fa-bullseye" style="font-size: 2.5rem; color: #3b82f6;"></i>
+                                </div>
+                                <h5 style="color: #3b82f6; margin: 0 0 0.5rem 0; text-align: center;">Relevance</h5>
+                                <p
+                                    style="font-size: 0.75rem; color: #cbd5e1; text-align: center; margin: 0.5rem 0 1rem 0;">
+                                    Context quality - is the retrieved information relevant to the query?</p>
+                                <div
+                                    style="text-align: center; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                    <p style="font-size: 1.8rem; color: #3b82f6; font-weight: 800; margin: 0;">89%</p>
+                                    <p style="font-size: 0.7rem; color: #94a3b8; margin: 0.3rem 0 0 0;">Relevance Score
+                                    </p>
+                                </div>
+                            </div>
+                            <div
+                                style="background: rgba(168, 85, 247, 0.1); padding: 1.5rem; border-radius: 12px; border-top: 3px solid #a855f7;">
+                                <div style="text-align: center; margin-bottom: 1rem;">
+                                    <i class="fas fa-comments" style="font-size: 2.5rem; color: #a855f7;"></i>
+                                </div>
+                                <h5 style="color: #a855f7; margin: 0 0 0.5rem 0; text-align: center;">Coherence</h5>
+                                <p
+                                    style="font-size: 0.75rem; color: #cbd5e1; text-align: center; margin: 0.5rem 0 1rem 0;">
+                                    Response quality - is the answer well-structured and readable?</p>
+                                <div
+                                    style="text-align: center; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                    <p style="font-size: 1.8rem; color: #a855f7; font-weight: 800; margin: 0;">94%</p>
+                                    <p style="font-size: 0.7rem; color: #94a3b8; margin: 0.3rem 0 0 0;">Coherence Score
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            style="margin-top: 2rem; background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                            <h5 style="color: #fff; margin: 0 0 0.5rem 0; font-size: 0.9rem;"><i
+                                    class="fas fa-sync-alt"></i> Continuous Testing</h5>
+                            <p style="font-size: 0.8rem; color: #94a3b8; margin: 0;">Automated evaluation runs on every
+                                Prompt Flow deployment to ensure quality regressions are caught before production.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Identity & Access Management -->
+        <section class="slide" id="slide-8">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">Identity & Access Management</h2>
+                    <span class="slide-number">07</span>
+                </div>
+                <div class="slide-grid">
+                    <div>
+                        <h4 style="color: #fb923c; margin-top: 0;"><i class="fas fa-user-shield"></i> Microsoft Entra ID
+                            Integration</h4>
+                        <p style="font-size: 0.9rem; color: #cbd5e1;">Enforced Microsoft Entra ID for both control plane
+                            (deployments) and data plane (chat access). All authentication is identity-based with zero
+                            secrets in code.</p>
+                        <ul style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.8; margin-top: 1rem;">
+                            <li><strong>Control Plane:</strong> Azure RBAC for resource deployments and configuration
+                            </li>
+                            <li><strong>Data Plane:</strong> Entra ID authentication for chat UI access</li>
+                            <li><strong>Managed Identities:</strong> System-Assigned MI for App Service → Azure
+                                OpenAI/AI Search</li>
+                            <li><strong>Zero Secrets:</strong> No connection strings, API keys, or passwords in
+                                code/config</li>
+                        </ul>
+                        <div
+                            style="background: rgba(251, 146, 60, 0.05); padding: 1rem; border-radius: 8px; margin-top: 1.5rem; border: 1px solid rgba(251, 146, 60, 0.2);">
+                            <h5 style="color: #fff; margin: 0 0 0.5rem 0; font-size: 0.9rem;"><i class="fas fa-key"></i>
+                                Passwordless Authentication</h5>
+                            <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">Managed Identities eliminate the
+                                need for credential rotation and secret management.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 style="color: #fff; margin-top: 0;"><i class="fas fa-lock"></i> RBAC & Audit</h4>
+                        <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                            <div
+                                style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px; border-left: 3px solid #fb923c;">
+                                <strong style="color: #fb923c; font-size: 0.9rem;">Cognitive Services User</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">App Service MI
+                                    granted read access to Azure OpenAI</p>
+                            </div>
+                            <div
+                                style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px; border-left: 3px solid #fb923c;">
+                                <strong style="color: #fb923c; font-size: 0.9rem;">Search Index Data Reader</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">App Service MI
+                                    granted query access to AI Search</p>
+                            </div>
+                            <div
+                                style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px; border-left: 3px solid #fb923c;">
+                                <strong style="color: #fb923c; font-size: 0.9rem;">Audit Logs</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">Full audit trail of
+                                    who accessed what data and when</p>
+                            </div>
+                        </div>
+                        <div
+                            style="margin-top: 1.5rem; text-align: center; padding: 1.5rem; background: rgba(251, 146, 60, 0.1); border-radius: 8px;">
+                            <p style="font-size: 1.5rem; color: #fb923c; font-weight: 800; margin: 0;">0 Secrets</p>
+                            <p style="font-size: 0.8rem; color: #94a3b8; margin: 0.3rem 0 0 0;">in Code, Config, or
+                                Environment Variables</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 9: Safety Rails & Content Filtering -->
+        <section class="slide" id="slide-9">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">Safety Rails & Content Filtering</h2>
+                    <span class="slide-number">08</span>
+                </div>
+                <div class="slide-grid">
+                    <div>
+                        <h4 style="color: #ef4444; margin-top: 0;"><i class="fas fa-shield-alt"></i> Azure AI Content
+                            Safety</h4>
+                        <p style="font-size: 0.9rem; color: #cbd5e1;">Configured Azure AI Content Safety filters to
+                            block jailbreak attempts and harmful content, ensuring the AI adheres to Responsible AI
+                            principles.</p>
+                        <ul style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.8; margin-top: 1rem;">
+                            <li><strong>Jailbreak Detection:</strong> Identify and block prompt injection attacks</li>
+                            <li><strong>Harmful Content:</strong> Filter violence, hate speech, sexual content, and
+                                self-harm</li>
+                            <li><strong>Protected Material:</strong> Detect and block copyrighted or protected content
+                            </li>
+                            <li><strong>Groundedness Check:</strong> Ensure responses are grounded in retrieved
+                                documents</li>
+                        </ul>
+                        <div
+                            style="background: rgba(239, 68, 68, 0.05); padding: 1rem; border-radius: 8px; margin-top: 1.5rem; border: 1px solid rgba(239, 68, 68, 0.2);">
+                            <h5 style="color: #fff; margin: 0 0 0.5rem 0; font-size: 0.9rem;"><i
+                                    class="fas fa-exclamation-triangle"></i> Responsible AI Standard v2</h5>
+                            <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">All safety filters configured to
+                                meet Microsoft's Responsible AI Standard v2 requirements.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 style="color: #fff; margin-top: 0;"><i class="fas fa-filter"></i> Content Safety Metrics
+                        </h4>
+                        <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <strong style="color: #ef4444; font-size: 0.9rem;">Jailbreak Attempts Blocked</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">100% detection rate
+                                    for known jailbreak patterns</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <strong style="color: #ef4444; font-size: 0.9rem;">Harmful Content Filtered</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">Severity thresholds
+                                    set to "Medium" for all categories</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <strong style="color: #ef4444; font-size: 0.9rem;">Compliance Validation</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">Passed Responsible
+                                    AI Standard v2 audit</p>
+                            </div>
+                        </div>
+                        <div
+                            style="margin-top: 1.5rem; text-align: center; padding: 1.5rem; background: rgba(239, 68, 68, 0.1); border-radius: 8px;">
+                            <p style="font-size: 1.5rem; color: #ef4444; font-weight: 800; margin: 0;">Responsible AI
+                            </p>
+                            <p style="font-size: 0.8rem; color: #94a3b8; margin: 0.3rem 0 0 0;">Compliant with Microsoft
+                                Standard v2</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 10: Cost Optimization -->
+        <section class="slide" id="slide-10">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">Cost Optimization</h2>
+                    <span class="slide-number">09</span>
+                </div>
+                <div class="slide-grid">
+                    <div>
+                        <h4 style="color: #fbbf24; margin-top: 0;"><i class="fas fa-dollar-sign"></i> Smart Chunking
+                            Strategy</h4>
+                        <p style="font-size: 0.9rem; color: #cbd5e1;">Mitigated high inference costs by implementing a
+                            "Smart Chunking" strategy during document ingestion. Optimized chunk size balances context
+                            quality with token efficiency.</p>
+                        <ul style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.8; margin-top: 1rem;">
+                            <li><strong>Chunk Size:</strong> 500 tokens per chunk (optimal for GPT-4o context window)
+                            </li>
+                            <li><strong>Overlap:</strong> 50-token overlap to preserve context across boundaries</li>
+                            <li><strong>Metadata:</strong> Preserve document metadata (title, author, date) for
+                                filtering</li>
+                        </ul>
+                        <h4 style="color: #06b6d4; margin-top: 2rem;"><i class="fas fa-database"></i> Semantic Caching
+                            (APIM)</h4>
+                        <p style="font-size: 0.9rem; color: #cbd5e1;">Implemented semantic caching via Azure API
+                            Management to serve frequent queries from cache, reducing backend model calls.</p>
+                        <ul style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.8; margin-top: 1rem;">
+                            <li><strong>Cache Hit Rate:</strong> ~40% of queries served from cache</li>
+                            <li><strong>TTL:</strong> 1-hour cache expiration for freshness</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: #fff; margin-top: 0;"><i class="fas fa-chart-line"></i> Cost Savings</h4>
+                        <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                            <div
+                                style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px; border-left: 3px solid #fbbf24;">
+                                <strong style="color: #fbbf24; font-size: 0.9rem;">Smart Chunking</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">Reduced avg tokens
+                                    per query by 20%</p>
+                            </div>
+                            <div
+                                style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px; border-left: 3px solid #06b6d4;">
+                                <strong style="color: #06b6d4; font-size: 0.9rem;">Semantic Caching</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">40% cache hit rate
+                                    → 40% fewer model calls</p>
+                            </div>
+                            <div
+                                style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px; border-left: 3px solid #10b981;">
+                                <strong style="color: #10b981; font-size: 0.9rem;">Combined Savings</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">~30% reduction in
+                                    total inference costs</p>
+                            </div>
+                        </div>
+                        <div
+                            style="margin-top: 1.5rem; text-align: center; padding: 1.5rem; background: rgba(251, 191, 36, 0.1); border-radius: 8px;">
+                            <p style="font-size: 2rem; color: #fbbf24; font-weight: 800; margin: 0;">30%</p>
+                            <p style="font-size: 0.8rem; color: #94a3b8; margin: 0.3rem 0 0 0;">Reduction in Backend
+                                Model Calls</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 11: Reference Architecture & Resources -->
+        <section class="slide" id="slide-11">
+            <div class="slide-content animate-in" style="border-color: rgba(168, 85, 247, 0.3);">
+                <div class="slide-header">
+                    <h2 class="slide-title" style="color: #a855f7;">Reference Architecture & Resources</h2>
+                    <span class="slide-number" style="color: #a855f7;">10</span>
+                </div>
+                <div class="slide-grid" style="grid-template-columns: 1fr 1fr; gap: 3rem;">
+                    <div>
+                        <h4 style="color: #fff;"><i class="fas fa-book"></i> Architecture & Design</h4>
+                        <ul style="list-style: none; padding: 0; color: #94a3b8; font-size: 0.85rem;">
+                            <li style="margin-bottom: 1rem;">
+                                <a href="https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/rag/rag-solution-design-and-evaluation-guide"
+                                    target="_blank" style="color: #38bdf8; text-decoration: none; font-weight: 600;">RAG
+                                    Solution Design & Evaluation Guide</a><br>
+                                Methodology for grounding and evaluation
+                            </li>
+                            <li style="margin-bottom: 1rem;">
+                                <a href="https://learn.microsoft.com/en-us/azure/architecture/ai-ml/" target="_blank"
+                                    style="color: #38bdf8; text-decoration: none; font-weight: 600;">AI Architecture
+                                    Center</a><br>
+                                GenAI & RAG patterns hub
+                            </li>
+                        </ul>
+                        <h4 style="color: #fff; margin-top: 2rem;"><i class="fas fa-network-wired"></i> Networking &
+                            Security</h4>
+                        <ul style="list-style: none; padding: 0; color: #94a3b8; font-size: 0.85rem;">
+                            <li style="margin-bottom: 1rem;">
+                                <a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/use-web-app"
+                                    target="_blank"
+                                    style="color: #38bdf8; text-decoration: none; font-weight: 600;">Secure Azure OpenAI
+                                    with Private Networking</a><br>
+                                VNet + Private Endpoint configuration
+                            </li>
+                            <li>
+                                <a href="https://learn.microsoft.com/en-us/azure/search/search-indexer-howto-access-private"
+                                    target="_blank"
+                                    style="color: #38bdf8; text-decoration: none; font-weight: 600;">Connect Indexers to
+                                    Data Privately</a><br>
+                                Shared Private Links for indexers
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: #fff;"><i class="fas fa-cogs"></i> Engineering & LLMOps</h4>
+                        <ul style="list-style: none; padding: 0; color: #94a3b8; font-size: 0.85rem;">
+                            <li style="margin-bottom: 1rem;">
+                                <a href="https://learn.microsoft.com/en-us/azure/ai-studio/concepts/prompt-flow"
+                                    target="_blank"
+                                    style="color: #10b981; text-decoration: none; font-weight: 600;">Prompt Flow
+                                    Concepts</a><br>
+                                Build, evaluate, deploy, and monitor flows
+                            </li>
+                            <li>
+                                <a href="https://learn.microsoft.com/en-us/azure/search/vector-search-overview"
+                                    target="_blank"
+                                    style="color: #10b981; text-decoration: none; font-weight: 600;">Vector Search
+                                    Overview</a><br>
+                                Enterprise RAG retrieval concepts
+                            </li>
+                        </ul>
+                        <h4 style="color: #fff; margin-top: 2rem;"><i class="fas fa-code-branch"></i> Reference
+                            Implementations</h4>
+                        <ul style="list-style: none; padding: 0; color: #94a3b8; font-size: 0.85rem;">
+                            <li style="margin-bottom: 1rem;">
+                                <a href="https://github.com/Azure-Samples/azure-search-openai-demo" target="_blank"
+                                    style="color: #fbbf24; text-decoration: none; font-weight: 600;">Azure Search +
+                                    Azure OpenAI Demo</a><br>
+                                Baseline "Chat with your data" reference app
+                            </li>
+                            <li>
+                                <a href="https://github.com/Azure-Samples/chat-with-your-data-solution-accelerator"
+                                    target="_blank"
+                                    style="color: #fbbf24; text-decoration: none; font-weight: 600;">Chat with Your Data
+                                    Solution Accelerator</a><br>
+                                Production-leaning accelerator
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 12: Recap & Impact -->
+        <section class="slide" id="slide-12">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">Recap & Impact</h2>
+                    <span class="slide-number">11</span>
+                </div>
+                <div style="text-align: center; margin-bottom: 3rem;">
+                    <p style="font-size: 1.5rem; color: #cbd5e1; max-width: 800px; margin: 0 auto;">"By implementing a
+                        Zero-Trust RAG architecture with Azure AI Foundry, we transformed a CISO-blocked initiative into
+                        a production-ready, compliant GenAI platform that democratizes knowledge access while
+                        maintaining enterprise security standards."</p>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center;">
+                    <div>
+                        <i class="fas fa-shield-alt"
+                            style="font-size: 2.5rem; color: #10b981; margin-bottom: 1rem;"></i>
+                        <h3 style="color: #fff; margin:0;">100%</h3>
+                        <p style="font-size: 0.9rem; color: #94a3b8;">Network Isolation</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-dollar-sign"
+                            style="font-size: 2.5rem; color: #fbbf24; margin-bottom: 1rem;"></i>
+                        <h3 style="color: #fff; margin:0;">30%</h3>
+                        <p style="font-size: 0.9rem; color: #94a3b8;">Cost Reduction</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-check-circle"
+                            style="font-size: 2.5rem; color: #a855f7; margin-bottom: 1rem;"></i>
+                        <h3 style="color: #fff; margin:0;">92%</h3>
+                        <p style="font-size: 0.9rem; color: #94a3b8;">Groundedness Score</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-award" style="font-size: 2.5rem; color: #ef4444; margin-bottom: 1rem;"></i>
+                        <h3 style="color: #fff; margin:0;">Compliant</h3>
+                        <p style="font-size: 0.9rem; color: #94a3b8;">Responsible AI v2</p>
+                    </div>
+                </div>
+                <div style="margin-top: 4rem; text-align: center;">
+                    <a href="../pages/projects.html"
+                        style="display: inline-block; padding: 1rem 3rem; background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%); color: #fff; text-decoration: none; border: none; border-radius: 50px; font-weight: 800; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4); transition: transform 0.2s;">View
+                        Full Portfolio</a>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Navigation Dots -->
+    <div class="deck-nav">
+        <a href="#slide-1" class="deck-btn"><i class="fas fa-arrow-up"></i></a>
+        <a href="#slide-12" class="deck-btn"><i class="fas fa-arrow-down"></i></a>
+    </div>
+
+</body>
+
+</html>

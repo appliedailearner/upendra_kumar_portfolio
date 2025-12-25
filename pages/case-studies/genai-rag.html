@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Case Study: Secure Enterprise GenAI Knowledge Platform (RAG) - Upendra Kumar">
+    <title>Case Study: Secure GenAI RAG Platform | Upendra Kumar</title>
+    <link rel="stylesheet" href="../../css/style.css?v=11">
+    <link rel="stylesheet" href="../../css/premium.css?v=11">
+    <style>
+        .nav-logo-uk {
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+            border-radius: 8px !important;
+        }
+    </style>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        /* Case Study Specific Styles */
+        .case-study-hero {
+            padding: 120px 0 60px;
+            background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.15), transparent 60%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .case-study-title {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .case-study-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 2rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meta-item i {
+            color: var(--primary-color);
+        }
+
+        .case-study-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 4rem;
+            margin-top: 4rem;
+        }
+
+        /* Sticky TOC */
+        .sticky-toc {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .sticky-toc h4 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-list li {
+            margin-bottom: 0.8rem;
+        }
+
+        .toc-list a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            display: block;
+            padding: 0.3rem 0;
+            border-left: 2px solid transparent;
+            padding-left: 1rem;
+        }
+
+        .toc-list a:hover {
+            color: var(--primary-color);
+            border-left-color: var(--primary-color);
+        }
+
+        /* Content Sections */
+        .content-section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 100px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            border-bottom: 2px solid rgba(168, 85, 247, 0.3);
+            padding-bottom: 0.5rem;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .tech-callout {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border-left: 4px solid #a855f7;
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 2rem 0;
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .metric-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Mermaid Diagram */
+        .mermaid {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin: 2rem 0;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .case-study-layout {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .sticky-toc {
+                position: relative;
+                top: 0;
+            }
+
+            .case-study-title {
+                font-size: 2.5rem;
+            }
+
+            .case-study-meta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="../../index.html" class="nav-logo">
+                <div class="nav-logo-uk">UK</div>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../projects.html" class="active">Projects</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="case-study-hero">
+        <div class="container" style="max-width: 1200px;">
+            <div style="margin-bottom: 1rem;">
+                <a href="../projects.html"
+                    style="color: var(--primary-color); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-arrow-left"></i> Back to Projects
+                </a>
+            </div>
+            <h1 class="case-study-title">Secure Enterprise GenAI Knowledge Platform (RAG)</h1>
+            <p style="font-size: 1.3rem; color: var(--text-secondary); max-width: 800px;">Zero-Trust RAG Architecture
+                for Regulated Enterprises</p>
+
+            <div class="case-study-meta">
+                <div class="meta-item">
+                    <i class="fas fa-user-tie"></i>
+                    <span><strong>Role:</strong> Lead Azure Cloud Architect</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span><strong>Timeline:</strong> 12 weeks</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                    <span><strong>Status:</strong> Production – Architecture Validated & Deployed</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container" style="max-width: 1200px;">
+        <div class="case-study-layout">
+
+            <!-- Sticky Table of Contents -->
+            <aside class="sticky-toc">
+                <h4>Table of Contents</h4>
+                <ul class="toc-list">
+                    <li><a href="#snapshot">Project Snapshot</a></li>
+                    <li><a href="#challenge">Business Challenge</a></li>
+                    <li><a href="#strategy">Architectural Strategy</a></li>
+                    <li><a href="#decisions">Key Decisions</a></li>
+                    <li><a href="#challenges">Challenges Solved</a></li>
+                    <li><a href="#architecture">Architecture Diagram</a></li>
+                    <li><a href="#techstack">Tech Stack</a></li>
+                    <li><a href="#references">Reference Library</a></li>
+                </ul>
+            </aside>
+
+            <!-- Main Content -->
+            <main>
+
+                <!-- Project Snapshot -->
+                <section id="snapshot" class="content-section">
+                    <h2 class="section-title">Project Snapshot</h2>
+                    <div class="metric-grid">
+                        <div class="metric-card">
+                            <div class="metric-value">12 weeks</div>
+                            <div class="metric-label">Design → Deploy → Validate</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">5</div>
+                            <div class="metric-label">Team Members</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">100%</div>
+                            <div class="metric-label">Network Isolation</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">30%</div>
+                            <div class="metric-label">Cost Reduction</div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3 style="color: #a855f7; margin-top: 0;"><i class="fas fa-users"></i> Team Composition</h3>
+                        <ul style="color: var(--text-secondary); line-height: 1.8;">
+                            <li><strong>1 Cloud Architect:</strong> Overall architecture design and security compliance
+                            </li>
+                            <li><strong>2 AI Engineers:</strong> Prompt Flow development and evaluation pipelines</li>
+                            <li><strong>1 Security Engineer:</strong> Zero Trust networking and identity management</li>
+                            <li><strong>1 DevOps Engineer:</strong> IaC deployment (Terraform/Bicep) and CI/CD</li>
+                        </ul>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3 style="color: #3b82f6; margin-top: 0;"><i class="fas fa-layer-group"></i> Scope</h3>
+                        <ul style="color: var(--text-secondary); line-height: 1.8;">
+                            <li>Azure AI Foundry hub and project setup</li>
+                            <li>Azure OpenAI (GPT-4o) deployment with private networking</li>
+                            <li>Azure AI Search with vector + semantic ranking capabilities</li>
+                            <li>Hub-and-Spoke VNet topology with Private Endpoints</li>
+                            <li>Automated evaluation pipelines (Groundedness, Relevance, Coherence)</li>
+                            <li>Identity-first security (Entra ID + Managed Identities)</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Business Challenge -->
+                <section id="challenge" class="content-section">
+                    <h2 class="section-title">The Business Challenge</h2>
+                    <div class="tech-callout">
+                        <h3 style="color: #ef4444; margin-top: 0;"><i class="fas fa-exclamation-triangle"></i>
+                            CISO-Blocked "Shadow AI" Initiative</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 1rem;">A regulated enterprise client
+                            required a Generative AI solution to democratize access to internal knowledge bases.
+                            However, the initiative was previously blocked by the CISO due to critical "Shadow AI"
+                            risks:</p>
+                        <ul style="color: var(--text-secondary); line-height: 1.8;">
+                            <li><strong>Public Data Leakage:</strong> Risk of sensitive corporate data being sent to
+                                public LLM endpoints</li>
+                            <li><strong>Lack of Determinism (Hallucinations):</strong> AI generating false information
+                                not grounded in company documents</li>
+                            <li><strong>No Audit Trail:</strong> Inability to track who accessed what information and
+                                when</li>
+                            <li><strong>Compliance Gap:</strong> Failure to meet Microsoft's Responsible AI Standard v2
+                                requirements</li>
+                        </ul>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3 style="color: #10b981; margin-top: 0;"><i class="fas fa-bullseye"></i> Business Goal</h3>
+                        <p style="color: var(--text-secondary);">Operationalize a "Chat with Your Data" solution that
+                            adheres to enterprise security standards while enabling employees to query internal
+                            knowledge bases using natural language. The solution must satisfy the CISO's requirements
+                            for private networking, deterministic responses, and full auditability.</p>
+                    </div>
+                </section>
+
+                <!-- Architectural Strategy -->
+                <section id="strategy" class="content-section">
+                    <h2 class="section-title">Architectural Strategy</h2>
+                    <div class="glass-card">
+                        <h3 style="color: #a855f7; margin-top: 0;"><i class="fas fa-shield-alt"></i> Zero-Trust RAG
+                            Design</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">I designed a Zero-Trust RAG
+                            (Retrieval-Augmented Generation) architecture tailored for strict compliance. The solution
+                            moves beyond simple "chat" to a managed AI Foundry workflow, prioritizing automated
+                            evaluation, private connectivity, and identity-based access over public convenience.</p>
+
+                        <h4 style="color: #fff; margin-top: 2rem;">Core Principles</h4>
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1rem;">
+                            <div
+                                style="background: rgba(168, 85, 247, 0.05); padding: 1.5rem; border-radius: 8px; border-left: 3px solid #a855f7;">
+                                <h5 style="color: #a855f7; margin: 0 0 0.5rem 0;">Private by Default</h5>
+                                <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">All communication via
+                                    Private Endpoints. Zero public internet traffic.</p>
+                            </div>
+                            <div
+                                style="background: rgba(59, 130, 246, 0.05); padding: 1.5rem; border-radius: 8px; border-left: 3px solid #3b82f6;">
+                                <h5 style="color: #3b82f6; margin: 0 0 0.5rem 0;">Automated Evaluation</h5>
+                                <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">Continuous testing
+                                    for groundedness, relevance, and coherence.</p>
+                            </div>
+                            <div
+                                style="background: rgba(16, 185, 129, 0.05); padding: 1.5rem; border-radius: 8px; border-left: 3px solid #10b981;">
+                                <h5 style="color: #10b981; margin: 0 0 0.5rem 0;">Identity-First</h5>
+                                <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">Entra ID + Managed
+                                    Identities for all authentication.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Key Architectural Decisions -->
+                <section id="decisions" class="content-section">
+                    <h2 class="section-title">Key Architectural Decisions</h2>
+
+                    <!-- Private Networking -->
+                    <div class="glass-card">
+                        <h3 style="color: #38bdf8; margin-top: 0;"><i class="fas fa-network-wired"></i> Private
+                            Networking & Data Sovereignty</h3>
+                        <ul style="color: var(--text-secondary); line-height: 1.8;">
+                            <li><strong>Hub-and-Spoke Topology:</strong> The AI workload resides in a dedicated Spoke
+                                VNet, peered with the corporate Hub (Azure Firewall).</li>
+                            <li><strong>Traffic Isolation:</strong> All communication between the Web App, Azure OpenAI,
+                                and AI Search occurs via Private Endpoints, ensuring zero traffic traverses the public
+                                internet.</li>
+                            <li><strong>Secure Ingestion:</strong> Implemented Shared Private Links for Azure AI Search,
+                                allowing the indexers to connect securely to Storage Accounts (Data Sources) without
+                                exposing them publicly.</li>
+                        </ul>
+                    </div>
+
+                    <!-- GenAI Engineering -->
+                    <div class="glass-card">
+                        <h3 style="color: #a855f7; margin-top: 0;"><i class="fas fa-robot"></i> GenAI Engineering &
+                            LLMOps</h3>
+                        <ul style="color: var(--text-secondary); line-height: 1.8;">
+                            <li><strong>Orchestration:</strong> Utilized Azure AI Prompt Flow to build, test, and deploy
+                                the retrieval logic.</li>
+                            <li><strong>Automated Evaluation:</strong> Implemented testing pipelines to measure
+                                "Groundedness," "Relevance," and "Coherence," ensuring the model does not hallucinate
+                                facts outside the provided documents.</li>
+                            <li><strong>Safety Rails:</strong> Configured Azure AI Content Safety filters to block
+                                jailbreak attempts and harmful content.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Identity-First Security -->
+                    <div class="glass-card">
+                        <h3 style="color: #fb923c; margin-top: 0;"><i class="fas fa-user-shield"></i> Identity-First
+                            Security</h3>
+                        <ul style="color: var(--text-secondary); line-height: 1.8;">
+                            <li><strong>RBAC & Entra ID:</strong> Enforced Microsoft Entra ID for both control plane
+                                (deployments) and data plane (chat access).</li>
+                            <li><strong>Managed Identities:</strong> Eliminated connection strings and API keys from the
+                                application code by using System-Assigned Managed Identities for all service-to-service
+                                authentication.</li>
+                            <li><strong>Zero Secrets:</strong> No credentials stored in code, configuration files, or
+                                environment variables.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Challenges Solved -->
+                <section id="challenges" class="content-section">
+                    <h2 class="section-title">Challenges Solved</h2>
+                    <div
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                        <div class="glass-card">
+                            <h3 style="color: #10b981; margin-top: 0;"><i class="fas fa-check-circle"></i> Security
+                                Compliance</h3>
+                            <p style="color: var(--text-secondary);">Achieved 100% network isolation, satisfying the
+                                CISO's requirement for "Private Networking with Azure OpenAI." All data remains within
+                                the corporate network perimeter.</p>
+                        </div>
+                        <div class="glass-card">
+                            <h3 style="color: #fbbf24; margin-top: 0;"><i class="fas fa-dollar-sign"></i> Cost & Token
+                                Optimization</h3>
+                            <p style="color: var(--text-secondary);">Mitigated high inference costs by implementing a
+                                "Smart Chunking" strategy during ingestion. Combined this with Semantic Caching (via
+                                APIM) to serve frequent queries from cache, reducing backend model calls by ~30%.</p>
+                        </div>
+                        <div class="glass-card">
+                            <h3 style="color: #ef4444; margin-top: 0;"><i class="fas fa-exclamation-triangle"></i>
+                                Hallucination Control</h3>
+                            <p style="color: var(--text-secondary);">Reduced hallucination rates significantly by
+                                utilizing Semantic Ranking in Azure AI Search to prioritize the most relevant context
+                                before feeding it to GPT-4o.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Architecture Diagram -->
+                <section id="architecture" class="content-section">
+                    <h2 class="section-title">Architecture Diagram</h2>
+                    <div class="mermaid">
+                        graph TD
+                        subgraph "Hub VNet (Shared Services)"
+                        FW[Azure Firewall]
+                        Bastion[Bastion Host]
+                        end
+
+                        subgraph "Spoke VNet (AI Workload)"
+                        subgraph "App Subnet"
+                        WebApp[Azure App Service<br />(Chat UI)]
+                        end
+
+                        subgraph "Private Link Subnet"
+                        PE_OAI[Private Endpoint:<br />Azure OpenAI]
+                        PE_Search[Private Endpoint:<br />AI Search]
+                        PE_Storage[Private Endpoint:<br />Storage Blob]
+                        end
+                        end
+
+                        User[Corp User] -->|HTTPS/VPN| WAF[App Gateway WAF]
+                        WAF -->|VNET Integration| WebApp
+                        WebApp -->|Managed Identity| PE_OAI
+                        WebApp -->|Managed Identity| PE_Search
+
+                        PE_Search -.->|Shared Private Link| PE_Storage
+
+                        FW <-->|Peering| WebApp
+
+                            style WebApp fill:#d6eaff,stroke:#0055a6
+                            style PE_OAI fill:#fff4d6,stroke:#f08c00
+                            style PE_Search fill:#fff4d6,stroke:#f08c00
+                            style FW fill:#ffe6cc,stroke:#d9534f
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; text-align: center; margin-top: 1rem;">
+                        <em>Hub-and-Spoke topology with Private Endpoints for Azure OpenAI, AI Search, and Storage. All
+                            traffic flows through the corporate network.</em>
+                    </p>
+                </section>
+
+                <!-- Tech Stack -->
+                <section id="techstack" class="content-section">
+                    <h2 class="section-title">Tech Stack</h2>
+                    <div class="glass-card">
+                        <h3 style="color: #a855f7; margin-top: 0;"><i class="fas fa-brain"></i> Core AI</h3>
+                        <ul style="color: var(--text-secondary); line-height: 1.8;">
+                            <li><strong>Azure AI Foundry:</strong> Centralized hub for AI project management and
+                                deployment</li>
+                            <li><strong>Azure OpenAI (GPT-4o):</strong> Large language model for natural language
+                                understanding and generation</li>
+                            <li><strong>Azure AI Search:</strong> Vector search + Semantic Ranker for retrieval</li>
+                        </ul>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3 style="color: #38bdf8; margin-top: 0;"><i class="fas fa-server"></i> Compute & Network</h3>
+                        <ul style="color: var(--text-secondary); line-height: 1.8;">
+                            <li><strong>Azure App Service:</strong> VNET-integrated web app for chat UI</li>
+                            <li><strong>Azure Private Link:</strong> Private Endpoints for all PaaS services</li>
+                            <li><strong>Application Gateway (WAF v2):</strong> Web Application Firewall for edge
+                                protection</li>
+                        </ul>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3 style="color: #ef4444; margin-top: 0;"><i class="fas fa-shield-alt"></i> Security</h3>
+                        <ul style="color: var(--text-secondary); line-height: 1.8;">
+                            <li><strong>Defender for Cloud:</strong> GenAI threat detection and security posture
+                                management</li>
+                            <li><strong>Azure Key Vault:</strong> Secrets management (though minimized via Managed
+                                Identities)</li>
+                            <li><strong>Azure Policy:</strong> Governance and compliance enforcement</li>
+                        </ul>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3 style="color: #10b981; margin-top: 0;"><i class="fas fa-code"></i> Infrastructure as Code
+                        </h3>
+                        <ul style="color: var(--text-secondary); line-height: 1.8;">
+                            <li><strong>Terraform:</strong> Multi-cloud IaC for network and compute resources</li>
+                            <li><strong>Bicep:</strong> Azure-native IaC for AI services and Private Endpoints</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Reference Library -->
+                <section id="references" class="content-section">
+                    <h2 class="section-title">Reference Library</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 2rem;">The design and implementation of this
+                        platform adhered to the following Microsoft architectural patterns and standards.</p>
+
+                    <div class="glass-card">
+                        <h3 style="color: #a855f7; margin-top: 0;"><i class="fas fa-book"></i> Architecture & Design
+                            Patterns</h3>
+                        <ul style="color: var(--text-secondary); line-height: 2;">
+                            <li><a href="https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/rag/rag-solution-design-and-evaluation-guide"
+                                    target="_blank" style="color: #38bdf8; text-decoration: none;">RAG Solution Design &
+                                    Evaluation Guide</a> - Methodology for grounding and evaluation</li>
+                            <li><a href="https://learn.microsoft.com/en-us/azure/architecture/ai-ml/" target="_blank"
+                                    style="color: #38bdf8; text-decoration: none;">AI Architecture Center</a> - GenAI &
+                                RAG patterns hub</li>
+                        </ul>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3 style="color: #38bdf8; margin-top: 0;"><i class="fas fa-network-wired"></i> Networking &
+                            Security (Zero Trust)</h3>
+                        <ul style="color: var(--text-secondary); line-height: 2;">
+                            <li><a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/use-web-app"
+                                    target="_blank" style="color: #38bdf8; text-decoration: none;">Secure Azure OpenAI
+                                    with Private Networking</a> - VNet + Private Endpoint configuration</li>
+                            <li><a href="https://learn.microsoft.com/en-us/azure/search/search-indexer-howto-access-private"
+                                    target="_blank" style="color: #38bdf8; text-decoration: none;">Connect Indexers to
+                                    Data Privately</a> - Using Shared Private Links for outbound indexer traffic</li>
+                        </ul>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3 style="color: #10b981; margin-top: 0;"><i class="fas fa-cogs"></i> Engineering & LLMOps
+                            (Prompt Flow)</h3>
+                        <ul style="color: var(--text-secondary); line-height: 2;">
+                            <li><a href="https://learn.microsoft.com/en-us/azure/ai-studio/concepts/prompt-flow"
+                                    target="_blank" style="color: #38bdf8; text-decoration: none;">Prompt Flow
+                                    Concepts</a> - Build, evaluate, deploy, and monitor flows</li>
+                            <li><a href="https://learn.microsoft.com/en-us/azure/search/vector-search-overview"
+                                    target="_blank" style="color: #38bdf8; text-decoration: none;">Vector Search
+                                    Overview</a> - Core concepts of enterprise RAG retrieval</li>
+                        </ul>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3 style="color: #fbbf24; margin-top: 0;"><i class="fas fa-code-branch"></i> Reference
+                            Implementations</h3>
+                        <ul style="color: var(--text-secondary); line-height: 2;">
+                            <li><a href="https://github.com/Azure-Samples/azure-search-openai-demo" target="_blank"
+                                    style="color: #38bdf8; text-decoration: none;">Azure Search + Azure OpenAI Demo</a>
+                                - The baseline "Chat with your data" reference app</li>
+                            <li><a href="https://github.com/Azure-Samples/chat-with-your-data-solution-accelerator"
+                                    target="_blank" style="color: #38bdf8; text-decoration: none;">Chat with Your Data
+                                    Solution Accelerator</a> - Production-leaning accelerator</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Back to Projects -->
+                <div style="text-align: center; margin: 4rem 0;">
+                    <a href="../projects.html" class="cta-button"
+                        style="display: inline-block; padding: 1rem 2rem; background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%); color: white; text-decoration: none; border-radius: 50px; font-weight: 600; box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);">
+                        <i class="fas fa-arrow-left"></i> Back to Projects
+                    </a>
+                </div>
+
+            </main>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer
+        style="margin-top: 6rem; padding: 2rem 0; border-top: 1px solid rgba(255, 255, 255, 0.05); text-align: center; color: var(--text-muted);">
+        <p>&copy; 2024 Upendra Kumar. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            themeVariables: {
+                primaryColor: '#a855f7',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#3b82f6',
+                lineColor: '#94a3b8',
+                secondaryColor: '#3b82f6',
+                tertiaryColor: '#10b981'
+            }
+        });
+
+        // Smooth scroll for TOC links
+        document.querySelectorAll('.toc-list a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+    </script>
+
+</body>
+
+</html>
