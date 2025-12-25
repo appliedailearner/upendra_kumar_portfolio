@@ -297,14 +297,29 @@ body::before {
     display: none;
     flex-direction: column;
     cursor: pointer;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1002;
+}
+
+.hamburger:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
 }
 
 .hamburger span {
-    width: 25px;
+    width: 28px;
     height: 3px;
-    background: var(--text-dark);
-    margin: 3px 0;
-    transition: 0.3s;
+    background: #ffffff;
+    margin: 4px 0;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 /* Accessibility Skip Link */
@@ -999,6 +1014,13 @@ body::before {
     .hamburger {
         display: flex;
         z-index: 1002;
+        /* Enhanced visibility on mobile */
+        background: rgba(124, 58, 237, 0.2);
+        border-color: rgba(124, 58, 237, 0.4);
+    }
+
+    .hamburger:active {
+        transform: scale(0.95);
     }
 
     .nav-menu {
