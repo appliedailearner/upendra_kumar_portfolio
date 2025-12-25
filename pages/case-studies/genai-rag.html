@@ -660,12 +660,43 @@
             });
         });
 
+        // Enhanced Back to Projects Navigation
+        function smoothBackToProjects(event) {
+            event.preventDefault();
+            const targetUrl = event.currentTarget.href;
+
+            // Smooth scroll to top first
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Add fade-out effect
+            document.body.style.transition = 'opacity 0.3s ease-out';
+            document.body.style.opacity = '0';
+
+            // Navigate after animation
+            setTimeout(() => {
+                window.location.href = targetUrl;
+            }, 300);
+        }
+
+        // Apply smooth navigation to all "Back to Projects" links
+        document.querySelectorAll('a[href*="projects.html"]').forEach(link => {
+            // Only apply to back navigation links, not nav menu
+            if (link.textContent.includes('Back to Projects') || link.closest('.cta-button')) {
+                link.addEventListener('click', smoothBackToProjects);
+            }
+        });
+
         // Mobile menu toggle
         const hamburger = document.querySelector('.hamburger');
         const navMenu = document.querySelector('.nav-menu');
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
+        });
+
+        // Smooth fade-in on page load
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
         });
     </script>
 
