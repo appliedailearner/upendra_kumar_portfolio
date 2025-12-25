@@ -199,30 +199,262 @@
 
     <!-- Blog Post Content -->
     <article class="blog-post-content">
-        <h2><span class="gradient-text">Core Model</span></h2>
-        <p>
-            Separate:
-        </p>
+        <h2><span class="gradient-text">The problem (why "data lakes" turn into swamps)</span></h2>
+        <p>Most enterprise data platforms fail for boring reasons:</p>
         <ul>
-            <li>Control plane (governance, catalog, shared boundary services)</li>
-            <li>Data plane (domain-owned data products and compute)</li>
+            <li>One central team becomes a bottleneck.</li>
+            <li>Every domain copies the same tables "just in case".</li>
+            <li>Security becomes a mix of storage keys, shared service principals, and tribal knowledge.</li>
+            <li>Costs explode because nobody can see or own their spend.</li>
+        </ul>
+        <p>
+            Data Mesh is a reaction to that. But Data Mesh also fails if you don't provide a strong platform with
+            guardrails.
+        </p>
+        <p>
+            A <strong>Data Landing Zone (DLZ)</strong> approach is the practical middle ground.
+            Domains get autonomy to build data products. Central teams keep control of governance, identity, networking,
+            and standards.
+        </p>
+
+        <h2><span class="gradient-text">Core model (what scales)</span></h2>
+        <p>Separate your world into:</p>
+        <ul>
+            <li><strong>Control plane</strong>: governance, catalog, security guardrails, shared boundary services.</li>
+            <li><strong>Data plane</strong>: domain-owned data products, pipelines, storage, and compute.</li>
+        </ul>
+        <p>If you mix these two, you get either:</p>
+        <ul>
+            <li>a central bottleneck (everything controlled), or</li>
+            <li>a free-for-all swamp (no governance).</li>
+        </ul>
+        <p>This control-plane vs data-plane split maps directly to Microsoft's Cloud Scale Analytics (CSA) guidance.</p>
+
+        <h2><span class="gradient-text">The 6 decisions that prevent platform collapse</span></h2>
+
+        <h3>1) Subscription boundaries (don't "share one workspace")</h3>
+        <p>Create a repeatable unit of scale:</p>
+        <ul>
+            <li>1 Data Management Landing Zone subscription (control plane).</li>
+            <li>N Data Landing Zone subscriptions (one per domain, or per group of domains).</li>
+        </ul>
+        <p>This is the simplest way to enforce policy, budgets, RBAC boundaries, and operational ownership.</p>
+
+        <h3>2) Identity-first access (kill storage keys and "shared admin")</h3>
+        <p>Standardize on Microsoft Entra ID for:</p>
+        <ul>
+            <li>user access</li>
+            <li>pipeline access</li>
+            <li>workload-to-workload access</li>
+        </ul>
+        <p>Default pattern:</p>
+        <ul>
+            <li>Access via Entra groups.</li>
+            <li>Use managed identities for services (Data Factory, Microsoft Fabric gateways where applicable,
+                Functions, etc.).</li>
+            <li>Treat "Owner" and "Contributor" as exceptional.</li>
         </ul>
 
-        <h2><span class="gradient-text">Two Decisions That Prevent Platform Collapse</span></h2>
+        <h3>3) Networking (private by default, with one DNS strategy)</h3>
+        <p>If you want regulated-grade governance:</p>
+        <ul>
+            <li>Private endpoints for Storage, Purview, Key Vault, SQL, etc.</li>
+            <li>Public network access disabled where possible.</li>
+            <li>One DNS strategy that shows how:
+                <ul>
+                    <li>Azure workloads resolve private endpoints</li>
+                    <li>on-prem resolves private endpoints (resolver + forwarding)</li>
+                </ul>
+            </li>
+        </ul>
+        <p>If DNS is inconsistent, the platform becomes "randomly broken" per subnet.</p>
 
-        <h3>1) SHIR as a shared capability</h3>
-        <p>
-            Centralize the on-prem bridge and patching boundary, rather than multiplying SHIR per domain.
-        </p>
+        <h3>4) Ingestion boundary (shared SHIR, not SHIR everywhere)</h3>
+        <p>On-prem connectivity is where platforms get messy.</p>
+        <p>A stable pattern:</p>
+        <ul>
+            <li>Deploy <strong>Shared Self-Hosted Integration Runtime (SHIR)</strong> as a control-plane capability.
+            </li>
+            <li>Make it highly available (scale-out with multiple nodes).</li>
+            <li>Patch and monitor it like a tier-0 component.</li>
+        </ul>
+        <p>Avoid per-domain SHIR sprawl. It multiplies patching, incident ownership, firewall rules, and drift.</p>
 
-        <h3>2) Governance with Microsoft Purview</h3>
-        <p>
-            Use catalog + metadata to stop duplication and to establish "certified datasets."
-        </p>
+        <h3>5) Governance with Purview (catalog or chaos)</h3>
+        <p>Purview is not "nice to have" in Data Mesh. It is the mechanism that prevents duplication, enables discovery,
+            and enforces trust.</p>
+        <p>Minimum governance bar:</p>
+        <ul>
+            <li>Data Map scanning for lakes and key sources.</li>
+            <li>Lineage where possible (ADF, Power BI integration, and supported tools).</li>
+            <li>"Certified datasets" so domains don't publish 5 competing customer tables.</li>
+        </ul>
+
+        <h3>6) Cost ownership (FinOps by subscription, not by apology)</h3>
+        <p>Data Mesh fails when costs are shared and nobody feels the pain.</p>
+        <p>Set:</p>
+        <ul>
+            <li>subscription budgets per domain DLZ</li>
+            <li>alerts to domain owners</li>
+            <li>chargeback or showback rules</li>
+        </ul>
+        <p>This changes behavior fast.</p>
+
+        <h2><span class="gradient-text">Reference architecture (what the diagram is telling you)</span></h2>
+        <p>The diagram shows domains (Finance, Sales, Marketing), each owning:</p>
+        <ul>
+            <li>ingestion (Data Factory pipelines)</li>
+            <li>storage (ADLS Gen2)</li>
+            <li>compute (Microsoft Fabric)</li>
+            <li>a domain-facing interface (data product contract)</li>
+        </ul>
+        <p>The control plane holds:</p>
+        <ul>
+            <li>policy standards</li>
+            <li>Purview catalog + governance</li>
+            <li>shared SHIR and shared boundary services</li>
+        </ul>
+        <p>That is "federated governance with centralized guardrails".</p>
 
         <h2><span class="gradient-text">Diagram (Azure icons)</span></h2>
         <img src="../images/blog/diagrams/blog4_data_landing_zones.png"
-            alt="Control plane vs data plane data landing zones (CSA style)">
+            alt="Control plane vs data plane for Data Landing Zones (CSA style)">
+
+        <h2><span class="gradient-text">Diagram (Mermaid view)</span></h2>
+        <pre><code>graph TB
+  subgraph CP["Control Plane (Data Mgmt Landing Zone)"]
+    policy[Azure Policy / Standards]
+    purview[Microsoft Purview (Catalog, Lineage)]
+    shir[Shared SHIR Cluster]
+    shared[Shared Boundary Services (Network, DNS, Key Vault patterns)]
+  end
+
+  subgraph DP["Data Plane (Domain Data Landing Zones)"]
+    subgraph A["Domain A (Finance DLZ)"]
+      adfA[ADF Pipelines]
+      lakeA[ADLS Gen2]
+      compA[Microsoft Fabric]
+      adfA --> lakeA --> compA
+    end
+    subgraph B["Domain B (Sales DLZ)"]
+      adfB[ADF Pipelines]
+      lakeB[ADLS Gen2]
+      compB[Microsoft Fabric]
+      adfB --> lakeB --> compB
+    end
+  end
+
+  onprem[On-Prem Data Sources] --> shir
+  shir --> adfA
+  shir --> adfB
+
+  purview -. scans/lineage .-> lakeA
+  purview -. scans/lineage .-> lakeB</code></pre>
+
+        <h2><span class="gradient-text">What "good" looks like (operating model)</span></h2>
+
+        <h3>Platform team owns (control plane)</h3>
+        <ul>
+            <li>network patterns (private endpoints + DNS)</li>
+            <li>identity patterns (groups, PIM, role design)</li>
+            <li>policy guardrails (deny public, allowed regions, tagging)</li>
+            <li>shared SHIR lifecycle (patching, monitoring, scaling)</li>
+            <li>Purview baseline configuration (collections, scanning patterns, glossary)</li>
+        </ul>
+
+        <h3>Domain team owns (data plane)</h3>
+        <ul>
+            <li>data products (interfaces, SLAs, documentation)</li>
+            <li>pipelines and transforms</li>
+            <li>Fabric workspace cost control</li>
+            <li>data quality checks</li>
+            <li>access requests inside their domain boundary</li>
+        </ul>
+        <p>If you cannot clearly write "who owns what", incidents will bounce between teams.</p>
+
+        <h2><span class="gradient-text">Security and access control (where most teams get it wrong)</span></h2>
+
+        <h3>RBAC + ACL in ADLS Gen2</h3>
+        <p>Use both, intentionally:</p>
+        <ul>
+            <li>RBAC for coarse permissions and management actions.</li>
+            <li>ACLs for folder-level data access boundaries.</li>
+        </ul>
+        <p>Best practice:</p>
+        <ul>
+            <li>Grant permissions to Entra groups (not individuals).</li>
+            <li>Keep folder hierarchy aligned to domain products.</li>
+            <li>Avoid file-level ACL micromanagement.</li>
+        </ul>
+
+        <h3>Private endpoints and public access</h3>
+        <p>If you want to stop data exfiltration:</p>
+        <ul>
+            <li>private endpoints for storage and key services</li>
+            <li>disable public network access where feasible</li>
+            <li>ensure DNS resolution is consistent across VNets and on-prem</li>
+        </ul>
+
+        <h3>Managed identities everywhere</h3>
+        <p>Prefer managed identity auth for:</p>
+        <ul>
+            <li>ADF to Storage</li>
+            <li>Purview scans to sources</li>
+            <li>Fabric-to-data-source connections where supported</li>
+            <li>pipeline-to-service calls</li>
+        </ul>
+        <p>This reduces secrets and rotation overhead.</p>
+
+        <h2><span class="gradient-text">SHIR reliability (the "hidden single point of failure")</span></h2>
+        <p>SHIR is a tier-0 dependency if on-prem ingestion matters.</p>
+        <p>Minimum bar:</p>
+        <ul>
+            <li>multiple nodes (scale-out capacity)</li>
+            <li>avoid putting SHIR on "random" servers that reboot without notice</li>
+            <li>monitor node health and queue behavior</li>
+            <li>document firewall and proxy requirements once, centrally</li>
+        </ul>
+        <p>If SHIR is unstable, the platform looks unstable.</p>
+
+        <h2><span class="gradient-text">Practical Checklists</span></h2>
+
+        <h3>Control plane checklist (platform team)</h3>
+        <ul>
+            <li>[ ] Data Mgmt Landing Zone subscription created</li>
+            <li>[ ] Purview baseline: collections model, scanning strategy, glossary baseline</li>
+            <li>[ ] Shared SHIR deployed with >= 2 nodes, patched, monitored</li>
+            <li>[ ] Private endpoint + DNS pattern documented and reusable</li>
+            <li>[ ] Policy baseline applied (deny public PaaS where possible, require tags, restrict regions)</li>
+            <li>[ ] Budget + alerting in place for each domain DLZ</li>
+        </ul>
+
+        <h3>Domain onboarding checklist (per DLZ)</h3>
+        <ul>
+            <li>[ ] DLZ subscription created from template</li>
+            <li>[ ] ADLS Gen2 created with standardized folder layout (raw/curated/products)</li>
+            <li>[ ] Entra groups created (owners, engineers, readers)</li>
+            <li>[ ] Data Factory configured with managed identity</li>
+            <li>[ ] Fabric workspace created with naming, RBAC, and cost guardrails</li>
+            <li>[ ] Purview scan registration completed</li>
+            <li>[ ] First data product published with:
+                <ul>
+                    <li>schema/contract</li>
+                    <li>owner</li>
+                    <li>SLA expectations</li>
+                    <li>access request path</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2><span class="gradient-text">Common pitfalls (what breaks first)</span></h2>
+        <ul>
+            <li>RBAC explosion: too many individual assignments. Fix with group-based access.</li>
+            <li>Unscannable lakes: Purview scan fails due to missing permissions or auth mismatch.</li>
+            <li>DNS inconsistency: private endpoints resolve in one place and fail elsewhere.</li>
+            <li>SHIR sprawl: each team runs their own. Nobody patches. Everyone blames the network.</li>
+            <li>Duplicate "gold" tables: no catalog discipline, no certification process.</li>
+            <li>Cost drift: Fabric capacity/workspaces scaled without budgets or ownership.</li>
+        </ul>
 
         <h2><span class="gradient-text">References</span></h2>
 
@@ -230,23 +462,77 @@
         <ul>
             <li><a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/scenarios/cloud-scale-analytics/"
                     target="_blank">Cloud Scale Analytics</a></li>
-            <li><a href="https://learn.microsoft.com/en-us/purview/data-governance-overview" target="_blank">Microsoft
-                    Purview Data Governance</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/scenarios/cloud-scale-analytics/ready"
+                    target="_blank">Cloud Scale Analytics Ready</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/scenarios/cloud-scale-analytics/architectures/data-management-landing-zone"
+                    target="_blank">Data Management Landing Zone</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/scenarios/cloud-scale-analytics/architectures/data-landing-zone"
+                    target="_blank">Data Landing Zone</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/scenarios/cloud-scale-analytics/architectures/reference-architecture-overview"
+                    target="_blank">Reference Architecture Overview</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/scenarios/cloud-scale-analytics/architectures/self-serve-data-platforms"
+                    target="_blank">Self-Serve Data Platforms</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/scenarios/cloud-scale-analytics/architectures/data-domains"
+                    target="_blank">Data Domains</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/scenarios/cloud-scale-analytics/architectures/what-is-data-mesh"
+                    target="_blank">What is Data Mesh</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/purview/data-governance-overview" target="_blank">Purview
+                    Data Governance Overview</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/purview/data-map-scan-ingestion" target="_blank">Data Map
+                    Scan Ingestion</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/purview/register-scan-adls-gen2" target="_blank">Register
+                    Scan ADLS Gen2</a></li>
             <li><a href="https://learn.microsoft.com/en-us/azure/data-factory/concepts-integration-runtime"
                     target="_blank">Integration Runtime Concepts</a></li>
             <li><a href="https://learn.microsoft.com/en-us/azure/data-factory/create-self-hosted-integration-runtime"
-                    target="_blank">Self-Hosted Integration Runtime</a></li>
+                    target="_blank">Create Self-Hosted Integration Runtime</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/azure/data-factory/data-factory-service-identity"
+                    target="_blank">Data Factory Service Identity</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-access-control"
+                    target="_blank">Data Lake Storage Access Control</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-access-control-model"
+                    target="_blank">Data Lake Storage Access Control Model</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/azure/storage/common/storage-private-endpoints"
+                    target="_blank">Storage Private Endpoints</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns"
+                    target="_blank">Private Endpoint DNS</a></li>
+        </ul>
+
+        <h3>Microsoft Blogs</h3>
+        <ul>
+            <li><a href="https://techcommunity.microsoft.com/blog/dataarchitectureblog/bring-vision-to-life-with-three-horizons-data-mesh-data-lakehouse-and-azure-clou/3390414"
+                    target="_blank">Data Mesh, Data Lakehouse and Azure Cloud Scale Analytics</a></li>
+            <li><a href="https://techcommunity.microsoft.com/blog/azuresynapseanalyticsblog/data-mesh-a-perspective-on-using-azure-synapse-analytics-to-build-data-products/3644657"
+                    target="_blank">Data Mesh with Azure Synapse Analytics</a></li>
+            <li><a href="https://techcommunity.microsoft.com/t5/azure-purview/track-the-lineage-of-your-organization-s-data-with-azure-purview/ba-p/1981267"
+                    target="_blank">Track Lineage with Azure Purview</a></li>
+            <li><a href="https://techcommunity.microsoft.com/blog/microsoft-security-blog/classify-your-data-using-azure-purview/1957200"
+                    target="_blank">Classify Data Using Azure Purview</a></li>
         </ul>
 
         <h3>GitHub</h3>
         <ul>
-            <li><a href="https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/docs/scenarios/cloud-scale-analytics"
-                    target="_blank">Cloud Scale Analytics Documentation</a></li>
+            <li><a href="https://github.com/Azure/data-management-zone" target="_blank">Data Management Zone</a></li>
+            <li><a href="https://github.com/Azure/data-landing-zone" target="_blank">Data Landing Zone</a></li>
+            <li><a href="https://github.com/Azure/Purview-Samples" target="_blank">Purview Samples</a></li>
+            <li><a href="https://github.com/microsoft/purview-api-samples" target="_blank">Purview API Samples</a></li>
         </ul>
 
         <h3>YouTube (Microsoft)</h3>
         <ul>
-            <li><a href="https://www.youtube.com/watch?v=TE8gFOirLe0" target="_blank">Data Landing Zones Overview</a>
+            <li><a href="https://learn.microsoft.com/en-us/shows/all-around-azure-unlocked-cloud-scale-analytics/scalable-data-management-and-analytics"
+                    target="_blank">Scalable Data Management and Analytics</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/shows/all-around-azure-unlocked-cloud-scale-analytics/applying-data-mesh-to-your-organization"
+                    target="_blank">Applying Data Mesh to Your Organization</a></li>
+            <li><a href="https://www.youtube.com/watch?v=Sb9uJLtXDGo" target="_blank">Azure Data Landing Zones</a></li>
+            <li><a href="https://www.youtube.com/@MicrosoftPurview" target="_blank">Microsoft Purview Channel</a></li>
+        </ul>
+
+        <h3>YouTube (Community)</h3>
+        <ul>
+            <li><a href="https://www.youtube.com/watch?v=L_-fHo0ZkAo" target="_blank">Data Landing Zones Explained</a>
+            </li>
+            <li><a href="https://www.youtube.com/watch?v=et_ouKtJ_nA" target="_blank">Building Data Mesh on Azure</a>
             </li>
         </ul>
 
