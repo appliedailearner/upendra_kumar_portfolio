@@ -473,35 +473,11 @@
         <img src="../images/blog/diagrams/blog2_brownfield_migration.png"
             alt="Brownfield transition state with hub-spoke and ASR cutover">
 
-        <h2><span class="gradient-text">Diagram (Mermaid view)</span></h2>
-        <pre><code>graph TD
-    onprem[On-Premises Datacenter]
+        <h2><span class="gradient-text">Transition State Diagram</span></h2>
+        <img src="../images/blog/diagrams/brownfield_transition_diagram.png"
+            alt="Azure brownfield migration transition state showing hub-spoke architecture with legacy VNet bridge">
 
-    subgraph "Azure - Transition State"
-        subgraph "New Secure Hub VNet"
-            er_gw[ExpressRoute/VPN Gateway]
-            fw[Azure Firewall / NVA]
-            dns[DNS / Private Resolver]
-        end
-
-        subgraph "New Landing Zone Spoke"
-            modern_vm[Workload in new spoke]
-        end
-
-        subgraph "Legacy Flat VNet (to retire)"
-            legacy_vm[Legacy workloads]
-        end
-
-        onprem <===> er_gw
-        er_gw <--> fw
-
-        fw <-->|Permanent peering| modern_vm
-        fw <-->|Temporary migration peering| legacy_vm
-
-        legacy_vm -.->|Replication + test failover| modern_vm
-    end</code></pre>
-
-        <h2><span class="gradient-text">Operational checklists (copy/paste)</span></h2>
+        <h2><span class="gradient-text">Operational Checklists</span></h2>
 
         <h3>Pre-cutover (per wave)</h3>
         <ul>
