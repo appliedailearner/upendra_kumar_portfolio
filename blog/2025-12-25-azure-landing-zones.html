@@ -293,6 +293,304 @@
             <li><strong>Right-Sizing:</strong> Continuous optimization based on utilization metrics</li>
         </ul>
 
+        <h2><span class="gradient-text">Well-Architected Framework for Landing Zones</span></h2>
+        <p>
+            Azure Landing Zones should be designed and operated according to the five pillars of the Well-Architected
+            Framework to ensure long-term success, operational excellence, and alignment with business objectives.
+        </p>
+
+        <h3>The Five Pillars</h3>
+        <img src="../images/blog/diagrams/waf_five_pillars.png" alt="Azure Well-Architected Framework 5 Pillars">
+
+        <p>
+            The Well-Architected Framework provides a structured approach to evaluating and improving your Landing Zone
+            architecture across five critical areas:
+        </p>
+
+        <h4>1. 🛡️ Reliability</h4>
+        <p><strong>Focus:</strong> Resiliency, availability, and recovery capabilities</p>
+        <p><strong>Landing Zone Application:</strong></p>
+        <ul>
+            <li><strong>Multi-region hub-spoke:</strong> Deploy hub infrastructure across multiple Azure regions for
+                geographic redundancy</li>
+            <li><strong>Backup strategies:</strong> Implement Azure Backup for VMs, databases, and configuration data
+            </li>
+            <li><strong>Disaster recovery:</strong> Use Azure Site Recovery for automated failover and recovery
+                orchestration</li>
+            <li><strong>Redundant connectivity:</strong> Dual ExpressRoute circuits or VPN Gateway active-active
+                configuration</li>
+        </ul>
+        <p><strong>Key Design Principles:</strong> Design for business requirements, embrace resilience, keep it simple
+        </p>
+
+        <h4>2. 🔒 Security</h4>
+        <p><strong>Focus:</strong> Data protection, threat detection, and mitigation</p>
+        <p><strong>Landing Zone Application:</strong></p>
+        <ul>
+            <li><strong>Zero Trust networking:</strong> Implement network segmentation with NSGs and Azure Firewall</li>
+            <li><strong>Identity management:</strong> Azure AD with Conditional Access and MFA</li>
+            <li><strong>Encryption everywhere:</strong> Data at rest (Azure Storage Encryption) and in transit (TLS
+                1.2+)</li>
+            <li><strong>Threat protection:</strong> Microsoft Defender for Cloud with continuous security posture
+                assessment</li>
+        </ul>
+        <p><strong>Key Design Principles:</strong> Protect confidentiality, integrity, and availability</p>
+
+        <h4>3. 💰 Cost Optimization</h4>
+        <p><strong>Focus:</strong> Cost modeling, budgets, and waste reduction</p>
+        <p><strong>Landing Zone Application:</strong></p>
+        <ul>
+            <li><strong>Tagging strategy:</strong> Mandatory tags for cost center, environment, owner, and application
+            </li>
+            <li><strong>Reserved instances:</strong> 1-year or 3-year commitments for predictable workloads (30-70%
+                savings)</li>
+            <li><strong>Auto-shutdown:</strong> Scheduled shutdown of dev/test resources during non-business hours</li>
+            <li><strong>Right-sizing:</strong> Use Azure Advisor recommendations to optimize VM sizes</li>
+        </ul>
+        <p><strong>Key Design Principles:</strong> Optimize on usage and rate utilization with a cost-efficient mindset
+        </p>
+
+        <h4>4. ⚙️ Operational Excellence</h4>
+        <p><strong>Focus:</strong> Holistic observability and DevOps practices</p>
+        <p><strong>Landing Zone Application:</strong></p>
+        <ul>
+            <li><strong>Centralized logging:</strong> Log Analytics Workspace for all platform and application logs</li>
+            <li><strong>Infrastructure as Code:</strong> Bicep, Terraform, or ARM templates for all deployments</li>
+            <li><strong>Deployment pipelines:</strong> Azure DevOps or GitHub Actions for automated, safe deployments
+            </li>
+            <li><strong>Monitoring dashboards:</strong> Azure Monitor workbooks for real-time visibility</li>
+        </ul>
+        <p><strong>Key Design Principles:</strong> Streamline operations with standards and comprehensive monitoring</p>
+
+        <h4>5. ⚡ Performance Efficiency</h4>
+        <p><strong>Focus:</strong> Scalability and load testing</p>
+        <p><strong>Landing Zone Application:</strong></p>
+        <ul>
+            <li><strong>Horizontal scaling:</strong> VM Scale Sets and App Service auto-scaling</li>
+            <li><strong>Load balancing:</strong> Azure Load Balancer and Application Gateway</li>
+            <li><strong>Caching:</strong> Azure Cache for Redis and CDN for static content</li>
+            <li><strong>Performance monitoring:</strong> Application Insights for application performance management
+            </li>
+        </ul>
+        <p><strong>Key Design Principles:</strong> Scale horizontally, test early and often, monitor health</p>
+
+        <h3>Understanding Pillar Tradeoffs</h3>
+        <p>
+            Every architectural decision involves tradeoffs. Understanding these helps you make informed choices aligned
+            with business priorities:
+        </p>
+
+        <div style="overflow-x: auto; margin: 2rem 0;">
+            <table
+                style="width: 100%; border-collapse: collapse; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1);">
+                <thead>
+                    <tr style="background: rgba(168, 85, 247, 0.1); border-bottom: 2px solid rgba(168, 85, 247, 0.3);">
+                        <th style="padding: 1rem; text-align: left; color: var(--text-main);">Decision</th>
+                        <th style="padding: 1rem; text-align: center; color: var(--text-main);">Reliability</th>
+                        <th style="padding: 1rem; text-align: center; color: var(--text-main);">Security</th>
+                        <th style="padding: 1rem; text-align: center; color: var(--text-main);">Cost</th>
+                        <th style="padding: 1rem; text-align: center; color: var(--text-main);">Performance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                        <td style="padding: 1rem;">Multi-region deployment</td>
+                        <td style="padding: 1rem; text-align: center; color: #10b981;">✅ High availability</td>
+                        <td style="padding: 1rem; text-align: center; color: #10b981;">✅ Geographic redundancy</td>
+                        <td style="padding: 1rem; text-align: center; color: #ef4444;">❌ 2x infrastructure cost</td>
+                        <td style="padding: 1rem; text-align: center; color: #10b981;">✅ Lower latency</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                        <td style="padding: 1rem;">Azure Firewall Premium</td>
+                        <td style="padding: 1rem; text-align: center; color: #94a3b8;">➡️ Neutral</td>
+                        <td style="padding: 1rem; text-align: center; color: #10b981;">✅ Advanced threat protection</td>
+                        <td style="padding: 1rem; text-align: center; color: #ef4444;">❌ Higher monthly cost</td>
+                        <td style="padding: 1rem; text-align: center; color: #f59e0b;">⚠️ Slight latency increase</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                        <td style="padding: 1rem;">Reserved Instances (3-year)</td>
+                        <td style="padding: 1rem; text-align: center; color: #94a3b8;">➡️ Neutral</td>
+                        <td style="padding: 1rem; text-align: center; color: #94a3b8;">➡️ Neutral</td>
+                        <td style="padding: 1rem; text-align: center; color: #10b981;">✅ 30-70% savings</td>
+                        <td style="padding: 1rem; text-align: center; color: #94a3b8;">➡️ Neutral</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1rem;">Aggressive auto-scaling</td>
+                        <td style="padding: 1rem; text-align: center; color: #10b981;">✅ Better resilience</td>
+                        <td style="padding: 1rem; text-align: center; color: #94a3b8;">➡️ Neutral</td>
+                        <td style="padding: 1rem; text-align: center; color: #ef4444;">❌ Higher variable costs</td>
+                        <td style="padding: 1rem; text-align: center; color: #10b981;">✅ Handles traffic spikes</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>Landing Zones + Well-Architected Integration</h3>
+        <img src="../images/blog/diagrams/landing_zones_waf_integration.png"
+            alt="Landing Zones with Well-Architected Framework integration">
+        <p>
+            This diagram shows how each Well-Architected pillar applies to specific components of your Landing Zone
+            architecture, ensuring comprehensive coverage across all critical areas.
+        </p>
+
+        <h2><span class="gradient-text">Well-Architected Review Process</span></h2>
+        <p>
+            Conducting regular Well-Architected Reviews ensures your Landing Zone continues to meet business
+            requirements and follows best practices as your environment evolves.
+        </p>
+
+        <h3>Continuous Improvement Cycle</h3>
+        <img src="../images/blog/diagrams/continuous_improvement_cycle.png"
+            alt="Well-Architected continuous improvement cycle">
+
+        <h3>When to Conduct Reviews</h3>
+
+        <h4>Greenfield Workloads (New Deployments)</h4>
+        <ul>
+            <li><strong>Timing:</strong> Perform assessment during initial design process</li>
+            <li><strong>Approach:</strong> Enter proposed decisions and use guidance as baseline</li>
+            <li><strong>Benefit:</strong> Starts feedback loop to refine design before deployment</li>
+            <li><strong>Cadence:</strong> Re-assess at each major design milestone</li>
+        </ul>
+
+        <h4>Brownfield Workloads (Existing Environments)</h4>
+        <ul>
+            <li><strong>Timing:</strong> Part of continuous improvement cycle</li>
+            <li><strong>Approach:</strong> Assess current state and identify gaps</li>
+            <li><strong>Benefit:</strong> Track improvements over time with milestones</li>
+            <li><strong>Cadence:</strong> Every 4 months (quarterly reviews recommended)</li>
+        </ul>
+
+        <h3>Assessment Workflow</h3>
+        <img src="../images/blog/diagrams/review_process_workflow.png" alt="Well-Architected Review process workflow">
+
+        <h4>Step 1: Take the Assessment</h4>
+        <ul>
+            <li>Use the <a href="https://aka.ms/assessments/azure-architecture-review" target="_blank">Azure
+                    Well-Architected Review</a> tool</li>
+            <li>Answer 60 questions across all 5 pillars (or focus on one pillar at a time)</li>
+            <li><strong>Important:</strong> Always sign in to enable milestone tracking</li>
+            <li>Choose meaningful assessment and milestone names (include workload name and date)</li>
+        </ul>
+
+        <h4>Step 2: Receive and Integrate Recommendations</h4>
+        <ul>
+            <li>Export recommendations to CSV from the assessment guidance page</li>
+            <li>Share with stakeholders for review and prioritization</li>
+            <li>Import into your backlog (Azure DevOps or GitHub) for SDLC integration</li>
+            <li>Use <a href="https://github.com/Azure/WellArchitected-Tools/tree/main/WARP/devops"
+                    target="_blank">DevOps Tooling for WAR Process</a> for automation</li>
+        </ul>
+
+        <h4>Step 3: Prioritize and Implement</h4>
+        <ul>
+            <li>Workload owners and stakeholders prioritize based on business impact</li>
+            <li>Factor in applicability and tradeoffs of each recommendation</li>
+            <li>Assign owners to specific recommendations</li>
+            <li>Track progress through completion as part of standard SDLC</li>
+        </ul>
+
+        <h4>Step 4: Monitor Improvements</h4>
+        <ul>
+            <li>Use milestone feature to track changes over time</li>
+            <li>Compare current state against prior milestones</li>
+            <li>Monitor Azure Advisor score improvements</li>
+            <li>Document lessons learned and update runbooks</li>
+        </ul>
+
+        <h3>Best Practices for Assessments</h3>
+        <ul>
+            <li><strong>Collaborative effort:</strong> Include multiple experts and stakeholders</li>
+            <li><strong>Honest participation:</strong> Create safe environment to discuss shortcomings openly</li>
+            <li><strong>Subscription selection:</strong> Choose subscription with biggest portion of workload for
+                relevant Advisor recommendations</li>
+            <li><strong>Staggered approach:</strong> Consider assessing one pillar per month instead of all 60 questions
+                at once</li>
+            <li><strong>Use notes feature:</strong> Capture specifics on questions and recommendations for team
+                discussion</li>
+        </ul>
+
+        <h2><span class="gradient-text">Design Review Checklists and Tools</span></h2>
+        <p>
+            Leverage Microsoft's comprehensive checklists and automation tools to ensure your Landing Zone follows best
+            practices and maintains compliance.
+        </p>
+
+        <h3>Azure Review Checklists</h3>
+        <p>
+            The <a href="https://github.com/Azure/review-checklists" target="_blank">Azure Review Checklists</a>
+            repository provides structured design validation across multiple formats:
+        </p>
+
+        <h4>Available Formats</h4>
+        <ol>
+            <li>
+                <strong>Excel Spreadsheets:</strong> Offline review and team collaboration
+                <ul>
+                    <li>Landing Zone Review checklist</li>
+                    <li>Security Baseline checklist</li>
+                    <li>Networking Configuration checklist</li>
+                    <li>Cost Optimization checklist</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Azure Resource Graph Queries:</strong> Automated compliance checking
+                <ul>
+                    <li>Query your environment programmatically</li>
+                    <li>Identify configuration gaps automatically</li>
+                    <li>Generate compliance reports</li>
+                </ul>
+            </li>
+        </ol>
+
+        <h4>Example: Automated NSG Validation</h4>
+        <pre><code>// Azure Resource Graph query to check NSG rules
+Resources
+| where type == "microsoft.network/networksecuritygroups"
+| extend rules = properties.securityRules
+| mv-expand rules
+| where rules.properties.access == "Allow" 
+    and rules.properties.direction == "Inbound"
+    and rules.properties.sourceAddressPrefix == "*"
+| project name, location, ruleName = rules.name, 
+    priority = rules.properties.priority
+| order by priority asc</code></pre>
+
+        <h3>Well-Architected Tools</h3>
+        <p>
+            The <a href="https://github.com/Azure/WellArchitected-Tools" target="_blank">Well-Architected Tools</a>
+            repository provides automation scripts for:
+        </p>
+        <ul>
+            <li><strong>DevOps Integration:</strong> Import WAR recommendations into Azure DevOps or GitHub</li>
+            <li><strong>Backlog Automation:</strong> Automatically create work items from assessment CSV</li>
+            <li><strong>Tracking:</strong> Monitor recommendation implementation progress</li>
+            <li><strong>Reporting:</strong> Generate compliance and improvement reports</li>
+        </ul>
+
+        <h3>Integration with Azure Advisor</h3>
+        <p>
+            Azure Advisor uses the Well-Architected Framework pillars to analyze your resource configuration and usage
+            telemetry:
+        </p>
+        <ul>
+            <li><strong>Automated recommendations:</strong> Continuous analysis of your Landing Zone</li>
+            <li><strong>Azure Advisor Score:</strong> Aggregated score across all five pillars</li>
+            <li><strong>Prioritization:</strong> Focus on actions that yield biggest improvement</li>
+            <li><strong>Cost impact:</strong> Estimated savings for cost optimization recommendations</li>
+        </ul>
+
+        <h3>Continuous Compliance</h3>
+        <p>
+            Integrate checklists and automated validation into your CI/CD pipeline:
+        </p>
+        <ul>
+            <li><strong>Pre-deployment validation:</strong> Run checks before infrastructure changes</li>
+            <li><strong>Post-deployment verification:</strong> Confirm compliance after deployment</li>
+            <li><strong>Drift detection:</strong> Identify configuration changes that violate policies</li>
+            <li><strong>Compliance reporting:</strong> Generate audit-ready documentation</li>
+        </ul>
+
         <h2><span class="gradient-text">Practical Implementation Checklist</span></h2>
         <p>
             Building Azure Landing Zones correctly from the start prevents costly rework and security gaps. This
