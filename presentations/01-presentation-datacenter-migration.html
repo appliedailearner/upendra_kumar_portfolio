@@ -18,12 +18,12 @@
         <!-- Slide 1: Title -->
         <section class="slide title-slide" id="slide-1">
             <div class="slide-content">
-                <h1 class="animate-in">Strategic Data Center Migration</h1>
-                <p class="animate-in delay-1">Modernizing Infrastructure for Agility & Cost Efficiency</p>
+                <h1 class="animate-in">Strategic Datacenter Modernization</h1>
+                <p class="animate-in delay-1">Azure MEG Integration: Migrating 238+ VMs & 60 Multi-Tier Applications</p>
                 <div style="margin-top: 3rem;" class="animate-in delay-2">
                     <span
-                        style="border:1px solid #38bdf8; padding: 0.5rem 1rem; border-radius: 50px; color: #38bdf8; font-family: 'Inter'; font-size: 0.9rem;">Architecture
-                        Deck</span>
+                        style="border:1px solid #38bdf8; padding: 0.5rem 1rem; border-radius: 50px; color: #38bdf8; font-family: 'Inter'; font-size: 0.9rem;">Modernization
+                        Roadmap</span>
                 </div>
             </div>
         </section>
@@ -32,26 +32,47 @@
         <section class="slide" id="slide-2">
             <div class="slide-content animate-in">
                 <div class="slide-header">
-                    <h2 class="slide-title">Executive Summary: The Challenge</h2>
+                    <h2 class="slide-title">The Business Case: TCO & Readiness</h2>
                     <span class="slide-number">01</span>
                 </div>
                 <div class="slide-grid">
                     <div class="slide-text">
-                        <p><strong>Context:</strong> The organization faced a critical hardware refresh cycle with costs
-                            projected to jump 40% YoY. Legacy on-prem infrastructure was stifling innovation.</p>
+                        <p><strong>Assessment (MRA):</strong> Achieved a <strong>85% Readiness Score</strong>.
+                            Identified
+                            $500k CapEx avoidance over 3 years.</p>
                         <ul style="margin-top: 2rem;">
-                            <li><strong>Risk:</strong> End-of-Life (EOL) hardware and <strong>Unknown
-                                    Dependencies</strong> causing outage fears.</li>
-                            <li><strong>Financial:</strong> High CapEx requirements for new data center lease.</li>
-                            <li><strong>Operational:</strong> Manual provisioning taking weeks, not minutes.</li>
+                            <li><strong>Current State:</strong> $1.2M 3-year TCO (Legacy lease, PDU refresh, idle
+                                capacity).</li>
+                            <li><strong>Future State (Azure):</strong> $840k 3-year TCO (Optimized via
+                                <strong>Right-sizing
+                                    Reports</strong> & AHB).
+                            </li>
+                            <li><strong>Scale:</strong> 238+ VMs, 60 Applications, 30TB SQL/Blob Data.</li>
                         </ul>
                     </div>
                     <div
-                        style="background: rgba(255,100,100,0.1); border: 1px solid rgba(255,100,100,0.3); border-radius: 12px; padding: 2rem; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center;">
-                        <i class="fas fa-exclamation-triangle"
-                            style="font-size: 4rem; color: #ff6b6b; margin-bottom: 1rem;"></i>
-                        <h3 style="color: #ff6b6b; margin:0;">Urgency</h3>
-                        <p style="color: #fda4af;">Data Center Lease Expiry: <br><strong>8 Months</strong></p>
+                        style="background: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-around;">
+                        <h4 style="color: #38bdf8; margin: 0 0 1rem 0; font-size: 0.9rem; text-transform: uppercase;">
+                            3-Year
+                            Estimated Savings</h4>
+                        <div
+                            style="display: flex; align-items: flex-end; gap: 1rem; height: 150px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <div style="width: 40px; height: 100%; background: #94a3b8; border-radius: 4px; position: relative;"
+                                title="On-Prem: $1.2M">
+                                <span
+                                    style="position: absolute; top: -25px; left: 50%; transform: translateX(-50%); font-size: 0.7rem;">$1.2M</span>
+                            </div>
+                            <div style="width: 40px; height: 70%; background: #38bdf8; border-radius: 4px; position: relative;"
+                                title="Azure: $840k">
+                                <span
+                                    style="position: absolute; top: -25px; left: 50%; transform: translateX(-50%); font-size: 0.7rem; color: #38bdf8;">$840k</span>
+                            </div>
+                            <div
+                                style="flex-grow: 1; margin-left: 1rem; color: #4ade80; font-weight: 700; font-size: 1.1rem;">
+                                -30% Reduction</div>
+                        </div>
+                        <p style="font-size: 0.75rem; color: #94a3b8; margin: 0.5rem 0 0 0;">Validated via <strong>Azure
+                                Migrate Business Case Report</strong></p>
                     </div>
                 </div>
             </div>
@@ -61,7 +82,7 @@
         <section class="slide" id="slide-3">
             <div class="slide-content animate-in">
                 <div class="slide-header">
-                    <h2 class="slide-title">Target Architecture: Enterprise-Scale</h2>
+                    <h2 class="slide-title">Architecture: Enterprise-Scale Landing Zone</h2>
                     <span class="slide-number">02</span>
                 </div>
                 <div class="slide-grid">
@@ -71,66 +92,144 @@
                                 Subscription.</li>
                             <li><strong>Connectivity:</strong> <strong>Hub-and-Spoke</strong> topology ensuring traffic
                                 segregation via Azure Firewall.</li>
-                            <li><strong>Management:</strong> Standardized Policy assignment (Tagging, RDP Deny) at
-                                Management Group scope.</li>
-                            <li><strong>Landing Zone:</strong> Deployed via Terraform (ALZ-Bicep) for repeatable
-                                subscription vending.</li>
+                            <li><strong>Resiliency:</strong> Established 15-minute RPO using <strong>Azure Site
+                                    Recovery (ASR)</strong> as the migration engine.</li>
+                            <li><strong>Governance:</strong> Enforced "Zero Trust" via <strong>Azure Policy</strong> at
+                                the Management Group scope.</li>
                         </ul>
                     </div>
-                    <!-- Architecture Diagram -->
+                    <!-- CSS Architecture Diagram -->
                     <div
-                        style="background: #fff; border-radius: 12px; padding: 10px; opacity: 0.9; display:flex; align-items:center; justify-content:center;">
-                        <img src="https://learn.microsoft.com/en-us/azure/architecture/virtual-machines/media/baseline-landing-zone.svg"
-                            alt="Azure Enterprise Scale Landing Zone Architecture"
-                            style="width: 100%; height: auto; border-radius: 8px;">
+                        style="position: relative; height: 300px; background: rgba(0,0,0,0.2); border-radius: 12px; border: 1px dashed rgba(56, 189, 248, 0.3); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                        <!-- On-Prem Side -->
+                        <div
+                            style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); text-align: center;">
+                            <div
+                                style="width: 80px; height: 100px; background: #334155; border: 2px solid #64748b; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-server" style="color: #94a3b8; font-size: 2rem;"></i>
+                            </div>
+                            <span style="font-size: 0.7rem; color: #94a3b8; margin-top: 5px; display: block;">On-Prem
+                                (Hyper-V)</span>
+                        </div>
+
+                        <!-- Replication Path -->
+                        <div
+                            style="width: 150px; height: 2px; background: linear-gradient(to right, #64748b, #38bdf8); position: relative;">
+                            <div
+                                style="position: absolute; top: -10px; left: 0; width: 100%; text-align: center; font-size: 0.6rem; color: #38bdf8; font-weight: 600;">
+                                ExpressRoute / ASR</div>
+                            <div class="asr-pulse"
+                                style="position: absolute; left: 0; top: -4px; width: 10px; height: 10px; background: #38bdf8; border-radius: 50%; box-shadow: 0 0 10px #38bdf8;">
+                            </div>
+                        </div>
+
+                        <!-- Azure Side -->
+                        <div
+                            style="position: absolute; right: 20px; height: 80%; width: 180px; display: flex; flex-direction: column; gap: 10px;">
+                            <div
+                                style="background: rgba(56, 189, 248, 0.1); border: 1px solid #38bdf8; border-radius: 6px; padding: 10px; text-align: center;">
+                                <span style="font-size: 0.6rem; font-weight: 800; color: #38bdf8;">HUB
+                                    (Firewall/VNET)</span>
+                            </div>
+                            <div style="display: flex; gap: 10px; flex-grow: 1;">
+                                <div
+                                    style="flex:1; background: rgba(168, 85, 247, 0.1); border: 1px solid #a855f7; border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 5px;">
+                                    <i class="fas fa-shield-alt" style="color: #a855f7; font-size: 1.2rem;"></i>
+                                    <span style="font-size: 0.5rem; color: #a855f7;">SPOKE A<br>(Prod)</span>
+                                </div>
+                                <div
+                                    style="flex:1; background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 5px;">
+                                    <i class="fas fa-vial" style="color: #10b981; font-size: 1.2rem;"></i>
+                                    <span style="font-size: 0.5rem; color: #10b981;">SPOKE B<br>(Dev/Test)</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <style>
+                @keyframes pulse-asr {
+                    0% {
+                        left: 0;
+                        opacity: 1;
+                    }
+
+                    100% {
+                        left: 100%;
+                        opacity: 0;
+                    }
+                }
+
+                .asr-pulse {
+                    animation: pulse-asr 2s infinite linear;
+                }
+            </style>
         </section>
 
         <!-- Slide 4: Process Deep Dive (Expanded Roadmap) -->
         <section class="slide" id="slide-4">
             <div class="slide-content animate-in">
                 <div class="slide-header">
-                    <h2 class="slide-title">Migration Process Deep Dive</h2>
+                    <h2 class="slide-title">Discovery & Assessment Analytics</h2>
                     <span class="slide-number">03</span>
                 </div>
-                <!-- Process Steps -->
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem;">
-                    <!-- Step 1 -->
-                    <div
-                        style="background: rgba(56, 189, 248, 0.1); padding: 1.5rem; border-top: 4px solid #38bdf8; border-radius: 8px;">
-                        <h4 style="margin:0 0 1rem 0; color: #38bdf8; display:flex; align-items:center; gap:0.5rem;"><i
-                                class="fas fa-search"></i> 1. Decide & Plan</h4>
-                        <ul style="font-size: 0.85rem; color: #cbd5e1; padding-left: 1.2rem; margin:0;">
-                            <li style="margin-bottom:0.5rem;"><strong>Business Case:</strong> Calculated TCO (CapEx vs
-                                OpEx) to justify move.</li>
-                            <li><strong>Discovery:</strong> Deployed Azure Migrate Appliance for agentless inventory.
+                <!-- Assessment Grid -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.5rem;">
+                    <div>
+                        <h4 style="color: #38bdf8; margin-top: 0;"><i class="fas fa-microchip"></i> App & Server
+                            Assessment</h4>
+                        <p style="font-size: 0.9rem; color: #cbd5e1;">Utilized <strong>Azure Migrate: Discovery and
+                                Assessment</strong> to generate per-VM readiness reports.</p>
+                        <ul style="font-size: 0.85rem; color: #94a3b8; padding-left: 1.2rem;">
+                            <li><strong>Readiness Stats:</strong> 210 Ready, 28 Ready with conditions (Driver updates).
                             </li>
+                            <li><strong>Right-sizing:</strong> Identified 15% CPU over-provisioning; reduced costs by
+                                switching to <strong>D-Series VMs</strong>.</li>
                         </ul>
+
+                        <div
+                            style="margin-top: 1rem; padding: 1rem; background: rgba(239, 68, 68, 0.05); border-left: 3px solid #ef4444; border-radius: 4px;">
+                            <h5 style="margin:0; color: #fca5a5; font-size: 0.85rem;"><i class="fas fa-tools"></i>
+                                Action Center Troubleshooting</h5>
+                            <p style="margin: 0.5rem 0 0 0; font-size: 0.8rem; color: #fca5a5;">Resolved 12 WMI
+                                connectivity errors and firewall blocks using the <strong>Azure Migrate Action
+                                    Center</strong> to ensure 100% discovery coverage.</p>
+                        </div>
                     </div>
-                    <!-- Step 2 -->
+
                     <div
-                        style="background: rgba(56, 189, 248, 0.1); padding: 1.5rem; border-top: 4px solid #38bdf8; border-radius: 8px;">
-                        <h4 style="margin:0 0 1rem 0; color: #38bdf8; display:flex; align-items:center; gap:0.5rem;"><i
-                                class="fas fa-map-marked-alt"></i> 2. Assess</h4>
-                        <ul style="font-size: 0.85rem; color: #cbd5e1; padding-left: 1.2rem; margin:0;">
-                            <li style="margin-bottom:0.5rem;"><strong>Dependency Mapping:</strong> Visualized multi-tier
-                                app connections to avoid breaking changes.</li>
-                            <li><strong>Right-Sizing:</strong> Optimized VM SKUs based on actual performance history.
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- Step 3 -->
-                    <div
-                        style="background: rgba(56, 189, 248, 0.1); padding: 1.5rem; border-top: 4px solid #38bdf8; border-radius: 8px;">
-                        <h4 style="margin:0 0 1rem 0; color: #38bdf8; display:flex; align-items:center; gap:0.5rem;"><i
-                                class="fas fa-rocket"></i> 3. Migrate & Manage</h4>
-                        <ul style="font-size: 0.85rem; color: #cbd5e1; padding-left: 1.2rem; margin:0;">
-                            <li style="margin-bottom:0.5rem;"><strong>Test Failover:</strong> Validated apps in isolated
-                                sandbox (Zero Production Impact).</li>
-                            <li><strong>Cutover:</strong> Final sync & switch DNS.</li>
-                        </ul>
+                        style="background: rgba(15, 23, 42, 0.4); border-radius: 12px; padding: 1.5rem; border: 1px solid rgba(56, 189, 248, 0.1);">
+                        <h4 style="color: #a855f7; margin-top: 0;"><i class="fas fa-network-wired"></i> Dependency
+                            Mapping</h4>
+                        <p style="font-size: 0.85rem; color: #cbd5e1;">Implemented <strong>Agentless Dependency
+                                Analysis</strong> to visualize multi-tier app flows.</p>
+                        <!-- Visual representation of dependency map -->
+                        <div
+                            style="height: 120px; overflow: hidden; display: flex; align-items: center; justify-content: center; gap: 15px; position: relative;">
+                            <div
+                                style="width: 50px; height: 50px; border: 1px solid #a855f7; background: rgba(168, 85, 247, 0.1); border-radius: 4px; display: flex; align-items:center; justify-content: center;">
+                                <i class="fas fa-window-maximize" style="color: #a855f7;"></i>
+                            </div>
+                            <div style="width: 30px; border-top: 2px dashed #94a3b8; position: relative;">
+                                <i class="fas fa-chevron-right"
+                                    style="position: absolute; right: -5px; top: -6px; font-size: 0.6rem; color: #94a3b8;"></i>
+                            </div>
+                            <div
+                                style="width: 50px; height: 50px; border: 1px solid #38bdf8; background: rgba(56, 189, 248, 0.1); border-radius: 4px; display: flex; align-items:center; justify-content: center;">
+                                <i class="fas fa-cogs" style="color: #38bdf8;"></i>
+                            </div>
+                            <div style="width: 30px; border-top: 2px dashed #94a3b8; position: relative;">
+                                <i class="fas fa-chevron-right"
+                                    style="position: absolute; right: -5px; top: -6px; font-size: 0.6rem; color: #94a3b8;"></i>
+                            </div>
+                            <div
+                                style="width: 50px; height: 50px; border: 1px solid #10b981; background: rgba(16, 185, 129, 0.1); border-radius: 4px; display: flex; align-items:center; justify-content: center;">
+                                <i class="fas fa-database" style="color: #10b981;"></i>
+                            </div>
+                        </div>
+                        <p
+                            style="font-size: 0.75rem; color: #94a3b8; font-style: italic; text-align: center; margin-top: 0.5rem;">
+                            Mapping 'Chatty' dependencies to ensure Wave integrity.</p>
                     </div>
                 </div>
             </div>
@@ -140,47 +239,47 @@
         <section class="slide" id="slide-5">
             <div class="slide-content animate-in">
                 <div class="slide-header">
-                    <h2 class="slide-title">The Migration Checklist</h2>
+                    <h2 class="slide-title">Operational Readiness & Wave Planning</h2>
                     <span class="slide-number">04</span>
                 </div>
                 <div class="slide-grid">
                     <div class="slide-text">
-                        <p><strong>Goal:</strong> Ensure a seamless transition with zero unplanned downtime. Verified
-                            every step against Microsoft Best Practices.</p>
+                        <p><strong>Governance:</strong> Aligned with the <strong>Microsoft Migration Execution Guide
+                                (MEG)</strong> for risk-free cutovers.</p>
                         <div
-                            style="margin-top:2rem; background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #4ade80;">
-                            <h4 style="margin:0 0 1rem 0; color: #4ade80;">Successful Criteria</h4>
+                            style="margin-top:2rem; background: rgba(56, 189, 248, 0.05); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #38bdf8;">
+                            <h4 style="margin:0 0 1rem 0; color: #38bdf8;">T-Minus Communication Plan</h4>
                             <ul style="list-style: none; padding: 0;">
-                                <li
-                                    style="margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.8rem; color: #cbd5e1;">
-                                    <i class="fas fa-check-circle" style="color: #4ade80;"></i> <span>Business Case
-                                        Approved (ROI > 20%)</span>
+                                <li style="margin-bottom: 0.8rem; font-size: 0.9rem; color: #cbd5e1;">
+                                    <strong style="color: #38bdf8;">T-30 Days:</strong> Stakeholder notification &
+                                    Change
+                                    Request (CR) submission.
                                 </li>
-                                <li
-                                    style="margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.8rem; color: #cbd5e1;">
-                                    <i class="fas fa-check-circle" style="color: #4ade80;"></i> <span>All Dependencies
-                                        Mapped & Verified</span>
+                                <li style="margin-bottom: 0.8rem; font-size: 0.9rem; color: #cbd5e1;">
+                                    <strong style="color: #38bdf8;">T-7 Days:</strong> Application "Blackout" period
+                                    starts;
+                                    final data sync check.
                                 </li>
-                                <li
-                                    style="margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.8rem; color: #cbd5e1;">
-                                    <i class="fas fa-check-circle" style="color: #4ade80;"></i> <span>Test Migration
-                                        Successful (User Acceptance)</span>
+                                <li style="margin-bottom: 0.8rem; font-size: 0.9rem; color: #cbd5e1;">
+                                    <strong style="color: #38bdf8;">T-24 Hours:</strong> Final "Go/No-Go" readiness call
+                                    with all Leads.
                                 </li>
-                                <li
-                                    style="margin-bottom: 0; display: flex; align-items: center; gap: 0.8rem; color: #cbd5e1;">
-                                    <i class="fas fa-check-circle" style="color: #4ade80;"></i> <span>Disaster Recovery
-                                        Configured (ASR)</span>
+                                <li style="margin-bottom: 0; font-size: 0.9rem; color: #cbd5e1;">
+                                    <strong style="color: #38bdf8;">T-2 Hours:</strong> The Point of No Return. Trigger
+                                    rollback if latency > 200ms.
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div
-                        style="background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 12px; padding: 2rem; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                        <i class="fas fa-clipboard-check"
-                            style="font-size: 5rem; color: #38bdf8; margin-bottom: 2rem;"></i>
-                        <h3 style="color: #fff; margin:0;">Readiness</h3>
-                        <p style="font-size: 2.5rem; color: #38bdf8; font-weight: 800; margin: 0.5rem 0;">100%</p>
-                        <p style="color: #94a3b8; text-align: center;">Confidence Level before Production Cutover</p>
+                        style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 12px; padding: 2rem; display: flex; flex-direction: column; justify-content: center; align-items: center; border-top: 4px solid #10b981;">
+                        <i class="fas fa-layer-group"
+                            style="font-size: 4rem; color: #10b981; margin-bottom: 1.5rem;"></i>
+                        <h3 style="color: #fff; margin:0;">Wave Matrix</h3>
+                        <p style="font-size: 2.5rem; color: #10b981; font-weight: 800; margin: 0.5rem 0;">12 Waves</p>
+                        <p style="color: #94a3b8; text-align: center; font-size: 0.85rem;">Grouped by dependency
+                            clusters
+                            to eliminate cross-cloud lag.</p>
                     </div>
                 </div>
             </div>
@@ -190,24 +289,24 @@
         <section class="slide" id="slide-6">
             <div class="slide-content animate-in">
                 <div class="slide-header">
-                    <h2 class="slide-title">Business Outcomes</h2>
+                    <h2 class="slide-title">Mission Results: Datacenter Exit</h2>
                     <span class="slide-number">05</span>
                 </div>
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; text-align: center;">
                     <div>
-                        <div style="font-size: 4rem; font-weight: 800; color: #4ade80;">30%</div>
-                        <p style="margin:0; font-size: 1.2rem; color: #fff;">TCO Reduction</p>
-                        <span style="font-size: 0.9rem; color: #94a3b8;">via Rightsizing</span>
+                        <div style="font-size: 4rem; font-weight: 800; color: #4ade80;">$500k</div>
+                        <p style="margin:0; font-size: 1.2rem; color: #fff;">CapEx Saved</p>
+                        <span style="font-size: 0.9rem; color: #94a3b8;">via Right-sizing Reports</span>
+                    </div>
+                    <div>
+                        <div style="font-size: 4rem; font-weight: 800; color: #4ade80;">238+</div>
+                        <p style="margin:0; font-size: 1.2rem; color: #fff;">VMs Migrated</p>
+                        <span style="font-size: 0.9rem; color: #94a3b8;">60 Apps In-Production</span>
                     </div>
                     <div>
                         <div style="font-size: 4rem; font-weight: 800; color: #4ade80;">100%</div>
-                        <p style="margin:0; font-size: 1.2rem; color: #fff;">SLA Compliance</p>
-                        <span style="font-size: 0.9rem; color: #94a3b8;">Validated via Test Failover</span>
-                    </div>
-                    <div>
-                        <div style="font-size: 4rem; font-weight: 800; color: #4ade80;">50+</div>
-                        <p style="margin:0; font-size: 1.2rem; color: #fff;">Hyper-V VMs</p>
-                        <span style="font-size: 0.9rem; color: #94a3b8;">migrated ahead of schedule</span>
+                        <p style="margin:0; font-size: 1.2rem; color: #fff;">Service Uptime</p>
+                        <span style="font-size: 0.9rem; color: #94a3b8;">Zero rollback incidents</span>
                     </div>
                 </div>
                 <div style="margin-top: 3rem; text-align: center;">
