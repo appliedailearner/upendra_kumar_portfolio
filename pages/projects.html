@@ -397,19 +397,21 @@
           </div>
         </div>
 
-        <!-- Project 4: App Modernization (PaaS) -->
+        <!-- Project 4: Secure Enterprise GenAI Knowledge Platform (RAG) -->
         <div class="project-card-detailed">
           <div class="project-header">
-            <h3 style="font-family: 'Outfit', sans-serif;"><span class="gradient-text">Cloud-Native App
-                Modernization</span></h3>
-            <span class="role-badge">Principal Architect (App Innovation)</span>
+            <h3 style="font-family: 'Outfit', sans-serif;"><span class="gradient-text">Secure Enterprise GenAI Knowledge
+                Platform (RAG)</span></h3>
+            <span class="role-badge">Lead Azure Cloud Architect</span>
           </div>
 
           <div class="project-challenge"
             style="background: rgba(255,255,255,0.05); border-left: 4px solid #38bdf8; padding: 1rem; margin-bottom: 1.5rem; border-radius: 0 8px 8px 0;">
-            <p style="margin: 0; color: #e2e8f0;"><strong>The Challenge:</strong> A monolithic retail application was
-              unable to scale for "Black Friday" traffic, causing crashes and revenue loss, while manual deployments
-              delayed bug fixes.</p>
+            <p style="margin: 0; color: #e2e8f0;"><strong>The Business Context:</strong> A regulated enterprise client
+              required a Generative AI solution to democratize access to internal knowledge bases. The initiative was
+              previously blocked by the CISO due to "Shadow AI" risks: public data leakage, lack of determinism
+              (hallucinations), and inability to audit interactions. The goal was to operationalize a "Chat with Your
+              Data" solution that adhered to Microsoft's Responsible AI Standard v2.</p>
           </div>
 
           <div class="project-body-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
@@ -417,60 +419,124 @@
             <div class="col-outcomes">
               <h4
                 style="color: #38bdf8; margin-bottom: 1rem; border-bottom: 1px solid rgba(56, 189, 248, 0.3); padding-bottom: 0.5rem;">
-                Strategic Outcomes</h4>
+                Architectural Strategy</h4>
+              <p style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 1rem;">Designed a Zero-Trust RAG
+                (Retrieval-Augmented Generation) architecture tailored for strict compliance. The solution moves beyond
+                simple "chat" to a managed AI Foundry workflow, prioritizing automated evaluation, private connectivity,
+                and identity-based access over public convenience.</p>
               <div style="display: grid; grid-template-columns: auto 1fr; gap: 0.8rem 1.5rem; align-items: baseline;">
 
                 <span style="color: #10b981; font-weight: 600; white-space: nowrap;"><i class="fas fa-check-circle"></i>
-                  Elastic Scale</span>
-                <span style="color: #94a3b8;">Handled 10x traffic spikes automatically via PaaS audo-scaling
-                  rules.</span>
+                  Security Compliance</span>
+                <span style="color: #94a3b8;">Achieved 100% network isolation, satisfying the CISO's requirement for
+                  "Private Networking with Azure OpenAI."</span>
 
                 <span style="color: #10b981; font-weight: 600; white-space: nowrap;"><i class="fas fa-check-circle"></i>
-                  High Velocity</span>
-                <span style="color: #94a3b8;">Enabled multiple deployments per day (vs. monthly) via CI/CD
-                  pipelines.</span>
+                  Cost Optimization</span>
+                <span style="color: #94a3b8;">Reduced backend model calls by ~30% via Smart Chunking and Semantic
+                  Caching (APIM).</span>
 
                 <span style="color: #10b981; font-weight: 600; white-space: nowrap;"><i class="fas fa-check-circle"></i>
-                  Performance</span>
-                <span style="color: #94a3b8;">Improved APIs response time by 50% via Application Gateway &
-                  Caching.</span>
+                  Hallucination Control</span>
+                <span style="color: #94a3b8;">Significantly reduced hallucination rates using Semantic Ranking in Azure
+                  AI Search.</span>
               </div>
             </div>
 
             <div class="col-actions">
               <h4
                 style="color: #f59e0b; margin-bottom: 1rem; border-bottom: 1px solid rgba(245, 158, 11, 0.3); padding-bottom: 0.5rem;">
-                Modernization Tactics</h4>
+                Key Architectural Decisions</h4>
               <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.8rem;">
                 <li style="color: #cbd5e1; display: flex; gap: 0.8rem;">
                   <span style="color: #f59e0b;">•</span>
-                  <span><strong>Strangler Fig Pattern:</strong> Decoupled core monolith features into independent App
-                    Service microservices.</span>
+                  <span><strong>Private Networking:</strong> Hub-and-Spoke topology with Private Endpoints for Azure
+                    OpenAI, AI Search, and Storage. Zero public internet traffic.</span>
                 </li>
                 <li style="color: #cbd5e1; display: flex; gap: 0.8rem;">
                   <span style="color: #f59e0b;">•</span>
-                  <span><strong>DevOps Automation:</strong> Built reusable GitHub Actions workflows for "Build once,
-                    Deploy many".</span>
+                  <span><strong>GenAI Engineering (LLMOps):</strong> Azure AI Prompt Flow for orchestration with
+                    automated evaluation (Groundedness, Relevance, Coherence).</span>
                 </li>
                 <li style="color: #cbd5e1; display: flex; gap: 0.8rem;">
                   <span style="color: #f59e0b;">•</span>
-                  <span><strong>Global Distribution:</strong> Implemented Front Door for edge load balancing and WAF
-                    protection.</span>
+                  <span><strong>Identity-First Security:</strong> Microsoft Entra ID + Managed Identities for all
+                    service-to-service authentication. Zero connection strings.</span>
+                </li>
+                <li style="color: #cbd5e1; display: flex; gap: 0.8rem;">
+                  <span style="color: #f59e0b;">•</span>
+                  <span><strong>Safety Rails:</strong> Azure AI Content Safety filters to block jailbreak attempts and
+                    harmful content.</span>
                 </li>
               </ul>
             </div>
           </div>
 
           <div class="project-tech-row" style="margin-top: 1.5rem;">
-            <span class="tech-tag">Azure App Service</span>
-            <span class="tech-tag">Azure SQL</span>
-            <span class="tech-tag">Front Door</span>
-            <span class="tech-tag">Redis Cache</span>
+            <span class="tech-tag">Azure AI Foundry</span>
+            <span class="tech-tag">Azure OpenAI (GPT-4o)</span>
+            <span class="tech-tag">Azure AI Search</span>
+            <span class="tech-tag">Azure Private Link</span>
+            <span class="tech-tag">Terraform & Bicep</span>
+          </div>
+
+          <!-- GenAI Reference Library -->
+          <div class="reference-section"
+            style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px dashed rgba(255,255,255,0.1);">
+            <h4 style="color: #a855f7; margin-bottom: 1rem; font-size: 0.9rem; text-transform: uppercase;"><i
+                class="fas fa-book-open"></i> GenAI & RAG Reference Library</h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 2rem;">
+              <a href="https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/rag/rag-solution-design-and-evaluation-guide"
+                target="_blank" class="ref-link"
+                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> RAG Solution Design & Evaluation
+                Guide
+              </a>
+              <a href="https://learn.microsoft.com/en-us/azure/architecture/ai-ml/" target="_blank" class="ref-link"
+                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> AI Architecture Center (GenAI & RAG)
+              </a>
+              <a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/use-web-app" target="_blank"
+                class="ref-link"
+                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> Secure Azure OpenAI with Private
+                Networking
+              </a>
+              <a href="https://learn.microsoft.com/en-us/azure/search/search-indexer-howto-access-private"
+                target="_blank" class="ref-link"
+                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> Connect Indexers to Data Privately
+                (Shared Private Links)
+              </a>
+              <a href="https://learn.microsoft.com/en-us/azure/ai-studio/concepts/prompt-flow" target="_blank"
+                class="ref-link"
+                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> Prompt Flow Concepts (Build,
+                Evaluate, Deploy)
+              </a>
+              <a href="https://learn.microsoft.com/en-us/azure/search/vector-search-overview" target="_blank"
+                class="ref-link"
+                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> Vector Search Overview (Enterprise
+                RAG)
+              </a>
+              <a href="https://github.com/Azure-Samples/azure-search-openai-demo" target="_blank" class="ref-link"
+                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> Azure Search + Azure OpenAI Demo
+                (Reference App)
+              </a>
+              <a href="https://github.com/Azure-Samples/chat-with-your-data-solution-accelerator" target="_blank"
+                class="ref-link"
+                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> Chat with Your Data Solution
+                Accelerator
+              </a>
+            </div>
           </div>
 
           <div class="project-footer">
-            <a href="../presentations/04-presentation-app-modernization.html" class="evidence-link">
-              <i class="fas fa-external-link-alt"></i> View Transformation Strategy
+            <a href="../presentations/04-presentation-genai-rag.html" class="evidence-link">
+              <i class="fas fa-external-link-alt"></i> View Architecture Deck
             </a>
           </div>
         </div>
