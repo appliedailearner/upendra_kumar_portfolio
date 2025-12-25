@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deck: Cloud Cost Optimization | Upendra Kumar</title>
+    <link rel="stylesheet" href="../css/presentation.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Top Navigation -->
+    <div style="position: fixed; top: 2rem; left: 2rem; z-index: 100;">
+        <a href="../pages/projects.html"
+            style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.9rem; font-family: 'Inter'; display: flex; align-items: center; gap: 0.5rem; transition: color 0.3s;">
+            <i class="fas fa-chevron-left"></i> Projects
+        </a>
+    </div>
+
+    <div class="deck-container">
+
+        <!-- Slide 1: Title -->
+        <section class="slide title-slide" id="slide-1">
+            <div class="slide-content">
+                <h1 class="animate-in">Cloud Cost & Reliability Optimization</h1>
+                <p class="animate-in delay-1">FinOps Framework & Azure Cost Management</p>
+                <div style="margin-top: 3rem;" class="animate-in delay-2">
+                    <span
+                        style="border:1px solid #10b981; padding: 0.5rem 1rem; border-radius: 50px; color: #10b981; font-family: 'Inter'; font-size: 0.9rem;">Cost
+                        Governance & Optimization</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: The Cost Crisis -->
+        <section class="slide" id="slide-2">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">The Cost Crisis</h2>
+                    <span class="slide-number">01</span>
+                </div>
+                <div class="slide-grid">
+                    <div class="slide-text">
+                        <p><strong>Challenge:</strong> Uncontrolled cloud spending with $2.3M annual Azure costs and no
+                            visibility into resource utilization.</p>
+                        <ul style="margin-top: 2rem;">
+                            <li><strong>40%+ Waste:</strong> Over-provisioned VMs, idle resources, and orphaned disks
+                                consuming budget.</li>
+                            <li><strong>No Visibility:</strong> Lack of cost tracking and anomaly detection leading to
+                                budget overruns.</li>
+                            <li><strong>Manual Processes:</strong> No automated governance or optimization workflows.
+                            </li>
+                        </ul>
+                    </div>
+                    <div
+                        style="background: rgba(239, 68, 68, 0.05); padding: 2rem; border-radius: 12px; border: 1px solid rgba(239, 68, 68, 0.2); text-align: center;">
+                        <h3 style="color: #ef4444; margin-bottom: 2rem;">Cost Breakdown</h3>
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <p style="font-size: 2rem; color: #ef4444; font-weight: 800; margin: 0;">$2.3M</p>
+                                <p style="font-size: 0.8rem; color: #94a3b8; margin: 0.3rem 0 0 0;">Annual Azure Spend
+                                </p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <p style="font-size: 2rem; color: #ef4444; font-weight: 800; margin: 0;">$920k</p>
+                                <p style="font-size: 0.8rem; color: #94a3b8; margin: 0.3rem 0 0 0;">Identified Waste
+                                    (40%)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: FinOps Framework Overview -->
+        <section class="slide" id="slide-3">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">FinOps Framework Overview</h2>
+                    <span class="slide-number">02</span>
+                </div>
+                <div class="slide-grid" style="grid-template-columns: 1fr;">
+                    <div>
+                        <h4 style="color: #10b981; margin-top: 0;"><i class="fas fa-chart-line"></i> 3-Phase FinOps
+                            Journey</h4>
+                        <div
+                            style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem;">
+                            <div
+                                style="background: rgba(56, 189, 248, 0.1); padding: 1.5rem; border-radius: 12px; border-top: 3px solid #38bdf8;">
+                                <div style="text-align: center; margin-bottom: 1rem;">
+                                    <i class="fas fa-eye" style="font-size: 2.5rem; color: #38bdf8;"></i>
+                                </div>
+                                <h5 style="color: #38bdf8; margin: 0 0 0.5rem 0; text-align: center;">Phase 1: Inform
+                                </h5>
+                                <ul
+                                    style="font-size: 0.8rem; color: #cbd5e1; padding-left: 1.2rem; margin: 1rem 0 0 0;">
+                                    <li>Cost visibility & allocation</li>
+                                    <li>Tagging taxonomy</li>
+                                    <li>Budget alerts</li>
+                                    <li>Anomaly detection</li>
+                                </ul>
+                            </div>
+                            <div
+                                style="background: rgba(251, 146, 60, 0.1); padding: 1.5rem; border-radius: 12px; border-top: 3px solid #fb923c;">
+                                <div style="text-align: center; margin-bottom: 1rem;">
+                                    <i class="fas fa-cogs" style="font-size: 2.5rem; color: #fb923c;"></i>
+                                </div>
+                                <h5 style="color: #fb923c; margin: 0 0 0.5rem 0; text-align: center;">Phase 2: Optimize
+                                </h5>
+                                <ul
+                                    style="font-size: 0.8rem; color: #cbd5e1; padding-left: 1.2rem; margin: 1rem 0 0 0;">
+                                    <li>Hybrid Benefit enablement</li>
+                                    <li>Reservations & Savings Plans</li>
+                                    <li>Rightsizing VMs</li>
+                                    <li>Idle resource cleanup</li>
+                                </ul>
+                            </div>
+                            <div
+                                style="background: rgba(16, 185, 129, 0.1); padding: 1.5rem; border-radius: 12px; border-top: 3px solid #10b981;">
+                                <div style="text-align: center; margin-bottom: 1rem;">
+                                    <i class="fas fa-sync-alt" style="font-size: 2.5rem; color: #10b981;"></i>
+                                </div>
+                                <h5 style="color: #10b981; margin: 0 0 0.5rem 0; text-align: center;">Phase 3: Operate
+                                </h5>
+                                <ul
+                                    style="font-size: 0.8rem; color: #cbd5e1; padding-left: 1.2rem; margin: 1rem 0 0 0;">
+                                    <li>Automated governance</li>
+                                    <li>Continuous optimization</li>
+                                    <li>Chargeback/Showback</li>
+                                    <li>FinOps culture adoption</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div
+                            style="margin-top: 2rem; text-align: center; padding: 1rem; background: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+                            <p style="font-size: 0.9rem; color: #cbd5e1; margin: 0;"><strong
+                                    style="color: #10b981;">Integration:</strong> Azure Cost Management + Billing |
+                                Azure Advisor | Power BI Dashboards</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Rate Optimization - Azure Hybrid Benefit -->
+        <section class="slide" id="slide-4">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">Rate Optimization: Azure Hybrid Benefit</h2>
+                    <span class="slide-number">03</span>
+                </div>
+                <div class="slide-grid">
+                    <div>
+                        <h4 style="color: #38bdf8; margin-top: 0;"><i class="fas fa-server"></i> Windows & Linux VMs
+                        </h4>
+                        <p style="font-size: 0.9rem; color: #cbd5e1;">Leverage existing on-premises licenses with
+                            Software Assurance to reduce VM operating system costs by up to 40%.</p>
+                        <ul style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.8; margin-top: 1rem;">
+                            <li><strong>Windows Server:</strong> Apply AHB to 120+ Windows VMs (Standard & Datacenter
+                                editions)</li>
+                            <li><strong>Linux (RHEL/SLES):</strong> Enable AHB for 30+ Linux VMs with qualifying
+                                subscriptions</li>
+                            <li><strong>SQL Server:</strong> Extend AHB to SQL Database, SQL MI, and SQL Server VMs</li>
+                        </ul>
+                        <div
+                            style="background: rgba(56, 189, 248, 0.05); padding: 1rem; border-radius: 8px; margin-top: 1.5rem; border: 1px solid rgba(56, 189, 248, 0.2);">
+                            <h5 style="color: #fff; margin: 0 0 0.5rem 0; font-size: 0.9rem;"><i
+                                    class="fas fa-calculator"></i> Quick Fix Automation</h5>
+                            <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">Azure Advisor provides one-click
+                                remediation to apply AHB across eligible VMs.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 style="color: #fff; margin-top: 0;"><i class="fas fa-dollar-sign"></i> Savings Breakdown
+                        </h4>
+                        <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                            <div
+                                style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px; border-left: 3px solid #10b981;">
+                                <strong style="color: #10b981; font-size: 0.9rem;">Windows VMs</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">$280k annual
+                                    savings (40% reduction)</p>
+                            </div>
+                            <div
+                                style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px; border-left: 3px solid #10b981;">
+                                <strong style="color: #10b981; font-size: 0.9rem;">Linux VMs</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">$60k annual savings
+                                    (RHEL/SLES)</p>
+                            </div>
+                            <div
+                                style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px; border-left: 3px solid #10b981;">
+                                <strong style="color: #10b981; font-size: 0.9rem;">SQL Server</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">$40k annual savings
+                                    (SQL MI + DB)</p>
+                            </div>
+                        </div>
+                        <div
+                            style="margin-top: 1.5rem; text-align: center; padding: 1.5rem; background: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+                            <p style="font-size: 2rem; color: #10b981; font-weight: 800; margin: 0;">$380k/year</p>
+                            <p style="font-size: 0.8rem; color: #94a3b8; margin: 0.3rem 0 0 0;">Total AHB Savings | 150+
+                                VMs Optimized</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Rate Optimization - Reservations & Savings Plans -->
+        <section class="slide" id="slide-5">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">Rate Optimization: Reservations & Savings Plans</h2>
+                    <span class="slide-number">04</span>
+                </div>
+                <div class="slide-grid">
+                    <div>
+                        <h4 style="color: #8b5cf6; margin-top: 0;"><i class="fas fa-calendar-check"></i> Azure
+                            Reservations</h4>
+                        <p style="font-size: 0.85rem; color: #cbd5e1;">Commit to 1-year or 3-year plans for predictable
+                            workloads to secure up to 72% discount over pay-as-you-go rates.</p>
+                        <ul style="font-size: 0.8rem; color: #cbd5e1; line-height: 1.8; margin-top: 1rem;">
+                            <li><strong>Virtual Machines:</strong> Reserved 80+ VM instances (D-series, E-series) for
+                                production workloads</li>
+                            <li><strong>SQL Database:</strong> Reserved capacity for mission-critical databases</li>
+                            <li><strong>Azure Synapse:</strong> Reserved compute for data warehouse workloads</li>
+                        </ul>
+                        <h4 style="color: #fb923c; margin-top: 1.5rem;"><i class="fas fa-piggy-bank"></i> Azure Savings
+                            Plan</h4>
+                        <p style="font-size: 0.85rem; color: #cbd5e1;">Flexible pricing model with commitment to
+                            consistent usage ($/hour) across any eligible services.</p>
+                        <ul style="font-size: 0.8rem; color: #cbd5e1; line-height: 1.8; margin-top: 1rem;">
+                            <li><strong>Compute Savings Plan:</strong> Applied to VMs, App Service, Container Instances
+                            </li>
+                            <li><strong>Flexibility:</strong> Automatically applies to any region, instance size, or OS
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: #fff; margin-top: 0;"><i class="fas fa-chart-bar"></i> Commitment Strategy
+                        </h4>
+                        <div
+                            style="background: rgba(139, 92, 246, 0.05); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(139, 92, 246, 0.2); margin-top: 1rem;">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                <span style="color: #cbd5e1; font-size: 0.85rem;">1-Year Reservations</span>
+                                <span style="color: #8b5cf6; font-weight: 700;">-40%</span>
+                            </div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                <span style="color: #cbd5e1; font-size: 0.85rem;">3-Year Reservations</span>
+                                <span style="color: #8b5cf6; font-weight: 700;">-62%</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="color: #cbd5e1; font-size: 0.85rem;">Savings Plan (Compute)</span>
+                                <span style="color: #fb923c; font-weight: 700;">-65%</span>
+                            </div>
+                        </div>
+                        <div
+                            style="margin-top: 1.5rem; background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                            <h5 style="color: #fff; margin: 0 0 0.5rem 0; font-size: 0.9rem;"><i
+                                    class="fas fa-lightbulb"></i> Coverage Analysis</h5>
+                            <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">Used Azure Advisor to analyze 7,
+                                30, and 60-day lookback periods to identify optimal reservation coverage.</p>
+                        </div>
+                        <div
+                            style="margin-top: 1.5rem; text-align: center; padding: 1.5rem; background: rgba(139, 92, 246, 0.1); border-radius: 8px;">
+                            <p style="font-size: 2rem; color: #8b5cf6; font-weight: 800; margin: 0;">$420k/year</p>
+                            <p style="font-size: 0.8rem; color: #94a3b8; margin: 0.3rem 0 0 0;">Reservations + Savings
+                                Plan Savings</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Usage Optimization - Rightsizing -->
+        <section class="slide" id="slide-6">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">Usage Optimization: Rightsizing</h2>
+                    <span class="slide-number">05</span>
+                </div>
+                <div class="slide-grid">
+                    <div>
+                        <h4 style="color: #fbbf24; margin-top: 0;"><i class="fas fa-compress-arrows-alt"></i> Azure
+                            Advisor Recommendations</h4>
+                        <p style="font-size: 0.9rem; color: #cbd5e1;">Leveraged Azure Advisor to identify
+                            over-provisioned resources and optimize VM SKUs based on actual utilization patterns.</p>
+                        <ul style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.8; margin-top: 1rem;">
+                            <li><strong>VM Rightsizing:</strong> Downsized 45+ VMs from D16s to D8s (50% cost reduction)
+                            </li>
+                            <li><strong>Storage Optimization:</strong> Moved infrequently accessed data to Cool/Archive
+                                tiers</li>
+                            <li><strong>Database SKUs:</strong> Optimized SQL Database DTU/vCore allocation based on
+                                workload patterns</li>
+                        </ul>
+                        <div
+                            style="background: rgba(251, 191, 36, 0.05); padding: 1rem; border-radius: 8px; margin-top: 1.5rem; border: 1px solid rgba(251, 191, 36, 0.2);">
+                            <h5 style="color: #fff; margin: 0 0 0.5rem 0; font-size: 0.9rem;"><i
+                                    class="fas fa-chart-line"></i> Utilization Metrics</h5>
+                            <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">Analyzed CPU, memory, and disk I/O
+                                over 30-day periods to identify candidates for downsizing.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 style="color: #fff; margin-top: 0;"><i class="fas fa-balance-scale"></i> Optimization Impact
+                        </h4>
+                        <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <strong style="color: #fbbf24; font-size: 0.9rem;">Compute Reduction</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">25% reduction in
+                                    total compute costs through VM rightsizing</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <strong style="color: #fbbf24; font-size: 0.9rem;">Storage Tiering</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">18% storage cost
+                                    savings via Cool/Archive tier migration</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <strong style="color: #fbbf24; font-size: 0.9rem;">Database Optimization</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">12% SQL Database
+                                    cost reduction via DTU optimization</p>
+                            </div>
+                        </div>
+                        <div
+                            style="margin-top: 1.5rem; text-align: center; padding: 1.5rem; background: rgba(251, 191, 36, 0.1); border-radius: 8px;">
+                            <p style="font-size: 2rem; color: #fbbf24; font-weight: 800; margin: 0;">$100k/year</p>
+                            <p style="font-size: 0.8rem; color: #94a3b8; margin: 0.3rem 0 0 0;">Rightsizing Savings |
+                                45+ VMs Optimized</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Usage Optimization - Idle Resource Cleanup -->
+        <section class="slide" id="slide-7">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">Usage Optimization: Idle Resource Cleanup</h2>
+                    <span class="slide-number">06</span>
+                </div>
+                <div class="slide-grid">
+                    <div>
+                        <h4 style="color: #ef4444; margin-top: 0;"><i class="fas fa-trash-alt"></i> Automated Detection
+                        </h4>
+                        <p style="font-size: 0.9rem; color: #cbd5e1;">Implemented Azure Policy and automation to
+                            identify and remediate idle resources consuming budget without delivering value.</p>
+                        <ul style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.8; margin-top: 1rem;">
+                            <li><strong>Orphaned Disks:</strong> Detected and deleted 120+ unattached managed disks</li>
+                            <li><strong>Unused Public IPs:</strong> Removed 35+ unassociated public IP addresses</li>
+                            <li><strong>Stopped VMs:</strong> Identified VMs stopped for 30+ days and deallocated them
+                            </li>
+                            <li><strong>Dev/Test Schedules:</strong> Auto-shutdown policies for non-production
+                                environments (7 PM - 7 AM)</li>
+                        </ul>
+                        <div
+                            style="background: rgba(239, 68, 68, 0.05); padding: 1rem; border-radius: 8px; margin-top: 1.5rem; border: 1px solid rgba(239, 68, 68, 0.2);">
+                            <h5 style="color: #fff; margin: 0 0 0.5rem 0; font-size: 0.9rem;"><i
+                                    class="fas fa-robot"></i> Automation</h5>
+                            <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">Azure Automation runbooks execute
+                                weekly scans and send cleanup recommendations to resource owners.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 style="color: #fff; margin-top: 0;"><i class="fas fa-broom"></i> Cleanup Impact</h4>
+                        <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <strong style="color: #ef4444; font-size: 0.9rem;">Orphaned Disks</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">$80k annual savings
+                                    (120+ disks @ $55/mo avg)</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <strong style="color: #ef4444; font-size: 0.9rem;">Public IPs</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">$15k annual savings
+                                    (35+ IPs @ $36/mo)</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <strong style="color: #ef4444; font-size: 0.9rem;">Auto-Shutdown (Dev/Test)</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">$65k annual savings
+                                    (50% reduction in non-prod costs)</p>
+                            </div>
+                        </div>
+                        <div
+                            style="margin-top: 1.5rem; text-align: center; padding: 1.5rem; background: rgba(239, 68, 68, 0.1); border-radius: 8px;">
+                            <p style="font-size: 2rem; color: #ef4444; font-weight: 800; margin: 0;">$160k/year</p>
+                            <p style="font-size: 0.8rem; color: #94a3b8; margin: 0.3rem 0 0 0;">Waste Eliminated |
+                                Automated Cleanup</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: FinOps Toolkit & Workbooks -->
+        <section class="slide" id="slide-8">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">FinOps Toolkit & Workbooks</h2>
+                    <span class="slide-number">07</span>
+                </div>
+                <div class="slide-grid">
+                    <div>
+                        <h4 style="color: #a855f7; margin-top: 0;"><i class="fas fa-tools"></i> Microsoft FinOps Toolkit
+                        </h4>
+                        <p style="font-size: 0.9rem; color: #cbd5e1;">Deployed the official Microsoft FinOps Toolkit to
+                            automate cost tracking, anomaly detection, and optimization workflows.</p>
+                        <ul style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.8; margin-top: 1rem;">
+                            <li><strong>Cost Anomaly Detection:</strong> Real-time alerts for unexpected spending spikes
+                            </li>
+                            <li><strong>Budget Forecasting:</strong> ML-powered predictions based on historical trends
+                            </li>
+                            <li><strong>Chargeback/Showback:</strong> Automated cost allocation to business units</li>
+                            <li><strong>Power BI Integration:</strong> Executive dashboards with drill-down capabilities
+                            </li>
+                        </ul>
+                        <div
+                            style="background: rgba(168, 85, 247, 0.05); padding: 1rem; border-radius: 8px; margin-top: 1.5rem; border: 1px solid rgba(168, 85, 247, 0.2);">
+                            <h5 style="color: #fff; margin: 0 0 0.5rem 0; font-size: 0.9rem;"><i
+                                    class="fas fa-link"></i> Integration</h5>
+                            <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">Workbooks deployed to Azure
+                                Monitor with Reader role for cross-subscription visibility.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 style="color: #fff; margin-top: 0;"><i class="fas fa-chart-pie"></i> Workbook Capabilities
+                        </h4>
+                        <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <strong style="color: #a855f7; font-size: 0.9rem;">Rate Optimization Tab</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">AHB, Reservations,
+                                    and Savings Plan recommendations</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <strong style="color: #a855f7; font-size: 0.9rem;">Usage Optimization Tab</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">Compute, storage,
+                                    and networking optimization insights</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <strong style="color: #a855f7; font-size: 0.9rem;">Top 10 Services</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">Identify
+                                    highest-cost services for targeted optimization</p>
+                            </div>
+                        </div>
+                        <div
+                            style="margin-top: 1.5rem; text-align: center; padding: 1.5rem; background: rgba(168, 85, 247, 0.1); border-radius: 8px;">
+                            <p style="font-size: 1.5rem; color: #a855f7; font-weight: 800; margin: 0;">Real-Time
+                                Visibility</p>
+                            <p style="font-size: 0.8rem; color: #94a3b8; margin: 0.3rem 0 0 0;">Across All Subscriptions
+                                | Anomaly Alerts</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 9: Azure Advisor Integration -->
+        <section class="slide" id="slide-9">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">Azure Advisor Integration</h2>
+                    <span class="slide-number">08</span>
+                </div>
+                <div class="slide-grid">
+                    <div>
+                        <h4 style="color: #38bdf8; margin-top: 0;"><i class="fas fa-lightbulb"></i> Cost Optimization
+                            Workbook</h4>
+                        <p style="font-size: 0.9rem; color: #cbd5e1;">Integrated Azure Advisor's Cost Optimization
+                            Workbook to centralize recommendations and track remediation progress.</p>
+                        <ul style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.8; margin-top: 1rem;">
+                            <li><strong>Welcome Tab:</strong> Cost optimization goals and prerequisites</li>
+                            <li><strong>Resource Overview:</strong> Distribution per region and data transfer costs</li>
+                            <li><strong>Rate Optimization:</strong> AHB, Reservations, Savings Plan opportunities</li>
+                            <li><strong>Usage Optimization:</strong> Compute, storage, and networking recommendations
+                            </li>
+                        </ul>
+                        <div
+                            style="background: rgba(56, 189, 248, 0.05); padding: 1rem; border-radius: 8px; margin-top: 1.5rem; border: 1px solid rgba(56, 189, 248, 0.2);">
+                            <h5 style="color: #fff; margin: 0 0 0.5rem 0; font-size: 0.9rem;"><i
+                                    class="fas fa-magic"></i> Quick Fix</h5>
+                            <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">One-click remediation for AHB
+                                enablement and VM rightsizing directly from the workbook.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 style="color: #fff; margin-top: 0;"><i class="fas fa-sync"></i> Automated Remediation</h4>
+                        <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <strong style="color: #38bdf8; font-size: 0.9rem;">CI/CD Integration</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">Advisor
+                                    recommendations integrated into Azure DevOps pipelines as cost gates</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <strong style="color: #38bdf8; font-size: 0.9rem;">Policy Enforcement</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">Azure Policy denies
+                                    deployment of non-compliant SKUs or regions</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <strong style="color: #38bdf8; font-size: 0.9rem;">Weekly Reports</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">Automated email
+                                    summaries of new recommendations and remediation status</p>
+                            </div>
+                        </div>
+                        <div
+                            style="margin-top: 1.5rem; text-align: center; padding: 1.5rem; background: rgba(56, 189, 248, 0.1); border-radius: 8px;">
+                            <p style="font-size: 2rem; color: #38bdf8; font-weight: 800; margin: 0;">96%</p>
+                            <p style="font-size: 0.8rem; color: #94a3b8; margin: 0.3rem 0 0 0;">Recommendation Adoption
+                                Rate</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 10: Monitoring & Governance -->
+        <section class="slide" id="slide-10">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">Monitoring & Governance</h2>
+                    <span class="slide-number">09</span>
+                </div>
+                <div class="slide-grid">
+                    <div>
+                        <h4 style="color: #10b981; margin-top: 0;"><i class="fas fa-shield-alt"></i> Cost Management +
+                            Billing</h4>
+                        <p style="font-size: 0.9rem; color: #cbd5e1;">Established comprehensive cost governance
+                            framework with automated controls and visibility.</p>
+                        <ul style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.8; margin-top: 1rem;">
+                            <li><strong>Tagging Taxonomy:</strong> Enforced mandatory tags (CostCenter, Environment,
+                                Owner) via Azure Policy</li>
+                            <li><strong>Budget Alerts:</strong> Configured thresholds at 50%, 75%, and 90% of monthly
+                                budget</li>
+                            <li><strong>Chargeback Model:</strong> Automated cost allocation to business units based on
+                                tags</li>
+                            <li><strong>Showback Dashboards:</strong> Self-service Power BI reports for cost
+                                transparency</li>
+                        </ul>
+                        <div
+                            style="background: rgba(16, 185, 129, 0.05); padding: 1rem; border-radius: 8px; margin-top: 1.5rem; border: 1px solid rgba(16, 185, 129, 0.2);">
+                            <h5 style="color: #fff; margin: 0 0 0.5rem 0; font-size: 0.9rem;"><i
+                                    class="fas fa-bell"></i> Proactive Alerts</h5>
+                            <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">Action Groups send alerts to Slack
+                                and email when budgets are exceeded or anomalies detected.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 style="color: #fff; margin-top: 0;"><i class="fas fa-tags"></i> Governance Framework</h4>
+                        <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <strong style="color: #10b981; font-size: 0.9rem;">Tag Compliance</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">100% tag compliance
+                                    enforced via deny policies at subscription level</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <strong style="color: #10b981; font-size: 0.9rem;">Budget Thresholds</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">Monthly budgets set
+                                    per subscription with automated alerts and approvals</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <strong style="color: #10b981; font-size: 0.9rem;">Cost Allocation</strong>
+                                <p style="font-size: 0.75rem; color: #cbd5e1; margin: 0.3rem 0 0 0;">Granular chargeback
+                                    to 15+ business units based on resource tags</p>
+                            </div>
+                        </div>
+                        <div
+                            style="margin-top: 1.5rem; text-align: center; padding: 1.5rem; background: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+                            <p style="font-size: 1.5rem; color: #10b981; font-weight: 800; margin: 0;">100% Visibility
+                            </p>
+                            <p style="font-size: 0.8rem; color: #94a3b8; margin: 0.3rem 0 0 0;">Granular Cost Tracking |
+                                Automated Governance</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 11: FinOps Reference Library -->
+        <section class="slide" id="slide-11">
+            <div class="slide-content animate-in" style="border-color: rgba(16, 185, 129, 0.3);">
+                <div class="slide-header">
+                    <h2 class="slide-title" style="color: #10b981;">FinOps Reference Library</h2>
+                    <span class="slide-number" style="color: #10b981;">10</span>
+                </div>
+                <div class="slide-grid" style="grid-template-columns: 1fr 1fr; gap: 3rem;">
+                    <div>
+                        <h4 style="color: #fff;"><i class="fas fa-graduation-cap"></i> Frameworks & Guides</h4>
+                        <ul style="list-style: none; padding: 0; color: #94a3b8; font-size: 0.9rem;">
+                            <li style="margin-bottom: 1rem;">
+                                <a href="https://learn.microsoft.com/en-us/azure/advisor/advisor-workbook-cost-optimization"
+                                    target="_blank"
+                                    style="color: #38bdf8; text-decoration: none; font-weight: 600;">Azure Advisor Cost
+                                    Optimization Workbook</a><br>
+                                Official Microsoft workbook for cost optimization insights.
+                            </li>
+                            <li style="margin-bottom: 1rem;">
+                                <a href="https://techcommunity.microsoft.com/blog/coreinfrastructureandsecurityblog/mastering-azure-cost-optimization---a-comprehensive-guide/4084926"
+                                    target="_blank"
+                                    style="color: #38bdf8; text-decoration: none; font-weight: 600;">Mastering Azure
+                                    Cost Optimization</a><br>
+                                Comprehensive guide from Microsoft Tech Community.
+                            </li>
+                            <li>
+                                <a href="https://github.com/dolevshor/azure-finops-guide" target="_blank"
+                                    style="color: #38bdf8; text-decoration: none; font-weight: 600;">Azure FinOps
+                                    Guide</a><br>
+                                Community-driven FinOps best practices and tools.
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: #fff;"><i class="fas fa-terminal"></i> Tools & Repositories</h4>
+                        <ul style="list-style: none; padding: 0; color: #94a3b8; font-size: 0.9rem;">
+                            <li style="margin-bottom: 1rem;">
+                                <a href="https://microsoft.github.io/finops-toolkit/workbooks" target="_blank"
+                                    style="color: #10b981; text-decoration: none; font-weight: 600;">Microsoft FinOps
+                                    Toolkit</a><br>
+                                Official FinOps workbooks and automation tools.
+                            </li>
+                            <li style="margin-bottom: 1rem;">
+                                <a href="https://github.com/somrajroy/AzureCostOptimization" target="_blank"
+                                    style="color: #10b981; text-decoration: none; font-weight: 600;">Azure Cost
+                                    Optimization Repository</a><br>
+                                Practical cost optimization techniques and scripts.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 12: Recap & Impact -->
+        <section class="slide" id="slide-12">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">Recap & Impact</h2>
+                    <span class="slide-number">11</span>
+                </div>
+                <div style="text-align: center; margin-bottom: 3rem;">
+                    <p style="font-size: 1.5rem; color: #cbd5e1; max-width: 800px; margin: 0 auto;">"By implementing a
+                        comprehensive FinOps framework and leveraging Microsoft's cost optimization tools, we
+                        transformed cloud spending from an uncontrolled expense into a strategic investment."</p>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; text-align: center;">
+                    <div>
+                        <i class="fas fa-piggy-bank"
+                            style="font-size: 2.5rem; color: #10b981; margin-bottom: 1rem;"></i>
+                        <h3 style="color: #fff; margin:0;">42% Cost Reduction</h3>
+                        <p style="font-size: 0.9rem; color: #94a3b8;">$960k annual savings</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-chart-line"
+                            style="font-size: 2.5rem; color: #10b981; margin-bottom: 1rem;"></i>
+                        <h3 style="color: #fff; margin:0;">Real-Time Visibility</h3>
+                        <p style="font-size: 0.9rem; color: #94a3b8;">Granular cost tracking</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-robot" style="font-size: 2.5rem; color: #10b981; margin-bottom: 1rem;"></i>
+                        <h3 style="color: #fff; margin:0;">Automated Governance</h3>
+                        <p style="font-size: 0.9rem; color: #94a3b8;">96% recommendation adoption</p>
+                    </div>
+                </div>
+                <div style="margin-top: 4rem; text-align: center;">
+                    <a href="../pages/projects.html"
+                        style="display: inline-block; padding: 1rem 3rem; background: #10b981; color: #0f172a; text-decoration: none; border: none; border-radius: 50px; font-weight: 800; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); transition: transform 0.2s;">View
+                        Full Portfolio</a>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Navigation Dots -->
+    <div class="deck-nav">
+        <a href="#slide-1" class="deck-btn"><i class="fas fa-arrow-up"></i></a>
+        <a href="#slide-12" class="deck-btn"><i class="fas fa-arrow-down"></i></a>
+    </div>
+
+</body>
+
+</html>
