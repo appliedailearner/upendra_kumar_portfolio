@@ -1214,7 +1214,44 @@ body {
     background: linear-gradient(135deg, #38bdf8 0%, #60a5fa 100%) !important;
 }
 
-.cert-platform .btn-primary i {
-    color: white !important;
-    margin-right: 0.5rem;
+
+/* 8. Global Visual Overhaul - Purple-Blue Gradient */
+body,
+body.dark-theme {
+    background: linear-gradient(135deg, #020617 0%, #1e1b4b 100%) !important;
+    background-attachment: fixed !important;
+    background-size: cover !important;
+    min-height: 100vh;
+}
+
+/* Make sections transparent to reveal gradient */
+.hero,
+.about,
+.projects,
+.contact,
+.footer,
+section,
+.cv-download-section {
+    background-color: transparent !important;
+    background: transparent !important;
+}
+
+/* Ensure glass cards still look good */
+.leadership-card,
+.cert-platform,
+.project-card-premium,
+.contact-container {
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    background: rgba(30, 41, 59, 0.4) !important;
+    /* Consistent Dark Glass */
+    border: 1px solid rgba(148, 163, 184, 0.1) !important;
+}
+
+/* Footer specific polish */
+.footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+    background: rgba(2, 6, 23, 0.8) !important;
+    /* Slightly darker for footer */
+    backdrop-filter: blur(10px) !important;
 }
