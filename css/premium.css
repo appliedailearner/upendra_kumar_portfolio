@@ -962,3 +962,102 @@ body {
     background: var(--primary-color);
     transform: translateY(-3px);
 }
+
+/* =========================================
+   Premium Contact Form Overrides
+   ========================================= */
+
+/* 1. Form Container - Enhanced Glassmorphism */
+.contact-form {
+    background: rgba(30, 41, 59, 0.4) !important;
+    /* Darker Slate with opacity */
+    border: 1px solid rgba(148, 163, 184, 0.1) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    padding: 2.5rem !important;
+}
+
+/* 2. Input Fields - High Contrast & Modern */
+.contact-form input,
+.contact-form textarea,
+.contact-form select {
+    background: rgba(15, 23, 42, 0.6) !important;
+    /* Darker Slate Background */
+    border: 1px solid rgba(71, 85, 105, 0.5) !important;
+    /* Slate 600 Border */
+    color: #f8fafc !important;
+    /* Slate 50 Text - High Contrast */
+    border-radius: 8px !important;
+    padding: 1rem !important;
+    font-size: 1rem !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: #94a3b8 !important;
+    /* Slate 400 Placeholder */
+    opacity: 1;
+}
+
+/* Focus State - Glow Effect */
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus {
+    outline: none;
+    border-color: #0ea5e9 !important;
+    /* Sky 500 */
+    box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.15) !important;
+    background: rgba(15, 23, 42, 0.8) !important;
+}
+
+/* Select Styling */
+.contact-form select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2394a3b8' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem !important;
+}
+
+/* 3. Submit Button - Premium Gradient */
+.contact-form button[type="submit"] {
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%) !important;
+    border: none !important;
+    color: white !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    padding: 1rem !important;
+    border-radius: 8px !important;
+    cursor: pointer;
+    box-shadow: 0 4px 6px -1px rgba(14, 165, 233, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: 1rem;
+}
+
+.contact-form button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(14, 165, 233, 0.4);
+    filter: brightness(1.1);
+}
+
+.contact-form button[type="submit"]:active {
+    transform: translateY(0);
+}
+
+/* 4. Layout Improvements */
+.form-group {
+    margin-bottom: 1.5rem;
+    /* Breathing room */
+}
+
+@media (max-width: 768px) {
+    .contact-form {
+        padding: 1.5rem !important;
+    }
+}
