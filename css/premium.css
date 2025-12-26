@@ -656,6 +656,234 @@ body {
 
 .nav-menu a.active,
 .nav-menu a:hover {
-    color: #ffffff !important;
-    text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
-}
+
+    /* =========================================
+   Project Card Fixes (Replacing Tailwind)
+   ========================================= */
+
+    /* Main Card Container */
+    .project-card-premium {
+        background-color: #0f172a;
+        /* bg-slate-900 */
+        border-radius: 1rem;
+        /* rounded-2xl */
+        border: 1px solid #1e293b;
+        /* border-slate-800 */
+        overflow: hidden;
+        position: relative;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        /* shadow-xl */
+    }
+
+    .project-card-premium:hover {
+        border-color: rgba(56, 189, 248, 0.3);
+        /* hover:border-sky-500/30 */
+        transform: translateY(-4px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        /* shadow-2xl */
+    }
+
+    /* Image Container */
+    .project-image-container {
+        height: 12rem;
+        /* h-48 */
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        border-bottom: 1px solid #1e293b;
+    }
+
+    .project-image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        transition: transform 0.7s duration-700 ease-in-out;
+    }
+
+    .project-card-premium:hover .project-image-container img {
+        transform: scale(1.05);
+        /* group-hover:scale-105 */
+    }
+
+    .image-overlay-gradient {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, #0f172a, transparent);
+        opacity: 0.6;
+    }
+
+    /* Content Area */
+    .project-content {
+        padding: 2rem;
+        /* p-8 */
+    }
+
+    @media (min-width: 768px) {
+        .project-content {
+            padding: 2.5rem;
+            /* md:p-10 */
+        }
+    }
+
+    /* Header Flex Row */
+    .project-header-row {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+        .project-header-row {
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+
+    .project-title {
+        font-size: 1.875rem;
+        /* text-3xl */
+        line-height: 2.25rem;
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        /* tracking-tight */
+        font-family: 'Outfit', sans-serif;
+    }
+
+    .view-case-study-btn {
+        margin-top: 1rem;
+        padding: 0.5rem 1.25rem;
+        border-radius: 9999px;
+        /* rounded-full */
+        border: 1px solid #475569;
+        /* border-slate-600 */
+        color: #e2e8f0;
+        /* text-slate-200 */
+        font-weight: 600;
+        font-size: 0.875rem;
+        /* text-sm */
+        text-decoration: none;
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .view-case-study-btn:hover {
+        background-color: #1e293b;
+        /* bg-slate-800 */
+        border-color: rgba(14, 165, 233, 0.5);
+        /* hover:border-sky-500/50 */
+        color: #ffffff;
+    }
+
+    @media (min-width: 768px) {
+        .view-case-study-btn {
+            margin-top: 0;
+        }
+    }
+
+    .project-description {
+        color: #cbd5e1;
+        /* text-slate-300 */
+        font-size: 1.125rem;
+        /* text-lg */
+        line-height: 1.75;
+        /* leading-relaxed */
+        margin-bottom: 2rem;
+        max-width: 56rem;
+        /* max-w-4xl */
+    }
+
+    /* Metrics Grid - The Fix for Alignment */
+    .metrics-grid-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+        background-color: rgba(30, 41, 59, 0.3);
+        /* bg-slate-800/30 */
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        /* rounded-xl */
+        border: 1px solid rgba(51, 65, 85, 0.3);
+        /* border-slate-700/30 */
+    }
+
+    @media (min-width: 768px) {
+        .metrics-grid-container {
+            grid-template-columns: repeat(2, 1fr);
+            /* md:grid-cols-2 */
+        }
+    }
+
+    .metric-column h4 {
+        display: flex;
+        align-items: center;
+        color: #94a3b8;
+        /* text-slate-400 */
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        /* text-xs */
+        letter-spacing: 0.05em;
+        /* tracking-wider */
+    }
+
+    .metric-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .metric-list li {
+        color: #cbd5e1;
+        /* text-slate-300 */
+        font-size: 0.875rem;
+        /* text-sm */
+        margin-bottom: 0.5rem;
+        line-height: 1.5;
+    }
+
+    .metric-list li strong {
+        color: #ffffff;
+    }
+
+    /* Tags Container - The Fix for Formatting */
+    .tech-stack-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .tech-tag {
+        padding: 0.25rem 0.75rem;
+        /* px-3 py-1 */
+        border-radius: 9999px;
+        /* rounded-full */
+        background-color: #1e293b;
+        /* bg-slate-800 */
+        color: #cbd5e1;
+        /* text-slate-300 */
+        font-size: 0.75rem;
+        /* text-xs */
+        font-weight: 500;
+        border: 1px solid #334155;
+        /* border-slate-700 */
+        white-space: nowrap;
+    }
+
+    /* Vertical Stack Layout */
+    .projects-stack-container {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+        max-width: 64rem;
+        /* max-w-5xl */
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 3rem;
+    }
