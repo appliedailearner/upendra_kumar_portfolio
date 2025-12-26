@@ -30,6 +30,7 @@
     padding: 0 1.5rem;
 }
 
+
 /* Left Content */
 .hero-content-left {
     z-index: 10;
@@ -50,17 +51,20 @@
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    display: block;
-    /* Breaks to new line for emphasis */
+    display: inline-block;
+    /* Changed from block to inline-block for flow */
 }
 
 .hero-subtext {
     font-family: 'Inter', sans-serif;
-    color: var(--text-slate);
-    font-size: 1.125rem;
+    color: #94a3b8;
+    /* Explicit Slate 400 */
+    font-size: 1.25rem;
+    /* Larger for readability */
     line-height: 1.6;
     max-width: 90%;
     margin-bottom: 2.5rem;
+    font-weight: 400;
 }
 
 /* Resume Button Premium */
@@ -71,16 +75,19 @@
     background: linear-gradient(90deg, #3b82f6 0%, #06b6d4 100%);
     color: white;
     font-weight: 600;
-    padding: 0.85rem 2rem;
+    padding: 1rem 2.5rem;
+    /* Larger button */
     border-radius: 9999px;
     transition: all 0.3s ease;
     text-decoration: none;
     box-shadow: 0 4px 20px rgba(56, 189, 248, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .btn-premium:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(56, 189, 248, 0.5);
+    box-shadow: 0 8px 30px rgba(56, 189, 248, 0.6);
+    color: white;
 }
 
 /* Right Content - Clean Profile */
@@ -94,15 +101,15 @@
 .profile-clean-frame {
     position: relative;
     border-radius: 32px;
+    /* Soft rounded square */
     overflow: hidden;
-    /* Soft border glow */
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1),
-        0 20px 50px -10px rgba(0, 0, 0, 0.5);
+    /* Removed white border, added colored glow */
+    box-shadow: 0 0 40px rgba(56, 189, 248, 0.2),
+        0 0 0 1px rgba(56, 189, 248, 0.1);
     background: var(--navy-card);
-    max-width: 480px;
     width: 100%;
+    max-width: 450px;
     aspect-ratio: 1/1;
-    /* Keeps it square-ish */
 }
 
 .profile-clean-frame img {
