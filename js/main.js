@@ -190,16 +190,8 @@ document.querySelectorAll('section, .leadership-card, .cert-platform, .expertise
 });
 
 // ===== Parallax Effect on Hero =====
-/*
-const hero = document.querySelector('.hero');
-if (hero) {
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const parallaxSpeed = 0.5;
-        hero.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
-    });
-}
-*/
+// Parallax removed to fix scroll overlap issues
+
 
 // ===== Animated Gradient Orbs =====
 function createOrbs() {
