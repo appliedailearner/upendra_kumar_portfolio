@@ -22,6 +22,25 @@
             padding: 120px 0 60px;
             background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.15), transparent 60%);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .hero-cover-image {
+            width: 100%;
+            max-width: 1000px;
+            margin: 2rem auto 0;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            display: block;
+        }
+
+        .architecture-diagram {
+            width: 100%;
+            max-width: 100%;
+            margin: 3rem 0;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .blog-post-content {
@@ -173,6 +192,11 @@
                 <span class="blog-tag"><i class="fas fa-cloud"></i> Cloudflare</span>
                 <span class="blog-tag"><i class="fas fa-globe"></i> Edge Computing</span>
             </div>
+
+            <!-- Hero Cover Image -->
+            <img src="../images/blog/azure-edge-fork-cover.jpg"
+                alt="The Azure Edge Fork - Microsoft Backbone vs No Origin to Attack" class="hero-cover-image"
+                loading="eager">
         </div>
     </section>
 
@@ -203,6 +227,17 @@
             Below are three patterns I see repeatedly in enterprise and regulated environments. I'm not ranking them.
             I'm showing where each one wins and where each one bites.
         </p>
+
+        <!-- Architecture Comparison Diagram -->
+        <figure style="margin: 3rem 0; text-align: center;">
+            <img src="../images/blog/azure-edge-architecture-comparison.png"
+                alt="Azure Edge Architecture Comparison: Castle-and-Moat vs Ghost in the Shell"
+                class="architecture-diagram" loading="lazy">
+            <figcaption style="margin-top: 1rem; color: var(--text-muted); font-style: italic; font-size: 0.95rem;">
+                Architecture Comparison: The 'Pure Blue' Backbone (Azure Front Door + Private Link) vs The 'De-Coupled'
+                Rebel (Cloudflare Tunnel + Access)
+            </figcaption>
+        </figure>
 
         <h2><span class="gradient-text">Pattern 1: Azure Front Door Premium + Private Link</span></h2>
         <p><strong>Principle:</strong> Microsoft Edge, private origin, Azure-governed controls.</p>
@@ -369,9 +404,11 @@
         <h2><span class="gradient-text">My Take</span></h2>
         <ul>
             <li>If you are <strong>PaaS-heavy</strong> and want private origins with an Azure-governed model,
-                <strong>Front Door Premium + Private Link</strong> is the strongest default.</li>
+                <strong>Front Door Premium + Private Link</strong> is the strongest default.
+            </li>
             <li>If you must <strong>hide origins</strong>, publish legacy safely, or are battling WAF fatigue,
-                <strong>Cloudflare Tunnel</strong> is hard to beat.</li>
+                <strong>Cloudflare Tunnel</strong> is hard to beat.
+            </li>
             <li>If your focus is <strong>workforce access</strong> and reducing VPN sprawl, <strong>Microsoft SSE +
                     SD-WAN</strong> is the strategic pivot.</li>
         </ul>
