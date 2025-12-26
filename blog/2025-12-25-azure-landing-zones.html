@@ -8,8 +8,8 @@
         content="Azure Landing Zones: Enterprise Foundation - A comprehensive guide by Upendra Kumar">
     <title>Azure Landing Zones: Enterprise Foundation | Upendra Kumar</title>
 
-    <link rel="stylesheet" href="../css/style.css?v=24">
-    <link rel="stylesheet" href="../css/premium.css?v=24">
+    <link rel="stylesheet" href="../css/style.css?v=25">
+    <link rel="stylesheet" href="../css/premium.css?v=25">
     <style>
         .nav-logo-uk {
             background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
@@ -202,6 +202,15 @@
             <li><strong>Security:</strong> Microsoft Defender for Cloud and security baselines</li>
         </ul>
 
+        <div
+            style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; padding: 1.5rem; margin: 2rem 0; border-radius: 4px;">
+            <h4 style="margin-top: 0; color: #60a5fa;"><i class="fas fa-lightbulb"></i> Pro Tip: Subscription Vending
+            </h4>
+            <p style="margin-bottom: 0;">use a "Subscription Vending Machine" approach (via Bicep/Terraform) to
+                automatically provision new subscriptions with pre-configured networking, Policy assignments, and budget
+                alerts. This prevents "ClickOps" sprawl.</p>
+        </div>
+
         <h2><span class="gradient-text">Architecture Patterns</span></h2>
         <p>
             The most common pattern is the Hub-and-Spoke topology, where:
@@ -220,6 +229,26 @@
                 maintaining central governance</li>
             <li><strong>Policy-Driven Governance:</strong> Automate compliance through Azure Policy rather than manual
                 processes</li>
+
+            <h4>Policy Example: Enforce Tags</h4>
+            <p>This policy snippet denies resource creation if specific tags are missing, ensuring cost visibility.</p>
+            <pre><code class="language-json">{
+  "if": {
+    "allOf": [
+      {
+        "field": "tags['CostCenter']",
+        "exists": "false"
+      },
+      {
+        "field": "type",
+        "equals": "Microsoft.Resources/subscriptions/resourceGroups"
+      }
+    ]
+  },
+  "then": {
+    "effect": "deny"
+  }
+}</code></pre>
             <li><strong>Single Control Plane:</strong> Unified management through Azure Resource Manager</li>
             <li><strong>Application-Centric:</strong> Design around application needs, not infrastructure constraints
             </li>
@@ -240,6 +269,18 @@
 └── Landing Zones
     ├── Corp (Internal workloads)
     └── Online (Internet-facing workloads)</code></pre>
+
+        <h3>Reference Architecture: Hub-and-Spoke Topology</h3>
+        <p>
+            The diagram below illustrates the segmentation strategy. The Hub VNet hosts shared services (Firewall,
+            Bastion, VPN), while spoke VNets host isolated workloads peering back to the Hub.
+        </p>
+        <div
+            style="background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 8px; text-align: center; margin-bottom: 2rem; border: 1px dashed rgba(255,255,255,0.2);">
+            <em>[Architecture Diagram Placeholder: Hub VNet connected to Spoke A (Prod) and Spoke B (Dev) via VNet
+                Peering]</em>
+            <br><small style="color: var(--text-muted);">Figure 1: Enterprise Hub-Spoke Topology</small>
+        </div>
 
         <h3>2. Implement Network Segmentation</h3>
         <p>
@@ -262,6 +303,18 @@
             <li>Drift detection and remediation</li>
             <li>Disaster recovery capabilities</li>
         </ul>
+
+        <h4>Example: Terraform Project Structure</h4>
+        <p>A modular Terraform structure ensures scalability and component reuse:</p>
+        <pre><code class="language-bash">.
+├── modules/
+│   ├── connectivity/    # VNet, VPN, Firewall
+│   ├── management/      # Log Analytics, Automation
+│   └── identity/        # Role Assignments, Policy
+├── landing_zones/
+│   ├── corp/           # Internal apps
+│   └── online/         # Public apps
+└── main.tf             # Orchestration</code></pre>
 
         <h2><span class="gradient-text">Security Considerations</span></h2>
 
