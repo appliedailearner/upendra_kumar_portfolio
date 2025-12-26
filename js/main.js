@@ -190,6 +190,7 @@ document.querySelectorAll('section, .leadership-card, .cert-platform, .expertise
 });
 
 // ===== Parallax Effect on Hero =====
+/*
 const hero = document.querySelector('.hero');
 if (hero) {
     window.addEventListener('scroll', () => {
@@ -198,6 +199,7 @@ if (hero) {
         hero.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
     });
 }
+*/
 
 // ===== Animated Gradient Orbs =====
 function createOrbs() {
