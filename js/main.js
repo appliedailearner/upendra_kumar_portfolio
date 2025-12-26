@@ -78,12 +78,29 @@ if (hamburger) {
 // Close mobile menu when clicking on a link
 navLinks.forEach(link => {
     link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-        hamburger.classList.remove('active');
-        const spans = hamburger.querySelectorAll('span');
-        spans[0].style.transform = 'none';
-        spans[1].style.opacity = '1';
-        spans[2].style.transform = 'none';
+        // Don't close menu if clicking dropdown toggle
+        if (!link.classList.contains('dropdown-toggle')) {
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+            const spans = hamburger.querySelectorAll('span');
+            spans[0].style.transform = 'none';
+            spans[1].style.opacity = '1';
+            spans[2].style.transform = 'none';
+        }
+    });
+});
+
+// ===== Mobile Dropdown Toggle =====
+const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+dropdownToggles.forEach(toggle => {
+    toggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        const dropdown = toggle.closest('.dropdown');
+
+        // On mobile, toggle the dropdown
+        if (window.innerWidth <= 768) {
+            dropdown.classList.toggle('active');
+        }
     });
 });
 
