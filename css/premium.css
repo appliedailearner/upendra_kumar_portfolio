@@ -1216,12 +1216,14 @@ body {
 
 
 /* 8. Global Visual Overhaul - Purple-Blue Gradient */
-body,
-body.dark-theme {
-    background: linear-gradient(135deg, #020617 0%, #1e1b4b 100%) !important;
+body {
+    /* Rich Gradient: Deep Slate -> Dark Indigo -> Deep Blue */
+    background: linear-gradient(135deg, #020617 0%, #2e1065 45%, #172554 100%) !important;
     background-attachment: fixed !important;
     background-size: cover !important;
     min-height: 100vh;
+    color: var(--text-main);
+    /* Ensure text is visible on dark bg */
 }
 
 /* Make sections transparent to reveal gradient */
@@ -1231,7 +1233,10 @@ body.dark-theme {
 .contact,
 .footer,
 section,
-.cv-download-section {
+.cv-download-section,
+.leadership-section,
+.expertise,
+.certifications {
     background-color: transparent !important;
     background: transparent !important;
 }
