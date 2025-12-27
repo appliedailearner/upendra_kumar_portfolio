@@ -73,56 +73,7 @@
     }
     </script>
 
-    <style>
-        .nav-logo-uk {
-            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
-            border-radius: 8px !important;
-        }
-
-        /* Beehiiv Subscription Card */
-        .newsletter-section {
-            padding: 40px 0;
-            position: relative;
-            z-index: 10;
-        }
-
-        .newsletter-card {
-            background: rgba(30, 41, 59, 0.7);
-            /* navy-card with opacity */
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 3rem;
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .newsletter-title {
-            font-family: 'Outfit', sans-serif;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .newsletter-text {
-            color: var(--text-secondary, #e2e8f0);
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
-
-        .beehiiv-placeholder {
-            border: 2px dashed rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            padding: 2rem;
-            background: rgba(0, 0, 0, 0.2);
-            color: #94a3b8;
-            font-family: monospace;
-        }
-    </style>
+    <!-- Inline Styles Removed - Migrated to premium.css -->
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -164,10 +115,9 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero"
-        style="padding: 150px 0 0px !important; min-height: auto !important; display: block !important;">
+    <section class="hero hero-blog-index">
         <div class="container" style="text-align: center;">
-            <h1 class="hero-title" style="font-size: 4rem; margin-bottom: 0; line-height: 1.1;">
+            <h1 class="hero-title hero-blog-title">
                 <span style="color: #ffffff;">Architecture</span> <span class="gradient-text">Insights</span>
             </h1>
             <p style="font-size: 1.05rem; color: var(--text-secondary); max-width: 600px; margin: 5px auto 0;">
@@ -182,36 +132,29 @@
     <!-- Blog Posts Grid -->
     <section style="padding: 20px 0 100px; background: transparent;">
         <div class="container">
-            <div class="blog-grid"
-                style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto;">
+            <div class="blog-grid-system">
 
                 <!-- Blog Post Card 0: Mental Models (Dec 26) -->
-                <article class="blog-card">
-                    <div class="blog-thumbnail"
-                        style="height: 150px; background: linear-gradient(135deg, rgba(30, 41, 59, 0.2), rgba(15, 23, 42, 0.2)); display: flex; align-items: center; justify-content: center; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                        <i class="fas fa-brain" style="font-size: 3rem; color: rgba(255, 255, 255, 0.3);"></i>
+                <article class="blog-card-new">
+                    <div class="blog-thumbnail-wrapper thumb-gradient-slate">
+                        <i class="fas fa-brain blog-thumbnail-icon"></i>
                     </div>
-                    <div class="blog-content" style="padding: 1.5rem;">
-                        <div class="blog-meta"
-                            style="display: flex; gap: 1rem; margin-bottom: 1rem; font-size: 0.85rem; color: var(--text-muted);">
+                    <div class="blog-content-inner">
+                        <div class="blog-meta-row">
                             <span><i class="fas fa-calendar"></i> Dec 26, 2025</span>
                             <span><i class="fas fa-clock"></i> 10 min read</span>
                         </div>
-                        <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.5rem; margin-bottom: 1rem;">
+                        <h3 class="blog-title-text">
                             <span class="gradient-text">Mental Reset, Energy Protection & Career Acceleration</span>
                         </h3>
                         <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem;">
                             Four battle-tested frameworks that transformed how I lead high-pressure Azure
                             transformations and manage delivery energy.
                         </p>
-                        <div class="blog-tags"
-                            style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
-                            <span
-                                style="background: rgba(168, 85, 247, 0.1); color: #a855f7; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; border: 1px solid rgba(168, 85, 247, 0.2);">Leadership</span>
-                            <span
-                                style="background: rgba(59, 130, 246, 0.1); color: #3b82f6; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; border: 1px solid rgba(59, 130, 246, 0.2);">Productivity</span>
-                            <span
-                                style="background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; border: 1px solid rgba(16, 185, 129, 0.2);">Career</span>
+                        <div class="blog-tags-row">
+                            <span class="blog-tag tag-purple">Leadership</span>
+                            <span class="blog-tag tag-blue">Productivity</span>
+                            <span class="blog-tag tag-green">Career</span>
                         </div>
                         <a href="blog/2025-12-26-leadership-mental-models.html" class="btn btn-primary"
                             style="width: 100%; text-align: center; display: inline-block;">
@@ -221,33 +164,26 @@
                 </article>
 
                 <!-- Blog Post Card 1: Azure Landing Zones (Dec 25) -->
-                <article class="blog-card">
-                    <div class="blog-thumbnail"
-                        style="height: 150px; background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(59, 130, 246, 0.2)); display: flex; align-items: center; justify-content: center; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                        <i class="fas fa-cloud" style="font-size: 3rem; color: rgba(255, 255, 255, 0.3);"></i>
+                <article class="blog-card-new">
+                    <div class="blog-thumbnail-wrapper thumb-gradient-purple">
+                        <i class="fas fa-cloud blog-thumbnail-icon"></i>
                     </div>
-                    <div class="blog-content" style="padding: 1.5rem;">
-                        <div class="blog-meta"
-                            style="display: flex; gap: 1rem; margin-bottom: 1rem; font-size: 0.85rem; color: var(--text-muted);">
+                    <div class="blog-content-inner">
+                        <div class="blog-meta-row">
                             <span><i class="fas fa-calendar"></i> Dec 25, 2025</span>
                             <span><i class="fas fa-clock"></i> 8 min read</span>
                         </div>
-                        <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.5rem; margin-bottom: 1rem;">
+                        <h3 class="blog-title-text">
                             <span class="gradient-text">Azure Landing Zones: Enterprise Foundation</span>
                         </h3>
                         <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem;">
                             A comprehensive guide to designing and implementing Azure Landing Zones for enterprise-scale
                             cloud adoption. Learn best practices, governance patterns, and security frameworks.
                         </p>
-                        <div class="blog-tags"
-                            style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
-                            <span
-                                style="background: rgba(168, 85, 247, 0.1); color: #a855f7; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; border: 1px solid rgba(168, 85, 247, 0.2);">Azure</span>
-                            <span
-                                style="background: rgba(59, 130, 246, 0.1); color: #3b82f6; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; border: 1px solid rgba(59, 130, 246, 0.2);">Landing
-                                Zones</span>
-                            <span
-                                style="background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; border: 1px solid rgba(16, 185, 129, 0.2);">Architecture</span>
+                        <div class="blog-tags-row">
+                            <span class="blog-tag tag-purple">Azure</span>
+                            <span class="blog-tag tag-blue">Landing Zones</span>
+                            <span class="blog-tag tag-green">Architecture</span>
                         </div>
                         <a href="blog/2025-12-25-azure-landing-zones.html" class="btn btn-primary"
                             style="width: 100%; text-align: center; display: inline-block;">
@@ -257,32 +193,26 @@
                 </article>
 
                 <!-- Blog Post Card 2: From Ticket-Solver to Visionary (Dec 7) -->
-                <article class="blog-card">
-                    <div class="blog-thumbnail"
-                        style="height: 150px; background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(236, 72, 153, 0.2)); display: flex; align-items: center; justify-content: center; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                        <i class="fas fa-user-tie" style="font-size: 3rem; color: rgba(255, 255, 255, 0.3);"></i>
+                <article class="blog-card-new">
+                    <div class="blog-thumbnail-wrapper thumb-gradient-pink">
+                        <i class="fas fa-user-tie blog-thumbnail-icon"></i>
                     </div>
-                    <div class="blog-content" style="padding: 1.5rem;">
-                        <div class="blog-meta"
-                            style="display: flex; gap: 1rem; margin-bottom: 1rem; font-size: 0.85rem; color: var(--text-muted);">
+                    <div class="blog-content-inner">
+                        <div class="blog-meta-row">
                             <span><i class="fas fa-calendar"></i> Dec 7, 2025</span>
                             <span><i class="fas fa-clock"></i> 7–9 min read</span>
                         </div>
-                        <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.5rem; margin-bottom: 1rem;">
+                        <h3 class="blog-title-text">
                             <span class="gradient-text">From Ticket-Solver to Visionary</span>
                         </h3>
                         <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem;">
                             The skill shift to become an enterprise architect. Certs open doors, but decision-making and
                             writing get you promoted.
                         </p>
-                        <div class="blog-tags"
-                            style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
-                            <span
-                                style="background: rgba(236, 72, 153, 0.1); color: #ec4899; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; border: 1px solid rgba(236, 72, 153, 0.2);">Career</span>
-                            <span
-                                style="background: rgba(168, 85, 247, 0.1); color: #a855f7; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; border: 1px solid rgba(168, 85, 247, 0.2);">TOGAF</span>
-                            <span
-                                style="background: rgba(59, 130, 246, 0.1); color: #3b82f6; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; border: 1px solid rgba(59, 130, 246, 0.2);">Leadership</span>
+                        <div class="blog-tags-row">
+                            <span class="blog-tag tag-pink">Career</span>
+                            <span class="blog-tag tag-purple">TOGAF</span>
+                            <span class="blog-tag tag-blue">Leadership</span>
                         </div>
                         <a href="blog/2025-12-07-ticket-solver-to-visionary.html" class="btn btn-primary"
                             style="width: 100%; text-align: center; display: inline-block;">
@@ -292,33 +222,26 @@
                 </article>
 
                 <!-- Blog Post Card 3: Data Landing Zones (Nov 21) -->
-                <article class="blog-card">
-                    <div class="blog-thumbnail"
-                        style="height: 150px; background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(16, 185, 129, 0.2)); display: flex; align-items: center; justify-content: center; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                        <i class="fas fa-database" style="font-size: 3rem; color: rgba(255, 255, 255, 0.3);"></i>
+                <article class="blog-card-new">
+                    <div class="blog-thumbnail-wrapper thumb-gradient-green">
+                        <i class="fas fa-database blog-thumbnail-icon"></i>
                     </div>
-                    <div class="blog-content" style="padding: 1.5rem;">
-                        <div class="blog-meta"
-                            style="display: flex; gap: 1rem; margin-bottom: 1rem; font-size: 0.85rem; color: var(--text-muted);">
+                    <div class="blog-content-inner">
+                        <div class="blog-meta-row">
                             <span><i class="fas fa-calendar"></i> Nov 21, 2025</span>
                             <span><i class="fas fa-clock"></i> 9–11 min read</span>
                         </div>
-                        <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.5rem; margin-bottom: 1rem;">
+                        <h3 class="blog-title-text">
                             <span class="gradient-text">Data Landing Zones: Building Data Mesh</span>
                         </h3>
                         <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem;">
                             Control plane vs data plane, with governance that scales. Learn how to build data mesh
                             without creating a data swamp.
                         </p>
-                        <div class="blog-tags"
-                            style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
-                            <span
-                                style="background: rgba(59, 130, 246, 0.1); color: #3b82f6; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; border: 1px solid rgba(59, 130, 246, 0.2);">Data
-                                Mesh</span>
-                            <span
-                                style="background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; border: 1px solid rgba(16, 185, 129, 0.2);">Purview</span>
-                            <span
-                                style="background: rgba(168, 85, 247, 0.1); color: #a855f7; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; border: 1px solid rgba(168, 85, 247, 0.2);">Governance</span>
+                        <div class="blog-tags-row">
+                            <span class="blog-tag tag-blue">Data Mesh</span>
+                            <span class="blog-tag tag-green">Purview</span>
+                            <span class="blog-tag tag-purple">Governance</span>
                         </div>
                         <a href="blog/2025-11-21-data-landing-zones-data-mesh.html" class="btn btn-primary"
                             style="width: 100%; text-align: center; display: inline-block;">
@@ -328,32 +251,26 @@
                 </article>
 
                 <!-- Blog Post Card 4: Beyond the Scorecard (Oct 28) -->
-                <article class="blog-card">
-                    <div class="blog-thumbnail"
-                        style="height: 150px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(245, 158, 11, 0.2)); display: flex; align-items: center; justify-content: center; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                        <i class="fas fa-clipboard-check" style="font-size: 3rem; color: rgba(255, 255, 255, 0.3);"></i>
+                <article class="blog-card-new">
+                    <div class="blog-thumbnail-wrapper thumb-gradient-orange">
+                        <i class="fas fa-clipboard-check blog-thumbnail-icon"></i>
                     </div>
-                    <div class="blog-content" style="padding: 1.5rem;">
-                        <div class="blog-meta"
-                            style="display: flex; gap: 1rem; margin-bottom: 1rem; font-size: 0.85rem; color: var(--text-muted);">
+                    <div class="blog-content-inner">
+                        <div class="blog-meta-row">
                             <span><i class="fas fa-calendar"></i> Oct 28, 2025</span>
                             <span><i class="fas fa-clock"></i> 7–9 min read</span>
                         </div>
-                        <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.5rem; margin-bottom: 1rem;">
+                        <h3 class="blog-title-text">
                             <span class="gradient-text">Beyond the Scorecard: WAR to Roadmap</span>
                         </h3>
                         <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem;">
                             Turning a Well-Architected Review into a funded roadmap. Make execs read it, trust it, and
                             approve it.
                         </p>
-                        <div class="blog-tags"
-                            style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
-                            <span
-                                style="background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; border: 1px solid rgba(16, 185, 129, 0.2);">Well-Architected</span>
-                            <span
-                                style="background: rgba(245, 158, 11, 0.1); color: #f59e0b; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; border: 1px solid rgba(245, 158, 11, 0.2);">Cost</span>
-                            <span
-                                style="background: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; border: 1px solid rgba(239, 68, 68, 0.2);">Security</span>
+                        <div class="blog-tags-row">
+                            <span class="blog-tag tag-green">Well-Architected</span>
+                            <span class="blog-tag tag-orange">Cost</span>
+                            <span class="blog-tag tag-red">Security</span>
                         </div>
                         <a href="blog/2025-10-28-beyond-the-scorecard-war-roadmap.html" class="btn btn-primary"
                             style="width: 100%; text-align: center; display: inline-block;">
@@ -363,32 +280,26 @@
                 </article>
 
                 <!-- Blog Post Card 5: Brownfield Nightmares (Oct 3) -->
-                <article class="blog-card">
-                    <div class="blog-thumbnail"
-                        style="height: 150px; background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(168, 85, 247, 0.2)); display: flex; align-items: center; justify-content: center; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                        <i class="fas fa-network-wired" style="font-size: 3rem; color: rgba(255, 255, 255, 0.3);"></i>
+                <article class="blog-card-new">
+                    <div class="blog-thumbnail-wrapper thumb-gradient-red">
+                        <i class="fas fa-network-wired blog-thumbnail-icon"></i>
                     </div>
-                    <div class="blog-content" style="padding: 1.5rem;">
-                        <div class="blog-meta"
-                            style="display: flex; gap: 1rem; margin-bottom: 1rem; font-size: 0.85rem; color: var(--text-muted);">
+                    <div class="blog-content-inner">
+                        <div class="blog-meta-row">
                             <span><i class="fas fa-calendar"></i> Oct 3, 2025</span>
                             <span><i class="fas fa-clock"></i> 9–12 min read</span>
                         </div>
-                        <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.5rem; margin-bottom: 1rem;">
+                        <h3 class="blog-title-text">
                             <span class="gradient-text">Brownfield Nightmares: Adopting ALZ</span>
                         </h3>
                         <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem;">
                             How to migrate legacy flat networks into hub-spoke with minimal downtime. A controlled
                             transition strategy.
                         </p>
-                        <div class="blog-tags"
-                            style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
-                            <span
-                                style="background: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; border: 1px solid rgba(239, 68, 68, 0.2);">Migration</span>
-                            <span
-                                style="background: rgba(168, 85, 247, 0.1); color: #a855f7; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; border: 1px solid rgba(168, 85, 247, 0.2);">Networking</span>
-                            <span
-                                style="background: rgba(59, 130, 246, 0.1); color: #3b82f6; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; border: 1px solid rgba(59, 130, 246, 0.2);">ALZ</span>
+                        <div class="blog-tags-row">
+                            <span class="blog-tag tag-red">Migration</span>
+                            <span class="blog-tag tag-purple">Networking</span>
+                            <span class="blog-tag tag-blue">ALZ</span>
                         </div>
                         <a href="blog/2025-10-03-brownfield-nightmares-alz.html" class="btn btn-primary"
                             style="width: 100%; text-align: center; display: inline-block;">
@@ -410,8 +321,8 @@
 
                 <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
                 <iframe src="https://subscribe-forms.beehiiv.com/90f3612b-c74a-45ab-b30b-f177d09c31d0"
-                    class="beehiiv-embed" data-test-id="beehiiv-embed" frameborder="0" scrolling="no"
-                    style="width: 100%; height: 255px; margin: 0 auto; border-radius: 0px !important; background-color: transparent; box-shadow: none; max-width: 500px; display: block;"></iframe>
+                    class="beehiiv-embed beehiiv-embed-frame" data-test-id="beehiiv-embed" frameborder="0"
+                    scrolling="no"></iframe>
             </div>
             <!-- BEEHIIV EMBED END -->
         </div>
@@ -444,20 +355,6 @@
                 navMenu.classList.toggle('active');
             });
         }
-
-        // Blog card hover effects
-        document.querySelectorAll('.blog-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-8px)';
-                card.style.borderColor = 'rgba(168, 85, 247, 0.3)';
-                card.style.boxShadow = '0 20px 60px rgba(0, 0, 0, 0.3)';
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0)';
-                card.style.borderColor = 'rgba(255, 255, 255, 0.05)';
-                card.style.boxShadow = 'none';
-            });
-        });
     </script>
 
 </body>
