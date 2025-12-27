@@ -177,7 +177,12 @@ body {
 .animate-in {
     opacity: 0;
     transform: translateY(20px);
-    animation: fadeUp 0.8s forwards;
+    transition: all 0.8s ease-out;
+}
+
+.visible .animate-in {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .delay-1 {
@@ -192,12 +197,72 @@ body {
     animation-delay: 0.6s;
 }
 
-@keyframes fadeUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
+/* Progress Bar */
+#deck-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: var(--accent);
+    width: 0%;
+    z-index: 200;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 10px var(--accent);
+}
+
+/* Print Styles */
+@media print {
+    body {
+        overflow: visible;
+        background: white;
+        color: black;
+    }
+
+    .deck-container {
+        height: auto;
+        overflow: visible;
+        display: block;
+    }
+
+    .slide {
+        height: 100vh;
+        /* Force page break */
+        page-break-after: always;
+        break-after: page;
+        background: white !important;
+        border-bottom: none;
+        color: black;
+    }
+
+    .slide-content {
+        background: none !important;
+        box-shadow: none !important;
+        border: none !important;
+        backdrop-filter: none;
+        color: black;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    p,
+    span,
+    strong,
+    li {
+        color: black !important;
+        background: none !important;
+        -webkit-text-fill-color: black !important;
+    }
+
+    .deck-nav,
+    #deck-progress,
+    .top-nav-project {
+        display: none !important;
     }
 }
+
 
 /* 📱 Mobile Responsiveness (Senior UX Expert Addition) */
 @media (max-width: 768px) {
