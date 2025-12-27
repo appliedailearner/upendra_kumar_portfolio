@@ -7,6 +7,17 @@ document.addEventListener('DOMContentLoaded', () => {
     progressBar.id = 'deck-progress';
     document.body.prepend(progressBar);
 
+    // --- Inject Particles (Added) ---
+    // 1. Create Canvas
+    const particleCanvas = document.createElement('canvas');
+    particleCanvas.id = 'particles-canvas';
+    document.body.prepend(particleCanvas); // Prepend so it's behind content (CSS z-index handles depth)
+
+    // 2. Load Script
+    const particleScript = document.createElement('script');
+    particleScript.src = '../js/particles.js';
+    document.body.appendChild(particleScript);
+
     // --- State ---
     let currentSlideIndex = 0;
 
