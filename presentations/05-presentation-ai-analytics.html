@@ -28,7 +28,7 @@
             style="background: radial-gradient(circle at center, rgba(139, 92, 246, 0.2) 0%, var(--bg-dark) 100%);">
             <div class="slide-content" style="border-color: rgba(139, 92, 246, 0.3); background: rgba(30,30,40,0.6);">
                 <h1 class="animate-in"
-                    style="background: linear-gradient(to right, #fff, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                    style="background: linear-gradient(to right, #fff, #a78bfa); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
                     AI-Powered Analytics Platform</h1>
                 <p class="animate-in delay-1" style="color: #a78bfa;">Enterprise Intelligence Architecture</p>
                 <div style="margin-top: 3rem;" class="animate-in delay-2">
@@ -169,9 +169,11 @@
 
     <!-- Navigation Dots -->
     <div class="deck-nav">
-        <a href="#slide-1" class="deck-btn"><i class="fas fa-arrow-up"></i></a>
-        <a href="#slide-5" class="deck-btn"><i class="fas fa-arrow-down"></i></a>
+        <button onclick="prevSlide()" class="deck-btn" title="Previous Slide"><i class="fas fa-arrow-up"></i></button>
+        <button onclick="nextSlide()" class="deck-btn" title="Next Slide"><i class="fas fa-arrow-down"></i></button>
     </div>
+
+    <script src="../js/presentation-nav.js"></script>
 
 </body>
 
