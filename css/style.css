@@ -256,7 +256,9 @@ body::before {
 
 .nav-tagline {
     color: var(--text-light);
-    font-size: 0.85rem;
+    font-size: 0.95rem;
+    /* Increased from 0.85rem for readability */
+    letter-spacing: 0.02em;
 }
 
 .nav-menu {
@@ -327,13 +329,8 @@ body::before {
     gap: 0.5rem;
 }
 
-.nav-menu .dropdown-toggle::after {
-    content: '▼';
-    font-size: 0.7rem;
-    transition: transform 0.3s ease;
-}
-
-.nav-menu .dropdown:hover .dropdown-toggle::after {
+/* Fix: Arrow is now handled by FontAwesome icon in HTML to avoid pseudo-element conflicts */
+.nav-menu .dropdown:hover .dropdown-toggle i {
     transform: rotate(180deg);
 }
 
@@ -341,19 +338,23 @@ body::before {
     position: absolute;
     top: 100%;
     left: 0;
-    background: rgba(15, 15, 35, 0.95);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    padding: 0.5rem 0;
-    min-width: 200px;
+    background: rgba(10, 10, 25, 0.95);
+    /* Deeper Premium Navy */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    border-top: 2px solid rgba(168, 85, 247, 0.5);
+    /* Top Accent */
+    border-radius: 12px;
+    padding: 0.75rem 0;
+    min-width: 220px;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1001;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 15px rgba(168, 85, 247, 0.1);
+    /* Glow */
 }
 
 .nav-menu .dropdown:hover .dropdown-menu {
@@ -371,9 +372,11 @@ body::before {
 }
 
 .nav-menu .dropdown-menu a:hover {
-    background: rgba(168, 85, 247, 0.1);
+    background: linear-gradient(90deg, rgba(168, 85, 247, 0.15), transparent);
     color: var(--white);
     padding-left: 2rem;
+    border-left: 3px solid #a855f7;
+    /* Left Accent Interaction */
 }
 
 .hamburger {
