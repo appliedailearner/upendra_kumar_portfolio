@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deck: Model Context Protocol (MCP) | Upendra Kumar</title>
+    <link rel="stylesheet" href="../css/presentation.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Mermaid JS -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body>
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Top Navigation -->
+    <div class="back-link-container">
+        <a href="../blog/2025-12-27-model-context-protocol.html"
+            style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.9rem; font-family: 'Inter'; display: flex; align-items: center; gap: 0.5rem; transition: color 0.3s;">
+            <i class="fas fa-arrow-left"></i> Back to Article
+        </a>
+    </div>
+
+    <div class="deck-container">
+
+        <!-- Slide 1: Title -->
+        <section class="slide title-slide" id="slide-1">
+            <div class="slide-content">
+                <h1 class="animate-in">The Model Context Protocol (MCP)</h1>
+                <p class="animate-in delay-1">The Universal Translator: Rewiring the Brain of AI</p>
+                <div style="margin-top: 3rem;" class="animate-in delay-2">
+                    <span
+                        style="border:1px solid #38bdf8; padding: 0.5rem 1rem; border-radius: 50px; color: #38bdf8; font-family: 'Inter'; font-size: 0.9rem;">
+                        <i class="fas fa-network-wired"></i> Standardizing Agentic AI
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: The Integration Crisis -->
+        <section class="slide" id="slide-2">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">The Integration Crisis</h2>
+                    <span class="slide-number">01</span>
+                </div>
+                <div class="slide-grid">
+                    <div class="slide-text">
+                        <p><strong>The Problem:</strong> Large Language Models (LLMs) are brilliant but isolated. To
+                            connect them to data, developers faced the "N×M Integration Problem".</p>
+                        <ul style="margin-top: 2rem;">
+                            <li><strong>Siloed Intelligence:</strong> Models couldn't natively access databases, files,
+                                or tools.</li>
+                            <li><strong>Brittleness:</strong> Every new data source required a custom "connector".</li>
+                            <li><strong>Maintenance Nightmare:</strong> If a tool API changed, every connected agent
+                                broke.</li>
+                            <li><strong>Tower of Babel:</strong> No shared language between systems like Slack, GitHub,
+                                and Postgres.</li>
+                        </ul>
+                    </div>
+                    <div style="text-align: center; display: flex; flex-direction: column; justify-content: center;">
+                        <div class="mermaid-container"
+                            style="background: rgba(30, 41, 59, 0.4); padding: 1rem; border-radius: 12px; display: inline-block;">
+                            <pre class="mermaid">
+%%{init: {'theme': 'dark', 'themeVariables': { 'fontFamily': 'Inter', 'fontSize': '16px', 'primaryColor': '#0f172a', 'primaryTextColor': '#fff', 'primaryBorderColor': '#ef4444', 'lineColor': '#ef4444'}}}%%
+flowchart TD
+    subgraph Silos ["Siloed Intelligence"]
+        direction TB
+        LLM1([LLM A])
+        LLM2([LLM B])
+        LLM3([Agent C])
+    end
+
+    subgraph Data ["Fragmented Data"]
+        direction TB
+        DB1[(SQL)]
+        DB2[(NoSQL)]
+        API1{{Slack}}
+        API2{{GitHub}}
+    end
+
+    LLM1 -.->|Custom| DB1
+    LLM1 -.->|SDK| API1
+    LLM2 -.->|Wrapper| DB2
+    LLM2 -.->|Bespoke| API1
+    LLM3 -.->|Hack| DB1
+    LLM3 -.->|Script| API2
+
+    classDef chaos fill:rgba(239, 68, 68, 0.1),stroke:#ef4444,stroke-width:1px,color:#cbd5e1;
+    class LLM1,LLM2,LLM3,DB1,DB2,API1,API2 chaos;
+                            </pre>
+                        </div>
+                        <p style="color: #ef4444; margin-top: 1rem; font-style: italic;">The "N x M" Chaos: Every
+                            connection is custom.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: What is MCP? -->
+        <section class="slide" id="slide-3">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">What is MCP?</h2>
+                    <span class="slide-number">02</span>
+                </div>
+                <div class="slide-grid">
+                    <div>
+                        <h4 style="color: #38bdf8; margin-top: 0;"><i class="fas fa-plug"></i> The USB-C for AI</h4>
+                        <p style="font-size: 1rem; color: #cbd5e1; line-height: 1.6;">
+                            Just as USB-C standardized how hardware connects, MCP standardizes how AI models connect to
+                            data. It replaces thousands of custom integrations with a single, universal protocol.
+                        </p>
+                        <div
+                            style="margin-top: 2rem; background: rgba(56, 189, 248, 0.1); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #38bdf8;">
+                            <strong style="color: #38bdf8; display: block; margin-bottom: 0.5rem;">One Connector,
+                                Infinite Reach</strong>
+                            <p style="margin: 0; font-size: 0.9rem; color: #cbd5e1;">Build a connector once (e.g., for
+                                Postgres), and it works instantly with Claude, ChatGPT, Azure AI, or any MCP-compliant
+                                client.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 style="color: #fff; margin-top: 0;"><i class="fas fa-sitemap"></i> Architecture</h4>
+                        <div class="mermaid-container"
+                            style="background: rgba(30, 41, 59, 0.4); padding: 1rem; border-radius: 12px;">
+                            <pre class="mermaid">
+%%{init: {'theme': 'dark', 'themeVariables': { 'fontFamily': 'Inter', 'fontSize': '14px', 'primaryColor': '#0f172a', 'primaryTextColor': '#fff', 'primaryBorderColor': '#38bdf8', 'lineColor': '#94a3b8', 'secondaryColor': '#1e293b', 'tertiaryColor': '#1e293b'}}}%%
+flowchart LR
+    subgraph HostEnv ["Host"]
+        direction TB
+        Client([AI Client])
+        Host[MCP Host]
+        Client <==> Host
+    end
+
+    subgraph ServerEnv ["Servers"]
+        direction TB
+        ServerDB[PostgreSQL]
+        ServerFile[Filesystem]
+    end
+
+    Host ==>|JSON-RPC| ServerDB
+    Host ==>|JSON-RPC| ServerFile
+
+    classDef client fill:#0ea5e9,stroke:#0284c7,stroke-width:2px,color:#fff;
+    classDef host fill:#1e293b,stroke:#94a3b8,stroke-width:2px,color:#cbd5e1;
+    classDef server fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#38bdf8;
+    
+    class Client client;
+    class Host host;
+    class ServerDB,ServerFile server;
+                            </pre>
+                        </div>
+                        <p style="text-align: center; margin-top: 0.5rem; font-size: 0.8rem; color: #94a3b8;">
+                            Standardized Client-Host-Server Model</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: The Three Primitives -->
+        <section class="slide" id="slide-4">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">The Three Primitives</h2>
+                    <span class="slide-number">03</span>
+                </div>
+
+                <p style="font-size: 1.1rem; color: #cbd5e1; margin-bottom: 2rem;">The nouns and verbs of the MCP
+                    language:</p>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;">
+                    <div
+                        style="background: rgba(16, 185, 129, 0.1); padding: 2rem; border-radius: 12px; border-top: 4px solid #10b981;">
+                        <div style="text-align: center; margin-bottom: 1.5rem;">
+                            <i class="fas fa-book-open" style="font-size: 3rem; color: #10b981;"></i>
+                        </div>
+                        <h3 style="color: #10b981; text-align: center;">Resources</h3>
+                        <p style="text-align: center; color: #cbd5e1; font-size: 0.9rem;">Passive data streams "to be
+                            read".</p>
+                        <ul style="margin-top: 1.5rem; font-size: 0.85rem; color: #94a3b8;">
+                            <li>File contents</li>
+                            <li>Database records</li>
+                            <li>System logs</li>
+                        </ul>
+                    </div>
+
+                    <div
+                        style="background: rgba(245, 158, 11, 0.1); padding: 2rem; border-radius: 12px; border-top: 4px solid #f59e0b;">
+                        <div style="text-align: center; margin-bottom: 1.5rem;">
+                            <i class="fas fa-tools" style="font-size: 3rem; color: #f59e0b;"></i>
+                        </div>
+                        <h3 style="color: #f59e0b; text-align: center;">Tools</h3>
+                        <p style="text-align: center; color: #cbd5e1; font-size: 0.9rem;">Executable functions "to be
+                            called".</p>
+                        <ul style="margin-top: 1.5rem; font-size: 0.85rem; color: #94a3b8;">
+                            <li>run_query()</li>
+                            <li>post_message()</li>
+                            <li>create_ticket()</li>
+                        </ul>
+                    </div>
+
+                    <div
+                        style="background: rgba(168, 85, 247, 0.1); padding: 2rem; border-radius: 12px; border-top: 4px solid #a855f7;">
+                        <div style="text-align: center; margin-bottom: 1.5rem;">
+                            <i class="fas fa-comment-dots" style="font-size: 3rem; color: #a855f7;"></i>
+                        </div>
+                        <h3 style="color: #a855f7; text-align: center;">Prompts</h3>
+                        <p style="text-align: center; color: #cbd5e1; font-size: 0.9rem;">Reusable templates "to
+                            standardize interaction".</p>
+                        <ul style="margin-top: 1.5rem; font-size: 0.85rem; color: #94a3b8;">
+                            <li>"Debug Error"</li>
+                            <li>"Summarize Thread"</li>
+                            <li>"Code Review"</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Efficiency: The Context Trap -->
+        <section class="slide" id="slide-5">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">Efficiency: Escaping the Context Trap</h2>
+                    <span class="slide-number">04</span>
+                </div>
+                <div class="slide-grid">
+                    <div>
+                        <h4 style="color: #ef4444; margin-top: 0;"><i class="fas fa-weight-hanging"></i> The Old Way:
+                            Dumb Retrieval</h4>
+                        <p style="font-size: 0.9rem; color: #cbd5e1;">Traditionally, agents dumped massive amounts of
+                            raw data into the context window to find answers. This was slow, expensive, and error-prone.
+                        </p>
+
+                        <div style="margin-top: 2rem;">
+                            <h4 style="color: #10b981; margin-top: 0;"><i class="fas fa-bolt"></i> The MCP Way: Code
+                                Execution</h4>
+                            <p style="font-size: 0.9rem; color: #cbd5e1;">MCP enables agents to <strong>write and
+                                    execute code</strong> (e.g., Python) to query data at the source. The model filters
+                                the data <em>before</em> reading it.</p>
+                        </div>
+                    </div>
+
+                    <div
+                        style="background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 12px; text-align: center;">
+                        <div style="margin-bottom: 2rem;">
+                            <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 0.5rem;">Tokens for Complex
+                                Tasks</p>
+                            <div
+                                style="height: 20px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; margin-bottom: 0.5rem; position: relative;">
+                                <div style="width: 100%; height: 100%; background: #ef4444;"></div>
+                                <span
+                                    style="position: absolute; right: 10px; top: 0; font-size: 0.8rem; color: #fff; line-height: 20px;">150,000
+                                    Tokens</span>
+                            </div>
+                            <div
+                                style="height: 20px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; position: relative;">
+                                <div style="width: 2%; height: 100%; background: #10b981;"></div>
+                                <span
+                                    style="position: absolute; left: 10px; top: 0; font-size: 0.8rem; color: #fff; line-height: 20px;">2,000
+                                    Tokens (MCP)</span>
+                            </div>
+                        </div>
+
+                        <div
+                            style="padding: 1rem; background: rgba(16, 185, 129, 0.1); border-radius: 8px; border: 1px solid #10b981;">
+                            <h3 style="margin: 0; color: #10b981;">98.7% Reduction</h3>
+                            <p style="margin: 0; color: #cbd5e1; font-size: 0.8rem;">In token usage (Source: Anthropic)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Azure Enterprise Architecture -->
+        <section class="slide" id="slide-6">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">Azure Enterprise Architecture</h2>
+                    <span class="slide-number">05</span>
+                </div>
+                <div class="slide-grid" style="grid-template-columns: 1fr;">
+                    <div style="text-align: center;">
+                        <div class="mermaid-container"
+                            style="background: rgba(30, 41, 59, 0.4); padding: 1rem; border-radius: 12px; display: inline-block;">
+                            <pre class="mermaid">
+%%{init: {'theme': 'dark', 'themeVariables': { 'fontFamily': 'Inter', 'fontSize': '16px', 'primaryColor': '#0f172a', 'primaryTextColor': '#fff', 'primaryBorderColor': '#38bdf8', 'lineColor': '#94a3b8'}}}%%
+flowchart TB
+    subgraph Public ["Trust Boundary"]
+        User([User])
+    end
+
+    subgraph Azure ["Azure Tenant"]
+        direction TB
+        Entra["Entra ID"]
+        Gateway["MCP Gateway"]
+        Agent["AI Agent"]
+        Data[("Data Plane")]
+    end
+
+    User ==>|OAuth| Entra
+    User ==>|Secure| Gateway
+    Gateway ==> Agent
+    Agent <==> Data
+
+    classDef user fill:#2563eb,stroke:#1d4ed8,stroke-width:2px,color:#fff;
+    classDef azure fill:rgba(0,0,0,0.2),stroke:#3b82f6,stroke-width:2px,color:#fff;
+    
+    class User user;
+    class Azure azure;
+                            </pre>
+                        </div>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">Figure 2: Enterprise
+                            MCP Reference Architecture</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Case Study: Self-Healing Cloud -->
+        <section class="slide" id="slide-7">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">Case Study: Self-Healing Cloud</h2>
+                    <span class="slide-number">06</span>
+                </div>
+                <div class="slide-grid">
+                    <div>
+                        <h4 style="color: #f59e0b; margin-top: 0;"><i class="fas fa-exclamation-triangle"></i> The
+                            Challenge</h4>
+                        <p style="font-size: 0.9rem; color: #cbd5e1;">A DevOps team drowning in "Alert Fatigue". High
+                            CPU alerts required manual log checking, analysis, and restart. MTTR was 45+ minutes.</p>
+
+                        <h4 style="color: #10b981; margin-top: 2rem;"><i class="fas fa-robot"></i> The MCP Agent</h4>
+                        <p style="font-size: 0.9rem; color: #cbd5e1;">An autonomous agent empowered with MCP tools:</p>
+                        <ul style="font-size: 0.85rem; color: #94a3b8;">
+                            <li><code>monitor_logs(resource_id)</code></li>
+                            <li><code>check_terraform_state()</code></li>
+                            <li><code>restart_service()</code></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div
+                            style="background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 12px; border-left: 4px solid #a855f7;">
+                            <h4 style="color: #a855f7; margin-top: 0;">The Workflow</h4>
+                            <ol style="color: #cbd5e1; font-size: 0.9rem; line-height: 2;">
+                                <li>Alert triggers Agent.</li>
+                                <li>Agent calls <code>monitor_logs</code> & finds "Memory Leak".</li>
+                                <li>Agent checks <code>terraform_state</code> for drift (None).</li>
+                                <li>Agent proposes "Rolling Restart" plan.</li>
+                                <li>Human approves via Slack.</li>
+                                <li>Agent executes fix.</li>
+                            </ol>
+                        </div>
+                        <div style="margin-top: 2rem; text-align: center;">
+                            <span style="font-size: 2.5rem; font-weight: 800; color: #10b981;">-75%</span>
+                            <p style="color: #cbd5e1; margin: 0;">Reduction in Mean Time to Resolution (MTTR)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Future & Impact -->
+        <section class="slide" id="slide-8">
+            <div class="slide-content animate-in">
+                <div class="slide-header">
+                    <h2 class="slide-title">The Future of Agentic AI</h2>
+                    <span class="slide-number">07</span>
+                </div>
+                <div style="text-align: center; margin-bottom: 3rem;">
+                    <p style="font-size: 1.5rem; color: #cbd5e1; max-width: 800px; margin: 0 auto;">"MCP is the
+                        transition point from 'Chatbots' to true 'Digital Employees'. It provides the hands and eyes
+                        that AI needs to interact with the real world."</p>
+                </div>
+                <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; text-align: center;">
+                    <div>
+                        <i class="fab fa-linux" style="font-size: 3rem; color: #fff; margin-bottom: 1rem;"></i>
+                        <h3 style="color: #fff; font-size: 1.2rem;">Open Standard</h3>
+                        <p style="font-size: 0.9rem; color: #94a3b8;">Linux Foundation / Agentic AI Foundation</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-project-diagram"
+                            style="font-size: 3rem; color: #38bdf8; margin-bottom: 1rem;"></i>
+                        <h3 style="color: #fff; font-size: 1.2rem;">Ecosystem</h3>
+                        <p style="font-size: 0.9rem; color: #94a3b8;">Google, AWS, Microsoft, Anthropic onboard.</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-rocket" style="font-size: 3rem; color: #a855f7; margin-bottom: 1rem;"></i>
+                        <h3 style="color: #fff; font-size: 1.2rem;">Autonomy</h3>
+                        <p style="font-size: 0.9rem; color: #94a3b8;">From "Chatting" to "Doing".</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 4rem; text-align: center;">
+                    <a href="../blog.html"
+                        style="display: inline-block; padding: 1rem 3rem; background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%); color: #fff; text-decoration: none; border: none; border-radius: 50px; font-weight: 800; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4); transition: transform 0.2s;">
+                        Read the Article
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Navigation Dots -->
+    <div class="deck-nav">
+        <button onclick="prevSlide()" class="deck-btn" title="Previous Slide"><i class="fas fa-arrow-up"></i></button>
+        <button onclick="nextSlide()" class="deck-btn" title="Next Slide"><i class="fas fa-arrow-down"></i></button>
+    </div>
+
+    <script src="../js/presentation-nav.js"></script>
+    <script src="../js/particles.js"></script>
+</body>
+
+</html>
