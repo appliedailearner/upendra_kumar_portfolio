@@ -304,6 +304,64 @@ flowchart LR
                 style="max-width: 100%; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
         </div>
 
+        <div
+            style="background: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444; padding: 1.5rem; border-radius: 4px; margin: 2rem 0;">
+            <p style="margin: 0; color: #fecaca; font-weight: 600; font-size: 1.1rem; margin-bottom: 0.5rem;">
+                <i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i> Stop burning your budget on
+                “context bloat.”
+            </p>
+            <p style="margin: 0; color: #fecaca;">
+                I see too many teams implement MCP and then wonder why their LLM bill spikes.
+            </p>
+            <p style="margin-top: 0.5rem; color: #fecaca; font-size: 0.95rem;">
+                MCP is the skeleton. If you do not add cost controls like <strong>on-demand tool loading</strong> and
+                <strong>filtered data streams</strong>, you end up paying the model to read metadata and payloads it
+                does not need.
+            </p>
+        </div>
+
+        <h2><span class="gradient-text">Cost Control: Don’t Pay for Tokens You Don’t Need</span></h2>
+        <p>
+            As MCP adoption grows, the default failure mode is predictable: you register more servers, expose more
+            tools, stream more resources, and your agent becomes “chatty” at the worst possible layer, the token layer.
+        </p>
+        <p>Here’s how to avoid it.</p>
+
+        <h3>1) On-demand tool loading (tool gating)</h3>
+        <p>Do not present every tool to the model all the time.</p>
+        <ul>
+            <li>Load tools per workflow (incident response, finance query, HR request).</li>
+            <li>Keep a small “core” toolset always available, everything else is opt-in.</li>
+            <li>Use a lightweight router (rules or a small classifier model) to decide which tool bundle to mount.</li>
+        </ul>
+        <p><strong>Goal:</strong> the model sees fewer tool schemas, and chooses faster.</p>
+
+        <h3>2) Filtered data streams (server-side filtering)</h3>
+        <p>Do not stream full datasets as “context”.</p>
+        <ul>
+            <li>Push filtering down to the MCP server.</li>
+            <li>Return small, shaped results: top N, specific fields, short excerpts.</li>
+            <li>Prefer “search” and “get-by-id” patterns over “dump and let the model read”.</li>
+        </ul>
+        <p><strong>Goal:</strong> the model receives answers, not raw haystacks.</p>
+
+        <h3>3) Execution environments (compute near the data)</h3>
+        <p>When results still need processing, do it outside the model.</p>
+        <ul>
+            <li>Let the agent run code in a sandbox to sort, join, dedupe, or summarize.</li>
+            <li>Return only the final result back into the context window.</li>
+        </ul>
+        <p>This aligns with your existing “code execution” narrative and the token reduction point you already cite.
+        </p>
+
+        <h3>4) Context engineering (practical rules)</h3>
+        <ul>
+            <li>Cap tool descriptions and keep schemas tight.</li>
+            <li>Enforce max payload sizes per tool response.</li>
+            <li>Add caching for tool discovery and repetitive lookups.</li>
+            <li>Instrument tokens per tool call so you can see what is leaking budget.</li>
+        </ul>
+
         <h2><span class="gradient-text">The Efficiency Leap: Escaping the "Context Trap"</span></h2>
         <p>
             As developers began wiring up thousands of tools, they hit a wall. In the traditional "tool calling" method,
