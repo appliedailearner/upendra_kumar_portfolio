@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zero-Trust RAG: Architecting for the Enterprise | Upendra Kumar</title>
+    <meta name="description"
+        content="How to build a secure, compliant Generative AI RAG platform on Azure using Zero-Trust network principles and Prompt Flow.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://portfolio.upendrakumar.com/blog/2025-12-28-genai-rag-architecture.html">
+    <meta property="og:title" content="Zero-Trust RAG: Architecting for the Enterprise">
+    <meta property="og:description"
+        content="Deep dive into architecting a secure GenAI platform on Azure. Network isolation, Prompt Flow, and cost optimization strategies.">
+    <meta property="og:image" content="../images/blog/mcp-hero.png">
+    <!-- Placeholder using existing hero until new one is ready -->
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url"
+        content="https://portfolio.upendrakumar.com/blog/2025-12-28-genai-rag-architecture.html">
+    <meta property="twitter:title" content="Zero-Trust RAG: Architecting for the Enterprise">
+    <meta property="twitter:description"
+        content="How to build a secure, compliant Generative AI RAG platform on Azure using Zero-Trust network principles and Prompt Flow.">
+    <meta property="twitter:image" content="../images/blog/mcp-hero.png">
+
+    <link rel="stylesheet" href="../css/premium.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Mermaid JS -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body>
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-brand">
+                <span class="brand-text">Upendra<span class="gradient-text">Kumar</span></span>
+            </a>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html#about" class="nav-link">About</a></li>
+                <li><a href="../index.html#projects" class="nav-link">Projects</a></li>
+                <li><a href="../blog.html" class="nav-link active">Insights</a></li>
+                <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Blog Post Header -->
+    <header class="blog-post-hero">
+        <div class="container relative z-10">
+            <a href="../blog.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Insights</a>
+            <div class="post-meta">
+                <span class="post-tag"><i class="fas fa-shield-alt"></i> Security</span>
+                <span class="post-tag"><i class="fas fa-brain"></i> GenAI</span>
+                <span class="post-date">December 28, 2025</span>
+                <span class="read-time"><i class="far fa-clock"></i> 12 min read</span>
+            </div>
+            <h1 class="post-title">Zero-Trust RAG: Architecting for the Enterprise</h1>
+            <p class="post-subtitle">How to build a compliant, secure Generative AI platform on Azure that satisfies the
+                CISO and empowers the business.</p>
+
+            <div class="author-block">
+                <img src="../images/profile-2025-v2.png" alt="Upendra Kumar" class="author-avatar">
+                <div class="author-info">
+                    <span class="author-name">Upendra Kumar</span>
+                    <span class="author-role">Principal Architect @ Rackspace</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <article class="blog-content container">
+
+        <h2><span class="gradient-text">The Shadow AI Crisis</span></h2>
+        <p>
+            The scenario is becoming all too common: A business unit wants to launch a "Chat with Document" tool to
+            boost productivity.
+            They prototype a solution in a weekend using a public API key and a Python script. It works like magic.
+        </p>
+        <p>
+            Then the CISO sees it.
+        </p>
+        <div
+            style="background: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444; padding: 1.5rem; border-radius: 4px; margin: 1.5rem 0;">
+            <p style="margin: 0; color: #fca5a5; font-style: italic;">
+                "You are sending sensitive corporate contracts to a public endpoint? No audit trail? No network
+                isolation? Shut it down."
+            </p>
+        </div>
+        <p>
+            This is the "Shadow AI Crisis". The demand for Generative AI (RAG) is explosive, but the enterprise security
+            and compliance requirements
+            crush 90% of Proof of Concepts (PoCs). To move from "Cool Demo" to "Production Platform", you need a
+            fundamental architectural shift.
+        </p>
+
+        <h2><span class="gradient-text">Zero-Trust Network Architecture</span></h2>
+        <p>
+            The solution isn't to stop AI, but to wrap it in a Zero-Trust capability. On Azure, this means moving away
+            from public PaaS endpoints
+            to a strictly isolated <strong>Hub-and-Spoke</strong> network topology.
+        </p>
+
+        <div class="mermaid-container">
+            <pre class="mermaid">
+%%{init: { "theme": "dark", "themeVariables": { "fontFamily": "Inter", "fontSize": "16px", "primaryColor": "#0f172a", "primaryTextColor": "#fff", "primaryBorderColor": "#a855f7", "lineColor": "#94a3b8" } } }%%
+flowchart TB
+    subgraph Hub ["Hub VNet (Shared Services)"]
+        Firewall[Azure Firewall]
+        Bastion[Bastion Host]
+    end
+
+    subgraph Spoke ["Spoke VNet (AI Workload)"]
+        direction TB
+        WebApp[Azure App Service<br/>(VNet Integrated)]
+        
+        subgraph PrivateLink ["Private Endpoint Subnet"]
+            direction TB
+            PE_OpenAI[PE: Azure OpenAI]
+            PE_Search[PE: AI Search]
+            PE_Storage[PE: Storage Blob]
+        end
+    end
+
+    Internet((Public Internet)) -- HTTPS --> Firewall
+    Firewall -- Inspect --> WebApp
+    WebApp -- Private Traffic --> PE_OpenAI
+    WebApp -- Private Traffic --> PE_Search
+    WebApp -- Private Traffic --> PE_Storage
+
+    classDef services fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#fff;
+    classDef network fill:#1e293b,stroke:#64748b,stroke-width:2px,stroke-dasharray: 5 5,color:#cbd5e1;
+    classDef hub fill:#312e81,stroke:#4f46e5,stroke-width:2px,color:#fff;
+    
+    class WebApp,PE_OpenAI,PE_Search,PE_Storage services;
+    class Spoke,PrivateLink network;
+    class Hub,Firewall,Bastion hub;
+            </pre>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted); text-align: center;">Figure 1:
+                Hub-and-Spoke Zero-Trust Topology</p>
+        </div>
+
+        <p>
+            In this architecture:
+        </p>
+        <ul>
+            <li><strong>100% Private:</strong> Data never traverses the public internet between the App and the AI
+                services.</li>
+            <li><strong>Identity First:</strong> No API keys are visible. We use <strong>Managed Identities</strong> and
+                RBAC to authorize the Web App to talk to Azure OpenAI.</li>
+            <li><strong>Audit Ready:</strong> Azure Firewall and NSGs log every packet, providing the CISO with the
+                visibility they demand.</li>
+        </ul>
+
+        <h2><span class="gradient-text">Orchestration with Prompt Flow</span></h2>
+        <p>
+            Once the infrastructure is secure, how do you build the application? Enter <strong>Azure AI Prompt
+                Flow</strong>.
+            It brings engineering discipline (LLMOps) to the chaotic world of prompting.
+        </p>
+
+        <div class="mermaid-container">
+            <pre class="mermaid">
+%%{init: { "theme": "dark", "themeVariables": { "fontFamily": "Inter", "fontSize": "16px", "primaryColor": "#0f172a", "primaryTextColor": "#fff", "primaryBorderColor": "#10b981", "lineColor": "#94a3b8" } } }%%
+flowchart LR
+    User([User Query])
+    
+    subgraph Flow ["RAG Workflow"]
+        direction LR
+        Rewrite[LLM: Rewrite Query]
+        Search[Vector Search<br/>(Azure AI Search)]
+        Augment[Inject Context]
+        Generate[LLM: Generate Answer<br/>(GPT-4o)]
+    end
+    
+    Eval{Automated<br/>Eval}
+
+    User --> Rewrite
+    Rewrite --> Search
+    Search --> Augment
+    Augment --> Generate
+    Generate --> Eval
+
+    classDef process fill:#0f172a,stroke:#10b981,stroke-width:2px,color:#fff;
+    classDef user fill:#2563eb,stroke:#1d4ed8,stroke-width:2px,color:#fff;
+    
+    class Rewrite,Search,Augment,Generate process;
+    class User user;
+            </pre>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted); text-align: center;">Figure 2: The
+                RAG "Retrieval-Augmented" Pipeline</p>
+        </div>
+
+        <h3>Automated Evaluation: The Guardrails</h3>
+        <p>
+            The difference between a demo and a product is <strong>trust</strong>. We implemented automated evaluation
+            pipelines that score every model response on three metrics:
+        </p>
+        <div class="feature-grid" style="margin: 2rem 0;">
+            <div class="feature-card">
+                <i class="fas fa-anchor text-accent mb-4" style="font-size: 2rem;"></i>
+                <h3 class="text-xl font-bold mb-2">Groundedness</h3>
+                <p class="text-gray-400">Can the model cite its sources? We achieved a 92% groundedness score, ensuring
+                    answers come from your documents, not hallucinations.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-bullseye text-accent mb-4" style="font-size: 2rem;"></i>
+                <h3 class="text-xl font-bold mb-2">Relevance</h3>
+                <p class="text-gray-400">Does the answer actually address the user's question? We measure semantic
+                    similarity between query and response.</p>
+            </div>
+        </div>
+
+        <h2><span class="gradient-text">Cost & Performance Optimization</span></h2>
+        <p>
+            RAG systems can be expensive if not optimized. Token costs add up. To combat this, we implemented two key
+            strategies:
+        </p>
+        <ul>
+            <li><strong>Smart Chunking:</strong> Instead of blindly splitting text every 1000 characters, we overlapped
+                chunks (500 tokens with 50 overlap) to preserve semantic context.</li>
+            <li><strong>Semantic Caching:</strong> Using Azure APIM, we cache common queries (e.g., "What is the
+                vacation policy?"). This served <strong>40%</strong> of requests without ever touching the expensive
+                GPT-4 backend.</li>
+        </ul>
+
+        <h2><span class="gradient-text">Presentation Deck: The Full Architecture</span></h2>
+        <p>
+            This article only scratches the surface. For deep dives into the Identity model, Content Safety filters, and
+            detailed cost analysis, view the full interactive presentation.
+        </p>
+
+        <div style="margin: 3rem 0; text-align: center;">
+            <div
+                style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(59, 130, 246, 0.1)); padding: 3rem; border-radius: 12px; border: 1px solid rgba(168, 85, 247, 0.2);">
+                <i class="fas fa-desktop" style="font-size: 3rem; color: #a855f7; margin-bottom: 1.5rem;"></i>
+                <h3 style="color: #fff; margin-bottom: 1rem;">View the Interactive Presentation</h3>
+                <p style="color: #cbd5e1; max-width: 600px; margin: 0 auto 2rem;">Explore the full architectural
+                    details, network diagrams, and case study metrics.</p>
+                <a href="../presentations/04-presentation-genai-rag.html" class="btn btn-primary"
+                    style="padding: 1rem 2rem; font-size: 1.1rem;">
+                    <i class="fas fa-play"></i> Launch Presentation Deck
+                </a>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 4rem 0;">
+            <a href="../blog.html" class="btn btn-primary" style="display: inline-block; padding: 1rem 2rem;">
+                <i class="fas fa-arrow-left"></i> Back to Insights
+            </a>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Upendra Kumar. All rights reserved.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/journeytocloudwithupendra/" target="_blank"><i
+                        class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/appliedailearner" target="_blank"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/particles.js"></script>
+    <script>
+        // Mobile Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+    </script>
+</body>
+
+</html>

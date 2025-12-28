@@ -331,63 +331,7 @@ flowchart LR
             has recognized MCP not just as a protocol, but as the missing link for its Azure AI Agent Service.
         </p>
 
-        <div class="mermaid-container">
-            <pre class="mermaid">
-%%{init: { "theme": "dark", "themeVariables": { "fontFamily": "Inter", "fontSize": "16px", "primaryColor": "#0f172a", "primaryTextColor": "#fff", "primaryBorderColor": "#38bdf8", "lineColor": "#94a3b8" } } }%%
-flowchart TB
-    subgraph Public ["Trust Boundary: Public Internet"]
-        User([Authenticated User<br/><small>Corporate Device</small>])
-    end
 
-    subgraph Azure ["Microsoft Azure Tenant"]
-        direction TB
-        
-        subgraph Security ["Identity &amp; Governance"]
-            Entra["Microsoft Entra ID<br/><small>RBAC &amp; AuthZ</small>"]
-        end
-
-        subgraph VNet ["Safe Zone: Hub VNet"]
-            
-            subgraph Compute ["Azure Container Apps"]
-                Gateway["MCP Gateway<br/><small>Policy Enforcement</small>"]
-                Agent["Enterprise Agent<br/><small>Reasoning Engine</small>"]
-            end
-            
-            subgraph DataPlane ["Private Data Plane"]
-                SQL[("Azure SQL<br/><small>Private Link</small>")]
-                AISearch[["Azure AI Search<br/><small>Vector Store</small>"]]
-                Graph[["Microsoft Graph<br/><small>M365 Data</small>"]]
-            end
-        end
-    end
-
-    User ==>|OAuth 2.1| Entra
-    User ==>|Secure Session| Gateway
-    Entra -.->|Token Validation| Gateway
-    
-    Gateway ==>|Sanitized Request| Agent
-    Agent <==>|MCP Protocol| SQL
-    Agent <==>|MCP Protocol| AISearch
-    Agent <==>|MCP Protocol| Graph
-
-    %% Styling
-    classDef user fill:#2563eb,stroke:#1d4ed8,stroke-width:2px,color:#fff;
-    classDef security fill:#f59e0b,stroke:#b45309,stroke-width:2px,color:#fff;
-    classDef compute fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#38bdf8;
-    classDef data fill:#064e3b,stroke:#059669,stroke-width:2px,color:#a7f3d0;
-    classDef boundary fill:#1e293b,stroke:#475569,stroke-width:2px,stroke-dasharray: 5 5,color:#cbd5e1;
-    classDef cloud fill:rgba(0,0,0,0.2),stroke:#3b82f6,stroke-width:2px,color:#fff;
-
-    class User user;
-    class Entra security;
-    class Gateway,Agent compute;
-    class SQL,AISearch,Graph data;
-    class VNet boundary;
-    class Azure cloud;
-            </pre>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">Figure 2: Enterprise MCP Reference
-                Architecture on Azure</p>
-        </div>
 
         <h3>Case Study: The "Self-Healing" Cloud</h3>
         <p>
