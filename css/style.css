@@ -898,18 +898,7 @@ body::before {
     gap: 2rem;
 }
 
-.expertise-category {
-    background: var(--card-bg);
-    padding: 2rem;
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: transform 0.3s ease, border-color 0.3s ease;
-}
 
-.expertise-category:hover {
-    transform: translateY(-5px);
-    border-color: rgba(56, 189, 248, 0.3);
-}
 
 .expertise-category h3 {
     font-size: 1.5rem;
@@ -1349,4 +1338,47 @@ body::before {
     min-width: 100% !important;
     border: none;
     background: transparent;
+}
+
+/* ===== Premium Card Glows (Unified) ===== */
+.pillar-card,
+.expertise-category,
+.credential-card,
+.project-card-premium {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    /* Subtle Depth */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.pillar-card:hover,
+.expertise-category:hover,
+.credential-card:hover,
+.project-card-premium:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 120, 212, 0.15);
+    /* Azure Blue Glow */
+    border-color: rgba(0, 120, 212, 0.3);
+}
+
+/* Specific Adjustments */
+.pillar-header,
+.credential-card h3 {
+    margin-bottom: 0.5rem;
+}
+
+.project-card-premium {
+    padding: 0;
+    /* Remove padding for image bleed */
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card-premium .project-content {
+    padding: 2rem;
 }
