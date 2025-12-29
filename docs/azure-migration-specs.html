@@ -306,62 +306,9 @@
         <h2>5. Architecture Diagrams</h2>
         
         <h3>Diagram A: Enterprise Hub-and-Spoke Topology</h3>
-        <div class="mermaid">
-            graph LR
-            %% Enterprise Styles
-            classDef vnet fill:#f0f6ff,stroke:#0078d4,stroke-width:2px,stroke-dasharray: 5 5,color:#000;
-            classDef hub fill:#e6f2ff,stroke:#0078d4,stroke-width:3px,color:#000;
-            classDef onprem fill:#f2f2f2,stroke:#666,stroke-width:2px,color:#000;
-            classDef resource fill:#fff,stroke:#0078d4,stroke-width:1px,color:#000;
-            classDef security fill:#ffe6e6,stroke:#d13438,stroke-width:2px,color:#000;
-            classDef plain fill:none,stroke:none,color:#fff;
-
-            subgraph OnPrem [On-Premises Datacenter]
-                DC["<i class='fas fa-server'></i> Datacenter Resources"]
-            end
-
-            subgraph Azure [Azure Cloud]
-                direction LR
-                
-                subgraph HubVNet [Hub VNET]
-                    direction TB
-                    GW["<i class='fas fa-network-wired'></i> VPN/ER Gateway"]
-                    FW["<i class='fas fa-shield-alt'></i> Azure Firewall"]
-                    Bastion["<i class='fas fa-lock'></i> Azure Bastion"]
-                    DNS["<i class='fas fa-globe'></i> Private DNS Resolver"]
-                end
-
-                subgraph IdentitySpoke [Identity Spoke]
-                    AD["<i class='fas fa-users'></i> Domain Controllers"]
-                end
-
-                subgraph SharedSpoke [Shared Services Spoke]
-                    Mgmt["<i class='fas fa-tools'></i> Monitoring & Patching"]
-                end
-
-                subgraph WorkloadSpoke [Workload Spoke]
-                    App["<i class='fas fa-cubes'></i> App Resources"]
-                end
-            end
-
-            %% Connections
-            DC <==>|ExpressRoute/VPN| GW
-            GW --> FW
-            FW --> Bastion
-            FW --> DNS
-
-            %% Peering
-            HubVNet <-->|Peering| IdentitySpoke
-            HubVNet <-->|Peering| SharedSpoke
-            HubVNet <-->|Peering| WorkloadSpoke
-
-            %% Styling
-            class OnPrem onprem;
-            class HubVNet hub;
-            class IdentitySpoke,SharedSpoke,WorkloadSpoke vnet;
-            class DC,GW,Bastion,DNS,AD,Mgmt,App resource;
-            class FW security;
-            class Azure plain;
+        <div class="diagram-container" style="text-align: center; margin: 2rem 0;">
+            <img src="https://raw.githubusercontent.com/Azure/Enterprise-Scale/main/docs/wiki/media/ESLZ.gif" alt="Azure Enterprise Scale Landing Zone Architecture" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+            <p style="margin-top: 1rem; color: #ccc; font-size: 0.9em;"><em>Figure: Azure Enterprise Scale Landing Zone (ESLZ) Architecture Reference</em></p>
         </div>
 
         <h3>Diagram B: Management Group Hierarchy</h3>
