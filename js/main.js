@@ -572,10 +572,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Create Lightbox Elements
     const lightbox = document.createElement('div');
     lightbox.className = 'lightbox-modal';
-    lightbox.innerHTML = \
+    lightbox.innerHTML = `
         <span class='lightbox-close'>&times;</span>
         <img class='lightbox-content' id='lightbox-img'>
-    \;
+    `;
     document.body.appendChild(lightbox);
 
     const lightboxImg = document.getElementById('lightbox-img');
