@@ -478,3 +478,131 @@ if (scrollToTopBtn) {
         });
     });
 }
+
+// ===== Cost Calculator Logic =====
+function updateSavings(val) {
+    const vmDisplay = document.getElementById('vm-count-display');
+    const savingsDisplay = document.getElementById('savings-display');
+    
+    if(vmDisplay && savingsDisplay) {
+        vmDisplay.innerText = val;
+        // Assume avg VM cost 100/mo, 30% savings = 30
+        const savings = val * 30; 
+        savingsDisplay.innerText = '$' + savings.toLocaleString();
+    }
+}
+
+// ===== Skills Radar Chart =====
+document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('skillsRadarChart');
+    if (ctx) {
+        new Chart(ctx.getContext('2d'), {
+            type: 'radar',
+            data: {
+                labels: ['Cloud Strategy', 'Azure Architecture', 'DevOps/SRE', 'Security/Compliance', 'AI/ML Innovation', 'Leadership'],
+                datasets: [{
+                    label: 'Proficiency Level',
+                    data: [95, 90, 85, 88, 80, 92],
+                    fill: true,
+                    backgroundColor: 'rgba(14, 165, 233, 0.2)',
+                    borderColor: 'rgba(14, 165, 233, 1)',
+                    pointBackgroundColor: 'rgba(14, 165, 233, 1)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgba(14, 165, 233, 1)'
+                }]
+            },
+            options: {
+                elements: {
+                    line: { borderWidth: 3 }
+                },
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        pointLabels: {
+                            color: '#94a3b8',
+                            font: { size: 12, family: '\'Outfit\', sans-serif' }
+                        },
+                        ticks: { display: false, backdropColor: 'transparent' },
+                        suggestedMin: 50,
+                        suggestedMax: 100
+                    }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+    }
+});
+
+// ===== Project View Toggle =====
+function toggleProjectView(projectId, viewType) {
+    const businessContent = document.getElementById(projectId + '-content-business');
+    const technicalContent = document.getElementById(projectId + '-content-technical');
+    const businessBtn = document.getElementById(projectId + '-btn-business');
+    const technicalBtn = document.getElementById(projectId + '-btn-technical');
+
+    if (businessContent && technicalContent && businessBtn && technicalBtn) {
+        if (viewType === 'business') {
+            businessContent.classList.remove('hidden');
+            technicalContent.classList.add('hidden');
+            
+            businessBtn.classList.remove('text-gray-400', 'hover:text-white');
+            businessBtn.classList.add('bg-blue-600', 'text-white');
+            
+            technicalBtn.classList.remove('bg-blue-600', 'text-white');
+            technicalBtn.classList.add('text-gray-400', 'hover:text-white');
+        } else {
+            businessContent.classList.add('hidden');
+            technicalContent.classList.remove('hidden');
+            
+            technicalBtn.classList.remove('text-gray-400', 'hover:text-white');
+            technicalBtn.classList.add('bg-blue-600', 'text-white');
+            
+            businessBtn.classList.remove('bg-blue-600', 'text-white');
+            businessBtn.classList.add('text-gray-400', 'hover:text-white');
+        }
+    }
+}
+
+// ===== Lightbox Logic =====
+document.addEventListener('DOMContentLoaded', () => {
+    // Create Lightbox Elements
+    const lightbox = document.createElement('div');
+    lightbox.className = 'lightbox-modal';
+    lightbox.innerHTML = \
+        <span class='lightbox-close'>&times;</span>
+        <img class='lightbox-content' id='lightbox-img'>
+    \;
+    document.body.appendChild(lightbox);
+
+    const lightboxImg = document.getElementById('lightbox-img');
+    const closeBtn = document.querySelector('.lightbox-close');
+
+    // Add click event to all project images
+    const images = document.querySelectorAll('.project-card img, .project-image-container img');
+    
+    images.forEach(img => {
+        img.classList.add('zoomable-image');
+        img.addEventListener('click', () => {
+            lightbox.style.display = 'flex'; // Use flex to center
+            lightbox.style.justifyContent = 'center';
+            lightbox.style.alignItems = 'center';
+            lightboxImg.src = img.src;
+        });
+    });
+
+    // Close logic
+    closeBtn.addEventListener('click', () => {
+        lightbox.style.display = 'none';
+    });
+
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+            lightbox.style.display = 'none';
+        }
+    });
+});
+

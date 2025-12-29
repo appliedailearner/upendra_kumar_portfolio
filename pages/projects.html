@@ -26,14 +26,8 @@
   <link rel="canonical" href="https://portfolio.upendrakumar.com/pages/projects.html" />
   <link rel="stylesheet" href="../css/style.css?v=32">
   <link rel="stylesheet" href="../css/premium.css?v=32">
+  <link rel="stylesheet" href="../css/projects.css">
 
-  <style>
-    .nav-logo-uk {
-      background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
-      border-radius: 8px !important;
-    }
-  </style>
   <link
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap"
     rel="stylesheet">
@@ -43,13 +37,12 @@
 
 <body class="dark-theme">
   <a href="#main-content" class="skip-to-content">Skip to content</a>
-  <canvas id="particles-canvas"
-    style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;"></canvas>
+  <canvas id="particles-canvas" class="particles-canvas"></canvas>
   <!-- Navigation -->
   <nav class="navbar">
     <div class="container">
-      <div class="nav-brand" style="display: flex; align-items: center; gap: 1rem;">
-        <a href="../index.html" style="text-decoration: none;">
+      <div class="nav-brand nav-brand-container">
+        <a href="../index.html" class="no-decoration">
           <div class="nav-logo-uk">UK</div>
         </a>
         <div>
@@ -63,9 +56,8 @@
         <li><a href="../blog.html">Insights</a></li>
         <li><a href="contact.html">Contact</a></li>
         <li class="nav-item">
-          <a class="nav-link btn btn-primary text-white ms-lg-3 px-4 shadow-sm rounded-pill"
-            href="../assets/pdf/Upendra_Kumar_Resume.pdf" target="_blank"
-            style="line-height: 1.5; font-weight: 600;">Resume</a>
+          <a class="nav-link btn btn-primary text-white ms-lg-3 px-4 shadow-sm rounded-pill resume-btn-style"
+            href="../assets/pdf/Upendra_Kumar_Resume.pdf" target="_blank">Resume</a>
         </li>
       </ul>
       <div class="hamburger">
@@ -76,10 +68,9 @@
     </div>
   </nav>
   <main id="main-content">
-    <section
-      style="max-width:1100px;margin:150px auto 2rem auto;padding:2rem;background:var(--card-bg);border-radius:var(--border-radius);box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+    <section class="projects-hero-section">
       <h1 class="hero-title">Strategic <span class="gradient-text">Azure Projects</span></h1>
-      <p style="margin-bottom: 2rem; color: var(--text-secondary);">A selection of high-impact cloud transformation
+      <p class="hero-subtitle">A selection of high-impact cloud transformation
         initiatives led as a Professional Services Delivery Architect.</p>
 
       <div class="projects-grid">
@@ -87,23 +78,21 @@
         <!-- Project 1: Strategic Datacenter Migration -->
         <div class="project-card-detailed">
           <div class="project-header">
-            <h3 style="font-family: 'Outfit', sans-serif;"><span class="gradient-text">Strategic Datacenter
+            <h3 class="font-outfit"><span class="gradient-text">Strategic Datacenter
                 Modernization</span></h3>
             <span class="role-badge">Migration Technical Consultant (Strategic Core)</span>
           </div>
 
-          <div class="project-challenge"
-            style="background: rgba(255,255,255,0.05); border-left: 4px solid #38bdf8; padding: 1rem; margin-bottom: 1.5rem; border-radius: 0 8px 8px 0;">
-            <p style="margin: 0; color: #e2e8f0;"><strong>The Challenge:</strong> Legacy on-premises infrastructure was
+          <div class="project-challenge challenge-box">
+            <p class="challenge-text"><strong>The Challenge:</strong> Legacy on-premises infrastructure was
               approaching end-of-life, creating significant OpEx drag ($15k/mo waste) and preventing the adoption of
               modern, scalable AI/Data workloads.</p>
           </div>
 
-          <div class="project-body-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <div class="project-body-grid project-grid-layout">
 
             <div class="col-outcomes">
-              <h4
-                style="color: #38bdf8; margin-bottom: 1rem; border-bottom: 1px solid rgba(56, 189, 248, 0.3); padding-bottom: 0.5rem;">
+              <h4 class="section-header-blue">
                 Executive Outcomes</h4>
               <ul class="outcome-list">
                 <li><strong>30% TCO Savings:</strong> Shifted CapEx to optimized OpEx via Azure Hybrid Benefit and
@@ -116,8 +105,7 @@
             </div>
 
             <div class="col-actions">
-              <h4
-                style="color: #f59e0b; margin-bottom: 1rem; border-bottom: 1px solid rgba(245, 158, 11, 0.3); padding-bottom: 0.5rem;">
+              <h4 class="section-header-amber">
                 Architectural Strategy</h4>
               <ul class="action-list">
                 <li><strong>Discovery & Assessment:</strong> Led comprehensive portfolio analysis using Azure
@@ -132,7 +120,7 @@
             </div>
           </div>
 
-          <div class="project-tech-row" style="margin-top: 1.5rem;">
+          <div class="project-tech-row project-tech-row-style">
             <span class="tech-tag">Azure Migrate</span>
             <span class="tech-tag">ExpressRoute</span>
             <span class="tech-tag">Hub-Spoke Topology</span>
@@ -140,8 +128,7 @@
           </div>
 
           <div class="project-footer">
-            <a href="case-studies/migration.html" class="btn btn-sm btn-primary"
-              style="margin-right: 0.5rem; padding: 0.4rem 1rem; font-size: 0.85rem;">
+            <a href="case-studies/migration.html" class="btn btn-sm btn-primary project-footer-btn">
               Read Case Study
             </a>
             <a href="../presentations/01-presentation-datacenter-migration.html" class="evidence-link">
@@ -153,23 +140,21 @@
         <!-- Project 2: Secure Azure Landing Zone -->
         <div class="project-card-detailed">
           <div class="project-header">
-            <h3 style="font-family: 'Outfit', sans-serif;"><span class="gradient-text">Microsoft CAF: Enterprise-Scale
+            <h3 class="font-outfit"><span class="gradient-text">Microsoft CAF: Enterprise-Scale
                 Landing Zone</span></h3>
             <span class="role-badge">Principal Architect (Security & Governance)</span>
           </div>
 
-          <div class="project-challenge"
-            style="background: rgba(255,255,255,0.05); border-left: 4px solid #38bdf8; padding: 1rem; margin-bottom: 1.5rem; border-radius: 0 8px 8px 0;">
-            <p style="margin: 0; color: #e2e8f0;"><strong>The Challenge:</strong> "ClickOps" provisioning created a
+          <div class="project-challenge challenge-box">
+            <p class="challenge-text"><strong>The Challenge:</strong> "ClickOps" provisioning created a
               2-week lead time for new environments, stifling developer innovation and introducing severe
               security/compliance drift.</p>
           </div>
 
-          <div class="project-body-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <div class="project-body-grid project-grid-layout">
 
             <div class="col-outcomes">
-              <h4
-                style="color: #38bdf8; margin-bottom: 1rem; border-bottom: 1px solid rgba(56, 189, 248, 0.3); padding-bottom: 0.5rem;">
+              <h4 class="section-header-blue">
                 Strategic Outcomes (CAF)</h4>
               <ul class="outcome-list">
                 <li><strong>ALZ Democratization:</strong> Empowered 20+ app teams with self-service autonomy via
@@ -182,8 +167,7 @@
             </div>
 
             <div class="col-actions">
-              <h4
-                style="color: #f59e0b; margin-bottom: 1rem; border-bottom: 1px solid rgba(245, 158, 11, 0.3); padding-bottom: 0.5rem;">
+              <h4 class="section-header-amber">
                 Key Implementations</h4>
               <ul class="action-list">
                 <li><strong>Subscription Vending:</strong> Implemented the ALZ-Accelerator to vend fully-governed
@@ -198,7 +182,7 @@
             </div>
           </div>
 
-          <div class="project-tech-row" style="margin-top: 1.5rem;">
+          <div class="project-tech-row project-tech-row-style">
             <span class="tech-tag">Terraform / ALZ-Bicep</span>
             <span class="tech-tag">Cloud Adoption Framework (CAF)</span>
             <span class="tech-tag">Azure Policy</span>
@@ -206,51 +190,42 @@
           </div>
 
           <!-- Reference Section -->
-          <div class="reference-section"
-            style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px dashed rgba(255,255,255,0.1);">
-            <h4 style="color: #a855f7; margin-bottom: 1rem; font-size: 0.9rem; text-transform: uppercase;"><i
+          <div class="reference-section reference-section-style">
+            <h4 class="section-header-purple"><i
                 class="fas fa-book-reader"></i> Architect's Reference Library</h4>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 2rem;">
+            <div class="reference-grid">
               <a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/" target="_blank"
-                class="ref-link"
-                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
-                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> Azure Cloud Adoption Framework (CAF)
+                class="ref-link ref-link-style">
+                <i class="fas fa-external-link-alt" class="ref-link-icon"></i> Azure Cloud Adoption Framework (CAF)
               </a>
-              <a href="https://azure.github.io/Azure-Landing-Zones/accelerator/" target="_blank" class="ref-link"
-                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
-                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> ALZ Accelerator Guide
+              <a href="https://azure.github.io/Azure-Landing-Zones/accelerator/" target="_blank" class="ref-link ref-link-style">
+                <i class="fas fa-external-link-alt" class="ref-link-icon"></i> ALZ Accelerator Guide
               </a>
-              <a href="https://github.com/Azure/review-checklists" target="_blank" class="ref-link"
-                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
-                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> Azure Review Checklists (Official)
+              <a href="https://github.com/Azure/review-checklists" target="_blank" class="ref-link ref-link-style">
+                <i class="fas fa-external-link-alt" class="ref-link-icon"></i> Azure Review Checklists (Official)
               </a>
-              <a href="https://github.com/Azure/Enterprise-Scale" target="_blank" class="ref-link"
-                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
-                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> Enterprise-Scale Landing Zone Code
+              <a href="https://github.com/Azure/Enterprise-Scale" target="_blank" class="ref-link ref-link-style">
+                <i class="fas fa-external-link-alt" class="ref-link-icon"></i> Enterprise-Scale Landing Zone Code
               </a>
               <a href="https://techcommunity.microsoft.com/blog/startupsatmicrosoftblog/from-zero-to-hero-with-azure-landing-zones/4229195"
-                target="_blank" class="ref-link"
-                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
-                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> Zero to Hero: ALZ Roadmap
+                target="_blank" class="ref-link ref-link-style">
+                <i class="fas fa-external-link-alt" class="ref-link-icon"></i> Zero to Hero: ALZ Roadmap
               </a>
               <a href="https://learn.microsoft.com/en-us/azure/architecture/landing-zones/landing-zone-deploy"
-                target="_blank" class="ref-link"
-                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
-                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> ALZ Deployment Strategies
+                target="_blank" class="ref-link ref-link-style">
+                <i class="fas fa-external-link-alt" class="ref-link-icon"></i> ALZ Deployment Strategies
               </a>
-              <a href="https://github.com/Azure/Azure-Landing-Zones-Library" target="_blank" class="ref-link"
-                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
-                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> Azure Landing Zones Library
+              <a href="https://github.com/Azure/Azure-Landing-Zones-Library" target="_blank" class="ref-link ref-link-style">
+                <i class="fas fa-external-link-alt" class="ref-link-icon"></i> Azure Landing Zones Library
               </a>
               <a href="https://theazureplaybook.com/p/azure-landing-zones-anti-patterns-what-goes-wrong-and-how-to-prevent-it-part-1"
-                target="_blank" class="ref-link"
-                style="color: #ef4444; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem; font-weight: 600;">
-                <i class="fas fa-exclamation-triangle" style="font-size: 0.7rem;"></i> ALZ Anti-Patterns (Playbook)
+                target="_blank" class="ref-link ref-link-style ref-link-alert">
+                <i class="fas fa-exclamation-triangle" class="ref-link-icon"></i> ALZ Anti-Patterns (Playbook)
               </a>
             </div>
           </div>
 
-          <div class="project-footer" style="margin-top: 1.5rem;">
+          <div class="project-footer project-tech-row-style">
             <a href="../presentations/02-presentation-landing-zone.html" class="evidence-link">
               <i class="fas fa-external-link-alt"></i> Evidence: View Architecture Deck
             </a>
@@ -260,23 +235,21 @@
         <!-- Project 3: Well-Architected Optimization (FinOps) -->
         <div class="project-card-detailed">
           <div class="project-header">
-            <h3 style="font-family: 'Outfit', sans-serif;"><span class="gradient-text">Cloud Cost & Reliability
+            <h3 class="font-outfit"><span class="gradient-text">Cloud Cost & Reliability
                 Optimization</span></h3>
             <span class="role-badge">Lead Architect (FinOps & Resiliency)</span>
           </div>
 
-          <div class="project-challenge"
-            style="background: rgba(255,255,255,0.05); border-left: 4px solid #38bdf8; padding: 1rem; margin-bottom: 1.5rem; border-radius: 0 8px 8px 0;">
-            <p style="margin: 0; color: #e2e8f0;"><strong>The Challenge:</strong> Uncontrolled cloud spending with $2.3M
+          <div class="project-challenge challenge-box">
+            <p class="challenge-text"><strong>The Challenge:</strong> Uncontrolled cloud spending with $2.3M
               annual Azure costs and no visibility into resource utilization, leading to 40%+ waste and budget overruns.
             </p>
           </div>
 
-          <div class="project-body-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <div class="project-body-grid project-grid-layout">
 
             <div class="col-outcomes">
-              <h4
-                style="color: #38bdf8; margin-bottom: 1rem; border-bottom: 1px solid rgba(56, 189, 248, 0.3); padding-bottom: 0.5rem;">
+              <h4 class="section-header-blue">
                 Strategic Outcomes (FinOps)</h4>
               <ul class="outcome-list">
                 <li><strong>42% Cost Reduction:</strong> Achieved $960k annual savings through Hybrid Benefit,
@@ -289,8 +262,7 @@
             </div>
 
             <div class="col-actions">
-              <h4
-                style="color: #f59e0b; margin-bottom: 1rem; border-bottom: 1px solid rgba(245, 158, 11, 0.3); padding-bottom: 0.5rem;">
+              <h4 class="section-header-amber">
                 Key Implementations</h4>
               <ul class="action-list">
                 <li><strong>Azure Hybrid Benefit:</strong> Enabled AHB for 150+ Windows/Linux VMs saving $380k/year.
@@ -305,7 +277,7 @@
             </div>
           </div>
 
-          <div class="project-tech-row" style="margin-top: 1.5rem;">
+          <div class="project-tech-row project-tech-row-style">
             <span class="tech-tag">Azure Cost Management</span>
             <span class="tech-tag">FinOps Toolkit</span>
             <span class="tech-tag">Azure Advisor</span>
@@ -314,34 +286,28 @@
           </div>
 
           <!-- FinOps Reference Library -->
-          <div class="reference-section"
-            style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px dashed rgba(255,255,255,0.1);">
-            <h4 style="color: #10b981; margin-bottom: 1rem; font-size: 0.9rem; text-transform: uppercase;"><i
+          <div class="reference-section reference-section-style">
+            <h4 class="section-header-green"><i
                 class="fas fa-book-open"></i> FinOps Reference Library</h4>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 2rem;">
+            <div class="reference-grid">
               <a href="https://learn.microsoft.com/en-us/azure/advisor/advisor-workbook-cost-optimization"
-                target="_blank" class="ref-link"
-                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
-                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> Azure Advisor Cost Optimization
+                target="_blank" class="ref-link ref-link-style">
+                <i class="fas fa-external-link-alt" class="ref-link-icon"></i> Azure Advisor Cost Optimization
                 Workbook
               </a>
-              <a href="https://microsoft.github.io/finops-toolkit/workbooks" target="_blank" class="ref-link"
-                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
-                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> Microsoft FinOps Toolkit Workbooks
+              <a href="https://microsoft.github.io/finops-toolkit/workbooks" target="_blank" class="ref-link ref-link-style">
+                <i class="fas fa-external-link-alt" class="ref-link-icon"></i> Microsoft FinOps Toolkit Workbooks
               </a>
               <a href="https://techcommunity.microsoft.com/blog/coreinfrastructureandsecurityblog/mastering-azure-cost-optimization---a-comprehensive-guide/4084926"
-                target="_blank" class="ref-link"
-                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
-                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> Mastering Azure Cost Optimization
+                target="_blank" class="ref-link ref-link-style">
+                <i class="fas fa-external-link-alt" class="ref-link-icon"></i> Mastering Azure Cost Optimization
                 Guide
               </a>
-              <a href="https://github.com/dolevshor/azure-finops-guide" target="_blank" class="ref-link"
-                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
-                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> Azure FinOps Guide (Community)
+              <a href="https://github.com/dolevshor/azure-finops-guide" target="_blank" class="ref-link ref-link-style">
+                <i class="fas fa-external-link-alt" class="ref-link-icon"></i> Azure FinOps Guide (Community)
               </a>
-              <a href="https://github.com/somrajroy/AzureCostOptimization" target="_blank" class="ref-link"
-                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
-                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> Azure Cost Optimization Repository
+              <a href="https://github.com/somrajroy/AzureCostOptimization" target="_blank" class="ref-link ref-link-style">
+                <i class="fas fa-external-link-alt" class="ref-link-icon"></i> Azure Cost Optimization Repository
               </a>
             </div>
           </div>
@@ -356,27 +322,25 @@
         <!-- Project 4: Secure Enterprise GenAI Knowledge Platform (RAG) -->
         <div class="project-card-detailed">
           <div class="project-header">
-            <h3 style="font-family: 'Outfit', sans-serif;"><span class="gradient-text">Secure Enterprise GenAI Knowledge
+            <h3><span class="gradient-text">Secure Enterprise GenAI Knowledge
                 Platform (RAG)</span></h3>
             <span class="role-badge">Lead Azure Cloud Architect</span>
           </div>
 
-          <div class="project-challenge"
-            style="background: rgba(255,255,255,0.05); border-left: 4px solid #38bdf8; padding: 1rem; margin-bottom: 1.5rem; border-radius: 0 8px 8px 0;">
-            <p style="margin: 0; color: #e2e8f0;"><strong>The Business Context:</strong> A regulated enterprise client
+          <div class="project-challenge">
+            <p class="challenge-text"><strong>The Business Context:</strong> A regulated enterprise client
               required a Generative AI solution to democratize access to internal knowledge bases. The initiative was
               previously blocked by the CISO due to "Shadow AI" risks: public data leakage, lack of determinism
               (hallucinations), and inability to audit interactions. The goal was to operationalize a "Chat with Your
               Data" solution that adhered to Microsoft's Responsible AI Standard v2.</p>
           </div>
 
-          <div class="project-body-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <div class="project-body-grid project-grid-layout">
 
             <div class="col-outcomes">
-              <h4
-                style="color: #38bdf8; margin-bottom: 1rem; border-bottom: 1px solid rgba(56, 189, 248, 0.3); padding-bottom: 0.5rem;">
+              <h4 class="section-header-blue">
                 Architectural Strategy</h4>
-              <p style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 1rem;">Designed a Zero-Trust RAG
+              <p>Designed a Zero-Trust RAG
                 (Retrieval-Augmented Generation) architecture tailored for strict compliance. The solution moves beyond
                 simple "chat" to a managed AI Foundry workflow, prioritizing automated evaluation, private connectivity,
                 and identity-based access over public convenience.</p>
@@ -391,8 +355,7 @@
             </div>
 
             <div class="col-actions">
-              <h4
-                style="color: #f59e0b; margin-bottom: 1rem; border-bottom: 1px solid rgba(245, 158, 11, 0.3); padding-bottom: 0.5rem;">
+              <h4 class="section-header-amber">
                 Key Architectural Decisions</h4>
               <ul class="action-list">
                 <li><strong>Private Networking:</strong> Hub-and-Spoke topology with Private Endpoints for Azure OpenAI,
@@ -407,7 +370,7 @@
             </div>
           </div>
 
-          <div class="project-tech-row" style="margin-top: 1.5rem;">
+          <div class="project-tech-row project-tech-row-style">
             <span class="tech-tag">Azure AI Foundry</span>
             <span class="tech-tag">Azure OpenAI (GPT-4o)</span>
             <span class="tech-tag">Azure AI Search</span>
@@ -416,54 +379,45 @@
           </div>
 
           <!-- GenAI Reference Library -->
-          <div class="reference-section"
-            style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px dashed rgba(255,255,255,0.1);">
-            <h4 style="color: #a855f7; margin-bottom: 1rem; font-size: 0.9rem; text-transform: uppercase;"><i
+          <div class="reference-section reference-section-style">
+            <h4 class="section-header-purple"><i
                 class="fas fa-book-open"></i> GenAI & RAG Reference Library</h4>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 2rem;">
+            <div class="reference-grid">
               <a href="https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/rag/rag-solution-design-and-evaluation-guide"
-                target="_blank" class="ref-link"
-                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
-                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> RAG Solution Design & Evaluation
+                target="_blank" class="ref-link ref-link-style">
+                <i class="fas fa-external-link-alt" class="ref-link-icon"></i> RAG Solution Design & Evaluation
                 Guide
               </a>
-              <a href="https://learn.microsoft.com/en-us/azure/architecture/ai-ml/" target="_blank" class="ref-link"
-                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
-                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> AI Architecture Center (GenAI & RAG)
+              <a href="https://learn.microsoft.com/en-us/azure/architecture/ai-ml/" target="_blank" class="ref-link ref-link-style">
+                <i class="fas fa-external-link-alt" class="ref-link-icon"></i> AI Architecture Center (GenAI & RAG)
               </a>
               <a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/use-web-app" target="_blank"
-                class="ref-link"
-                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
-                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> Secure Azure OpenAI with Private
+                class="ref-link ref-link-style">
+                <i class="fas fa-external-link-alt" class="ref-link-icon"></i> Secure Azure OpenAI with Private
                 Networking
               </a>
               <a href="https://learn.microsoft.com/en-us/azure/search/search-indexer-howto-access-private"
-                target="_blank" class="ref-link"
-                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
-                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> Connect Indexers to Data Privately
+                target="_blank" class="ref-link ref-link-style">
+                <i class="fas fa-external-link-alt" class="ref-link-icon"></i> Connect Indexers to Data Privately
                 (Shared Private Links)
               </a>
               <a href="https://learn.microsoft.com/en-us/azure/ai-studio/concepts/prompt-flow" target="_blank"
-                class="ref-link"
-                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
-                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> Prompt Flow Concepts (Build,
+                class="ref-link ref-link-style">
+                <i class="fas fa-external-link-alt" class="ref-link-icon"></i> Prompt Flow Concepts (Build,
                 Evaluate, Deploy)
               </a>
               <a href="https://learn.microsoft.com/en-us/azure/search/vector-search-overview" target="_blank"
-                class="ref-link"
-                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
-                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> Vector Search Overview (Enterprise
+                class="ref-link ref-link-style">
+                <i class="fas fa-external-link-alt" class="ref-link-icon"></i> Vector Search Overview (Enterprise
                 RAG)
               </a>
-              <a href="https://github.com/Azure-Samples/azure-search-openai-demo" target="_blank" class="ref-link"
-                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
-                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> Azure Search + Azure OpenAI Demo
+              <a href="https://github.com/Azure-Samples/azure-search-openai-demo" target="_blank" class="ref-link ref-link-style">
+                <i class="fas fa-external-link-alt" class="ref-link-icon"></i> Azure Search + Azure OpenAI Demo
                 (Reference App)
               </a>
               <a href="https://github.com/Azure-Samples/chat-with-your-data-solution-accelerator" target="_blank"
-                class="ref-link"
-                style="color: #94a3b8; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
-                <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i> Chat with Your Data Solution
+                class="ref-link ref-link-style">
+                <i class="fas fa-external-link-alt" class="ref-link-icon"></i> Chat with Your Data Solution
                 Accelerator
               </a>
             </div>
@@ -486,214 +440,6 @@
   </footer>
   <script src="../assets/js/main.js"></script>
   <script src="../js/particles.js"></script>
-  <style>
-    .projects-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-
-    .project-card-detailed {
-      background: var(--card-bg);
-      border-radius: var(--border-radius);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-      padding: 2rem;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .project-header {
-      margin-bottom: 1rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding-bottom: 1rem;
-    }
-
-    .project-header h3 {
-      margin: 0;
-      color: var(--text-main);
-      font-size: 1.5rem;
-    }
-
-    .role-badge {
-      display: inline-block;
-      font-size: 0.85rem;
-      color: #94a3b8;
-      margin-top: 0.5rem;
-      font-weight: 500;
-    }
-
-    .role-badge span {
-      color: #64748b;
-    }
-
-    .project-problem {
-      background: rgba(56, 189, 248, 0.05);
-      /* very light blue tint */
-      padding: 0.75rem;
-      border-left: 3px solid #38bdf8;
-      border-radius: 4px;
-      margin-bottom: 1.5rem;
-      font-style: italic;
-      color: var(--text-secondary);
-    }
-
-    .project-body-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .col-outcomes h4,
-    .col-actions h4 {
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #94a3b8;
-      margin-bottom: 1rem;
-      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-      display: inline-block;
-      padding-bottom: 0.25rem;
-    }
-
-    .col-outcomes ul,
-    .col-actions ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .col-outcomes li,
-    .col-actions li {
-      margin-bottom: 0.75rem;
-      font-size: 0.95rem;
-      color: var(--text-main);
-      display: flex;
-      align-items: start;
-      gap: 0.5rem;
-    }
-
-    .col-outcomes li i {
-      color: #10b981;
-      /* Green check */
-      margin-top: 4px;
-      font-size: 0.8rem;
-    }
-
-    .col-actions li::before {
-      content: "•";
-      color: #38bdf8;
-      font-weight: bold;
-      display: inline-block;
-      width: 1em;
-      margin-left: -1em;
-    }
-
-    .project-tech-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-      padding-top: 1rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .tech-tag {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: var(--text-secondary);
-      padding: 0.2rem 0.6rem;
-      border-radius: 4px;
-      font-size: 0.8rem;
-      font-family: monospace;
-    }
-
-    .project-footer {
-      text-align: right;
-    }
-
-    .evidence-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: #38bdf8;
-      background: rgba(56, 189, 248, 0.1);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: all 0.2s;
-      border: 1px solid rgba(56, 189, 248, 0.5);
-      padding: 0.6rem 1.2rem;
-      border-radius: 6px;
-    }
-
-    .evidence-link:hover {
-      background: #38bdf8;
-      color: #ffffff;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
-    }
-
-    @media (max-width: 768px) {
-      .project-body-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-
-      .project-footer {
-        text-align: left;
-      }
-    }
-
-    /* Standardized List Styles */
-    .outcome-list,
-    .action-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .outcome-list li {
-      margin-bottom: 0.75rem;
-      padding-left: 1.5rem;
-      position: relative;
-      color: var(--text-secondary);
-    }
-
-    .outcome-list li::before {
-      content: "\f058";
-      /* FontAwesome check-circle */
-      font-family: "Font Awesome 6 Free";
-      font-weight: 900;
-      color: #10b981;
-      position: absolute;
-      left: 0;
-      top: 2px;
-    }
-
-    .action-list li {
-      margin-bottom: 0.75rem;
-      padding-left: 1.5rem;
-      position: relative;
-      color: var(--text-secondary);
-    }
-
-    .action-list li::before {
-      content: "\2022";
-      color: #38bdf8;
-      font-weight: bold;
-      font-size: 1.5em;
-      position: absolute;
-      left: 0;
-      line-height: 1rem;
-    }
-
-    .project-actions {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-  </style>
 </body>
 
 </html>
