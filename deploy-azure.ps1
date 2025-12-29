@@ -2,7 +2,7 @@
 # This script uploads your website to Azure Storage Account
 
 param(
-    [string]$StorageAccount = "portfolioupendrakumar",
+    [string]$StorageAccount = "porfolioupendrakumar",
     [string]$Container = "`$web"
 )
 
