@@ -4,28 +4,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Contact Upendra Kumar - Portfolio">
   <title>Contact | Upendra Kumar</title>
-  <link rel="stylesheet" href="../css/style.css?v=32">
-  <link rel="stylesheet" href="../css/leadership.css">
-  <link rel="stylesheet" href="../css/premium.css?v=32">
+  <meta name="description" content="Contact Upendra Kumar - Strategic Delivery Architect">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Contact Upendra Kumar">
+  <meta property="og:description" content="Get in touch for leadership roles, consulting, or speaking engagements.">
+  <meta property="og:image" content="https://portfolio.upendrakumar.com/images/profile.webp">
+  <meta property="og:url" content="https://portfolio.upendrakumar.com/pages/contact.html">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Contact Upendra Kumar">
+  <meta name="twitter:description" content="Get in touch for leadership roles, consulting, or speaking engagements.">
+  <meta name="twitter:image" content="https://portfolio.upendrakumar.com/images/profile.webp">
+
+  <link rel="canonical" href="https://portfolio.upendrakumar.com/pages/contact.html" />
+
+  <!-- CSS Links -->
+  <link rel="stylesheet" href="../css/style.css?v=35">
+  <link rel="stylesheet" href="../css/premium.css?v=35">
+
   <style>
     .nav-logo-uk {
       background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
       box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
       border-radius: 8px !important;
     }
+
+    .contact-page-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 992px) {
+      .contact-page-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
   </style>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap"
     rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body class="dark-theme">
-  <canvas id="particles-canvas"></canvas>
-  <header>
-    <nav
-      style="display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 1rem 2rem;">
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
+  <canvas id="particles-canvas"
+    style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;"></canvas>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
       <div class="nav-brand" style="display: flex; align-items: center; gap: 1rem;">
         <a href="../index.html" style="text-decoration: none;">
           <div class="nav-logo-uk">UK</div>
@@ -36,49 +75,133 @@
             Delivery Architect</p>
         </div>
       </div>
-      <div class="nav-links" style="display: flex; gap: 1.5rem;">
-        <a href="../index.html" style="color:#fff; text-decoration:none;">Home</a>
-        <a href="about.html" style="color:#fff; text-decoration:none;">About</a>
-        <a href="skills.html" class="active" style="color:#38bdf8; text-decoration:none;">Skills</a>
-        <a href="projects.html" style="color:#fff; text-decoration:none;">Projects</a>
-        <a href="contact.html" style="color:#fff; text-decoration:none;">Contact</a>
+      <ul class="nav-menu">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="expertise.html">Expertise</a></li>
+        <li><a href="../blog.html">Insights</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+        <li class="nav-item">
+          <a class="nav-link btn btn-primary text-white ms-lg-3 px-4 shadow-sm rounded-pill"
+            href="../assets/pdf/Upendra_Kumar_Resume.pdf" target="_blank"
+            style="line-height: 1.5; font-weight: 600;">Resume</a>
+        </li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
-    </nav>
-  </header>
-  <main>
-    <section
-      style="max-width:480px;margin:4rem auto;padding:2.5rem;background:var(--card-bg);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.05);">
-      <h2 style="text-align:center;margin-bottom:1.5rem;font-size:2rem;">Contact Me</h2>
-      <form style="display:flex;flex-direction:column;gap:1.5rem;" autocomplete="off">
-        <div class="form-row">
-          <div class="form-group" style="flex:1;">
-            <input type="text" name="name" placeholder="Your Name" required
-              style="width:100%;padding:1rem;border-radius:8px;border:none;background:rgba(255,255,255,0.05);color:white;">
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <section class="hero" style="min-height: 40vh; display: flex; align-items: center; padding-top: 150px;">
+      <div class="container">
+        <span class="role-badge"
+          style="background: rgba(124, 58, 237, 0.1); color: #a78bfa; border: 1px solid rgba(124, 58, 237, 0.2); margin-bottom: 2rem;">
+          <i class="fas fa-envelope-open-text"></i> Get in Touch
+        </span>
+        <h1 class="hero-title">Let's <span class="gradient-text">Connect</span></h1>
+        <p style="font-size: 1.25rem; color: var(--text-secondary); max-width: 800px; line-height: 1.6;">
+          Whether you're looking for a leadership role candidate, a strategic consultation, or a speaker for your next
+          event, I'd love to hear from you.
+        </p>
+      </div>
+    </section>
+
+    <section class="container" style="padding-bottom: 6rem;">
+      <div class="contact-page-grid">
+        <!-- Contact Info -->
+        <div class="glass-card" style="padding: 2.5rem;">
+          <h3 style="font-size: 1.5rem; color: #fff; margin-bottom: 1.5rem;">Contact Information</h3>
+
+          <div style="display: flex; gap: 1rem; margin-bottom: 2rem; align-items: flex-start;">
+            <div style="background: rgba(56, 189, 248, 0.1); padding: 1rem; border-radius: 8px; color: #38bdf8;">
+              <i class="fas fa-envelope" style="font-size: 1.25rem;"></i>
+            </div>
+            <div>
+              <h4 style="color: #fff; margin-bottom: 0.25rem;">Email</h4>
+              <a href="mailto:upendra25312@gmail.com"
+                style="color: var(--text-secondary); text-decoration: none; transition: color 0.3s;">upendra25312@gmail.com</a>
+            </div>
           </div>
-          <div class="form-group" style="flex:1;">
-            <input type="email" name="email" placeholder="Your Email" required
-              style="width:100%;padding:1rem;border-radius:8px;border:none;background:rgba(255,255,255,0.05);color:white;">
+
+          <div style="display: flex; gap: 1rem; margin-bottom: 2rem; align-items: flex-start;">
+            <div style="background: rgba(168, 85, 247, 0.1); padding: 1rem; border-radius: 8px; color: #a855f7;">
+              <i class="fab fa-linkedin-in" style="font-size: 1.25rem;"></i>
+            </div>
+            <div>
+              <h4 style="color: #fff; margin-bottom: 0.25rem;">LinkedIn</h4>
+              <a href="https://www.linkedin.com/in/journeytocloudwithupendra/" target="_blank"
+                style="color: var(--text-secondary); text-decoration: none;">Connect on LinkedIn</a>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 1rem; margin-bottom: 2rem; align-items: flex-start;">
+            <div style="background: rgba(16, 185, 129, 0.1); padding: 1rem; border-radius: 8px; color: #10b981;">
+              <i class="fas fa-calendar-check" style="font-size: 1.25rem;"></i>
+            </div>
+            <div>
+              <h4 style="color: #fff; margin-bottom: 0.25rem;">Book a Call</h4>
+              <p style="color: var(--text-secondary); margin-bottom: 0.5rem; font-size: 0.9rem;">Schedule a 30-min intro
+                chat.</p>
+              <!-- Placeholder for Calendly or similar, or just a mailto for consistent static behavior if no calendly link provided -->
+              <a href="mailto:upendra25312@gmail.com?subject=Book%20a%20Call" class="btn btn-sm btn-primary">Schedule
+                Now</a>
+            </div>
           </div>
         </div>
-        <textarea name="message" placeholder="Your Message" rows="5" required
-          style="width:100%;padding:1rem;border-radius:8px;border:none;background:rgba(255,255,255,0.05);color:white;"></textarea>
-        <button type="submit" class="cta-btn" style="width:100%;padding:1rem;font-weight:bold;">Send Message</button>
-      </form>
-      <div style="margin-top:2rem;text-align:center;">
-        <a href="https://www.linkedin.com/in/upendra-kumar" target="_blank" rel="noopener"
-          style="margin:0 1rem;color:var(--accent);font-size:1.5em;">LinkedIn</a>
-        <a href="mailto:upendra@email.com" style="margin:0 1rem;color:var(--accent);font-size:1.5em;">Email</a>
-        <a href="https://github.com/upendra-portfolio" target="_blank" rel="noopener"
-          style="margin:0 1rem;color:var(--accent);font-size:1.5em;">GitHub</a>
+
+        <!-- Contact Form -->
+        <div class="glass-card" style="padding: 2.5rem;">
+          <form action="https://formspree.io/f/xykgebno" method="POST">
+            <div style="margin-bottom: 1.5rem;">
+              <label style="display: block; color: var(--text-secondary); margin-bottom: 0.5rem;">Name</label>
+              <input type="text" name="name" placeholder="John Doe" required
+                style="width: 100%; padding: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; color: #fff;">
+            </div>
+            <div style="margin-bottom: 1.5rem;">
+              <label style="display: block; color: var(--text-secondary); margin-bottom: 0.5rem;">Email</label>
+              <input type="email" name="email" placeholder="john@company.com" required
+                style="width: 100%; padding: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; color: #fff;">
+            </div>
+            <div style="margin-bottom: 1.5rem;">
+              <label style="display: block; color: var(--text-secondary); margin-bottom: 0.5rem;">Inquiry Type</label>
+              <select name="inquiry-type" required
+                style="width: 100%; padding: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; color: #fff;">
+                <option value="" disabled selected hidden>Select an option</option>
+                <option value="leadership-role" style="background: #1e293b;">Leadership Role Opportunity</option>
+                <option value="consulting" style="background: #1e293b;">Consulting Engagement</option>
+                <option value="speaking" style="background: #1e293b;">Speaking Engagement</option>
+                <option value="collaboration" style="background: #1e293b;">Collaboration</option>
+                <option value="other" style="background: #1e293b;">Other</option>
+              </select>
+            </div>
+            <!-- Honeypot -->
+            <div style="display:none;">
+              <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+              <label style="display: block; color: var(--text-secondary); margin-bottom: 0.5rem;">Message</label>
+              <textarea name="message" rows="5" placeholder="How can I help you?" required
+                style="width: 100%; padding: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; color: #fff;"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+          </form>
+        </div>
       </div>
     </section>
   </main>
+
   <footer>
-    <small>&copy; 2025 Upendra Kumar. All rights reserved. This content is personal and not affiliated with Rackspace
-      Technology.</small>
+    <div class="container" style="text-align: center; color: var(--text-muted); padding: 2rem 0;">
+      <small>&copy; 2025 Upendra Kumar. All rights reserved.</small>
+    </div>
   </footer>
+
   <script src="../js/particles.js"></script>
-  <script src="../assets/js/main.js"></script>
+  <script src="../js/main.js?v=25"></script>
 </body>
 
 </html>
