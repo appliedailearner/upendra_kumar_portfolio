@@ -307,59 +307,73 @@
         
         <h3>Diagram A: Enterprise Hub-and-Spoke Topology</h3>
         <div class="mermaid">
-            graph TB
-            %% Styles
-            classDef hub fill:#0078d4,stroke:#fff,stroke-width:2px,color:#fff;
-            classDef spoke fill:#2b3c5a,stroke:#0078d4,stroke-width:1px,color:#fff;
-            classDef onprem fill:#444,stroke:#888,stroke-width:2px,color:#fff;
+            graph LR
+            %% Enterprise Styles
+            classDef vnet fill:#f0f6ff,stroke:#0078d4,stroke-width:2px,stroke-dasharray: 5 5,color:#000;
+            classDef hub fill:#e6f2ff,stroke:#0078d4,stroke-width:3px,color:#000;
+            classDef onprem fill:#f2f2f2,stroke:#666,stroke-width:2px,color:#000;
+            classDef resource fill:#fff,stroke:#0078d4,stroke-width:1px,color:#000;
+            classDef security fill:#ffe6e6,stroke:#d13438,stroke-width:2px,color:#000;
             classDef plain fill:none,stroke:none,color:#fff;
 
             subgraph OnPrem [On-Premises Datacenter]
-                direction TB
                 DC["<i class='fas fa-server'></i> Datacenter Resources"]
             end
 
             subgraph Azure [Azure Cloud]
-                direction TB
+                direction LR
+                
                 subgraph HubVNet [Hub VNET]
                     direction TB
-                    FW["<i class='fas fa-shield-alt'></i> Azure Firewall"]
                     GW["<i class='fas fa-network-wired'></i> VPN/ER Gateway"]
+                    FW["<i class='fas fa-shield-alt'></i> Azure Firewall"]
                     Bastion["<i class='fas fa-lock'></i> Azure Bastion"]
                     DNS["<i class='fas fa-globe'></i> Private DNS Resolver"]
                 end
 
-                subgraph Spokes [Spoke VNETs]
-                    direction LR
-                    IdentitySpoke["<i class='fas fa-users'></i> Identity Spoke<br/>(AD DS)"]
-                    SharedSpoke["<i class='fas fa-tools'></i> Shared Services<br/>(Monitoring/Patching)"]
-                    WorkloadSpoke["<i class='fas fa-cubes'></i> Workload Spokes<br/>(Prod/QA/Dev)"]
+                subgraph IdentitySpoke [Identity Spoke]
+                    AD["<i class='fas fa-users'></i> Domain Controllers"]
+                end
+
+                subgraph SharedSpoke [Shared Services Spoke]
+                    Mgmt["<i class='fas fa-tools'></i> Monitoring & Patching"]
+                end
+
+                subgraph WorkloadSpoke [Workload Spoke]
+                    App["<i class='fas fa-cubes'></i> App Resources"]
                 end
             end
 
             %% Connections
             DC <==>|ExpressRoute/VPN| GW
-            GW --- FW
-            FW --- Bastion
-            FW --- DNS
+            GW --> FW
+            FW --> Bastion
+            FW --> DNS
 
-            HubVNet <-->|VNET Peering| IdentitySpoke
-            HubVNet <-->|VNET Peering| SharedSpoke
-            HubVNet <-->|VNET Peering| WorkloadSpoke
+            %% Peering
+            HubVNet <-->|Peering| IdentitySpoke
+            HubVNet <-->|Peering| SharedSpoke
+            HubVNet <-->|Peering| WorkloadSpoke
 
             %% Styling
-            class HubVNet hub;
-            class IdentitySpoke,SharedSpoke,WorkloadSpoke spoke;
             class OnPrem onprem;
+            class HubVNet hub;
+            class IdentitySpoke,SharedSpoke,WorkloadSpoke vnet;
+            class DC,GW,Bastion,DNS,AD,Mgmt,App resource;
+            class FW security;
             class Azure plain;
         </div>
 
         <h3>Diagram B: Management Group Hierarchy</h3>
         <div class="mermaid">
             graph TD
-            %% Styles
-            classDef mg fill:#0078d4,stroke:#fff,stroke-width:2px,color:#fff;
-            classDef sub fill:#2b3c5a,stroke:#0078d4,stroke-width:1px,color:#fff;
+            %% Enterprise Styles
+            classDef root fill:#0078d4,stroke:#fff,stroke-width:2px,color:#fff;
+            classDef platform fill:#5c2d91,stroke:#fff,stroke-width:2px,color:#fff;
+            classDef lz fill:#00cc6a,stroke:#fff,stroke-width:2px,color:#fff;
+            classDef sandbox fill:#ea4300,stroke:#fff,stroke-width:2px,color:#fff;
+            classDef decom fill:#a0aeb2,stroke:#fff,stroke-width:2px,color:#fff;
+            classDef sub fill:#2b3c5a,stroke:#fff,stroke-width:1px,color:#fff;
             
             Root["<i class='fas fa-root'></i> Tenant Root Group"]
             Contoso["<i class='fas fa-building'></i> Contoso Org<br/>(MFA, Audit)"]
@@ -397,8 +411,12 @@
             Corp --> HR
             Online --> Ecom
 
-            class Root,Contoso,Platform,LZ,Sandbox,Decom,Corp,Online mg;
-            class Identity,Mgmt,Conn,Fin,HR,Ecom sub;
+            class Root,Contoso root;
+            class Platform platform;
+            class LZ lz;
+            class Sandbox sandbox;
+            class Decom decom;
+            class Identity,Mgmt,Conn,Corp,Online,Fin,HR,Ecom sub;
         </div>
       </div>
 
