@@ -1,0 +1,150 @@
+The Assessment That Wouldn't Let Go of AVS
+A fictional migration story in STAR format
+Cast
+* Neo: Migration Consultant (lead architect for assessment and strategy)
+* Trinity: Project Manager (timeline, stakeholders, RAID log)
+* Morpheus: Cloud Engineer (Azure Migrate setup, discovery, tooling)
+* The Oracle: Client SME (application context, operational patterns, "what really happens in prod")
+Fictional Company: ZionPay Financial Services
+Goal: VMware to Azure Virtual Machines (lift and shift)
+
+? S - Situation:
+ZionPay's leadership wanted clarity, fast.
+ZionPay Financial Services ran a large VMware estate. Hundreds of servers supported payments, reporting, and compliance workloads. The board had approved "move to Azure" in principle, but finance demanded numbers.
+Neo had seen this movie before. A clean Azure VM assessment would give ZionPay readiness, sizing, and cost. Trinity booked the steering committee review. Morpheus confirmed discovery was complete. The Oracle warned that month-end spikes were real and ugly.
+Everything looked aligned.
+Then the team clicked Create assessment.
+
+? T - Task:
+Neo's task was precise.
+Create an Azure VM only assessment that could stand up to executive scrutiny:
+* Performance-based sizing
+* Readiness and risk flags
+* Cost estimates based on observed utilization
+* A defensible baseline for migration waves
+Trinity needed it in time for the next leadership checkpoint. Morpheus needed the portal to cooperate. The Oracle needed the assessment to reflect reality, not wishful averages.
+
+? A - Action:
+Act 1: The Portal Offers Two Doors
+Morpheus opened the Azure Migrate project and started the assessment wizard.
+Under Target services, two options appeared:
+* Azure VM
+* Azure VMware Solution (AVS)
+Neo told Morpheus to choose only Azure VM.
+But AVS was already selected, and worse, it was locked. The checkbox could not be unchecked. Trinity watched the screen recording twice. The Oracle raised an eyebrow.
+Neo tried the obvious moves:
+* Select only servers
+* Select all servers
+* Avoid applications
+* Ignore dependencies
+* Recreate the assessment
+AVS stayed.
+Act 2: The Error Arrives Like an Agent
+They proceeded anyway. The assessment failed.
+The portal returned a message that sounded like it belonged to a different meeting:
+"Invalid Negotiated subscription provided."
+Trinity asked the standard question: "Is it permissions?"
+Neo checked. ZionPay's team had Contributor at subscription level. That wasn't it.
+The Oracle asked the more dangerous question: "Is our subscription the problem?"
+Someone suggested switching from Pay-As-You-Go to Enterprise Agreement.
+Neo paused. That assumption smelled wrong.
+Act 3: Neo Finds the Real Pattern
+Neo reframed the problem.
+This was not a permissions issue. It was not a billing-reader issue. It was not even a "bug."
+It was a workflow issue.
+Neo explained to Trinity and Morpheus that Azure Migrate now behaves like two different tools wearing the same UI:
+Model 1: Application-based assessment
+* Scope: Applications and workloads
+* Purpose: modernization planning, dependency-aware analysis
+* Behavior: forces Azure VM + AVS (locked by design)
+Model 2: Server-based assessment
+* Scope: Servers only
+* Purpose: lift-and-shift sizing, readiness, cost
+* Behavior: Azure VM only
+They had been using the application/workload assessment wizard. That wizard includes AVS by design. When AVS is included, Azure validates whether the subscription is eligible for AVS. ZionPay's subscription wasn't AVS-enabled, so the service rejected the request with the "negotiated subscription" error.
+The checkbox was locked because Azure Migrate had already decided the assessment model.
+Neo told Morpheus: "Stop trying to uncheck AVS. That is not a setting. That is a symptom."
+Act 4: The Correct Entry Point
+Neo asked Morpheus to change only one thing: the entry path.
+Instead of creating the assessment from a project-level flow that spoke in terms of applications and workloads, Morpheus created it from the server assessment path:
+* Go to Servers / Infrastructure inventory
+* Select machines
+* Create assessment targeting Azure VM
+This time, AVS never showed up. No lock. No negotiation error. The assessment started clean.
+
+? R - Result:
+ZionPay got what leadership needed.
+* An Azure VM-only assessment generated successfully
+* Performance-based sizing and readiness outputs available
+* A defensible baseline for migration waves and cost planning
+* No AVS dependency, so no "negotiated subscription" failures
+Trinity captured the root cause and added a control point to the plan:
+"Confirm assessment model before creation."
+The Oracle validated the workload list and flagged systems with missing metadata that could reduce inclusion.
+Neo summarized the outcome in one sentence for executives:
+The failure was caused by using an application-based assessment model that forces AVS. Switching to the server-based Azure VM assessment model resolved it.
+
+The Second Twist: "When will we get 100% performance coverage?"
+ZionPay leadership then asked the question that always comes next.
+Trinity wanted a date. The Oracle wanted realism. Neo wanted to prevent premature sign-off.
+Neo explained what "100% coverage" really means:
+Azure Migrate performance sizing is based on historical utilization data:
+* CPU
+* Memory
+* Disk IOPS and throughput
+* Network
+So coverage is time-based.
+Timeline that leadership can trust
+* 7 days: directional only. Good for early estimates. Risky for final sizing.
+* 14 days: planning-grade accuracy. Captures weekly cycles.
+* 30 days: executive-grade confidence. Captures month-end spikes, batch jobs, peak behavior.
+Neo told ZionPay leadership:
+Final sizing and cost sign-off should wait for 30 days of continuous data collection.
+The Oracle nodded. Trinity updated the steering committee milestone.
+
+Next Course of Action for ZionPay
+Immediate (this week)
+* Use server-based Azure VM assessments for lift-and-shift planning
+* Avoid the applications and workloads assessment flow unless AVS is truly in scope
+Short term (next 2 to 4 weeks)
+* Maintain two assessment tracks:
+o VM-only for sizing and cost
+o Application-based only if modernization or AVS is being evaluated
+Long term (before final business case)
+* Allow 30 days performance history before finalizing:
+o right-sizing
+o cost approvals
+o migration wave commitments
+
+Microsoft Learn References
+* Azure Migrate assessment calculations
+https://learn.microsoft.com/en-us/azure/migrate/concepts-assessment-calculation
+* Assess servers for Azure VM migration
+https://learn.microsoft.com/en-us/azure/migrate/tutorial-assess-physical
+* Create application assessment
+https://learn.microsoft.com/en-us/azure/migrate/how-to-create-application-assessment
+* Azure VMware Solution overview
+https://learn.microsoft.com/en-us/azure/azure-vmware/
+* Azure VMware Solution FAQ
+https://learn.microsoft.com/en-us/azure/azure-vmware/faq
+
+Lessons Learned / Controls for Future :
+Finding 1: Incorrect assessment model used (Application-based instead of Server-based).
+* Impact: AVS forced into scope, assessment creation failed, time lost.
+* Control: Add a mandatory "Assessment Model Check" step before assessment creation.
+o If the wizard says "Applications and workloads", stop and switch to server-based flow for Azure VM-only.
+Finding 2: AVS eligibility validation triggered unintentionally.
+* Impact: "Invalid Negotiated subscription" error, confusion around EA vs PayGo.
+* Control: Document that AVS inclusion requires an AVS-enabled subscription. Do not rely on subscription type change as a primary fix. Avoid AVS entirely if not in scope.
+Finding 3: Performance coverage expectations not aligned with decision timeline.
+* Impact: Risk of premature sizing and cost sign-off.
+* Control: Set policy for performance data window:
+o 14 days minimum for planning
+o 30 days required for final business case and wave sign-off
+Finding 4: Scope selection governance was weak (server count differences observed).
+* Impact: Partial inventory included in assessment (example: 83 vs 267).
+* Control: Require an "Included vs Excluded" review after assessment creation. Capture excluded reasons (missing CPU/RAM/disk, data gaps).
+Finding 5: Operational continuity of appliance not formally managed.
+* Impact: Coverage drops due to restarts/connectivity gaps.
+* Control: Add monitoring and a daily health check for the Azure Migrate appliance heartbeat and data collection continuity.
+
