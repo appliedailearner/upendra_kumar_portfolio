@@ -3,10 +3,13 @@ from fpdf import FPDF
 class PDF(FPDF):
     def header(self):
         self.set_font('Helvetica', 'B', 15)
-        # w=0 means utilize available width within margins
-        self.cell(0, 10, 'Value-Selling Discovery Script', 0, 1, 'C')
+        # Calculate full width
+        full_width = self.w - self.l_margin - self.r_margin
+        self.set_x(self.l_margin)
+        self.cell(full_width, 10, 'Value-Selling Discovery Script', 0, 1, 'C')
         self.set_font('Helvetica', 'I', 10)
-        self.cell(0, 5, 'For Cloud Architects & Technical Leads', 0, 1, 'C')
+        self.set_x(self.l_margin)
+        self.cell(full_width, 5, 'For Cloud Architects & Technical Leads', 0, 1, 'C')
         self.ln(10)
 
     def footer(self):
@@ -17,30 +20,31 @@ class PDF(FPDF):
     def chapter_title(self, label):
         self.set_font('Helvetica', 'B', 12)
         self.set_fill_color(240, 240, 250)
-        # Reset X to left margin to ensure full width usage is correct
+        full_width = self.w - self.l_margin - self.r_margin
         self.set_x(self.l_margin)
-        self.cell(0, 8, label, 0, 1, 'L', True)
+        self.cell(full_width, 8, label, 0, 1, 'L', True)
         self.ln(2)
 
     def chapter_body(self, body):
         self.set_font('Helvetica', '', 11)
+        full_width = self.w - self.l_margin - self.r_margin
         self.set_x(self.l_margin)
-        self.multi_cell(0, 6, body)
+        self.multi_cell(full_width, 6, body)
         self.ln()
 
     def bullet_points(self, points):
         self.set_font('Helvetica', '', 11)
+        full_width = self.w - self.l_margin - self.r_margin
         for point in points:
             self.set_x(self.l_margin)
-            # Indent slightly using string padding or separate cell? 
-            # Safest is just text with dash.
-            self.multi_cell(0, 6, f"- {point}")
+            self.multi_cell(full_width, 6, f"- {point}")
+            # Ensure we are ready for next line
         self.ln()
 
 # Create PDF with explicit A4 format and margins
 pdf = PDF(orientation='P', unit='mm', format='A4')
-pdf.set_margins(15, 15, 15)
-pdf.set_auto_page_break(auto=True, margin=15)
+pdf.set_margins(20, 20, 20) # Slightly larger margins for safety
+pdf.set_auto_page_break(auto=True, margin=20)
 pdf.add_page()
 
 # Introduction
