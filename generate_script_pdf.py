@@ -3,48 +3,47 @@ from fpdf import FPDF
 class PDF(FPDF):
     def header(self):
         self.set_font('Helvetica', 'B', 15)
-        # Calculate full width
-        full_width = self.w - self.l_margin - self.r_margin
-        self.set_x(self.l_margin)
-        self.cell(full_width, 10, 'Value-Selling Discovery Script', 0, 1, 'C')
+        # Use simple cell without kwargs for header to avoid error if version old
+        # But we know version is 2.x
+        self.cell(0, 10, 'Value-Selling Discovery Script', align='C', new_x="LMARGIN", new_y="NEXT")
         self.set_font('Helvetica', 'I', 10)
-        self.set_x(self.l_margin)
-        self.cell(full_width, 5, 'For Cloud Architects & Technical Leads', 0, 1, 'C')
+        self.cell(0, 5, 'For Cloud Architects & Technical Leads', align='C', new_x="LMARGIN", new_y="NEXT")
         self.ln(10)
 
     def footer(self):
         self.set_y(-15)
         self.set_font('Helvetica', 'I', 8)
-        self.cell(0, 10, f'Page {self.page_no()}', 0, 0, 'C')
+        self.cell(0, 10, f'Page {self.page_no()}', align='C')
 
     def chapter_title(self, label):
         self.set_font('Helvetica', 'B', 12)
         self.set_fill_color(240, 240, 250)
-        full_width = self.w - self.l_margin - self.r_margin
         self.set_x(self.l_margin)
-        self.cell(full_width, 8, label, 0, 1, 'L', True)
+        # Explicit width calculation
+        w = self.w - self.l_margin - self.r_margin
+        self.cell(w, 8, label, align='L', fill=True, new_x="LMARGIN", new_y="NEXT")
         self.ln(2)
 
     def chapter_body(self, body):
         self.set_font('Helvetica', '', 11)
-        full_width = self.w - self.l_margin - self.r_margin
         self.set_x(self.l_margin)
-        self.multi_cell(full_width, 6, body)
+        w = self.w - self.l_margin - self.r_margin
+        # Use kwargs for multi_cell
+        self.multi_cell(w, 6, body, align='L', new_x="LMARGIN", new_y="NEXT")
         self.ln()
 
     def bullet_points(self, points):
         self.set_font('Helvetica', '', 11)
-        full_width = self.w - self.l_margin - self.r_margin
+        w = self.w - self.l_margin - self.r_margin
         for point in points:
             self.set_x(self.l_margin)
-            self.multi_cell(full_width, 6, f"- {point}")
-            # Ensure we are ready for next line
+            self.multi_cell(w, 6, f"- {point}", align='L', new_x="LMARGIN", new_y="NEXT")
         self.ln()
 
 # Create PDF with explicit A4 format and margins
 pdf = PDF(orientation='P', unit='mm', format='A4')
-pdf.set_margins(20, 20, 20) # Slightly larger margins for safety
-pdf.set_auto_page_break(auto=True, margin=20)
+pdf.set_margins(15, 15, 15)
+pdf.set_auto_page_break(auto=True, margin=15)
 pdf.add_page()
 
 # Introduction
