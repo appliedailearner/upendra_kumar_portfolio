@@ -1,3 +1,3 @@
 git add .
-git commit -m "Publish blog: Why Cloud Architects Must Learn Value-Selling"
+git commit -m "Update blog post with personal reflection"
 git push origin main
