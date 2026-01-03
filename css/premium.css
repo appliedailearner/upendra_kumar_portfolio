@@ -2269,15 +2269,15 @@ section,
     }
 }
 
-/* ===== Newsletter Embed Responsive Fix ===== */
+/* ===== Newsletter Embed Responsive Fix (Scale Hack) ===== */
 .beehiiv-embed-container {
     width: 100%;
     max-width: 600px;
-    /* Constrain width on desktop */
     margin: 0 auto;
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.03);
-    /* Optional: match card style */
+    overflow: hidden;
+    /* Hide the virtual overflow from scaling */
 }
 
 .beehiiv-embed {
@@ -2285,4 +2285,28 @@ section,
     min-width: 100% !important;
     border: none;
     background: transparent;
+}
+
+/* Mobile-Specific Scaling for Non-Responsive Iframe */
+@media (max-width: 480px) {
+    .beehiiv-embed-container {
+        display: flex;
+        justify-content: center;
+        width: 100% !important;
+        overflow: hidden;
+    }
+
+    .beehiiv-embed {
+        /* Force iframe to be wide enough for the "Row" layout */
+        width: 450px !important;
+        min-width: 450px !important;
+        max-width: none !important;
+
+        /* Scale it down to fit ~320px-360px screens */
+        transform: scale(0.75);
+        transform-origin: top center;
+
+        /* Remove whitespace created by scaling */
+        margin-bottom: -60px;
+    }
 }
