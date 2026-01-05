@@ -323,15 +323,62 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* 5. Material Ripple */
+        span.ripple {
+            position: absolute;
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 600ms linear;
+            background-color: rgba(255, 255, 255, 0.3);
+            pointer-events: none;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
     </style>
 
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Reading Progress Bar */
+        .reading-progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            z-index: 9999;
+        }
+
+        .reading-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #3b82f6, #a855f7);
+            transition: width 0.1s;
+        }
+
+        /* Smart Counter */
+        .counter-anim {
+            display: inline-block;
+            font-feature-settings: "tnum";
+            font-variant-numeric: tabular-nums;
+        }
+    </style>
 </head>
 
 <body class="dark-theme">
+    <div class="reading-progress-container">
+        <div class="reading-progress-bar" id="readingProgressBar"></div>
+    </div>
     <canvas id="particles-canvas"></canvas>
     <!-- Navigation -->
     <nav class="navbar">
@@ -399,8 +446,10 @@
     <!-- Blog Post Content -->
     <article class="blog-post-content">
         <p class="lead" style="font-size: 1.3rem; color: var(--primary-color); font-weight: 600;">
-            Mr. Technical Consultant opened the Azure Migrate dashboard for <strong>ZionPay Services</strong>. 78 apps.
-            298 servers. And one number that made everything uncertain: 48% performance coverage.
+            Mr. Technical Consultant opened the Azure Migrate dashboard for <strong>ZionPay Services</strong>. <span
+                class="counter-anim" data-target="78">0</span> apps.
+            <span class="counter-anim" data-target="298">0</span> servers. And one number that made everything
+            uncertain: <span class="counter-anim" data-target="48">0</span>% performance coverage.
         </p>
 
         <h2>The Cast</h2>
@@ -558,8 +607,10 @@
 
         <p>He wrote four bullets for the deck:</p>
         <ol>
-            <li>“Scope baseline is confirmed: <strong>78 applications and 298 servers</strong>.”</li>
-            <li>“Performance coverage is <strong>48% today</strong>. That limits sizing and wave confidence.”</li>
+            <li>“Scope baseline is confirmed: <strong><span class="counter-anim" data-target="78">0</span> applications
+                    and <span class="counter-anim" data-target="298">0</span> servers</strong>.”</li>
+            <li>“Performance coverage is <strong><span class="counter-anim" data-target="48">0</span>% today</strong>.
+                That limits sizing and wave confidence.”</li>
             <li>“New assessments <strong>recalculate</strong> based on collected history. They do not restart data
                 collection.”</li>
             <li>“We have a <strong>two-week closure plan</strong> to raise coverage and validate dependencies. Then we
@@ -738,6 +789,85 @@
 
         document.querySelectorAll('.reveal-on-scroll').forEach((element) => {
             observer.observe(element);
+        });
+
+        // 3. Reading Progress Bar
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const width = (scrolled / maxScroll) * 100;
+            const progressBar = document.getElementById('readingProgressBar');
+            if (progressBar) {
+                progressBar.style.width = width + '%';
+            }
+        });
+
+        // 4. Smart Counter Animation
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = +entry.target.getAttribute('data-target');
+                    const duration = 2000;
+
+                    let start = 0;
+                    const startTime = performance.now();
+
+                    const updateCounter = (currentTime) => {
+                        const elapsed = currentTime - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const ease = 1 - Math.pow(1 - progress, 4); // Ease out quart
+
+                        const current = Math.ceil(ease * target);
+                        entry.target.innerText = current;
+
+                        if (progress < 1) {
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            entry.target.innerText = target;
+                        }
+                    };
+
+                    requestAnimationFrame(updateCounter);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.counter-anim').forEach(counter => {
+            counterObserver.observe(counter);
+        });
+
+        // 5. Material Ripple Effect
+        function createRipple(event) {
+            const button = event.currentTarget;
+            const circle = document.createElement("span");
+            const diameter = Math.max(button.clientWidth, button.clientHeight);
+            const radius = diameter / 2;
+
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${event.clientX - button.getBoundingClientRect().left - radius}px`;
+            circle.style.top = `${event.clientY - button.getBoundingClientRect().top - radius}px`;
+            circle.classList.add("ripple");
+
+            const existingRipple = button.getElementsByClassName("ripple")[0];
+            if (existingRipple) {
+                existingRipple.remove(); // Clean up old ripple
+            }
+
+            button.appendChild(circle);
+        }
+
+        // Apply ripple to buttons and interactive cards
+        const buttons = document.querySelectorAll('.btn, .nav-resume-btn, .cast-card, .simulator-container');
+        buttons.forEach(btn => {
+            const style = window.getComputedStyle(btn);
+            if (style.position === 'static') {
+                btn.style.position = 'relative'; // Ripple needs relative parent
+            }
+            if (style.overflow !== 'hidden') {
+                btn.style.overflow = 'hidden'; // Contain ripple
+            }
+            btn.addEventListener('click', createRipple);
         });
     </script>
 </body>
