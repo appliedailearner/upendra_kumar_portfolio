@@ -17,6 +17,18 @@
 
 ---
 
+## Step 5: Performance Optimization Checklist (CRITICAL)
+**Before finalizing any blog post, YOU MUST:**
+1.  **LCP Optimization (Hero):**
+    *   If using a Video Hero: Add `<link rel="preload" as="image" href="...">` for the poster image in the `<head>`.
+    *   If using an Image Hero: Add `fetchpriority="high"` to the `<img>` tag.
+2.  **Font Speed:**
+    *   Ensure Google Fonts link includes `&display=swap`.
+    *   Add `<link rel="preconnect">` for `fonts.googleapis.com` and `fonts.gstatic.com`.
+3.  **Lazy Loading:**
+    *   Add `loading="lazy"` to **ALL** images except the Hero Image.
+    *   This includes "Cast Members", diagrams, and footer logos.
+
 ## Step 2: Generate the Blog Post HTML
 **File Name:** Generate a filename based on the date and title: `blog/YYYY-MM-DD-kebab-case-title.html`
 
@@ -173,6 +185,12 @@
         }
     </style>
 
+    <!-- Performance: Preconnect to Font & Script Servers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <!-- Typography: Inter (Body) & Outfit (Headings) with Swap for Performance -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
