@@ -792,6 +792,39 @@
             </div>
         </div>
 
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const checkboxes = document.querySelectorAll('.assessment-checkbox');
+                const scoreText = document.getElementById('score-text');
+                const scoreCircle = document.getElementById('score-circle');
+                const scoreMessage = document.getElementById('score-message');
+
+                function updateScore() {
+                    let total = 0;
+                    checkboxes.forEach(cb => {
+                        if (cb.checked) total += parseFloat(cb.value);
+                    });
+
+                    total = Math.round(total);
+                    scoreText.textContent = total;
+                    scoreCircle.style.background = `conic-gradient(#60a5fa ${total}%, rgba(255,255,255,0.1) ${total}%)`;
+
+                    if (total === 0) {
+                        scoreMessage.textContent = "Select architectural components to check compliance";
+                        scoreMessage.style.color = "#94a3b8";
+                    } else if (total < 50) {
+                        scoreMessage.innerHTML = "<span style='color: #fca5a5'><i class='fas fa-radiation'></i> Critical Risk: Ad-Hoc Architecture</span>";
+                    } else if (total < 85) {
+                        scoreMessage.innerHTML = "<span style='color: #fde047'><i class='fas fa-hard-hat'></i> Functional but Fragile (Missing Protocols)</span>";
+                    } else {
+                        scoreMessage.innerHTML = "<span style='color: #86efac'><i class='fas fa-medal'></i> Well-Architected Enterprise Foundation</span>";
+                    }
+                }
+
+                checkboxes.forEach(cb => cb.addEventListener('change', updateScore));
+            });
+        </script>
+
         <!-- Design Reviewer Widget -->
         <h3 style="margin-top: 4rem;"><span class="gradient-text">Azure Landing Zone Design Reviewer</span></h3>
         <p>Based on the official <a href="https://github.com/Azure/review-checklists" target="_blank"
