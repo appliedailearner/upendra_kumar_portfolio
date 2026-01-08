@@ -108,6 +108,27 @@
             font-size: 0.9rem;
             border: 1px solid rgba(168, 85, 247, 0.2);
         }
+
+        /* Animation Classes */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4) !important;
+        }
     </style>
 
     <link
@@ -472,8 +493,8 @@
             <li><strong>Skipping governance:</strong> Results in sprawl and compliance violations</li>
         </ul>
 
-        <div style="margin: 3rem 0; text-align: center;">
-            <img src="../images/blog/azure-landing-zone-infographic.jpg"
+        <div class="reveal-on-scroll" style="margin: 3rem 0; text-align: center;">
+            <img class="hover-lift" src="../images/blog/azure-landing-zone-infographic.jpg"
                 alt="Rethinking Azure Landing Zones - From Setup to Scalable Platform"
                 style="width: 100%; max-width: 800px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255, 255, 255, 0.1);">
             <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 1rem;">
@@ -551,6 +572,28 @@
     <!-- Cloudflare Web Analytics -->
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
         data-cf-beacon='{"token": "0b89fb05ee3844079b659405bc3f5428"}'></script><!-- End Cloudflare Web Analytics -->
+
+    <!-- Scroll Reveal Animation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Only animate once
+                    }
+                });
+            }, observerOptions);
+
+            const elements = document.querySelectorAll('.reveal-on-scroll');
+            elements.forEach(el => observer.observe(el));
+        });
+    </script>
 </body>
 
 </html>
