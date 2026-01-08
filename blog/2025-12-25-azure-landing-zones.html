@@ -110,6 +110,29 @@
         }
 
         /* Animation Classes */
+        @keyframes cinematicPulse {
+            0% {
+                transform: scale(1);
+                filter: brightness(1);
+            }
+
+            50% {
+                transform: scale(1.02);
+                filter: brightness(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+                filter: brightness(1);
+            }
+        }
+
+        .cinematic-video-effect {
+            animation: cinematicPulse 8s ease-in-out infinite;
+            overflow: hidden;
+            display: block;
+        }
+
         .reveal-on-scroll {
             opacity: 0;
             transform: translateY(30px);
@@ -494,7 +517,7 @@
         </ul>
 
         <div class="reveal-on-scroll" style="margin: 3rem 0; text-align: center;">
-            <img class="hover-lift" src="../images/blog/azure-landing-zone-infographic.jpg"
+            <img class="cinematic-video-effect" src="../images/blog/azure-landing-zone-infographic.jpg"
                 alt="Rethinking Azure Landing Zones - From Setup to Scalable Platform"
                 style="width: 100%; max-width: 800px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255, 255, 255, 0.1);">
             <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 1rem;">
