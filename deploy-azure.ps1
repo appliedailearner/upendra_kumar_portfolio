@@ -3,7 +3,8 @@
 
 param(
     [string]$StorageAccount = "porfolioupendrakumar",
-    [string]$Container = "`$web"
+    [string]$Container = "`$web",
+    [switch]$Force
 )
 
 Write-Host "========================================" -ForegroundColor Cyan
@@ -16,7 +17,8 @@ Write-Host "Checking Azure CLI installation..." -ForegroundColor Yellow
 try {
     $azVersion = az version --output json | ConvertFrom-Json
     Write-Host "✓ Azure CLI installed: $($azVersion.'azure-cli')" -ForegroundColor Green
-} catch {
+}
+catch {
     Write-Host "✗ Azure CLI not found!" -ForegroundColor Red
     Write-Host "Please install Azure CLI from: https://aka.ms/installazurecliwindows" -ForegroundColor Yellow
     exit 1
@@ -31,7 +33,8 @@ try {
     }
     Write-Host "✓ Logged in as: $($account.user.name)" -ForegroundColor Green
     Write-Host "  Subscription: $($account.name)" -ForegroundColor Gray
-} catch {
+}
+catch {
     Write-Host "✗ Not logged in to Azure!" -ForegroundColor Red
     Write-Host "Running 'az login'..." -ForegroundColor Yellow
     az login
@@ -48,11 +51,13 @@ Write-Host "  Container: $Container" -ForegroundColor White
 Write-Host "  Source Directory: $(Get-Location)" -ForegroundColor White
 Write-Host ""
 
-# Confirm deployment
-$confirm = Read-Host "Proceed with deployment? (Y/N)"
-if ($confirm -ne 'Y' -and $confirm -ne 'y') {
-    Write-Host "Deployment cancelled." -ForegroundColor Yellow
-    exit 0
+# Confirm deployment if not forced
+if (-not $Force) {
+    $confirm = Read-Host "Proceed with deployment? (Y/N)"
+    if ($confirm -ne 'Y' -and $confirm -ne 'y') {
+        Write-Host "Deployment cancelled." -ForegroundColor Yellow
+        exit 0
+    }
 }
 
 Write-Host ""
@@ -104,7 +109,8 @@ Get-ChildItem -Path $sourceDir -Recurse | ForEach-Object {
         $destPath = Join-Path $tempDir $relativePath
         if ($_.PSIsContainer) {
             New-Item -ItemType Directory -Path $destPath -Force | Out-Null
-        } else {
+        }
+        else {
             $destDir = Split-Path $destPath -Parent
             if (-not (Test-Path $destDir)) {
                 New-Item -ItemType Directory -Path $destDir -Force | Out-Null
@@ -138,14 +144,17 @@ try {
         Write-Host ""
         Write-Host "Your website is now available at:" -ForegroundColor Cyan
         Write-Host "  https://$StorageAccount.z29.web.core.windows.net/" -ForegroundColor White
-    } else {
+    }
+    else {
         throw "Upload failed"
     }
-} catch {
+}
+catch {
     Write-Host "✗ Deployment failed!" -ForegroundColor Red
     Write-Host $_.Exception.Message -ForegroundColor Red
     exit 1
-} finally {
+}
+finally {
     # Clean up temp directory
     Remove-Item -Path $tempDir -Recurse -Force -ErrorAction SilentlyContinue
 }

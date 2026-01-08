@@ -2,7 +2,8 @@
 # This script deploys your website to both platforms
 
 param(
-    [string]$CommitMessage = "Update portfolio website"
+    [string]$CommitMessage = "Update portfolio website",
+    [switch]$Force
 )
 
 Write-Host "========================================" -ForegroundColor Cyan
@@ -25,11 +26,13 @@ if ($gitStatus) {
     
     if ($LASTEXITCODE -eq 0) {
         Write-Host "✓ Changes committed" -ForegroundColor Green
-    } else {
+    }
+    else {
         Write-Host "✗ Commit failed!" -ForegroundColor Red
         exit 1
     }
-} else {
+}
+else {
     Write-Host "No changes to commit" -ForegroundColor Gray
 }
 
@@ -39,7 +42,8 @@ git push origin main
 if ($LASTEXITCODE -eq 0) {
     Write-Host "✓ Pushed to GitHub successfully" -ForegroundColor Green
     Write-Host "  GitHub Actions will deploy to: https://portfolio.upendrakumar.com" -ForegroundColor Gray
-} else {
+}
+else {
     Write-Host "✗ Push failed!" -ForegroundColor Red
     exit 1
 }
@@ -50,7 +54,12 @@ Write-Host ""
 Write-Host "STEP 2: Deploying to Azure Storage" -ForegroundColor Yellow
 Write-Host "-----------------------------------" -ForegroundColor Gray
 
-& "$PSScriptRoot\deploy-azure.ps1"
+if ($Force) {
+    & "$PSScriptRoot\deploy-azure.ps1" -Force
+}
+else {
+    & "$PSScriptRoot\deploy-azure.ps1"
+}
 
 if ($LASTEXITCODE -eq 0) {
     Write-Host ""
@@ -62,7 +71,8 @@ if ($LASTEXITCODE -eq 0) {
     Write-Host "  1. https://portfolio.upendrakumar.com (GitHub Pages)" -ForegroundColor Cyan
     Write-Host "  2. https://portfolioupendrakumar.z29.web.core.windows.net (Azure Storage)" -ForegroundColor Cyan
     Write-Host ""
-} else {
+}
+else {
     Write-Host "✗ Azure deployment failed!" -ForegroundColor Red
     exit 1
 }
