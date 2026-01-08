@@ -771,35 +771,141 @@
             </div>
         </div>
 
+        <!-- Design Reviewer Widget -->
+        <h3 style="margin-top: 4rem;"><span class="gradient-text">Azure Landing Zone Design Reviewer</span></h3>
+        <p>Based on the official <a href="https://github.com/Azure/review-checklists" target="_blank"
+                style="color: #60a5fa;">Azure Review Checklists</a>, verify your design decisions across critical
+            pillars.</p>
+
+        <div class="design-reviewer-container">
+            <div class="reviewer-header">
+                <span style="color: #e2e8f0; font-weight: 600;"><i class="fas fa-clipboard-check"></i> Design
+                    Ledger</span>
+                <div class="reviewer-tabs">
+                    <div class="reviewer-tab active" data-tab="identity">Identity</div>
+                    <div class="reviewer-tab" data-tab="network">Network</div>
+                    <div class="reviewer-tab" data-tab="governance">Governance</div>
+                </div>
+            </div>
+
+            <div class="reviewer-content">
+                <!-- Identity Tab -->
+                <div class="checklist-group active" id="identity">
+                    <div class="check-item">
+                        <input type="checkbox" class="review-check">
+                        <div class="check-label">
+                            <strong>Centralized Identity Provider</strong>
+                            <span>Using a single Azure AD tenant for all corporate identities.</span>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <input type="checkbox" class="review-check">
+                        <div class="check-label">
+                            <strong>Emergency Access Accounts</strong>
+                            <span>"Break-glass" accounts configured and monitored (not synced from on-prem).</span>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <input type="checkbox" class="review-check">
+                        <div class="check-label">
+                            <strong>RBAC Strategy</strong>
+                            <span>Using custom roles sparingly; leveraging built-in Reader/Contributor/Owner
+                                roles.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Network Tab -->
+                <div class="checklist-group" id="network">
+                    <div class="check-item">
+                        <input type="checkbox" class="review-check">
+                        <div class="check-label">
+                            <strong>Hub-Spoke Topology</strong>
+                            <span>Shared services (firewall, VPN) centralization in a dedicated Hub VNet.</span>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <input type="checkbox" class="review-check">
+                        <div class="check-label">
+                            <strong>No Public IPs on Resources</strong>
+                            <span>All backend resources accessed via Private Link or Service Endpoints.</span>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <input type="checkbox" class="review-check">
+                        <div class="check-label">
+                            <strong>DDoS Protection Plan</strong>
+                            <span>Standard protection enabled for public-facing virtual networks.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Governance Tab -->
+                <div class="checklist-group" id="governance">
+                    <div class="check-item">
+                        <input type="checkbox" class="review-check">
+                        <div class="check-label">
+                            <strong>Naming Convention</strong>
+                            <span>Standardized naming enforced via Azure Policy (e.g., `rg-app-env-region`).</span>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <input type="checkbox" class="review-check">
+                        <div class="check-label">
+                            <strong>Tagging Strategy</strong>
+                            <span>Mandatory tags (CostCenter, Owner) enforced on Resource Groups.</span>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <input type="checkbox" class="review-check">
+                        <div class="check-label">
+                            <strong>Budgets & Alerts</strong>
+                            <span>Cost budgets applied at subscription and management group scopes.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-summary">
+                <span style="color: #94a3b8; font-size: 0.9rem;">Review Progress: <span
+                        id="review-percent">0</span>%</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="review-progress"></div>
+                </div>
+            </div>
+        </div>
+
         <script>
             document.addEventListener('DOMContentLoaded', () => {
-                const checkboxes = document.querySelectorAll('.assessment-checkbox');
-                const scoreText = document.getElementById('score-text');
-                const scoreCircle = document.getElementById('score-circle');
-                const scoreMessage = document.getElementById('score-message');
+                // Design Reviewer Tabs
+                const tabs = document.querySelectorAll('.reviewer-tab');
+                const groups = document.querySelectorAll('.checklist-group');
 
-                function updateScore() {
-                    let total = 0;
-                    checkboxes.forEach(cb => {
-                        if (cb.checked) total += parseInt(cb.value);
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        tabs.forEach(t => t.classList.remove('active'));
+                        groups.forEach(g => g.classList.remove('active'));
+
+                        tab.classList.add('active');
+                        document.getElementById(tab.dataset.tab).classList.add('active');
                     });
+                });
 
-                    scoreText.textContent = total;
-                    scoreCircle.style.background = `conic-gradient(#60a5fa ${total}%, rgba(255,255,255,0.1) ${total}%)`;
+                // Progress Calculation
+                const checks = document.querySelectorAll('.review-check');
+                const progressFill = document.getElementById('review-progress');
+                const percentText = document.getElementById('review-percent');
 
-                    if (total === 0) {
-                        scoreMessage.textContent = "Select items to calculate readiness";
-                        scoreMessage.style.color = "#94a3b8";
-                    } else if (total < 50) {
-                        scoreMessage.innerHTML = "<span style='color: #fca5a5'><i class='fas fa-exclamation-circle'></i> High Risk: Foundation Needs Work</span>";
-                    } else if (total < 100) {
-                        scoreMessage.innerHTML = "<span style='color: #fde047'><i class='fas fa-tools'></i> Developing: Good Start, Keep Going</span>";
-                    } else {
-                        scoreMessage.innerHTML = "<span style='color: #86efac'><i class='fas fa-check-circle'></i> Optimized: Enterprise Ready</span>";
-                    }
+                function updateReviewProgress() {
+                    const total = checks.length;
+                    const checked = document.querySelectorAll('.review-check:checked').length;
+                    const percent = Math.round((checked / total) * 100);
+
+                    progressFill.style.width = `${percent}%`;
+                    percentText.textContent = percent;
                 }
 
-                checkboxes.forEach(cb => cb.addEventListener('change', updateScore));
+                checks.forEach(check => check.addEventListener('change', updateReviewProgress));
             });
         </script>
 

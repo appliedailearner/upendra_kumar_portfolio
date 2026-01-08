@@ -941,17 +941,116 @@ body {
     transition: background 0.5s ease;
 }
 
-.score-inner {
-    width: 100px;
-    height: 100px;
+/* Design Reviewer Widget */
+.design-reviewer-container {
     background: #0f172a;
-    border-radius: 50%;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 3rem 0;
+}
+
+.reviewer-header {
+    background: #1e293b;
+    padding: 1.5rem;
+    border-bottom: 1px solid #334155;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    font-weight: 700;
-    color: #fff;
+}
+
+.reviewer-tabs {
+    display: flex;
+    background: #0f172a;
+    padding: 0.5rem;
+    gap: 0.5rem;
+    overflow-x: auto;
+}
+
+.reviewer-tab {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: #94a3b8;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+}
+
+.reviewer-tab.active {
+    background: #3b82f6;
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.5);
+}
+
+.reviewer-content {
+    padding: 2rem;
+}
+
+.checklist-group {
+    display: none;
+}
+
+.checklist-group.active {
+    display: block;
+}
+
+.check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.check-item:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.check-item input[type="checkbox"] {
+    margin-top: 0.25rem;
+    width: 18px;
+    height: 18px;
+    accent-color: #10b981;
+}
+
+.check-label strong {
+    display: block;
+    color: #f1f5f9;
+    margin-bottom: 0.25rem;
+}
+
+.check-label span {
+    font-size: 0.85rem;
+    color: #94a3b8;
+}
+
+.review-summary {
+    background: #1e293b;
+    padding: 1rem;
+    border-top: 1px solid #334155;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.progress-bar {
+    width: 200px;
+    height: 8px;
+    background: #334155;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #10b981;
+    width: 0%;
+    transition: width 0.3s ease;
 }
 
 .project-image-container {
