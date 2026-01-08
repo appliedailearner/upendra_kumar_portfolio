@@ -735,12 +735,81 @@
             at scale. By establishing a solid foundation with proper governance, security, and cost controls,
             organizations can accelerate their cloud journey while maintaining compliance and operational excellence.
         </p>
+        <!-- Interactive Maturity Assessment -->
+        <h3 style="margin-top: 3rem;"><span class="gradient-text">Interactive: Are You "Ready"?</span></h3>
+        <p>Use this governance calculator to check if your foundation matches Microsoft Enterprise Scale standards.</p>
+
+        <div class="maturity-assessment-card" id="governance-assessment">
+            <div class="assessment-questions">
+                <label class="assessment-option">
+                    <span><i class="fas fa-sitemap" style="color: #60a5fa; width: 24px;"></i> Defined Management Group
+                        Hierarchy?</span>
+                    <input type="checkbox" class="assessment-checkbox" value="25">
+                </label>
+                <label class="assessment-option">
+                    <span><i class="fas fa-check-double" style="color: #60a5fa; width: 24px;"></i> Azure Policies
+                        Assigned at Root?</span>
+                    <input type="checkbox" class="assessment-checkbox" value="25">
+                </label>
+                <label class="assessment-option">
+                    <span><i class="fas fa-network-wired" style="color: #60a5fa; width: 24px;"></i> Hub-Spoke
+                        Connectivity Established?</span>
+                    <input type="checkbox" class="assessment-checkbox" value="25">
+                </label>
+                <label class="assessment-option">
+                    <span><i class="fas fa-user-shield" style="color: #60a5fa; width: 24px;"></i> Identity (RBAC)
+                        Centralized?</span>
+                    <input type="checkbox" class="assessment-checkbox" value="25">
+                </label>
+            </div>
+
+            <div class="assessment-score-display">
+                <div class="score-circle" id="score-circle">
+                    <div class="score-inner"><span id="score-text">0</span>%</div>
+                </div>
+                <h4 id="score-message" style="margin: 0; color: #94a3b8;">Select items to calculate readiness</h4>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const checkboxes = document.querySelectorAll('.assessment-checkbox');
+                const scoreText = document.getElementById('score-text');
+                const scoreCircle = document.getElementById('score-circle');
+                const scoreMessage = document.getElementById('score-message');
+
+                function updateScore() {
+                    let total = 0;
+                    checkboxes.forEach(cb => {
+                        if (cb.checked) total += parseInt(cb.value);
+                    });
+
+                    scoreText.textContent = total;
+                    scoreCircle.style.background = `conic-gradient(#60a5fa ${total}%, rgba(255,255,255,0.1) ${total}%)`;
+
+                    if (total === 0) {
+                        scoreMessage.textContent = "Select items to calculate readiness";
+                        scoreMessage.style.color = "#94a3b8";
+                    } else if (total < 50) {
+                        scoreMessage.innerHTML = "<span style='color: #fca5a5'><i class='fas fa-exclamation-circle'></i> High Risk: Foundation Needs Work</span>";
+                    } else if (total < 100) {
+                        scoreMessage.innerHTML = "<span style='color: #fde047'><i class='fas fa-tools'></i> Developing: Good Start, Keep Going</span>";
+                    } else {
+                        scoreMessage.innerHTML = "<span style='color: #86efac'><i class='fas fa-check-circle'></i> Optimized: Enterprise Ready</span>";
+                    }
+                }
+
+                checkboxes.forEach(cb => cb.addEventListener('change', updateScore));
+            });
+        </script>
+
         <p>
             The key to success is starting with a well-architected foundation and continuously evolving it based on
             organizational needs and Azure platform innovations. Use this practical checklist to ensure you're building
             Azure right from the start, avoiding the costly rework that comes from rushing into deployments without
             proper planning.
         </p>
+
 
         <h3>Additional Resources</h3>
         <ul>

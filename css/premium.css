@@ -885,31 +885,73 @@ body {
     height: 100%;
 }
 
-/* Antipattern Warning Card */
-.antipattern-warning {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.05) 0%, rgba(185, 28, 28, 0.05) 100%);
-    border-left: 4px solid #ef4444;
+/* Interactive Assessment Widget */
+.maturity-assessment-card {
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
     padding: 2rem;
-    border-radius: 8px;
-    margin: 2.5rem 0;
-    position: relative;
-    overflow: hidden;
+    margin: 3rem 0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(10px);
 }
 
-.antipattern-warning h4 {
-    margin-top: 0;
-    color: #fca5a5;
-    font-family: 'Outfit', sans-serif;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    font-size: 0.9rem;
+.assessment-option {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    justify-content: space-between;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    margin-bottom: 0.75rem;
+    border-radius: 8px;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: 1px solid transparent;
 }
 
-.antipattern-warning p {
-    color: #e2e8f0;
+.assessment-option:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(96, 165, 250, 0.3);
+}
+
+.assessment-checkbox {
+    width: 20px;
+    height: 20px;
+    accent-color: #60a5fa;
+    cursor: pointer;
+}
+
+.assessment-score-display {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.score-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: conic-gradient(#60a5fa 0%, rgba(255, 255, 255, 0.1) 0%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    position: relative;
+    transition: background 0.5s ease;
+}
+
+.score-inner {
+    width: 100px;
+    height: 100px;
+    background: #0f172a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
 }
 
 .project-image-container {
