@@ -731,7 +731,79 @@ body {
     /* hover:border-sky-500/30 */
     transform: translateY(-4px);
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    /* shadow-2xl */
+}
+
+/* =========================================
+   Executive Blog Styling (Optimization Plan)
+   ========================================= */
+
+/* Import Merriweather for Journalistic Body Text */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap');
+
+/* Executive Insight Card */
+.executive-insight {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
+    border-left: 4px solid #a855f7;
+    padding: 2rem;
+    border-radius: 8px;
+    margin: 2.5rem 0;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.executive-insight:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.executive-insight::before {
+    content: '"';
+    position: absolute;
+    top: -20px;
+    right: 20px;
+    font-size: 8rem;
+    color: rgba(168, 85, 247, 0.1);
+    font-family: serif;
+    line-height: 1;
+}
+
+.executive-insight h4 {
+    margin-top: 0;
+    color: #d8b4fe;
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Strategic Text Highlights */
+.blog-post-content.executive-mode p {
+    font-family: 'Merriweather', serif;
+    font-size: 1.15rem;
+    line-height: 1.9;
+    color: #e2e8f0;
+}
+
+/* Verified Badge */
+.verified-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-left: 1rem;
+    vertical-align: middle;
 }
 
 /* Image Container */
