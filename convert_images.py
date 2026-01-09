@@ -1,7 +1,7 @@
 import os
 from PIL import Image
 
-directory = r'c:\MyResumePortfolio\images\blog\2026-01-06'
+directory = r'c:\MyResumePortfolio\images\blog'
 
 for filename in os.listdir(directory):
     if filename.lower().endswith(('.png', '.jpg', '.jpeg')) and not filename.lower().endswith('.webp'):
