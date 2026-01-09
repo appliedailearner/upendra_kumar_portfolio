@@ -237,195 +237,212 @@
 
         /* Hack Simulator Styles */
         .terminal-window {
-            background: #1e1e1e;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 1px solid #333;
-            overflow: hidden;
-            font-family: 'Courier New', monospace;
-            margin: 2rem 0;
-        }
+            .terminal-window {
+                background: #1e1e1e;
+                border-radius: 8px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(168, 85, 247, 0.1);
+                font-family: 'Consolas', 'Monaco', monospace;
+                overflow: hidden;
+                margin: 2rem 0;
+                border: 1px solid #333;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
 
-        .terminal-header {
-            background: #2d2d2d;
-            padding: 10px 15px;
-            display: flex;
-            gap: 8px;
-            border-bottom: 1px solid #333;
-        }
+            .terminal-window:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(168, 85, 247, 0.2);
+                border-color: #a855f7;
+            }
 
-        .terminal-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
+            .terminal-header {
+                background: #2d2d2d;
+                padding: 10px 15px;
+                display: flex;
+                align-items: center;
+                border-bottom: 1px solid #333;
+            }
 
-        .terminal-body {
-            padding: 20px;
-            color: #d4d4d4;
-            min-height: 200px;
-        }
+            .terminal-dot {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                margin-right: 8px;
+            }
 
-        .terminal-input-line {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            margin-bottom: 10px;
-        }
+            .terminal-body {
+                padding: 20px;
+                color: #ccc;
+                min-height: 200px;
+            }
 
-        .terminal-prompt {
-            color: #a855f7;
-            font-weight: bold;
-        }
+            .terminal-input-line {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+                margin-bottom: 10px;
+            }
 
-        .terminal-input {
-            background: transparent;
-            border: none;
-            color: #fff;
-            font-family: inherit;
-            font-size: 1rem;
-            width: 100%;
-            outline: none;
-        }
+            .terminal-prompt {
+                color: #a855f7;
+                font-weight: bold;
+                text-shadow: 0 0 5px rgba(168, 85, 247, 0.5);
+            }
 
-        .terminal-response {
-            margin-top: 10px;
-            line-height: 1.5;
-        }
+            .terminal-input {
+                background: transparent;
+                border: none;
+                color: #fff;
+                font-family: inherit;
+                font-size: 1rem;
+                width: 100%;
+                outline: none;
+            }
 
-        .status-blocked {
-            color: #ef4444;
-            font-weight: bold;
-        }
+            .terminal-response {
+                margin-top: 10px;
+                line-height: 1.5;
+            }
 
-        .status-allowed {
-            color: #22c55e;
-            font-weight: bold;
-        }
+            .status-blocked {
+                color: #ef4444;
+                font-weight: bold;
+            }
 
-        .typing-cursor::after {
-            content: '▋';
-            animation: blink 1s step-end infinite;
-        }
+            .status-allowed {
+                color: #22c55e;
+                font-weight: bold;
+            }
 
-        @keyframes blink {
-            50% {
+            .typing-cursor::after {
+                content: '▋';
+                animation: blink 1s step-end infinite;
+            }
+
+            @keyframes blink {
+                50% {
+                    opacity: 0;
+                }
+            }
+
+            .cost-savings {
+                margin-top: 1rem;
+                padding-top: 1rem;
+                border-top: 1px solid #334155;
+                text-align: center;
+                font-size: 0.9rem;
+                color: #94a3b8;
+            }
+
+            /* Architecture X-Ray Styles */
+            .xray-controls {
+                display: flex;
+                gap: 1rem;
+                margin-bottom: 1rem;
+                justify-content: center;
+            }
+
+            .xray-btn {
+                background: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                color: #fff;
+                padding: 0.5rem 1rem;
+                border-radius: 20px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-size: 0.9rem;
+            }
+
+            .xray-btn.active {
+                background: #3b82f6;
+                border-color: #3b82f6;
+                box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+            }
+
+            .xray-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
                 opacity: 0;
+                transition: opacity 0.5s ease;
             }
-        }
 
-        .cost-savings {
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid #334155;
-            text-align: center;
-            font-size: 0.9rem;
-            color: #94a3b8;
-        }
+            .xray-overlay.active {
+                opacity: 1;
+            }
 
-        /* Architecture X-Ray Styles */
-        .xray-controls {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            justify-content: center;
-        }
+            .xray-pulse {
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+            }
 
-        .xray-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .xray-btn.active {
-            background: #3b82f6;
-            border-color: #3b82f6;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
-        }
-
-        .xray-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .xray-overlay.active {
-            opacity: 1;
-        }
-
-        .xray-pulse {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .pulse-red {
-            background: rgba(239, 68, 68, 0.6);
-            box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
-            animation: pulse-red 2s infinite;
-        }
-
-        .pulse-green {
-            background: rgba(34, 197, 94, 0.6);
-            box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
-            animation: pulse-green 2s infinite;
-        }
-
-        @keyframes pulse-red {
-            0% {
-                transform: scale(0.95);
+            .pulse-red {
+                background: rgba(239, 68, 68, 0.6);
                 box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+                animation: pulse-red 2s infinite;
             }
 
-            70% {
-                transform: scale(1);
-                box-shadow: 0 0 0 20px rgba(239, 68, 68, 0);
-            }
-
-            100% {
-                transform: scale(0.95);
-                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
-            }
-        }
-
-        @keyframes pulse-green {
-            0% {
-                transform: scale(0.95);
+            .pulse-green {
+                background: rgba(34, 197, 94, 0.6);
                 box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+                animation: pulse-green 2s infinite;
             }
 
-            70% {
-                transform: scale(1);
-                box-shadow: 0 0 0 20px rgba(34, 197, 94, 0);
+            @keyframes pulse-red {
+                0% {
+                    transform: scale(0.95);
+                    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+                }
+
+                70% {
+                    transform: scale(1);
+                    box-shadow: 0 0 0 20px rgba(239, 68, 68, 0);
+                }
+
+                100% {
+                    transform: scale(0.95);
+                    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+                }
             }
 
-            100% {
-                transform: scale(0.95);
-                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+            @keyframes pulse-green {
+                0% {
+                    transform: scale(0.95);
+                    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+                }
+
+                70% {
+                    transform: scale(1);
+                    box-shadow: 0 0 0 20px rgba(34, 197, 94, 0);
+                }
+
+                100% {
+                    transform: scale(0.95);
+                    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+                }
             }
-        }
     </style>
     <style>
         /* Cost Calculator Styles */
         .cost-calc-container {
-            background: #1e293b;
-            border: 1px solid #334155;
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(51, 65, 85, 0.5);
             border-radius: 12px;
             padding: 1.5rem;
             margin: 2rem 0;
             color: #fff;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: border-color 0.3s ease;
+        }
+
+        .cost-calc-container:hover {
+            border-color: rgba(59, 130, 246, 0.5);
         }
 
         .cost-calc-header {
@@ -453,6 +470,29 @@
             border-radius: 4px;
             outline: none;
             -webkit-appearance: none;
+            cursor: pointer;
+        }
+
+        .cost-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #3b82f6;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+            transition: transform 0.2s ease;
+        }
+
+        .cost-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        height: 6px;
+        background: #475569;
+        border-radius: 4px;
+        outline: none;
+        -webkit-appearance: none;
         }
 
         .cost-slider::-webkit-slider-thumb {
@@ -568,7 +608,8 @@
                             style="width: 100%; height: 100%; object-fit: cover; display: block; background: #000;">
                             <source src="../assets/video/azure_ai_gateway_with_microsoft_branding.mp4" type="video/mp4">
                             Your browser does not support the video tag.
-                        </video></div>
+                        </video>
+                    </div>
                 </div>
             </section>
             < !-- Blog Post Content -->
@@ -595,7 +636,8 @@
                                         style="width: 120px; height: 120px; margin: 0 auto 1rem; border-radius: 50%; overflow: hidden; border: 3px solid #0ea5e9; box-shadow: 0 4px 10px rgba(14, 165, 233, 0.3);">
                                         <img src="../images/blog/2026-01-06/cloud-architect.webp"
                                             alt="Neo - Cloud Architect" loading="lazy"
-                                            style="width: 100%; height: 100%; object-fit: cover;"></div><strong
+                                            style="width: 100%; height: 100%; object-fit: cover;">
+                                    </div><strong
                                         style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Cloud
                                         Architect (Neo)</strong>
                                     <p style="font-size: 0.85rem; line-height: 1.4; color: var(--text-muted);">
@@ -609,7 +651,8 @@
                                             style="width: 120px; height: 120px; margin: 0 auto 1rem; border-radius: 50%; overflow: hidden; border: 3px solid #22c55e; box-shadow: 0 4px 10px rgba(34, 197, 94, 0.3);">
                                             <img src="../images/blog/2026-01-06/cloud-engineer.webp"
                                                 alt="Trinity - Cloud Engineer" loading="lazy"
-                                                style="width: 100%; height: 100%; object-fit: cover;"></div><strong
+                                                style="width: 100%; height: 100%; object-fit: cover;">
+                                        </div><strong
                                             style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Cloud
                                             Engineer (Trinity)</strong>
                                         <p style="font-size: 0.85rem; line-height: 1.4; color: var(--text-muted);">
@@ -623,7 +666,8 @@
                                                 style="width: 120px; height: 120px; margin: 0 auto 1rem; border-radius: 50%; overflow: hidden; border: 3px solid #a855f7; box-shadow: 0 4px 10px rgba(168, 85, 247, 0.3);">
                                                 <img src="../images/blog/2026-01-06/technical-consultant.webp"
                                                     alt="Morpheus - Security Architect" loading="lazy"
-                                                    style="width: 100%; height: 100%; object-fit: cover;"></div><strong
+                                                    style="width: 100%; height: 100%; object-fit: cover;">
+                                            </div><strong
                                                 style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Security
                                                 Architect (Morpheus)</strong>
                                             <p style="font-size: 0.85rem; line-height: 1.4; color: var(--text-muted);">
@@ -637,7 +681,8 @@
                                                     style="width: 120px; height: 120px; margin: 0 auto 1rem; border-radius: 50%; overflow: hidden; border: 3px solid #ef4444; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);">
                                                     <img src="../images/blog/2026-01-06/technical-consultant.webp"
                                                         alt="Migration Consultant" loading="lazy"
-                                                        style="width: 100%; height: 100%; object-fit: cover;"></div>
+                                                        style="width: 100%; height: 100%; object-fit: cover;">
+                                                </div>
                                                 <strong
                                                     style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Migration
                                                     Consultant</strong>
@@ -652,7 +697,8 @@
                                                         style="width: 120px; height: 120px; margin: 0 auto 1rem; border-radius: 50%; overflow: hidden; border: 3px solid #f59e0b; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);">
                                                         <img src="../images/blog/2026-01-06/customer.webp"
                                                             alt="Mr. Customer" loading="lazy"
-                                                            style="width: 100%; height: 100%; object-fit: cover;"></div>
+                                                            style="width: 100%; height: 100%; object-fit: cover;">
+                                                    </div>
                                                     <strong
                                                         style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Customer
                                                         Leadership</strong>
@@ -698,7 +744,8 @@
                             <div
                                 style="border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 20px rgba(0,0,0,0.4); display: inline-block; max-width: 100%;">
                                 <img src="../images/blog/2026-01-09/ai-gateway.gif" alt="AI Gateway Concept Animation"
-                                    loading="lazy" style="width: 100%; height: auto; display: block;"></div>
+                                    loading="lazy" style="width: 100%; height: auto; display: block;">
+                            </div>
                             <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;"><em>Figure: The
                                     Conceptual Flow of a Secure AI Gateway (Source: Azure Samples)</em></p>
                         </div>
@@ -738,7 +785,8 @@
                         </div>
                         <p
                             style="text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">
-                            <em>Figure 1: Enterprise GenAI Gateway Pattern (Source: Microsoft Azure Samples)</em></p>
+                            <em>Figure 1: Enterprise GenAI Gateway Pattern (Source: Microsoft Azure Samples)</em>
+                        </p>
                         <h3>Network Stance</h3>
                         <ul>
                             <li>Model endpoints are configured for <strong>private access</strong>using <strong>Private
@@ -821,7 +869,8 @@
                                         <code>azure-openai-token-limit</code>policy. It tracks consumption across all
                                         keys. When the bucket is empty,
                                         the gateway returns a <strong>429 Too Many Requests</strong>immediately,
-                                        saving the backend from overload.</p>
+                                        saving the backend from overload.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -945,7 +994,8 @@
                                                 the primary East US 2 model slows down (high latency) or returns 5xx
                                                 errors, the Gateway automatically shifts traffic to the secondary UK
                                                 South instance. This "Circuit Breaker"
-                                                happens in milliseconds, invisible to the user.</p>
+                                                happens in milliseconds, invisible to the user.
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -1118,51 +1168,72 @@
                                     const gateway = (vol * 0.4) * costPerM; // Only 40% goes to backend
                                     const savings = direct - gateway;
 
-                                    directCostEl.innerText = "$" + direct.toLocaleString();
-                                    gatewayCostEl.innerText = "$" + gateway.toLocaleString();
-                                    savingsValEl.innerText = "$" + savings.toLocaleString();
+                                    directCostEl.innerText = "$" + Math.round(direct);
+                                    gatewayCostEl.innerText = "$" + Math.round(gateway);
+                                    savingsValEl.innerText = "$" + Math.round(savings);
                                 });
                             }
-
-                            // Architecture X-Ray Logic
-                            function toggleXray(mode) {
-                                // content
-                                document.querySelectorAll('.xray-overlay').forEach(el => el.classList.remove('active'));
-                                if (mode === 'public') document.getElementById('xray-public').classList.add('active');
-                                if (mode === 'private') document.getElementById('xray-private').classList.add('active');
-
-                                // buttons
-                                document.querySelectorAll('.xray-btn').forEach(btn => btn.classList.remove('active'));
-                                event.target.classList.add('active');
-                            }
-
-                            // Scroll Reveal Logic
-                            const observerOptions = {
-                                root: null,
-                                rootMargin: '0px',
-                                threshold: 0.1
-                            }
-
-                                ;
-
-                            const observer = new IntersectionObserver((entries, observer) => {
-                                entries.forEach(entry => {
-                                    if (entry.isIntersecting) {
-                                        entry.target.classList.add('is-visible');
-                                        observer.unobserve(entry.target); // Only animate once
-                                    }
-                                });
-                            }
-
-                                , observerOptions);
-
-                            document.querySelectorAll('.reveal-on-scroll').forEach((element) => {
-                                observer.observe(element);
+                        </script>
+                        <script>
+                            // Reading Progress Bar Logic
+                            window.addEventListener('scroll', () => {
+                                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                                const scrolled = (winScroll / height) * 100;
+                                const progressBar = document.getElementById("progress-bar");
+                                if (progressBar) {
+                                    progressBar.style.width = scrolled + "%";
+                                }
                             });
                         </script>
-                        < !-- Cloudflare Web Analytics -->
-                            <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
-                                data-cf-beacon='{"token": "0b89fb05ee3844079b659405bc3f5428"}'></script>
 </body>
+const savings = direct - gateway;
+
+directCostEl.innerText = "$" + direct.toLocaleString();
+gatewayCostEl.innerText = "$" + gateway.toLocaleString();
+savingsValEl.innerText = "$" + savings.toLocaleString();
+});
+}
+
+// Architecture X-Ray Logic
+function toggleXray(mode) {
+// content
+document.querySelectorAll('.xray-overlay').forEach(el => el.classList.remove('active'));
+if (mode === 'public') document.getElementById('xray-public').classList.add('active');
+if (mode === 'private') document.getElementById('xray-private').classList.add('active');
+
+// buttons
+document.querySelectorAll('.xray-btn').forEach(btn => btn.classList.remove('active'));
+event.target.classList.add('active');
+}
+
+// Scroll Reveal Logic
+const observerOptions = {
+root: null,
+rootMargin: '0px',
+threshold: 0.1
+}
+
+;
+
+const observer = new IntersectionObserver((entries, observer) => {
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+entry.target.classList.add('is-visible');
+observer.unobserve(entry.target); // Only animate once
+}
+});
+}
+
+, observerOptions);
+
+document.querySelectorAll('.reveal-on-scroll').forEach((element) => {
+observer.observe(element);
+});
+</script>
+< !-- Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+        data-cf-beacon='{"token": "0b89fb05ee3844079b659405bc3f5428"}'></script>
+    </body>
 
 </html>
