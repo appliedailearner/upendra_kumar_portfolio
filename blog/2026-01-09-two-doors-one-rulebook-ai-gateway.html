@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="How TrustBank implemented dual Azure API Management gateways to scale AI agents for both customers and employees while maintaining strict security and audit controls.">
+    <title>Two Doors, One Rulebook: Scales AI Agents | Upendra Kumar</title>
+
+    <link rel="stylesheet" href="../css/style.css?v=25">
+    <link rel="stylesheet" href="../css/premium.css?v=25">
+    <style>
+        .nav-logo-uk {
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+            border-radius: 8px !important;
+        }
+
+        /* Blog Post Specific Styles */
+        .blog-post-hero {
+            padding: 120px 0 60px;
+            background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.15), transparent 60%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .blog-post-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .blog-post-content h2 {
+            color: var(--text-main);
+            font-size: 2rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .blog-post-content h3 {
+            color: #e2e8f0;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-post-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-post-content ul,
+        .blog-post-content ol {
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .blog-post-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-post-content code {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .blog-post-content pre {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-left: 4px solid #0ea5e9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+
+        .blog-post-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .blog-post-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .blog-post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 2rem 0;
+        }
+
+        .blog-tag {
+            background: rgba(168, 85, 247, 0.1);
+            color: #a855f7;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .btn {
+            display: inline-block;
+            font-weight: 600;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+
+        .btn-primary:hover {
+            background-color: #2563eb;
+            border-color: #2563eb;
+        }
+
+        .btn-outline {
+            color: #3b82f6;
+            background-color: transparent;
+            border-color: #3b82f6;
+        }
+
+        .btn-outline:hover {
+            color: #fff;
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+    </style>
+
+    <!-- Performance: Preconnect to Font & Script Servers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <!-- Typography: Inter (Body) & Outfit (Headings) with Swap for Performance -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="dark-theme">
+    <canvas id="particles-canvas"></canvas>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand" style="display: flex; align-items: center; gap: 1rem;">
+                <a href="../index.html" style="text-decoration: none;">
+                    <div class="nav-logo-uk">UK</div>
+                </a>
+                <div>
+                    <h2>Upendra Kumar</h2>
+                    <p class="nav-tagline">Professional Services Delivery Architect</p>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../pages/expertise.html">Expertise</a></li>
+                <li><a href="../blog.html" class="active">Insights</a></li>
+                <li><a href="../pages/contact.html">Contact</a></li>
+                <li><a href="../assets/pdf/Upendra_Kumar_Resume.pdf" target="_blank" class="nav-resume-btn">
+                        <i class="fas fa-download"></i> Resume</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blog Post Hero -->
+    <section class="blog-post-hero">
+        <div class="container" style="max-width: 1000px;">
+            <div style="margin-bottom: 1rem;">
+                <a href="../blog.html"
+                    style="color: var(--primary-color); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-arrow-left"></i> Back to Insights
+                </a>
+            </div>
+
+            <h1
+                style="font-family: 'Outfit', sans-serif; font-size: 3rem; line-height: 1.2; margin-bottom: 1.5rem; background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                Two Doors, One Rulebook: How TrustBank Scaled AI Agents Without Losing Control
+            </h1>
+
+            <div class="blog-post-meta">
+                <div><i class="fas fa-user"></i> Upendra Kumar</div>
+                <div><i class="fas fa-calendar"></i> Jan 09, 2026</div>
+                <div><i class="fas fa-clock"></i> 8 min read</div>
+            </div>
+
+            <div class="blog-post-tags">
+                <span class="blog-tag"><i class="fas fa-tag"></i> Azure Architecture</span>
+                <span class="blog-tag"><i class="fas fa-tag"></i> AI Gateway</span>
+                <span class="blog-tag"><i class="fas fa-tag"></i> Security</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Post Content -->
+    <article class="blog-post-content">
+        <p class="lead" style="font-size: 1.3rem; color: var(--primary-color); font-weight: 600;">
+            TrustBank wanted **AI agents for customers** (internet-scale) and **AI agents for employees**
+            (private-only). The CIO wanted speed. The CISO wanted an audit-proof control story. The solution was a
+            **hybrid pattern** using **dual Azure API Management gateways (APIM)** with consistent “AI gateway” policies
+            across both.
+        </p>
+
+        <!-- Content Body -->
+        <h2><span class="gradient-text">What is an AI agent (simple)</span></h2>
+        <p>
+            An <strong>AI agent</strong> is an application that uses an AI model to understand a goal, decide steps, and
+            call tools (APIs, search, ticketing, databases) to complete the task.
+        </p>
+        <p>
+            A chatbot mostly talks. An agent can <strong>take actions</strong>. That is why it needs stronger controls
+            than a normal API.
+        </p>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2><span class="gradient-text">The Cast</span></h2>
+        <ul>
+            <li><strong>Cloud Architect (Neo):</strong> architecture, standards, trade-offs</li>
+            <li><strong>Cloud Engineer (Trinity):</strong> build, automation, operations</li>
+            <li><strong>Security Architect (Morpheus):</strong> identity, data controls, audit requirements</li>
+            <li><strong>Firewall/Network SME:</strong> routing, private DNS, egress control, no-bypass enforcement</li>
+            <li><strong>Migration Consultant:</strong> onboarding waves, exception burn-down, legacy cutovers</li>
+            <li><strong>Project Manager:</strong> decisions, RACI, milestones, reporting</li>
+            <li><strong>Customer Leadership (CIO/CISO/COO):</strong> risk acceptance and operating model</li>
+        </ul>
+
+        <h2><span class="gradient-text">The Problem We Had To Stop</span></h2>
+        <p>Before governance, teams tend to connect directly to:</p>
+        <ul>
+            <li>model endpoints (Azure OpenAI / Foundry Models), and</li>
+            <li>tool APIs (search, DB, ticketing).</li>
+        </ul>
+        <p>That creates three predictable failures:</p>
+        <ol>
+            <li><strong>Uncontrolled cost</strong> (token spikes).</li>
+            <li><strong>Inconsistent access control</strong> (shadow integrations).</li>
+            <li><strong>Weak audit trail</strong> (no single enforcement point).</li>
+        </ol>
+        <p>The CISO requirement was clear:</p>
+        <blockquote>Controls must be enforced centrally, and we must be able to prove it.</blockquote>
+
+        <h2><span class="gradient-text">Architecture Decision: Dual APIM (Two Doors)</span></h2>
+        <p>We implemented <strong>two separate APIM instances</strong>:</p>
+        <ul>
+            <li><strong>APIM-External:</strong> customer-facing agent APIs (internet entry via WAF/DDoS edge).</li>
+            <li><strong>APIM-Internal:</strong> employee-facing agent APIs (private-only via ER/VPN).</li>
+        </ul>
+        <p>Both gateways implement the <strong>AI gateway in APIM</strong> capabilities (govern LLM endpoints and
+            MCP/tool APIs).</p>
+
+        <h3>Reference Diagram (Simplified)</h3>
+        <pre><code>External customers (Internet)
+  -> Public Edge (WAF/DDoS)
+  -> APIM-External (AI gateway policies)
+  -> Private Model Endpoint (Azure OpenAI / Foundry)
+  -> Private Tools/Data (Search, Storage, DB)
+
+Internal employees (ER/VPN)
+  -> APIM-Internal (private-only)
+  -> Private Model Endpoint (Azure OpenAI / Foundry)
+  -> Private Tools/Data (Search, Storage, DB)</code></pre>
+
+        <h3>Network Stance (Defensible, Not Overclaimed)</h3>
+        <ul>
+            <li>Model endpoints are configured for <strong>private access</strong> using <strong>Private Endpoint +
+                    Private DNS</strong>. Where required, public network access is disabled so Private Endpoint is the
+                exclusive path.</li>
+            <li>Tooling systems (for example, Azure AI Search) use the same private connectivity approach.</li>
+            <li><strong>APIM-Internal</strong> is deployed in <strong>internal VNet mode</strong> (or equivalent
+                private-only access pattern), so it is reachable only within controlled networks.</li>
+            <li>Egress is restricted so workloads cannot call model endpoints directly. Access is permitted only through
+                approved gateway paths.</li>
+        </ul>
+
+        <h2><span class="gradient-text">“One Rulebook” (Controls Both Gateways Enforce)</span></h2>
+        <p>This is the governance standard applied to both APIM instances:</p>
+        <ol>
+            <li><strong>Identity</strong> at the gateway (who is calling).</li>
+            <li><strong>Request throttling</strong> (requests per time window).</li>
+            <li><strong>Token governance</strong> (tokens per minute and/or token quotas) using APIM GenAI policies,
+                including <code>azure-openai-token-limit</code>.</li>
+            <li><strong>Audit-ready logging</strong> with consistent fields and correlation IDs (caller, environment,
+                model/deployment, tool invoked, token usage, latency, backend route).</li>
+            <li><strong>Tool allowlisting</strong> (agents can call only approved tools, not arbitrary URLs).</li>
+            <li><strong>Exceptions</strong> are time-boxed with an owner, expiry date, and compensating controls.</li>
+        </ol>
+        <p><strong>Definition of done:</strong> model and tool access is routed through controlled gateway paths with
+            consistent policy and traceability.</p>
+
+        <h2><span class="gradient-text">Day 1 Scope</span></h2>
+        <h3>External Customer Agents (Phase 1)</h3>
+        <p><strong>Allowed:</strong></p>
+        <ul>
+            <li>Read-only knowledge and safe lookups (public FAQs, product guidance, status checks with strict scope).
+            </li>
+        </ul>
+        <p><strong>Not Allowed:</strong></p>
+        <ul>
+            <li>Any internal tools.</li>
+            <li>High-risk actions (account changes, payments, entitlements).</li>
+        </ul>
+
+        <h3>Internal Employee Agents (Phase 1)</h3>
+        <p><strong>Allowed:</strong></p>
+        <ul>
+            <li>Enterprise search and knowledge retrieval.</li>
+            <li>CMDB and operational context lookups.</li>
+            <li>Low-risk workflow actions (for example, ticket drafts or controlled ticket creation).</li>
+        </ul>
+        <p><strong>Not Allowed (until extra gates exist):</strong></p>
+        <ul>
+            <li>High-risk write actions without step-up controls (approval and/or human-in-the-loop).</li>
+        </ul>
+
+        <h2><span class="gradient-text">Four Challenging Scenarios</span></h2>
+
+        <h3>Scenario 1: Bot Storm and Token Cost Spike (External)</h3>
+        <p><strong>What happened:</strong> a marketing event drove traffic. Bots piled in. Token spend threatened
+            budgets.</p>
+        <p><strong>Controls:</strong></p>
+        <ul>
+            <li>WAF bot controls at the edge.</li>
+            <li>APIM-External enforced both request throttles and token budgets.</li>
+            <li>Deterministic outcomes: <code>429</code> when rate limit hits, <code>403</code> when quota hits.</li>
+        </ul>
+        <p><strong>Proof Artifacts:</strong> Token usage by consumer, blocked calls, top callers.</p>
+
+        <h3>Scenario 2: Prompt Injection Attempts</h3>
+        <p><strong>What happened:</strong> users tried “ignore instructions” prompts to extract internal data or trigger
+            unsafe actions.</p>
+        <p><strong>Controls:</strong></p>
+        <ul>
+            <li>External agent had no route to internal tools.</li>
+            <li>Tool allowlist enforced at the gateway.</li>
+            <li>Least-privilege identity per tool.</li>
+        </ul>
+
+        <h3>Scenario 3: Model or Region Degradation</h3>
+        <p><strong>What happened:</strong> the primary model deployment slowed down during business hours.</p>
+        <p><strong>Controls:</strong></p>
+        <ul>
+            <li>Multi-backend routing and defined failover behavior at the gateway.</li>
+            <li>Degraded-mode responses for critical flows.</li>
+        </ul>
+
+        <h3>Scenario 4: Legacy Internal App</h3>
+        <p><strong>What happened:</strong> a legacy ops system could not adopt the preferred identity approach in time.
+        </p>
+        <p><strong>Controls:</strong></p>
+        <ul>
+            <li>Time-boxed exception allowed only via APIM-Internal.</li>
+            <li>Tight token quotas and enhanced logging.</li>
+            <li>Compensating network controls.</li>
+        </ul>
+
+        <h2><span class="gradient-text">Operating Model</span></h2>
+        <h3>Weekly KPIs</h3>
+        <ul>
+            <li>% of model calls routed through gateways (target: 100%)</li>
+            <li>Token spend by app/team vs budget</li>
+            <li>p95 latency and error rate per agent API</li>
+            <li>Number of failovers</li>
+            <li>Exception count and burn-down trend</li>
+        </ul>
+
+        <h3 style="margin-top:2rem">Go-Live Checklist (Gates)</h3>
+        <ul>
+            <li>[ ] APIM-External and APIM-Internal deployed and scoped</li>
+            <li>[ ] Model endpoints private (Private Endpoint + private DNS)</li>
+            <li>[ ] Tool services private (Search/DB/Storage)</li>
+            <li>[ ] Gateway identity enforced</li>
+            <li>[ ] Request throttles + token quotas enabled</li>
+            <li>[ ] Token metrics enabled</li>
+            <li>[ ] Tool allowlist implemented</li>
+            <li>[ ] Failover tested</li>
+            <li>[ ] Abuse tests executed</li>
+            <li>[ ] Exceptions process live</li>
+        </ul>
+
+        <h2><span class="gradient-text">Resources</span></h2>
+        <ul>
+            <li><a href="https://github.com/Azure-Samples/AI-Gateway" target="_blank">APB ❤️ AI (Azure-Samples
+                    AI-Gateway repo)</a></li>
+            <li><a href="https://azure-samples.github.io/AI-Gateway/docs/azure-openai/rate-limit" target="_blank">Token
+                    Quota/Rate Limiting Docs</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/ai/playbook/solutions/generative-ai/genai-gateway/reference-architectures/apim-based"
+                    target="_blank">Microsoft GenAI Gateway Reference Architecture</a></li>
+            <li><a href="https://www.youtube.com/watch?v=gOopye0Hwo4" target="_blank">Video: Securing and Scaling AI
+                    Workloads</a></li>
+        </ul>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h3>Ready to operationalize your Azure journey?</h3>
+        <p>
+            I help organizations turn stalled cloud initiatives into execution engines.
+        </p>
+        <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+            <a href="../pages/contact.html" class="btn btn-primary">Contact Me</a>
+            <a href="../pages/azure-migration-toolkit.html" class="btn btn-outline">View the Toolkit</a>
+        </div>
+
+        <!-- Back to Blog Button -->
+        <div style="text-align: center; margin: 4rem 0;">
+            <a href="../blog.html" class="btn btn-primary" style="display: inline-block; padding: 1rem 2rem;">
+                <i class="fas fa-arrow-left"></i> Back to Insights
+            </a>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Upendra Kumar. All rights reserved. This content is personal and not affiliated with
+                Rackspace Technology.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/journeytocloudwithupendra/" target="_blank" title="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/appliedailearner" target="_blank" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        if (hamburger && navMenu) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+        }
+    </script>
+
+    <!-- Smooth Navigation Enhancement -->
+    <script src="../js/case-study-nav.js"></script>
+    <script src="../js/particles.js"></script>
+    <!-- Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+        data-cf-beacon='{"token": "0b89fb05ee3844079b659405bc3f5428"}'></script>
+</body>
+
+</html>
