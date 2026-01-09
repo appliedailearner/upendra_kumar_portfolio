@@ -804,6 +804,22 @@
                 </li>
             </ul>
 
+            <div style="margin: 1.5rem 0; background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px;">
+                <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 250px;">
+                        <img src="../images/blog/2026-01-09/token-rate-limiting-small.gif"
+                            alt="Token Rate Limiting Flow" loading="lazy"
+                            style="width: 100%; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);">
+                    </div>
+                    <div style="flex: 1; min-width: 250px;">
+                        <h4 style="margin-top:0; color:#fff;">How it works</h4>
+                        <p style="font-size: 0.9rem; margin-bottom: 0;">We use the <code>azure-openai-token-limit</code>
+                            policy. It tracks consumption across all keys. When the bucket is empty, the gateway returns
+                            a <strong>429 Too Many Requests</strong> immediately, saving the backend from overload.</p>
+                    </div>
+                </div>
+            </div>
+
             <!-- Interact: Cost Calculator -->
             <div class="cost-calc-container reveal-on-scroll">
                 <div class="cost-calc-header">
@@ -831,6 +847,23 @@
                     Gateway Savings: <span id="savingsVal" style="color:#4ade80; font-weight:bold;">$180</span> / day
                 </div>
             </div>
+
+            <div style="margin: 1.5rem 0; background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px;">
+                <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 250px;">
+                        <img src="../images/blog/2026-01-09/semantic-caching-small.gif" alt="Semantic Caching Flow"
+                            loading="lazy"
+                            style="width: 100%; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);">
+                    </div>
+                    <div style="flex: 1; min-width: 250px;">
+                        <h4 style="margin-top:0; color:#fff;">Smart Caching</h4>
+                        <p style="font-size: 0.9rem; margin-bottom: 0;">We enabled <strong>Semantic Caching</strong>.
+                            Unlike simple URL caching, this uses <strong>vector similarity</strong>. If User A asks
+                            "What's the wifi pass?" and later User B asks "Wifi password please?", the gateway detects
+                            they are the same intent and serves the cached answer instantly. Zero tokens used.</p>
+                    </div>
+                </div>
+            </div>
             <p><strong>Proof Artifacts:</strong> Token usage by consumer, blocked calls, top callers.</p>
 
             <h3>Scenario 2: Prompt Injection Attempts</h3>
@@ -843,6 +876,22 @@
                 <li>Tool allowlist enforced at the gateway.</li>
                 <li>Least-privilege identity per tool.</li>
             </ul>
+
+            <div style="margin: 1.5rem 0; background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px;">
+                <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 250px;">
+                        <img src="../images/blog/2026-01-09/content-safety-small.gif" alt="Content Safety Flow"
+                            loading="lazy"
+                            style="width: 100%; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);">
+                    </div>
+                    <div style="flex: 1; min-width: 250px;">
+                        <h4 style="margin-top:0; color:#fff;">The "Pre-Flight" Check</h4>
+                        <p style="font-size: 0.9rem; margin-bottom: 0;">Before any prompt reaches the LLM, the Gateway
+                            sends it to <strong>Azure AI Content Safety</strong>. If it detects Jailbreaks, Hate Speech,
+                            or Injection patterns, the request is killed instantly. The LLM never sees the attack.</p>
+                    </div>
+                </div>
+            </div>
 
             <!-- Interact: Hack Simulator -->
             <div class="terminal-window reveal-on-scroll">
@@ -872,6 +921,23 @@
                 <li>Multi-backend routing and defined failover behavior at the gateway.</li>
                 <li>Degraded-mode responses for critical flows.</li>
             </ul>
+
+            <div style="margin: 1.5rem 0; background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px;">
+                <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 250px;">
+                        <img src="../images/blog/2026-01-09/backend-pool-load-balancing-small.gif"
+                            alt="Load Balancing Flow" loading="lazy"
+                            style="width: 100%; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);">
+                    </div>
+                    <div style="flex: 1; min-width: 250px;">
+                        <h4 style="margin-top:0; color:#fff;">Smart Load Balancing</h4>
+                        <p style="font-size: 0.9rem; margin-bottom: 0;">We use APIM's <strong>Backend Pools</strong>. If
+                            the primary East US 2 model slows down (high latency) or returns 5xx errors, the Gateway
+                            automatically shifts traffic to the secondary UK South instance. This "Circuit Breaker"
+                            happens in milliseconds, invisible to the user.</p>
+                    </div>
+                </div>
+            </div>
 
             <h3>Scenario 4: Legacy Internal App</h3>
             <p><strong>What happened:</strong> a legacy ops system could not adopt the preferred identity approach in
