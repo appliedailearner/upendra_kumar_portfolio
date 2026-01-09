@@ -317,7 +317,7 @@
         </p>
 
         <!-- Content Body -->
-        <h2><span class="gradient-text">What is an AI agent (simple)</span></h2>
+        <h2><span class="gradient-text">What is an AI agent</span></h2>
         <p>
             An <strong>AI agent</strong> is an application that uses an AI model to understand a goal, decide steps, and
             call tools (APIs, search, ticketing, databases) to complete the task.
@@ -412,7 +412,7 @@
         <p>The CISO requirement was clear:</p>
         <blockquote>Controls must be enforced centrally, and we must be able to prove it.</blockquote>
 
-        <h2><span class="gradient-text">Architecture Decision: Dual APIM (Two Doors)</span></h2>
+        <h2><span class="gradient-text">Architecture Decision: Dual APIM</span></h2>
         <p>We implemented <strong>two separate APIM instances</strong>:</p>
         <ul>
             <li><strong>APIM-External:</strong> customer-facing agent APIs (internet entry via WAF/DDoS edge).</li>
@@ -421,7 +421,7 @@
         <p>Both gateways implement the <strong>AI gateway in APIM</strong> capabilities (govern LLM endpoints and
             MCP/tool APIs).</p>
 
-        <h3>Reference Diagram (Simplified)</h3>
+        <h3>Reference Diagram</h3>
         <pre><code>External customers (Internet)
   -> Public Edge (WAF/DDoS)
   -> APIM-External (AI gateway policies)
@@ -433,7 +433,7 @@ Internal employees (ER/VPN)
   -> Private Model Endpoint (Azure OpenAI / Foundry)
   -> Private Tools/Data (Search, Storage, DB)</code></pre>
 
-        <h3>Network Stance (Defensible, Not Overclaimed)</h3>
+        <h3>Network Stance</h3>
         <ul>
             <li>Model endpoints are configured for <strong>private access</strong> using <strong>Private Endpoint +
                     Private DNS</strong>. Where required, public network access is disabled so Private Endpoint is the
@@ -445,7 +445,7 @@ Internal employees (ER/VPN)
                 approved gateway paths.</li>
         </ul>
 
-        <h2><span class="gradient-text">“One Rulebook” (Controls Both Gateways Enforce)</span></h2>
+        <h2><span class="gradient-text">“One Rulebook”</span></h2>
         <p>This is the governance standard applied to both APIM instances:</p>
         <ol>
             <li><strong>Identity</strong> at the gateway (who is calling).</li>
@@ -536,7 +536,7 @@ Internal employees (ER/VPN)
             <li>Exception count and burn-down trend</li>
         </ul>
 
-        <h3 style="margin-top:2rem">Go-Live Checklist (Gates)</h3>
+        <h3 style="margin-top:2rem">Go-Live Checklist</h3>
         <ul>
             <li>[ ] APIM-External and APIM-Internal deployed and scoped</li>
             <li>[ ] Model endpoints private (Private Endpoint + private DNS)</li>
