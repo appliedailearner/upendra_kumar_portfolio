@@ -234,6 +234,188 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Hack Simulator Styles */
+        .terminal-window {
+            background: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
+            overflow: hidden;
+            font-family: 'Courier New', monospace;
+            margin: 2rem 0;
+        }
+
+        .terminal-header {
+            background: #2d2d2d;
+            padding: 10px 15px;
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid #333;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-body {
+            padding: 20px;
+            color: #d4d4d4;
+            min-height: 200px;
+        }
+
+        .terminal-input-line {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .terminal-prompt {
+            color: #a855f7;
+            font-weight: bold;
+        }
+
+        .terminal-input {
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-family: inherit;
+            font-size: 1rem;
+            width: 100%;
+            outline: none;
+        }
+
+        .terminal-response {
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+
+        .status-blocked {
+            color: #ef4444;
+            font-weight: bold;
+        }
+
+        .status-allowed {
+            color: #22c55e;
+            font-weight: bold;
+        }
+
+        .typing-cursor::after {
+            content: '▋';
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .cost-savings {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #334155;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        /* Architecture X-Ray Styles */
+        .xray-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            justify-content: center;
+        }
+
+        .xray-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .xray-btn.active {
+            background: #3b82f6;
+            border-color: #3b82f6;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .xray-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .xray-overlay.active {
+            opacity: 1;
+        }
+
+        .xray-pulse {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .pulse-red {
+            background: rgba(239, 68, 68, 0.6);
+            box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            animation: pulse-red 2s infinite;
+        }
+
+        .pulse-green {
+            background: rgba(34, 197, 94, 0.6);
+            box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+            animation: pulse-green 2s infinite;
+        }
+
+        @keyframes pulse-red {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 20px rgba(239, 68, 68, 0);
+            }
+
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+            }
+        }
+
+        @keyframes pulse-green {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+            }
+
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 20px rgba(34, 197, 94, 0);
+            }
+
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+            }
+        }
     </style>
 
     <!-- Performance: Preconnect to Font & Script Servers -->
@@ -277,392 +459,628 @@
                 <span></span>
             </div>
         </div>
-    </nav>
+        /* Cost Calculator Styles */
+        .cost-calc-container {
+        background: #1e293b;
+        border: 1px solid #334155;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 2rem 0;
+        color: #fff;
+        }
+        .cost-calc-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        }
+        .cost-slider-group { margin-bottom: 1.5rem; }
+        .cost-slider-label { display: block; margin-bottom: 0.5rem; color: #94a3b8; font-size: 0.9rem; }
+        .cost-slider {
+        width: 100%;
+        height: 6px;
+        background: #475569;
+        border-radius: 4px;
+        outline: none;
+        -webkit-appearance: none;
+        }
+        .cost-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 20px; height: 20px;
+        background: #3b82f6; border-radius: 50%;
+        cursor: pointer;
+        }
+        .cost-cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        }
+        .cost-card {
+        background: rgba(255,255,255,0.05);
+        padding: 1rem;
+        border-radius: 8px;
+        text-align: center;
+        }
+        .cost-val { font-size: 1.5rem; font-weight: bold; margin: 0.5rem 0; }
+        .cost-lbl { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        .cost-bad { color: #f87171; }
+        .cost-good { color: #4ade80; }
+        .cost-savings {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid #334155;
+        text-align: center;
+        font-size: 0.9rem;
+        color: #94a3b8;
+        }
+        </style>
 
-    <!-- Blog Post Hero -->
-    <section class="blog-post-hero">
-        <div class="container" style="max-width: 1000px;">
-            <div style="margin-bottom: 1rem;">
-                <a href="../blog.html"
-                    style="color: var(--primary-color); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+        <!-- Blog Post Hero -->
+        <section class="blog-post-hero">
+            <div class="container" style="max-width: 1000px;">
+                <div style="margin-bottom: 1rem;">
+                    <a href="../blog.html"
+                        style="color: var(--primary-color); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-arrow-left"></i> Back to Insights
+                    </a>
+                </div>
+
+                <h1
+                    style="font-family: 'Outfit', sans-serif; font-size: 3rem; line-height: 1.2; margin-bottom: 1.5rem; background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                    Two Doors, One Rulebook: How TrustBank Scaled AI Agents Without Losing Control
+                </h1>
+
+                <div class="blog-post-meta">
+                    <div><i class="fas fa-user"></i> Upendra Kumar</div>
+                    <div><i class="fas fa-calendar"></i> Jan 09, 2026</div>
+                    <div><i class="fas fa-clock"></i> 8 min read</div>
+                </div>
+
+                <div class="blog-post-tags">
+                    <span class="blog-tag"><i class="fas fa-tag"></i> Azure Architecture</span>
+                    <span class="blog-tag"><i class="fas fa-tag"></i> AI Gateway</span>
+                    <span class="blog-tag"><i class="fas fa-tag"></i> Security</span>
+                </div>
+
+                <div
+                    style="margin: 2rem 0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.3); position: relative; aspect-ratio: 16/9;">
+                    <video autoplay muted loop playsinline
+                        style="width: 100%; height: 100%; object-fit: cover; display: block; background: #000;">
+                        <source src="../assets/video/azure_ai_gateway_with_microsoft_branding.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Post Content -->
+        <article class="blog-post-content">
+            <p class="lead" style="font-size: 1.3rem; color: var(--primary-color); font-weight: 600;">
+                TrustBank wanted <strong>AI agents for customers</strong> (internet-scale) and <strong>AI agents for
+                    employees</strong>
+                (private-only). The CIO wanted speed. The CISO wanted an audit-proof control story. The solution was a
+                <strong>hybrid pattern</strong> using <strong>dual Azure API Management gateways (APIM)</strong> with
+                consistent “AI gateway” policies
+                across both.
+            </p>
+
+            <!-- Content Body -->
+            <h2><span class="gradient-text">What is an AI agent</span></h2>
+            <p>
+                An <strong>AI agent</strong> is an application that uses an AI model to understand a goal, decide steps,
+                and
+                call tools (APIs, search, ticketing, databases) to complete the task.
+            </p>
+            <p>
+                A chatbot mostly talks. An agent can <strong>take actions</strong>. That is why it needs stronger
+                controls
+                than a normal API.
+            </p>
+
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+            <h2><span class="gradient-text">The Cast</span></h2>
+
+            <div class="cast-grid"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+                <!-- Cloud Architect (Neo) -->
+                <div class="cast-card reveal-on-scroll">
+                    <div class="anim-float"
+                        style="width: 120px; height: 120px; margin: 0 auto 1rem; border-radius: 50%; overflow: hidden; border: 3px solid #0ea5e9; box-shadow: 0 4px 10px rgba(14, 165, 233, 0.3);">
+                        <img src="../images/blog/2026-01-06/cloud-architect.webp" alt="Neo - Cloud Architect"
+                            loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <strong style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Cloud Architect
+                        (Neo)</strong>
+                    <p style="font-size: 0.85rem; line-height: 1.4; color: var(--text-muted);">Architecture, standards,
+                        trade-offs.</p>
+                </div>
+
+                <!-- Cloud Engineer (Trinity) -->
+                <div class="cast-card reveal-on-scroll">
+                    <div class="anim-think"
+                        style="width: 120px; height: 120px; margin: 0 auto 1rem; border-radius: 50%; overflow: hidden; border: 3px solid #22c55e; box-shadow: 0 4px 10px rgba(34, 197, 94, 0.3);">
+                        <img src="../images/blog/2026-01-06/cloud-engineer.webp" alt="Trinity - Cloud Engineer"
+                            loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <strong style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Cloud Engineer
+                        (Trinity)</strong>
+                    <p style="font-size: 0.85rem; line-height: 1.4; color: var(--text-muted);">Build, automation,
+                        operations.</p>
+                </div>
+
+                <!-- Security Architect (Morpheus) -->
+                <div class="cast-card reveal-on-scroll">
+                    <div class="anim-talk"
+                        style="width: 120px; height: 120px; margin: 0 auto 1rem; border-radius: 50%; overflow: hidden; border: 3px solid #a855f7; box-shadow: 0 4px 10px rgba(168, 85, 247, 0.3);">
+                        <img src="../images/blog/2026-01-06/technical-consultant.webp"
+                            alt="Morpheus - Security Architect" loading="lazy"
+                            style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <strong style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Security Architect
+                        (Morpheus)</strong>
+                    <p style="font-size: 0.85rem; line-height: 1.4; color: var(--text-muted);">Identity, data controls,
+                        audit.</p>
+                </div>
+
+                <!-- Migration Consultant -->
+                <div class="cast-card reveal-on-scroll">
+                    <div class="anim-talk"
+                        style="width: 120px; height: 120px; margin: 0 auto 1rem; border-radius: 50%; overflow: hidden; border: 3px solid #ef4444; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);">
+                        <img src="../images/blog/2026-01-06/technical-consultant.webp" alt="Migration Consultant"
+                            loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <strong style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Migration
+                        Consultant</strong>
+                    <p style="font-size: 0.85rem; line-height: 1.4; color: var(--text-muted);">Onboarding waves,
+                        exception
+                        burn-down.</p>
+                </div>
+
+                <!-- Customer Leadership -->
+                <div class="cast-card reveal-on-scroll">
+                    <div class="anim-float"
+                        style="width: 120px; height: 120px; margin: 0 auto 1rem; border-radius: 50%; overflow: hidden; border: 3px solid #f59e0b; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);">
+                        <img src="../images/blog/2026-01-06/customer.webp" alt="Mr. Customer" loading="lazy"
+                            style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <strong style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Customer
+                        Leadership</strong>
+                    <p style="font-size: 0.85rem; line-height: 1.4; color: var(--text-muted);">Risk acceptance &
+                        operating
+                        model.</p>
+                </div>
+                <!-- Project Manager -->
+                <div class="cast-card reveal-on-scroll">
+                    <div class="anim-think"
+                        style="width: 120px; height: 120px; margin: 0 auto 1rem; border-radius: 50%; overflow: hidden; border: 3px solid #3b82f6; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);">
+                        <img src="../images/blog/2026-01-06/project-manager.webp" alt="Mr. Project Manager"
+                            loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <strong style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Project
+                        Manager</strong>
+                    <p style="font-size: 0.85rem; line-height: 1.4; color: var(--text-muted);">Decisions, RACI,
+                        milestones.
+                    </p>
+                </div>
+            </div>
+
+            <h2><span class="gradient-text">The Problem We Had To Stop</span></h2>
+            <p>Before governance, teams tend to connect directly to:</p>
+            <ul>
+                <li>model endpoints (Azure OpenAI / Foundry Models), and</li>
+                <li>tool APIs (search, DB, ticketing).</li>
+            </ul>
+            <p>That creates three predictable failures:</p>
+            <ol>
+                <li><strong>Uncontrolled cost</strong> (token spikes).</li>
+                <li><strong>Inconsistent access control</strong> (shadow integrations).</li>
+                <li><strong>Weak audit trail</strong> (no single enforcement point).</li>
+            </ol>
+            <p>The CISO requirement was clear:</p>
+            <blockquote>Controls must be enforced centrally, and we must be able to prove it.</blockquote>
+
+            <h2><span class="gradient-text">Architecture Decision: Dual APIM</span></h2>
+            <p>We implemented <strong>two separate APIM instances</strong>:</p>
+            <ul>
+                <li><strong>APIM-External:</strong> customer-facing agent APIs (internet entry via WAF/DDoS edge).</li>
+                <li><strong>APIM-Internal:</strong> employee-facing agent APIs (private-only via ER/VPN).</li>
+            </ul>
+            <p>Both gateways implement the <strong>AI gateway in APIM</strong> capabilities (govern LLM endpoints and
+                MCP/tool APIs).</p>
+
+            <h3>Reference Diagram</h3>
+            <div class="xray-controls">
+                <button class="xray-btn active" onclick="toggleXray('none')">Standard View</button>
+                <button class="xray-btn" onclick="toggleXray('public')">Public Stance</button>
+                <button class="xray-btn" onclick="toggleXray('private')">Private Stance</button>
+            </div>
+            <div
+                style="margin: 2rem 0; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: white; padding: 1rem; position: relative;">
+                <img src="../images/blog/2026-01-09/azure-openai-apim-ref-arch.jpg"
+                    alt="Reference Architecture: Azure OpenAI Service with Azure API Management Gateway" loading="lazy"
+                    style="width: 100%; height: auto; display: block;">
+
+                <!-- Public Overlay (Red) -->
+                <div id="xray-public" class="xray-overlay">
+                    <!-- Approx positions for WAF/Ingress -->
+                    <div class="xray-pulse pulse-red" style="top: 20%; left: 10%;"></div>
+                    <div class="xray-pulse pulse-red" style="top: 50%; left: 15%;"></div>
+                </div>
+
+                <!-- Private Overlay (Green) -->
+                <div id="xray-private" class="xray-overlay">
+                    <!-- Approx positions for Private Endpoint/VNET -->
+                    <div class="xray-pulse pulse-green" style="top: 40%; right: 25%;"></div>
+                    <div class="xray-pulse pulse-green" style="top: 60%; right: 20%;"></div>
+                    <div class="xray-pulse pulse-green" style="top: 80%; left: 50%;"></div>
+                </div>
+            </div>
+            <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">
+                <em>Figure 1: Enterprise GenAI Gateway Pattern (Source: Microsoft Azure Samples)</em>
+            </p>
+
+
+
+            <h3>Network Stance</h3>
+            <ul>
+                <li>Model endpoints are configured for <strong>private access</strong> using <strong>Private Endpoint +
+                        Private DNS</strong>. Where required, public network access is disabled so Private Endpoint is
+                    the
+                    exclusive path.</li>
+                <li>Tooling systems (for example, Azure AI Search) use the same private connectivity approach.</li>
+                <li><strong>APIM-Internal</strong> is deployed in <strong>internal VNet mode</strong> (or equivalent
+                    private-only access pattern), so it is reachable only within controlled networks.</li>
+                <li>Egress is restricted so workloads cannot call model endpoints directly. Access is permitted only
+                    through
+                    approved gateway paths.</li>
+            </ul>
+
+            <h2><span class="gradient-text">“One Rulebook”</span></h2>
+            <p>This is the governance standard applied to both APIM instances:</p>
+            <ol>
+                <li><strong>Identity</strong> at the gateway (who is calling).</li>
+                <li><strong>Request throttling</strong> (requests per time window).</li>
+                <li><strong>Token governance</strong> (tokens per minute and/or token quotas) using APIM GenAI policies,
+                    including <code>azure-openai-token-limit</code>.</li>
+                <li><strong>Audit-ready logging</strong> with consistent fields and correlation IDs (caller,
+                    environment,
+                    model/deployment, tool invoked, token usage, latency, backend route).</li>
+                <li><strong>Tool allowlisting</strong> (agents can call only approved tools, not arbitrary URLs).</li>
+                <li><strong>Exceptions</strong> are time-boxed with an owner, expiry date, and compensating controls.
+                </li>
+            </ol>
+            <p><strong>Definition of done:</strong> model and tool access is routed through controlled gateway paths
+                with
+                consistent policy and traceability.</p>
+
+            <h2><span class="gradient-text">Day 1 Scope</span></h2>
+            <h3>External Customer Agents (Phase 1)</h3>
+            <p><strong>Allowed:</strong></p>
+            <ul>
+                <li>Read-only knowledge and safe lookups (public FAQs, product guidance, status checks with strict
+                    scope).
+                </li>
+            </ul>
+            <p><strong>Not Allowed:</strong></p>
+            <ul>
+                <li>Any internal tools.</li>
+                <li>High-risk actions (account changes, payments, entitlements).</li>
+            </ul>
+
+            <h3>Internal Employee Agents (Phase 1)</h3>
+            <p><strong>Allowed:</strong></p>
+            <ul>
+                <li>Enterprise search and knowledge retrieval.</li>
+                <li>CMDB and operational context lookups.</li>
+                <li>Low-risk workflow actions (for example, ticket drafts or controlled ticket creation).</li>
+            </ul>
+            <p><strong>Not Allowed (until extra gates exist):</strong></p>
+            <ul>
+                <li>High-risk write actions without step-up controls (approval and/or human-in-the-loop).</li>
+            </ul>
+
+            <h2><span class="gradient-text">Four Challenging Scenarios</span></h2>
+
+            <h3>Scenario 1: Bot Storm and Token Cost Spike (External)</h3>
+            <p><strong>What happened:</strong> a marketing event drove traffic. Bots piled in. Token spend threatened
+                budgets.</p>
+            <p><strong>Controls:</strong></p>
+            <ul>
+                <li>WAF bot controls at the edge.</li>
+                <li>APIM-External enforced both request throttles and token budgets.</li>
+                <li>Deterministic outcomes: <code>429</code> when rate limit hits, <code>403</code> when quota hits.
+                </li>
+            </ul>
+
+            <!-- Interact: Cost Calculator -->
+            <div class="cost-calc-container reveal-on-scroll">
+                <div class="cost-calc-header">
+                    <h3 style="margin:0; font-size:1.2rem; color:#fff;"><i class="fas fa-calculator"></i> The "Cost of
+                        Chaos" Calculator</h3>
+                </div>
+                <div class="cost-slider-group">
+                    <label class="cost-slider-label">Daily Token Volume: <span id="volDisplay"
+                            style="color:#fff; font-weight:bold;">100M</span> tokens</label>
+                    <input type="range" min="10" max="500" value="100" class="cost-slider" id="volSlider">
+                </div>
+                <div class="cost-cards">
+                    <div class="cost-card" style="border:1px solid #7f1d1d;">
+                        <div class="cost-lbl" style="color:#fca5a5;">Direct Access</div>
+                        <div class="cost-val cost-bad" id="directCost">$300</div>
+                        <div style="font-size:0.8rem; color:#94a3b8;">No Caching</div>
+                    </div>
+                    <div class="cost-card" style="border:1px solid #14532d;">
+                        <div class="cost-lbl" style="color:#86efac;">Gateway Controlled</div>
+                        <div class="cost-val cost-good" id="gatewayCost">$120</div>
+                        <div style="font-size:0.8rem; color:#94a3b8;">60% Cache Hit</div>
+                    </div>
+                </div>
+                <div class="cost-savings">
+                    Gateway Savings: <span id="savingsVal" style="color:#4ade80; font-weight:bold;">$180</span> / day
+                </div>
+            </div>
+            <p><strong>Proof Artifacts:</strong> Token usage by consumer, blocked calls, top callers.</p>
+
+            <h3>Scenario 2: Prompt Injection Attempts</h3>
+            <p><strong>What happened:</strong> users tried “ignore instructions” prompts to extract internal data or
+                trigger
+                unsafe actions.</p>
+            <p><strong>Controls:</strong></p>
+            <ul>
+                <li>External agent had no route to internal tools.</li>
+                <li>Tool allowlist enforced at the gateway.</li>
+                <li>Least-privilege identity per tool.</li>
+            </ul>
+
+            <!-- Interact: Hack Simulator -->
+            <div class="terminal-window reveal-on-scroll">
+                <div class="terminal-header">
+                    <div class="terminal-dot" style="background: #ff5f56;"></div>
+                    <div class="terminal-dot" style="background: #ffbd2e;"></div>
+                    <div class="terminal-dot" style="background: #27c93f;"></div>
+                    <span style="margin-left: 10px; font-size: 0.8rem; color: #888;">apim-gateway-log — bash</span>
+                </div>
+                <div class="terminal-body" id="hackSimulator">
+                    <div style="margin-bottom: 15px; color: #6b7280; font-size: 0.9rem;">
+                        // TRY IT: Type "Ignore instructions", "Drop table", or "Search flights"
+                    </div>
+                    <div id="terminalHistory"></div>
+                    <div class="terminal-input-line">
+                        <span class="terminal-prompt">user@trustbank:~$</span>
+                        <input type="text" class="terminal-input" id="terminalInput" placeholder="Enter prompt..."
+                            autocomplete="off">
+                    </div>
+                </div>
+            </div>
+
+            <h3>Scenario 3: Model or Region Degradation</h3>
+            <p><strong>What happened:</strong> the primary model deployment slowed down during business hours.</p>
+            <p><strong>Controls:</strong></p>
+            <ul>
+                <li>Multi-backend routing and defined failover behavior at the gateway.</li>
+                <li>Degraded-mode responses for critical flows.</li>
+            </ul>
+
+            <h3>Scenario 4: Legacy Internal App</h3>
+            <p><strong>What happened:</strong> a legacy ops system could not adopt the preferred identity approach in
+                time.
+            </p>
+            <p><strong>Controls:</strong></p>
+            <ul>
+                <li>Time-boxed exception allowed only via APIM-Internal.</li>
+                <li>Tight token quotas and enhanced logging.</li>
+                <li>Compensating network controls.</li>
+            </ul>
+
+            <h2><span class="gradient-text">Operating Model</span></h2>
+            <h3>Weekly KPIs</h3>
+            <ul>
+                <li>% of model calls routed through gateways (target: 100%)</li>
+                <li>Token spend by app/team vs budget</li>
+                <li>p95 latency and error rate per agent API</li>
+                <li>Number of failovers</li>
+                <li>Exception count and burn-down trend</li>
+            </ul>
+
+            <h3 style="margin-top:2rem">Go-Live Checklist</h3>
+            <ul>
+                <li>[ ] APIM-External and APIM-Internal deployed and scoped</li>
+                <li>[ ] Model endpoints private (Private Endpoint + private DNS)</li>
+                <li>[ ] Tool services private (Search/DB/Storage)</li>
+                <li>[ ] Gateway identity enforced</li>
+                <li>[ ] Request throttles + token quotas enabled</li>
+                <li>[ ] Token metrics enabled</li>
+                <li>[ ] Tool allowlist implemented</li>
+                <li>[ ] Failover tested</li>
+                <li>[ ] Abuse tests executed</li>
+                <li>[ ] Exceptions process live</li>
+            </ul>
+
+            <h2><span class="gradient-text">Resources</span></h2>
+            <ul>
+                <li><a href="https://github.com/Azure-Samples/AI-Gateway" target="_blank">APB ❤️ AI (Azure-Samples
+                        AI-Gateway repo)</a></li>
+                <li><a href="https://azure-samples.github.io/AI-Gateway/docs/azure-openai/rate-limit"
+                        target="_blank">Token
+                        Quota/Rate Limiting Docs</a></li>
+                <li><a href="https://learn.microsoft.com/en-us/ai/playbook/solutions/generative-ai/genai-gateway/reference-architectures/apim-based"
+                        target="_blank">Microsoft GenAI Gateway Reference Architecture</a></li>
+                <li><a href="https://www.youtube.com/watch?v=gOopye0Hwo4" target="_blank">Video: Securing and Scaling AI
+                        Workloads</a></li>
+            </ul>
+
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+            <h3>Ready to operationalize your Azure journey?</h3>
+            <p>
+                I help organizations turn stalled cloud initiatives into execution engines.
+            </p>
+            <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+                <a href="../pages/contact.html" class="btn btn-primary">Contact Me</a>
+                <a href="../pages/azure-migration-toolkit.html" class="btn btn-outline">View the Toolkit</a>
+            </div>
+
+            <!-- Back to Blog Button -->
+            <div style="text-align: center; margin: 4rem 0;">
+                <a href="../blog.html" class="btn btn-primary" style="display: inline-block; padding: 1rem 2rem;">
                     <i class="fas fa-arrow-left"></i> Back to Insights
                 </a>
             </div>
+        </article>
 
-            <h1
-                style="font-family: 'Outfit', sans-serif; font-size: 3rem; line-height: 1.2; margin-bottom: 1.5rem; background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
-                Two Doors, One Rulebook: How TrustBank Scaled AI Agents Without Losing Control
-            </h1>
-
-            <div class="blog-post-meta">
-                <div><i class="fas fa-user"></i> Upendra Kumar</div>
-                <div><i class="fas fa-calendar"></i> Jan 09, 2026</div>
-                <div><i class="fas fa-clock"></i> 8 min read</div>
-            </div>
-
-            <div class="blog-post-tags">
-                <span class="blog-tag"><i class="fas fa-tag"></i> Azure Architecture</span>
-                <span class="blog-tag"><i class="fas fa-tag"></i> AI Gateway</span>
-                <span class="blog-tag"><i class="fas fa-tag"></i> Security</span>
-            </div>
-
-            <div
-                style="margin: 2rem 0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.3); position: relative; aspect-ratio: 16/9;">
-                <video autoplay muted loop playsinline
-                    style="width: 100%; height: 100%; object-fit: cover; display: block; background: #000;">
-                    <source src="../assets/video/azure_ai_gateway_with_microsoft_branding.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-        </div>
-    </section>
-
-    <!-- Blog Post Content -->
-    <article class="blog-post-content">
-        <p class="lead" style="font-size: 1.3rem; color: var(--primary-color); font-weight: 600;">
-            TrustBank wanted <strong>AI agents for customers</strong> (internet-scale) and <strong>AI agents for
-                employees</strong>
-            (private-only). The CIO wanted speed. The CISO wanted an audit-proof control story. The solution was a
-            <strong>hybrid pattern</strong> using <strong>dual Azure API Management gateways (APIM)</strong> with
-            consistent “AI gateway” policies
-            across both.
-        </p>
-
-        <!-- Content Body -->
-        <h2><span class="gradient-text">What is an AI agent</span></h2>
-        <p>
-            An <strong>AI agent</strong> is an application that uses an AI model to understand a goal, decide steps, and
-            call tools (APIs, search, ticketing, databases) to complete the task.
-        </p>
-        <p>
-            A chatbot mostly talks. An agent can <strong>take actions</strong>. That is why it needs stronger controls
-            than a normal API.
-        </p>
-
-        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
-
-        <h2><span class="gradient-text">The Cast</span></h2>
-
-        <div class="cast-grid"
-            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
-            <!-- Cloud Architect (Neo) -->
-            <div class="cast-card reveal-on-scroll">
-                <div class="anim-float"
-                    style="width: 120px; height: 120px; margin: 0 auto 1rem; border-radius: 50%; overflow: hidden; border: 3px solid #0ea5e9; box-shadow: 0 4px 10px rgba(14, 165, 233, 0.3);">
-                    <img src="../images/blog/2026-01-06/cloud-architect.webp" alt="Neo - Cloud Architect" loading="lazy"
-                        style="width: 100%; height: 100%; object-fit: cover;">
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2025 Upendra Kumar. All rights reserved. This content is personal and not affiliated with
+                    Rackspace Technology.</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/journeytocloudwithupendra/" target="_blank" title="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/appliedailearner" target="_blank" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
                 </div>
-                <strong style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Cloud Architect
-                    (Neo)</strong>
-                <p style="font-size: 0.85rem; line-height: 1.4; color: var(--text-muted);">Architecture, standards,
-                    trade-offs.</p>
             </div>
+        </footer>
 
-            <!-- Cloud Engineer (Trinity) -->
-            <div class="cast-card reveal-on-scroll">
-                <div class="anim-think"
-                    style="width: 120px; height: 120px; margin: 0 auto 1rem; border-radius: 50%; overflow: hidden; border: 3px solid #22c55e; box-shadow: 0 4px 10px rgba(34, 197, 94, 0.3);">
-                    <img src="../images/blog/2026-01-06/cloud-engineer.webp" alt="Trinity - Cloud Engineer"
-                        loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-                <strong style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Cloud Engineer
-                    (Trinity)</strong>
-                <p style="font-size: 0.85rem; line-height: 1.4; color: var(--text-muted);">Build, automation,
-                    operations.</p>
-            </div>
+        <script>
+            // Mobile menu toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            if (hamburger && navMenu) {
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                });
+            }
+        </script>
 
-            <!-- Security Architect (Morpheus) -->
-            <div class="cast-card reveal-on-scroll">
-                <div class="anim-talk"
-                    style="width: 120px; height: 120px; margin: 0 auto 1rem; border-radius: 50%; overflow: hidden; border: 3px solid #a855f7; box-shadow: 0 4px 10px rgba(168, 85, 247, 0.3);">
-                    <img src="../images/blog/2026-01-06/technical-consultant.webp" alt="Morpheus - Security Architect"
-                        loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-                <strong style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Security Architect
-                    (Morpheus)</strong>
-                <p style="font-size: 0.85rem; line-height: 1.4; color: var(--text-muted);">Identity, data controls,
-                    audit.</p>
-            </div>
+        <!-- Smooth Navigation Enhancement -->
+        <script src="../js/case-study-nav.js"></script>
+        <script src="../js/particles.js"></script>
 
-            <!-- Migration Consultant -->
-            <div class="cast-card reveal-on-scroll">
-                <div class="anim-talk"
-                    style="width: 120px; height: 120px; margin: 0 auto 1rem; border-radius: 50%; overflow: hidden; border: 3px solid #ef4444; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);">
-                    <img src="../images/blog/2026-01-06/technical-consultant.webp" alt="Migration Consultant"
-                        loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-                <strong style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Migration
-                    Consultant</strong>
-                <p style="font-size: 0.85rem; line-height: 1.4; color: var(--text-muted);">Onboarding waves, exception
-                    burn-down.</p>
-            </div>
+        <script>
+            // Hack Simulator Logic
+            const terminalInput = document.getElementById('terminalInput');
+            const terminalHistory = document.getElementById('terminalHistory');
 
-            <!-- Customer Leadership -->
-            <div class="cast-card reveal-on-scroll">
-                <div class="anim-float"
-                    style="width: 120px; height: 120px; margin: 0 auto 1rem; border-radius: 50%; overflow: hidden; border: 3px solid #f59e0b; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);">
-                    <img src="../images/blog/2026-01-06/customer.webp" alt="Mr. Customer" loading="lazy"
-                        style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-                <strong style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Customer
-                    Leadership</strong>
-                <p style="font-size: 0.85rem; line-height: 1.4; color: var(--text-muted);">Risk acceptance & operating
-                    model.</p>
-            </div>
-            <!-- Project Manager -->
-            <div class="cast-card reveal-on-scroll">
-                <div class="anim-think"
-                    style="width: 120px; height: 120px; margin: 0 auto 1rem; border-radius: 50%; overflow: hidden; border: 3px solid #3b82f6; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);">
-                    <img src="../images/blog/2026-01-06/project-manager.webp" alt="Mr. Project Manager" loading="lazy"
-                        style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-                <strong style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Project Manager</strong>
-                <p style="font-size: 0.85rem; line-height: 1.4; color: var(--text-muted);">Decisions, RACI, milestones.
-                </p>
-            </div>
-        </div>
+            if (terminalInput) {
+                terminalInput.addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') {
+                        const command = this.value.trim();
+                        if (!command) return;
 
-        <h2><span class="gradient-text">The Problem We Had To Stop</span></h2>
-        <p>Before governance, teams tend to connect directly to:</p>
-        <ul>
-            <li>model endpoints (Azure OpenAI / Foundry Models), and</li>
-            <li>tool APIs (search, DB, ticketing).</li>
-        </ul>
-        <p>That creates three predictable failures:</p>
-        <ol>
-            <li><strong>Uncontrolled cost</strong> (token spikes).</li>
-            <li><strong>Inconsistent access control</strong> (shadow integrations).</li>
-            <li><strong>Weak audit trail</strong> (no single enforcement point).</li>
-        </ol>
-        <p>The CISO requirement was clear:</p>
-        <blockquote>Controls must be enforced centrally, and we must be able to prove it.</blockquote>
+                        // 1. Add User Command to History
+                        const userLine = document.createElement('div');
+                        userLine.className = 'terminal-input-line';
+                        userLine.innerHTML = `<span class="terminal-prompt">user@trustbank:~$</span> <span>${escapeHtml(command)}</span>`;
+                        terminalHistory.appendChild(userLine);
 
-        <h2><span class="gradient-text">Architecture Decision: Dual APIM</span></h2>
-        <p>We implemented <strong>two separate APIM instances</strong>:</p>
-        <ul>
-            <li><strong>APIM-External:</strong> customer-facing agent APIs (internet entry via WAF/DDoS edge).</li>
-            <li><strong>APIM-Internal:</strong> employee-facing agent APIs (private-only via ER/VPN).</li>
-        </ul>
-        <p>Both gateways implement the <strong>AI gateway in APIM</strong> capabilities (govern LLM endpoints and
-            MCP/tool APIs).</p>
+                        // 2. Simulate Processing
+                        this.value = '';
+                        this.disabled = true;
 
-        <h3>Reference Diagram</h3>
-        <div
-            style="margin: 2rem 0; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: white; padding: 1rem;">
-            <img src="../images/blog/2026-01-09/azure-openai-apim-ref-arch.jpg"
-                alt="Reference Architecture: Azure OpenAI Service with Azure API Management Gateway" loading="lazy"
-                style="width: 100%; height: auto; display: block;">
-        </div>
-        <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">
-            <em>Figure 1: Enterprise GenAI Gateway Pattern (Source: Microsoft Azure Samples)</em>
-        </p>
+                        const responseLine = document.createElement('div');
+                        responseLine.className = 'terminal-response';
+                        responseLine.innerHTML = `<span class="typing-cursor">Analyzing request...</span>`;
+                        terminalHistory.appendChild(responseLine);
 
+                        setTimeout(() => {
+                            let responseHTML = '';
+                            const lowerCmd = command.toLowerCase();
 
+                            // Simulation Logic
+                            if (lowerCmd.includes('ignore') || lowerCmd.includes('hack') || lowerCmd.includes('drop table') || lowerCmd.includes('system')) {
+                                responseHTML = `<span class="status-blocked">[BLOCKED] 🛡️ Content Safety Policy Triggered</span><br>
+                                            <span style="color:#888">Reason: Jailbreak Attempt / SQL Injection Detected</span><br>
+                                            <span style="color:#888">Action: Request Rejected (403 Forbidden)</span>`;
+                            } else if (lowerCmd.includes('ticket') || lowerCmd.includes('search') || lowerCmd.includes('weather')) {
+                                responseHTML = `<span class="status-allowed">[ALLOWED] ✅ Routed to Authorized Tool</span><br>
+                                            <span style="color:#888">Tool: Enterprise_Search_API (Private Endpoint)</span><br>
+                                            <span style="color:#888">Latency: 45ms | Audit ID: tb-9928-x</span>`;
+                            } else {
+                                responseHTML = `<span class="status-allowed">[ALLOWED] ✅ Processed by LLM</span><br>
+                                            <span style="color:#888">Model: gpt-4o (East US 2)</span><br>
+                                            <span style="color:#888">Tokens: 145 prompt / 60 completion</span>`;
+                            }
 
-        <h3>Network Stance</h3>
-        <ul>
-            <li>Model endpoints are configured for <strong>private access</strong> using <strong>Private Endpoint +
-                    Private DNS</strong>. Where required, public network access is disabled so Private Endpoint is the
-                exclusive path.</li>
-            <li>Tooling systems (for example, Azure AI Search) use the same private connectivity approach.</li>
-            <li><strong>APIM-Internal</strong> is deployed in <strong>internal VNet mode</strong> (or equivalent
-                private-only access pattern), so it is reachable only within controlled networks.</li>
-            <li>Egress is restricted so workloads cannot call model endpoints directly. Access is permitted only through
-                approved gateway paths.</li>
-        </ul>
+                            responseLine.innerHTML = responseHTML;
+                            this.disabled = false;
+                            this.focus();
+                            terminalHistory.scrollTop = terminalHistory.scrollHeight;
+                        }, 800);
+                    }
+                });
+            }
 
-        <h2><span class="gradient-text">“One Rulebook”</span></h2>
-        <p>This is the governance standard applied to both APIM instances:</p>
-        <ol>
-            <li><strong>Identity</strong> at the gateway (who is calling).</li>
-            <li><strong>Request throttling</strong> (requests per time window).</li>
-            <li><strong>Token governance</strong> (tokens per minute and/or token quotas) using APIM GenAI policies,
-                including <code>azure-openai-token-limit</code>.</li>
-            <li><strong>Audit-ready logging</strong> with consistent fields and correlation IDs (caller, environment,
-                model/deployment, tool invoked, token usage, latency, backend route).</li>
-            <li><strong>Tool allowlisting</strong> (agents can call only approved tools, not arbitrary URLs).</li>
-            <li><strong>Exceptions</strong> are time-boxed with an owner, expiry date, and compensating controls.</li>
-        </ol>
-        <p><strong>Definition of done:</strong> model and tool access is routed through controlled gateway paths with
-            consistent policy and traceability.</p>
+            function escapeHtml(text) {
+                const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+                return text.replace(/[&<>"']/g, function (m) { return map[m]; });
+            }
 
-        <h2><span class="gradient-text">Day 1 Scope</span></h2>
-        <h3>External Customer Agents (Phase 1)</h3>
-        <p><strong>Allowed:</strong></p>
-        <ul>
-            <li>Read-only knowledge and safe lookups (public FAQs, product guidance, status checks with strict scope).
-            </li>
-        </ul>
-        <p><strong>Not Allowed:</strong></p>
-        <ul>
-            <li>Any internal tools.</li>
-            <li>High-risk actions (account changes, payments, entitlements).</li>
-        </ul>
+            // Cost Calculator Logic
+            const volSlider = document.getElementById('volSlider');
+            const volDisplay = document.getElementById('volDisplay');
+            const directCostEl = document.getElementById('directCost');
+            const gatewayCostEl = document.getElementById('gatewayCost');
+            const savingsValEl = document.getElementById('savingsVal');
 
-        <h3>Internal Employee Agents (Phase 1)</h3>
-        <p><strong>Allowed:</strong></p>
-        <ul>
-            <li>Enterprise search and knowledge retrieval.</li>
-            <li>CMDB and operational context lookups.</li>
-            <li>Low-risk workflow actions (for example, ticket drafts or controlled ticket creation).</li>
-        </ul>
-        <p><strong>Not Allowed (until extra gates exist):</strong></p>
-        <ul>
-            <li>High-risk write actions without step-up controls (approval and/or human-in-the-loop).</li>
-        </ul>
+            if (volSlider) {
+                volSlider.addEventListener('input', function () {
+                    const vol = parseInt(this.value); // Millions of tokens
+                    volDisplay.innerText = vol + "M";
 
-        <h2><span class="gradient-text">Four Challenging Scenarios</span></h2>
+                    // Assumptions: $3 per 1M tokens (blended input/output gpt-3.5/4 mix)
+                    // Cache Hit Rate: 60% for common Q&A
+                    const costPerM = 3;
 
-        <h3>Scenario 1: Bot Storm and Token Cost Spike (External)</h3>
-        <p><strong>What happened:</strong> a marketing event drove traffic. Bots piled in. Token spend threatened
-            budgets.</p>
-        <p><strong>Controls:</strong></p>
-        <ul>
-            <li>WAF bot controls at the edge.</li>
-            <li>APIM-External enforced both request throttles and token budgets.</li>
-            <li>Deterministic outcomes: <code>429</code> when rate limit hits, <code>403</code> when quota hits.</li>
-        </ul>
-        <p><strong>Proof Artifacts:</strong> Token usage by consumer, blocked calls, top callers.</p>
+                    const direct = vol * costPerM;
+                    const gateway = (vol * 0.4) * costPerM; // Only 40% goes to backend
+                    const savings = direct - gateway;
 
-        <h3>Scenario 2: Prompt Injection Attempts</h3>
-        <p><strong>What happened:</strong> users tried “ignore instructions” prompts to extract internal data or trigger
-            unsafe actions.</p>
-        <p><strong>Controls:</strong></p>
-        <ul>
-            <li>External agent had no route to internal tools.</li>
-            <li>Tool allowlist enforced at the gateway.</li>
-            <li>Least-privilege identity per tool.</li>
-        </ul>
+                    directCostEl.innerText = "$" + direct.toLocaleString();
+                    gatewayCostEl.innerText = "$" + gateway.toLocaleString();
+                    savingsValEl.innerText = "$" + savings.toLocaleString();
+                });
+            }
 
-        <h3>Scenario 3: Model or Region Degradation</h3>
-        <p><strong>What happened:</strong> the primary model deployment slowed down during business hours.</p>
-        <p><strong>Controls:</strong></p>
-        <ul>
-            <li>Multi-backend routing and defined failover behavior at the gateway.</li>
-            <li>Degraded-mode responses for critical flows.</li>
-        </ul>
+            // Architecture X-Ray Logic
+            function toggleXray(mode) {
+                // content
+                document.querySelectorAll('.xray-overlay').forEach(el => el.classList.remove('active'));
+                if (mode === 'public') document.getElementById('xray-public').classList.add('active');
+                if (mode === 'private') document.getElementById('xray-private').classList.add('active');
 
-        <h3>Scenario 4: Legacy Internal App</h3>
-        <p><strong>What happened:</strong> a legacy ops system could not adopt the preferred identity approach in time.
-        </p>
-        <p><strong>Controls:</strong></p>
-        <ul>
-            <li>Time-boxed exception allowed only via APIM-Internal.</li>
-            <li>Tight token quotas and enhanced logging.</li>
-            <li>Compensating network controls.</li>
-        </ul>
+                // buttons
+                document.querySelectorAll('.xray-btn').forEach(btn => btn.classList.remove('active'));
+                event.target.classList.add('active');
+            }
 
-        <h2><span class="gradient-text">Operating Model</span></h2>
-        <h3>Weekly KPIs</h3>
-        <ul>
-            <li>% of model calls routed through gateways (target: 100%)</li>
-            <li>Token spend by app/team vs budget</li>
-            <li>p95 latency and error rate per agent API</li>
-            <li>Number of failovers</li>
-            <li>Exception count and burn-down trend</li>
-        </ul>
+            // Scroll Reveal Logic
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
 
-        <h3 style="margin-top:2rem">Go-Live Checklist</h3>
-        <ul>
-            <li>[ ] APIM-External and APIM-Internal deployed and scoped</li>
-            <li>[ ] Model endpoints private (Private Endpoint + private DNS)</li>
-            <li>[ ] Tool services private (Search/DB/Storage)</li>
-            <li>[ ] Gateway identity enforced</li>
-            <li>[ ] Request throttles + token quotas enabled</li>
-            <li>[ ] Token metrics enabled</li>
-            <li>[ ] Tool allowlist implemented</li>
-            <li>[ ] Failover tested</li>
-            <li>[ ] Abuse tests executed</li>
-            <li>[ ] Exceptions process live</li>
-        </ul>
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Only animate once
+                    }
+                });
+            }, observerOptions);
 
-        <h2><span class="gradient-text">Resources</span></h2>
-        <ul>
-            <li><a href="https://github.com/Azure-Samples/AI-Gateway" target="_blank">APB ❤️ AI (Azure-Samples
-                    AI-Gateway repo)</a></li>
-            <li><a href="https://azure-samples.github.io/AI-Gateway/docs/azure-openai/rate-limit" target="_blank">Token
-                    Quota/Rate Limiting Docs</a></li>
-            <li><a href="https://learn.microsoft.com/en-us/ai/playbook/solutions/generative-ai/genai-gateway/reference-architectures/apim-based"
-                    target="_blank">Microsoft GenAI Gateway Reference Architecture</a></li>
-            <li><a href="https://www.youtube.com/watch?v=gOopye0Hwo4" target="_blank">Video: Securing and Scaling AI
-                    Workloads</a></li>
-        </ul>
-
-        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
-
-        <h3>Ready to operationalize your Azure journey?</h3>
-        <p>
-            I help organizations turn stalled cloud initiatives into execution engines.
-        </p>
-        <div style="margin-top: 2rem; display: flex; gap: 1rem;">
-            <a href="../pages/contact.html" class="btn btn-primary">Contact Me</a>
-            <a href="../pages/azure-migration-toolkit.html" class="btn btn-outline">View the Toolkit</a>
-        </div>
-
-        <!-- Back to Blog Button -->
-        <div style="text-align: center; margin: 4rem 0;">
-            <a href="../blog.html" class="btn btn-primary" style="display: inline-block; padding: 1rem 2rem;">
-                <i class="fas fa-arrow-left"></i> Back to Insights
-            </a>
-        </div>
-    </article>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 Upendra Kumar. All rights reserved. This content is personal and not affiliated with
-                Rackspace Technology.</p>
-            <div class="social-links">
-                <a href="https://www.linkedin.com/in/journeytocloudwithupendra/" target="_blank" title="LinkedIn">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="https://github.com/appliedailearner" target="_blank" title="GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Mobile menu toggle
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
-        if (hamburger && navMenu) {
-            hamburger.addEventListener('click', () => {
-                hamburger.classList.toggle('active');
-                navMenu.classList.toggle('active');
+            document.querySelectorAll('.reveal-on-scroll').forEach((element) => {
+                observer.observe(element);
             });
-        }
-    </script>
-
-    <!-- Smooth Navigation Enhancement -->
-    <script src="../js/case-study-nav.js"></script>
-    <script src="../js/particles.js"></script>
-
-    <script>
-        // Scroll Reveal Logic
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target); // Only animate once
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal-on-scroll').forEach((element) => {
-            observer.observe(element);
-        });
-    </script>
-    <!-- Cloudflare Web Analytics -->
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
-        data-cf-beacon='{"token": "0b89fb05ee3844079b659405bc3f5428"}'></script>
+        </script>
+        <!-- Cloudflare Web Analytics -->
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+            data-cf-beacon='{"token": "0b89fb05ee3844079b659405bc3f5428"}'></script>
 </body>
 
 </html>
