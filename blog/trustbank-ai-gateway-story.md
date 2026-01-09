@@ -64,7 +64,7 @@ Internal employees (ER/VPN)
   -> Private Tools/Data (Search, Storage, DB)
 ```
 
-### Network stance (defensible, not overclaimed)
+### Network Configuration (defensible, not overclaimed)
 
 - Model endpoints are configured for **private access** using **Private Endpoint + Private DNS**. Where required, public network access is disabled so Private Endpoint is the exclusive path.
 - Tooling systems (for example, Azure AI Search) use the same private connectivity approach.
