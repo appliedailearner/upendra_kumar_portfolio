@@ -386,4 +386,104 @@ if ('PerformanceObserver' in window) {
     perfObserver.observe({ entryTypes: ['navigation'] });
 }
 
-console.log('🚀 Portfolio loaded successfully!');
+// =========================================
+// Digital Experience Upgrade ("Digital Wow")
+// =========================================
+
+// 1. Cinematic Noise Injection
+function injectNoise() {
+    const noise = document.createElement('div');
+    noise.classList.add('cinematic-noise');
+    document.body.appendChild(noise);
+    console.log('🎞️ Cinematic Noise Injected');
+}
+// Run on load
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', injectNoise);
+} else {
+    injectNoise();
+}
+
+// 2. Spotlight Card Effect (Mouse Tracking)
+document.addEventListener('mousemove', (e) => {
+    const cards = document.querySelectorAll('.spotlight-card');
+    cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+    });
+});
+
+// 3. Hacker Text Decode Effect
+class TextScramble {
+    constructor(el) {
+        this.el = el;
+        this.chars = '!<>-_\\/[]{}—=+*^?#________';
+        this.update = this.update.bind(this);
+    }
+
+    setText(newText) {
+        const oldText = this.el.innerText;
+        const length = Math.max(oldText.length, newText.length);
+        const promise = new Promise((resolve) => this.resolve = resolve);
+        this.queue = [];
+        for (let i = 0; i < length; i++) {
+            const from = oldText[i] || '';
+            const to = newText[i] || '';
+            const start = Math.floor(Math.random() * 40);
+            const end = start + Math.floor(Math.random() * 40);
+            this.queue.push({ from, to, start, end });
+        }
+        cancelAnimationFrame(this.frameRequest);
+        this.frame = 0;
+        this.update();
+        return promise;
+    }
+
+    update() {
+        let output = '';
+        let complete = 0;
+        for (let i = 0, n = this.queue.length; i < n; i++) {
+            let { from, to, start, end, char } = this.queue[i];
+            if (this.frame >= end) {
+                complete++;
+                output += to;
+            } else if (this.frame >= start) {
+                if (!char || Math.random() < 0.28) {
+                    char = this.randomChar();
+                    this.queue[i].char = char;
+                }
+                output += `<span class="hacker-text">${char}</span>`;
+            } else {
+                output += from;
+            }
+        }
+        this.el.innerHTML = output;
+        if (complete === this.queue.length) {
+            this.resolve();
+        } else {
+            this.frameRequest = requestAnimationFrame(this.update);
+            this.frame++;
+        }
+    }
+
+    randomChar() {
+        return this.chars[Math.floor(Math.random() * this.chars.length)];
+    }
+}
+
+// Initialize Decode on Blog Title if present
+const blogTitle = document.querySelector('h1');
+if (blogTitle && !blogTitle.classList.contains('no-decode')) {
+    const scrambler = new TextScramble(blogTitle);
+    // Determine the text to scramble to (uses current text)
+    // Small delay to ensure visibility
+    setTimeout(() => {
+        scrambler.setText(blogTitle.innerText);
+    }, 500);
+}
+
+console.log('✨ Digital Experience Upgrade Active');
