@@ -1186,54 +1186,47 @@
                                 }
                             });
                         </script>
+                        <script>
+
+                            // Architecture X-Ray Logic
+                            function toggleXray(mode) {
+                                // content
+                                document.querySelectorAll('.xray-overlay').forEach(el => el.classList.remove('active'));
+                                if (mode === 'public') document.getElementById('xray-public').classList.add('active');
+                                if (mode === 'private') document.getElementById('xray-private').classList.add('active');
+
+                                // buttons
+                                document.querySelectorAll('.xray-btn').forEach(btn => btn.classList.remove('active'));
+                                event.target.classList.add('active');
+                            }
+
+                            // Scroll Reveal Logic
+                            const observerOptions = {
+                                root: null,
+                                rootMargin: '0px',
+                                threshold: 0.1
+                            }
+
+                                ;
+
+                            const observer = new IntersectionObserver((entries, observer) => {
+                                entries.forEach(entry => {
+                                    if (entry.isIntersecting) {
+                                        entry.target.classList.add('is-visible');
+                                        observer.unobserve(entry.target); // Only animate once
+                                    }
+                                });
+                            }
+
+                                , observerOptions);
+
+                            document.querySelectorAll('.reveal-on-scroll').forEach((element) => {
+                                observer.observe(element);
+                            });
+                        </script>
+                        < !-- Cloudflare Web Analytics -->
+                            <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+                                data-cf-beacon='{"token": "0b89fb05ee3844079b659405bc3f5428"}'></script>
 </body>
-const savings = direct - gateway;
-
-directCostEl.innerText = "$" + direct.toLocaleString();
-gatewayCostEl.innerText = "$" + gateway.toLocaleString();
-savingsValEl.innerText = "$" + savings.toLocaleString();
-});
-}
-
-// Architecture X-Ray Logic
-function toggleXray(mode) {
-// content
-document.querySelectorAll('.xray-overlay').forEach(el => el.classList.remove('active'));
-if (mode === 'public') document.getElementById('xray-public').classList.add('active');
-if (mode === 'private') document.getElementById('xray-private').classList.add('active');
-
-// buttons
-document.querySelectorAll('.xray-btn').forEach(btn => btn.classList.remove('active'));
-event.target.classList.add('active');
-}
-
-// Scroll Reveal Logic
-const observerOptions = {
-root: null,
-rootMargin: '0px',
-threshold: 0.1
-}
-
-;
-
-const observer = new IntersectionObserver((entries, observer) => {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-entry.target.classList.add('is-visible');
-observer.unobserve(entry.target); // Only animate once
-}
-});
-}
-
-, observerOptions);
-
-document.querySelectorAll('.reveal-on-scroll').forEach((element) => {
-observer.observe(element);
-});
-</script>
-< !-- Cloudflare Web Analytics -->
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
-        data-cf-beacon='{"token": "0b89fb05ee3844079b659405bc3f5428"}'></script>
-    </body>
 
 </html>
