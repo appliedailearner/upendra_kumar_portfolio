@@ -880,88 +880,92 @@
                 <div class="reviewer-header">
                     <span style="color: #e2e8f0; font-weight: 600;"><i class="fas fa-clipboard-check"></i> Design
                         Ledger</span>
-                    <div class="reviewer-tabs">
-                        <div class="reviewer-tab active" data-tab="identity">Identity</div>
-                        <div class="reviewer-tab" data-tab="network">Network</div>
-                        <div class="reviewer-tab" data-tab="governance">Governance</div>
+                    <div class="reviewer-tabs" role="tablist" aria-label="Design Review Sections">
+                        <div class="reviewer-tab active" data-tab="identity" role="tab" aria-selected="true"
+                            tabindex="0" aria-controls="identity">Identity</div>
+                        <div class="reviewer-tab" data-tab="network" role="tab" aria-selected="false" tabindex="0"
+                            aria-controls="network">Network</div>
+                        <div class="reviewer-tab" data-tab="governance" role="tab" aria-selected="false" tabindex="0"
+                            aria-controls="governance">Governance</div>
                     </div>
                 </div>
 
                 <div class="reviewer-content">
                     <!-- Identity Tab -->
-                    <div class="checklist-group active" id="identity">
-                        <div class="check-item">
+                    <div class="checklist-group active" id="identity" role="tabpanel" aria-labelledby="tab-identity">
+                        <label class="check-item">
                             <input type="checkbox" class="review-check">
                             <div class="check-label">
                                 <strong>Centralized Identity Provider</strong>
                                 <span>Using a single Azure AD tenant for all corporate identities.</span>
                             </div>
-                        </div>
-                        <div class="check-item">
+                        </label>
+                        <label class="check-item">
                             <input type="checkbox" class="review-check">
                             <div class="check-label">
                                 <strong>Emergency Access Accounts</strong>
                                 <span>"Break-glass" accounts configured and monitored (not synced from on-prem).</span>
                             </div>
-                        </div>
-                        <div class="check-item">
+                        </label>
+                        <label class="check-item">
                             <input type="checkbox" class="review-check">
                             <div class="check-label">
                                 <strong>RBAC Strategy</strong>
                                 <span>Using custom roles sparingly; leveraging built-in Reader/Contributor/Owner
                                     roles.</span>
                             </div>
-                        </div>
+                        </label>
                     </div>
 
                     <!-- Network Tab -->
-                    <div class="checklist-group" id="network">
-                        <div class="check-item">
+                    <div class="checklist-group" id="network" role="tabpanel" aria-labelledby="tab-network">
+                        <label class="check-item">
                             <input type="checkbox" class="review-check">
                             <div class="check-label">
                                 <strong>Hub-Spoke Topology</strong>
                                 <span>Shared services (firewall, VPN) centralization in a dedicated Hub VNet.</span>
                             </div>
-                        </div>
-                        <div class="check-item">
+                        </label>
+                        <label class="check-item">
                             <input type="checkbox" class="review-check">
                             <div class="check-label">
-                                <strong>No Public IPs on Resources</strong>
-                                <span>All backend resources accessed via Private Link or Service Endpoints.</span>
+                                <strong>No Public IPs</strong>
+                                <span>Workloads use Private Endpoints; no direct public IP exposure on VMs/PaaS.</span>
                             </div>
-                        </div>
-                        <div class="check-item">
+                        </label>
+                        <label class="check-item">
                             <input type="checkbox" class="review-check">
                             <div class="check-label">
-                                <strong>DDoS Protection Plan</strong>
-                                <span>Standard protection enabled for public-facing virtual networks.</span>
+                                <strong>DDoS Protection</strong>
+                                <span>Standard protection enabled for critical public-facing endpoints.</span>
                             </div>
-                        </div>
+                        </label>
                     </div>
 
                     <!-- Governance Tab -->
-                    <div class="checklist-group" id="governance">
-                        <div class="check-item">
+                    <!-- Governance Tab -->
+                    <div class="checklist-group" id="governance" role="tabpanel" aria-labelledby="tab-governance">
+                        <label class="check-item">
                             <input type="checkbox" class="review-check">
                             <div class="check-label">
                                 <strong>Naming Convention</strong>
                                 <span>Standardized naming enforced via Azure Policy (e.g., `rg-app-env-region`).</span>
                             </div>
-                        </div>
-                        <div class="check-item">
+                        </label>
+                        <label class="check-item">
                             <input type="checkbox" class="review-check">
                             <div class="check-label">
                                 <strong>Tagging Strategy</strong>
                                 <span>Mandatory tags (CostCenter, Owner) enforced on Resource Groups.</span>
                             </div>
-                        </div>
-                        <div class="check-item">
+                        </label>
+                        <label class="check-item">
                             <input type="checkbox" class="review-check">
                             <div class="check-label">
                                 <strong>Budgets & Alerts</strong>
                                 <span>Cost budgets applied at subscription and management group scopes.</span>
                             </div>
-                        </div>
+                        </label>
                     </div>
                 </div>
 
@@ -981,12 +985,29 @@
                     const groups = document.querySelectorAll('.checklist-group');
 
                     tabs.forEach(tab => {
+                        // Click Event
                         tab.addEventListener('click', () => {
-                            tabs.forEach(t => t.classList.remove('active'));
-                            groups.forEach(g => g.classList.remove('active'));
+                            const target = tab.dataset.tab;
 
+                            // Update Tabs
+                            tabs.forEach(t => {
+                                t.classList.remove('active');
+                                t.setAttribute('aria-selected', 'false');
+                            });
                             tab.classList.add('active');
-                            document.getElementById(tab.dataset.tab).classList.add('active');
+                            tab.setAttribute('aria-selected', 'true');
+
+                            // Update Content
+                            groups.forEach(g => g.classList.remove('active'));
+                            document.getElementById(target).classList.add('active');
+                        });
+
+                        // Keyboard Accessibility
+                        tab.addEventListener('keydown', (e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                tab.click();
+                            }
                         });
                     });
 
