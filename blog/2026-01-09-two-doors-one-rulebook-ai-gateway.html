@@ -924,9 +924,13 @@
             font-size: 1.1rem;
         }
 
-        /* --- Hologram Glitch Effect --- */
+        /* --- Neon Flux Title Effect --- */
         .hologram-text {
             position: relative;
+            display: inline-block;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            animation: flux-glow 3s linear infinite;
         }
 
         .hologram-text::before,
@@ -937,74 +941,74 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #0f172a;
-            /* Matches bg */
-            overflow: hidden;
-            clip: rect(0, 900px, 0, 0);
-            opacity: 0.7;
+            opacity: 0.5;
+            z-index: -1;
+            pointer-events: none;
         }
 
         .hologram-text::before {
-            left: 2px;
-            text-shadow: -1px 0 #ff00c1;
-            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+            color: #00fff9;
+            animation: flux-chroma-1 4s infinite linear alternate-reverse;
+            filter: blur(2px);
         }
 
         .hologram-text::after {
-            left: -2px;
-            text-shadow: -1px 0 #00fff9;
-            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+            color: #ff00c1;
+            animation: flux-chroma-2 5s infinite linear alternate-reverse;
+            filter: blur(2px);
         }
 
-        @keyframes glitch-anim-1 {
-            0% {
-                clip: rect(20px, 9999px, 80px, 0);
-            }
+        @keyframes flux-glow {
 
-            20% {
-                clip: rect(10px, 9999px, 30px, 0);
-            }
-
-            40% {
-                clip: rect(50px, 9999px, 90px, 0);
-            }
-
-            60% {
-                clip: rect(30px, 9999px, 10px, 0);
-            }
-
-            80% {
-                clip: rect(80px, 9999px, 50px, 0);
-            }
-
+            0%,
             100% {
-                clip: rect(40px, 9999px, 70px, 0);
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.4), 0 0 20px rgba(59, 130, 246, 0.2);
+            }
+
+            50% {
+                text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(59, 130, 246, 0.4);
             }
         }
 
-        @keyframes glitch-anim-2 {
+        @keyframes flux-chroma-1 {
             0% {
-                clip: rect(70px, 9999px, 20px, 0);
+                transform: translate(-1px, 1px);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.3;
             }
 
             20% {
-                clip: rect(40px, 9999px, 80px, 0);
-            }
-
-            40% {
-                clip: rect(10px, 9999px, 40px, 0);
-            }
-
-            60% {
-                clip: rect(80px, 9999px, 10px, 0);
-            }
-
-            80% {
-                clip: rect(50px, 9999px, 90px, 0);
+                transform: translate(1px, -1px);
+                opacity: 0;
             }
 
             100% {
-                clip: rect(20px, 9999px, 60px, 0);
+                transform: translate(0);
+                opacity: 0;
+            }
+        }
+
+        @keyframes flux-chroma-2 {
+            0% {
+                transform: translate(1px, -1px);
+                opacity: 0;
+            }
+
+            15% {
+                opacity: 0.3;
+            }
+
+            25% {
+                transform: translate(-1px, 1px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translate(0);
+                opacity: 0;
             }
         }
 
