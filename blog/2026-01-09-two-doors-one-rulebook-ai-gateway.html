@@ -1515,15 +1515,27 @@
                 <span class="analogy-icon">🍕</span>
                 <div>
                     <div class="analogy-label">The Analogy</div>
-                    <div class="analogy-title">The "Pizza Party" Limit</div>
+                    <div class="analogy-title">Two Doors, One Kitchen</div>
                 </div>
             </div>
             <p class="analogy-text">
-                Imagine an AI kitchen that bakes pizza at a fixed speed. Everyone shares one "Jar of Tokens." If the
-                party
-                gets too wild and the jar goes empty, the Gateway Bouncer holds up a <strong>429: Not Today</strong>
-                sign
-                so the Chef doesn't have a meltdown. You save the kitchen, and the party continues once the jar refills.
+                Imagine a pizza restaurant with <strong>two entrances</strong>: Door 1 (Public) is open to the street
+                for walk-in customers, while Door 2 (Private) is a VIP entrance requiring a keycard. Both doors lead to
+                the <strong>same kitchen</strong> (Azure OpenAI) and share the <strong>same "Jar of Tokens"</strong>
+                (quota pool).
+            </p>
+            <p class="analogy-text" style="margin-top: 0.75rem;">
+                Here's the magic—<strong>One Rulebook</strong>: The Bouncer at Door 1 (APIM-External) and the Bouncer at
+                Door 2 (APIM-Internal) use the <strong>exact same rulebook</strong> to check IDs and enforce token
+                limits.
+                If the jar goes empty, <strong>both bouncers</strong> hold up the <strong>429: Not Today</strong> sign
+                simultaneously.
+            </p>
+            <p class="analogy-text" style="margin-top: 0.75rem;">
+                <strong>Why Two Doors?</strong> Door 1 has a WAF shield (security guard at the street entrance), while
+                Door 2 is hidden from the street (only accessible via VPN). But both enforce the same governance—one
+                audit
+                trail, one quota policy, centralized control.
             </p>
         </div>
         <p>Both gateways implement the <strong>AI gateway in APIM</strong> capabilities (govern LLM
