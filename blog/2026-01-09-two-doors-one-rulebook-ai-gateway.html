@@ -953,13 +953,25 @@
                     Conceptual Flow of a Secure AI Gateway (Source: Azure Samples)</em></p>
         </div>
         <h2><span class="gradient-text">Architecture Decision: Dual APIM</span></h2>
-        <p>We implemented <strong>two separate APIM instances</strong>:</p>
-        <ul>
-            <li><strong>APIM-External:</strong>customer-facing agent APIs (internet entry via WAF/DDoS
-                edge).</li>
-            <li><strong>APIM-Internal:</strong>employee-facing agent APIs (private-only via ER/VPN).
-            </li>
-        </ul>
+        <div class="executive-card" style="border-left-color: #3b82f6;">
+            <h4 style="color: #3b82f6;">Decision: The "Two Doors" Pattern</h4>
+            <div class="scenario-grid" style="margin-bottom: 0;">
+                <div class="scenario-box" style="border-top: 4px solid #3b82f6;">
+                    <span class="scenario-title"><i class="fas fa-globe"></i> Door 1: Public</span>
+                    <strong>APIM-External</strong>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem; margin-bottom: 0;">
+                        For customer-facing agents. Protected by **WAF & DDoS** at the edge.
+                    </p>
+                </div>
+                <div class="scenario-box" style="border-top: 4px solid #10b981;">
+                    <span class="scenario-title"><i class="fas fa-lock"></i> Door 2: Private</span>
+                    <strong>APIM-Internal</strong>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem; margin-bottom: 0;">
+                        For employee agents. Accessible **only via VPN/ExpressRoute**.
+                    </p>
+                </div>
+            </div>
+        </div>
         <p>Both gateways implement the <strong>AI gateway in APIM</strong>capabilities (govern LLM
             endpoints and MCP/tool APIs).</p>
         <h3>Reference Diagram</h3>
