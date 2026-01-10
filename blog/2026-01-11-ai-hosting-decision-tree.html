@@ -985,6 +985,63 @@ Compute (ACA/AKS) -> Model + Data (prefer Private Endpoints)
 
             <hr>
 
+            <h2 class="reveal-on-scroll"><span class="gradient-text">Case Study: UKLifeLabs Picks the Right Home for
+                    Agentic Workloads</span></h2>
+
+            <p>Mr. Project Manager asked, "We need a pilot by Friday. Does it go on the new AKS cluster?"</p>
+            <p>Mr. Cloud Engineer sighed. "The cluster isn't hardened for external tools yet."</p>
+            <p>Mr. Cloud Architect intervened. "The workload is bursty. The SRE team is booked."</p>
+            <p>Mr. Customer just wanted to know, "Can I see the bill per department?"</p>
+            <p>Mr. Technical Consultant smiled. "We don't need the cluster. We need a container."</p>
+
+            <h3>Context</h3>
+            <p>UKLifeLabs needed an internal research agent to query sensitive databases and summarize results.</p>
+
+            <h3>Constraints</h3>
+            <ul>
+                <li>Internal-only access in a regulated environment</li>
+                <li>Bursty and unpredictable demand</li>
+                <li>Tool calling to internal APIs and systems</li>
+                <li>Scale-to-zero is desired for non-critical components</li>
+                <li>No GPU requirement for Phase 1</li>
+                <li>AKS is allowed only if Kubernetes-only requirements appear AND there is an SRE operating model</li>
+            </ul>
+
+            <h3>Decision</h3>
+            <p><strong>Azure Container Apps (ACA)</strong></p>
+
+            <h3>Architecture</h3>
+            <ul>
+                <li><strong>Agent Orchestrator:</strong> ACA (consumption profile) for scale-to-zero</li>
+                <li><strong>Background Jobs:</strong> ACA Jobs for index/embedding refresh and scheduled syncs</li>
+                <li><strong>Gateway:</strong> APIM (internal) acting as the policy gate for auth, quotas, and audit</li>
+                <li><strong>Security:</strong> Managed Identity for service-to-service auth; Key Vault for secrets</li>
+                <li><strong>Networking:</strong> Private networking end-to-end (Private Endpoints + Private DNS);
+                    deny-by-default egress</li>
+                <li><strong>Observability:</strong> Central logging with correlation IDs and redaction for sensitive
+                    data</li>
+            </ul>
+
+            <h3>Why not AKS in Phase 1?</h3>
+            <ul>
+                <li>No need for complex custom scheduling or service mesh</li>
+                <li>Traffic volume didn't justify dedicated node pools</li>
+                <li>No dedicated SRE team available to manage cluster lifecycle</li>
+            </ul>
+
+            <h3>Outcome</h3>
+            <ul>
+                <li><strong>Speed:</strong> Deployed in days, not weeks</li>
+                <li><strong>Cost:</strong> Zero compute cost during nights and weekends</li>
+                <li><strong>Governance:</strong> Full audit trail and security compliance from Day 1</li>
+            </ul>
+
+            <h3>Mapping to the Decision Tree</h3>
+            <p>Bursty traffic + No GPUs + No K8s-specific control needs = <strong>ACA is the correct default.</strong>
+            </p>
+
+            <hr>
+
             <h3>Scenario 2: Internet-Facing Customer AI (Public Entry, Private Model/Data)</h3>
             <p><strong>When:</strong> Customer chat, partner agent APIs, public portals.</p>
 
