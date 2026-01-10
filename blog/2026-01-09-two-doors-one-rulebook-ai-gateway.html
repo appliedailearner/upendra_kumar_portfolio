@@ -40,6 +40,51 @@
 
     <link rel="stylesheet" href="../css/style.css?v=29">
     <link rel="stylesheet" href="../css/premium.css?v=29">
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Two Doors, One Rulebook: Scaling AI Agents with Dual Azure API Management Gateways",
+      "description": "How TrustBank implemented dual Azure API Management gateways to scale AI agents for both customers and employees while maintaining strict security and audit controls.",
+      "image": "https://portfolio.upendrakumar.com/images/blog/2026-01-09/azure-openai-apim-ref-arch.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Upendra Kumar",
+        "url": "https://portfolio.upendrakumar.com",
+        "jobTitle": "Lead Architect - Cloud & AI Solutions",
+        "alumniOf": "TOGAF 10 Certified Enterprise Architect"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Upendra Kumar",
+        "url": "https://portfolio.upendrakumar.com"
+      },
+      "datePublished": "2026-01-09",
+      "dateModified": "2026-01-10",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://portfolio.upendrakumar.com/blog/2026-01-09-two-doors-one-rulebook-ai-gateway.html"
+      },
+      "keywords": "Azure API Management, AI Gateway, GenAI Governance, LLM Security, Azure OpenAI, Enterprise AI, API Security, Token Limits, Semantic Caching, Content Safety, Circuit Breaker",
+      "articleSection": "Cloud Architecture",
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Azure API Management"
+        },
+        {
+          "@type": "Thing",
+          "name": "AI Gateway Pattern"
+        },
+        {
+          "@type": "Thing",
+          "name": "Enterprise AI Governance"
+        }
+      ]
+    }
+    </script>
     <style>
         .analogy-card {
             background: rgba(168, 85, 247, 0.05);
@@ -1312,6 +1357,23 @@
             control story. The solution was a <strong>hybrid pattern</strong> using <strong>dual Azure API
                 Management gateways (APIM)</strong> with consistent “AI gateway” policies across both. </p>
         <!-- Content Body -->
+
+        <!-- TL;DR Executive Summary -->
+        <div class="executive-card"
+            style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%); border-left-color: #3b82f6; margin: 2rem 0;">
+            <h4 style="color: #3b82f6; margin-top: 0;"><i class="fas fa-bolt"></i> TL;DR - Executive Summary</h4>
+            <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.8;">
+                <li><strong>The Challenge:</strong> Scale AI agents for both public customers and private employees
+                    while maintaining audit-proof governance</li>
+                <li><strong>The Solution:</strong> Dual Azure API Management gateways (APIM-External + APIM-Internal)
+                    with unified "AI gateway" policies</li>
+                <li><strong>The Impact:</strong> 60% cost reduction via semantic caching, 100% security coverage,
+                    zero-downtime failover, and centralized audit trail</li>
+            </ul>
+            <p style="margin: 1rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);"><em>Reading time: 15 minutes |
+                    Interactive demos included</em></p>
+        </div>
+
         <h2><span class="gradient-text">What is an AI agent</span></h2>
         <p>An <strong>AI agent</strong> is an application that uses an AI model to understand a goal,
             decide steps,
