@@ -148,6 +148,112 @@
             border-color: #3b82f6;
         }
 
+        /* --- Utility Classes for Layout (Refactored from Inline Styles) --- */
+        .video-container {
+            margin: 2rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            aspect-ratio: 16/9;
+        }
+
+        .video-player {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            background: #000;
+        }
+
+        .ref-arch-container {
+            margin: 2rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: white;
+            /* Keep white for the diagram visibility */
+            padding: 1rem;
+            position: relative;
+        }
+
+        .story-diagram {
+            margin: 1.5rem 0;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .story-diagram-flex {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .story-diagram-img-box {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .story-diagram-img {
+            width: 100%;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .story-diagram-text {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .cast-avatar-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1rem;
+            border-radius: 50%;
+            overflow: hidden;
+            border-width: 3px;
+            border-style: solid;
+        }
+
+        /* Cast Avatar Border Colors */
+        .border-neo {
+            border-color: #0ea5e9;
+            box-shadow: 0 4px 10px rgba(14, 165, 233, 0.3);
+        }
+
+        .border-trinity {
+            border-color: #22c55e;
+            box-shadow: 0 4px 10px rgba(34, 197, 94, 0.3);
+        }
+
+        .border-morpheus {
+            border-color: #a855f7;
+            box-shadow: 0 4px 10px rgba(168, 85, 247, 0.3);
+        }
+
+        .border-smith {
+            border-color: #ef4444;
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
+        }
+
+        .border-oracle {
+            border-color: #f59e0b;
+            box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+        }
+
+        .border-architect {
+            border-color: #3b82f6;
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+        }
+
+        .cast-img-responsive {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         /* --- New Interactive Elements (Cast Grid) --- */
         .cast-card {
             position: relative;
@@ -500,21 +606,9 @@
             transform: scale(1.2);
         }
 
-        height: 6px;
-        background: #475569;
-        border-radius: 4px;
-        outline: none;
-        -webkit-appearance: none;
-        }
 
-        .cost-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 20px;
-            height: 20px;
-            background: #3b82f6;
-            border-radius: 50%;
-            cursor: pointer;
-        }
+
+
 
         .cost-cards {
             display: grid;
@@ -556,6 +650,27 @@
             text-align: center;
             font-size: 0.9rem;
             color: #94a3b8;
+        }
+
+        /* --- High Impact Lead Paragraph --- */
+        .highlight-lead {
+            font-size: 1.3rem;
+            line-height: 1.7;
+            color: #f1f5f9;
+            /* High contrast white */
+            font-weight: 400;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid #a855f7;
+            /* Purple accent */
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 3rem;
+        }
+
+        .highlight-lead strong {
+            color: #38bdf8;
+            /* Bright Cyan for keywords */
+            font-weight: 700;
         }
     </style>
 
@@ -618,10 +733,8 @@
             <div class="blog-post-tags"><span class="blog-tag"><i class="fas fa-tag"></i>Azure
                     Architecture</span><span class="blog-tag"><i class="fas fa-tag"></i>AI Gateway</span><span
                     class="blog-tag"><i class="fas fa-tag"></i>Security</span></div>
-            <div
-                style="margin: 2rem 0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.3); position: relative; aspect-ratio: 16/9;">
-                <video autoplay muted loop playsinline
-                    style="width: 100%; height: 100%; object-fit: cover; display: block; background: #000;">
+            <div class="video-container">
+                <video autoplay muted loop playsinline class="video-player">
                     <source src="../assets/video/azure_ai_gateway_with_microsoft_branding.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
@@ -630,14 +743,14 @@
     </section>
     <!-- Blog Post Content -->
     <article class="blog-post-content">
-        <p class="lead" style="font-size: 1.3rem; color: var(--primary-color); font-weight: 600;">TrustBank
-            wanted <strong>AI agents for customers</strong>(internet-scale) and <strong>AI agents for
-                employees</strong>(private-only). The CIO wanted speed. The CISO wanted an audit-proof
+        <p class="highlight-lead">TrustBank
+            wanted <strong>AI agents for customers</strong> (internet-scale) and <strong>AI agents for
+                employees</strong> (private-only). The CIO wanted speed. The CISO wanted an audit-proof
             control story. The solution was a <strong>hybrid pattern</strong> using <strong>dual Azure API
                 Management gateways (APIM)</strong> with consistent “AI gateway” policies across both. </p>
         <!-- Content Body -->
         <h2><span class="gradient-text">What is an AI agent</span></h2>
-        <p>An <strong>AI agent</strong>is an application that uses an AI model to understand a goal,
+        <p>An <strong>AI agent</strong> is an application that uses an AI model to understand a goal,
             decide steps,
             and call tools (APIs, search, ticketing, databases) to complete the task. </p>
         <p>A chatbot mostly talks. An agent can <strong>take actions</strong>. That is why it needs
@@ -648,10 +761,9 @@
             style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
             <!-- Cloud Architect (Neo) -->
             <div class="cast-card reveal-on-scroll spotlight-card">
-                <div class="anim-float"
-                    style="width: 120px; height: 120px; margin: 0 auto 1rem; border-radius: 50%; overflow: hidden; border: 3px solid #0ea5e9; box-shadow: 0 4px 10px rgba(14, 165, 233, 0.3);">
+                <div class="anim-float cast-avatar-container border-neo">
                     <img src="../images/blog/2026-01-06/cloud-architect.webp" alt="Neo - Cloud Architect" loading="lazy"
-                        style="width: 100%; height: 100%; object-fit: cover;">
+                        class="cast-img-responsive">
                 </div><strong style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Cloud
                     Architect (Neo)</strong>
                 <p style="font-size: 0.85rem; line-height: 1.4; color: var(--text-muted);">
@@ -661,10 +773,9 @@
             </div>
             <!-- Cloud Engineer (Trinity) -->
             <div class="cast-card reveal-on-scroll spotlight-card">
-                <div class="anim-think"
-                    style="width: 120px; height: 120px; margin: 0 auto 1rem; border-radius: 50%; overflow: hidden; border: 3px solid #22c55e; box-shadow: 0 4px 10px rgba(34, 197, 94, 0.3);">
+                <div class="anim-think cast-avatar-container border-trinity">
                     <img src="../images/blog/2026-01-06/cloud-engineer.webp" alt="Trinity - Cloud Engineer"
-                        loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+                        loading="lazy" class="cast-img-responsive">
                 </div><strong style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Cloud
                     Engineer (Trinity)</strong>
                 <p style="font-size: 0.85rem; line-height: 1.4; color: var(--text-muted);">
@@ -674,10 +785,9 @@
             </div>
             <!-- Security Architect (Morpheus) -->
             <div class="cast-card reveal-on-scroll spotlight-card">
-                <div class="anim-talk"
-                    style="width: 120px; height: 120px; margin: 0 auto 1rem; border-radius: 50%; overflow: hidden; border: 3px solid #a855f7; box-shadow: 0 4px 10px rgba(168, 85, 247, 0.3);">
+                <div class="anim-talk cast-avatar-container border-morpheus">
                     <img src="../images/blog/2026-01-06/technical-consultant.webp" alt="Morpheus - Security Architect"
-                        loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+                        loading="lazy" class="cast-img-responsive">
                 </div><strong style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Security
                     Architect (Morpheus)</strong>
                 <p style="font-size: 0.85rem; line-height: 1.4; color: var(--text-muted);">
@@ -687,10 +797,9 @@
             </div>
             <!-- Migration Consultant -->
             <div class="cast-card reveal-on-scroll spotlight-card">
-                <div class="anim-talk"
-                    style="width: 120px; height: 120px; margin: 0 auto 1rem; border-radius: 50%; overflow: hidden; border: 3px solid #ef4444; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);">
+                <div class="anim-talk cast-avatar-container border-smith">
                     <img src="../images/blog/2026-01-06/technical-consultant.webp" alt="Migration Consultant"
-                        loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+                        loading="lazy" class="cast-img-responsive">
                 </div>
                 <strong style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Migration
                     Consultant</strong>
@@ -700,10 +809,9 @@
             </div>
             <!-- Customer Leadership -->
             <div class="cast-card reveal-on-scroll spotlight-card">
-                <div class="anim-float"
-                    style="width: 120px; height: 120px; margin: 0 auto 1rem; border-radius: 50%; overflow: hidden; border: 3px solid #f59e0b; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);">
+                <div class="anim-float cast-avatar-container border-oracle">
                     <img src="../images/blog/2026-01-06/customer.webp" alt="Mr. Customer" loading="lazy"
-                        style="width: 100%; height: 100%; object-fit: cover;">
+                        class="cast-img-responsive">
                 </div>
                 <strong style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Customer
                     Leadership</strong>
@@ -712,10 +820,9 @@
             </div>
             <!-- Project Manager -->
             <div class="cast-card reveal-on-scroll spotlight-card">
-                <div class="anim-think"
-                    style="width: 120px; height: 120px; margin: 0 auto 1rem; border-radius: 50%; overflow: hidden; border: 3px solid #3b82f6; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);">
+                <div class="anim-think cast-avatar-container border-architect">
                     <img src="../images/blog/2026-01-06/project-manager.webp" alt="Mr. Project Manager" loading="lazy"
-                        style="width: 100%; height: 100%; object-fit: cover;">
+                        class="cast-img-responsive">
                 </div><strong style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Project
                     Manager</strong>
                 <p style="font-size: 0.85rem; line-height: 1.4; color: var(--text-muted);">
@@ -762,8 +869,7 @@
             endpoints and MCP/tool APIs).</p>
         <h3>Reference Diagram</h3>
 
-        <div
-            style="margin: 2rem 0; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: white; padding: 1rem; position: relative;">
+        <div class="ref-arch-container">
             <img src="../images/blog/2026-01-09/azure-openai-apim-ref-arch.jpg"
                 alt="Reference Architecture: Azure OpenAI Service with Azure API Management Gateway" loading="lazy"
                 style="width: 100%; height: auto; display: block;">
@@ -800,21 +906,21 @@
         <h2><span class="gradient-text">“One Rulebook”</span></h2>
         <p>This is the governance standard applied to both APIM instances:</p>
         <ol>
-            <li><strong>Identity</strong>at the gateway (who is calling).</li>
-            <li><strong>Request throttling</strong>(requests per time window).</li>
+            <li><strong>Identity</strong> at the gateway (who is calling).</li>
+            <li><strong>Request throttling</strong> (requests per time window).</li>
             <li><strong>Token governance</strong>(tokens per minute and/or token quotas) using APIM
                 GenAI policies,
                 including <code>azure-openai-token-limit</code>.</li>
-            <li><strong>Audit-ready logging</strong>with consistent fields and correlation IDs (caller,
+            <li><strong>Audit-ready logging</strong> with consistent fields and correlation IDs (caller,
                 environment,
                 model/deployment, tool invoked, token usage, latency, backend route).</li>
-            <li><strong>Tool allowlisting</strong>(agents can call only approved tools, not arbitrary
+            <li><strong>Tool allowlisting</strong> (agents can call only approved tools, not arbitrary
                 URLs).</li>
-            <li><strong>Exceptions</strong>are time-boxed with an owner,
+            <li><strong>Exceptions</strong> are time-boxed with an owner,
                 expiry date,
                 and compensating controls. </li>
         </ol>
-        <p><strong>Definition of done:</strong>model and tool access is routed through controlled
+        <p><strong>Definition of done:</strong> model and tool access is routed through controlled
             gateway paths with consistent policy and traceability.</p>
         <h2><span class="gradient-text">Day 1 Scope</span></h2>
         <h3>External Customer Agents (Phase 1)</h3>
@@ -843,29 +949,27 @@
         </ul>
         <h2><span class="gradient-text">Four Challenging Scenarios</span></h2>
         <h3>Scenario 1: Bot Storm and Token Cost Spike (External)</h3>
-        <p><strong>What happened:</strong>a marketing event drove traffic. Bots piled in. Token spend
+        <p><strong>What happened:</strong> a marketing event drove traffic. Bots piled in. Token spend
             threatened budgets.</p>
         <p><strong>Controls:</strong></p>
         <ul>
             <li>WAF bot controls at the edge.</li>
             <li>APIM-External enforced both request throttles and token budgets.</li>
-            <li>Deterministic outcomes: <code>429</code>when rate limit hits,
-                <code>403</code>when quota hits.
+            <li>Deterministic outcomes: <code>429</code> when rate limit hits,
+                <code>403</code> when quota hits.
             </li>
         </ul>
-        <div style="margin: 1.5rem 0; background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px;">
-            <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-                <div style="flex: 1; min-width: 250px;"><img
-                        src="../images/blog/2026-01-09/token-rate-limiting-small.gif" alt="Token Rate Limiting Flow"
-                        loading="lazy"
-                        style="width: 100%; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);">
+        <div class="story-diagram">
+            <div class="story-diagram-flex">
+                <div class="story-diagram-img-box"><img src="../images/blog/2026-01-09/token-rate-limiting-small.gif"
+                        alt="Token Rate Limiting Flow" loading="lazy" class="story-diagram-img">
                 </div>
-                <div style="flex: 1; min-width: 250px;">
+                <div class="story-diagram-text">
                     <h4 style="margin-top:0; color:#fff;">How it works</h4>
                     <p style="font-size: 0.9rem; margin-bottom: 0;">We use the
-                        <code>azure-openai-token-limit</code>policy. It tracks consumption across all
+                        <code>azure-openai-token-limit</code> policy. It tracks consumption across all
                         keys. When the bucket is empty,
-                        the gateway returns a <strong>429 Too Many Requests</strong>immediately,
+                        the gateway returns a <strong>429 Too Many Requests</strong> immediately,
                         saving the backend from overload.
                     </p>
                 </div>
@@ -896,13 +1000,12 @@
             <div class="cost-savings">Gateway Savings: <span id="savingsVal"
                     style="color:#4ade80; font-weight:bold;">$180</span>/ day </div>
         </div>
-        <div style="margin: 1.5rem 0; background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px;">
-            <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-                <div style="flex: 1; min-width: 250px;"><img src="../images/blog/2026-01-09/semantic-caching-small.gif"
-                        alt="Semantic Caching Flow" loading="lazy"
-                        style="width: 100%; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);">
+        <div class="story-diagram">
+            <div class="story-diagram-flex">
+                <div class="story-diagram-img-box"><img src="../images/blog/2026-01-09/semantic-caching-small.gif"
+                        alt="Semantic Caching Flow" loading="lazy" class="story-diagram-img">
                 </div>
-                <div style="flex: 1; min-width: 250px;">
+                <div class="story-diagram-text">
                     <h4 style="margin-top:0; color:#fff;">Smart Caching</h4>
                     <p style="font-size: 0.9rem; margin-bottom: 0;">We enabled <strong>Semantic
                             Caching</strong>. Unlike simple URL caching,
@@ -913,11 +1016,11 @@
                 </div>
             </div>
         </div>
-        <p><strong>Proof Artifacts:</strong>Token usage by consumer,
+        <p><strong>Proof Artifacts:</strong> Token usage by consumer,
             blocked calls,
             top callers.</p>
         <h3>Scenario 2: Prompt Injection Attempts</h3>
-        <p><strong>What happened:</strong>users tried “ignore instructions” prompts to extract
+        <p><strong>What happened:</strong> users tried “ignore instructions” prompts to extract
             internal data or trigger unsafe actions.</p>
         <p><strong>Controls:</strong></p>
         <ul>
@@ -925,13 +1028,12 @@
             <li>Tool allowlist enforced at the gateway.</li>
             <li>Least-privilege identity per tool.</li>
         </ul>
-        <div style="margin: 1.5rem 0; background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px;">
-            <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-                <div style="flex: 1; min-width: 250px;"><img src="../images/blog/2026-01-09/content-safety-small.gif"
-                        alt="Content Safety Flow" loading="lazy"
-                        style="width: 100%; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);">
+        <div class="story-diagram">
+            <div class="story-diagram-flex">
+                <div class="story-diagram-img-box"><img src="../images/blog/2026-01-09/content-safety-small.gif"
+                        alt="Content Safety Flow" loading="lazy" class="story-diagram-img">
                 </div>
-                <div style="flex: 1; min-width: 250px;">
+                <div class="story-diagram-text">
                     <h4 style="margin-top:0; color:#fff;">The "Pre-Flight" Check</h4>
                     <p style="font-size: 0.9rem; margin-bottom: 0;">Before any prompt reaches the
                         LLM,
@@ -970,14 +1072,13 @@
             <li>Multi-backend routing and defined failover behavior at the gateway.</li>
             <li>Degraded-mode responses for critical flows.</li>
         </ul>
-        <div style="margin: 1.5rem 0; background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px;">
-            <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-                <div style="flex: 1; min-width: 250px;"> <img
+        <div class="story-diagram">
+            <div class="story-diagram-flex">
+                <div class="story-diagram-img-box"> <img
                         src="../images/blog/2026-01-09/backend-pool-load-balancing-small.gif" alt="Load Balancing Flow"
-                        loading="lazy"
-                        style="width: 100%; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);">
+                        loading="lazy" class="story-diagram-img">
                 </div>
-                <div style="flex: 1; min-width: 250px;">
+                <div class="story-diagram-text">
                     <h4 style="margin-top:0; color:#fff;">Smart Load Balancing</h4>
                     <p style="font-size: 0.9rem; margin-bottom: 0;">We use APIM's
                         <strong>Backend Pools</strong>. If
