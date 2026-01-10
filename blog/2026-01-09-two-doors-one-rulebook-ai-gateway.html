@@ -38,9 +38,63 @@
         gtag('config', 'G-7JV47L20M7');
     </script>
 
-    <link rel="stylesheet" href="../css/style.css?v=28">
-    <link rel="stylesheet" href="../css/premium.css?v=28">
+    <link rel="stylesheet" href="../css/style.css?v=29">
+    <link rel="stylesheet" href="../css/premium.css?v=29">
     <style>
+        .analogy-card {
+            background: rgba(168, 85, 247, 0.05);
+            backdrop-filter: blur(8px);
+            border-left: 4px solid #38bdf8;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .analogy-card:hover {
+            background: rgba(168, 85, 247, 0.08);
+            transform: translateX(5px);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.1);
+        }
+
+        .analogy-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0.75rem;
+        }
+
+        .analogy-icon {
+            font-size: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .analogy-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 800;
+            background: var(--secondary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .analogy-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .analogy-text {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin: 0 !important;
+        }
+
         .nav-logo-uk {
             background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
@@ -1393,6 +1447,23 @@
                 </div>
             </div>
         </div>
+        <!-- Fun Analogy: Token Limits -->
+        <div class="analogy-card reveal-on-scroll">
+            <div class="analogy-header">
+                <span class="analogy-icon">🍕</span>
+                <div>
+                    <div class="analogy-label">The Analogy</div>
+                    <div class="analogy-title">The "Pizza Party" Limit</div>
+                </div>
+            </div>
+            <p class="analogy-text">
+                Imagine an AI kitchen that bakes pizza at a fixed speed. Everyone shares one "Jar of Tokens." If the
+                party
+                gets too wild and the jar goes empty, the Gateway Bouncer holds up a <strong>429: Not Today</strong>
+                sign
+                so the Chef doesn't have a meltdown. You save the kitchen, and the party continues once the jar refills.
+            </p>
+        </div>
         <p>Both gateways implement the <strong>AI gateway in APIM</strong> capabilities (govern LLM
             endpoints and MCP/tool APIs).</p>
         <h3>Reference Diagram</h3>
@@ -1608,6 +1679,21 @@
                 </div>
             </details>
         </div>
+        <!-- Fun Analogy: Semantic Caching -->
+        <div class="analogy-card reveal-on-scroll">
+            <div class="analogy-header">
+                <span class="analogy-icon">📚</span>
+                <div>
+                    <div class="analogy-label">The Analogy</div>
+                    <div class="analogy-title">The "Shortcut Library"</div>
+                </div>
+            </div>
+            <p class="analogy-text">
+                Imagine calling a world-renowned philosopher for every simple question—it’s slow and expensive! Instead,
+                our Gateway Librarian keeps a stack of <strong>Sticky Notes</strong> for common questions. If we’ve
+                answered it before, we show the note instantly. The philosopher sleeps, and you save $5.
+            </p>
+        </div>
         <p><strong>Proof Artifacts:</strong> Token usage by consumer,
             blocked calls,
             top callers.</p>
@@ -1688,6 +1774,21 @@
                         placeholder="Enter simulation prompt..." autocomplete="off"> </div>
             </div>
         </div>
+        <!-- Fun Analogy: Content Safety -->
+        <div class="analogy-card reveal-on-scroll">
+            <div class="analogy-header">
+                <span class="analogy-icon">✉️</span>
+                <div>
+                    <div class="analogy-label">The Analogy</div>
+                    <div class="analogy-title">The "Celebrity Mail Inspector"</div>
+                </div>
+            </div>
+            <p class="analogy-text">
+                The LLM is like a famous celebrity. Some people try to send letters with "Secret Commands" or mean
+                words. The Gateway is the <strong>Mail Inspector</strong> who opens everything first. If it sees a
+                "Jailbreak" attempt, it shreds the letter instantly. The celebrity never even sees the attack.
+            </p>
+        </div>
         <div class="scenario-grid">
             <div class="scenario-box problem-box">
                 <span class="scenario-title">The Problem</span>
@@ -1726,6 +1827,21 @@
                     </p>
                 </div>
             </div>
+        </div>
+        <!-- Fun Analogy: Circuit Breaker -->
+        <div class="analogy-card reveal-on-scroll">
+            <div class="analogy-header">
+                <span class="analogy-icon">⚡</span>
+                <div>
+                    <div class="analogy-label">The Analogy</div>
+                    <div class="analogy-title">The "Stadium Generator"</div>
+                </div>
+            </div>
+            <p class="analogy-text">
+                Imagine the big game is on, and the city's power grid (Primary Instance) starts to flicker. In
+                milliseconds, the <strong>Stadium Backup Generator</strong> (Secondary Region) kicks in. The lights stay
+                on, the game continues, and the crowd never even knows there was a power surge.
+            </p>
         </div>
         <div class="scenario-grid">
             <div class="scenario-box problem-box">
