@@ -34,8 +34,47 @@
         gtag('config', 'G-7JV47L20M7');
     </script>
 
+    <!-- Fonts & Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Outfit:wght@500;700;800&display=swap"
+        rel="stylesheet">
+
     <link rel="stylesheet" href="../css/style.css?v=30">
     <link rel="stylesheet" href="../css/premium.css?v=30">
+
+    <style>
+        /* Reading Progress */
+        .reading-progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            z-index: 9999;
+        }
+
+        .reading-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #3b82f6, #a855f7);
+            transition: width 0.1s;
+        }
+
+        /* Scroll Reveal */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 
     <!-- Schema.org Structured Data -->
     <script type="application/ld+json">
@@ -497,6 +536,9 @@
 </head>
 
 <body>
+    <div class="reading-progress-container">
+        <div class="reading-progress-bar" id="readingProgressBar"></div>
+    </div>
     <!-- Particles Background -->
     <canvas id="particles-canvas"></canvas>
 
@@ -525,14 +567,13 @@
     <!-- Blog Post Content -->
     <article>
         <div class="blog-post-content">
-            <!-- Breadcrumb -->
-            <nav class="breadcrumb">
-                <a href="../index.html">Home</a>
-                <span>/</span>
-                <a href="../blog.html">Insights</a>
-                <span>/</span>
-                <span>AI Hosting Decision Tree</span>
-            </nav>
+            <!-- Back Navigation -->
+            <div style="margin-bottom: 2rem;">
+                <a href="../blog.html"
+                    style="color: #38bdf8; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 600; transition: transform 0.2s;">
+                    <i class="fas fa-arrow-left"></i> Back to Insights
+                </a>
+            </div>
 
             <!-- Hero Section -->
             <header class="blog-post-hero">
@@ -589,7 +630,7 @@
 
             <hr>
 
-            <h2><span class="gradient-text">The Cast</span></h2>
+            <h2 class="reveal-on-scroll"><span class="gradient-text">The Cast</span></h2>
             <ul>
                 <li><strong>Mr. Technical Consultant</strong>: removes ambiguity, locks decisions, prevents surprises.
                 </li>
@@ -602,7 +643,7 @@
             <hr>
 
             <!-- Analogy 1: The Restaurant Menu -->
-            <div class="analogy-card">
+            <div class="analogy-card reveal-on-scroll">
                 <div class="analogy-header">
                     <span class="analogy-icon">🍽️</span>
                     <div>
@@ -622,7 +663,7 @@
                 </p>
             </div>
 
-            <h2><span class="gradient-text">The Constraints Template (Copy/Paste)</span></h2>
+            <h2 class="reveal-on-scroll"><span class="gradient-text">The Constraints Template (Copy/Paste)</span></h2>
             <p>If you skip this, you will replatform twice.</p>
 
             <h3>Security and Network</h3>
@@ -659,7 +700,7 @@
 
             <hr>
 
-            <h2><span class="gradient-text">The Decision Tree (One-Screen Version)</span></h2>
+            <h2 class="reveal-on-scroll"><span class="gradient-text">The Decision Tree (One-Screen Version)</span></h2>
 
             <pre style="background: rgba(10,10,10,0.6); padding: 1.5rem; border-radius: 8px; overflow-x: auto;">
 START
@@ -692,7 +733,7 @@ START
             <hr>
 
             <!-- Interactive Decision Tree Widget -->
-            <div class="decision-tree-widget">
+            <div class="decision-tree-widget reveal-on-scroll">
                 <h3 style="color: #38bdf8; margin-top: 0;">🎯 Interactive Decision Navigator</h3>
                 <p style="color: var(--text-muted); margin-bottom: 2rem;">Answer these questions to get your compute
                     recommendation:</p>
@@ -791,7 +832,7 @@ START
             <hr>
 
             <!-- Analogy 2: The Nightclub Bouncer -->
-            <div class="analogy-card">
+            <div class="analogy-card reveal-on-scroll">
                 <div class="analogy-header">
                     <span class="analogy-icon">🚪</span>
                     <div>
@@ -810,7 +851,7 @@ START
                 </p>
             </div>
 
-            <h2><span class="gradient-text">The Non-Negotiable Rulebook</span></h2>
+            <h2 class="reveal-on-scroll"><span class="gradient-text">The Non-Negotiable Rulebook</span></h2>
             <p>Mr. Customer did not care about AKS vs ACA. He cared about <strong>control</strong>.</p>
 
             <p>So Mr. Technical Consultant drew this:</p>
@@ -835,14 +876,15 @@ Compute (ACA/AKS) -> Model + Data (prefer Private Endpoints)
             </p>
 
             <!-- Diagram 1: APIM Gateway Architecture -->
-            <figure class="architecture-diagram">
+            <figure class="architecture-diagram reveal-on-scroll">
                 <img src="../assets/diagrams/png_hi/protect-apis-0.png" alt="APIM Gateway Architecture" loading="lazy">
                 <figcaption>Figure 1: APIM as the single control point for AI model access</figcaption>
             </figure>
 
             <hr>
 
-            <h2><span class="gradient-text">Before Scenarios: One APIM Trap to Avoid</span></h2>
+            <h2 class="reveal-on-scroll"><span class="gradient-text">Before Scenarios: One APIM Trap to Avoid</span>
+            </h2>
             <p>People say "APIM internal" without saying what tier and what networking model.</p>
 
             <p>Add this paragraph to prevent wrong builds:</p>
@@ -859,7 +901,7 @@ Compute (ACA/AKS) -> Model + Data (prefer Private Endpoints)
             <p>This single clarification prevents weeks of rework.</p>
 
             <!-- Diagram 2: Landing Zone Networking -->
-            <figure class="architecture-diagram">
+            <figure class="architecture-diagram reveal-on-scroll">
                 <img src="../assets/diagrams/png_hi/baseline-landing-zone-networking-0.png"
                     alt="Landing Zone Networking" loading="lazy">
                 <figcaption>Figure 2: Proper VNet integration, private endpoints, and DNS configuration</figcaption>
@@ -867,7 +909,8 @@ Compute (ACA/AKS) -> Model + Data (prefer Private Endpoints)
 
             <hr>
 
-            <h2><span class="gradient-text">Five Scenarios. Five Reference Architectures.</span></h2>
+            <h2 class="reveal-on-scroll"><span class="gradient-text">Five Scenarios. Five Reference
+                    Architectures.</span></h2>
             <p>Each scenario uses the same template so readers can act.</p>
 
             <h3>Scenario 1: Internal-Only Agents (Regulated Enterprise)</h3>
@@ -907,7 +950,7 @@ Compute (ACA/AKS) -> Model + Data (prefer Private Endpoints)
                 endpoint through Private Link.</p>
 
             <!-- Diagram 3: Internal APIM Pattern -->
-            <figure class="architecture-diagram">
+            <figure class="architecture-diagram reveal-on-scroll">
                 <img src="../assets/diagrams/png_hi/app-gateway-internal-api-management-function-0.png"
                     alt="Internal APIM Pattern" loading="lazy">
                 <figcaption>Figure 3: Internal-only APIM pattern with VNet integration</figcaption>
@@ -951,7 +994,7 @@ Compute (ACA/AKS) -> Model + Data (prefer Private Endpoints)
             </p>
 
             <!-- Diagram 4: Network Isolation -->
-            <figure class="architecture-diagram">
+            <figure class="architecture-diagram reveal-on-scroll">
                 <img src="../assets/diagrams/genai-rag/diagram-02-network-isolation.svg" alt="Network Isolation"
                     loading="lazy" style="max-width: 800px;">
                 <figcaption>Figure 4: Network isolation between public and private components</figcaption>
@@ -960,7 +1003,7 @@ Compute (ACA/AKS) -> Model + Data (prefer Private Endpoints)
             <hr>
 
             <!-- Analogy 3: Food Truck vs Restaurant -->
-            <div class="analogy-card">
+            <div class="analogy-card reveal-on-scroll">
                 <div class="analogy-header">
                     <span class="analogy-icon">🚚</span>
                     <div>
@@ -1038,7 +1081,7 @@ Compute (ACA/AKS) -> Model + Data (prefer Private Endpoints)
             <hr>
 
             <!-- Analogy 4: The Secret Tunnel -->
-            <div class="analogy-card">
+            <div class="analogy-card reveal-on-scroll">
                 <div class="analogy-header">
                     <span class="analogy-icon">🔒</span>
                     <div>
@@ -1085,7 +1128,7 @@ Compute (ACA/AKS) -> Model + Data (prefer Private Endpoints)
             </p>
 
             <!-- Diagram 5: Basic OpenAI Architecture -->
-            <figure class="architecture-diagram">
+            <figure class="architecture-diagram reveal-on-scroll">
                 <img src="../assets/diagrams/png_hi/openai-end-to-end-basic-0.png" alt="Basic OpenAI Architecture"
                     loading="lazy">
                 <figcaption>Figure 5: End-to-end Azure OpenAI architecture for context</figcaption>
@@ -1093,7 +1136,7 @@ Compute (ACA/AKS) -> Model + Data (prefer Private Endpoints)
 
             <hr>
 
-            <h2><span class="gradient-text">The Moment It Clicked</span></h2>
+            <h2 class="reveal-on-scroll"><span class="gradient-text">The Moment It Clicked</span></h2>
             <p>Mr. Project Manager asked, "What do we tell the client?"</p>
 
             <p>Mr. Technical Consultant wrote the final decision:</p>
@@ -1111,7 +1154,7 @@ Compute (ACA/AKS) -> Model + Data (prefer Private Endpoints)
 
             <hr>
 
-            <h2><span class="gradient-text">Practical Checklist</span></h2>
+            <h2 class="reveal-on-scroll"><span class="gradient-text">Practical Checklist</span></h2>
             <ol>
                 <li>Put APIM in front of every model call and tool API.</li>
                 <li>Use Entra ID at the gateway. Do not distribute model keys.</li>
@@ -1152,7 +1195,7 @@ Compute (ACA/AKS) -> Model + Data (prefer Private Endpoints)
 
             <hr>
 
-            <h2><span class="gradient-text">Resource Vault (Curated, High Signal)</span></h2>
+            <h2 class="reveal-on-scroll"><span class="gradient-text">Resource Vault (Curated, High Signal)</span></h2>
 
             <h3>Start Here (3 Links)</h3>
             <ul>
@@ -1223,7 +1266,7 @@ Compute (ACA/AKS) -> Model + Data (prefer Private Endpoints)
 
             <hr>
 
-            <h2><span class="gradient-text">One-Line Takeaway</span></h2>
+            <h2 class="reveal-on-scroll"><span class="gradient-text">One-Line Takeaway</span></h2>
             <blockquote>
                 If you pick compute without constraints and ship agents without a gateway rulebook, you do not have an
                 AI platform. You have a cost leak.
@@ -1260,6 +1303,34 @@ Compute (ACA/AKS) -> Model + Data (prefer Private Endpoints)
     <!-- Scripts -->
     <script src="../js/particles.js"></script>
     <script src="../js/main.js"></script>
+    <script>
+        // 1. Reading Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            const progressBar = document.getElementById("readingProgressBar");
+            if (progressBar) {
+                progressBar.style.width = scrolled + "%";
+            }
+        });
+
+        // 2. Scroll Reveal Logic
+        function revealOnScroll() {
+            var reveals = document.querySelectorAll(".reveal-on-scroll");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100; // Trigger when 100px visible
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("is-visible");
+                }
+            }
+        }
+        window.addEventListener("scroll", revealOnScroll);
+        // Trigger once on load
+        revealOnScroll();
+    </script>
     <script>
         // Lazy video loading
         document.querySelectorAll('.lazy-video').forEach(card => {
