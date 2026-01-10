@@ -1037,11 +1037,13 @@
                     <h4 style="margin-top:0; color:#fff;">The "Pre-Flight" Check</h4>
                     <p style="font-size: 0.9rem; margin-bottom: 0;">Before any prompt reaches the
                         LLM,
-                        the Gateway sends it to <strong>Azure AI Content Safety</strong>. If it
+                        the Gateway sends it to <strong>Azure AI Content Safety</strong> using the
+                        <code>validate-content-safety</code> policy. If it
                         detects Jailbreaks,
                         Hate Speech,
                         or Injection patterns,
-                        the request is killed instantly. The LLM never sees the attack.</p>
+                        the request is killed instantly. The LLM never sees the attack.
+                    </p>
                 </div>
             </div>
         </div>
@@ -1081,7 +1083,7 @@
                 <div class="story-diagram-text">
                     <h4 style="margin-top:0; color:#fff;">Smart Load Balancing</h4>
                     <p style="font-size: 0.9rem; margin-bottom: 0;">We use APIM's
-                        <strong>Backend Pools</strong>. If
+                        <strong>Backend Pools</strong> (<code>backend-pool</code> policy). If
                         the primary East US 2 model slows down (high latency) or returns 5xx
                         errors, the Gateway automatically shifts traffic to the secondary UK
                         South instance. This "Circuit Breaker"
@@ -1121,16 +1123,17 @@
             <li>[] Abuse tests executed</li>
             <li>[] Exceptions process live</li>
         </ul>
-        <h2><span class="gradient-text">Resources</span></h2>
+        <h2><span class="gradient-text">Resources to Build This</span></h2>
         <ul>
-            <li><a href="https://github.com/Azure-Samples/AI-Gateway" target="_blank">APIM ❤️ AI
-                    (Azure-Samples AI-Gateway repo)</a></li>
-            <li><a href="https://azure-samples.github.io/AI-Gateway/docs/azure-openai/rate-limit" target="_blank">Token
-                    Quota/Rate Limiting Docs</a></li>
-            <li><a href="https://learn.microsoft.com/en-us/ai/playbook/solutions/generative-ai/genai-gateway/reference-architectures/apim-based"
-                    target="_blank">Microsoft GenAI Gateway Reference Architecture</a></li>
-            <li><a href="https://www.youtube.com/watch?v=gOopye0Hwo4" target="_blank">Video:
-                    Securing and Scaling AI Workloads</a></li>
+            <li><a href="https://www.youtube.com/watch?v=yY7LqQ9T4JQ" target="_blank">📺 <strong>Deep Dive: Azure API
+                        Management (John Savill)</strong></a> - The best explanation of Internal vs External VNet modes.
+            </li>
+            <li><a href="https://aka.ms/ai-gateway/workshop" target="_blank">🧪 <strong>Official Azure AI Gateway
+                        Workshop</strong></a> - Step-by-step labs to build token limiting and load balancing.</li>
+            <li><a href="https://github.com/Azure-Samples/AI-Gateway" target="_blank">💻
+                    <strong>Azure-Samples/AI-Gateway Repo</strong></a> - The official policies used in this
+                architecture.</li>
+
         </ul>
         <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
         <h3>Ready to operationalize your Azure journey?</h3>
