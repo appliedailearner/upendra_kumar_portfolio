@@ -182,12 +182,12 @@ All content is in `index-premium.html`:
 Add before `</head>` in index-premium.html:
 ```html
 <!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-MKXSPNHV8S"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7JV47L20M7"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-MKXSPNHV8S');
+  gtag('config', 'G-7JV47L20M7');
 </script>
 ```
 
