@@ -1105,6 +1105,64 @@
                 opacity: 0;
             }
         }
+
+        /* --- Policy Vault Styles --- */
+        .policy-vault {
+            margin-top: 1.5rem;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .policy-vault summary {
+            padding: 12px 20px;
+            cursor: pointer;
+            color: #38bdf8;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            list-style: none;
+            transition: background 0.3s;
+        }
+
+        .policy-vault summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .policy-vault summary:hover {
+            background: rgba(56, 189, 248, 0.1);
+        }
+
+        .policy-vault[open] {
+            border-color: #38bdf8;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.1);
+        }
+
+        .policy-vault[open] summary {
+            border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+            background: rgba(56, 189, 248, 0.05);
+        }
+
+        .policy-code-container {
+            padding: 0;
+            background: #0f172a;
+        }
+
+        .policy-code-container pre {
+            margin: 0 !important;
+            padding: 1.5rem !important;
+            background: transparent !important;
+        }
+
+        .policy-code-container code {
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            color: #e2e8f0;
+        }
     </style>
 
     <!-- Performance: Preconnect to Font & Script Servers -->
@@ -1471,6 +1529,18 @@
                     </p>
                 </div>
             </div>
+            <!-- Policy Vault: Token Limit -->
+            <details class="policy-vault">
+                <summary><i class="fas fa-code"></i> View APIM Policy: Token Rate Limiting</summary>
+                <div class="policy-code-container">
+                    <pre><code class="language-xml">&lt;!-- Enforce token limits per subscription --&gt;
+&lt;azure-openai-token-limit 
+    counter-key="@(context.Subscription.Id)" 
+    tokens-per-minute="50000" 
+    estimate-prompt-tokens="true" 
+    remaining-tokens-variable-name="remainingTokens" /&gt;</code></pre>
+                </div>
+            </details>
         </div>
         <!-- Interact: Cost Calculator -->
         <div class="cost-calc-container reveal-on-scroll">
@@ -1512,6 +1582,19 @@
                         instantly. Zero tokens used.</p>
                 </div>
             </div>
+            <!-- Policy Vault: Semantic Caching -->
+            <details class="policy-vault">
+                <summary><i class="fas fa-brain"></i> View APIM Policy: Semantic Caching</summary>
+                <div class="policy-code-container">
+                    <pre><code class="language-xml">&lt;!-- Enable Semantic Caching for Azure OpenAI --&gt;
+&lt;azure-openai-semantic-cache-lookup
+    score-threshold="0.05"
+    embeddings-backend-id="embeddings-endpoint"
+    embeddings-deployment-name="text-embedding-3-small" /&gt;
+    
+&lt;azure-openai-semantic-cache-store duration="3600" /&gt;</code></pre>
+                </div>
+            </details>
         </div>
         <p><strong>Proof Artifacts:</strong> Token usage by consumer,
             blocked calls,
@@ -1555,6 +1638,22 @@
                     </p>
                 </div>
             </div>
+            <!-- Policy Vault: Content Safety -->
+            <details class="policy-vault">
+                <summary><i class="fas fa-shield-halved"></i> View APIM Policy: Content Safety</summary>
+                <div class="policy-code-container">
+                    <pre><code class="language-xml">&lt;!-- Sanitize inputs before they hit the LLM --&gt;
+&lt;validate-content-safety 
+    backend-id="content-safety-endpoint" 
+    on-error="detach"&gt;
+    &lt;option name="Hate" /&gt;
+    &lt;option name="SelfHarm" /&gt;
+    &lt;option name="Sexual" /&gt;
+    &lt;option name="Violence" /&gt;
+    &lt;option name="Jailbreak" /&gt;
+&lt;/validate-content-safety&gt;</code></pre>
+                </div>
+            </details>
         </div>
         <!-- Interact: Hack Simulator -->
         <div class="terminal-window reveal-on-scroll">
