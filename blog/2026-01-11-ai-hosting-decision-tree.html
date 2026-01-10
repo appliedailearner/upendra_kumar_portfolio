@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="A practical Azure AI hosting decision tree to help you choose between AKS, Azure Container Apps, and ACI. Avoid costly replatforming with the right compute choice from day one.">
+    <title>Pick the Wrong Compute, Pay Forever: Azure AI Hosting Decision Tree | Upendra Kumar</title>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://portfolio.upendrakumar.com/blog/2026-01-11-ai-hosting-decision-tree.html">
+    <meta property="og:title" content="Pick the Wrong Compute, Pay Forever: Azure AI Hosting Decision Tree">
+    <meta property="og:description"
+        content="A practical Azure AI hosting decision tree to help you choose between AKS, Azure Container Apps, and ACI. Avoid costly replatforming with the right compute choice from day one.">
+    <meta property="og:image" content="https://portfolio.upendrakumar.com/images/blog/2026-01-11/featured.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url"
+        content="https://portfolio.upendrakumar.com/blog/2026-01-11-ai-hosting-decision-tree.html">
+    <meta property="twitter:title" content="Pick the Wrong Compute, Pay Forever: Azure AI Hosting Decision Tree">
+    <meta property="twitter:description"
+        content="A practical Azure AI hosting decision tree to help you choose between AKS, Azure Container Apps, and ACI. Avoid costly replatforming with the right compute choice from day one.">
+    <meta property="twitter:image" content="https://portfolio.upendrakumar.com/images/blog/2026-01-11/featured.png">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7JV47L20M7"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-7JV47L20M7');
+    </script>
+
+    <link rel="stylesheet" href="../css/style.css?v=30">
+    <link rel="stylesheet" href="../css/premium.css?v=30">
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Pick the Wrong Compute, Pay Forever: A Practical Azure AI Hosting Decision Tree",
+      "description": "A practical Azure AI hosting decision tree to help you choose between AKS, Azure Container Apps, and ACI. Avoid costly replatforming with the right compute choice from day one.",
+      "image": "https://portfolio.upendrakumar.com/images/blog/2026-01-11/featured.png",
+      "author": {
+        "@type": "Person",
+        "name": "Upendra Kumar",
+        "url": "https://portfolio.upendrakumar.com",
+        "jobTitle": "Lead Architect - Cloud & AI Solutions",
+        "alumniOf": "TOGAF 10 Certified Enterprise Architect"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Upendra Kumar",
+        "url": "https://portfolio.upendrakumar.com"
+      },
+      "datePublished": "2026-01-11",
+      "dateModified": "2026-01-11",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://portfolio.upendrakumar.com/blog/2026-01-11-ai-hosting-decision-tree.html"
+      },
+      "keywords": "Azure, Azure AI, Azure OpenAI, Azure Container Apps, AKS, APIM, Landing Zones, Security, Architecture, Compute Decision, AI Hosting",
+      "articleSection": "Cloud Architecture",
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Azure Container Apps"
+        },
+        {
+          "@type": "Thing",
+          "name": "Azure Kubernetes Service"
+        },
+        {
+          "@type": "Thing",
+          "name": "AI Hosting Strategy"
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        /* Analogy Card Styles */
+        .analogy-card {
+            background: rgba(168, 85, 247, 0.05);
+            backdrop-filter: blur(8px);
+            border-left: 4px solid #38bdf8;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .analogy-card:hover {
+            background: rgba(168, 85, 247, 0.08);
+            transform: translateX(5px);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.1);
+        }
+
+        .analogy-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0.75rem;
+        }
+
+        .analogy-icon {
+            font-size: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .analogy-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 800;
+            background: var(--secondary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .analogy-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .analogy-text {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin: 0.5rem 0 0 0 !important;
+        }
+
+        /* Decision Tree Widget */
+        .decision-tree-widget {
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .decision-question {
+            background: rgba(168, 85, 247, 0.1);
+            border-left: 3px solid #a855f7;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .decision-question h4 {
+            color: #fff;
+            margin: 0 0 1rem 0;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .decision-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .decision-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .decision-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .decision-result {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+            border: 2px solid #38bdf8;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 1.5rem;
+            display: none;
+        }
+
+        .decision-result.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .decision-result h3 {
+            color: #38bdf8;
+            margin-top: 0;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .decision-result .recommendation {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 1rem 0;
+        }
+
+        .restart-btn {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            color: #fff;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .restart-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Diagram Styles */
+        .architecture-diagram {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .architecture-diagram img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .architecture-diagram figcaption {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* Toolkit Download Section */
+        .toolkit-section {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(168, 85, 247, 0.05) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .toolkit-section h3 {
+            color: #38bdf8;
+            margin-top: 0;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .toolkit-contents {
+            margin-top: 1.5rem;
+            text-align: left;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .toolkit-contents ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .toolkit-contents li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .toolkit-contents li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #38bdf8;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="nav-logo">
+                <span class="nav-logo-uk">UK</span>
+                <span class="nav-logo-text">Upendra Kumar</span>
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../pages/expertise.html">Expertise</a></li>
+                <li><a href="../pages/projects.html">Projects</a></li>
+                <li><a href="../blog.html" class="active">Insights</a></li>
+                <li><a href="../pages/contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Blog Post Content -->
+    <article class="blog-post">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb">
+                <a href="../index.html">Home</a>
+                <span>/</span>
+                <a href="../blog.html">Insights</a>
+                <span>/</span>
+                <span>AI Hosting Decision Tree</span>
+            </nav>
+
+            <!-- Hero Section -->
+            <header class="blog-post-hero">
+                <h1 class="gradient-text">Pick the Wrong Compute, Pay Forever: A Practical Azure AI Hosting Decision
+                    Tree</h1>
+                <div class="blog-meta">
+                    <span><i class="fas fa-calendar"></i> January 11, 2026</span>
+                    <span><i class="fas fa-clock"></i> 12 min read</span>
+                    <span><i class="fas fa-tag"></i> Azure AI, Architecture</span>
+                </div>
+            </header>
+
+            <!-- Featured Image -->
+            <div class="blog-featured-image">
+                <img src="../images/blog/2026-01-11/featured.png" alt="Azure AI Hosting Decision Tree" loading="eager">
+            </div>
+
+            <!-- Lead Paragraph -->
+            <p class="lead-paragraph">
+                Mr. Technical Consultant opened the Agent Dashboard for ZionPay. Yesterday, the demo was clean. Today,
+                one graph was not. <strong>Token spend was rising, fast.</strong>
+            </p>
+
+            <p>
+                Mr. Project Manager pinged: "Plan by Friday. What are we hosting on. AKS or something simpler. One
+                answer."
+            </p>
+
+            <p>
+                Mr. Cloud Engineer replied: "Pick the platform. I build today."
+            </p>
+
+            <p>
+                Mr. Cloud Architect added: "Landing zone first. Private endpoints, DNS, egress, no shortcuts."
+            </p>
+
+            <p>
+                Then Mr. Customer asked the only question that matters: "If this goes viral, do we stay in control, or
+                do we burn money and trust?"
+            </p>
+
+            <p>
+                Mr. Technical Consultant knew the trap. Teams pick compute by habit. AI punishes that.
+            </p>
+
+            <p>
+                So he wrote one line on the whiteboard:
+            </p>
+
+            <blockquote>
+                <strong>Compute is not where you run containers. Compute is how you control cost, scale, and blast
+                    radius.</strong>
+            </blockquote>
+
+            <hr>
+
+            <h2><span class="gradient-text">The Cast</span></h2>
+            <ul>
+                <li><strong>Mr. Technical Consultant</strong>: removes ambiguity, locks decisions, prevents surprises.
+                </li>
+                <li><strong>Mr. Project Manager</strong>: wants dates, ownership, and a deck that survives Q&A.</li>
+                <li><strong>Mr. Cloud Architect</strong>: enforces landing zone guardrails and security posture.</li>
+                <li><strong>Mr. Cloud Engineer</strong>: ships the build and hates rework.</li>
+                <li><strong>Mr. Customer</strong>: wants control, auditability, and predictable outcomes.</li>
+            </ul>
+
+            <hr>
+
+            <!-- Analogy 1: The Restaurant Menu -->
+            <div class="analogy-card">
+                <div class="analogy-header">
+                    <span class="analogy-icon">🍽️</span>
+                    <div>
+                        <div class="analogy-label">The Analogy</div>
+                        <div class="analogy-title">The "Restaurant Menu"</div>
+                    </div>
+                </div>
+                <p class="analogy-text">
+                    Imagine you're at a restaurant. The menu has three options: <strong>Full Kitchen Service</strong>
+                    (AKS), <strong>Food Truck</strong> (ACA), and <strong>Microwave Meal</strong> (ACI). Each serves
+                    different needs.
+                </p>
+                <p class="analogy-text">
+                    If you order the Full Kitchen for a simple sandwich, you're paying for chefs you don't need. If you
+                    order the Microwave for a wedding feast, you'll fail. The decision tree is your menu guide—it helps
+                    you order what you actually need, not what sounds impressive.
+                </p>
+            </div>
+
+            <h2><span class="gradient-text">The Constraints Template (Copy/Paste)</span></h2>
+            <p>If you skip this, you will replatform twice.</p>
+
+            <h3>Security and Network</h3>
+            <ul>
+                <li>Entry: public internet, private-only, or both</li>
+                <li>Private endpoints required for model and data: yes/no</li>
+                <li>Hybrid connectivity: ER/VPN yes/no</li>
+                <li>Egress: open, restricted, or forced tunneling</li>
+            </ul>
+
+            <h3>Scale</h3>
+            <ul>
+                <li>Peak RPS and concurrency</li>
+                <li>Traffic pattern: steady / bursty / unpredictable</li>
+                <li>Cold-start tolerance: <1s, 1–5s,>5s</li>
+            </ul>
+
+            <h3>Compute</h3>
+            <ul>
+                <li>GPU needed: now / later / never</li>
+                <li>Runtime type: real-time API / async worker / batch</li>
+            </ul>
+
+            <h3>Ops</h3>
+            <ul>
+                <li>Do we have an AKS platform team and on-call: yes/no</li>
+            </ul>
+
+            <h3>Cost Control</h3>
+            <ul>
+                <li>Token quota enforcement at gateway: yes/no</li>
+                <li>Chargeback/showback required: yes/no</li>
+            </ul>
+
+            <hr>
+
+            <h2><span class="gradient-text">The Decision Tree (One-Screen Version)</span></h2>
+
+            <pre style="background: rgba(10,10,10,0.6); padding: 1.5rem; border-radius: 8px; overflow-x: auto;">
+START
+  |
+  |-- Do you need Kubernetes-only features?
+  |      (service mesh, complex scheduling, multi-tenant cluster governance,
+  |       large dedicated GPU pools, strict node-level control)
+  |         |-- YES --> AKS
+  |         |-- NO  --> continue
+  |
+  |-- Is traffic bursty or unpredictable?
+  |         |-- YES --> Azure Container Apps (ACA)
+  |         |-- NO  --> continue
+  |
+  |-- Is it a simple "run and exit" CPU job?
+  |         |-- YES --> ACI (CPU only)
+  |         |-- NO  --> ACA by default
+            </pre>
+
+            <h3>Thresholds That Stop Debates</h3>
+            <ul>
+                <li>If you need <strong>sub-second latency</strong> and <strong>high sustained throughput</strong> and
+                    you have a platform team, AKS is justified.</li>
+                <li>If you have <strong>bursts, idle periods, or uncertain demand</strong>, ACA is usually the right
+                    default.</li>
+                <li>If it is <strong>batch + CPU</strong> and you can "run and exit", ACI is fine.</li>
+                <li>If it is <strong>GPU</strong>, do not use ACI. Do ACA serverless GPU or AKS GPU pools.</li>
+            </ul>
+
+            <hr>
+
+            <!-- Interactive Decision Tree Widget -->
+            <div class="decision-tree-widget">
+                <h3 style="color: #38bdf8; margin-top: 0;">🎯 Interactive Decision Navigator</h3>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">Answer these questions to get your compute
+                    recommendation:</p>
+
+                <div id="questionContainer">
+                    <div class="decision-question" id="q1">
+                        <h4>Question 1 of 3</h4>
+                        <p>Do you need Kubernetes-only features? (service mesh, complex scheduling, multi-tenant cluster
+                            governance, large dedicated GPU pools, strict node-level control)</p>
+                        <div class="decision-buttons">
+                            <button class="decision-btn" onclick="answerQuestion(1, 'yes')">Yes</button>
+                            <button class="decision-btn" onclick="answerQuestion(1, 'no')">No</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="decision-result" id="result">
+                    <h3>Your Recommendation</h3>
+                    <div class="recommendation" id="recommendationText"></div>
+                    <p id="recommendationDetails"></p>
+                    <button class="restart-btn" onclick="restartDecisionTree()">Start Over</button>
+                </div>
+            </div>
+
+            <script>
+                let answers = {};
+
+                function answerQuestion(questionNum, answer) {
+                    answers[questionNum] = answer;
+
+                    if (questionNum === 1 && answer === 'yes') {
+                        showResult('AKS (Azure Kubernetes Service)', 'You need Kubernetes-only features. AKS is the right choice for service mesh, complex scheduling, and strict node-level control.');
+                    } else if (questionNum === 1 && answer === 'no') {
+                        showQuestion2();
+                    } else if (questionNum === 2 && answer === 'yes') {
+                        showResult('ACA (Azure Container Apps)', 'Your traffic is bursty or unpredictable. ACA provides scale-to-zero economics and automatic scaling based on demand.');
+                    } else if (questionNum === 2 && answer === 'no') {
+                        showQuestion3();
+                    } else if (questionNum === 3 && answer === 'yes') {
+                        showResult('ACI (Azure Container Instances)', 'For simple "run and exit" CPU jobs, ACI is the most cost-effective option.');
+                    } else if (questionNum === 3 && answer === 'no') {
+                        showResult('ACA (Azure Container Apps)', 'ACA is the recommended default for most AI workloads. It provides the right balance of simplicity, scale, and cost.');
+                    }
+                }
+
+                function showQuestion2() {
+                    document.getElementById('questionContainer').innerHTML = `
+                        <div class="decision-question">
+                            <h4>Question 2 of 3</h4>
+                            <p>Is your traffic bursty or unpredictable?</p>
+                            <div class="decision-buttons">
+                                <button class="decision-btn" onclick="answerQuestion(2, 'yes')">Yes</button>
+                                <button class="decision-btn" onclick="answerQuestion(2, 'no')">No</button>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                function showQuestion3() {
+                    document.getElementById('questionContainer').innerHTML = `
+                        <div class="decision-question">
+                            <h4>Question 3 of 3</h4>
+                            <p>Is it a simple "run and exit" CPU job?</p>
+                            <div class="decision-buttons">
+                                <button class="decision-btn" onclick="answerQuestion(3, 'yes')">Yes</button>
+                                <button class="decision-btn" onclick="answerQuestion(3, 'no')">No</button>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                function showResult(recommendation, details) {
+                    document.getElementById('questionContainer').style.display = 'none';
+                    document.getElementById('recommendationText').textContent = recommendation;
+                    document.getElementById('recommendationDetails').textContent = details;
+                    document.getElementById('result').classList.add('show');
+                }
+
+                function restartDecisionTree() {
+                    answers = {};
+                    document.getElementById('questionContainer').style.display = 'block';
+                    document.getElementById('questionContainer').innerHTML = `
+                        <div class="decision-question" id="q1">
+                            <h4>Question 1 of 3</h4>
+                            <p>Do you need Kubernetes-only features? (service mesh, complex scheduling, multi-tenant cluster governance, large dedicated GPU pools, strict node-level control)</p>
+                            <div class="decision-buttons">
+                                <button class="decision-btn" onclick="answerQuestion(1, 'yes')">Yes</button>
+                                <button class="decision-btn" onclick="answerQuestion(1, 'no')">No</button>
+                            </div>
+                        </div>
+                    `;
+                    document.getElementById('result').classList.remove('show');
+                }
+            </script>
+
+            <hr>
+
+            <!-- Analogy 2: The Nightclub Bouncer -->
+            <div class="analogy-card">
+                <div class="analogy-header">
+                    <span class="analogy-icon">🚪</span>
+                    <div>
+                        <div class="analogy-label">The Analogy</div>
+                        <div class="analogy-title">The "Nightclub Bouncer"</div>
+                    </div>
+                </div>
+                <p class="analogy-text">
+                    Your AI models are like a VIP nightclub. Without a bouncer (<strong>APIM</strong>), anyone can walk
+                    in, order unlimited drinks (tokens), and trash the place (cost spike).
+                </p>
+                <p class="analogy-text">
+                    The bouncer checks IDs (<strong>JWT validation</strong>), enforces drink limits
+                    (<strong>quotas</strong>), and keeps a guest list (<strong>audit logs</strong>). No bouncer = chaos.
+                    No APIM = uncontrolled spend pipe.
+                </p>
+            </div>
+
+            <h2><span class="gradient-text">The Non-Negotiable Rulebook</span></h2>
+            <p>Mr. Customer did not care about AKS vs ACA. He cared about <strong>control</strong>.</p>
+
+            <p>So Mr. Technical Consultant drew this:</p>
+
+            <pre style="background: rgba(10,10,10,0.6); padding: 1.5rem; border-radius: 8px; overflow-x: auto;">
+Clients/Apps
+   |
+   v
+APIM (One Rulebook)
+   - Entra ID auth (JWT validation)
+   - Token quota + rate limits
+   - Tool allowlist (only approved downstream APIs)
+   - Audit logs + correlation IDs
+   |
+   v
+Compute (ACA/AKS) -> Model + Data (prefer Private Endpoints)
+            </pre>
+
+            <p>
+                If your apps call model endpoints directly, you do not have an AI platform. You have an uncontrolled
+                spend pipe.
+            </p>
+
+            <!-- Diagram 1: APIM Gateway Architecture -->
+            <figure class="architecture-diagram">
+                <img src="../assets/diagrams/png_hi/protect-apis-0.png" alt="APIM Gateway Architecture" loading="lazy">
+                <figcaption>Figure 1: APIM as the single control point for AI model access</figcaption>
+            </figure>
+
+            <hr>
+
+            <h2><span class="gradient-text">Before Scenarios: One APIM Trap to Avoid</span></h2>
+            <p>People say "APIM internal" without saying what tier and what networking model.</p>
+
+            <p>Add this paragraph to prevent wrong builds:</p>
+
+            <ul>
+                <li>If you need a <strong>private-only gateway</strong> for consumers, you need the <strong>APIM
+                        internal VNet mode pattern</strong> (classic injected networking).</li>
+                <li>If you use <strong>v2 tiers with outbound VNet integration</strong>, treat it as "private to
+                    backend", not "private to consumers".</li>
+                <li>Do not assume Private Endpoint magically makes APIM "internal". Read the APIM networking limitations
+                    first.</li>
+            </ul>
+
+            <p>This single clarification prevents weeks of rework.</p>
+
+            <!-- Diagram 2: Landing Zone Networking -->
+            <figure class="architecture-diagram">
+                <img src="../assets/diagrams/png_hi/baseline-landing-zone-networking-0.png"
+                    alt="Landing Zone Networking" loading="lazy">
+                <figcaption>Figure 2: Proper VNet integration, private endpoints, and DNS configuration</figcaption>
+            </figure>
+
+            <hr>
+
+            <h2><span class="gradient-text">Five Scenarios. Five Reference Architectures.</span></h2>
+            <p>Each scenario uses the same template so readers can act.</p>
+
+            <h3>Scenario 1: Internal-Only Agents (Regulated Enterprise)</h3>
+            <p><strong>When:</strong> Employee copilots, internal knowledge agents, regulated data.</p>
+
+            <p><strong>Non-negotiable constraints:</strong></p>
+            <ul>
+                <li>Private-only entry</li>
+                <li>Private endpoints for model and data</li>
+                <li>Egress controlled</li>
+            </ul>
+
+            <p><strong>Bill of materials:</strong></p>
+            <ul>
+                <li>APIM internal pattern (private gateway)</li>
+                <li>ACA in VNet-integrated environment</li>
+                <li>Azure OpenAI with Private Endpoint + Private DNS</li>
+                <li>Key Vault for secrets</li>
+                <li>Central logging (App Insights + SIEM)</li>
+            </ul>
+
+            <p><strong>Critical policies:</strong></p>
+            <ul>
+                <li><code>validate-jwt</code> or <code>validate-azure-ad-token</code></li>
+                <li>Token quota policy at APIM</li>
+                <li>Tool allowlisting at APIM</li>
+            </ul>
+
+            <p><strong>What breaks first (plan for it):</strong></p>
+            <ul>
+                <li>DNS mistakes on Private Endpoints</li>
+                <li>Outbound egress not matching dependency needs</li>
+                <li>"Temporary allow" rules that become permanent</li>
+            </ul>
+
+            <p><strong>90-minute lab outcome:</strong> A private agent API in ACA, fronted by APIM, calling a model
+                endpoint through Private Link.</p>
+
+            <!-- Diagram 3: Internal APIM Pattern -->
+            <figure class="architecture-diagram">
+                <img src="../assets/diagrams/png_hi/app-gateway-internal-api-management-function-0.png"
+                    alt="Internal APIM Pattern" loading="lazy">
+                <figcaption>Figure 3: Internal-only APIM pattern with VNet integration</figcaption>
+            </figure>
+
+            <hr>
+
+            <h3>Scenario 2: Internet-Facing Customer AI (Public Entry, Private Model/Data)</h3>
+            <p><strong>When:</strong> Customer chat, partner agent APIs, public portals.</p>
+
+            <p><strong>Non-negotiable constraints:</strong></p>
+            <ul>
+                <li>WAF at the edge</li>
+                <li>Hard throttling</li>
+                <li>Model + data kept private</li>
+            </ul>
+
+            <p><strong>Bill of materials:</strong></p>
+            <ul>
+                <li>WAF (App Gateway WAF or your edge standard)</li>
+                <li>APIM as the only public API surface</li>
+                <li>ACA for runtime</li>
+                <li>Private endpoints to model and data</li>
+            </ul>
+
+            <p><strong>Critical policies:</strong></p>
+            <ul>
+                <li>Token quota policy is mandatory</li>
+                <li>Bot/abuse throttling at gateway</li>
+                <li>Request size limits and payload validation</li>
+            </ul>
+
+            <p><strong>What breaks first:</strong></p>
+            <ul>
+                <li>Public endpoints accidentally left enabled on model/data</li>
+                <li>Missing per-client quotas, one tenant eats the whole budget</li>
+                <li>No audit trail when something goes wrong</li>
+            </ul>
+
+            <p><strong>90-minute lab outcome:</strong> Public endpoint protected by WAF and APIM, backend is private.
+            </p>
+
+            <!-- Diagram 4: Network Isolation -->
+            <figure class="architecture-diagram">
+                <img src="../assets/diagrams/genai-rag/diagram-02-network-isolation.svg" alt="Network Isolation"
+                    loading="lazy" style="max-width: 800px;">
+                <figcaption>Figure 4: Network isolation between public and private components</figcaption>
+            </figure>
+
+            <hr>
+
+            <!-- Analogy 3: Food Truck vs Restaurant -->
+            <div class="analogy-card">
+                <div class="analogy-header">
+                    <span class="analogy-icon">🚚</span>
+                    <div>
+                        <div class="analogy-label">The Analogy</div>
+                        <div class="analogy-title">Food Truck vs Full Restaurant</div>
+                    </div>
+                </div>
+                <p class="analogy-text">
+                    <strong>ACA</strong> is like a food truck—shows up when there's demand, disappears when it's quiet,
+                    you don't manage the kitchen. Perfect for bursty traffic.
+                </p>
+                <p class="analogy-text">
+                    <strong>AKS</strong> is like owning a full restaurant—you control everything (the menu, the chefs,
+                    the schedule), but you're paying rent even when it's empty, and you need a chef on-call 24/7. Only
+                    worth it if you're serving hundreds of customers daily.
+                </p>
+            </div>
+
+            <h3>Scenario 3: Hybrid Agents (Azure Runtime + On-Prem Tools)</h3>
+            <p><strong>When:</strong> Agent must call on-prem systems (CMDB, ITSM, legacy APIs).</p>
+
+            <p><strong>Non-negotiable constraints:</strong></p>
+            <ul>
+                <li>ER/VPN required</li>
+                <li>One policy surface for both cloud and on-prem calls</li>
+            </ul>
+
+            <p><strong>Bill of materials:</strong></p>
+            <ul>
+                <li>APIM in a controlled network path to on-prem</li>
+                <li>ACA runtime in same network boundary</li>
+                <li>Tool APIs behind allowlisted routes</li>
+                <li>Central observability</li>
+            </ul>
+
+            <p><strong>What breaks first:</strong></p>
+            <ul>
+                <li>Asymmetric routing between cloud and on-prem</li>
+                <li>Firewall ownership confusion during cutover</li>
+                <li>Latency to on-prem tools causing agent timeouts</li>
+            </ul>
+
+            <p><strong>90-minute lab outcome:</strong> An agent that calls one on-prem API and one Azure API, both
+                governed by the same APIM rulebook.</p>
+
+            <hr>
+
+            <h3>Scenario 4: GPU Skills Without Becoming an AKS Platform Team</h3>
+            <p><strong>When:</strong> Vision, heavy embeddings, GPU bursts, custom inference.</p>
+
+            <p><strong>Non-negotiable constraints:</strong></p>
+            <ul>
+                <li>GPU needed for specific skills</li>
+                <li>You want scale-to-zero economics</li>
+            </ul>
+
+            <p><strong>Bill of materials:</strong></p>
+            <ul>
+                <li>APIM front door with quotas</li>
+                <li>ACA serverless GPU workers for GPU skills</li>
+                <li>Premium container registry and small images to reduce cold start</li>
+                <li>Private endpoints where required</li>
+            </ul>
+
+            <p><strong>What breaks first:</strong></p>
+            <ul>
+                <li>Image size and cold start</li>
+                <li>GPU quotas in region</li>
+                <li>Long-running requests without timeouts and retries</li>
+            </ul>
+
+            <p><strong>90-minute lab outcome:</strong> A GPU "skill endpoint" behind APIM, autoscaling based on demand.
+            </p>
+
+            <hr>
+
+            <!-- Analogy 4: The Secret Tunnel -->
+            <div class="analogy-card">
+                <div class="analogy-header">
+                    <span class="analogy-icon">🔒</span>
+                    <div>
+                        <div class="analogy-label">The Analogy</div>
+                        <div class="analogy-title">The "Secret Tunnel"</div>
+                    </div>
+                </div>
+                <p class="analogy-text">
+                    Your model is a celebrity living in a gated community (Azure). Public internet is the
+                    paparazzi-filled street.
+                </p>
+                <p class="analogy-text">
+                    A <strong>Private Endpoint</strong> is the secret underground tunnel—only authorized people (your
+                    apps) can use it, and no one on the street even knows it exists. No photos, no leaks, no
+                    unauthorized access.
+                </p>
+            </div>
+
+            <h3>Scenario 5: Batch Pipelines and Offline Jobs</h3>
+            <p><strong>When:</strong> Backfills, re-embedding runs, nightly summarization.</p>
+
+            <p><strong>Non-negotiable constraints:</strong></p>
+            <ul>
+                <li>Non-interactive</li>
+                <li>Cost optimized</li>
+                <li>Run and exit</li>
+            </ul>
+
+            <p><strong>Bill of materials:</strong></p>
+            <ul>
+                <li>ACI for CPU batch tasks, or ACA jobs/worker pattern for event-driven runs</li>
+                <li>Storage for artifacts</li>
+                <li>Central logging</li>
+            </ul>
+
+            <p><strong>What breaks first:</strong></p>
+            <ul>
+                <li>Lack of idempotency (reruns duplicate data)</li>
+                <li>No run metadata (can't prove what happened)</li>
+                <li>Hidden dependency on interactive services</li>
+            </ul>
+
+            <p><strong>90-minute lab outcome:</strong> A job that runs on a schedule, logs output, and exits cleanly.
+            </p>
+
+            <!-- Diagram 5: Basic OpenAI Architecture -->
+            <figure class="architecture-diagram">
+                <img src="../assets/diagrams/png_hi/openai-end-to-end-basic-0.png" alt="Basic OpenAI Architecture"
+                    loading="lazy">
+                <figcaption>Figure 5: End-to-end Azure OpenAI architecture for context</figcaption>
+            </figure>
+
+            <hr>
+
+            <h2><span class="gradient-text">The Moment It Clicked</span></h2>
+            <p>Mr. Project Manager asked, "What do we tell the client?"</p>
+
+            <p>Mr. Technical Consultant wrote the final decision:</p>
+
+            <ul>
+                <li>Default runtime: <strong>Azure Container Apps</strong></li>
+                <li>Default enforcement: <strong>APIM rulebook (identity + quotas + audit)</strong></li>
+                <li>AKS only when a real Kubernetes-only need exists</li>
+                <li>ACI only for simple CPU run-and-exit jobs</li>
+            </ul>
+
+            <p>Mr. Cloud Architect nodded. "Now I can lock guardrails."</p>
+            <p>Mr. Cloud Engineer nodded. "Now I can build without rework."</p>
+            <p>Mr. Customer nodded. "Now I can trust the rollout."</p>
+
+            <hr>
+
+            <h2><span class="gradient-text">Practical Checklist</span></h2>
+            <ol>
+                <li>Put APIM in front of every model call and tool API.</li>
+                <li>Use Entra ID at the gateway. Do not distribute model keys.</li>
+                <li>Enforce token quotas and rate limits per client.</li>
+                <li>Emit token metrics and correlate requests end-to-end.</li>
+                <li>Use ACA unless you have a proven AKS platform requirement.</li>
+                <li>Keep model and data private where required. Get Private DNS right.</li>
+                <li>Treat DNS, egress, and quotas as production features, not "later".</li>
+            </ol>
+
+            <hr>
+
+            <!-- Toolkit Download Section -->
+            <div class="toolkit-section">
+                <h3><i class="fas fa-download"></i> Download the Implementation Toolkit</h3>
+                <p>Get the complete implementation package including Terraform templates, APIM policies, and
+                    architecture diagrams:</p>
+
+                <a href="https://pub-2d01be0306284df386da6dae9d2014d0.r2.dev/ai-hosting%20blog%20oauth%20apim/ai-hosting-toolkit.zip"
+                    class="download-btn" download>
+                    <i class="fas fa-download"></i> Download AI Hosting Toolkit
+                </a>
+
+                <div class="toolkit-contents">
+                    <p style="font-weight: 600; margin-bottom: 0.5rem;">What's included:</p>
+                    <ul>
+                        <li>Terraform templates for all 5 scenarios</li>
+                        <li>4 production-ready APIM policy XMLs</li>
+                        <li>5 architecture diagrams (PNG + SVG)</li>
+                        <li>Comprehensive README with deployment guide</li>
+                        <li>Cost optimization tips and troubleshooting</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem;">
+                        ZIP file (~3 MB) - Free download, no registration required
+                    </p>
+                </div>
+            </div>
+
+            <hr>
+
+            <h2><span class="gradient-text">Resource Vault (Curated, High Signal)</span></h2>
+
+            <h3>Start Here (3 Links)</h3>
+            <ul>
+                <li><a href="https://learn.microsoft.com/en-us/azure/container-apps/scale-app" target="_blank">ACA
+                        scaling (KEDA-backed scale rules)</a></li>
+                <li><a href="https://learn.microsoft.com/en-us/azure/api-management/validate-jwt-policy"
+                        target="_blank">APIM JWT validation policy (identity at the gateway)</a></li>
+                <li><a href="https://learn.microsoft.com/en-us/azure/api-management/azure-openai-token-limit-policy"
+                        target="_blank">Limit Azure OpenAI token usage in APIM</a></li>
+            </ul>
+
+            <h3>Build Labs (6 Links)</h3>
+            <ul>
+                <li><a href="https://github.com/Azure-Samples/AI-Gateway" target="_blank">AI-Gateway sample (APIM policy
+                        patterns for AI)</a></li>
+                <li><a href="https://github.com/Azure-Samples/genai-gateway-apim" target="_blank">GenAI gateway with
+                        APIM</a></li>
+                <li><a href="https://github.com/microsoft/AzureOpenAI-with-APIM" target="_blank">APIM + Azure OpenAI
+                        reference implementation</a></li>
+                <li><a href="https://github.com/Azure-Samples/openai-python-enterprise-logging"
+                        target="_blank">Enterprise logging for OpenAI usage</a></li>
+                <li><a href="https://github.com/Azure-Samples/azure-search-openai-demo" target="_blank">RAG reference
+                        app (Azure AI Search + Azure OpenAI)</a></li>
+                <li><a href="https://github.com/Azure/apim-aoai-smart-loadbalancing" target="_blank">Smart load
+                        balancing policy pattern (archived, still useful to learn)</a></li>
+            </ul>
+
+            <h3>Watch (4 Videos)</h3>
+            <div class="video-vault-grid"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1rem;">
+                <!-- Video 1 -->
+                <div class="video-card lazy-video" data-id="GvZJHHCk244" aria-label="Play NVIDIA NIM on ACA">
+                    <div class="video-facade">
+                        <img src="https://img.youtube.com/vi/GvZJHHCk244/hqdefault.jpg"
+                            alt="Run open models on Serverless GPUs" loading="lazy">
+                        <div class="play-button"><i class="fas fa-play"></i></div>
+                        <div class="video-label">Run open models on Serverless GPUs (NVIDIA NIM on ACA)</div>
+                    </div>
+                </div>
+                <!-- Video 2 -->
+                <div class="video-card lazy-video" data-id="m3lip7wCyzQ" aria-label="Play Microsoft & NVIDIA AI">
+                    <div class="video-facade">
+                        <img src="https://img.youtube.com/vi/m3lip7wCyzQ/hqdefault.jpg"
+                            alt="Microsoft & NVIDIA: Accelerating AI" loading="lazy">
+                        <div class="play-button"><i class="fas fa-play"></i></div>
+                        <div class="video-label">Microsoft & NVIDIA: Accelerating AI with NVIDIA NIM on Azure</div>
+                    </div>
+                </div>
+                <!-- Video 3 -->
+                <div class="video-card lazy-video" data-id="VPxdqlcblYU" aria-label="Play Azure AI Search GPT-4 Vision">
+                    <div class="video-facade">
+                        <img src="https://img.youtube.com/vi/VPxdqlcblYU/hqdefault.jpg"
+                            alt="Azure AI Search with GPT-4 Vision" loading="lazy">
+                        <div class="play-button"><i class="fas fa-play"></i></div>
+                        <div class="video-label">Azure AI Search with a custom GPT-4 Vision skill</div>
+                    </div>
+                </div>
+                <!-- Video 4 -->
+                <div class="video-card lazy-video" data-id="HuPNgrjMcuI" aria-label="Play Secure AI APIs with APIM">
+                    <div class="video-facade">
+                        <img src="https://img.youtube.com/vi/HuPNgrjMcuI/hqdefault.jpg" alt="Secure and scale AI APIs"
+                            loading="lazy">
+                        <div class="play-button"><i class="fas fa-play"></i></div>
+                        <div class="video-label">Secure and scale your AI APIs with Azure API Management</div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <h2><span class="gradient-text">One-Line Takeaway</span></h2>
+            <blockquote>
+                If you pick compute without constraints and ship agents without a gateway rulebook, you do not have an
+                AI platform. You have a cost leak.
+            </blockquote>
+
+            <hr>
+
+            <p style="text-align: center; margin: 3rem 0;">
+                Organizations turn stalled cloud initiatives into execution engines.
+            </p>
+
+            <div style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="../pages/contact.html" class="btn btn-primary">Contact Me</a>
+                <a href="../pages/azure-migration-toolkit.html" class="btn btn-outline">View the Toolkit</a>
+            </div>
+
+            <!-- Back to Blog Button -->
+            <div style="text-align: center; margin: 4rem 0;">
+                <a href="../blog.html" class="btn btn-primary" style="display: inline-block; padding: 1rem 2rem;">
+                    <i class="fas fa-arrow-left"></i> Back to Insights
+                </a>
+            </div>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Upendra Kumar. All rights reserved. This content is personal and not affiliated with any
+                employer.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script>
+        // Lazy video loading
+        document.querySelectorAll('.lazy-video').forEach(card => {
+            card.addEventListener('click', function () {
+                const videoId = this.dataset.id;
+                const iframe = document.createElement('iframe');
+                iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1`);
+                iframe.setAttribute('frameborder', '0');
+                iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+                iframe.setAttribute('allowfullscreen', '');
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                iframe.style.position = 'absolute';
+                iframe.style.top = '0';
+                iframe.style.left = '0';
+                this.innerHTML = '';
+                this.appendChild(iframe);
+            });
+        });
+    </script>
+</body>
+
+</html>

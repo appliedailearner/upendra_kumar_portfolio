@@ -1,0 +1,37 @@
+<policies>
+    <inbound>
+        <!-- Rate limiting per subscription/client -->
+        <rate-limit-by-key 
+            calls="100" 
+            renewal-period="60" 
+            counter-key="@(context.Subscription.Id)" 
+            increment-condition="@(context.Response.StatusCode >= 200 && context.Response.StatusCode < 300)" 
+            retry-after-header-name="Retry-After" 
+            retry-after-variable-name="retryAfter" 
+            remaining-calls-header-name="X-Rate-Limit-Remaining" 
+            total-calls-header-name="X-Rate-Limit-Limit" />
+        
+        <!-- Additional rate limit for anonymous/unauthenticated requests -->
+        <rate-limit-by-key 
+            calls="10" 
+            renewal-period="60" 
+            counter-key="@(context.Request.IpAddress)" 
+            increment-condition="@(!context.Request.Headers.ContainsKey("Authorization"))" />
+        
+        <!-- Quota limit (monthly) -->
+        <quota-by-key 
+            calls="1000000" 
+            renewal-period="2592000" 
+            counter-key="@(context.Subscription.Id)" />
+    </inbound>
+    <backend>
+        <forward-request />
+    </backend>
+    <outbound>
+        <!-- Add rate limit headers for client visibility -->
+        <set-header name="X-RateLimit-Policy" exists-action="override">
+            <value>100 requests per minute</value>
+        </set-header>
+    </outbound>
+    <on-error />
+</policies>

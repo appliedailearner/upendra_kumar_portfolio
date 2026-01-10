@@ -1,0 +1,55 @@
+<policies>
+    <inbound>
+        <!-- Tool API Allowlist -->
+        <!-- Only allow calls to approved downstream APIs/tools -->
+        <set-variable name="allowedTools" value="@{
+            return new string[] {
+                "https://api.contoso.com/cmdb",
+                "https://api.contoso.com/itsm",
+                "https://graph.microsoft.com",
+                "https://api.openai.azure.com"
+            };
+        }" />
+        
+        <!-- Extract tool URL from request body (for agent tool calls) -->
+        <set-variable name="requestedTool" value="@{
+            var body = context.Request.Body.As<JObject>(preserveContent: true);
+            return body?["tool_url"]?.ToString() ?? "";
+        }" />
+        
+        <!-- Validate tool is in allowlist -->
+        <choose>
+            <when condition="@{
+                var allowedTools = context.Variables.GetValueOrDefault<string[]>("allowedTools");
+                var requestedTool = context.Variables.GetValueOrDefault<string>("requestedTool");
+                return !string.IsNullOrEmpty(requestedTool) && !allowedTools.Any(t => requestedTool.StartsWith(t));
+            }">
+                <return-response>
+                    <set-status code="403" reason="Forbidden" />
+                    <set-body>@{
+                        return new JObject(
+                            new JProperty("error", "Tool not allowed"),
+                            new JProperty("message", "The requested tool is not in the approved allowlist."),
+                            new JProperty("requestedTool", context.Variables.GetValueOrDefault<string>("requestedTool"))
+                        ).ToString();
+                    }</set-body>
+                </return-response>
+            </when>
+        </choose>
+        
+        <!-- Log allowed tool calls for audit -->
+        <set-variable name="toolAudit" value="@{
+            return new JObject(
+                new JProperty("subscriptionId", context.Subscription.Id),
+                new JProperty("tool", context.Variables.GetValueOrDefault<string>("requestedTool")),
+                new JProperty("timestamp", DateTime.UtcNow.ToString("o")),
+                new JProperty("allowed", true)
+            ).ToString();
+        }" />
+    </inbound>
+    <backend>
+        <forward-request />
+    </backend>
+    <outbound />
+    <on-error />
+</policies>

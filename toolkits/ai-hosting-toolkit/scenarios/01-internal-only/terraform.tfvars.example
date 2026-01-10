@@ -1,0 +1,24 @@
+# Example Terraform Variables for Scenario 1: Internal-Only Agents
+# Copy this file to terraform.tfvars and customize for your environment
+
+# Azure region where resources will be deployed
+location = "eastus2"
+
+# Environment name (dev, test, prod)
+environment = "prod"
+
+# Project name (used in resource naming)
+project_name = "ai-agents"
+
+# APIM SKU
+# Options: "Developer" (for dev/test), "Premium" (for production with VNet support)
+# Note: Internal VNet mode requires Premium SKU in production
+apim_sku = "Developer"
+
+# Azure OpenAI SKU
+# Options: "S0" (standard)
+openai_sku = "S0"
+
+# Enable private endpoints for Azure OpenAI and Key Vault
+# Set to true for production, false for dev/test
+enable_private_endpoints = true
