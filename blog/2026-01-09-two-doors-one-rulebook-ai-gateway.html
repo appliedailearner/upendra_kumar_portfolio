@@ -1131,6 +1131,30 @@
         <div class="cyber-grid"></div>
     </div>
     <canvas id="particles-canvas"></canvas>
+    <!-- Download Architecture Kit (Lead Magnet) -->
+    <div class="content-container">
+        <div class="executive-card"
+            style="border-left: 4px solid #00f2ff; background: rgba(0, 26, 44, 0.6); display: flex; align-items: center; gap: 2rem; margin: 4rem 0;">
+            <div style="flex: 1;">
+                <h3 style="color: #fff; margin-bottom: 0.5rem; font-family: 'Outfit', sans-serif;">🚀 Build This
+                    Architecture Faster</h3>
+                <p style="color: #b0b8c1; margin-bottom: 1.5rem;">Don't start from scratch. Get the high-resolution "Two
+                    Doors" diagrams (PDF) and the Visio/Draw.io templates to customize for your organization.</p>
+                <a href="../images/blog/2026-01-09/architecture-kit-preview.png"
+                    download="Cyber_Door_Architecture_Kit_Preview.png" class="btn btn-primary"
+                    style="background: linear-gradient(90deg, #00f2ff, #0078d4); border: none;">
+                    <i class="fas fa-download"></i> Download Architecture Kit
+                </a>
+                <p style="font-size: 0.8rem; color: #666; margin-top: 0.8rem;">*Includes PDF, Visio Template & Policy
+                    Snippets.</p>
+            </div>
+            <div style="flex: 1; max-width: 300px;">
+                <img src="../images/blog/2026-01-09/architecture-kit-preview.png" alt="Architecture Kit Preview"
+                    style="width: 100%; border-radius: 8px; border: 1px solid #333; box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);">
+            </div>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
@@ -1899,6 +1923,53 @@
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const scrolled = (winScroll / height) * 100;
             document.getElementById("readingProgress").style.width = scrolled + "%";
+        });
+    </script>
+    <script>
+        // Copy to Clipboard Logic
+        document.querySelectorAll('pre').forEach((pre) => {
+            // Check if button already exists to prevent duplicates
+            if (pre.querySelector('.copy-btn')) return;
+
+            const button = document.createElement('button');
+            button.className = 'copy-btn';
+            button.innerHTML = '<i class="far fa-copy"></i> Copy';
+            button.style.cssText = `
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                background: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                color: #fff;
+                padding: 5px 10px;
+                border-radius: 4px;
+                cursor: pointer;
+                font-family: 'Inter', sans-serif;
+                font-size: 0.8rem;
+                transition: all 0.3s;
+                z-index: 10;
+            `;
+
+            // Ensure pre has relative positioning
+            if (getComputedStyle(pre).position === 'static') {
+                pre.style.position = 'relative';
+            }
+
+            button.addEventListener('click', () => {
+                const code = pre.querySelector('code').innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    button.style.background = 'rgba(0, 255, 136, 0.2)';
+                    button.style.borderColor = '#00ff88';
+                    setTimeout(() => {
+                        button.innerHTML = '<i class="far fa-copy"></i> Copy';
+                        button.style.background = 'rgba(255, 255, 255, 0.1)';
+                        button.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                    }, 2000);
+                });
+            });
+
+            pre.appendChild(button);
         });
     </script>
 </body>
