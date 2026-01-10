@@ -759,6 +759,105 @@
             margin-bottom: 0.5rem;
             display: block;
         }
+
+        /* --- Cyber Door Animation --- */
+        .door-container {
+            perspective: 1000px;
+        }
+
+        .door-card {
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
+            overflow: hidden;
+            /* Scan line needs hidden overflow */
+        }
+
+        .door-card::before {
+            /* Glass reflection */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0) 100%);
+            transform: skewX(-25deg);
+            transition: left 0.6s ease;
+            pointer-events: none;
+        }
+
+        .door-card:hover::before {
+            left: 150%;
+            transition: left 0.8s ease;
+        }
+
+        .door-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            /* Subtle lift */
+            z-index: 10;
+        }
+
+        /* Scanner Laser Effect */
+        .door-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #fff;
+            box-shadow: 0 0 10px #fff;
+            opacity: 0;
+            transform: translateY(-100%);
+            animation: none;
+            pointer-events: none;
+        }
+
+        .door-card:hover::after {
+            animation: scan-laser 1.5s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes scan-laser {
+            0% {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.8;
+            }
+
+            90% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(200px);
+                /* Approximate card height */
+                opacity: 0;
+            }
+        }
+
+        /* Differentiate Doors */
+        .door-public:hover {
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2), 0 0 0 1px rgba(59, 130, 246, 0.4);
+        }
+
+        .door-public:hover::after {
+            background: #3b82f6;
+            box-shadow: 0 0 15px #3b82f6;
+        }
+
+        .door-private:hover {
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2), 0 0 0 1px rgba(16, 185, 129, 0.4);
+        }
+
+        .door-private:hover::after {
+            background: #10b981;
+            box-shadow: 0 0 15px #10b981;
+        }
     </style>
 
     <!-- Performance: Preconnect to Font & Script Servers -->
@@ -955,15 +1054,15 @@
         <h2><span class="gradient-text">Architecture Decision: Dual APIM</span></h2>
         <div class="executive-card" style="border-left-color: #3b82f6;">
             <h4 style="color: #3b82f6;">Decision: The "Two Doors" Pattern</h4>
-            <div class="scenario-grid" style="margin-bottom: 0;">
-                <div class="scenario-box" style="border-top: 4px solid #3b82f6;">
+            <div class="scenario-grid door-container" style="margin-bottom: 0;">
+                <div class="scenario-box door-card door-public" style="border-top: 4px solid #3b82f6;">
                     <span class="scenario-title"><i class="fas fa-globe"></i> Door 1: Public</span>
                     <strong>APIM-External</strong>
                     <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem; margin-bottom: 0;">
                         For customer-facing agents. Protected by **WAF & DDoS** at the edge.
                     </p>
                 </div>
-                <div class="scenario-box" style="border-top: 4px solid #10b981;">
+                <div class="scenario-box door-card door-private" style="border-top: 4px solid #10b981;">
                     <span class="scenario-title"><i class="fas fa-lock"></i> Door 2: Private</span>
                     <strong>APIM-Internal</strong>
                     <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem; margin-bottom: 0;">
