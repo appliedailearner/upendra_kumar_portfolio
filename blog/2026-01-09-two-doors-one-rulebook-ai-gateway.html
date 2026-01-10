@@ -672,6 +672,93 @@
             /* Bright Cyan for keywords */
             font-weight: 700;
         }
+
+        /* --- Leadership & Engagement Polish --- */
+        .executive-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-left: 4px solid #f59e0b;
+            /* Amber for Insight */
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .executive-card h4 {
+            margin-top: 0;
+            color: #f59e0b;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .outcome-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .badge-cost {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+            border: 1px solid rgba(34, 197, 94, 0.4);
+        }
+
+        .badge-risk {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.4);
+        }
+
+        .badge-perf {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.4);
+        }
+
+        .scenario-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .scenario-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .scenario-box {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(51, 65, 85, 0.5);
+        }
+
+        .problem-box {
+            border-top: 4px solid #ef4444;
+        }
+
+        .solution-box {
+            border-top: 4px solid #10b981;
+        }
+
+        .scenario-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: #94a3b8;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
     </style>
 
     <!-- Performance: Preconnect to Font & Script Servers -->
@@ -948,24 +1035,37 @@
             </li>
         </ul>
         <h2><span class="gradient-text">Four Challenging Scenarios</span></h2>
-        <h3>Scenario 1: Bot Storm and Token Cost Spike (External)</h3>
-        <p><strong>What happened:</strong> a marketing event drove traffic. Bots piled in. Token spend
-            threatened budgets.</p>
-        <p><strong>Controls:</strong></p>
-        <ul>
-            <li>WAF bot controls at the edge.</li>
-            <li>APIM-External enforced both request throttles and token budgets.</li>
-            <li>Deterministic outcomes: <code>429</code> when rate limit hits,
-                <code>403</code> when quota hits.
-            </li>
-        </ul>
+        <div class="scenario-grid">
+            <div class="scenario-box problem-box">
+                <span class="scenario-title">The Crisis</span>
+                <h4 style="margin:0; color:#fff;">Bot Storm & Cost Spike</h4>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem;">A marketing event drove massive traffic. Bots piled
+                    in.
+                    <strong>Token spend threatened to drain the quarterly budget in 48 hours.</strong>
+                </p>
+            </div>
+            <div class="scenario-box solution-box">
+                <span class="scenario-title">The Fix</span>
+                <h4 style="margin:0; color:#fff;">Deterministic Throttling</h4>
+                <div style="margin-top: 1rem;">
+                    <span class="outcome-badge badge-cost">💰 Budget Saved</span>
+                    <span class="outcome-badge badge-risk">🛡️ DDoS Blocked</span>
+                </div>
+                <ul style="padding-left: 1rem; margin-top: 1rem; font-size: 0.9rem;">
+                    <li><strong>WAF</strong> bot controls at the edge.</li>
+                    <li><strong>APIM</strong> enforced hard token budgets.</li>
+                    <li><strong>Outcome:</strong> <code>429</code> (Rate Limit) & <code>403</code> (Quota) stops
+                        abuse.</li>
+                </ul>
+            </div>
+        </div>
         <div class="story-diagram">
             <div class="story-diagram-flex">
                 <div class="story-diagram-img-box"><img src="../images/blog/2026-01-09/token-rate-limiting-small.gif"
                         alt="Token Rate Limiting Flow" loading="lazy" class="story-diagram-img">
                 </div>
                 <div class="story-diagram-text">
-                    <h4 style="margin-top:0; color:#fff;">How it works</h4>
+                    <h4 style="margin-top:0; color:#fff;">Technical Control: Token Limits</h4>
                     <p style="font-size: 0.9rem; margin-bottom: 0;">We use the
                         <code>azure-openai-token-limit</code> policy. It tracks consumption across all
                         keys. When the bucket is empty,
@@ -1019,22 +1119,34 @@
         <p><strong>Proof Artifacts:</strong> Token usage by consumer,
             blocked calls,
             top callers.</p>
-        <h3>Scenario 2: Prompt Injection Attempts</h3>
-        <p><strong>What happened:</strong> users tried “ignore instructions” prompts to extract
-            internal data or trigger unsafe actions.</p>
-        <p><strong>Controls:</strong></p>
-        <ul>
-            <li>External agent had no route to internal tools.</li>
-            <li>Tool allowlist enforced at the gateway.</li>
-            <li>Least-privilege identity per tool.</li>
-        </ul>
+        <div class="scenario-grid">
+            <div class="scenario-box problem-box">
+                <span class="scenario-title">The Risk</span>
+                <h4 style="margin:0; color:#fff;">Prompt Injection Attack</h4>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem;">External users tried <strong>"Ignore
+                        instructions"</strong>
+                    prompts to extract internal data or trigger unsafe actions (Jailbreak).</p>
+            </div>
+            <div class="scenario-box solution-box">
+                <span class="scenario-title">The Fix</span>
+                <h4 style="margin:0; color:#fff;">Content Safety Shield</h4>
+                <div style="margin-top: 1rem;">
+                    <span class="outcome-badge badge-risk">🛡️ 100% Block Rate</span>
+                    <span class="outcome-badge badge-perf">⚡ Zero Latency</span>
+                </div>
+                <ul style="padding-left: 1rem; margin-top: 1rem; font-size: 0.9rem;">
+                    <li><strong>No Route:</strong> External agent has zero path to internal tools.</li>
+                    <li><strong>Gateway Guard:</strong> Pre-flight content scan.</li>
+                </ul>
+            </div>
+        </div>
         <div class="story-diagram">
             <div class="story-diagram-flex">
                 <div class="story-diagram-img-box"><img src="../images/blog/2026-01-09/content-safety-small.gif"
                         alt="Content Safety Flow" loading="lazy" class="story-diagram-img">
                 </div>
                 <div class="story-diagram-text">
-                    <h4 style="margin-top:0; color:#fff;">The "Pre-Flight" Check</h4>
+                    <h4 style="margin-top:0; color:#fff;">Technical Control: Content Safety</h4>
                     <p style="font-size: 0.9rem; margin-bottom: 0;">Before any prompt reaches the
                         LLM,
                         the Gateway sends it to <strong>Azure AI Content Safety</strong> using the
@@ -1066,14 +1178,27 @@
                         placeholder="Enter prompt..." autocomplete="off"> </div>
             </div>
         </div>
-        <h3>Scenario 3: Model or Region Degradation</h3>
-        <p><strong>What happened:</strong> the primary model deployment slowed down during
-            business hours.</p>
-        <p><strong>Controls:</strong></p>
-        <ul>
-            <li>Multi-backend routing and defined failover behavior at the gateway.</li>
-            <li>Degraded-mode responses for critical flows.</li>
-        </ul>
+        <div class="scenario-grid">
+            <div class="scenario-box problem-box">
+                <span class="scenario-title">The Problem</span>
+                <h4 style="margin:0; color:#fff;">Model Degradation</h4>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem;">Primary East US 2 model slowed down.
+                    <strong>Latency spiked +500ms, risking user trust.</strong>
+                </p>
+            </div>
+            <div class="scenario-box solution-box">
+                <span class="scenario-title">The Fix</span>
+                <h4 style="margin:0; color:#fff;">Circuit Breaker</h4>
+                <div style="margin-top: 1rem;">
+                    <span class="outcome-badge badge-perf">⚡ Auto-Failover</span>
+                    <span class="outcome-badge badge-cost">💰 Zero Downtime</span>
+                </div>
+                <ul style="padding-left: 1rem; margin-top: 1rem; font-size: 0.9rem;">
+                    <li><strong>Routing:</strong> Traffic shifted to UK South.</li>
+                    <li><strong>Speed:</strong> Transparent to end-users.</li>
+                </ul>
+            </div>
+        </div>
         <div class="story-diagram">
             <div class="story-diagram-flex">
                 <div class="story-diagram-img-box"> <img
@@ -1081,7 +1206,7 @@
                         loading="lazy" class="story-diagram-img">
                 </div>
                 <div class="story-diagram-text">
-                    <h4 style="margin-top:0; color:#fff;">Smart Load Balancing</h4>
+                    <h4 style="margin-top:0; color:#fff;">Technical Control: Load Balancing</h4>
                     <p style="font-size: 0.9rem; margin-bottom: 0;">We use APIM's
                         <strong>Backend Pools</strong> (<code>backend-pool</code> policy). If
                         the primary East US 2 model slows down (high latency) or returns 5xx
@@ -1092,15 +1217,28 @@
                 </div>
             </div>
         </div>
-        <h3>Scenario 4: Legacy Internal App</h3>
-        <p><strong>What happened:</strong> a legacy ops system could not adopt the preferred
-            identity approach in time. </p>
-        <p><strong>Controls:</strong></p>
-        <ul>
-            <li>Time-boxed exception allowed only via APIM-Internal.</li>
-            <li>Tight token quotas and enhanced logging.</li>
-            <li>Compensating network controls.</li>
-        </ul>
+        <div class="scenario-grid">
+            <div class="scenario-box problem-box">
+                <span class="scenario-title">The Exception</span>
+                <h4 style="margin:0; color:#fff;">Legacy App (No Auth)</h4>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem;">Critical OpS system couldn't adopt new Identity
+                    standards.
+                    <strong>Risk of total blocker.</strong>
+                </p>
+            </div>
+            <div class="scenario-box solution-box">
+                <span class="scenario-title">The Compromise</span>
+                <h4 style="margin:0; color:#fff;">Private Lane</h4>
+                <div style="margin-top: 1rem;">
+                    <span class="outcome-badge badge-risk">🛡️ Internal Only</span>
+                    <span class="outcome-badge badge-cost">💰 Time-Boxed</span>
+                </div>
+                <ul style="padding-left: 1rem; margin-top: 1rem; font-size: 0.9rem;">
+                    <li><strong>Gate:</strong> Allowed ONLY via APIM-Internal.</li>
+                    <li><strong>Audit:</strong> Enhanced logging enabled.</li>
+                </ul>
+            </div>
+        </div>
         <h2><span class="gradient-text">Operating Model</span></h2>
         <h3>Weekly KPIs</h3>
         <ul>
