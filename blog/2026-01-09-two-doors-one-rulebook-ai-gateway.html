@@ -906,8 +906,9 @@
             <div style="margin-bottom: 1rem;"><a href="../blog.html"
                     style="color: var(--primary-color); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;"><i
                         class="fas fa-arrow-left"></i>Back to Insights </a></div>
-            <h1
-                style="font-family: 'Outfit', sans-serif; font-size: 3rem; line-height: 1.2; margin-bottom: 1.5rem; background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+            <h1 style="font-family: 'Outfit', sans-serif; font-size: 3rem; line-height: 1.2; margin-bottom: 1.5rem; background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;"
+                class="hologram-text"
+                data-text="Two Doors, One Rulebook: How TrustBank Scaled AI Agents Without Losing Control">
                 Two Doors,
                 One Rulebook: How TrustBank Scaled AI Agents Without Losing Control </h1>
             <div class="blog-post-meta">
@@ -1382,29 +1383,47 @@
             <li>[] Abuse tests executed</li>
             <li>[] Exceptions process live</li>
         </ul>
-        <h2><span class="gradient-text">Resources to Build This</span></h2>
-        <ul>
-            <li><a href="https://www.youtube.com/watch?v=yY7LqQ9T4JQ" target="_blank">📺 <strong>Deep Dive: Azure API
-                        Management (John Savill)</strong></a> - The best explanation of Internal vs External VNet modes.
-            </li>
-            <li><a href="https://aka.ms/ai-gateway/workshop" target="_blank">🧪 <strong>Official Azure AI Gateway
-                        Workshop</strong></a> - Step-by-step labs to build token limiting and load balancing.</li>
-            <li><a href="https://github.com/Azure-Samples/AI-Gateway" target="_blank">💻
-                    <strong>Azure-Samples/AI-Gateway Repo</strong></a> - The official policies used in this
-                architecture.</li>
+        <h2><span class="gradient-text">Resources to <h3>Video Vault (Must Watch)</h3>
+                <p>Expert deep-dives on the patterns used in this architecture.</p>
+                <div class="video-vault-grid">
+                    <!-- John Savill APIM -->
+                    <div class="video-card lazy-video" data-id="2lAe-3u8q4s"
+                        aria-label="Play John Savill APIM Deep Dive">
+                        <div class="video-facade">
+                            <img src="https://img.youtube.com/vi/2lAe-3u8q4s/hqdefault.jpg"
+                                alt="John Savill APIM Deep Dive" loading="lazy">
+                            <div class="play-button"><i class="fas fa-play"></i></div>
+                            <div class="video-label">Azure APIM Deep Dive</div>
+                        </div>
+                    </div>
+                    <!-- Microsoft Mechanics AI Safety -->
+                    <div class="video-card lazy-video" data-id="M-jKwbqEwms" aria-label="Play MS Mechanics AI Safety">
+                        <div class="video-facade">
+                            <img src="https://img.youtube.com/vi/M-jKwbqEwms/hqdefault.jpg" alt="MS Mechanics AI Safety"
+                                loading="lazy">
+                            <div class="play-button"><i class="fas fa-play"></i></div>
+                            <div class="video-label">AI Content Safety</div>
+                        </div>
+                    </div>
+                </div>
 
-        </ul>
-        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
-        <h3>Ready to operationalize your Azure journey?</h3>
-        <p> I help organizations turn stalled cloud initiatives into execution engines. </p>
-        <div style="margin-top: 2rem; display: flex; gap: 1rem;"> <a href="../pages/contact.html"
-                class="btn btn-primary">Contact Me</a> <a href="../pages/azure-migration-toolkit.html"
-                class="btn btn-outline">View the
-                Toolkit</a> </div>
-        <!-- Back to Blog Button -->
-        <div style="text-align: center; margin: 4rem 0;"> <a href="../blog.html" class="btn btn-primary"
-                style="display: inline-block; padding: 1rem 2rem;">
-                <i class="fas fa-arrow-left"></i> Back to Insights </a> </div>
+                <h3>Read More</h3>
+                <ul>
+                    <li>
+                        <a href="https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-use-azure-openai-gateway"
+                            target="_blank">
+                            <strong>Official Docs:</strong> Implement Azure OpenAI Gateway policies
+                        </a>
+                    </li>
+                </ul>p organizations turn stalled cloud initiatives into execution engines. </p>
+                <div style="margin-top: 2rem; display: flex; gap: 1rem;"> <a href="../pages/contact.html"
+                        class="btn btn-primary">Contact Me</a> <a href="../pages/azure-migration-toolkit.html"
+                        class="btn btn-outline">View the
+                        Toolkit</a> </div>
+                <!-- Back to Blog Button -->
+                <div style="text-align: center; margin: 4rem 0;"> <a href="../blog.html" class="btn btn-primary"
+                        style="display: inline-block; padding: 1rem 2rem;">
+                        <i class="fas fa-arrow-left"></i> Back to Insights </a> </div>
     </article>
     <!-- Footer -->
     <footer class="footer">
@@ -1579,6 +1598,225 @@
     <!-- Cloudflare Web Analytics -->
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
         data-cf-beacon='{"token": "0b89fb05ee3844079b659405bc3f5428"}'></script>
+    /* --- Hologram Glitch Effect --- */
+    .hologram-text {
+    position: relative;
+    }
+
+    .hologram-text::before,
+    .hologram-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0f172a;
+    /* Matches bg */
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+    opacity: 0.7;
+    }
+
+    .hologram-text::before {
+    left: 2px;
+    text-shadow: -1px 0 #ff00c1;
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+    }
+
+    .hologram-text::after {
+    left: -2px;
+    text-shadow: -1px 0 #00fff9;
+    animation: glitch-anim-2 3s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitch-anim-1 {
+    0% {
+    clip: rect(20px, 9999px, 80px, 0);
+    }
+
+    20% {
+    clip: rect(10px, 9999px, 30px, 0);
+    }
+
+    40% {
+    clip: rect(50px, 9999px, 90px, 0);
+    }
+
+    60% {
+    clip: rect(30px, 9999px, 10px, 0);
+    }
+
+    80% {
+    clip: rect(80px, 9999px, 50px, 0);
+    }
+
+    100% {
+    clip: rect(40px, 9999px, 70px, 0);
+    }
+    }
+
+    @keyframes glitch-anim-2 {
+    0% {
+    clip: rect(70px, 9999px, 20px, 0);
+    }
+
+    20% {
+    clip: rect(40px, 9999px, 80px, 0);
+    }
+
+    40% {
+    clip: rect(10px, 9999px, 40px, 0);
+    }
+
+    60% {
+    clip: rect(80px, 9999px, 10px, 0);
+    }
+
+    80% {
+    clip: rect(50px, 9999px, 90px, 0);
+    }
+
+    100% {
+    clip: rect(20px, 9999px, 60px, 0);
+    }
+    }
+
+    /* --- Video Vault Grid --- */
+    .video-vault-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+    }
+
+    .video-card {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #1e293b;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .video-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+    }
+
+    .video-facade {
+    position: relative;
+    padding-bottom: 56.25%;
+    /* 16:9 Aspect Ratio */
+    height: 0;
+    }
+
+    .video-facade img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+    }
+
+    .video-card:hover .video-facade img {
+    opacity: 1;
+    }
+
+    .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.5rem;
+    border: 2px solid #fff;
+    transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .video-card:hover .play-button {
+    transform: translate(-50%, -50%) scale(1.1);
+    background: #3b82f6;
+    border-color: #3b82f6;
+    }
+
+    .video-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    }
+
+    /* --- Terminal Typewriter Cursor --- */
+    .terminal-input::after {
+    content: '_';
+    animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+
+    0%,
+    100% {
+    opacity: 1;
+    }
+
+    50% {
+    opacity: 0;
+    }
+    }
+    </style>
+    <script>
+        // Lazy Load Video Facade
+        document.querySelectorAll('.lazy-video').forEach(videoCard => {
+            videoCard.addEventListener('click', function () {
+                const videoId = this.getAttribute('data-id');
+                const facade = this.querySelector('.video-facade');
+                facade.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${videoId}?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute; top:0; left:0;"></iframe>`;
+            });
+        });
+
+        // Typewriter Effect for Terminal
+        document.addEventListener('DOMContentLoaded', () => {
+            const terminalInput = document.querySelector('.terminal-input .command-text');
+            if (terminalInput) {
+                const text = terminalInput.textContent;
+                terminalInput.textContent = '';
+                let i = 0;
+                function typeWriter() {
+                    if (i < text.length) {
+                        terminalInput.textContent += text.charAt(i);
+                        i++;
+                        setTimeout(typeWriter, 50 + Math.random() * 50); // Random typing speed
+                    }
+                }
+                // Start typing when scrolled into view
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            typeWriter();
+                            observer.disconnect();
+                        }
+                    });
+                });
+                observer.observe(document.querySelector('.terminal-window'));
+            }
+        });
+    </script>
 </body>
 
 </html>
