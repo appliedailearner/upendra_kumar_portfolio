@@ -737,7 +737,7 @@
             <!-- Featured Image (Wider than content) -->
             <div class="blog-featured-image"
                 style="margin: 3rem 0 -60px 0; max-width: 100%; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);">
-                <video autoplay loop muted playsinline
+                <video autoplay loop muted playsinline poster="../images/blog/2026-01-11/hero-poster.jpg"
                     style="width: 100%; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
                     <source
                         src="https://pub-2d01be0306284df386da6dae9d2014d0.r2.dev/ai-hosting%20blog%20oauth%20apim/Choose%20the%20correct%20Compute%20for%20Agents.mp4"
@@ -908,49 +908,51 @@
                         Guide</span>
                 </div>
                 <div class="spec-grid">
-                    <!-- Performance -->
+                    <!-- 1. Cold Start -->
                     <div class="spec-item">
-                        <div>
-                            <div class="spec-label">Cold-Start Tolerance</div>
-                            <div class="spec-value">&lt;1s / 1-5s / &gt;5s</div>
-                            <div class="spec-explanation">Sub-second needs warm compute ($$$). &gt;5s allows aggressive
-                                scale-to-zero ($0).</div>
-                        </div>
-                        <div style="margin-top: 20px;">
-                            <div class="spec-label">GPU Requirement</div>
-                            <div class="spec-value">now / later / never</div>
-                            <div class="spec-explanation">"Now" forces ACA or AKS. "Later" means avoiding ACI lock-in
-                                today.</div>
-                        </div>
+                        <div class="spec-label">Cold-Start Tolerance</div>
+                        <div class="spec-value">&lt;1s / 1-5s / &gt;5s</div>
+                        <div class="spec-explanation">Sub-second needs warm compute ($$$). &gt;5s allows aggressive
+                            scale-to-zero ($0).</div>
                     </div>
-                    <!-- Architecture -->
+
+                    <!-- 2. Runtime Type -->
                     <div class="spec-item">
-                        <div>
-                            <div class="spec-label">Runtime Type</div>
-                            <div class="spec-value">real-time / async / batch</div>
-                            <div class="spec-explanation">Async/Batch is perfect for ACA jobs. Real-time requires
-                                detailed scaling rules.</div>
-                        </div>
-                        <div style="margin-top: 20px;">
-                            <div class="spec-label">Platform Team?</div>
-                            <div class="spec-value">yes / no (AKS)</div>
-                            <div class="spec-explanation">"No" disqualifies AKS immediately. Do not build what you
-                                cannot operate.</div>
-                        </div>
+                        <div class="spec-label">Runtime Type</div>
+                        <div class="spec-value">real-time / async / batch</div>
+                        <div class="spec-explanation">Async/Batch is perfect for ACA jobs. Real-time requires
+                            detailed scaling rules.</div>
                     </div>
-                    <!-- Governance -->
+
+                    <!-- 3. GPU Requirement -->
                     <div class="spec-item">
-                        <div>
-                            <div class="spec-label">Token Quotas</div>
-                            <div class="spec-value">yes / no</div>
-                            <div class="spec-explanation">"Yes" makes APIM mandatory. Direct access relies on trust,
-                                which is risky.</div>
-                        </div>
-                        <div style="margin-top: 20px;">
-                            <div class="spec-label">Chargeback Logic</div>
-                            <div class="spec-value">required / optional</div>
-                            <div class="spec-explanation">Required means you need APIM to track tokens per tenant ID.
-                            </div>
+                        <div class="spec-label">GPU Requirement</div>
+                        <div class="spec-value">now / later / never</div>
+                        <div class="spec-explanation">"Now" forces ACA or AKS. "Later" means avoiding ACI lock-in
+                            today.</div>
+                    </div>
+
+                    <!-- 4. Platform Team? -->
+                    <div class="spec-item">
+                        <div class="spec-label">Platform Team?</div>
+                        <div class="spec-value">yes / no (AKS)</div>
+                        <div class="spec-explanation">"No" disqualifies AKS immediately. Do not build what you
+                            cannot operate.</div>
+                    </div>
+
+                    <!-- 5. Token Quotas -->
+                    <div class="spec-item">
+                        <div class="spec-label">Token Quotas</div>
+                        <div class="spec-value">yes / no</div>
+                        <div class="spec-explanation">"Yes" makes APIM mandatory. Direct access relies on trust,
+                            which is risky.</div>
+                    </div>
+
+                    <!-- 6. Chargeback Logic -->
+                    <div class="spec-item">
+                        <div class="spec-label">Chargeback Logic</div>
+                        <div class="spec-value">required / optional</div>
+                        <div class="spec-explanation">Required means you need APIM to track tokens per tenant ID.
                         </div>
                     </div>
                 </div>
