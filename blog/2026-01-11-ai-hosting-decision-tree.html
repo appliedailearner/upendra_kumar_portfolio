@@ -662,6 +662,131 @@
                 transform: translateY(0);
             }
         }
+
+        /* --- Cast Grid Styles --- */
+        .cast-grid {
+            margin: 2rem 0;
+        }
+
+        .cast-card {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+            cursor: pointer;
+            padding: 1rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            text-align: center;
+        }
+
+        .cast-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .cast-card img {
+            transition: transform 0.5s ease;
+        }
+
+        .cast-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .cast-avatar-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1rem;
+            border-radius: 50%;
+            overflow: hidden;
+            border-width: 3px;
+            border-style: solid;
+        }
+
+        .cast-img-responsive {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Cast Borders */
+        .border-upendra {
+            border-color: #00f2ff;
+            box-shadow: 0 4px 15px rgba(0, 242, 255, 0.5);
+        }
+
+        .border-trinity {
+            border-color: #22c55e;
+            box-shadow: 0 4px 10px rgba(34, 197, 94, 0.3);
+        }
+
+        .border-morpheus {
+            border-color: #a855f7;
+            box-shadow: 0 4px 10px rgba(168, 85, 247, 0.3);
+        }
+
+        .border-oracle {
+            border-color: #f59e0b;
+            box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+        }
+
+        .border-architect {
+            border-color: #38bdf8;
+            box-shadow: 0 4px 10px rgba(56, 189, 248, 0.3);
+        }
+
+        /* Animations */
+        @keyframes char-float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-6px);
+            }
+        }
+
+        @keyframes char-think {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.02);
+                opacity: 0.9;
+            }
+        }
+
+        @keyframes char-pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(168, 85, 247, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(168, 85, 247, 0);
+            }
+        }
+
+        .anim-float {
+            animation: char-float 4s ease-in-out infinite;
+        }
+
+        .anim-think {
+            animation: char-think 3s ease-in-out infinite;
+        }
+
+        .anim-talk {
+            animation: char-pulse 2s infinite;
+        }
     </style>
 </head>
 
@@ -793,15 +918,83 @@
 
             <hr>
 
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
             <h2 class="reveal-on-scroll"><span class="gradient-text">The Cast</span></h2>
-            <ul>
-                <li><strong>Mr. Technical Consultant</strong>: removes ambiguity, locks decisions, prevents surprises.
-                </li>
-                <li><strong>Mr. Project Manager</strong>: wants dates, ownership, and a deck that survives Q&A.</li>
-                <li><strong>Mr. Cloud Architect</strong>: enforces landing zone guardrails and security posture.</li>
-                <li><strong>Mr. Cloud Engineer</strong>: ships the build and hates rework.</li>
-                <li><strong>Mr. Customer</strong>: wants control, auditability, and predictable outcomes.</li>
-            </ul>
+            <div class="cast-grid"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+                <!-- Lead Architect (Upendra Kumar) -->
+                <div class="cast-card reveal-on-scroll spotlight-card">
+                    <div class="anim-float cast-avatar-container border-upendra">
+                        <img src="../images/blog/2026-01-09/upendra-kumar.webp" alt="Upendra Kumar - Lead Architect"
+                            loading="lazy" class="cast-img-responsive">
+                    </div><strong style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Lead
+                        Architect (Upendra)</strong>
+                    <p style="font-size: 0.85rem; line-height: 1.4; color: var(--text-muted);">
+                        Architecture,
+                        standards,
+                        trade-offs.</p>
+                </div>
+                <!-- Cloud Engineer (Trinity) -->
+                <div class="cast-card reveal-on-scroll spotlight-card">
+                    <div class="anim-think cast-avatar-container border-trinity">
+                        <img src="../images/blog/2026-01-06/cloud-engineer.webp" alt="Trinity - Cloud Engineer"
+                            loading="lazy" class="cast-img-responsive">
+                    </div><strong style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Cloud
+                        Engineer (Trinity)</strong>
+                    <p style="font-size: 0.85rem; line-height: 1.4; color: var(--text-muted);">
+                        Build,
+                        automation,
+                        operations.</p>
+                </div>
+                <!-- Security Architect (Morpheus) -->
+                <div class="cast-card reveal-on-scroll spotlight-card">
+                    <div class="anim-talk cast-avatar-container border-morpheus">
+                        <img src="../images/blog/2026-01-06/technical-consultant.webp"
+                            alt="Morpheus - Security Architect" loading="lazy" class="cast-img-responsive">
+                    </div><strong style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Security
+                        Architect (Morpheus)</strong>
+                    <p style="font-size: 0.85rem; line-height: 1.4; color: var(--text-muted);">
+                        Identity,
+                        data controls,
+                        audit.</p>
+                </div>
+                <!-- Technical Consultant -->
+                <div class="cast-card reveal-on-scroll spotlight-card">
+                    <div class="anim-talk cast-avatar-container border-upendra">
+                        <img src="../images/blog/2026-01-09/upendra-kumar.webp"
+                            alt="Upendra Kumar - Technical Consultant" loading="lazy" class="cast-img-responsive">
+                    </div>
+                    <strong style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Technical
+                        Consultant (Upendra)</strong>
+                    <p style="font-size: 0.85rem; line-height: 1.4; color: var(--text-muted);">
+                        Delivery strategy,
+                        Operating models,
+                        Scale-ready roadmaps.</p>
+                </div>
+                <!-- Customer Leadership -->
+                <div class="cast-card reveal-on-scroll spotlight-card">
+                    <div class="anim-float cast-avatar-container border-oracle">
+                        <img src="../images/blog/2026-01-06/customer.webp" alt="Mr. Customer" loading="lazy"
+                            class="cast-img-responsive">
+                    </div>
+                    <strong style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Customer
+                        Leadership</strong>
+                    <p style="font-size: 0.85rem; line-height: 1.4; color: var(--text-muted);">
+                        Risk acceptance & operating model.</p>
+                </div>
+                <!-- Project Manager -->
+                <div class="cast-card reveal-on-scroll spotlight-card">
+                    <div class="anim-think cast-avatar-container border-architect">
+                        <img src="../images/blog/2026-01-06/project-manager.webp" alt="Mr. Project Manager"
+                            loading="lazy" class="cast-img-responsive">
+                    </div><strong style="display: block; color: var(--text-main); margin-bottom: 0.5rem;">Project
+                        Manager</strong>
+                    <p style="font-size: 0.85rem; line-height: 1.4; color: var(--text-muted);">
+                        Decisions,
+                        RACI,
+                        milestones. </p>
+                </div>
+            </div>
 
             <hr>
 
