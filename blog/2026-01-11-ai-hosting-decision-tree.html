@@ -1959,8 +1959,10 @@ Compute (ACA/AKS) -> Model + Data (prefer Private Endpoints)
     <script src="../js/particles.js" defer></script>
     <script src="../js/main.js" defer></script>
     <script>
-        // 1. Reading Progress Bar
-        window.addEventListener('scroll', () => {
+        // Performance: Debounced Scroll Handler (Fixes Forced Reflow)
+        let ticking = false;
+
+        function updateReadingProgress() {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const scrolled = (winScroll / height) * 100;
@@ -1968,21 +1970,32 @@ Compute (ACA/AKS) -> Model + Data (prefer Private Endpoints)
             if (progressBar) {
                 progressBar.style.width = scrolled + "%";
             }
+        }
+
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll(".reveal-on-scroll");
+            const windowHeight = window.innerHeight;
+            const elementVisible = 100;
+
+            reveals.forEach((reveal) => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add("is-visible");
+                }
+            });
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    updateReadingProgress();
+                    revealOnScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
         });
 
-        // 2. Scroll Reveal Logic
-        function revealOnScroll() {
-            var reveals = document.querySelectorAll(".reveal-on-scroll");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 100; // Trigger when 100px visible
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("is-visible");
-                }
-            }
-        }
-        window.addEventListener("scroll", revealOnScroll);
         // Trigger once on load
         revealOnScroll();
     </script>
