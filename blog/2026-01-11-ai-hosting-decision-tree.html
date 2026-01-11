@@ -1417,9 +1417,91 @@ Compute (ACA/AKS) -> Model + Data (prefer Private Endpoints)
                         balancing policy pattern (archived, still useful to learn)</a></li>
             </ul>
 
+            <!-- Video Layout Refinement (Matches AI Gateway Blog) -->
+            <style>
+                /* --- Video Vault Grid (Premium Refinement) --- */
+                .video-vault-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                    gap: 1.5rem;
+                    margin: 2rem 0;
+                }
+
+                .video-card {
+                    border-radius: 12px;
+                    overflow: hidden;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    background: #1e293b;
+                    cursor: pointer;
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                }
+
+                .video-card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+                }
+
+                .video-facade {
+                    position: relative;
+                    padding-bottom: 56.25%;
+                    /* 16:9 Aspect Ratio */
+                    height: 0;
+                }
+
+                .video-facade img {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    opacity: 0.8;
+                    transition: opacity 0.3s ease;
+                }
+
+                .video-card:hover .video-facade img {
+                    opacity: 1;
+                }
+
+                .play-button {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 60px;
+                    height: 60px;
+                    background: rgba(0, 0, 0, 0.7);
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #fff;
+                    font-size: 1.5rem;
+                    border: 2px solid #fff;
+                    transition: transform 0.3s ease, background 0.3s ease;
+                }
+
+                .video-card:hover .play-button {
+                    transform: translate(-50%, -50%) scale(1.1);
+                    background: #3b82f6;
+                    border-color: #3b82f6;
+                }
+
+                .video-label {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    padding: 1rem;
+                    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+                    color: #fff;
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                }
+            </style>
+
             <h3>Watch</h3>
-            <div class="video-vault-grid"
-                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1rem;">
+            <div class="video-vault-grid">
                 <!-- Video: Secure AI APIs with APIM -->
                 <div class="video-card lazy-video" data-id="HuPNgrjMcuI" aria-label="Play Secure AI APIs with APIM">
                     <div class="video-facade">
