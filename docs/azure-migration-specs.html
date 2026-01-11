@@ -2,281 +2,360 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Azure Migration Specifications & Templates - Detailed specs for the Azure Migration Toolkit.">
-  <title>Azure Migration Specifications | Upendra Kumar</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link rel="stylesheet" href="../css/style.css?v=32">
-  <link rel="stylesheet" href="../css/premium.css?v=32">
-  <style>
-    .nav-logo-uk {
-      background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
-      border-radius: 8px !important;
-    }
-    .spec-section {
-        margin-top: 3rem;
-        padding-top: 2rem;
-        border-top: 1px solid rgba(255,255,255,0.1);
-    }
-    .spec-section h2 {
-        color: var(--text-main);
-        margin-bottom: 1.5rem;
-        font-family: 'Outfit', sans-serif;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 1.5rem 0;
-        background: rgba(255,255,255,0.02);
-    }
-    th, td {
-        padding: 1rem;
-        text-align: left;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-    th {
-        background: rgba(255,255,255,0.05);
-        color: var(--primary-color);
-        font-weight: 600;
-    }
-    code {
-        background: rgba(255,255,255,0.1);
-        padding: 0.2rem 0.4rem;
-        border-radius: 4px;
-        font-family: monospace;
-        font-size: 0.9em;
-    }
-    pre {
-        background: rgba(15, 23, 42, 0.6);
-        padding: 1.5rem;
-        border-radius: 8px;
-        overflow-x: auto;
-        border: 1px solid rgba(255,255,255,0.1);
-    }
-    .checklist-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 0.75rem;
-        margin-bottom: 0.75rem;
-    }
-    .checklist-box {
-        min-width: 20px;
-        height: 20px;
-        border: 2px solid var(--primary-color);
-        border-radius: 4px;
-        margin-top: 3px;
-    }
-  </style>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Azure Migration Specifications & Templates - Detailed specs for the Azure Migration Toolkit.">
+    <title>Azure Migration Specifications | Upendra Kumar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css?v=32">
+    <link rel="stylesheet" href="../css/premium.css?v=32">
+    <style>
+        .nav-logo-uk {
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+            border-radius: 8px !important;
+        }
+
+        .spec-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .spec-section h2 {
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        th,
+        td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        code {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .checklist-box {
+            min-width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary-color);
+            border-radius: 4px;
+            margin-top: 3px;
+        }
+    </style>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body class="dark-theme">
-  <canvas id="particles-canvas"></canvas>
-  <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-brand" style="display: flex; align-items: center; gap: 1rem;">
-                <a href="../index.html" style="text-decoration: none;">
-                    <div class="nav-logo-uk">UK</div>
-                </a>
-                <div>
-                    <h2>Upendra Kumar</h2>
-                    <p class="nav-tagline">Professional Services Delivery Architect</p>
+    <canvas id="particles-canvas"></canvas>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-brand" style="display: flex; align-items: center; gap: 1rem;">
+                    <a href="../index.html" style="text-decoration: none;">
+                        <video autoplay loop muted playsinline class="nav-logo-video">
+                            <source src="../images/logo-animated.mp4" type="video/mp4">
+                        </video>
+                    </a>
+                    <div>
+                        <h2>Upendra Kumar</h2>
+                        <p class="nav-tagline">Professional Services Delivery Architect</p>
+                    </div>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../pages/expertise.html">Expertise</a></li>
+                    <li><a href="../blog.html">Insights</a></li>
+                    <li><a href="../pages/contact.html">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
             </div>
-            <ul class="nav-menu">
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="../pages/expertise.html">Expertise</a></li>
-                <li><a href="../blog.html">Insights</a></li>
-                <li><a href="../pages/contact.html">Contact</a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+        </nav>
+    </header>
+    <main>
+        <section
+            style="max-width:900px;margin:3rem auto 2rem auto;padding:2rem;background:var(--card-bg);border-radius:var(--border-radius);box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+
+            <div style="margin-bottom: 2rem;">
+                <a href="../pages/azure-migration-toolkit.html"
+                    style="color: var(--primary-color); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 600;">
+                    <i class="fas fa-arrow-left"></i> Back to Toolkit
+                </a>
             </div>
-        </div>
-    </nav>
-  </header>
-  <main>
-    <section
-      style="max-width:900px;margin:3rem auto 2rem auto;padding:2rem;background:var(--card-bg);border-radius:var(--border-radius);box-shadow:0 2px 8px rgba(0,0,0,0.06);">
-      
-      <div style="margin-bottom: 2rem;">
-        <a href="../pages/azure-migration-toolkit.html" style="color: var(--primary-color); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 600;">
-            <i class="fas fa-arrow-left"></i> Back to Toolkit
-        </a>
-      </div>
 
-      <h1 style="font-size: 2.5rem; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">Azure Migration Specifications & Templates</h1>
-      <p class="lead" style="font-size: 1.1rem; line-height: 1.6; color: var(--text-secondary);">
-        This document contains the detailed specifications for the tools and templates referenced in the <a href="../pages/azure-migration-toolkit.html" style="color: var(--primary-color);">Azure Migration Toolkit</a>.
-      </p>
+            <h1 style="font-size: 2.5rem; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">Azure Migration
+                Specifications & Templates</h1>
+            <p class="lead" style="font-size: 1.1rem; line-height: 1.6; color: var(--text-secondary);">
+                This document contains the detailed specifications for the tools and templates referenced in the <a
+                    href="../pages/azure-migration-toolkit.html" style="color: var(--primary-color);">Azure Migration
+                    Toolkit</a>.
+            </p>
 
-      <div id="portfolio-assessment-matrix" class="spec-section">
-        <h2>1. Portfolio Assessment Matrix (Specification)</h2>
-        <p>Use this structure to build your Excel tracking sheet.</p>
-        
-        <div style="overflow-x: auto;">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Column Name</th>
-                        <th>Data Type</th>
-                        <th>Description</th>
-                        <th>Example Value</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>App ID</strong></td>
-                        <td>String</td>
-                        <td>Unique identifier for the application</td>
-                        <td><code>APP-001</code></td>
-                    </tr>
-                    <tr>
-                        <td><strong>App Name</strong></td>
-                        <td>String</td>
-                        <td>Common name of the application</td>
-                        <td><code>Global Finance Reporting</code></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Owner</strong></td>
-                        <td>String</td>
-                        <td>Business owner email</td>
-                        <td><code>finance.lead@company.com</code></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Criticality</strong></td>
-                        <td>Dropdown</td>
-                        <td>Tier 1 (Critical) to Tier 4 (Archive)</td>
-                        <td><code>Tier 1</code></td>
-                    </tr>
-                    <tr>
-                        <td><strong>RTO/RPO</strong></td>
-                        <td>String</td>
-                        <td>Recovery Time/Point Objective</td>
-                        <td><code>4h / 15m</code></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Data Class</strong></td>
-                        <td>Dropdown</td>
-                        <td>Public, Internal, Confidential, Restricted</td>
-                        <td><code>Confidential</code></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Compliance</strong></td>
-                        <td>Multi-Select</td>
-                        <td>GDPR, SOX, PCI-DSS, HIPAA</td>
-                        <td><code>SOX, GDPR</code></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Dependencies</strong></td>
-                        <td>List</td>
-                        <td>Upstream/Downstream App IDs</td>
-                        <td><code>APP-045, DB-SQL-02</code></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Tech Score</strong></td>
-                        <td>1-5</td>
-                        <td>1 (Cloud Ready) to 5 (Legacy/Complex)</td>
-                        <td><code>4</code></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Strategy</strong></td>
-                        <td>Dropdown</td>
-                        <td>Rehost, Refactor, Rearchitect, Rebuild, Replace, Retire</td>
-                        <td><code>Rehost</code></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Move Group</strong></td>
-                        <td>String</td>
-                        <td>ID of the migration wave</td>
-                        <td><code>WAVE-2-FINANCE</code></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Target Sub</strong></td>
-                        <td>String</td>
-                        <td>Azure Subscription ID</td>
-                        <td><code>sub-prod-finance-01</code></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Est. Cutover</strong></td>
-                        <td>Date</td>
-                        <td>Planned migration date</td>
-                        <td><code>2025-11-15</code></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-      </div>
+            <div id="portfolio-assessment-matrix" class="spec-section">
+                <h2>1. Portfolio Assessment Matrix (Specification)</h2>
+                <p>Use this structure to build your Excel tracking sheet.</p>
 
-      <div id="right-sizing--tco-calculator" class="spec-section">
-        <h2>2. Right-Sizing & TCO Calculator (Logic)</h2>
-        <p>Use these formulas to build your TCO model.</p>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Column Name</th>
+                                <th>Data Type</th>
+                                <th>Description</th>
+                                <th>Example Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>App ID</strong></td>
+                                <td>String</td>
+                                <td>Unique identifier for the application</td>
+                                <td><code>APP-001</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>App Name</strong></td>
+                                <td>String</td>
+                                <td>Common name of the application</td>
+                                <td><code>Global Finance Reporting</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Owner</strong></td>
+                                <td>String</td>
+                                <td>Business owner email</td>
+                                <td><code>finance.lead@company.com</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Criticality</strong></td>
+                                <td>Dropdown</td>
+                                <td>Tier 1 (Critical) to Tier 4 (Archive)</td>
+                                <td><code>Tier 1</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>RTO/RPO</strong></td>
+                                <td>String</td>
+                                <td>Recovery Time/Point Objective</td>
+                                <td><code>4h / 15m</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Data Class</strong></td>
+                                <td>Dropdown</td>
+                                <td>Public, Internal, Confidential, Restricted</td>
+                                <td><code>Confidential</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Compliance</strong></td>
+                                <td>Multi-Select</td>
+                                <td>GDPR, SOX, PCI-DSS, HIPAA</td>
+                                <td><code>SOX, GDPR</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dependencies</strong></td>
+                                <td>List</td>
+                                <td>Upstream/Downstream App IDs</td>
+                                <td><code>APP-045, DB-SQL-02</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tech Score</strong></td>
+                                <td>1-5</td>
+                                <td>1 (Cloud Ready) to 5 (Legacy/Complex)</td>
+                                <td><code>4</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Strategy</strong></td>
+                                <td>Dropdown</td>
+                                <td>Rehost, Refactor, Rearchitect, Rebuild, Replace, Retire</td>
+                                <td><code>Rehost</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Move Group</strong></td>
+                                <td>String</td>
+                                <td>ID of the migration wave</td>
+                                <td><code>WAVE-2-FINANCE</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Target Sub</strong></td>
+                                <td>String</td>
+                                <td>Azure Subscription ID</td>
+                                <td><code>sub-prod-finance-01</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Est. Cutover</strong></td>
+                                <td>Date</td>
+                                <td>Planned migration date</td>
+                                <td><code>2025-11-15</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-        <h3>Inputs</h3>
-        <ul>
-            <li><strong>Current vCPU</strong>: <code>8</code></li>
-            <li><strong>Current RAM (GB)</strong>: <code>32</code></li>
-            <li><strong>Avg CPU Utilization %</strong>: <code>15%</code></li>
-            <li><strong>Peak CPU Utilization %</strong>: <code>45%</code></li>
-            <li><strong>OS Type</strong>: <code>Windows Server</code></li>
-            <li><strong>SQL Edition</strong>: <code>Standard</code></li>
-        </ul>
+            <div id="right-sizing--tco-calculator" class="spec-section">
+                <h2>2. Right-Sizing & TCO Calculator (Logic)</h2>
+                <p>Use these formulas to build your TCO model.</p>
 
-        <h3>Right-Sizing Logic</h3>
-        <ul>
-            <li><strong>Target vCPU</strong> = <code>MAX(Current vCPU * Peak CPU %, 2)</code> <em>(Ensure minimum 2 cores)</em></li>
-            <li><strong>Target RAM</strong> = <code>Current RAM</code> <em>(Usually 1:1 unless memory utilization is known to be low)</em></li>
-            <li><strong>Recommended SKU</strong>: Lookup against Azure VM catalog (e.g., D-Series for General, E-Series for Memory).</li>
-        </ul>
+                <h3>Inputs</h3>
+                <ul>
+                    <li><strong>Current vCPU</strong>: <code>8</code></li>
+                    <li><strong>Current RAM (GB)</strong>: <code>32</code></li>
+                    <li><strong>Avg CPU Utilization %</strong>: <code>15%</code></li>
+                    <li><strong>Peak CPU Utilization %</strong>: <code>45%</code></li>
+                    <li><strong>OS Type</strong>: <code>Windows Server</code></li>
+                    <li><strong>SQL Edition</strong>: <code>Standard</code></li>
+                </ul>
 
-        <h3>Cost Optimization Logic</h3>
-        <ul>
-            <li><strong>Pay-As-You-Go (PAYG)</strong>: <code>SKU Hourly Rate * 730 hours</code></li>
-            <li><strong>With AHB (Hybrid Benefit)</strong>: <code>(Linux Rate * 730 hours)</code> <em>(Removes Windows License cost)</em></li>
-            <li><strong>With 3-Year RI</strong>: <code>PAYG Rate * (1 - 0.60)</code> <em>(Approx 60% discount)</em></li>
-            <li><strong>Total Monthly Savings</strong>: <code>PAYG Cost - (RI Cost + AHB Savings)</code></li>
-        </ul>
-      </div>
+                <h3>Right-Sizing Logic</h3>
+                <ul>
+                    <li><strong>Target vCPU</strong> = <code>MAX(Current vCPU * Peak CPU %, 2)</code> <em>(Ensure
+                            minimum 2 cores)</em></li>
+                    <li><strong>Target RAM</strong> = <code>Current RAM</code> <em>(Usually 1:1 unless memory
+                            utilization is known to be low)</em></li>
+                    <li><strong>Recommended SKU</strong>: Lookup against Azure VM catalog (e.g., D-Series for General,
+                        E-Series for Memory).</li>
+                </ul>
 
-      <div id="migration-runbook" class="spec-section">
-        <h2>3. Migration Runbook (Template)</h2>
+                <h3>Cost Optimization Logic</h3>
+                <ul>
+                    <li><strong>Pay-As-You-Go (PAYG)</strong>: <code>SKU Hourly Rate * 730 hours</code></li>
+                    <li><strong>With AHB (Hybrid Benefit)</strong>: <code>(Linux Rate * 730 hours)</code> <em>(Removes
+                            Windows License cost)</em></li>
+                    <li><strong>With 3-Year RI</strong>: <code>PAYG Rate * (1 - 0.60)</code> <em>(Approx 60%
+                            discount)</em></li>
+                    <li><strong>Total Monthly Savings</strong>: <code>PAYG Cost - (RI Cost + AHB Savings)</code></li>
+                </ul>
+            </div>
 
-        <h3>Phase 1: Pre-Flight (T-Minus 1 Week)</h3>
-        <div class="checklist-item"><div class="checklist-box"></div><div><strong>Connectivity</strong>: Verify ExpressRoute/VPN status is <code>Connected</code>.</div></div>
-        <div class="checklist-item"><div class="checklist-box"></div><div><strong>Network</strong>: Validate NSG rules allow traffic from on-prem to Azure Target Subnet.</div></div>
-        <div class="checklist-item"><div class="checklist-box"></div><div><strong>Identity</strong>: Ensure Migration Account has <code>Contributor</code> access on Target Resource Group.</div></div>
-        <div class="checklist-item"><div class="checklist-box"></div><div><strong>Replication</strong>: Check Azure Site Recovery (ASR) replication health is <code>Healthy</code>.</div></div>
-        <div class="checklist-item"><div class="checklist-box"></div><div><strong>Test Failover</strong>: Perform isolated test failover to VNET-TEST. Validate app startup.</div></div>
+            <div id="migration-runbook" class="spec-section">
+                <h2>3. Migration Runbook (Template)</h2>
 
-        <h3>Phase 2: Cutover Window (T-Zero)</h3>
-        <div class="checklist-item"><div class="checklist-box"></div><div><strong>00:00</strong> - Initiate "Maintenance Mode" page for end-users.</div></div>
-        <div class="checklist-item"><div class="checklist-box"></div><div><strong>00:15</strong> - Stop on-prem Application Services (IIS/Tomcat).</div></div>
-        <div class="checklist-item"><div class="checklist-box"></div><div><strong>00:30</strong> - Stop on-prem Database Services (SQL/Oracle).</div></div>
-        <div class="checklist-item"><div class="checklist-box"></div><div><strong>00:45</strong> - Perform final data sync (ASR/DMS).</div></div>
-        <div class="checklist-item"><div class="checklist-box"></div><div><strong>01:30</strong> - <strong>POINT OF NO RETURN</strong>. Initiate Failover to Azure.</div></div>
-        <div class="checklist-item"><div class="checklist-box"></div><div><strong>02:00</strong> - VM Boot check. Verify Azure Agent status.</div></div>
-        <div class="checklist-item"><div class="checklist-box"></div><div><strong>02:15</strong> - Update Internal DNS (A Records) to point to new Azure Private IPs.</div></div>
-        <div class="checklist-item"><div class="checklist-box"></div><div><strong>02:30</strong> - Start Application Services in Azure.</div></div>
-        <div class="checklist-item"><div class="checklist-box"></div><div><strong>02:45</strong> - Smoke Test: Login, Run Report, Check Logs.</div></div>
+                <h3>Phase 1: Pre-Flight (T-Minus 1 Week)</h3>
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div><strong>Connectivity</strong>: Verify ExpressRoute/VPN status is <code>Connected</code>.</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div><strong>Network</strong>: Validate NSG rules allow traffic from on-prem to Azure Target Subnet.
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div><strong>Identity</strong>: Ensure Migration Account has <code>Contributor</code> access on
+                        Target Resource Group.</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div><strong>Replication</strong>: Check Azure Site Recovery (ASR) replication health is
+                        <code>Healthy</code>.</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div><strong>Test Failover</strong>: Perform isolated test failover to VNET-TEST. Validate app
+                        startup.</div>
+                </div>
 
-        <h3>Phase 3: Post-Cutover</h3>
-        <div class="checklist-item"><div class="checklist-box"></div><div><strong>03:30</strong> - Sign-off from App Owner.</div></div>
-        <div class="checklist-item"><div class="checklist-box"></div><div><strong>04:00</strong> - Disable "Maintenance Mode".</div></div>
-        <div class="checklist-item"><div class="checklist-box"></div><div><strong>Day 1</strong> - Monitor CPU/RAM and Latency metrics.</div></div>
-      </div>
+                <h3>Phase 2: Cutover Window (T-Zero)</h3>
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div><strong>00:00</strong> - Initiate "Maintenance Mode" page for end-users.</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div><strong>00:15</strong> - Stop on-prem Application Services (IIS/Tomcat).</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div><strong>00:30</strong> - Stop on-prem Database Services (SQL/Oracle).</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div><strong>00:45</strong> - Perform final data sync (ASR/DMS).</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div><strong>01:30</strong> - <strong>POINT OF NO RETURN</strong>. Initiate Failover to Azure.</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div><strong>02:00</strong> - VM Boot check. Verify Azure Agent status.</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div><strong>02:15</strong> - Update Internal DNS (A Records) to point to new Azure Private IPs.
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div><strong>02:30</strong> - Start Application Services in Azure.</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div><strong>02:45</strong> - Smoke Test: Login, Run Report, Check Logs.</div>
+                </div>
 
-      <div id="operating-model-repository" class="spec-section">
-        <h2>4. Operating Model Repository Structure</h2>
-        <p>Recommended folder structure for a <code>azure-migration-operating-model</code> GitHub repository.</p>
-        <pre><code>/
+                <h3>Phase 3: Post-Cutover</h3>
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div><strong>03:30</strong> - Sign-off from App Owner.</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div><strong>04:00</strong> - Disable "Maintenance Mode".</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div><strong>Day 1</strong> - Monitor CPU/RAM and Latency metrics.</div>
+                </div>
+            </div>
+
+            <div id="operating-model-repository" class="spec-section">
+                <h2>4. Operating Model Repository Structure</h2>
+                <p>Recommended folder structure for a <code>azure-migration-operating-model</code> GitHub repository.
+                </p>
+                <pre><code>/
 ├── .github/
 │   └── workflows/              # CI/CD pipelines for Policy/IaC
 ├── decisions/                  # Architecture Decision Records (ADRs)
@@ -300,103 +379,109 @@
 │   └── compute/
 │       └── standard-vm.bicep
 └── README.md                   # The "Start Here" guide for the team</code></pre>
-      </div>
+            </div>
 
-      <div id="architecture-diagrams" class="spec-section">
-        <h2>5. Architecture Diagrams</h2>
-        
-        <h3>Diagram A: Enterprise Hub-and-Spoke Topology</h3>
-        <div class="diagram-container" style="text-align: center; margin: 2rem 0;">
-            <img src="https://raw.githubusercontent.com/Azure/Enterprise-Scale/main/docs/wiki/media/ESLZ.gif" alt="Azure Enterprise Scale Landing Zone Architecture" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
-            <p style="margin-top: 1rem; color: #ccc; font-size: 0.9em;"><em>Figure: Azure Enterprise Scale Landing Zone (ESLZ) Architecture Reference</em></p>
+            <div id="architecture-diagrams" class="spec-section">
+                <h2>5. Architecture Diagrams</h2>
+
+                <h3>Diagram A: Enterprise Hub-and-Spoke Topology</h3>
+                <div class="diagram-container" style="text-align: center; margin: 2rem 0;">
+                    <img src="https://raw.githubusercontent.com/Azure/Enterprise-Scale/main/docs/wiki/media/ESLZ.gif"
+                        alt="Azure Enterprise Scale Landing Zone Architecture"
+                        style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+                    <p style="margin-top: 1rem; color: #ccc; font-size: 0.9em;"><em>Figure: Azure Enterprise Scale
+                            Landing Zone (ESLZ) Architecture Reference</em></p>
+                </div>
+
+                <h3>Diagram B: Management Group Hierarchy</h3>
+                <div class="mermaid">
+                    graph TD
+                    %% Enterprise Styles
+                    classDef root fill:#0078d4,stroke:#fff,stroke-width:2px,color:#fff;
+                    classDef platform fill:#5c2d91,stroke:#fff,stroke-width:2px,color:#fff;
+                    classDef lz fill:#00cc6a,stroke:#fff,stroke-width:2px,color:#fff;
+                    classDef sandbox fill:#ea4300,stroke:#fff,stroke-width:2px,color:#fff;
+                    classDef decom fill:#a0aeb2,stroke:#fff,stroke-width:2px,color:#fff;
+                    classDef sub fill:#2b3c5a,stroke:#fff,stroke-width:1px,color:#fff;
+
+                    Root["<i class='fas fa-root'></i> Tenant Root Group"]
+                    Contoso["<i class='fas fa-building'></i> Contoso Org<br />(MFA, Audit)"]
+
+                    Platform["<i class='fas fa-layer-group'></i> Platform"]
+                    LZ["<i class='fas fa-cloud-upload-alt'></i> Landing Zones"]
+                    Sandbox["<i class='fas fa-box-open'></i> Sandbox"]
+                    Decom["<i class='fas fa-archive'></i> Decommissioned"]
+
+                    Identity["<i class='fas fa-id-badge'></i> Identity"]
+                    Mgmt["<i class='fas fa-tasks'></i> Management"]
+                    Conn["<i class='fas fa-network-wired'></i> Connectivity"]
+
+                    Corp["<i class='fas fa-briefcase'></i> Corp"]
+                    Online["<i class='fas fa-globe'></i> Online"]
+
+                    Fin["<i class='fas fa-coins'></i> Finance"]
+                    HR["<i class='fas fa-user-tie'></i> HR"]
+                    Ecom["<i class='fas fa-shopping-cart'></i> E-Commerce"]
+
+                    Root --> Contoso
+                    Contoso --> Platform
+                    Contoso --> LZ
+                    Contoso --> Sandbox
+                    Contoso --> Decom
+
+                    Platform --> Identity
+                    Platform --> Mgmt
+                    Platform --> Conn
+
+                    LZ --> Corp
+                    LZ --> Online
+
+                    Corp --> Fin
+                    Corp --> HR
+                    Online --> Ecom
+
+                    class Root,Contoso root;
+                    class Platform platform;
+                    class LZ lz;
+                    class Sandbox sandbox;
+                    class Decom decom;
+                    class Identity,Mgmt,Conn,Corp,Online,Fin,HR,Ecom sub;
+                </div>
+            </div>
+
+        </section>
+    </main>
+    <footer>
+        <div class="container" style="text-align: center; padding: 2rem 0;">
+            <p>&copy; 2025 Upendra Kumar. All rights reserved. This content is personal and not affiliated with
+                Rackspace Technology.</p>
         </div>
-
-        <h3>Diagram B: Management Group Hierarchy</h3>
-        <div class="mermaid">
-            graph TD
-            %% Enterprise Styles
-            classDef root fill:#0078d4,stroke:#fff,stroke-width:2px,color:#fff;
-            classDef platform fill:#5c2d91,stroke:#fff,stroke-width:2px,color:#fff;
-            classDef lz fill:#00cc6a,stroke:#fff,stroke-width:2px,color:#fff;
-            classDef sandbox fill:#ea4300,stroke:#fff,stroke-width:2px,color:#fff;
-            classDef decom fill:#a0aeb2,stroke:#fff,stroke-width:2px,color:#fff;
-            classDef sub fill:#2b3c5a,stroke:#fff,stroke-width:1px,color:#fff;
-            
-            Root["<i class='fas fa-root'></i> Tenant Root Group"]
-            Contoso["<i class='fas fa-building'></i> Contoso Org<br/>(MFA, Audit)"]
-            
-            Platform["<i class='fas fa-layer-group'></i> Platform"]
-            LZ["<i class='fas fa-cloud-upload-alt'></i> Landing Zones"]
-            Sandbox["<i class='fas fa-box-open'></i> Sandbox"]
-            Decom["<i class='fas fa-archive'></i> Decommissioned"]
-
-            Identity["<i class='fas fa-id-badge'></i> Identity"]
-            Mgmt["<i class='fas fa-tasks'></i> Management"]
-            Conn["<i class='fas fa-network-wired'></i> Connectivity"]
-
-            Corp["<i class='fas fa-briefcase'></i> Corp"]
-            Online["<i class='fas fa-globe'></i> Online"]
-
-            Fin["<i class='fas fa-coins'></i> Finance"]
-            HR["<i class='fas fa-user-tie'></i> HR"]
-            Ecom["<i class='fas fa-shopping-cart'></i> E-Commerce"]
-
-            Root --> Contoso
-            Contoso --> Platform
-            Contoso --> LZ
-            Contoso --> Sandbox
-            Contoso --> Decom
-
-            Platform --> Identity
-            Platform --> Mgmt
-            Platform --> Conn
-
-            LZ --> Corp
-            LZ --> Online
-
-            Corp --> Fin
-            Corp --> HR
-            Online --> Ecom
-
-            class Root,Contoso root;
-            class Platform platform;
-            class LZ lz;
-            class Sandbox sandbox;
-            class Decom decom;
-            class Identity,Mgmt,Conn,Corp,Online,Fin,HR,Ecom sub;
-        </div>
-      </div>
-
-    </section>
-  </main>
-  <footer>
-    <div class="container" style="text-align: center; padding: 2rem 0;">
-        <p>&copy; 2025 Upendra Kumar. All rights reserved. This content is personal and not affiliated with Rackspace Technology.</p>
-    </div>
-  </footer>
-  <script src="../js/particles.js"></script>
-  <script src="../assets/js/main.js"></script>
-  <script>
-    // Mobile menu toggle
-    const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
-    if (hamburger && navMenu) {
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
+    </footer>
+    <script src="../js/particles.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        if (hamburger && navMenu) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+        }
+    </script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            securityLevel: 'loose',
+            fontFamily: 'Inter, sans-serif'
         });
-    }
-  </script>
-  <script type="module">
-    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ 
-        startOnLoad: true, 
-        theme: 'dark',
-        securityLevel: 'loose',
-        fontFamily: 'Inter, sans-serif'
-    });
-  </script>
-<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "0b89fb05ee3844079b659405bc3f5428"}'></script><!-- End Cloudflare Web Analytics -->
+    </script>
+    <!-- Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+        data-cf-beacon='{"token": "0b89fb05ee3844079b659405bc3f5428"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 
 </html>
