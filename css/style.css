@@ -254,6 +254,40 @@ body::before {
     margin: 0;
 }
 
+/* --- Global Navbar Fixes (Applies to all subpages) --- */
+/* Excludes Home Page via inline-style override, or safely applies same styles */
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-brand a {
+    text-decoration: none !important;
+    color: #fff !important;
+}
+
+/* Fix for outliers using .nav-logo class (e.g. 2026-01-11 post) */
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none !important;
+    color: #fff !important;
+    transition: opacity 0.3s;
+}
+
+.nav-logo:hover {
+    opacity: 0.9;
+}
+
+.nav-logo-text {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #fff;
+}
+
 .nav-tagline {
     color: var(--text-light);
     font-size: 0.95rem;
