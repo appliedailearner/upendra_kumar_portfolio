@@ -1540,9 +1540,15 @@ Compute (ACA/AKS) -> Model + Data (prefer Private Endpoints)
                 /* --- Video Vault Grid (Premium Refinement) --- */
                 .video-vault-grid {
                     display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                    gap: 1.5rem;
+                    grid-template-columns: 1fr;
+                    gap: 1rem;
                     margin: 2rem 0;
+                }
+
+                @media (min-width: 900px) {
+                    .video-vault-grid {
+                        grid-template-columns: repeat(3, 1fr);
+                    }
                 }
 
                 .video-card {
