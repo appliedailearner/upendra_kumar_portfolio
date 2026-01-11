@@ -1638,9 +1638,9 @@ Compute (ACA/AKS) -> Model + Data (prefer Private Endpoints)
                 </div>
 
                 <!-- Video 2: The Industry Standard (New) -->
-                <div class="video-card" onclick="loadVideo(this)" data-id="kJD3tB5-2-I">
+                <div class="video-card" onclick="loadVideo(this)" data-id="kY-g8C5P7eM" data-start="5020">
                     <div class="video-facade">
-                        <img src="https://img.youtube.com/vi/kJD3tB5-2-I/maxresdefault.jpg"
+                        <img src="https://img.youtube.com/vi/kY-g8C5P7eM/maxresdefault.jpg"
                             alt="Azure Container Apps vs AKS Deep Dive" loading="lazy">
                         <div class="play-button">
                             <i class="fas fa-play"></i>
@@ -1648,7 +1648,7 @@ Compute (ACA/AKS) -> Model + Data (prefer Private Endpoints)
                     </div>
                     <div class="video-meta">
                         <h4>ACA vs AKS Deep Dive</h4>
-                        <p>The industry standard comparison by John Savill.</p>
+                        <p>John Savill's Master Class (Starts at 1:23:40)</p>
                     </div>
                 </div>
             </div>
@@ -1773,26 +1773,28 @@ Compute (ACA/AKS) -> Model + Data (prefer Private Endpoints)
                 }, 2000);
             });
         }
-    </script>
-    <script>
-        // Lazy video loading
-        document.querySelectorAll('.lazy-video').forEach(card => {
-            card.addEventListener('click', function () {
-                const videoId = this.dataset.id;
-                const iframe = document.createElement('iframe');
-                iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1`);
-                iframe.setAttribute('frameborder', '0');
-                iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-                iframe.setAttribute('allowfullscreen', '');
-                iframe.style.width = '100%';
-                iframe.style.height = '100%';
-                iframe.style.position = 'absolute';
-                iframe.style.top = '0';
-                iframe.style.left = '0';
-                this.innerHTML = '';
-                this.appendChild(iframe);
-            });
-        });
+
+        // Load Video Function
+        function loadVideo(card) {
+            const videoId = card.getAttribute('data-id');
+            const start = card.getAttribute('data-start');
+            const iframe = document.createElement('iframe');
+            let src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            if (start) src += `&start=${start}`;
+
+            iframe.setAttribute('src', src);
+            iframe.setAttribute('frameborder', '0');
+            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+            iframe.setAttribute('allowfullscreen', '');
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.position = 'absolute';
+            iframe.style.top = '0';
+            iframe.style.left = '0';
+
+            card.innerHTML = '';
+            card.appendChild(iframe);
+        }
     </script>
 </body>
 
