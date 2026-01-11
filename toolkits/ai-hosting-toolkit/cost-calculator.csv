@@ -1,0 +1,9 @@
+Resource,Metric,Scenario A: Standard AKS,Scenario B: Azure Container Apps (Consumption),Notes
+Control Plane,Monthly Fixed Cost,$73.00,$0.00,AKS Uptime SLA tier vs. Free ACA control plane
+System Nodes,Compute (2x D2s_v5),$138.00,$0.00,AKS requires min 2 system nodes; ACA manages this for you
+User Nodes,Compute (3x D4s_v5),$416.00,$150.00,AKS runs 24/7; ACA scales to zero at night (est. 10hrs/day active)
+Load Balancer,Monthly Fixed Cost,$30.00,$0.00,Standard Azure LB cost; included in ACA
+Container Registry,Basic Tier,$5.00,$5.00,Same for both
+Operational Overhead,Team Hours/Month (Est.),10 hours,2 hours,Patching/Upgrades vs. Serverless
+,,,$0.00,
+**TOTAL ESTIMATED**,,**$662.00**,**$155.00**,**~75% Savings for intermittent AI workloads**
