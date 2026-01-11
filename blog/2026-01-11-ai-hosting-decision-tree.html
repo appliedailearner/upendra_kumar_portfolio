@@ -823,25 +823,166 @@
                 </p>
             </div>
 
-            <li>Cold-start tolerance: <1s, 1–5s,>5s</li>
-            </ul>
+            <!-- Premium Technical Spec Sheet Component -->
+            <style>
+                .spec-sheet-card {
+                    background: #0f172a;
+                    border: 1px solid #334155;
+                    border-radius: 12px;
+                    margin: 2rem 0;
+                    overflow: hidden;
+                    font-family: 'Inter', sans-serif;
+                    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+                }
 
-            <h3>Compute</h3>
-            <ul>
-                <li>GPU needed: now / later / never</li>
-                <li>Runtime type: real-time API / async worker / batch</li>
-            </ul>
+                .spec-header {
+                    background: linear-gradient(to right, #1e293b, #0f172a);
+                    padding: 12px 20px;
+                    border-bottom: 1px solid #334155;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
 
-            <h3>Ops</h3>
-            <ul>
-                <li>Do we have an AKS platform team and on-call: yes/no</li>
-            </ul>
+                .spec-title {
+                    font-family: 'Outfit', sans-serif;
+                    font-weight: 600;
+                    color: #94a3b8;
+                    font-size: 0.9rem;
+                    text-transform: uppercase;
+                    letter-spacing: 0.05em;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                }
 
-            <h3>Cost Control</h3>
-            <ul>
-                <li>Token quota enforcement at gateway: yes/no</li>
-                <li>Chargeback/showback required: yes/no</li>
-            </ul>
+                .spec-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                    background: #334155;
+                    gap: 1px;
+                }
+
+                .spec-item {
+                    background: #0f172a;
+                    padding: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+                }
+
+                .spec-label {
+                    color: #94a3b8;
+                    font-size: 0.8rem;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    letter-spacing: 0.02em;
+                }
+
+                .spec-value {
+                    font-family: 'Consolas', 'Monaco', monospace;
+                    color: #38bdf8;
+                    background: rgba(56, 189, 248, 0.1);
+                    padding: 6px 10px;
+                    border-radius: 6px;
+                    font-size: 0.9rem;
+                    border: 1px solid rgba(56, 189, 248, 0.2);
+                    display: inline-block;
+                }
+
+                .copy-spec-btn {
+                    background: rgba(255, 255, 255, 0.05);
+                    border: 1px solid #475569;
+                    color: #e2e8f0;
+                    border-radius: 6px;
+                    padding: 6px 12px;
+                    font-size: 0.8rem;
+                    font-weight: 500;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                }
+
+                .copy-spec-btn:hover {
+                    background: rgba(56, 189, 248, 0.1);
+                    border-color: #38bdf8;
+                    color: #38bdf8;
+                }
+            </style>
+
+            <div class="spec-sheet-card reveal-on-scroll">
+                <div class="spec-header">
+                    <span class="spec-title"><i class="fas fa-sliders-h" style="color: #38bdf8;"></i> Technical
+                        Constraints Spec</span>
+                    <button class="copy-spec-btn" onclick="copySpec()" aria-label="Copy Spec Sheet Template">
+                        <i class="fas fa-copy"></i> Copy Template
+                    </button>
+                </div>
+                <div class="spec-grid">
+                    <!-- Performance -->
+                    <div class="spec-item">
+                        <div>
+                            <div class="spec-label">Cold-Start Tolerance</div>
+                            <div class="spec-value">&lt;1s / 1-5s / &gt;5s</div>
+                        </div>
+                        <div style="margin-top: 12px;">
+                            <div class="spec-label">GPU Requirement</div>
+                            <div class="spec-value">now / later / never</div>
+                        </div>
+                    </div>
+                    <!-- Architecture -->
+                    <div class="spec-item">
+                        <div>
+                            <div class="spec-label">Runtime Type</div>
+                            <div class="spec-value">real-time / async / batch</div>
+                        </div>
+                        <div style="margin-top: 12px;">
+                            <div class="spec-label">Platform Team?</div>
+                            <div class="spec-value">yes / no (AKS)</div>
+                        </div>
+                    </div>
+                    <!-- Governance -->
+                    <div class="spec-item">
+                        <div>
+                            <div class="spec-label">Token Quotas</div>
+                            <div class="spec-value">yes / no</div>
+                        </div>
+                        <div style="margin-top: 12px;">
+                            <div class="spec-label">Chargeback Logic</div>
+                            <div class="spec-value">required / optional</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                function copySpec() {
+                    const text = `TECHNICAL CONSTRAINTS SPEC SHEET
+------------------------------
+1. Cold-Start Tolerance: <1s / 1-5s / >5s
+2. GPU Requirement:      now / later / never
+3. Runtime Type:         real-time / async / batch
+4. Platform Team:        yes / no
+5. Token Quotas:         yes / no
+6. Chargeback Logic:     required / optional`;
+
+                    navigator.clipboard.writeText(text).then(() => {
+                        const btn = document.querySelector('.copy-spec-btn');
+                        const originalHtml = btn.innerHTML;
+                        btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                        btn.style.borderColor = '#10b981';
+                        btn.style.color = '#10b981';
+
+                        setTimeout(() => {
+                            btn.innerHTML = originalHtml;
+                            btn.style.borderColor = '#475569';
+                            btn.style.color = '#e2e8f0';
+                        }, 2000);
+                    });
+                }
+            </script>
 
             <hr>
 
