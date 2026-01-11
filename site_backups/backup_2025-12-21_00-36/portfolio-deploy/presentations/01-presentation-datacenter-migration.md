@@ -65,7 +65,7 @@ footer: 'Microsoft Confidential | Senior Director, Cloud Strategy & Architecture
 
 # Visual Journey: The Strategic Path
 
-![Strategic Data Center Migration Journey](../assets/images/projects/01-datacenter-migration-journey.png)
+![Strategic Data Center Migration Journey](../assets/images/projects/01-datacenter-migration-journey.webp)
 <!-- 
 Infographic Placeholder: 
 Use the prompt in INFOGRAPHIC_PROMPTS.md to generate this image.

@@ -66,7 +66,7 @@ footer: 'Azure Strategic Architecture | Azure Solutions Architect'
 
 # Visual Journey: The Optimization Cycle
 
-![Well-Architected Optimization Cycle](../assets/images/projects/03-well-architected-cycle.png)
+![Well-Architected Optimization Cycle](../assets/images/projects/03-well-architected-cycle.webp)
 <!-- 
 Infographic Placeholder: 
 Use the prompt in INFOGRAPHIC_PROMPTS.md to generate this image.

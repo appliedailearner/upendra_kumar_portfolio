@@ -35,7 +35,7 @@ Professional portfolio website tailored for **Azure Solutions Architect seeking 
 3. **css/leadership.css** - Leadership-specific styling
 4. **css/style.css** - Base styling
 5. **js/main.js** - Interactive features
-6. **images/profile.jpg** - Your professional photo
+6. **images/profile.webp** - Your professional photo
 
 ---
 
@@ -274,7 +274,7 @@ Add before `</head>`:
 - Verify repository is public
 
 **Photo not showing?**
-- Check file path: `images/profile.jpg`
+- Check file path: `images/profile.webp`
 - Verify image was copied
 - Try hard refresh (Ctrl+F5)
 

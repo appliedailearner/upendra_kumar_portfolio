@@ -10,7 +10,7 @@ $web/
 ├── index.html
 ├── style.css          ❌ Should be in css/
 ├── main.js            ❌ Should be in js/
-├── profile.jpg        ❌ Should be in images/
+├── profile.webp        ❌ Should be in images/
 ├── operating-model.html  ❌ Should be in pages/
 └── ... (all other files at root)
 ```

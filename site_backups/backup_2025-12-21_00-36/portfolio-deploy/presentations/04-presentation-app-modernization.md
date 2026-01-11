@@ -66,7 +66,7 @@ footer: 'Microsoft Confidential | Senior Director, Cloud Strategy & Architecture
 
 # Visual Journey: Modernization Pipeline
 
-![App Modernization Pipeline](../assets/images/projects/04-app-modernization-pipeline.png)
+![App Modernization Pipeline](../assets/images/projects/04-app-modernization-pipeline.webp)
 <!-- 
 Infographic Placeholder: 
 Use the prompt in INFOGRAPHIC_PROMPTS.md to generate this image.

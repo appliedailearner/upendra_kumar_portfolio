@@ -77,7 +77,7 @@ git push origin main
 ├── js/
 │   └── main.js            # Interactivity
 ├── images/
-│   ├── profile.jpg        # Your photo
+│   ├── profile.webp        # Your photo
 │   ├── azure-architecture.png
 │   └── project-preview.png
 ├── projects/

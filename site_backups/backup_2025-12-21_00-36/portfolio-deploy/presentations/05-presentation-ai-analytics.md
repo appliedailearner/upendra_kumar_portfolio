@@ -66,7 +66,7 @@ footer: 'Microsoft Confidential | Senior Director, Cloud Strategy & Architecture
 
 # Visual Journey: Data-to-Value Pipeline
 
-![AI & Analytics Value Chain](../assets/images/projects/05-ai-analytics-value-chain.png)
+![AI & Analytics Value Chain](../assets/images/projects/05-ai-analytics-value-chain.webp)
 <!-- 
 Infographic Placeholder: 
 Use the prompt in INFOGRAPHIC_PROMPTS.md to generate this image.

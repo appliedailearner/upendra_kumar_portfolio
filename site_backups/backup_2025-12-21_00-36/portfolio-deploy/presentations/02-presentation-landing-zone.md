@@ -65,7 +65,7 @@ footer: 'Microsoft Confidential | Senior Director, Cloud Strategy & Architecture
 
 # Visual Journey: The Governance Model
 
-![Azure Landing Zone Governance Model](../assets/images/projects/02-landing-zone-governance.png)
+![Azure Landing Zone Governance Model](../assets/images/projects/02-landing-zone-governance.webp)
 <!-- 
 Infographic Placeholder: 
 Use the prompt in INFOGRAPHIC_PROMPTS.md to generate this image.

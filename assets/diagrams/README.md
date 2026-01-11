@@ -23,7 +23,7 @@ This bundle contains **official Microsoft Architecture Center / Microsoft Learn*
 ### 3) Integrate API Management with a legacy API in on-premises
 - Source page: https://learn.microsoft.com/en-us/azure/architecture/example-scenario/apps/apim-api-scenario
 - Visio: `vsdx/architecture-apim-api-scenario.vsdx`
-- PNG: `png_hi/architecture-apim-api-scenario.png`
+- PNG: `png_hi/architecture-apim-api-scenario.webp`
 
 ### 4) Basic Microsoft Foundry chat reference architecture (POC)
 - Source page: https://learn.microsoft.com/en-us/azure/architecture/ai-ml/architecture/basic-microsoft-foundry-chat

@@ -31,7 +31,7 @@ A leadership-focused, premium interactive portfolio with:
 - **js/main.js** - All interactive features
 
 ### Assets
-- **images/profile.jpg** - Your professional photo
+- **images/profile.webp** - Your professional photo
 - **images/favicon.svg** - Custom UK logo
 
 ---
@@ -264,7 +264,7 @@ Tested and optimized for:
 - Check js/main.js loaded
 
 **Photo not showing?**
-- Verify images/profile.jpg exists
+- Verify images/profile.webp exists
 - Check file path in HTML
 - Try hard refresh
 

@@ -21,7 +21,7 @@ ai-hosting-toolkit/
 │   ├── rate-limiting.xml          # Rate limiting per client
 │   └── tool-allowlist.xml         # Tool API allowlisting
 └── diagrams/
-    ├── protect-apis.png           # APIM gateway architecture
+    ├── protect-apis.webp           # APIM gateway architecture
     ├── internal-apim.png          # Internal APIM pattern
     ├── landing-zone-networking.png # Landing zone networking
     ├── network-isolation.svg      # Network isolation
