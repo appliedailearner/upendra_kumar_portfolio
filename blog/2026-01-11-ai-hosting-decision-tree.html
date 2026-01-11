@@ -886,43 +886,24 @@
                     background: rgba(56, 189, 248, 0.1);
                     padding: 6px 10px;
                     border-radius: 6px;
-                    font-size: 0.9rem;
+                    font-size: 0.95rem;
                     border: 1px solid rgba(56, 189, 248, 0.2);
                     display: inline-block;
+                    margin-bottom: 4px;
                 }
 
-                .copy-spec-btn {
-                    background: rgba(56, 189, 248, 0.1);
-                    border: 1px solid rgba(56, 189, 248, 0.3);
-                    color: #38bdf8;
-                    border-radius: 6px;
-                    padding: 8px 12px;
-                    font-size: 0.9rem;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    box-shadow: 0 0 10px rgba(56, 189, 248, 0.1);
-                }
-
-                .copy-spec-btn:hover {
-                    background: rgba(56, 189, 248, 0.2);
-                    border-color: #38bdf8;
-                    color: #ffffff;
-                    box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
-                    transform: translateY(-1px);
+                .spec-explanation {
+                    color: #64748b;
+                    font-size: 0.85rem;
+                    line-height: 1.4;
+                    font-style: italic;
                 }
             </style>
 
             <div class="spec-sheet-card reveal-on-scroll">
                 <div class="spec-header">
-                    <span class="spec-title"><i class="fas fa-sliders-h" style="color: #38bdf8;"></i> Technical
-                        Constraints Spec</span>
-                    <button class="copy-spec-btn" onclick="copySpec()" aria-label="Copy Spec Sheet Template"
-                        title="Copy Template">
-                        <i class="fas fa-copy"></i>
-                    </button>
+                    <span class="spec-title"><i class="fas fa-sliders-h" style="color: #38bdf8;"></i> Decision Factors
+                        Guide</span>
                 </div>
                 <div class="spec-grid">
                     <!-- Performance -->
@@ -930,10 +911,14 @@
                         <div>
                             <div class="spec-label">Cold-Start Tolerance</div>
                             <div class="spec-value">&lt;1s / 1-5s / &gt;5s</div>
+                            <div class="spec-explanation">Sub-second needs warm compute ($$$). &gt;5s allows aggressive
+                                scale-to-zero ($0).</div>
                         </div>
-                        <div style="margin-top: 12px;">
+                        <div style="margin-top: 20px;">
                             <div class="spec-label">GPU Requirement</div>
                             <div class="spec-value">now / later / never</div>
+                            <div class="spec-explanation">"Now" forces ACA or AKS. "Later" means avoiding ACI lock-in
+                                today.</div>
                         </div>
                     </div>
                     <!-- Architecture -->
@@ -941,10 +926,14 @@
                         <div>
                             <div class="spec-label">Runtime Type</div>
                             <div class="spec-value">real-time / async / batch</div>
+                            <div class="spec-explanation">Async/Batch is perfect for ACA jobs. Real-time requires
+                                detailed scaling rules.</div>
                         </div>
-                        <div style="margin-top: 12px;">
+                        <div style="margin-top: 20px;">
                             <div class="spec-label">Platform Team?</div>
                             <div class="spec-value">yes / no (AKS)</div>
+                            <div class="spec-explanation">"No" disqualifies AKS immediately. Do not build what you
+                                cannot operate.</div>
                         </div>
                     </div>
                     <!-- Governance -->
@@ -952,41 +941,20 @@
                         <div>
                             <div class="spec-label">Token Quotas</div>
                             <div class="spec-value">yes / no</div>
+                            <div class="spec-explanation">"Yes" makes APIM mandatory. Direct access relies on trust,
+                                which is risky.</div>
                         </div>
-                        <div style="margin-top: 12px;">
+                        <div style="margin-top: 20px;">
                             <div class="spec-label">Chargeback Logic</div>
                             <div class="spec-value">required / optional</div>
+                            <div class="spec-explanation">Required means you need APIM to track tokens per tenant ID.
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <script>
-                function copySpec() {
-                    const text = `TECHNICAL CONSTRAINTS SPEC SHEET
-------------------------------
-1. Cold-Start Tolerance: <1s / 1-5s / >5s
-2. GPU Requirement:      now / later / never
-3. Runtime Type:         real-time / async / batch
-4. Platform Team:        yes / no
-5. Token Quotas:         yes / no
-6. Chargeback Logic:     required / optional`;
-
-                    navigator.clipboard.writeText(text).then(() => {
-                        const btn = document.querySelector('.copy-spec-btn');
-                        const originalHtml = btn.innerHTML;
-                        btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                        btn.style.borderColor = '#10b981';
-                        btn.style.color = '#10b981';
-
-                        setTimeout(() => {
-                            btn.innerHTML = originalHtml;
-                            btn.style.borderColor = '#475569';
-                            btn.style.color = '#e2e8f0';
-                        }, 2000);
-                    });
-                }
-            </script>
+            <!-- Removed Script for Copy Button -->
 
             <hr>
 
