@@ -77,7 +77,7 @@ $excludePatterns = @(
     '*.md',
     '*.py',
     '*.ps1',
-    '*.zip',
+    # '*.zip', # Commented out to allow starter kit upload
     'appliedailearner.github.io',
     'azure-landing-zones-project',
     'azure-projects',
