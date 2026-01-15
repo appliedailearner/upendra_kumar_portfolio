@@ -260,6 +260,120 @@
             background-color: #3b82f6;
             border-color: #3b82f6;
         }
+
+        /* Hero Concept Card (CSS Only Visual) */
+        .hero-concept-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 3rem;
+            margin: 0 auto 3rem;
+            max-width: 800px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .concept-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            color: #fff;
+        }
+
+        .concept-icon-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.1));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #38bdf8;
+            transition: transform 0.3s ease;
+        }
+
+        .concept-item:hover .concept-icon-circle {
+            transform: scale(1.1);
+            border-color: #38bdf8;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .concept-label {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+
+        .concept-arrow {
+            font-size: 1.5rem;
+            color: #64748b;
+            animation: pulse-right 2s infinite;
+        }
+
+        @keyframes pulse-right {
+
+            0%,
+            100% {
+                transform: translateX(0);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: translateX(10px);
+                opacity: 1;
+            }
+        }
+
+        /* Project Specs Grid */
+        .project-specs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0 4rem;
+        }
+
+        .spec-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .spec-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .spec-number {
+            display: block;
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #38bdf8 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .spec-title-sm {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+            display: block;
+        }
     </style>
 
     <!-- Performance: Preconnect to Font & Script Servers -->
@@ -334,6 +448,34 @@
                 <span class="blog-tag"><i class="fas fa-tag"></i> TCO</span>
                 <span class="blog-tag"><i class="fas fa-tag"></i> Funding Programs</span>
             </div>
+
+            <!-- Hero Concept Visual -->
+            <div class="hero-concept-card" style="margin-top: 3rem;">
+                <div class="concept-item">
+                    <div class="concept-icon-circle">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <span class="concept-label">TCO Math</span>
+                </div>
+                <div class="concept-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                <div class="concept-item">
+                    <div class="concept-icon-circle">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <span class="concept-label">Business Case</span>
+                </div>
+                <div class="concept-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                <div class="concept-item">
+                    <div class="concept-icon-circle">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <span class="concept-label">Wave 1 Go</span>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -344,7 +486,21 @@
                 Case</strong>, and a <strong>Wave 1 execution pack</strong> using <strong>Azure Migrate</strong>.
         </p>
 
-        <p><strong>Scope:</strong> 254 servers, 132 apps (Wave 1 = 30 app services)</p>
+        <!-- Project Specs Dashboard -->
+        <div class="project-specs-grid">
+            <div class="spec-item">
+                <span class="spec-number">254</span>
+                <span class="spec-title-sm">Servers Scoped</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-number">132</span>
+                <span class="spec-title-sm">Total Apps</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-number">30</span>
+                <span class="spec-title-sm">Wave 1 Services</span>
+            </div>
+        </div>
 
         <!-- Content Body -->
 
