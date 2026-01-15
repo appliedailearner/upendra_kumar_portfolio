@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Turn a stalled app portfolio into a funded Azure Wave 1, with real TCO math, a CXO-ready business case, and proof of execution your auditors cannot ignore.">
+    <title>From TCO to “Go”: The Wave 1 Azure Business Case Playbook | Upendra Kumar</title>
+
+    <link rel="stylesheet" href="../css/style.css?v=25">
+    <link rel="stylesheet" href="../css/premium.css?v=25">
+    <style>
+        /* Reading Progress */
+        .reading-progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            z-index: 9999;
+        }
+
+        .reading-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #3b82f6, #a855f7);
+            transition: width 0.1s;
+        }
+
+        /* Scroll Reveal */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Premium Styles Matched to Reference Blog --- */
+
+        /* 1. Hero Section */
+        .blog-post-hero {
+            padding: 120px 0 60px;
+            background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.15), transparent 60%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+
+        .blog-post-hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 1rem;
+        }
+
+        /* 2. Content Layout & Typography */
+        .blog-post-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .blog-featured-image {
+            max-width: 1000px;
+            margin: -40px auto 40px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .blog-featured-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .blog-post-content h1,
+        .blog-post-content h2,
+        .blog-post-content h3,
+        .blog-post-content h4 {
+            font-family: 'Outfit', sans-serif !important;
+            letter-spacing: -0.02em;
+        }
+
+        .blog-post-content h2 {
+            color: var(--text-main);
+            font-size: 2rem;
+            margin-top: 3.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        /* Gradient H2 Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .blog-post-content h3 {
+            color: #e2e8f0;
+            font-size: 1.5rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-post-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .lead-paragraph {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            color: #e2e8f0;
+            margin-bottom: 2.5rem;
+            border-left: 4px solid #38bdf8;
+            padding-left: 1.5rem;
+        }
+
+        .blog-post-content ul,
+        .blog-post-content ol {
+            margin-bottom: 2rem;
+            padding-left: 1.5rem;
+        }
+
+        .blog-post-content li {
+            margin-bottom: 0.75rem;
+            padding-left: 0.5rem;
+        }
+
+        /* 3. Code Blocks */
+        .blog-post-content pre {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-left: 4px solid #0ea5e9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 2rem 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #e2e8f0;
+        }
+
+        /* 7. Toolkit Download */
+        .toolkit-section {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(168, 85, 247, 0.05) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            margin: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .toolkit-section h3 {
+            color: #38bdf8;
+            margin-top: 0;
+            font-size: 1.75rem;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
+        }
+
+        /* Particle Canvas */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .nav-logo-uk {
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+            border-radius: 8px !important;
+        }
+
+        .btn {
+            display: inline-block;
+            font-weight: 600;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+
+        .btn-primary:hover {
+            background-color: #2563eb;
+            border-color: #2563eb;
+        }
+
+        .btn-outline {
+            color: #3b82f6;
+            background-color: transparent;
+            border-color: #3b82f6;
+        }
+
+        .btn-outline:hover {
+            color: #fff;
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+    </style>
+
+    .blog-post-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-size: 1.1rem;
+    }
+
+    .blog-post-content h2 {
+    color: var(--text-main);
+    font-size: 2rem;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    font-family: 'Outfit', sans-serif;
+    }
+
+    .blog-post-content h3 {
+    color: #e2e8f0;
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    }
+
+    .blog-post-content p {
+    margin-bottom: 1.5rem;
+    }
+
+    .blog-post-content ul,
+    .blog-post-content ol {
+    margin-bottom: 2rem;
+    padding-left: 2rem;
+    }
+
+    .blog-post-content li {
+    margin-bottom: 0.5rem;
+    }
+
+    .blog-post-content code {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    }
+
+    .blog-post-content pre {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    border-left: 4px solid #0ea5e9;
+    padding: 1.5rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 2rem 0;
+    }
+
+    .blog-post-content pre code {
+    background: none;
+    padding: 0;
+    }
+
+    .blog-post-meta {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    }
+
+    .blog-post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 2rem 0;
+    }
+
+    .blog-tag {
+    background: rgba(168, 85, 247, 0.1);
+    color: #a855f7;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    }
+
+    .btn {
+    display: inline-block;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow
+    0.15s ease-in-out;
+    text-decoration: none;
+    }
+
+    .btn-primary {
+    color: #fff;
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+    }
+
+    .btn-primary:hover {
+    background-color: #2563eb;
+    border-color: #2563eb;
+    }
+
+    .btn-outline {
+    color: #3b82f6;
+    background-color: transparent;
+    border-color: #3b82f6;
+    }
+
+    .btn-outline:hover {
+    color: #fff;
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+    }
+    </style>
+
+    <!-- Performance: Preconnect to Font & Script Servers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <!-- Typography: Inter (Body) & Outfit (Headings) with Swap for Performance -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="dark-theme">
+    <div class="reading-progress-container">
+        <div class="reading-progress-bar" id="readingProgressBar"></div>
+    </div>
+    <canvas id="particles-canvas"></canvas>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand" style="display: flex; align-items: center; gap: 1rem;">
+                <a href="../index.html" style="text-decoration: none;">
+                    <div class="nav-logo-uk">UK</div>
+                </a>
+                <div>
+                    <h2>Upendra Kumar</h2>
+                    <p class="nav-tagline">Professional Services Delivery Architect</p>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../pages/expertise.html">Expertise</a></li>
+                <li><a href="../blog.html" class="active">Insights</a></li>
+                <li><a href="../pages/contact.html">Contact</a></li>
+                <li><a href="../assets/pdf/Upendra_Kumar_Resume.pdf" target="_blank" class="nav-resume-btn">
+                        <i class="fas fa-download"></i> Resume</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blog Post Hero -->
+    <section class="blog-post-hero">
+        <div class="container" style="max-width: 1000px;">
+            <div style="margin-bottom: 1rem;">
+                <a href="../blog.html"
+                    style="color: var(--primary-color); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-arrow-left"></i> Back to Insights
+                </a>
+            </div>
+
+            <h1
+                style="font-family: 'Outfit', sans-serif; font-size: 3rem; line-height: 1.2; margin-bottom: 1.5rem; background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                From TCO to “Go”: The Wave 1 Azure Business Case Playbook
+            </h1>
+
+            <div class="blog-post-meta">
+                <div><i class="fas fa-user"></i> Upendra Kumar</div>
+                <div><i class="fas fa-calendar"></i> January 15, 2026</div>
+                <div><i class="fas fa-clock"></i> 10–12 min read</div>
+            </div>
+
+            <div class="blog-post-tags">
+                <span class="blog-tag"><i class="fas fa-tag"></i> Azure Migrate</span>
+                <span class="blog-tag"><i class="fas fa-tag"></i> Cloud Migration</span>
+                <span class="blog-tag"><i class="fas fa-tag"></i> TCO</span>
+                <span class="blog-tag"><i class="fas fa-tag"></i> Funding Programs</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Post Content -->
+    <article class="blog-post-content">
+        <p class="lead" style="font-size: 1.3rem; color: var(--primary-color); font-weight: 600;">
+            A practical, first-timer guide to build an Azure migration <strong>TCO</strong>, a <strong>Business
+                Case</strong>, and a <strong>Wave 1 execution pack</strong> using <strong>Azure Migrate</strong>.
+        </p>
+
+        <p><strong>Scope:</strong> 254 servers, 132 apps (Wave 1 = 30 app services)</p>
+
+        <!-- Content Body -->
+
+        <h2>Why this exists</h2>
+        <p>Most migrations stall for one reason: the team can’t answer three CXO questions with evidence:</p>
+        <ol>
+            <li><strong>How much will it cost?</strong> (TCO)</li>
+            <li><strong>Why should we move now?</strong> (Business case)</li>
+            <li><strong>Can you prove you executed what you claimed?</strong> (PoE / evidence)</li>
+        </ol>
+        <p>This guide + the “Wave 1 Starter Kit” gives you a usable starting point.</p>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2>The cast (same as your AI Gateway blog)</h2>
+        <ul>
+            <li><strong>Lead Architect (Upendra):</strong> architecture, standards, trade-offs.</li>
+            <li><strong>Cloud Engineer (Trinity):</strong> build, automation, operations.</li>
+            <li><strong>Security Architect (Morpheus):</strong> identity, data controls, audit.</li>
+            <li><strong>Technical Consultant (Upendra):</strong> delivery strategy, operating model, scale-ready
+                roadmap.</li>
+            <li><strong>Customer Leadership (UKLifeLabs):</strong> risk acceptance, operating model.</li>
+            <li><strong>Project Manager:</strong> decisions, RACI, milestones.</li>
+        </ul>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2>The story</h2>
+        <h3>Scene 1: The question UKLifeLabs leadership asks</h3>
+        <p>UKLifeLabs leadership: “Wave 1 is 30 app services. When do we get confidence, and what do we need to approve
+            it?”</p>
+        <p>The Project Manager adds: “We need a decision pack. Not opinions.”</p>
+        <p>Upendra sets the rule:</p>
+        <blockquote>“No guesses. We’ll use Azure Migrate to measure reality and then turn that into a TCO + business
+            case.”</blockquote>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2>TCO vs ROI vs Business Case (do not mix these)</h2>
+        <h3>TCO</h3>
+        <p><strong>Total Cost of Ownership</strong> is the <em>total</em> cost to run workloads over a period (usually 3
+            to 5 years).</p>
+        <ul>
+            <li><strong>On-prem TCO</strong> usually includes:
+                <ul>
+                    <li>Hardware (compute, storage, network)</li>
+                    <li>Data center costs (space, power, cooling)</li>
+                    <li>Licensing (OS, DB, middleware)</li>
+                    <li>Support contracts</li>
+                    <li>Operations labor</li>
+                    <li>Downtime impact (often missed)</li>
+                </ul>
+            </li>
+            <li><strong>Azure TCO</strong> usually includes:
+                <ul>
+                    <li>VM or PaaS compute</li>
+                    <li>Disks, backups</li>
+                    <li>Networking (VPN/ER, bandwidth, load balancers)</li>
+                    <li>Security services</li>
+                    <li>Monitoring</li>
+                    <li>Ops labor (often reduced, not zero)</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>ROI</h3>
+        <p><strong>Return on Investment</strong> answers: “What do we get back, and when do we break even?”</p>
+
+        <h3>Business Case</h3>
+        <p>A <strong>Business Case</strong> is the exec decision narrative.</p>
+        <p>It uses TCO and ROI, but also includes:</p>
+        <ul>
+            <li>Risk reduction (security, DR, compliance)</li>
+            <li>Speed (faster provisioning, releases)</li>
+            <li>Growth (scale, new digital products)</li>
+            <li>Delivery plan and governance</li>
+        </ul>
+        <p><strong>Rule:</strong> TCO is the <em>math</em>. Business case is the <em>decision</em>.</p>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2>How Azure Migrate helps you build TCO and the Business Case</h2>
+        <p>Azure Migrate is your “facts engine.”</p>
+
+        <h3>What you do in practice</h3>
+        <ol>
+            <li><strong>Create Azure Migrate project</strong></li>
+            <li><strong>Discover servers</strong> (via appliance or integrations)</li>
+            <li><strong>Collect performance data</strong> (CPU/RAM/disk/network over time)</li>
+            <li><strong>Run assessments</strong> (readiness + sizing + cost)</li>
+            <li><strong>Generate business case</strong> (where supported) and export the outputs</li>
+        </ol>
+
+        <h3>Why this matters</h3>
+        <p>If you skip measured performance, you’ll oversize in Azure and lock in waste.</p>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2>The Wave 1 playbook (30 app services)</h2>
+        <h3>Step 1. Define Wave 1 boundaries</h3>
+        <p>Upendra + Project Manager:</p>
+        <ul>
+            <li>Confirm which 30 app services are in Wave 1</li>
+            <li>Define “done”: migrated, validated, monitored, backed up, signed off</li>
+        </ul>
+
+        <h3>Step 2. Discovery completeness check</h3>
+        <p>Trinity:</p>
+        <ul>
+            <li>Confirm coverage: all Wave 1 servers discovered</li>
+            <li>Identify gaps early: appliances not reaching segments, firewall blocks, unsupported OS</li>
+        </ul>
+
+        <h3>Step 3. Dependencies and network truth</h3>
+        <p>Trinity + Morpheus:</p>
+        <ul>
+            <li>Capture inbound/outbound flows</li>
+            <li>Tag each flow as:
+                <ul>
+                    <li><strong>Must-have</strong> (app breaks without it)</li>
+                    <li><strong>Nice-to-have</strong> (monitoring, admin)</li>
+                    <li><strong>Legacy/noise</strong> (old agents, scanning, random)</li>
+                </ul>
+            </li>
+        </ul>
+        <p>Output: a “minimum viable ruleset” for Wave 1.</p>
+
+        <h3>Step 4. Landing zone readiness gate</h3>
+        <p>Morpheus + Upendra:</p>
+        <ul>
+            <li>Identity, RBAC, logging, key management</li>
+            <li>Network segmentation, egress control</li>
+            <li>Security baselines</li>
+            <li>Backup + DR approach for Wave 1</li>
+        </ul>
+
+        <h3>Step 5. Sizing + cost assessment</h3>
+        <p>Upendra:</p>
+        <ul>
+            <li>Use performance-based sizing where possible</li>
+            <li>Apply license benefits and reserved capacity assumptions carefully</li>
+            <li>Document assumptions (this is where audits happen)</li>
+        </ul>
+
+        <h3>Step 6. Build the TCO view</h3>
+        <p>Neha (Finance lens, represented in the guidance):</p>
+        <ul>
+            <li>Put on-prem cost inputs (even if estimates)</li>
+            <li>Compare with Azure run cost</li>
+            <li>Add one-time migration costs (tools, effort, partner services)</li>
+        </ul>
+
+        <h3>Step 7. Write the Business Case</h3>
+        <p>Project Manager:</p>
+        <ul>
+            <li>1-page exec summary</li>
+            <li>Risks + mitigations</li>
+            <li>Wave plan + timeline</li>
+            <li>Budget ask + approval checkpoints</li>
+        </ul>
+
+        <h3>Step 8. Execution + evidence (PoE)</h3>
+        <p>This is how you avoid “nice deck, no proof.”</p>
+        <p>Collect evidence continuously:</p>
+        <ul>
+            <li>Discovery and assessment exports</li>
+            <li>Change records</li>
+            <li>Cutover runbook</li>
+            <li>Validation results</li>
+            <li>Monitoring enabled proof</li>
+            <li>Customer sign-off</li>
+        </ul>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2>PoE (Proof of Execution) in plain English</h2>
+        <p><strong>PoE = evidence that work was executed and outcomes happened.</strong></p>
+        <p>Even when a migration is funded or co-invested, Microsoft and customers need proof for:</p>
+        <ul>
+            <li>Compliance and audit</li>
+            <li>Quality control</li>
+            <li>Preventing “paper migrations”</li>
+        </ul>
+
+        <h3>Typical PoE pack contents</h3>
+        <ul>
+            <li><strong>Before/after evidence</strong>
+                <ul>
+                    <li>discovery coverage</li>
+                    <li>assessment results</li>
+                    <li>migrated resources in Azure</li>
+                </ul>
+            </li>
+            <li><strong>Execution evidence</strong>
+                <ul>
+                    <li>migration wave plan</li>
+                    <li>change tickets</li>
+                    <li>cutover checklist</li>
+                </ul>
+            </li>
+            <li><strong>Validation evidence</strong>
+                <ul>
+                    <li>application smoke tests</li>
+                    <li>monitoring/alerts enabled</li>
+                    <li>backup enabled</li>
+                </ul>
+            </li>
+            <li><strong>Customer acceptance</strong>
+                <ul>
+                    <li>sign-off email or approved document</li>
+                </ul>
+            </li>
+        </ul>
+        <p>(Exact requirements depend on the program and your partner agreement.)</p>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2>Funding programs and why partners care</h2>
+        <h3>What partners typically get</h3>
+        <p>Partners can benefit from Microsoft programs that:</p>
+        <ul>
+            <li>Reduce customer friction (funded assessment or migration activities)</li>
+            <li>Accelerate Azure consumption and modernization</li>
+            <li>Create a repeatable delivery motion</li>
+        </ul>
+
+        <h3>The reality</h3>
+        <p>Funding rules vary by region, customer eligibility, workload type, and program rules.</p>
+        <p>Treat funding as a <strong>bonus</strong>. Build a business case that works even without it.</p>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2>Funding process (high-level)</h2>
+        <p>A practical, “don’t get stuck” sequence:</p>
+        <ol>
+            <li><strong>Confirm eligibility</strong> with Microsoft field/partner contact</li>
+            <li><strong>Define scope</strong> (Wave 1 specifics, target services, timeline)</li>
+            <li><strong>Create plan + estimate</strong> (what will be delivered, when, and how measured)</li>
+            <li><strong>Collect required artifacts</strong> (see Starter Kit)</li>
+            <li><strong>Run delivery</strong> while capturing PoE continuously</li>
+            <li><strong>Submit PoE</strong> as required by the program</li>
+        </ol>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2>Wave 1 Starter Kit</h2>
+        <p>Download and use the templates for:</p>
+        <ul>
+            <li>Server inventory, app inventory</li>
+            <li>Dependency capture + port categorization</li>
+            <li>Azure Migrate run tracker</li>
+            <li>Landing zone readiness checklist</li>
+            <li>TCO assumptions sheet</li>
+            <li>Funding intake + PoE evidence checklist</li>
+            <li>Wave plan, cutover runbook, validation test plan</li>
+            <li>Customer sign-off email template</li>
+        </ul>
+
+        <div style="margin: 2rem 0;">
+            <a href="Wave1_Starter_Kit_UKLifeLabs.zip" class="btn btn-primary" download>
+                <i class="fas fa-download"></i> Download Starter Kit
+            </a>
+        </div>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2>Common mistakes (what breaks migrations)</h2>
+        <ul>
+            <li>Using <strong>static VM sizes</strong> instead of measured performance</li>
+            <li>Treating “dependency mapping” as optional until cutover week</li>
+            <li>No landing zone gate (identity, logging, network, backup)</li>
+            <li>TCO built without assumptions documented</li>
+            <li>PoE captured at the end (it will be missing)</li>
+        </ul>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2>Reference links (copy/paste)</h2>
+        <h3>Microsoft docs</h3>
+        <pre><code>Azure Migrate documentation hub
+https://learn.microsoft.com/en-us/azure/migrate/
+
+Create a business case in Azure Migrate
+https://learn.microsoft.com/en-us/azure/migrate/how-to-create-business-case
+
+Assessment calculation concepts (cost and sizing logic)
+https://learn.microsoft.com/en-us/azure/migrate/concepts-assessment-calculation
+
+Migrate and Modernize + Azure Innovate partner-led offerings (TechCommunity)
+https://techcommunity.microsoft.com/t5/microsoft-partner-community-blog/what-s-new-with-azure-migrate-and-modernize-and-azure-innovate/ba-p/4360091</code></pre>
+
+        <h3>YouTube</h3>
+        <pre><code>Azure Migrate overview / walkthrough (search within Microsoft Mechanics)
+https://www.youtube.com/@MicrosoftMechanics/search?query=Azure%20Migrate
+
+Azure Migrate discovery and assessment (search query)
+https://www.youtube.com/results?search_query=Azure+Migrate+discovery+assessment
+
+Azure Migrate business case (search query)
+https://www.youtube.com/results?search_query=Azure+Migrate+business+case</code></pre>
+
+        <h3>GitHub</h3>
+        <pre><code>Azure Migrate Explore (community repo)
+https://github.com/oliverlabs/azure-migrate-explore
+
+Enterprise-scale / landing zones reference implementation
+https://github.com/Azure/Enterprise-Scale</code></pre>
+
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h3>Ready to operationalize your Azure journey?</h3>
+        <p>
+            I help organizations turn stalled cloud initiatives into execution engines.
+        </p>
+        <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+            <a href="../pages/contact.html" class="btn btn-primary">Contact Me</a>
+            <a href="../pages/azure-migration-toolkit.html" class="btn btn-outline">View the Toolkit</a>
+        </div>
+
+        <!-- Back to Blog Button -->
+        <div style="text-align: center; margin: 4rem 0;">
+            <a href="../blog.html" class="btn btn-primary" style="display: inline-block; padding: 1rem 2rem;">
+                <i class="fas fa-arrow-left"></i> Back to Insights
+            </a>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Upendra Kumar. All rights reserved. This content is personal and not affiliated with any
+                organization.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/journeytocloudwithupendra/" target="_blank" title="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/appliedailearner" target="_blank" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        if (hamburger && navMenu) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+        }
+    </script>
+
+    <!-- Smooth Navigation Enhancement -->
+    <script src="../js/case-study-nav.js"></script>
+    <script src="../js/particles.js"></script>
+</body>
+
+</html>
