@@ -43,12 +43,40 @@
 
         /* --- Premium Styles Matched to Reference Blog --- */
 
-        /* 1. Hero Section */
+        /* 1. Hero Section (Video Background) */
         .blog-post-hero {
-            padding: 120px 0 60px;
-            background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.15), transparent 60%);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            padding: 160px 0 100px;
+            /* Increased padding for impact */
+            overflow: hidden;
             text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.8) 0%, rgba(15, 23, 42, 0.6) 50%, #0f172a 100%);
+            z-index: 1;
+            backdrop-filter: blur(2px);
+        }
+
+        .blog-post-hero .container {
+            position: relative;
+            z-index: 2;
         }
 
         .blog-post-hero h1 {
@@ -58,6 +86,8 @@
             max-width: 900px;
             margin-left: auto;
             margin-right: auto;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            /* Better readability on video */
         }
 
         .blog-meta {
@@ -505,59 +535,48 @@
 
     <!-- Blog Post Hero -->
     <section class="blog-post-hero">
+        <video class="hero-bg-video" autoplay muted loop playsinline
+            poster="../assets/images/hero-poster-placeholder.jpg">
+            <source
+                src="https://pub-2d01be0306284df386da6dae9d2014d0.r2.dev/cinematic_enterprise_cloud_migration_hero_video_seamless.mp4"
+                type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+
         <div class="container" style="max-width: 1000px;">
             <div style="margin-bottom: 1rem;">
                 <a href="../blog.html"
-                    style="color: var(--primary-color); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                    style="color: var(--primary-color); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
                     <i class="fas fa-arrow-left"></i> Back to Insights
                 </a>
             </div>
 
             <h1
-                style="font-family: 'Outfit', sans-serif; font-size: 3rem; line-height: 1.2; margin-bottom: 1.5rem; background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                style="font-family: 'Outfit', sans-serif; font-size: 3.5rem; line-height: 1.1; margin-bottom: 1.5rem; color: #fff; text-shadow: 0 4px 30px rgba(0,0,0,0.8);">
                 From TCO to “Go”: The Wave 1 Azure Business Case Playbook
             </h1>
 
-            <div class="blog-post-meta">
+            <div class="blog-post-meta" style="text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
                 <div><i class="fas fa-user"></i> Upendra Kumar</div>
                 <div><i class="fas fa-calendar"></i> January 15, 2026</div>
                 <div><i class="fas fa-clock"></i> 10–12 min read</div>
             </div>
 
-            <div class="blog-post-tags">
-                <span class="blog-tag"><i class="fas fa-tag"></i> Azure Migrate</span>
-                <span class="blog-tag"><i class="fas fa-tag"></i> Cloud Migration</span>
-                <span class="blog-tag"><i class="fas fa-tag"></i> TCO</span>
-                <span class="blog-tag"><i class="fas fa-tag"></i> Funding Programs</span>
+            <div class="blog-post-tags" style="margin-bottom: 2rem;">
+                <span class="blog-tag"
+                    style="background: rgba(255,255,255,0.1); backdrop-filter: blur(4px); border-color: rgba(255,255,255,0.2);"><i
+                        class="fas fa-tag"></i> Azure Migrate</span>
+                <span class="blog-tag"
+                    style="background: rgba(255,255,255,0.1); backdrop-filter: blur(4px); border-color: rgba(255,255,255,0.2);"><i
+                        class="fas fa-tag"></i> Cloud Migration</span>
+                <span class="blog-tag"
+                    style="background: rgba(255,255,255,0.1); backdrop-filter: blur(4px); border-color: rgba(255,255,255,0.2);"><i
+                        class="fas fa-tag"></i> TCO</span>
+                <span class="blog-tag"
+                    style="background: rgba(255,255,255,0.1); backdrop-filter: blur(4px); border-color: rgba(255,255,255,0.2);"><i
+                        class="fas fa-tag"></i> Funding Programs</span>
             </div>
 
-            <!-- Hero Concept Visual -->
-            <div class="hero-concept-card" style="margin-top: 3rem;">
-                <div class="concept-item">
-                    <div class="concept-icon-circle">
-                        <i class="fas fa-calculator"></i>
-                    </div>
-                    <span class="concept-label">TCO Math</span>
-                </div>
-                <div class="concept-arrow">
-                    <i class="fas fa-arrow-right"></i>
-                </div>
-                <div class="concept-item">
-                    <div class="concept-icon-circle">
-                        <i class="fas fa-file-contract"></i>
-                    </div>
-                    <span class="concept-label">Business Case</span>
-                </div>
-                <div class="concept-arrow">
-                    <i class="fas fa-arrow-right"></i>
-                </div>
-                <div class="concept-item">
-                    <div class="concept-icon-circle">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <span class="concept-label">Wave 1 Go</span>
-                </div>
-            </div>
         </div>
     </section>
 
