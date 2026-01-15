@@ -366,13 +366,95 @@
             line-height: 1.2;
         }
 
-        .spec-title-sm {
-            color: #94a3b8;
+        /* --- Video Vault Grid (Premium Refinement) --- */
+        .video-vault-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        @media (min-width: 900px) {
+            .video-vault-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .video-card {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #1e293b;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+        }
+
+        .video-facade {
+            position: relative;
+            padding-bottom: 56.25%;
+            /* 16:9 Aspect Ratio */
+            height: 0;
+        }
+
+        .video-facade img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-card:hover .video-facade img {
+            opacity: 1;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.5rem;
+            border: 2px solid #fff;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .video-card:hover .play-button {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: #3b82f6;
+            border-color: #3b82f6;
+        }
+
+        .video-meta {
+            padding: 1.5rem;
+        }
+
+        .video-meta h4 {
+            margin: 0 0 0.5rem 0 !important;
+            font-size: 1.1rem;
+            color: #fff !important;
+            line-height: 1.4;
+        }
+
+        .video-meta p {
+            margin: 0;
             font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 0.5rem;
-            display: block;
+            color: #94a3b8;
         }
     </style>
 
@@ -836,15 +918,53 @@ https://learn.microsoft.com/en-us/azure/migrate/concepts-assessment-calculation
 Migrate and Modernize + Azure Innovate partner-led offerings (TechCommunity)
 https://techcommunity.microsoft.com/t5/microsoft-partner-community-blog/what-s-new-with-azure-migrate-and-modernize-and-azure-innovate/ba-p/4360091</code></pre>
 
-        <h3>YouTube</h3>
-        <pre><code>Azure Migrate overview / walkthrough (search within Microsoft Mechanics)
-https://www.youtube.com/@MicrosoftMechanics/search?query=Azure%20Migrate
+        <h3>Watch (Recommended Refresher)</h3>
+        <div class="video-vault-grid">
+            <!-- Video 1: Overview -->
+            <div class="video-card" onclick="loadVideo(this)" data-id="wFqm-OI1kQ8">
+                <div class="video-facade">
+                    <img src="https://img.youtube.com/vi/wFqm-OI1kQ8/maxresdefault.jpg" alt="Azure Migrate Overview"
+                        loading="lazy">
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-meta">
+                    <h4>Azure Migrate Overview</h4>
+                    <p>Microsoft Mechanics walkthrough of the assessment flow.</p>
+                </div>
+            </div>
 
-Azure Migrate discovery and assessment (search query)
-https://www.youtube.com/results?search_query=Azure+Migrate+discovery+assessment
+            <!-- Video 2: Discovery -->
+            <div class="video-card" onclick="loadVideo(this)" data-id="AuqcDfM5wP8">
+                <div class="video-facade">
+                    <img src="https://img.youtube.com/vi/AuqcDfM5wP8/maxresdefault.jpg" alt="Agentless Discovery"
+                        loading="lazy">
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-meta">
+                    <h4>Discovery & Assessment</h4>
+                    <p>Deep dive into agentless discovery for VMware/Hyper-V.</p>
+                </div>
+            </div>
 
-Azure Migrate business case (search query)
-https://www.youtube.com/results?search_query=Azure+Migrate+business+case</code></pre>
+            <!-- Video 3: Business Case -->
+            <div class="video-card" onclick="loadVideo(this)" data-id="yFZMwAl7dZ8">
+                <div class="video-facade">
+                    <img src="https://img.youtube.com/vi/yFZMwAl7dZ8/maxresdefault.jpg" alt="Building a Business Case"
+                        loading="lazy">
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-meta">
+                    <h4>Building the Business Case</h4>
+                    <p>How to generate the TCO/Business case report.</p>
+                </div>
+            </div>
+        </div>
 
         <h3>GitHub</h3>
         <pre><code>Azure Migrate Explore (community repo)
@@ -903,6 +1023,29 @@ https://github.com/Azure/Enterprise-Scale</code></pre>
 
     <!-- Smooth Navigation Enhancement -->
     <script src="../js/case-study-nav.js"></script>
+    <script>
+        // Load Video Function
+        function loadVideo(card) {
+            const videoId = card.getAttribute('data-id');
+            const start = card.getAttribute('data-start');
+            const iframe = document.createElement('iframe');
+            let src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            if (start) src += `&start=${start}`;
+
+            iframe.setAttribute('src', src);
+            iframe.setAttribute('frameborder', '0');
+            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+            iframe.setAttribute('allowfullscreen', '');
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.position = 'absolute';
+            iframe.style.top = '0';
+            iframe.style.left = '0';
+
+            card.innerHTML = '';
+            card.appendChild(iframe);
+        }
+    </script>
     <script src="../js/particles.js"></script>
 </body>
 
