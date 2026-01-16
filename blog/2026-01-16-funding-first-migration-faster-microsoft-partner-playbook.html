@@ -472,6 +472,76 @@
             color: #fff;
             font-family: 'Outfit', sans-serif;
         }
+
+        /* --- Project Spec Bar (Injected) --- */
+        .project-spec-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 3rem 0;
+            align-items: center;
+        }
+
+        .spec-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .spec-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #94a3b8;
+            margin-bottom: 0.5rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .spec-value {
+            font-size: 1.1rem;
+            color: #fff;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .spec-value i {
+            color: #3b82f6;
+            /* Blue for general */
+        }
+
+        .spec-value.wave-1 i {
+            color: #f59e0b;
+            /* Amber/Gold for Wave 1 */
+        }
+
+        .spec-highlight {
+            color: #fff;
+            font-weight: 800;
+        }
+
+        .spec-divider {
+            width: 1px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .spec-divider {
+                display: none;
+            }
+
+            .project-spec-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
+            }
+        }
     </style>
 
     <!-- Performance: Preconnect to Font & Script Servers -->
