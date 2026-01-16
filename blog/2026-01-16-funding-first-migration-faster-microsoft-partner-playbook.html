@@ -398,6 +398,80 @@
         .executive-insight strong {
             color: #fbbf24;
         }
+
+        /* --- Premium Intro Refinement (Injected) --- */
+        .premium-insight-box {
+            background: #020617;
+            /* Very dark slate/black */
+            border-left: 4px solid #3b82f6;
+            /* Bright Blue */
+            padding: 2.5rem;
+            margin: 3rem 0 2rem;
+            border-radius: 8px;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .premium-insight-box p {
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        .premium-insight-box .icon-bulb {
+            color: #fbbf24;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            vertical-align: middle;
+        }
+
+        /* Premium List */
+        .premium-list-purple {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+        }
+
+        .premium-list-purple li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1.25rem;
+            color: #e2e8f0;
+            font-size: 1.15rem;
+            line-height: 1.6;
+        }
+
+        .premium-list-purple li::before {
+            content: '\f054';
+            /* FontAwesome Chevron Right */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 4px;
+            /* Align with text */
+            color: #a855f7;
+            /* Purple */
+            font-size: 0.9rem;
+        }
+
+        /* Scope Metadata */
+        .scope-metadata {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            font-size: 1rem;
+        }
+
+        .scope-metadata strong {
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+        }
     </style>
 
     <!-- Performance: Preconnect to Font & Script Servers -->
@@ -485,41 +559,31 @@
 
     <!-- Blog Post Content -->
     <article class="blog-post-content">
-        <div class="insight-box" style="
-            background: linear-gradient(to right, rgba(59, 130, 246, 0.1), transparent);
-            border-left: 4px solid #3b82f6;
-            padding: 2rem;
-            margin: 3rem 0;
-            border-radius: 0 12px 12px 0;
-            font-size: 1.35rem;
-            line-height: 1.6;
-            color: #e2e8f0;
-            font-family: 'Outfit', sans-serif;
-            position: relative;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        ">
-            <i class="fas fa-lightbulb" style="color: #fbbf24; margin-right: 0.8rem; font-size: 1.2rem;"></i>
-            Wave 1 migration approvals are rarely blocked by technology. They are blocked by unclear answers to
-            leadership questions.
+        <div class="premium-insight-box">
+            <p>
+                <i class="fas fa-lightbulb icon-bulb"></i>
+                Wave 1 migration approvals are rarely blocked by technology. They are blocked by unclear answers to
+                leadership questions.
+            </p>
         </div>
 
-        <!-- Content Body -->
-        <p>
-        <ul>
+        <ul class="premium-list-purple">
             <li>What is the cost impact and why now?</li>
             <li>What are the risks and how are they controlled?</li>
             <li>What will Wave 1 deliver, and when?</li>
             <li>What evidence proves execution and outcomes?</li>
         </ul>
-        </p>
-        <p>
+
+        <p style="font-size: 1.15rem; color: #cbd5e1; line-height: 1.8; margin-bottom: 2rem;">
             This guide explains how Microsoft funding programs can support Azure migrations, and how partners should
             package the work so it is eligible, auditable, and repeatable.
         </p>
-        <p>
-            <strong>Example scope used throughout:</strong> 254 servers, 132 applications<br>
-            <strong>Wave 1 example:</strong> 30 application services
-        </p>
+
+        <div class="scope-metadata">
+            <p style="margin-bottom: 0.5rem;"><strong>Example scope used throughout:</strong> 254 servers, 132
+                applications</p>
+            <p><strong>Wave 1 example:</strong> 30 application services</p>
+        </div>
 
         <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
 
