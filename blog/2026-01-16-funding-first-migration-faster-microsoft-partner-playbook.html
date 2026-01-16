@@ -104,11 +104,45 @@
         .blog-post-content ul,
         .blog-post-content ol {
             margin-bottom: 2rem;
-            padding-left: 2rem;
+            padding-left: 1rem;
         }
 
-        .blog-post-content li {
-            margin-bottom: 0.5rem;
+        /* Custom Bullet Lists */
+        .blog-post-content ul {
+            list-style: none;
+        }
+
+        .blog-post-content ul li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .blog-post-content ul li::before {
+            content: "›";
+            position: absolute;
+            left: 0;
+            color: #a855f7;
+            font-weight: bold;
+            font-size: 1.4rem;
+            line-height: 1.2rem;
+            top: -4px;
+        }
+
+        /* Styled Ordered Lists */
+        .blog-post-content ol {
+            padding-left: 1.5rem;
+        }
+
+        .blog-post-content ol li {
+            margin-bottom: 0.8rem;
+            padding-left: 0.5rem;
+        }
+
+        .blog-post-content ol li::marker {
+            color: #3b82f6;
+            font-weight: bold;
+            font-family: 'Outfit', sans-serif;
         }
 
         .blog-post-content code {
@@ -143,22 +177,40 @@
 
         .blog-post-content table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
             margin: 2rem 0;
             font-size: 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
         .blog-post-content th,
         .blog-post-content td {
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 0.75rem;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1rem;
             text-align: left;
+            vertical-align: top;
         }
 
         .blog-post-content th {
-            background: rgba(255, 255, 255, 0.05);
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.1));
             color: #fff;
             font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .blog-post-content tr:last-child td {
+            border-bottom: none;
+        }
+
+        .blog-post-content tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
         }
 
         .blog-post-meta {
@@ -375,7 +427,7 @@
             <img src="../assets/images/blog/2026-01-16/funding-process-flow.webp"
                 alt="Strategic Transformation Flow: Six-Stage Innovation Accelerator" loading="lazy" width="1024"
                 height="1024"
-                style="width: 100%; max-width: 600px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+                style="width: 100%; max-width: 900px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
             <figcaption style="margin-top: 0.5rem; color: var(--text-muted); font-size: 0.9rem; font-style: italic;">
                 Fig 1. The Strategic Transformation Flow – From Qualification to Partner Center Execution
             </figcaption>
