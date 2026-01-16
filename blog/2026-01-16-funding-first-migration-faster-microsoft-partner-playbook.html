@@ -996,6 +996,50 @@
         <h2><span class="gradient-text">11) A client-ready starter kit (what to standardize)</span></h2>
         <p>If you want to win consistently, standardize your deliverables.</p>
 
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2>Referenced Videos</h2>
+        <div class="video-vault-grid">
+            <!-- Video 1: Playlist -->
+            <div class="video-card" onclick="loadVideo(this)"
+                data-id="videoseries?list=PLLasX02E8BPCgjg7XIk-1eOIZyTjS-3XW">
+                <div class="video-facade">
+                    <img src="https://img.youtube.com/vi/oxqP5mwWLu4/hqdefault.jpg" alt="Azure Migrate Playlist"
+                        loading="lazy">
+                    <div class="play-button"><i class="fas fa-play"></i></div>
+                </div>
+                <div class="video-meta">
+                    <h4>Azure Migrate Playlist</h4>
+                    <p>Technical how-to series for Azure Migrate.</p>
+                </div>
+            </div>
+            <!-- Video 2: ESLZ -->
+            <div class="video-card" onclick="loadVideo(this)" data-id="wWLxxj-uMsY">
+                <div class="video-facade">
+                    <img src="https://img.youtube.com/vi/wWLxxj-uMsY/hqdefault.jpg" alt="ESLZ Explained" loading="lazy">
+                    <div class="play-button"><i class="fas fa-play"></i></div>
+                </div>
+                <div class="video-meta">
+                    <h4>ESLZ Explained</h4>
+                    <p>Enterprise-scale landing zones architecture.</p>
+                </div>
+            </div>
+            <!-- Video 3: Business Case -->
+            <div class="video-card" onclick="loadVideo(this)" data-id="TmoEpeBJWMI">
+                <div class="video-facade">
+                    <img src="https://img.youtube.com/vi/TmoEpeBJWMI/hqdefault.jpg" alt="Building a Business Case"
+                        loading="lazy">
+                    <div class="play-button"><i class="fas fa-play"></i></div>
+                </div>
+                <div class="video-meta">
+                    <h4>Building the Business Case</h4>
+                    <p>How to generate the TCO/Business case report.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
         <!-- Starter Kit Download Box (Updated) -->
         <div
             style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; padding: 2rem; margin: 2rem 0; text-align: center;">
@@ -1141,6 +1185,27 @@
 
     <!-- Smooth Navigation Enhancement -->
     <script src="../js/case-study-nav.js"></script>
+    <script>
+        // Load Video Function
+        function loadVideo(card) {
+            const videoId = card.getAttribute('data-id');
+            const iframe = document.createElement('iframe');
+            let src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+
+            iframe.setAttribute('src', src);
+            iframe.setAttribute('frameborder', '0');
+            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+            iframe.setAttribute('allowfullscreen', '');
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.position = 'absolute';
+            iframe.style.top = '0';
+            iframe.style.left = '0';
+
+            card.innerHTML = '';
+            card.appendChild(iframe);
+        }
+    </script>
     <script src="../js/particles.js"></script>
 </body>
 
