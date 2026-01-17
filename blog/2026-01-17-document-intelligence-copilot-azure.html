@@ -744,27 +744,42 @@
 
         <div class="project-spec-bar" style="display: block; background: rgba(0,0,0,0.3);">
             <h4 style="margin-top: 0; color: #fff; margin-bottom: 2rem;">Diagram 1: The Logical Flow</h4>
-            <div class="mermaid" style="text-align: center;">
+            <div class="mermaid"
+                style="text-align: center; background: #0f172a; padding: 2rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
                 graph LR
-                User["User / Copilot Studio"] -->|"HTTPS"| APIM["Azure API Management"]
-                APIM -->|"Validate JWT"| Gate{"Gateway"}
-                Gate -->|"Chat"| Orch["RAG Orchestrator (AKS)"]
-                Gate -->|"Ingest"| Worker["Ingestion Worker (AKS)"]
+                %% Define Azure-like Styles
+                classDef azure fill:#0078D4,stroke:#0078D4,color:white,rx:4,ry:4,stroke-width:2px;
+                classDef secure fill:#1e293b,stroke:#0078D4,color:#38bdf8,rx:4,ry:4,stroke-width:2px,stroke-dasharray: 5
+                5;
+                classDef database fill:#fff,stroke:#0078D4,color:#0078D4,rx:4,ry:4,stroke-width:2px;
+                classDef user fill:#64748b,stroke:none,color:white,rx:20,ry:20;
+                classDef gateway fill:#f59e0b,stroke:none,color:black,rx:2,ry:2;
 
-                Orch -->|"Search"| AIS["Azure AI Search"]
-                Orch -->|"Generate"| OpenAI["Azure OpenAI"]
-                Worker -->|"Extract"| DocIntel["Document Intelligence"]
-                Worker -->|"Store"| Blob["ADLS Gen2"]
+                %% Nodes with Icons (FontAwesome approximation)
+                User(User / Copilot Studio):::user -->|"HTTPS (443)"| APIM(fa:fa-shield-alt Azure API
+                Management):::secure
+                APIM -->|"Validate JWT"| Gate{Gateway}:::gateway
 
-                subgraph "Private VNET"
-                Orch
-                Worker
-                AIS
-                OpenAI
-                DocIntel
-                Blob
+                Gate -->|"Chat Request"| Orch(fa:fa-server Orchestrator / AKS):::azure
+                Gate -->|"Ingest Job"| Worker(fa:fa-cogs Ingestion Worker / AKS):::azure
+
+                subgraph "🛡️ Private VNET (10.0.0.0/16)"
+                direction TB
+                Orch -->|"Vector Search"| AIS(fa:fa-search Azure AI Search):::azure
+                Orch -->|"Completions (GPT-4)"| OpenAI(fa:fa-brain Azure OpenAI):::azure
+                Worker -->|"Layout Model"| DocIntel(fa:fa-file-contract Document Intelligence):::azure
+                Worker -->|"Raw Storage"| Blob(fa:fa-database ADLS Gen2):::database
                 end
             </div>
+        </div>
+
+        <div
+            style="margin-top: 1rem; padding: 1rem; background: rgba(255,255,255,0.03); border-radius: 8px; font-size: 0.9rem; color: #94a3b8; border: 1px dashed rgba(255,255,255,0.1);">
+            <strong>💡 Pro Tip:</strong> To create "Official" Microsoft diagrams, download the <a
+                href="https://learn.microsoft.com/en-us/azure/architecture/guide/icons" target="_blank"
+                style="color: #38bdf8;">Azure Architecture Icon Set (SVG)</a> and use it in Visio or Draw.io. The above
+            is a logical view rendered in code.
+        </div>
         </div>
 
         <div class="premium-insight-box"
