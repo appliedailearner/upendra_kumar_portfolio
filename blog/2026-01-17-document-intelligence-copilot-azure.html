@@ -703,6 +703,27 @@
   /load-testing (Locust)
         </code></pre>
 
+        <h3>C) The Pipeline (GitHub Actions Snippet)</h3>
+        <p>Friends don't let friends deploy broken XML. Validate it before the merge.</p>
+        <pre><code class="language-yaml">
+name: Validate APIM Policies
+on: [pull_request]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      # Don't deploy. Just check if the XML is valid.
+      - name: Check XML Syntax
+        run: |
+          find ./policies -name "*.xml" -print0 | xargs -0 -I {} xmllint --noout {}
+          
+      - name: Run OPA Policy Check
+        run: ./scripts/check-compliance.sh # e.g., ensure no "star" allows
+        </code></pre>
+
         <h2><span class="gradient-text">10) Go-live checklist</span></h2>
         <ul>
             <li>UI calls APIM only</li>
