@@ -464,11 +464,13 @@
                     </p>
                     <ul class="premium-list-purple" style="margin: 0 0 1.5rem 0; font-size: 1rem;">
                         <li><i class="fas fa-check" style="color: #22c55e; margin-right: 0.5rem;"></i>
-                            <strong>Architecture Diagrams</strong> (Visio/Mermaid)</li>
+                            <strong>Architecture Diagrams</strong> (Visio/Mermaid)
+                        </li>
                         <li><i class="fas fa-check" style="color: #22c55e; margin-right: 0.5rem;"></i> <strong>APIM
                                 Policy Pack</strong> (12+ policies)</li>
                         <li><i class="fas fa-check" style="color: #22c55e; margin-right: 0.5rem;"></i>
-                            <strong>Bicep/Terraform Modules</strong> (AKS, Search, AI)</li>
+                            <strong>Bicep/Terraform Modules</strong> (AKS, Search, AI)
+                        </li>
                         <li><i class="fas fa-check" style="color: #22c55e; margin-right: 0.5rem;"></i> <strong>Security
                                 Audit Checklist</strong> (Excel)</li>
                     </ul>
@@ -636,31 +638,29 @@
         <h2><span class="gradient-text">8) The Architecture Board ( diagrams)</span></h2>
         <p>Use these prompts to generate your official documentation diagrams. Standard notation matters.</p>
 
-        <div class="project-spec-bar" style="display: block;">
-            <h4 style="margin-top: 0; color: #fff;">Diagram 1: The Logical Flow (Mermaid)</h4>
-            <pre><code class="language-mermaid">
-graph LR
-    User[User / Copilot Studio] -->|HTTPS| APIM[Azure API Management]
-    APIM -->|Validate JWT| Gateway{Gateway}
-    Gateway -->|Chat| Orch[RAG Orchestrator (AKS)]
-    Gateway -->|Ingest| Worker[Ingestion Worker (AKS)]
-    
-    Orch -->|Search| AIS[Azure AI Search]
-    Orch -->|Generate| OpenAI[Azure OpenAI]
-    Worker -->|Extract| DocIntel[Document Intelligence]
-    Worker -->|Store| Blob[ADLS Gen2]
-    
-    subgraph "Private VNET"
-        Orch
-        Worker
-        AIS
-        OpenAI
-        DocIntel
-        Blob
-    end
-            </code></pre>
-            <p style="font-size: 0.9rem; margin-top: 1rem;"><em>Tip: Copy this into Mermaid Live Editor to generate your
-                    high-level view.</em></p>
+        <div class="project-spec-bar" style="display: block; background: rgba(0,0,0,0.3);">
+            <h4 style="margin-top: 0; color: #fff; margin-bottom: 2rem;">Diagram 1: The Logical Flow</h4>
+            <div class="mermaid" style="text-align: center;">
+                graph LR
+                User[User / Copilot Studio] -->|HTTPS| APIM[Azure API Management]
+                APIM -->|Validate JWT| Gateway{Gateway}
+                Gateway -->|Chat| Orch[RAG Orchestrator (AKS)]
+                Gateway -->|Ingest| Worker[Ingestion Worker (AKS)]
+
+                Orch -->|Search| AIS[Azure AI Search]
+                Orch -->|Generate| OpenAI[Azure OpenAI]
+                Worker -->|Extract| DocIntel[Document Intelligence]
+                Worker -->|Store| Blob[ADLS Gen2]
+
+                subgraph "Private VNET"
+                Orch
+                Worker
+                AIS
+                OpenAI
+                DocIntel
+                Blob
+                end
+            </div>
         </div>
 
         <h2><span class="gradient-text">9) The Build Room (Copy-Paste)</span></h2>
@@ -763,6 +763,17 @@ graph LR
     <!-- Smooth Navigation Enhancement -->
     <script src="../js/case-study-nav.js"></script>
     <script src="../js/particles.js"></script>
+
+    <!-- Mermaid Diagram Renderer -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            securityLevel: 'loose',
+            fontFamily: 'Outfit'
+        });
+    </script>
 </body>
 
 </html>
