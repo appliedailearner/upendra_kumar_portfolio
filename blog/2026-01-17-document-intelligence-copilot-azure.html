@@ -746,15 +746,15 @@
             <h4 style="margin-top: 0; color: #fff; margin-bottom: 2rem;">Diagram 1: The Logical Flow</h4>
             <div class="mermaid" style="text-align: center;">
                 graph LR
-                User[User / Copilot Studio] -->|HTTPS| APIM[Azure API Management]
-                APIM -->|Validate JWT| Gateway{Gateway}
-                Gateway -->|Chat| Orch[RAG Orchestrator (AKS)]
-                Gateway -->|Ingest| Worker[Ingestion Worker (AKS)]
+                User["User / Copilot Studio"] -->|"HTTPS"| APIM["Azure API Management"]
+                APIM -->|"Validate JWT"| Gate{"Gateway"}
+                Gate -->|"Chat"| Orch["RAG Orchestrator (AKS)"]
+                Gate -->|"Ingest"| Worker["Ingestion Worker (AKS)"]
 
-                Orch -->|Search| AIS[Azure AI Search]
-                Orch -->|Generate| OpenAI[Azure OpenAI]
-                Worker -->|Extract| DocIntel[Document Intelligence]
-                Worker -->|Store| Blob[ADLS Gen2]
+                Orch -->|"Search"| AIS["Azure AI Search"]
+                Orch -->|"Generate"| OpenAI["Azure OpenAI"]
+                Worker -->|"Extract"| DocIntel["Document Intelligence"]
+                Worker -->|"Store"| Blob["ADLS Gen2"]
 
                 subgraph "Private VNET"
                 Orch
