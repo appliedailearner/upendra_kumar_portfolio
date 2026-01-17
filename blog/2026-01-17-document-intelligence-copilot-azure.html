@@ -742,150 +742,145 @@
         <h2><span class="gradient-text">8) The Architecture Board ( diagrams)</span></h2>
         <p>Use these prompts to generate your official documentation diagrams. Standard notation matters.</p>
 
-        <!-- "GEMINI BANANA" V2: ALIGNED & LABELED -->
+        <!-- "GEMINI BANANA" V3: ENTERPRISE SECURE (CF + FW) -->
         <style>
             .arch-wrapper {
                 background: #0b0f19;
-                border: 1px solid #2d3748;
-                border-radius: 16px;
-                padding: 3rem 2rem;
+                /* Deep Azure Dark */
+                border: 1px solid #334155;
+                border-radius: 12px;
+                padding: 2rem;
                 margin: 2rem 0;
                 position: relative;
-                overflow: hidden;
+                /* Fix for truncation: horizontal scroll if needed on small screens */
+                overflow-x: auto;
+                box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
             }
 
-            /* 4-Column Grid, 3-Row Layout for stepped flow */
-            .arch-grid-v2 {
+            /* 5-Column Compact Grid */
+            .arch-grid-v3 {
                 display: grid;
-                grid-template-columns: 120px 220px 80px 1fr;
-                /* User | Hub | Link | Spoke */
-                grid-template-rows: auto auto auto;
-                gap: 1.5rem;
+                /* User | CF | Hub (Twin Col) | Link | Spoke */
+                grid-template-columns: min-content min-content 240px 40px 1fr;
+                grid-template-rows: auto;
+                gap: 1rem;
+                align-items: center;
+                min-width: 800px;
+                /* Ensure it doesn't crush on small screens */
                 position: relative;
                 z-index: 2;
             }
 
-            /* Containers */
-            .az-sub-box {
-                border: 2px dashed #4b5563;
+            /* Subscription Containers */
+            .sub-box {
+                border: 1px dashed #4b5563;
                 border-radius: 12px;
-                padding: 1.5rem;
-                background: rgba(31, 41, 55, 0.3);
+                padding: 1.5rem 1rem;
+                background: rgba(30, 41, 59, 0.4);
                 position: relative;
+                height: 90%;
             }
 
-            /* Hub Subscription (Column 2) */
-            .sub-hub {
-                grid-column: 2;
-                grid-row: 1 / span 3;
-                margin-bottom: 0;
-                display: flex;
-                flex-direction: column;
-                gap: 3rem;
-                justify-content: flex-start;
-            }
-
-            /* Spoke Subscription (Column 4) */
-            .sub-spoke {
-                grid-column: 4;
-                grid-row: 1 / span 3;
-                display: flex;
-                flex-direction: column;
-                gap: 2rem;
-                border-color: #3b82f6;
-                /* Blue for Prod */
-            }
-
-            /* Subscription Labels */
-            .sub-label {
+            .label-sub {
                 position: absolute;
-                top: -12px;
-                left: 16px;
+                top: -10px;
+                left: 12px;
                 background: #0b0f19;
                 padding: 0 8px;
-                color: #9ca3af;
-                font-size: 0.75rem;
-                font-weight: bold;
+                color: #94a3b8;
+                font-size: 0.7rem;
+                font-weight: 700;
                 text-transform: uppercase;
                 display: flex;
-                align-items: center;
                 gap: 6px;
+                align-items: center;
+                border: 1px solid #334155;
+                border-radius: 4px;
             }
 
-            .sub-icon {
-                width: 16px;
-                height: 16px;
+            /* Hub Specifics */
+            .hub-col {
+                grid-column: 3;
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
             }
 
-            /* Node Styling */
-            .az-node {
-                background: #1f2937;
-                border: 1px solid #374151;
+            /* Spoke Specifics */
+            .spoke-col {
+                grid-column: 5;
+                border-color: #3b82f6;
+            }
+
+            /* Node Styles */
+            .node-card {
+                background: #1e293b;
+                border: 1px solid #475569;
                 border-radius: 8px;
-                padding: 0.8rem;
+                padding: 0.6rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.3rem;
                 text-align: center;
                 position: relative;
                 z-index: 10;
+                min-width: 90px;
+                transition: transform 0.2s;
+            }
+
+            .node-card:hover {
+                border-color: #38bdf8;
+                box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
+                transform: translateY(-2px);
+            }
+
+            .icon-box {
+                width: 32px;
+                height: 32px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .icon-svg {
                 width: 100%;
+                height: 100%;
             }
 
-            .az-node:hover {
-                box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
-                border-color: #60a5fa;
-            }
-
-            .az-icon-img {
-                width: 40px;
-                height: 40px;
-                margin-bottom: 0.5rem;
-            }
-
-            .az-title {
-                font-size: 0.85rem;
-                color: #fff;
-                font-weight: 600;
-                line-height: 1.2;
-            }
-
-            .az-desc {
-                font-size: 0.7rem;
-                color: #9ca3af;
-                margin-top: 2px;
-            }
-
-            /* Sequence Badges (Circular Icons) */
-            .seq-badge {
-                position: absolute;
-                width: 24px;
-                height: 24px;
-                background: #f59e0b;
-                /* Amber */
-                color: #000;
-                border-radius: 50%;
+            .txt-title {
                 font-size: 0.75rem;
-                font-weight: bold;
+                font-weight: 700;
+                color: #f1f5f9;
+                white-space: nowrap;
+            }
+
+            .txt-sub {
+                font-size: 0.6rem;
+                color: #94a3b8;
+            }
+
+            /* Sequence Badges (Circle Numbers) */
+            .badge-seq {
+                position: absolute;
+                top: -8px;
+                left: -8px;
+                width: 20px;
+                height: 20px;
+                background: #f59e0b;
+                color: #0f172a;
+                border-radius: 50%;
+                font-size: 0.7rem;
+                font-weight: 800;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                z-index: 20;
                 box-shadow: 0 0 0 3px #0b0f19;
-                /* stroke effect */
+                z-index: 20;
             }
 
-            /* Flow Labels on lines */
-            .flow-label {
-                position: absolute;
-                background: #0b0f19;
-                color: #60a5fa;
-                font-size: 0.7rem;
-                padding: 2px 6px;
-                border-radius: 4px;
-                border: 1px solid #1f2937;
-                z-index: 6;
-            }
-
-            /* SVG Overlay */
-            .svg-layer {
+            /* Connectors */
+            .svg-connect {
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -895,178 +890,206 @@
                 z-index: 5;
             }
 
-            .line-base {
+            .path-static {
                 fill: none;
-                stroke: #374151;
+                stroke: #475569;
                 stroke-width: 2px;
             }
 
-            .line-anim {
+            .path-active {
                 fill: none;
-                stroke: #60a5fa;
+                stroke: #38bdf8;
                 stroke-width: 2px;
-                stroke-dasharray: 8 8;
-                animation: flowDash 1.5s linear infinite;
+                stroke-dasharray: 6 6;
+                animation: flowSnake 1.2s linear infinite;
             }
 
-            @keyframes flowDash {
+            @keyframes flowSnake {
                 to {
-                    stroke-dashoffset: -16;
+                    stroke-dashoffset: -12;
                 }
+            }
+
+            /* Annotations on Lines */
+            .line-note {
+                position: absolute;
+                background: #0f172a;
+                color: #38bdf8;
+                font-size: 0.65rem;
+                padding: 1px 5px;
+                border: 1px solid #1e293b;
+                border-radius: 4px;
+                z-index: 6;
             }
         </style>
 
         <div class="arch-wrapper">
 
-            <!-- SVG Connections: Tuned to "Step Down" Layout coordinates -->
-            <svg class="svg-layer">
-                <!-- 1. User -> AppGw (Horizontal) -->
-                <!-- Approx: User Center(60, 100) -> AppGw Center(230, 100) -->
-                <path d="M 120 100 L 190 100" class="line-base" />
-                <path d="M 120 100 L 190 100" class="line-anim" />
+            <!-- SVG CONNECTOR LAYER -->
+            <!-- Coordinates are relative to the 800px min-width layout -->
+            <svg class="svg-connect">
+                <!-- 1. User -> Cloudflare -->
+                <path d="M 60 180 L 130 180" class="path-active" />
 
-                <!-- 2. AppGw -> APIM (Vertical Down) -->
-                <!-- AppGw Center(230, 100) -> APIM Center(230, 260) -->
-                <path d="M 230 156 L 230 200" class="line-base" />
-                <path d="M 230 156 L 230 200" class="line-anim" />
+                <!-- 2. Cloudflare -> AppGw -->
+                <path d="M 210 180 L 260 180" class="path-active" />
 
-                <!-- 3. APIM -> AKS (Horizontal Right) -->
-                <!-- APIM Center(230, 260) -> AKS Center(500, 260) -->
-                <path d="M 290 260 L 460 260" class="line-base" />
-                <path d="M 290 260 L 460 260" class="line-anim" />
+                <!-- 3. AppGw -> Firewall (Down) -->
+                <path d="M 320 220 L 320 260" class="path-active" />
 
-                <!-- 4. AKS -> AI Services (Fork) -->
-                <!-- AKS(550, 260) -> Search(700, 180) & OpenAI(700, 320) -->
-                <path d="M 560 260 L 600 260 L 600 150 L 640 150" class="line-base" /> <!-- To Search -->
-                <path d="M 560 260 L 600 260 L 600 150 L 640 150" class="line-anim" />
+                <!-- 4. Firewall -> APIM (Down) -->
+                <path d="M 320 320 L 320 360" class="path-active" />
 
-                <path d="M 560 260 L 600 260 L 600 350 L 640 350" class="line-base" /> <!-- To OpenAI -->
-                <path d="M 560 260 L 600 260 L 600 350 L 640 350" class="line-anim" />
+                <!-- 5. APIM -> AKS (Right across Link) -->
+                <path d="M 380 400 L 520 250" class="path-active" /> <!-- Diagonal Jump to VNET -->
+                <!-- Correct logic: APIM (bottom left) -> AKS (top right ish) -->
+                <path d="M 380 400 L 440 400 L 440 250 L 520 250" class="path-static" />
+                <path d="M 380 400 L 440 400 L 440 250 L 520 250" class="path-active" />
+
+                <!-- 6. AKS -> AI (Split) -->
+                <path d="M 600 250 L 640 250 L 640 180 L 680 180" class="path-active" /> <!-- Search -->
+                <path d="M 600 250 L 640 250 L 640 320 L 680 320" class="path-active" /> <!-- OpenAI -->
             </svg>
 
-            <!-- FLOW LABELS (Positioned manually over SVG paths) -->
-            <div class="flow-label" style="top: 85px; left: 135px;">1. HTTPS</div>
-            <div class="flow-label" style="top: 170px; left: 235px;">2. VNET Route</div>
-            <div class="flow-label" style="top: 245px; left: 350px;">3. mTLS / JWT</div>
-            <div class="flow-label" style="top: 360px; left: 600px;">4b. GenAI</div>
+            <div class="line-note" style="top: 165px; left: 80px;">HTTPS</div>
+            <div class="line-note" style="top: 165px; left: 215px;">Tunnel</div>
+            <div class="line-note" style="top: 235px; left: 330px;">Insp.</div>
+            <div class="line-note" style="top: 335px; left: 330px;">Policy</div>
 
             <!-- MAIN GRID -->
-            <div class="arch-grid-v2">
+            <div class="arch-grid-v3">
 
-                <!-- USER (Col 1) -->
-                <div style="grid-column: 1; align-self: start; margin-top: 60px;">
-                    <div class="az-node" style="border-color: transparent; background: transparent;">
-                        <img src="https://img.icons8.com/color/96/user-male-circle--v1.png" class="az-icon-img"
-                            alt="User">
-                        <div class="az-title">User</div>
+                <!-- 1. USER -->
+                <div style="text-align: center;">
+                    <div class="node-card" style="border: none; background: transparent;">
+                        <img src="https://img.icons8.com/color/96/user-male-circle--v1.png" style="width:50px;">
+                        <div class="txt-title">User</div>
                     </div>
                 </div>
 
-                <!-- HUB SUB (Col 2) -->
-                <div class="az-sub-box sub-hub">
-                    <div class="sub-label">
-                        <img src="https://img.icons8.com/fluency/48/azure-subscription.png" class="sub-icon"> Shared
-                        Services
-                    </div>
-
-                    <!-- 1. App Gateway -->
-                    <div class="az-node" style="margin-top: 1rem;">
-                        <div class="seq-badge" style="top: -10px; left: -10px;">1</div>
-                        <svg class="az-icon-img" viewBox="0 0 50 50">
-                            <circle cx="25" cy="25" r="23" fill="#0078D4" />
-                            <path d="M15 25 L35 25 M35 25 L28 18 M35 25 L28 32 M15 15 L15 35" stroke="white"
-                                stroke-width="3" fill="none" />
-                        </svg>
-                        <div class="az-title">App Gateway</div>
-                        <div class="az-desc">WAF v2</div>
-                    </div>
-
-                    <!-- 2. APIM -->
-                    <div class="az-node">
-                        <div class="seq-badge" style="top: -10px; left: -10px;">2</div>
-                        <svg class="az-icon-img" viewBox="0 0 50 50">
-                            <path d="M25 2 C12 2 2 12 2 25 C2 38 12 48 25 48 C38 48 48 38 48 25 C48 12 38 2 25 2"
-                                fill="none" stroke="#fff" stroke-width="2" />
-                            <path d="M25 5 L10 15 L10 35 L25 45 L40 35 L40 15 Z" fill="#0078D4" />
-                            <text x="50%" y="60%" text-anchor="middle" fill="white" font-size="10"
-                                font-weight="bold">API</text>
-                        </svg>
-                        <div class="az-title">APIM</div>
-                        <div class="az-desc">Standard v2</div>
+                <!-- 2. CLOUDFLARE (Ingress) -->
+                <div>
+                    <div class="node-card" style="border-color: #fca5a5;">
+                        <div class="badge-seq">1</div>
+                        <div class="icon-box">
+                            <!-- Cloudflare / Shield Icon -->
+                            <svg viewBox="0 0 24 24" fill="#F48120">
+                                <path
+                                    d="M11.96 6.32c-.17 0-.34.01-.51.04-1.92-2.1-5.11-2.28-7.23-.39-1.63 1.45-2.07 3.74-1.09 5.67C1.94 11.92 1.05 13.04.57 14.3c-.56 1.48-.3 3.16.68 4.38 1 1.25 2.51 1.99 4.12 2.01h12.55c2.98.05 5.56-2.19 5.92-5.15.42-3.41-1.84-6.52-5.18-7.12-.51-1.3-1.68-2.26-3.05-2.51-.71-2.18-2.73-3.64-5.02-3.61-.21.01-.42.02-.63.03z" />
+                            </svg>
+                        </div>
+                        <div class="txt-title">Cloudflare</div>
+                        <div class="txt-sub">Tunnel / WAF</div>
                     </div>
                 </div>
 
-                <!-- LINK (Col 3) - Spacer handled by grid gap -->
+                <!-- 3. SHARED HUB -->
+                <div class="sub-box hub-col">
+                    <div class="label-sub"><img src="https://img.icons8.com/color/48/azure-subscription.png"
+                            style="width:14px;"> Shared Hub</div>
 
-                <!-- SPOKE SUB (Col 4) -->
-                <div class="az-sub-box sub-spoke">
-                    <div class="sub-label" style="color: #60a5fa;">
-                        <img src="https://img.icons8.com/fluency/48/azure-subscription.png" class="sub-icon"> Prod AI
-                        Sub
+                    <!-- App Gateway -->
+                    <div class="node-card">
+                        <div class="badge-seq">2</div>
+                        <div class="icon-box">
+                            <svg viewBox="0 0 50 50">
+                                <circle cx="25" cy="25" r="23" fill="#0078D4" />
+                                <path d="M15 25 L35 25 M35 25 L28 18 M35 25 L28 32" stroke="white" stroke-width="3"
+                                    fill="none" />
+                            </svg>
+                        </div>
+                        <div class="txt-title">App Gateway</div>
+                        <div class="txt-sub">Regional WAF</div>
                     </div>
 
-                    <!-- VNET Box (Internal) -->
+                    <!-- Azure Firewall -->
+                    <div class="node-card" style="border-color: #ef4444;">
+                        <div class="badge-seq">3</div>
+                        <div class="icon-box">
+                            <!-- Firewall Icon -->
+                            <svg viewBox="0 0 24 24" fill="#ef4444">
+                                <path
+                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5z" />
+                            </svg>
+                        </div>
+                        <div class="txt-title">Azure Firewall</div>
+                        <div class="txt-sub">Premium</div>
+                    </div>
+
+                    <!-- APIM -->
+                    <div class="node-card">
+                        <div class="badge-seq">4</div>
+                        <div class="icon-box">
+                            <svg viewBox="0 0 50 50">
+                                <path d="M25 5 L10 15 L10 35 L25 45 L40 35 L40 15 Z" fill="#0078D4" /><text x="25"
+                                    y="30" text-anchor="middle" fill="white" font-size="10"
+                                    font-weight="bold">API</text>
+                            </svg>
+                        </div>
+                        <div class="txt-title">APIM</div>
+                        <div class="txt-sub">Gateway</div>
+                    </div>
+                </div>
+
+                <!-- 4. LINK (gap) -->
+                <div></div>
+
+                <!-- 5. SPOKE (Prod AI) -->
+                <div class="sub-box spoke-col">
+                    <div class="label-sub" style="color:#60a5fa;"><img
+                            src="https://img.icons8.com/color/48/azure-subscription.png" style="width:14px;"> Prod AI
+                        Sub</div>
+
+                    <!-- VNET -->
                     <div
-                        style="border: 2px solid #2563eb; padding: 1.5rem; border-radius: 8px; position: relative; background: rgba(37, 99, 235, 0.1);">
+                        style="border: 2px solid #2563eb; background: rgba(37,99,235,0.1); border-radius: 8px; padding: 1.5rem; position: relative;">
                         <div
-                            style="position: absolute; top: -10px; right: 20px; background: #2563eb; color: white; font-size: 0.7rem; padding: 2px 8px; border-radius: 4px;">
+                            style="position: absolute; top:-10px; right: 10px; background:#2563eb; color:white; font-size:0.6rem; padding:2px 6px; border-radius:4px;">
                             Private VNET</div>
 
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center;">
-
-                            <!-- 3. AKS -->
-                            <div class="az-node">
-                                <div class="seq-badge" style="top: -10px; left: -10px;">3</div>
-                                <svg class="az-icon-img" viewBox="0 0 50 50">
-                                    <circle cx="25" cy="25" r="23" fill="#326CE5" />
-                                    <path d="M25 5 L42 14 L42 36 L25 45 L8 36 L8 14 Z" fill="white" />
-                                    <path d="M25 10 L35 18 L35 32 L25 40 L15 32 L15 18 Z" fill="#326CE5" />
-                                </svg>
-                                <div class="az-title">AKS Cluster</div>
-                                <div class="az-desc">Orchestrator</div>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items:center;">
+                            <!-- AKS -->
+                            <div class="node-card">
+                                <div class="badge-seq">5</div>
+                                <div class="icon-box">
+                                    <svg viewBox="0 0 50 50">
+                                        <circle cx="25" cy="25" r="23" fill="#326CE5" />
+                                        <path d="M25 10 L35 18 L35 32 L25 40 L15 32 L15 18 Z" fill="white" />
+                                    </svg>
+                                </div>
+                                <div class="txt-title">AKS Cluster</div>
+                                <div class="txt-sub">Orchestrator</div>
                             </div>
 
-                            <!-- AI Services Stack -->
-                            <div style="display: flex; flex-direction: column; gap: 2rem;">
-                                <!-- Search -->
-                                <div class="az-node">
-                                    <div class="seq-badge"
-                                        style="top: -10px; left: -10px; background: #10b981; color: white;">4a</div>
-                                    <svg class="az-icon-img" viewBox="0 0 50 50">
-                                        <rect x="5" y="10" width="40" height="30" rx="4" fill="#0078D4" />
-                                        <circle cx="20" cy="25" r="5" stroke="white" stroke-width="2" fill="none" />
-                                        <line x1="24" y1="29" x2="30" y2="35" stroke="white" stroke-width="2" />
-                                    </svg>
-                                    <div class="az-title">AI Search</div>
+                            <!-- AI Services -->
+                            <div style="display:flex; flex-direction:column; gap:1rem;">
+                                <div class="node-card">
+                                    <div class="badge-seq" style="background:#10b981; color:white;">6a</div>
+                                    <div class="icon-box"><svg viewBox="0 0 24 24" fill="#0078D4">
+                                            <circle cx="10" cy="10" r="6" />
+                                            <line x1="16" y1="16" x2="22" y2="22" stroke="#0078D4" stroke-width="3" />
+                                        </svg></div>
+                                    <div class="txt-title">AI Search</div>
                                 </div>
-                                <!-- OpenAI -->
-                                <div class="az-node">
-                                    <div class="seq-badge"
-                                        style="top: -10px; left: -10px; background: #10b981; color: white;">4b</div>
-                                    <svg class="az-icon-img" viewBox="0 0 50 50">
-                                        <path
-                                            d="M25 2 C12 2 2 12 2 25 C2 38 12 48 25 48 C38 48 48 38 48 25 C48 12 38 2 25 2"
-                                            fill="#333" />
-                                        <path d="M15 25 L25 35 L35 25 L25 15 Z" fill="#fff" />
-                                    </svg>
-                                    <div class="az-title">Azure OpenAI</div>
+                                <div class="node-card">
+                                    <div class="badge-seq" style="background:#10b981; color:white;">6b</div>
+                                    <div class="icon-box"><svg viewBox="0 0 24 24" fill="white">
+                                            <path d="M12 2L2 7v10l10 5 10-5V7L12 2z" fill="#000" />
+                                            <path d="M12 6l5 3v6l-5 3-5-3V9l5-3z" fill="#fff" />
+                                        </svg></div>
+                                    <div class="txt-title">OpenAI</div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
-                    <!-- Data RG (Below VNET) -->
+                    <!-- Data -->
                     <div
-                        style="border: 1px dashed #374151; padding: 1rem; border-radius: 8px; display: flex; gap: 1rem; justify-content: center;">
-                        <div class="az-node" style="padding: 0.5rem;">
-                            <div class="az-title" style="font-size: 0.7rem;">ADLS Gen2</div>
-                        </div>
-                        <div class="az-node" style="padding: 0.5rem;">
-                            <div class="az-title" style="font-size: 0.7rem;">DocIntel</div>
-                        </div>
+                        style="margin-top:1rem; border:1px dashed #4b5563; padding:0.5rem; display:flex; gap:0.5rem; justify-content:center; border-radius:6px;">
+                        <div class="txt-sub">Private Endpoints: ADLS Gen2, DocIntel</div>
                     </div>
                 </div>
+
             </div>
         </div>
         </div>
