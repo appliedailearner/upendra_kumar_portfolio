@@ -742,124 +742,150 @@
         <h2><span class="gradient-text">8) The Architecture Board ( diagrams)</span></h2>
         <p>Use these prompts to generate your official documentation diagrams. Standard notation matters.</p>
 
-        <!-- ANIMATED ARCHITECTURE DIAGRAM (Azure Blueprint Style) -->
+        <!-- "GEMINI BANANA" HIGH-FIDELITY DIAGRAM -->
         <style>
-            .arch-container {
-                position: relative;
-                background: #0f172a;
-                padding: 3rem 1rem;
-                border-radius: 12px;
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                overflow: hidden;
-                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            .arch-wrapper {
+                background: #0b0f19;
+                /* Azure Dark Background */
+                border: 1px solid #2d3748;
+                border-radius: 16px;
+                padding: 2rem;
                 margin: 2rem 0;
+                position: relative;
+                overflow: hidden;
+                /* For connecting lines */
             }
 
-            /* Grid Layout for Nodes */
-            .arch-grid {
+            .arch-grid-advanced {
                 display: grid;
-                grid-template-columns: 1fr 1fr 1fr 1.5fr;
-                /* defining columns */
-                gap: 1.5rem 2rem;
-                align-items: center;
+                grid-template-columns: 0.5fr 1fr 0.1fr 1.5fr;
+                /* User | Hub | Link | Spoke */
+                gap: 2rem;
                 position: relative;
                 z-index: 2;
-                max-width: 900px;
-                margin: 0 auto;
             }
 
-            /* Service Cards */
-            .svc-card {
-                background: #1e293b;
-                border: 1px solid #334155;
-                border-radius: 8px;
-                padding: 0.8rem;
-                text-align: center;
-                color: white;
+            /* Azure Container Styles */
+            .az-sub {
+                border: 2px dashed #4b5563;
+                border-radius: 12px;
+                padding: 1.5rem 1rem;
                 position: relative;
-                transition: all 0.3s ease;
-                z-index: 10;
+                background: rgba(31, 41, 55, 0.3);
+                margin-bottom: 2rem;
+            }
+
+            .az-sub::before {
+                content: '';
+                display: block;
+                width: 24px;
+                height: 24px;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath fill='%23F2C811' d='M17.44 5.75L9.61.16a1.18 1.18 0 0 0-1.22 0L.56 5.75a1.16 1.16 0 0 0-.56 1v4.5a1.16 1.16 0 0 0 .56 1L8.39 17.84a1.18 1.18 0 0 0 1.22 0l7.83-5.59a1.16 1.16 0 0 0 .56-1v-4.5a1.16 1.16 0 0 0-.56-1zM9 11.66L2.6 7.09 9 2.52l6.4 4.57zm.6.86v5L3.75 13.4V7.91zm1 .88v4.61l5.85-4.13V7.91z'/%3E%3C/svg%3E");
+                background-repeat: no-repeat;
+                position: absolute;
+                top: -12px;
+                left: 16px;
+                background-color: #0b0f19;
+                padding: 0 4px;
+            }
+
+            .az-sub-label {
+                position: absolute;
+                top: -14px;
+                left: 45px;
+                font-size: 0.8rem;
+                color: #9ca3af;
+                background: #0b0f19;
+                padding: 0 0.5rem;
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+
+            .az-rg {
+                border: 1px solid #374151;
+                border-radius: 8px;
+                padding: 1rem;
+                position: relative;
+                background: rgba(17, 24, 39, 0.5);
+                margin-top: 1rem;
+            }
+
+            .az-rg-label {
+                font-size: 0.75rem;
+                color: #6b7280;
+                margin-bottom: 1rem;
                 display: flex;
-                flex-direction: column;
                 align-items: center;
                 gap: 0.5rem;
             }
 
-            .svc-card:hover {
-                box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
-                border-color: #3b82f6;
+            .az-rg-icon {
+                width: 14px;
+                height: 14px;
+                fill: #6b7280;
+            }
+
+            .az-vnet {
+                border: 2px solid #2563eb;
+                /* VNET Blue */
+                border-radius: 8px;
+                padding: 1.5rem;
+                position: relative;
+                background: rgba(30, 58, 138, 0.1);
+            }
+
+            .az-vnet-label {
+                position: absolute;
+                top: -12px;
+                right: 16px;
+                background: #2563eb;
+                color: white;
+                font-size: 0.7rem;
+                padding: 2px 8px;
+                border-radius: 4px;
+                font-weight: bold;
+            }
+
+            /* Service Nodes */
+            .az-node {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+                text-align: center;
+                padding: 0.5rem;
+                border-radius: 8px;
+                background: #1f2937;
+                border: 1px solid transparent;
+                transition: transform 0.2s;
+                position: relative;
+                z-index: 10;
+            }
+
+            .az-node:hover {
+                box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+                border-color: rgba(59, 130, 246, 0.5);
                 transform: translateY(-2px);
             }
 
-            .svc-icon {
-                font-size: 1.8rem;
-                color: #38bdf8;
-                /* Azure Blue Light */
+            .az-icon {
+                width: 48px;
+                height: 48px;
             }
 
-            .svc-label {
+            .az-name {
                 font-size: 0.8rem;
-                font-weight: 600;
-                color: #cbd5e1;
+                color: #e5e7eb;
+                font-weight: 500;
             }
 
-            /* Specific Node Styles */
-            .node-user {
-                border-color: #64748b;
+            .az-type {
+                font-size: 0.65rem;
+                color: #9ca3af;
             }
 
-            .node-apim {
-                border-color: #0ea5e9;
-                box-shadow: 0 0 10px rgba(14, 165, 233, 0.2);
-            }
-
-            .node-gateway {
-                transform: rotate(45deg);
-                width: 60px;
-                height: 60px;
-                background: #f59e0b;
-                border: none;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
-            .node-gateway i {
-                transform: rotate(-45deg);
-                color: #000;
-                font-size: 1.2rem;
-            }
-
-            /* VNET Container Box */
-            .vnet-box {
-                grid-column: 3 / span 2;
-                grid-row: 1 / span 3;
-                border: 2px dashed #475569;
-                background: rgba(15, 23, 42, 0.5);
-                border-radius: 12px;
-                position: relative;
-                margin: -1rem;
-                padding: 2rem 1rem;
-                z-index: 1;
-                /* Behind nodes */
-            }
-
-            .vnet-label {
-                position: absolute;
-                top: -12px;
-                left: 20px;
-                background: #0f172a;
-                padding: 0 10px;
-                color: #94a3b8;
-                font-size: 0.8rem;
-                font-weight: bold;
-                display: flex;
-                align-items: center;
-                gap: 5px;
-            }
-
-            /* Connector Lines (SVG Overlay) */
-            .connections-svg {
+            /* Line Animations */
+            .flow-svg {
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -867,140 +893,171 @@
                 height: 100%;
                 pointer-events: none;
                 z-index: 5;
-                /* Between background and nodes */
             }
 
-            /* Animated Flow Paths */
-            .flow-line {
+            .path-line {
                 fill: none;
-                stroke: #334155;
+                stroke: #4b5563;
                 stroke-width: 2px;
             }
 
-            .flow-packet {
+            .path-anim {
                 fill: none;
-                stroke: #38bdf8;
-                /* Bright Blue */
-                stroke-width: 3px;
-                stroke-dasharray: 10 10;
-                animation: flowAnim 1s linear infinite;
-                opacity: 0.8;
+                stroke: #60a5fa;
+                stroke-width: 2px;
+                stroke-dasharray: 8 8;
+                animation: dash 1s linear infinite;
             }
 
-            @keyframes flowAnim {
+            @keyframes dash {
                 to {
-                    stroke-dashoffset: -20;
+                    stroke-dashoffset: -16;
                 }
-            }
-
-            /* Labels on lines */
-            .conn-label {
-                position: absolute;
-                color: #94a3b8;
-                font-size: 0.7rem;
-                background: #0f172a;
-                padding: 2px 5px;
-                border-radius: 4px;
             }
         </style>
 
-        <div class="arch-container">
-            <!-- SVG Connectors (Absolute Overlay) -->
-            <!-- Note: Coordinates are approximations for this layout. In a real app, calculate centers. -->
-            <!-- We will use a simplified grid approach for the HTML, SVG just for animation effect if possible or imply flow via CSS pulsing -->
+        <div class="arch-wrapper">
+            <!-- SVG Connections (Hand-tuned for this layout) -->
+            <svg class="flow-svg">
+                <!-- User to AppGw -->
+                <path d="M 80 150 L 220 150" class="path-line" />
+                <path d="M 80 150 L 220 150" class="path-anim" />
 
-            <!-- Using a Pure Grid Layout with CSS Arrows for Robustness -->
-            <div class="arch-grid">
-                <!-- Row 1: Top Flow (Chat) -->
-                <div style="grid-column: 1; grid-row: 2;">
-                    <div class="svc-card node-user">
-                        <i class="fas fa-user svc-icon" style="color: #94a3b8;"></i>
-                        <div class="svc-label">User / Copilot</div>
+                <!-- AppGw to APIM -->
+                <path d="M 300 150 L 300 250" class="path-line" />
+                <path d="M 300 150 L 300 250" class="path-anim" />
+
+                <!-- APIM to AKS -->
+                <path d="M 380 280 L 580 280" class="path-line" />
+                <path d="M 380 280 L 580 280" class="path-anim" />
+
+                <!-- AKS to AI Search -->
+                <path d="M 660 300 L 750 200" class="path-line" />
+                <path d="M 660 300 L 750 200" class="path-anim" style="animation-delay: 0.5s;" />
+
+                <!-- AKS to OpenAI -->
+                <path d="M 660 300 L 750 350" class="path-line" />
+                <path d="M 660 300 L 750 350" class="path-anim" style="animation-delay: 0.5s;" />
+            </svg>
+
+            <div class="arch-grid-advanced">
+
+                <!-- COLUMN 1: User -->
+                <div style="grid-column: 1; align-self: center; text-align: center;">
+                    <div class="az-node">
+                        <img src="https://img.icons8.com/color/96/user-male-circle--v1.png" class="az-icon" alt="User">
+                        <div class="az-name">User</div>
+                        <div class="az-type">Browser</div>
                     </div>
                 </div>
 
-                <div style="grid-column: 2; grid-row: 2; position: relative;">
-                    <!-- Connection Arrow Left -->
-                    <div
-                        style="position: absolute; left: -2rem; top: 50%; width: 2rem; height: 2px; background: #334155;">
-                    </div>
-                    <div
-                        style="position: absolute; left: -2rem; top: 50%; width: 2rem; height: 2px; background: repeating-linear-gradient(90deg, #38bdf8 0 5px, transparent 5px 10px); animation: flowAnim 1s linear infinite;">
-                    </div>
+                <!-- COLUMN 2: HUB / SHARED SERVICES -->
+                <div class="az-sub">
+                    <div class="az-sub-label">Shared Service Sub</div>
 
-                    <div class="svc-card node-apim">
-                        <i class="fas fa-shield-alt svc-icon"></i>
-                        <div class="svc-label">APIM (Gateway)</div>
-                        <div style="font-size: 0.6rem; color: #64748b;">Policies & Auth</div>
+                    <div class="az-rg">
+                        <div class="az-rg-label">
+                            <svg class="az-rg-icon" viewBox="0 0 16 16">
+                                <path d="M8 0L0 4l8 4 8-4-8-4zM0 6v6l8 4 8-4V6L8 10 0 6z" fill="currentColor" />
+                            </svg>
+                            Hub-RG
+                        </div>
+
+                        <!-- App Gateway -->
+                        <div class="az-node" style="margin-bottom: 2rem;">
+                            <!-- Simple SVG placeholder for AppGw -->
+                            <svg class="az-icon" viewBox="0 0 50 50">
+                                <circle cx="25" cy="25" r="23" fill="#0078D4" />
+                                <path d="M15 25 L35 25 M35 25 L28 18 M35 25 L28 32 M15 15 L15 35" stroke="white"
+                                    stroke-width="3" fill="none" />
+                            </svg>
+                            <div class="az-name">App Gateway</div>
+                            <div class="az-type">WAF v2</div>
+                        </div>
+
+                        <!-- APIM -->
+                        <div class="az-node">
+                            <svg class="az-icon" viewBox="0 0 50 50">
+                                <path d="M25 2 L5 12 L5 30 C5 40 25 48 25 48 C25 48 45 40 45 30 L45 12 Z"
+                                    fill="#0078D4" />
+                                <text x="50%" y="60%" text-anchor="middle" fill="white" font-size="12"
+                                    font-weight="bold">API</text>
+                            </svg>
+                            <div class="az-name">APIM</div>
+                            <div class="az-type">Standard v2</div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- VNET Container starts column 3 -->
-                <div class="vnet-box">
-                    <div class="vnet-label"><i class="fas fa-lock"></i> Private VNET (10.0.0.0/16)</div>
+                <!-- COLUMN 3: Link (Spacer) -->
+                <div></div>
+
+                <!-- COLUMN 4: SPOKE / PROD AI -->
+                <div class="az-sub" style="border-color: #3b82f6;">
+                    <div class="az-sub-label">Prod AI Subscription</div>
+
+                    <div class="az-vnet">
+                        <div class="az-vnet-label">Private VNET</div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center;">
+
+                            <!-- AKS Cluster -->
+                            <div class="az-node" style="grid-row: 1/span 2;">
+                                <svg class="az-icon" viewBox="0 0 50 50">
+                                    <circle cx="25" cy="25" r="23" fill="#326CE5" />
+                                    <path d="M25 5 L42 14 L42 36 L25 45 L8 36 L8 14 Z" fill="white" />
+                                    <path d="M25 10 L35 18 L35 32 L25 40 L15 32 L15 18 Z" fill="#326CE5" />
+                                </svg>
+                                <div class="az-name">AKS Cluster</div>
+                                <div class="az-type">Orchestrator</div>
+                            </div>
+
+                            <!-- AI Services -->
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <div class="az-node">
+                                    <svg class="az-icon" viewBox="0 0 50 50">
+                                        <rect x="5" y="10" width="40" height="30" rx="4" fill="#0078D4" />
+                                        <circle cx="20" cy="25" r="5" stroke="white" stroke-width="2" fill="none" />
+                                    </svg>
+                                    <div class="az-name">AI Search</div>
+                                </div>
+
+                                <div class="az-node">
+                                    <svg class="az-icon" viewBox="0 0 50 50">
+                                        <path
+                                            d="M25 2 C12 2 2 12 2 25 C2 38 12 48 25 48 C38 48 48 38 48 25 C48 12 38 2 25 2"
+                                            fill="#5E5E5E" />
+                                        <path d="M15 25 L25 35 L35 25 L25 15 Z" fill="#00A2E8" />
+                                        <!-- OpenAI Logo approx -->
+                                    </svg>
+                                    <div class="az-name">Azure OpenAI</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Storage and DocIntel (Outside main flow for visual cleanliness) -->
+                    <div class="az-rg" style="margin-top: 1rem; border-style: dashed;">
+                        <div class="az-rg-label">Data-RG</div>
+                        <div style="display: flex; gap: 1rem; justify-content: center;">
+                            <div class="az-node">
+                                <svg class="az-icon" viewBox="0 0 50 50">
+                                    <path d="M10 10 C10 5 40 5 40 10 L40 40 C40 45 10 45 10 40 Z" fill="#7FBA00" />
+                                    <ellipse cx="25" cy="10" rx="15" ry="5" fill="#A8D63E" />
+                                </svg>
+                                <div class="az-name">Document Intel</div>
+                            </div>
+                            <div class="az-node">
+                                <svg class="az-icon" viewBox="0 0 50 50">
+                                    <path d="M10 15 C10 10 40 10 40 15 L40 35 C40 40 10 40 10 35 Z" fill="#783F99" />
+                                    <ellipse cx="25" cy="15" rx="15" ry="5" fill="#9B6FBA" />
+                                </svg>
+                                <div class="az-name">Data Lake</div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-
-                <!-- Inside VNET: Orchestrator -->
-                <div style="grid-column: 3; grid-row: 1; margin-top: 1rem;">
-                    <div class="svc-card">
-                        <i class="fas fa-server svc-icon" style="color: #a855f7;"></i>
-                        <div class="svc-label">Orchestrator</div>
-                        <div style="font-size: 0.6rem; color: #64748b;">AKS / Python</div>
-                    </div>
-                </div>
-
-                <!-- Inside VNET: Ingestion -->
-                <div style="grid-column: 3; grid-row: 3; margin-bottom: 1rem;">
-                    <div class="svc-card">
-                        <i class="fas fa-cogs svc-icon" style="color: #a855f7;"></i>
-                        <div class="svc-label">Ingestion</div>
-                        <div style="font-size: 0.6rem; color: #64748b;">AKS / Worker</div>
-                    </div>
-                </div>
-
-                <!-- Inside VNET: Services (Rightmost) -->
-                <div style="grid-column: 4; grid-row: 1; display: flex; flex-direction: column; gap: 1rem;">
-                    <div class="svc-card" style="border-left: 3px solid #0078D4;">
-                        <i class="fas fa-search svc-icon"></i>
-                        <div class="svc-label">AI Search</div>
-                    </div>
-                    <div class="svc-card" style="border-left: 3px solid #10b981;">
-                        <i class="fas fa-brain svc-icon" style="color:#10b981;"></i>
-                        <div class="svc-label">Azure OpenAI</div>
-                    </div>
-                </div>
-
-                <div style="grid-column: 4; grid-row: 3; display: flex; flex-direction: column; gap: 1rem;">
-                    <div class="svc-card" style="border-left: 3px solid #f59e0b;">
-                        <i class="fas fa-file-contract svc-icon" style="color:#f59e0b;"></i>
-                        <div class="svc-label">Doc Intelligence</div>
-                    </div>
-                    <div class="svc-card" style="border-left: 3px solid #6366f1;">
-                        <i class="fas fa-database svc-icon" style="color:#6366f1;"></i>
-                        <div class="svc-label">Data Lake</div>
-                    </div>
-                </div>
-
-                <!-- Central Gateway Logic Visual -->
-                <div style="grid-column: 2; grid-row: 2; left: 110%; position: absolute; z-index: 20;">
-                    <div class="node-gateway">
-                        <i class="fas fa-random"></i>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Legend / Status -->
-            <div
-                style="display: flex; gap: 1.5rem; justify-content: center; margin-top: 2rem; font-size: 0.8rem; color: #94a3b8;">
-                <div style="display: flex; align-items: center; gap: 0.5rem;"><span
-                        style="width: 10px; height: 10px; background: #38bdf8; border-radius: 50%;"></span> Public
-                    Traffic</div>
-                <div style="display: flex; align-items: center; gap: 0.5rem;"><span
-                        style="width: 10px; height: 10px; background: #475569; border: 1px dashed white;"></span>
-                    Private Endpoint</div>
-                <div style="display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-bolt"
-                        style="color: #f59e0b;"></i> Animated Flow = Active Data</div>
             </div>
         </div>
         </div>
