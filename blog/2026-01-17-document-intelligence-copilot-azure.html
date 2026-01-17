@@ -742,360 +742,538 @@
         <h2><span class="gradient-text">8) The Architecture Board ( diagrams)</span></h2>
         <p>Use these prompts to generate your official documentation diagrams. Standard notation matters.</p>
 
-        <!-- "GEMINI BANANA" V4: ORTHOGONAL & CLEAN -->
+        <!-- "GEMINI BANANA" V5: PLATINUM SCALABLE (FIXED RATIO) -->
         <style>
-            .arch-wrapper {
+            /* The Canvas Wrapper: Forces a fixed aspect ratio for perfect alignment */
+            .arch-canvas-container {
+                width: 100%;
+                overflow: hidden;
+                /* Hide overflow, we scale instead */
+                padding: 2rem 0;
+                display: flex;
+                justify-content: center;
                 background: #0b0f19;
+                /* Deep Scale Background */
+                border-radius: 12px;
                 border: 1px solid #334155;
-                border-radius: 12px;
-                padding: 3rem;
-                /* More padding */
-                margin: 2rem 0;
                 position: relative;
-                overflow-x: auto;
-                /* Subtle grid texture background */
-                background-image: radial-gradient(#1e293b 1px, transparent 1px);
-                background-size: 20px 20px;
             }
 
-            .arch-grid-v4 {
-                display: grid;
-                /* User(80) | Link(40) | CF(100) | Link(40) | Hub(250) | Link(60) | Spoke(1fr) */
-                grid-template-columns: 80px 40px 100px 40px 250px 60px minmax(300px, 1fr);
-                gap: 1rem;
-                align-items: center;
-                min-width: 950px;
-                /* Wider canvas to prevent cramping */
+            /* The Diagram Artboard: Fixed 1000px Width. 
+                   We use standard CSS zoom or transform to fit it in smaller screens. */
+            .arch-artboard {
+                width: 1000px;
+                /* FIXED WIDTH MASTER */
+                height: 500px;
+                /* FIXED HEIGHT MASTER */
                 position: relative;
-                z-index: 2;
+                background: radial-gradient(rgba(56, 189, 248, 0.1) 1px, transparent 1px);
+                background-size: 30px 30px;
+                flex-shrink: 0;
+                /* Don't squash */
+                transform-origin: top center;
             }
 
-            /* Subscriptions */
-            .sub-hub {
-                grid-column: 5;
-                border: 1px dashed #64748b;
+            /* Responsive Scaling Strategy */
+            @media (max-width: 1100px) {
+                .arch-artboard {
+                    transform: scale(0.9);
+                    height: 450px;
+                }
+            }
+
+            @media (max-width: 950px) {
+                .arch-artboard {
+                    transform: scale(0.8);
+                    height: 400px;
+                }
+            }
+
+            @media (max-width: 800px) {
+                .arch-artboard {
+                    transform: scale(0.7);
+                    height: 350px;
+                    margin-left: -10%;
+                }
+            }
+
+            @media (max-width: 700px) {
+                .arch-artboard {
+                    transform: scale(0.55);
+                    height: 280px;
+                    margin-left: -20%;
+                }
+            }
+
+            @media (max-width: 500px) {
+                .arch-artboard {
+                    transform: scale(0.4);
+                    height: 200px;
+                    margin-left: -30%;
+                }
+            }
+
+            /* ZONES */
+            .zone {
+                position: absolute;
                 border-radius: 12px;
-                padding: 2rem 1rem 1rem 1rem;
                 background: rgba(15, 23, 42, 0.6);
-                position: relative;
-                display: flex;
-                flex-direction: column;
-                gap: 2rem;
+                border: 1px dashed #475569;
+                backdrop-filter: blur(4px);
             }
 
-            .sub-spoke {
-                grid-column: 7;
-                border: 1px dashed #3b82f6;
-                border-radius: 12px;
-                padding: 2rem 1rem 1rem 1rem;
-                background: rgba(15, 23, 42, 0.6);
-                position: relative;
-                display: flex;
-                flex-direction: column;
-                gap: 2rem;
+            .zone-hub {
+                top: 50px;
+                left: 300px;
+                width: 320px;
+                height: 380px;
+                border-color: #f59e0b;
+                /* Amber Hub */
+                background: linear-gradient(180deg, rgba(245, 158, 11, 0.05) 0%, transparent 100%);
             }
 
-            .label-tag {
+            .zone-spoke {
+                top: 50px;
+                left: 680px;
+                width: 300px;
+                height: 380px;
+                border-color: #3b82f6;
+                /* Blue Spoke */
+                background: linear-gradient(180deg, rgba(59, 130, 246, 0.05) 0%, transparent 100%);
+            }
+
+            .zone-vnet {
+                top: 50px;
+                left: 20px;
+                right: 20px;
+                bottom: 80px;
+                border: 2px solid #2563eb;
+                background: rgba(30, 58, 138, 0.2);
+                border-radius: 8px;
+            }
+
+            /* Zone Labels */
+            .zone-label {
                 position: absolute;
                 top: -12px;
                 left: 16px;
-                background: #0f172a;
-                padding: 2px 8px;
-                border: 1px solid #334155;
+                background: #0b0f19;
+                padding: 2px 10px;
                 border-radius: 4px;
-                font-size: 0.7rem;
+                border: 1px solid #334155;
+                font-size: 0.75rem;
                 font-weight: 700;
                 color: #94a3b8;
+                text-transform: uppercase;
                 display: flex;
                 gap: 6px;
                 align-items: center;
-                text-transform: uppercase;
             }
 
-            /* Nodes */
-            .node {
+            /* NODES (Absolute Positioning on the Fixed Grid) */
+            .p-node {
+                position: absolute;
+                width: 100px;
+                padding: 10px;
                 background: #1e293b;
                 border: 1px solid #475569;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
                 border-radius: 8px;
-                padding: 0.8rem;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                gap: 0.4rem;
                 text-align: center;
-                position: relative;
                 z-index: 10;
                 transition: all 0.2s;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             }
 
-            .node:hover {
-                box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+            .p-node:hover {
                 border-color: #38bdf8;
-                transform: translateY(-2px);
+                transform: translateY(-3px);
+                box-shadow: 0 8px 20px rgba(56, 189, 248, 0.3);
             }
 
-            .node-icon {
-                width: 36px;
-                height: 36px;
+            .p-icon {
+                width: 32px;
+                height: 32px;
+                margin-bottom: 5px;
             }
 
-            .node-title {
-                font-size: 0.8rem;
+            .p-title {
+                font-size: 0.75rem;
                 font-weight: 700;
-                color: #f8fafc;
+                color: #f1f5f9;
+                line-height: 1.1;
             }
 
-            .node-sub {
-                font-size: 0.65rem;
+            .p-sub {
+                font-size: 0.6rem;
                 color: #94a3b8;
             }
 
-            /* Sequence Circles */
-            .seq {
-                position: absolute;
-                top: -10px;
-                left: -10px;
-                width: 22px;
-                height: 22px;
-                background: #f59e0b;
-                color: #000;
-                border-radius: 50%;
-                font-size: 0.75rem;
-                font-weight: 800;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                box-shadow: 0 0 0 4px #0b0f19;
-                z-index: 20;
+            /* Node Positions */
+            /* 1. User */
+            .n-user {
+                top: 200px;
+                left: 20px;
+                border: none;
+                background: transparent;
+                box-shadow: none;
             }
 
-            /* Connectors */
-            .svg-lines {
+            /* 2. CF */
+            .n-cf {
+                top: 190px;
+                left: 150px;
+                border-color: #f97316;
+            }
+
+            /* Hub Nodes */
+            /* 3. AppGw */
+            .n-appgw {
+                top: 80px;
+                left: 30px;
+                /* Inside Hub */
+            }
+
+            /* 4. FW */
+            .n-fw {
+                top: 200px;
+                left: 160px;
+                /* Inside Hub */
+                border-color: #ef4444;
+            }
+
+            /* 5. APIM */
+            .n-apim {
+                top: 280px;
+                left: 30px;
+                /* Inside Hub */
+            }
+
+            /* Spoke Nodes */
+            /* 6. AKS */
+            .n-aks {
+                top: 120px;
+                left: 40px;
+                /* Inside Spoke/VNET */
+                width: 90px;
+            }
+
+            /* 7. Search */
+            .n-search {
+                top: 80px;
+                left: 170px;
+                /* Inside Spoke */
+                width: 80px;
+            }
+
+            /* 8. OpenAI */
+            .n-openai {
+                top: 180px;
+                left: 170px;
+                /* Inside Spoke */
+                width: 80px;
+            }
+
+            /* Data (Bottom of Spoke) */
+            .n-data {
+                bottom: 20px;
+                left: 20px;
+                right: 20px;
+                height: 40px;
+                background: rgba(0, 0, 0, 0.2);
+                border: 1px dashed #4b5563;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                position: absolute;
+                border-radius: 6px;
+            }
+
+            /* CONNECTOR LINES (SVG) */
+            .svg-final {
                 position: absolute;
                 top: 0;
                 left: 0;
-                width: 100%;
-                height: 100%;
+                width: 1000px;
+                height: 500px;
                 pointer-events: none;
                 z-index: 5;
             }
 
-            .ln-gray {
+            .fp-base {
                 fill: none;
                 stroke: #334155;
                 stroke-width: 2px;
             }
 
-            .ln-anim {
+            .fp-anim {
                 fill: none;
                 stroke: #38bdf8;
                 stroke-width: 2px;
                 stroke-dasharray: 8 8;
-                animation: dash 1s linear infinite;
+                animation: dashForce 1.5s linear infinite;
             }
 
-            @keyframes dash {
+            @keyframes dashForce {
                 to {
                     stroke-dashoffset: -16;
                 }
             }
 
-            /* Flow Labels (Badges on lines) */
-            .flow-tag {
+            /* Sequence Badges */
+            .seq-x {
                 position: absolute;
-                background: #0b0f19;
-                color: #38bdf8;
+                top: -8px;
+                left: -8px;
+                width: 20px;
+                height: 20px;
+                font-size: 0.7rem;
+                background: #f59e0b;
+                color: #000;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 800;
+                border: 2px solid #0b0f19;
+            }
+
+            /* Floating Labels */
+            .fl-tag {
+                position: absolute;
+                background: #0f172a;
+                border: 1px solid #1e293b;
+                color: #60a5fa;
                 font-size: 0.65rem;
                 padding: 2px 6px;
-                border: 1px solid #1e293b;
                 border-radius: 4px;
                 z-index: 6;
-                white-space: nowrap;
             }
         </style>
 
-        <div class="arch-wrapper">
+        <div class="arch-canvas-container">
+            <div class="arch-artboard">
 
-            <!-- SVG ORTHOGONAL ROUTING -->
-            <!-- We approximate centers based on grid column widths + padding -->
-            <!-- Grid: 80(User) +40 +100(CF) +40 +250(Hub) +60 +300(Spoke) -->
-            <!-- Y-alignments assuming nodes are ~80px tall and gaps are ~2rem -->
-            <!-- Top Row Y ~ 100. Mid Row Y ~ 240. Bot Row Y ~ 380. -->
+                <!-- SVG LAYER (Fixed Coordinates) -->
+                <svg class="svg-final">
+                    <!-- 1. User(70,230) -> CF(150,230) -->
+                    <path d="M 80 230 L 150 230" class="fp-anim" />
 
-            <svg class="svg-lines">
-                <!-- 1. User(40, 100) -> CF(170, 100) -->
-                <path d="M 60 100 L 150 100" class="ln-gray" />
-                <path d="M 60 100 L 150 100" class="ln-anim" />
+                    <!-- 2. CF(250,230) -> Hub(300) -> AppGw(Inside Hub: 300+30+50 = 380, 50+80+40 = 170) -->
+                    <!-- CF Center: 200, 230. AppGw Center (Rel to Board): 300+30+50=380, 50+80+40=170? No relative to board -->
+                    <!-- AppGw is at Top: Y ~ 150. CF is at Y ~ 230. -->
+                    <!-- Path: CF(250,230) -> 280,230 -> 280,165 -> AppGw(330,165) -->
+                    <path d="M 250 230 L 280 230 L 280 165 L 330 165" class="fp-base" />
+                    <path d="M 250 230 L 280 230 L 280 165 L 330 165" class="fp-anim" />
 
-                <!-- 2. CF(170, 100) -> AppGw(310, 100) -->
-                <!-- Hub starts at ~260. AppGw centered at 260 + 125 = 385 -->
-                <path d="M 220 100 L 320 100" class="ln-gray" />
-                <path d="M 220 100 L 320 100" class="ln-anim" />
+                    <!-- 3. AppGw(430,165) -> FW(Outside? No inside Hub) -->
+                    <!-- AppGw(330,80) in Hub coords? No. AppGw is class .n-appgw on board? No, inside Hub div? No, absolute on board for simplicity -->
+                    <!-- Wait, if nodes are inside Hub Div, coords are relative to Hub. -->
+                    <!-- BETTER: Put ALL nodes absolute on Artboard to make SVG math easy. -->
+                </svg>
 
-                <!-- 3. AppGw(385, 100) -> Firewall(385, 240) -->
-                <path d="M 385 145 L 385 200" class="ln-gray" />
-                <path d="M 385 145 L 385 200" class="ln-anim" />
-
-                <!-- 4. Firewall(385, 240) -> APIM(385, 380) -->
-                <path d="M 385 285 L 385 340" class="ln-gray" />
-                <path d="M 385 285 L 385 340" class="ln-anim" />
-
-                <!-- 5. APIM(385, 380) -> AKS(600+, 240) -->
-                <!-- ORTHOGONAL PATH: Down out of APIM -> Right -> Up -> Right into AKS -->
-                <!-- APIM bottom is ~420. Let's go out Right from APIM center if layout allows. -->
-                <!-- Actually APIM is stacked. We must go East. -->
-                <!-- Path: Start APIM center (385, 380) -> Right to gap (540, 380) -> Up to AKS Y (240) -> Right to AKS (650) -->
-
-                <path d="M 450 380 L 550 380 L 550 240 L 640 240" class="ln-gray" />
-                <path d="M 450 380 L 550 380 L 550 240 L 640 240" class="ln-anim" />
-
-                <!-- 6. AKS(650, 240) -> AI Services (Split Right) -->
-                <!-- Search (Top-Right relative to AKS) and OpenAI (Bot-Right) -->
-                <path d="M 740 240 L 770 240 L 770 170 L 800 170" class="ln-anim" /> <!-- Search -->
-                <path d="M 740 240 L 770 240 L 770 310 L 800 310" class="ln-anim" /> <!-- OpenAI -->
-
-            </svg>
-
-            <!-- LABELS -->
-            <div class="flow-tag" style="top: 85px; left: 80px;">HTTPS</div>
-            <div class="flow-tag" style="top: 85px; left: 240px;">Tunnel</div>
-            <div class="flow-tag" style="top: 170px; left: 395px;">Inspect</div>
-            <div class="flow-tag" style="top: 310px; left: 395px;">Policy</div>
-            <div class="flow-tag" style="top: 365px; left: 480px;">mTLS / JWT</div>
-
-
-            <!-- GRID CONTENT -->
-            <div class="arch-grid-v4">
-
-                <!-- 1. USER -->
-                <div style="grid-column: 1; margin-top: -250px;"> <!-- Align to Top Row roughly -->
-                    <div class="node" style="border: none; background: transparent; box-shadow: none;">
-                        <img src="https://img.icons8.com/color/96/user-male-circle--v1.png" style="width: 50px;">
-                        <div class="node-title">User</div>
-                    </div>
+                <!-- User -->
+                <div class="p-node n-user">
+                    <img src="https://img.icons8.com/color/96/user-male-circle--v1.png" style="width:48px;">
+                    <div class="p-title">User</div>
                 </div>
 
-                <!-- 2. Spacer -->
-                <div></div>
-
-                <!-- 3. CLOUDFLARE -->
-                <div style="grid-column: 3; margin-top: -250px;">
-                    <div class="node" style="border-color: #f97316;">
-                        <div class="seq">1</div>
-                        <svg class="node-icon" viewBox="0 0 24 24" fill="#f97316">
-                            <path
-                                d="M11.96 6.32c-.17 0-.34.01-.51.04-1.92-2.1-5.11-2.28-7.23-.39-1.63 1.45-2.07 3.74-1.09 5.67C1.94 11.92 1.05 13.04.57 14.3c-.56 1.48-.3 3.16.68 4.38 1 1.25 2.51 1.99 4.12 2.01h12.55c2.98.05 5.56-2.19 5.92-5.15.42-3.41-1.84-6.52-5.18-7.12-.51-1.3-1.68-2.26-3.05-2.51-.71-2.18-2.73-3.64-5.02-3.61-.21.01-.42.02-.63.03z" />
-                        </svg>
-                        <div class="node-title">Cloudflare</div>
-                        <div class="node-sub">Zero Trust</div>
-                    </div>
+                <!-- Cloudflare -->
+                <div class="p-node n-cf">
+                    <div class="seq-x">1</div>
+                    <svg class="p-icon" viewBox="0 0 24 24" fill="#f97316">
+                        <path
+                            d="M11.96 6.32c-.17 0-.34.01-.51.04-1.92-2.1-5.11-2.28-7.23-.39-1.63 1.45-2.07 3.74-1.09 5.67C1.94 11.92 1.05 13.04.57 14.3c-.56 1.48-.3 3.16.68 4.38 1 1.25 2.51 1.99 4.12 2.01h12.55c2.98.05 5.56-2.19 5.92-5.15.42-3.41-1.84-6.52-5.18-7.12-.51-1.3-1.68-2.26-3.05-2.51-.71-2.18-2.73-3.64-5.02-3.61-.21.01-.42.02-.63.03z" />
+                    </svg>
+                    <div class="p-title">Cloudflare</div>
+                    <div class="p-sub">Zero Trust</div>
                 </div>
 
-                <!-- 4. Spacer -->
-                <div></div>
+                <!-- HUB ZONE -->
+                <div class="zone zone-hub">
+                    <div class="zone-label" style="color:#fcd34d;"><img
+                            src="https://img.icons8.com/color/48/azure-subscription.png" style="width:14px;"> Shared
+                        Services</div>
 
-                <!-- 5. HUB (Stack) -->
-                <div class="sub-hub">
-                    <div class="label-tag"><img src="https://img.icons8.com/color/48/azure-subscription.png"
-                            style="width:14px;"> Shared Hub</div>
-
-                    <!-- AppGw -->
-                    <div class="node">
-                        <div class="seq">2</div>
-                        <svg class="node-icon" viewBox="0 0 50 50">
+                    <!-- AppGw (Relative to Hub: 30, 80) -->
+                    <div class="p-node n-appgw">
+                        <div class="seq-x">2</div>
+                        <svg class="p-icon" viewBox="0 0 50 50">
                             <circle cx="25" cy="25" r="23" fill="#0078D4" />
-                            <path d="M15 25 L35 25 M35 25 L28 18 M35 25 L28 32" stroke="white" stroke-width="3"
-                                fill="none" />
+                            <path d="M15 25 L35 25 M35 25 L28 18 M35 25 L28 32 M15 15 L15 35" stroke="white"
+                                stroke-width="3" fill="none" />
                         </svg>
-                        <div class="node-title">App Gateway</div>
-                        <div class="node-sub">Regional WAF</div>
+                        <div class="p-title">AppGw</div>
+                        <div class="p-sub">WAF v2</div>
                     </div>
 
-                    <!-- Firewall -->
-                    <div class="node" style="border-color: #ef4444;">
-                        <div class="seq">3</div>
-                        <svg class="node-icon" viewBox="0 0 24 24" fill="#ef4444">
-                            <path
-                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5z" />
-                        </svg>
-                        <div class="node-title">Azure Firewall</div>
-                        <div class="node-sub">IDPS / TLS Insp</div>
-                    </div>
+                    <!-- FW (Relative: 160, 200) -->
+                    <!-- Actually, visual flow: AppGw (Top Left) -> FW (Top Right?) -> APIM (Bot Left?) -->
+                    <!-- New Hub Layout: AppGw(30,60) -> FW(160,60) -> APIM(160,280)? No -->
+                    <!-- Snake: AppGw(30,60) -> FW(180, 60) -> APIM(180, 200)? -->
 
-                    <!-- APIM -->
-                    <div class="node">
-                        <div class="seq">4</div>
-                        <svg class="node-icon" viewBox="0 0 50 50">
-                            <path d="M25 5 L10 15 L10 35 L25 45 L40 35 L40 15 Z" fill="#0078D4" /><text x="25" y="30"
-                                text-anchor="middle" fill="white" font-size="10" font-weight="bold">API</text>
-                        </svg>
-                        <div class="node-title">APIM</div>
-                        <div class="node-sub">Gateway</div>
-                    </div>
+                    <!-- Let's fix position in CSS above, but use absolute SVG paths here based on offset. -->
+                    <!-- Hub L=300, T=50. -->
+                    <!-- AppGw Abs: 330, 130. -->
+                    <!-- FW Abs: 460, 250 (Default was 200,160 relative to Hub -> 500, 210 no...) -->
+                    <!-- Let's Override CSS classes inline for Platinum precision -->
                 </div>
 
-                <!-- 6. Link Spacer -->
-                <div></div>
+                <!-- REDO NODES AS DIRECT CHILDREN OF ARTBOARD FOR SVG SANITY -->
+                <!-- This prevents nested offset hell. -->
 
-                <!-- 7. SPOKE -->
-                <div class="sub-spoke">
-                    <div class="label-tag" style="border-color: #3b82f6; color:#60a5fa;"><img
+                <!-- RE-IMPLEMENTING ARTBOARD CONTENT WITH FLAT HIERARCHY -->
+
+                <!-- 1. Zones (Backgrounds) -->
+                <div class="zone zone-hub">
+                    <div class="zone-label" style="color:#fcd34d;"><img
+                            src="https://img.icons8.com/color/48/azure-subscription.png" style="width:14px;"> Shared
+                        Services</div>
+                </div>
+                <div class="zone zone-spoke">
+                    <div class="zone-label" style="color:#60a5fa;"><img
                             src="https://img.icons8.com/color/48/azure-subscription.png" style="width:14px;"> Prod AI
                         Sub</div>
-
-                    <!-- VNET Wrap -->
-                    <div
-                        style="border: 2px solid #2563eb; background: rgba(37, 99, 235, 0.1); border-radius: 8px; padding: 1.5rem; position: relative;">
+                    <div class="zone zone-vnet">
                         <div
-                            style="position: absolute; top: -10px; right: 10px; background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.65rem;">
+                            style="position:absolute; top:-10px; right:10px; background:#2563eb; color:white; font-size:0.6rem; padding:2px 8px; border-radius:4px;">
                             Private VNET</div>
-
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: center;">
-
-                            <!-- AKS (Left side of Spoke) -->
-                            <div class="node" style="grid-row: 1 / span 2;">
-                                <div class="seq">5</div>
-                                <svg class="node-icon" viewBox="0 0 50 50">
-                                    <circle cx="25" cy="25" r="23" fill="#326CE5" />
-                                    <path d="M25 10 L35 18 L35 32 L25 40 L15 32 L15 18 Z" fill="white" />
-                                </svg>
-                                <div class="node-title">AKS Cluster</div>
-                                <div class="node-sub">Copilot Orch</div>
-                            </div>
-
-                            <!-- AI Services (Right side) -->
-                            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-                                <div class="node">
-                                    <div class="seq" style="background: #10b981; color: white;">6a</div>
-                                    <svg class="node-icon" viewBox="0 0 24 24" fill="#0078D4">
-                                        <circle cx="10" cy="10" r="6" />
-                                        <line x1="16" y1="16" x2="22" y2="22" stroke="#0078D4" stroke-width="3" />
-                                    </svg>
-                                    <div class="node-title">AI Search</div>
-                                </div>
-
-                                <div class="node">
-                                    <div class="seq" style="background: #10b981; color: white;">6b</div>
-                                    <svg class="node-icon" viewBox="0 0 24 24" fill="white">
-                                        <path d="M12 2L2 7v10l10 5 10-5V7L12 2z" fill="#000" />
-                                        <path d="M12 6l5 3v6l-5 3-5-3V9l5-3z" fill="#fff" />
-                                    </svg>
-                                    <div class="node-title">OpenAI</div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-
-                    <!-- Data Services -->
-                    <div
-                        style="display: flex; gap: 1rem; justify-content: center; border-top: 1px dashed #334155; padding-top: 1rem;">
-                        <span class="node-sub" style="border: 1px solid #334155; padding: 4px; border-radius: 4px;">📂
-                            ADLS Gen2</span>
-                        <span class="node-sub" style="border: 1px solid #334155; padding: 4px; border-radius: 4px;">📄
-                            Doc Intel</span>
+                    <div class="p-node n-data"
+                        style="bottom: 20px; left: 20px; width: 260px; height: 40px; background: rgba(0,0,0,0.3);">
+                        <div class="p-sub">Private Endpoints: ADLS, DocIntel</div>
                     </div>
                 </div>
+
+                <!-- 2. Nodes (Flat Absolute) -->
+                <!-- USER: 20, 200 -->
+                <div class="p-node n-user" style="top:200px; left:20px;">
+                    <img src="https://img.icons8.com/color/96/user-male-circle--v1.png" style="width:48px;">
+                    <div class="p-title">User</div>
+                </div>
+
+                <!-- CF: 150, 200 -->
+                <div class="p-node n-cf" style="top:200px; left:140px;">
+                    <div class="seq-x">1</div>
+                    <svg class="p-icon" viewBox="0 0 24 24" fill="#f97316">
+                        <path
+                            d="M11.96 6.32c-.17 0-.34.01-.51.04-1.92-2.1-5.11-2.28-7.23-.39-1.63 1.45-2.07 3.74-1.09 5.67C1.94 11.92 1.05 13.04.57 14.3c-.56 1.48-.3 3.16.68 4.38 1 1.25 2.51 1.99 4.12 2.01h12.55c2.98.05 5.56-2.19 5.92-5.15.42-3.41-1.84-6.52-5.18-7.12-.51-1.3-1.68-2.26-3.05-2.51-.71-2.18-2.73-3.64-5.02-3.61-.21.01-.42.02-.63.03z" />
+                    </svg>
+                    <div class="p-title">Cloudflare</div>
+                    <div class="p-sub">Tunnel</div>
+                </div>
+
+                <!-- HUB NODES (Hub Rect: 300, 50, 320w, 380h) -->
+                <!-- AppGw: Top Left (330, 100) -->
+                <div class="p-node" style="top:100px; left:330px;">
+                    <div class="seq-x">2</div>
+                    <svg class="p-icon" viewBox="0 0 50 50">
+                        <circle cx="25" cy="25" r="23" fill="#0078D4" />
+                        <path d="M15 25 L35 25 M35 25 L28 18 M35 25 L28 32 M15 15 L15 35" stroke="white"
+                            stroke-width="3" fill="none" />
+                    </svg>
+                    <div class="p-title">AppGw</div>
+                    <div class="p-sub">WAF</div>
+                </div>
+
+                <!-- FW: Middle Right (480, 200) -->
+                <div class="p-node" style="top:200px; left:480px; border-color:#ef4444;">
+                    <div class="seq-x">3</div>
+                    <svg class="p-icon" viewBox="0 0 24 24" fill="#ef4444">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5z" />
+                    </svg>
+                    <div class="p-title">Firewall</div>
+                    <div class="p-sub">Premium</div>
+                </div>
+
+                <!-- APIM: Bottom Left (330, 300) -->
+                <div class="p-node" style="top:300px; left:330px;">
+                    <div class="seq-x">4</div>
+                    <svg class="p-icon" viewBox="0 0 50 50">
+                        <path d="M25 5 L10 15 L10 35 L25 45 L40 35 L40 15 Z" fill="#0078D4" /><text x="25" y="30"
+                            text-anchor="middle" fill="white" font-size="10" font-weight="bold">API</text>
+                    </svg>
+                    <div class="p-title">APIM</div>
+                    <div class="p-sub">Gateway</div>
+                </div>
+
+                <!-- SPOKE NODES (Spoke Rect: 680, 50, 300w, 380h) -->
+                <!-- AKS: Left Center (720, 200) -->
+                <div class="p-node" style="top:200px; left:720px; width:90px;">
+                    <div class="seq-x">5</div>
+                    <svg class="p-icon" viewBox="0 0 50 50">
+                        <circle cx="25" cy="25" r="23" fill="#326CE5" />
+                        <path d="M25 10 L35 18 L35 32 L25 40 L15 32 L15 18 Z" fill="white" />
+                    </svg>
+                    <div class="p-title">AKS</div>
+                    <div class="p-sub">Cluster</div>
+                </div>
+
+                <!-- AI Search: Top Right (860, 120) -->
+                <div class="p-node" style="top:120px; left:860px; width:80px;">
+                    <div class="seq-x" style="background:#10b981;">6a</div>
+                    <svg class="p-icon" viewBox="0 0 24 24" fill="#0078D4">
+                        <circle cx="10" cy="10" r="6" />
+                        <line x1="16" y1="16" x2="22" y2="22" stroke="#0078D4" stroke-width="3" />
+                    </svg>
+                    <div class="p-title">Search</div>
+                </div>
+
+                <!-- OpenAI: Bot Right (860, 280) -->
+                <div class="p-node" style="top:280px; left:860px; width:80px;">
+                    <div class="seq-x" style="background:#10b981;">6b</div>
+                    <svg class="p-icon" viewBox="0 0 50 50">
+                        <path d="M25 2 C12 2 2 12 2 25 C2 38 12 48 25 48 C38 48 48 38 48 25 C48 12 38 2 25 2"
+                            fill="#333" />
+                        <path d="M15 25 L25 35 L35 25 L25 15 Z" fill="#fff" />
+                    </svg>
+                    <div class="p-title">OpenAI</div>
+                </div>
+
+
+                <!-- SVG FINAL PATHS (ABSOLUTE COORDINATES) -->
+                <svg class="svg-final">
+                    <!-- 1. User(70, 240) -> CF(140, 240) -->
+                    <path d="M 70 240 L 140 240" class="fp-anim" />
+
+                    <!-- 2. CF(240, 240) -> AppGw(330, 140) -->
+                    <path d="M 240 240 L 280 240 L 280 140 L 330 140" class="fp-base" />
+                    <path d="M 240 240 L 280 240 L 280 140 L 330 140" class="fp-anim" />
+
+                    <!-- 3. AppGw(430, 140) -> FW(480, 240) -->
+                    <path d="M 430 140 L 455 140 L 455 240 L 480 240" class="fp-base" />
+                    <path d="M 430 140 L 455 140 L 455 240 L 480 240" class="fp-anim" />
+
+                    <!-- 4. FW(480, 240 Left side) -> APIM(430, 340) Wait, flow is FW->APIM. -->
+                    <!-- FW Center: 530, 240.  APIM: 380, 340. -->
+                    <!-- Path: FW-Bottom(530, 280) -> APIM-Right(430, 340) -->
+                    <!-- Actually simpler: FW-Left -> APIM-Right? -->
+                    <!-- Let's go FW-Bottom to APIM-Top? No APIM at 330,300 (Right side 430). FW at 480,200 (Left side 480). -->
+                    <!-- FW(530, 280) -> 530, 340 -> 430, 340 -->
+                    <path d="M 530 280 L 530 340 L 430 340" class="fp-base" />
+                    <path d="M 530 280 L 530 340 L 430 340" class="fp-anim" />
+
+                    <!-- 5. APIM(430, 340) -> AKS(720, 240) -->
+                    <!-- Path: APIM-Right(430, 340) -> 650, 340 -> 650, 240 -> 720, 240 -->
+                    <path d="M 430 340 L 650 340 L 650 240 L 720 240" class="fp-base" />
+                    <path d="M 430 340 L 650 340 L 650 240 L 720 240" class="fp-anim" />
+
+                    <!-- 6. AKS(810, 240) -> Search(860, 160) & OpenAI(860, 320) -->
+                    <!-- Search Y 120 + 40 = 160. OpenAI Y 280 + 40 = 320. -->
+                    <path d="M 810 240 L 835 240 L 835 160 L 860 160" class="fp-anim" />
+                    <path d="M 810 240 L 835 240 L 835 320 L 860 320" class="fp-anim" />
+                </svg>
+
+                <!-- LABELS -->
+                <div class="fl-tag" style="top:225px; left:80px;">HTTPS</div>
+                <div class="fl-tag" style="top:225px; left:260px;">Tunnel</div>
+                <div class="fl-tag" style="top:125px; left:440px;">Inspect</div>
+                <div class="fl-tag" style="top:325px; left:490px;">Policy</div>
+                <div class="fl-tag" style="top:325px; left:580px;">mTLS / JWT</div>
 
             </div>
         </div>
