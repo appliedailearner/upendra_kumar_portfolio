@@ -448,10 +448,37 @@
 
     <!-- Blog Post Content -->
     <article class="blog-post-content">
-        <p class="lead" style="font-size: 1.3rem; color: var(--primary-color); font-weight: 600;">
-            A deployable Azure AI Landing Zone for regulated document Q&A with citations, audit trail, APIM-first
-            controls, and predictable quota + cost planning.
+        A deployable Azure AI Landing Zone for regulated document Q&A with citations, audit trail, APIM-first
+        controls, and predictable quota + cost planning.
         </p>
+
+        <!-- Starter Kit Download Box -->
+        <div class="premium-insight-box" style="margin-top: 2rem; border-left-color: #22c55e;">
+            <div style="display: flex; align-items: start; gap: 1.5rem; flex-wrap: wrap;">
+                <i class="fas fa-box-open" style="font-size: 2.5rem; color: #22c55e; margin-top: 0.5rem;"></i>
+                <div style="flex: 1;">
+                    <h3 style="margin-top: 0; color: #fff; font-size: 1.5rem;">Get the Production Starter Kit</h3>
+                    <p style="font-size: 1.1rem; color: #cbd5e1; margin-bottom: 1.5rem;">
+                        Don't start from any blank slate. Download the full <strong>UKLifeLabs Wave 1 Pack</strong>
+                        including:
+                    </p>
+                    <ul class="premium-list-purple" style="margin: 0 0 1.5rem 0; font-size: 1rem;">
+                        <li><i class="fas fa-check" style="color: #22c55e; margin-right: 0.5rem;"></i>
+                            <strong>Architecture Diagrams</strong> (Visio/Mermaid)</li>
+                        <li><i class="fas fa-check" style="color: #22c55e; margin-right: 0.5rem;"></i> <strong>APIM
+                                Policy Pack</strong> (12+ policies)</li>
+                        <li><i class="fas fa-check" style="color: #22c55e; margin-right: 0.5rem;"></i>
+                            <strong>Bicep/Terraform Modules</strong> (AKS, Search, AI)</li>
+                        <li><i class="fas fa-check" style="color: #22c55e; margin-right: 0.5rem;"></i> <strong>Security
+                                Audit Checklist</strong> (Excel)</li>
+                    </ul>
+                    <a href="../toolkits/UKLifeLabs-Wave1-Starter-Kit.zip" class="btn btn-primary"
+                        style="background-color: #22c55e; border-color: #22c55e; color: #000; font-weight: 700;">
+                        <i class="fas fa-download"></i> Download Kit (ZIP)
+                    </a>
+                </div>
+            </div>
+        </div>
 
         <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
 
@@ -604,10 +631,79 @@
             <li><strong>Tokens/req:</strong> ~3,000</li>
             <li><strong>Estimated TPM:</strong> 420k + headroom = <strong>~550k TPM</strong></li>
         </ul>
-        <p><strong>Suggested Ask (Wave 1):</strong> ~1.1M TPM total (split across Chat, Embeddings, and Summarization).
         </p>
 
-        <h2><span class="gradient-text">8) Go-live checklist</span></h2>
+        <h2><span class="gradient-text">8) The Architecture Board ( diagrams)</span></h2>
+        <p>Use these prompts to generate your official documentation diagrams. Standard notation matters.</p>
+
+        <div class="project-spec-bar" style="display: block;">
+            <h4 style="margin-top: 0; color: #fff;">Diagram 1: The Logical Flow (Mermaid)</h4>
+            <pre><code class="language-mermaid">
+graph LR
+    User[User / Copilot Studio] -->|HTTPS| APIM[Azure API Management]
+    APIM -->|Validate JWT| Gateway{Gateway}
+    Gateway -->|Chat| Orch[RAG Orchestrator (AKS)]
+    Gateway -->|Ingest| Worker[Ingestion Worker (AKS)]
+    
+    Orch -->|Search| AIS[Azure AI Search]
+    Orch -->|Generate| OpenAI[Azure OpenAI]
+    Worker -->|Extract| DocIntel[Document Intelligence]
+    Worker -->|Store| Blob[ADLS Gen2]
+    
+    subgraph "Private VNET"
+        Orch
+        Worker
+        AIS
+        OpenAI
+        DocIntel
+        Blob
+    end
+            </code></pre>
+            <p style="font-size: 0.9rem; margin-top: 1rem;"><em>Tip: Copy this into Mermaid Live Editor to generate your
+                    high-level view.</em></p>
+        </div>
+
+        <h2><span class="gradient-text">9) The Build Room (Copy-Paste)</span></h2>
+        <p>Real production means infrastructure as code. Here are the core modules you need.</p>
+
+        <h3>A) APIM Policy: The "Airport Security" Check</h3>
+        <p>Don't rely on code for security. Enforce it at the gateway.</p>
+        <pre><code class="language-xml">
+&lt;!-- Validate JWT before anything else --&gt;
+&lt;validate-jwt header-name="Authorization" failed-validation-httpcode="401"&gt;
+    &lt;openid-config url="https://login.microsoftonline.com/{tenantId}/v2.0/.well-known/openid-configuration" /&gt;
+    &lt;required-claims&gt;
+        &lt;claim name="aud"&gt;
+            &lt;value&gt;{audience}&lt;/value&gt;
+        &lt;/claim&gt;
+    &lt;/required-claims&gt;
+&lt;/validate-jwt&gt;
+
+&lt;!-- Enforce Token Budget (Cost Control) --&gt;
+&lt;rate-limit-by-key calls="500" renewal-period="60" counter-key="@(context.Request.IpAddress)" /&gt;
+&lt;azure-openai-token-limit tokens-per-minute="10000" counter-key="@(context.Subscription.Id)" /&gt;
+        </code></pre>
+
+        <h3>B) Repo Structure (The "Standard")</h3>
+        <pre><code class="language-bash">
+/src
+  /orchestrator (Python/FastAPI)
+  /ingestion (Dotnet Worker)
+/infra (Bicep)
+  /modules
+    /apim
+    /ai-search
+    /openai
+  main.bicep
+/policies (APIM XML)
+  /fragments
+    /security.xml
+    /audit.xml
+/tests
+  /load-testing (Locust)
+        </code></pre>
+
+        <h2><span class="gradient-text">10) Go-live checklist</span></h2>
         <ul>
             <li>UI calls APIM only</li>
             <li>JWT validation enabled</li>
