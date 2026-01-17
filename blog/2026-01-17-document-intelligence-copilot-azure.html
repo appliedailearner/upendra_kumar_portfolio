@@ -742,43 +742,266 @@
         <h2><span class="gradient-text">8) The Architecture Board ( diagrams)</span></h2>
         <p>Use these prompts to generate your official documentation diagrams. Standard notation matters.</p>
 
-        <div class="project-spec-bar" style="display: block; background: rgba(0,0,0,0.3);">
-            <h4 style="margin-top: 0; color: #fff; margin-bottom: 2rem;">Diagram 1: The Logical Flow</h4>
-            <div class="mermaid"
-                style="text-align: center; background: #0f172a; padding: 2rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
-                graph LR
-                %% Define Azure-like Styles
-                classDef azure fill:#0078D4,stroke:#0078D4,color:white,rx:4,ry:4,stroke-width:2px;
-                classDef secure fill:#1e293b,stroke:#0078D4,color:#38bdf8,rx:4,ry:4,stroke-width:2px,stroke-dasharray: 5
-                5;
-                classDef database fill:#fff,stroke:#0078D4,color:#0078D4,rx:4,ry:4,stroke-width:2px;
-                classDef user fill:#64748b,stroke:none,color:white,rx:20,ry:20;
-                classDef gateway fill:#f59e0b,stroke:none,color:black,rx:2,ry:2;
+        <!-- ANIMATED ARCHITECTURE DIAGRAM (Azure Blueprint Style) -->
+        <style>
+            .arch-container {
+                position: relative;
+                background: #0f172a;
+                padding: 3rem 1rem;
+                border-radius: 12px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                overflow: hidden;
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+                margin: 2rem 0;
+            }
 
-                %% Nodes with Icons (FontAwesome approximation)
-                User(User / Copilot Studio):::user -->|"HTTPS (443)"| APIM(fa:fa-shield-alt Azure API
-                Management):::secure
-                APIM -->|"Validate JWT"| Gate{Gateway}:::gateway
+            /* Grid Layout for Nodes */
+            .arch-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr 1.5fr;
+                /* defining columns */
+                gap: 1.5rem 2rem;
+                align-items: center;
+                position: relative;
+                z-index: 2;
+                max-width: 900px;
+                margin: 0 auto;
+            }
 
-                Gate -->|"Chat Request"| Orch(fa:fa-server Orchestrator / AKS):::azure
-                Gate -->|"Ingest Job"| Worker(fa:fa-cogs Ingestion Worker / AKS):::azure
+            /* Service Cards */
+            .svc-card {
+                background: #1e293b;
+                border: 1px solid #334155;
+                border-radius: 8px;
+                padding: 0.8rem;
+                text-align: center;
+                color: white;
+                position: relative;
+                transition: all 0.3s ease;
+                z-index: 10;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
 
-                subgraph "🛡️ Private VNET (10.0.0.0/16)"
-                direction TB
-                Orch -->|"Vector Search"| AIS(fa:fa-search Azure AI Search):::azure
-                Orch -->|"Completions (GPT-4)"| OpenAI(fa:fa-brain Azure OpenAI):::azure
-                Worker -->|"Layout Model"| DocIntel(fa:fa-file-contract Document Intelligence):::azure
-                Worker -->|"Raw Storage"| Blob(fa:fa-database ADLS Gen2):::database
-                end
+            .svc-card:hover {
+                box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+                border-color: #3b82f6;
+                transform: translateY(-2px);
+            }
+
+            .svc-icon {
+                font-size: 1.8rem;
+                color: #38bdf8;
+                /* Azure Blue Light */
+            }
+
+            .svc-label {
+                font-size: 0.8rem;
+                font-weight: 600;
+                color: #cbd5e1;
+            }
+
+            /* Specific Node Styles */
+            .node-user {
+                border-color: #64748b;
+            }
+
+            .node-apim {
+                border-color: #0ea5e9;
+                box-shadow: 0 0 10px rgba(14, 165, 233, 0.2);
+            }
+
+            .node-gateway {
+                transform: rotate(45deg);
+                width: 60px;
+                height: 60px;
+                background: #f59e0b;
+                border: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .node-gateway i {
+                transform: rotate(-45deg);
+                color: #000;
+                font-size: 1.2rem;
+            }
+
+            /* VNET Container Box */
+            .vnet-box {
+                grid-column: 3 / span 2;
+                grid-row: 1 / span 3;
+                border: 2px dashed #475569;
+                background: rgba(15, 23, 42, 0.5);
+                border-radius: 12px;
+                position: relative;
+                margin: -1rem;
+                padding: 2rem 1rem;
+                z-index: 1;
+                /* Behind nodes */
+            }
+
+            .vnet-label {
+                position: absolute;
+                top: -12px;
+                left: 20px;
+                background: #0f172a;
+                padding: 0 10px;
+                color: #94a3b8;
+                font-size: 0.8rem;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+
+            /* Connector Lines (SVG Overlay) */
+            .connections-svg {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                z-index: 5;
+                /* Between background and nodes */
+            }
+
+            /* Animated Flow Paths */
+            .flow-line {
+                fill: none;
+                stroke: #334155;
+                stroke-width: 2px;
+            }
+
+            .flow-packet {
+                fill: none;
+                stroke: #38bdf8;
+                /* Bright Blue */
+                stroke-width: 3px;
+                stroke-dasharray: 10 10;
+                animation: flowAnim 1s linear infinite;
+                opacity: 0.8;
+            }
+
+            @keyframes flowAnim {
+                to {
+                    stroke-dashoffset: -20;
+                }
+            }
+
+            /* Labels on lines */
+            .conn-label {
+                position: absolute;
+                color: #94a3b8;
+                font-size: 0.7rem;
+                background: #0f172a;
+                padding: 2px 5px;
+                border-radius: 4px;
+            }
+        </style>
+
+        <div class="arch-container">
+            <!-- SVG Connectors (Absolute Overlay) -->
+            <!-- Note: Coordinates are approximations for this layout. In a real app, calculate centers. -->
+            <!-- We will use a simplified grid approach for the HTML, SVG just for animation effect if possible or imply flow via CSS pulsing -->
+
+            <!-- Using a Pure Grid Layout with CSS Arrows for Robustness -->
+            <div class="arch-grid">
+                <!-- Row 1: Top Flow (Chat) -->
+                <div style="grid-column: 1; grid-row: 2;">
+                    <div class="svc-card node-user">
+                        <i class="fas fa-user svc-icon" style="color: #94a3b8;"></i>
+                        <div class="svc-label">User / Copilot</div>
+                    </div>
+                </div>
+
+                <div style="grid-column: 2; grid-row: 2; position: relative;">
+                    <!-- Connection Arrow Left -->
+                    <div
+                        style="position: absolute; left: -2rem; top: 50%; width: 2rem; height: 2px; background: #334155;">
+                    </div>
+                    <div
+                        style="position: absolute; left: -2rem; top: 50%; width: 2rem; height: 2px; background: repeating-linear-gradient(90deg, #38bdf8 0 5px, transparent 5px 10px); animation: flowAnim 1s linear infinite;">
+                    </div>
+
+                    <div class="svc-card node-apim">
+                        <i class="fas fa-shield-alt svc-icon"></i>
+                        <div class="svc-label">APIM (Gateway)</div>
+                        <div style="font-size: 0.6rem; color: #64748b;">Policies & Auth</div>
+                    </div>
+                </div>
+
+                <!-- VNET Container starts column 3 -->
+                <div class="vnet-box">
+                    <div class="vnet-label"><i class="fas fa-lock"></i> Private VNET (10.0.0.0/16)</div>
+                </div>
+
+                <!-- Inside VNET: Orchestrator -->
+                <div style="grid-column: 3; grid-row: 1; margin-top: 1rem;">
+                    <div class="svc-card">
+                        <i class="fas fa-server svc-icon" style="color: #a855f7;"></i>
+                        <div class="svc-label">Orchestrator</div>
+                        <div style="font-size: 0.6rem; color: #64748b;">AKS / Python</div>
+                    </div>
+                </div>
+
+                <!-- Inside VNET: Ingestion -->
+                <div style="grid-column: 3; grid-row: 3; margin-bottom: 1rem;">
+                    <div class="svc-card">
+                        <i class="fas fa-cogs svc-icon" style="color: #a855f7;"></i>
+                        <div class="svc-label">Ingestion</div>
+                        <div style="font-size: 0.6rem; color: #64748b;">AKS / Worker</div>
+                    </div>
+                </div>
+
+                <!-- Inside VNET: Services (Rightmost) -->
+                <div style="grid-column: 4; grid-row: 1; display: flex; flex-direction: column; gap: 1rem;">
+                    <div class="svc-card" style="border-left: 3px solid #0078D4;">
+                        <i class="fas fa-search svc-icon"></i>
+                        <div class="svc-label">AI Search</div>
+                    </div>
+                    <div class="svc-card" style="border-left: 3px solid #10b981;">
+                        <i class="fas fa-brain svc-icon" style="color:#10b981;"></i>
+                        <div class="svc-label">Azure OpenAI</div>
+                    </div>
+                </div>
+
+                <div style="grid-column: 4; grid-row: 3; display: flex; flex-direction: column; gap: 1rem;">
+                    <div class="svc-card" style="border-left: 3px solid #f59e0b;">
+                        <i class="fas fa-file-contract svc-icon" style="color:#f59e0b;"></i>
+                        <div class="svc-label">Doc Intelligence</div>
+                    </div>
+                    <div class="svc-card" style="border-left: 3px solid #6366f1;">
+                        <i class="fas fa-database svc-icon" style="color:#6366f1;"></i>
+                        <div class="svc-label">Data Lake</div>
+                    </div>
+                </div>
+
+                <!-- Central Gateway Logic Visual -->
+                <div style="grid-column: 2; grid-row: 2; left: 110%; position: absolute; z-index: 20;">
+                    <div class="node-gateway">
+                        <i class="fas fa-random"></i>
+                    </div>
+                </div>
+
             </div>
-        </div>
 
-        <div
-            style="margin-top: 1rem; padding: 1rem; background: rgba(255,255,255,0.03); border-radius: 8px; font-size: 0.9rem; color: #94a3b8; border: 1px dashed rgba(255,255,255,0.1);">
-            <strong>💡 Pro Tip:</strong> To create "Official" Microsoft diagrams, download the <a
-                href="https://learn.microsoft.com/en-us/azure/architecture/guide/icons" target="_blank"
-                style="color: #38bdf8;">Azure Architecture Icon Set (SVG)</a> and use it in Visio or Draw.io. The above
-            is a logical view rendered in code.
+            <!-- Legend / Status -->
+            <div
+                style="display: flex; gap: 1.5rem; justify-content: center; margin-top: 2rem; font-size: 0.8rem; color: #94a3b8;">
+                <div style="display: flex; align-items: center; gap: 0.5rem;"><span
+                        style="width: 10px; height: 10px; background: #38bdf8; border-radius: 50%;"></span> Public
+                    Traffic</div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;"><span
+                        style="width: 10px; height: 10px; background: #475569; border: 1px dashed white;"></span>
+                    Private Endpoint</div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-bolt"
+                        style="color: #f59e0b;"></i> Animated Flow = Active Data</div>
+            </div>
         </div>
         </div>
 
