@@ -560,15 +560,72 @@
         </ol>
 
         <h2><span class="gradient-text">3) The Airport + Research Library analogy</span></h2>
-        <p>This platform is a secure airport with a library inside.</p>
-        <ul>
-            <li><strong>UI</strong> is the check-in counter</li>
-            <li><strong>APIM</strong> is immigration + security + the power meter</li>
-            <li><strong>AI Search</strong> is the library catalog</li>
-            <li><strong>Azure OpenAI</strong> is the expert panel</li>
-            <li><strong>Document Intelligence</strong> is the baggage scanner</li>
-            <li><strong>Storage</strong> is the vault</li>
-        </ul>
+        <p>We use the "Airport" analogy to explain the security model to stakeholders, but here is the strict mapping to
+            technical components.</p>
+
+        <table
+            style="width: 100%; border-collapse: separate; border-spacing: 0; background: rgba(255, 255, 255, 0.02); border-radius: 12px; overflow: hidden; margin: 2rem 0; font-size: 0.95rem;">
+            <thead>
+                <tr style="background: rgba(59, 130, 246, 0.1);">
+                    <th style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); width: 30%;">✈️ The
+                        Analogy</th>
+                    <th style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); width: 35%;">⚙️ The
+                        Technical Solution</th>
+                    <th style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); width: 35%;">🛑 The
+                        Production Reality</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td
+                        style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); font-weight: 600; color: #cbd5e1;">
+                        The Boarding Pass</td>
+                    <td
+                        style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); color: #38bdf8; font-family: 'Courier New';">
+                        Entra ID + APIM &lt;validate-jwt&gt;</td>
+                    <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); color: #94a3b8;">Models
+                        have no auth. If you hit the endpoint directly, you bypass security. APIM forces the gate.</td>
+                </tr>
+                <tr>
+                    <td
+                        style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); font-weight: 600; color: #cbd5e1;">
+                        Airport Security</td>
+                    <td
+                        style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); color: #38bdf8; font-family: 'Courier New';">
+                        APIM Token Limits & Throttling</td>
+                    <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); color: #94a3b8;">One
+                        department running a bulk job can starve the entire company. Quotas prevent "noisy neighbors".
+                    </td>
+                </tr>
+                <tr>
+                    <td
+                        style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); font-weight: 600; color: #cbd5e1;">
+                        Baggage Scanner</td>
+                    <td
+                        style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); color: #38bdf8; font-family: 'Courier New';">
+                        Document Intelligence (Layout Model)</td>
+                    <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); color: #94a3b8;">PDFs are
+                        binary blobs. You cannot "search" pixels. You must extract structure first.</td>
+                </tr>
+                <tr>
+                    <td
+                        style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); font-weight: 600; color: #cbd5e1;">
+                        Restricted Lounge</td>
+                    <td
+                        style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); color: #38bdf8; font-family: 'Courier New';">
+                        AI Search Security Trimming</td>
+                    <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); color: #94a3b8;">If you
+                        search for "Salary", the index must only return hits that match your <code>group_id</code>. Only
+                        APIM passes this context.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; font-weight: 600; color: #cbd5e1;">The Expert Panel</td>
+                    <td style="padding: 1rem; color: #38bdf8; font-family: 'Courier New';">Azure OpenAI (GPT-4o)</td>
+                    <td style="padding: 1rem; color: #94a3b8;">Models are reasoning engines, not databases. They should
+                        only answer based on what the "Lounge" (Search) provided.</td>
+                </tr>
+            </tbody>
+        </table>
         <p>Rule: <strong>Nobody reaches the experts without passing security.</strong></p>
 
         <h2><span class="gradient-text">4) The architecture (practical reference stack)</span></h2>
