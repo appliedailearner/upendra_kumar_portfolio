@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="A production-ready go-live playbook for Azure AI copilots using Azure Well-Architected Framework. Two lanes, one gateway, audit trails, and Day-2 operations.">
+    <title>Well-Architected AI: The "Go-Live" Playbook for Production Copilots | Upendra Kumar</title>
+
+    <link rel="stylesheet" href="../css/style.css?v=25">
+    <link rel="stylesheet" href="../css/premium.css?v=25">
+    <style>
+        .nav-logo-uk {
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+            border-radius: 8px !important;
+        }
+
+        /* Hero Video Styles */
+        .blog-post-hero {
+            position: relative;
+            padding: 160px 0 100px;
+            /* Taller hero for video */
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-bg-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            opacity: 0.6;
+            /* Dim video slightly */
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.95));
+            z-index: 1;
+        }
+
+        .blog-post-hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Blog Content Styles */
+        .blog-post-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .blog-post-content h2 {
+            color: var(--text-main);
+            font-size: 2rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .blog-post-content h3 {
+            color: #e2e8f0;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-post-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Lists */
+        .blog-post-content ul,
+        .blog-post-content ol {
+            margin-bottom: 2rem;
+            padding-left: 1.5rem;
+        }
+
+        .blog-post-content li {
+            margin-bottom: 0.8rem;
+        }
+
+        /* Diagrams */
+        .blog-post-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Tables */
+        .blog-post-content table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .blog-post-content th {
+            background: rgba(59, 130, 246, 0.1);
+            padding: 1rem;
+            text-align: left;
+            color: #3b82f6;
+            font-weight: 600;
+        }
+
+        .blog-post-content td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            vertical-align: top;
+        }
+
+        .blog-post-content tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Cast Grid Styles */
+        .cast-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .cast-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cast-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .cast-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            object-fit: cover;
+            border: 3px solid transparent;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            display: block;
+        }
+
+        .cast-name {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.2rem;
+            font-size: 1.1rem;
+        }
+
+        .cast-role {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Cast Themes */
+        .theme-upendra .cast-avatar {
+            border-color: #3b82f6;
+        }
+
+        .theme-upendra .cast-role {
+            color: #3b82f6;
+        }
+
+        .theme-trinity .cast-avatar {
+            border-color: #22c55e;
+        }
+
+        .theme-trinity .cast-role {
+            color: #22c55e;
+        }
+
+        .theme-morpheus .cast-avatar {
+            border-color: #a855f7;
+        }
+
+        .theme-morpheus .cast-role {
+            color: #a855f7;
+        }
+
+        .blog-post-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .blog-post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 2rem 0;
+        }
+
+        .blog-tag {
+            background: rgba(168, 85, 247, 0.1);
+            color: #a855f7;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+    </style>
+
+    <!-- Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="dark-theme">
+    <canvas id="particles-canvas"></canvas>
+
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand" style="display: flex; align-items: center; gap: 1rem;">
+                <a href="../index.html" style="text-decoration: none;">
+                    <div class="nav-logo-uk">UK</div>
+                </a>
+                <div>
+                    <h2>Upendra Kumar</h2>
+                    <p class="nav-tagline">Professional Services Delivery Architect</p>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../pages/expertise.html">Expertise</a></li>
+                <li><a href="../blog.html" class="active">Insights</a></li>
+                <li><a href="../pages/contact.html">Contact</a></li>
+                <li><a href="../assets/pdf/Upendra_Kumar_Resume.pdf" target="_blank" class="nav-resume-btn">
+                        <i class="fas fa-download"></i> Resume</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Video -->
+    <section class="blog-post-hero">
+        <video class="hero-bg-video" autoplay muted loop playsinline preload="metadata">
+            <source src="../assets/video/WAR_AI.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+
+        <div class="container" style="max-width: 1000px;">
+            <div style="margin-bottom: 1rem;">
+                <a href="../blog.html"
+                    style="color: var(--primary-color); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.8);">
+                    <i class="fas fa-arrow-left"></i> Back to Insights
+                </a>
+            </div>
+
+            <h1
+                style="font-family: 'Outfit', sans-serif; font-size: 3rem; line-height: 1.2; margin-bottom: 1.5rem; color: #fff; text-shadow: 0 4px 30px rgba(0,0,0,0.8);">
+                Well-Architected AI: The "Go-Live" Playbook for Production Copilots
+            </h1>
+
+            <div class="blog-post-meta" style="text-shadow: 0 2px 4px rgba(0,0,0,0.8);">
+                <div><i class="fas fa-user"></i> Upendra Kumar</div>
+                <div><i class="fas fa-calendar"></i> January 19, 2026</div>
+                <div><i class="fas fa-clock"></i> 14 min read</div>
+            </div>
+
+            <div class="blog-post-tags" style="text-shadow: 0 2px 4px rgba(0,0,0,0.8);">
+                <span class="blog-tag"><i class="fas fa-tag"></i> Azure AI</span>
+                <span class="blog-tag"><i class="fas fa-tag"></i> Well-Architected</span>
+                <span class="blog-tag"><i class="fas fa-tag"></i> RAG</span>
+                <span class="blog-tag"><i class="fas fa-tag"></i> Security</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <article class="blog-post-content">
+        <p class="lead" style="font-size: 1.3rem; color: var(--primary-color); font-weight: 600;">
+            A production system survives an adversary; a demo just survives a presentation. This is the playbook for
+            crossing the gap.
+        </p>
+
+        <!-- Intro Diagram -->
+        <img src="../assets/diagrams/png/architecting-production-ready-ai-systems.png"
+            alt="Architecting Production Ready AI Systems" loading="lazy">
+
+        <h2>The Cast</h2>
+        <div class="cast-grid">
+            <div class="cast-card theme-upendra">
+                <img src="../images/blog/2026-01-09/upendra-kumar.webp" alt="Upendra" class="cast-avatar">
+                <div class="cast-name">Upendra</div>
+                <div class="cast-role">Lead Architect</div>
+            </div>
+            <div class="cast-card theme-trinity">
+                <img src="../images/blog/2026-01-06/cloud-engineer.webp" alt="Trinity" class="cast-avatar">
+                <div class="cast-name">Trinity</div>
+                <div class="cast-role">Cloud Engineer</div>
+            </div>
+            <div class="cast-card theme-morpheus">
+                <img src="../images/blog/2026-01-06/technical-consultant.webp" alt="Morpheus" class="cast-avatar">
+                <div class="cast-name">Morpheus</div>
+                <div class="cast-role">Security Architect</div>
+            </div>
+        </div>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2>Scene 1: The Question that Matters</h2>
+        <p><strong>Project Manager:</strong> “We go live next week. Are we production-ready?”</p>
+        <p><strong>Trinity:</strong> “The chat works. The ingestion pipeline is moving documents. It looks great in the
+            playground.”</p>
+        <p><strong>Morpheus:</strong> “That’s not production, Trinity. That’s just a <strong>working endpoint</strong>.
+            A production system survives an adversary; a demo just survives a presentation.”</p>
+        <p><strong>Upendra:</strong> “Morpheus is right. In this new era, 'production' is a high bar. It means being
+            <strong>safe, reliable, cost-controlled, testable, and operable</strong>. Anything else is just compute.”
+        </p>
+
+        <h2>1) Why AI Architecture is Different</h2>
+        <p>Traditional software fails in predictable ways. AI applications fail in <strong>surprising ways</strong>:</p>
+        <ul>
+            <li><strong>Non-determinism:</strong> the same question might get different answers</li>
+            <li><strong>Hallucinations:</strong> the model states facts that aren’t in the data</li>
+            <li><strong>Token runaway:</strong> costs spike quietly as prompts bloat</li>
+            <li><strong>Prompt injection:</strong> users trick the model into bypassing safety rules</li>
+        </ul>
+        <p>To counter this, we don’t just code. We <strong>architect guardrails</strong>.</p>
+
+        <h2>2) WAF Pillars → Production Guardrails</h2>
+        <p>Upendra turns “principles” into <strong>controls</strong>. This is what makes the design review easy.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>WAF Pillar</th>
+                    <th>What it means for AI workloads</th>
+                    <th>Wave 1 guardrails to implement</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Reliability</td>
+                    <td>Survive throttling + timeouts + backlogs</td>
+                    <td>Bulkheads (2 lanes), queue-based ingestion, retries/backoff, circuit breaker</td>
+                </tr>
+                <tr>
+                    <td>Security</td>
+                    <td>Prevent data leakage + bypass routes</td>
+                    <td>APIM boundary, private endpoints, security trimming, content safety</td>
+                </tr>
+                <tr>
+                    <td>Cost Optimization</td>
+                    <td>Stop silent spend creep</td>
+                    <td>Token budgets at gateway, per-product quotas, caching, PTU strategy</td>
+                </tr>
+                <tr>
+                    <td>Operational Excellence</td>
+                    <td>Run it daily without heroics</td>
+                    <td>Trace IDs, dashboards, runbooks, incident playbooks, versioning</td>
+                </tr>
+                <tr>
+                    <td>Performance Efficiency</td>
+                    <td>Keep p95 stable under load</td>
+                    <td>Retrieval time budget, topK caps, hybrid retrieval, graceful refusal paths</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>3) Reference Architecture: Two Lanes, One Gateway</h2>
+        <p>To prevent downstream chaos, we separate the workload into <strong>two isolated lanes</strong> with one
+            boundary.</p>
+
+        <img src="../assets/diagrams/png/ai-architecture-pattern.png" alt="Two Lanes AI Architecture Pattern"
+            loading="lazy">
+
+        <ul>
+            <li><strong>Ingestion Lane (The Truth Factory):</strong> Documents move from extraction to indexing. We
+                insert a <strong>Queue</strong> for <strong>backpressure</strong>, so upload spikes do not crash Search.
+            </li>
+            <li><strong>Chat Lane (The Intelligence Path):</strong> This is the user path. The UI <strong>never</strong>
+                calls Search or OpenAI directly.</li>
+        </ul>
+        <p><strong>Why this works:</strong> bulkhead isolation. Ingestion can be on fire and chat still holds p95.</p>
+
+        <h2>4) The Five-Layer Model</h2>
+        <p>Upendra stops the “patchwork architecture” by layering the workload.</p>
+
+        <img src="../assets/diagrams/png/personas-to-architectures.png" alt="Five Layer AI Architecture" loading="lazy">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Layer</th>
+                    <th>Responsibility</th>
+                    <th>Azure component</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>1. Client</strong></td>
+                    <td>UI only, keep it thin</td>
+                    <td>Teams / Web App / Open WebUI</td>
+                </tr>
+                <tr>
+                    <td><strong>2. Intelligence</strong></td>
+                    <td>Orchestrator where rules live</td>
+                    <td>Orchestrator API</td>
+                </tr>
+                <tr>
+                    <td><strong>3. Inferencing</strong></td>
+                    <td>Model calls + deployment versioning</td>
+                    <td>Azure OpenAI / Foundry</td>
+                </tr>
+                <tr>
+                    <td><strong>4. Knowledge</strong></td>
+                    <td>Retrieval + grounding</td>
+                    <td>Azure AI Search + ADLS</td>
+                </tr>
+                <tr>
+                    <td><strong>5. Tools</strong></td>
+                    <td>Actions + business APIs</td>
+                    <td>Internal APIs via APIM</td>
+                </tr>
+            </tbody>
+        </table>
+        <p><strong>Rule:</strong> the client is a view. The orchestrator is the brain.</p>
+
+        <h2>5) The AI Workload Design Loop</h2>
+        <p><strong>Trinity:</strong> “Once deployed, we are done, right?”<br>
+            <strong>Upendra:</strong> “In AI, you are never done. You ship, then you correct drift.”
+        </p>
+        <p>Wave 1 needs this loop:</p>
+        <ol>
+            <li><strong>Build</strong>: prompt, retrieval, policies, limits</li>
+            <li><strong>Measure</strong>: citation coverage, refusal rate, p95 latency, token/request</li>
+            <li><strong>Adapt</strong>: tuning chunking/retrieval, policy updates, index rebuilds</li>
+            <li><strong>Control change</strong>: version prompts, indexes, policies, model deployments</li>
+        </ol>
+
+        <h2>6) Platform Decisions (Wave 1 Tips)</h2>
+        <h3>AKS vs ACA</h3>
+        <ul>
+            <li><strong>AKS</strong>: best for regulated production patterns (network control, segmentation, multiple
+                internal services)</li>
+            <li><strong>ACA</strong>: good for rapid pilots, fewer ops, but less control for complex enterprise
+                segmentation</li>
+        </ul>
+
+        <h3>Training vs Inference Compute</h3>
+        <ul>
+            <li><strong>Inference</strong> should be stable, monitored, and protected behind APIM</li>
+            <li><strong>Training/fine-tuning</strong> is usually <strong>batch + transient</strong>. Shut it down when
+                idle</li>
+            <li>Prefer managed options (Azure ML) over "always on" VM clusters for sporadic training jobs.</li>
+        </ul>
+
+        <h2>7) The Three Golden Production Contracts</h2>
+        <p>Upendra insists most copilots fail because they lack clear <strong>contracts</strong>.</p>
+
+        <img src="../assets/diagrams/png/protect-apis.png" alt="Protecting APIs with APIM" loading="lazy">
+
+        <h3>Contract 1: Evidence-or-Refusal</h3>
+        <p>If grounding exists → answer + citations.<br>
+            If grounding is missing → <strong>refuse</strong>.</p>
+        <p><strong>Enforce it server-side</strong> using a validator. Not just prompt wording.</p>
+
+        <h3>Contract 2: The Audit Trail</h3>
+        <p>A “200 OK” is not an audit. Log <strong>what influenced the answer</strong> associated with the `requestId`:
+            chunk IDs, filter logic, model deployment, and index version.</p>
+
+        <h3>Contract 3: Permission-Aware Retrieval</h3>
+        <p>The model is <strong>not</strong> your security boundary. Retrieval is. Security trimming must be enforced
+            using validated identity claims so users only see authorised content.</p>
+
+        <h2>8) Grounding Data Design</h2>
+        <p><strong>Morpheus:</strong> “Show me the mechanism that prevents cross-team leaks.”<br>
+            <strong>Upendra:</strong> “It’s not the model. It’s the metadata and filters.”
+        </p>
+
+        <h3>Minimum Chunk Metadata (Wave 1)</h3>
+        <ul>
+            <li>`docId`, `chunkId`, `content`, `vector`</li>
+            <li>`pageNumber`, `sourcePath`</li>
+            <li>`allowedGroups[]` (or ACL tags)</li>
+            <li>`classification`, `ingestedAt`, `indexVersion`</li>
+        </ul>
+
+        <h2>9) Data Platform Strategy</h2>
+        <p>Don’t build an extra data platform “because AI”. Start simple with ADLS for raw/extracted content and AI
+            Search for vectors. Add complexity (Fabric/OneLake) only when specific aggregation or governance needs
+            demand it.</p>
+
+        <h2>10) Operations: Monitor Signals, Not Hopes</h2>
+        <ul>
+            <li><strong>Model:</strong> Refusal rate, p95 latency, 429 throttle events.</li>
+            <li><strong>Cost:</strong> Tokens per request, cost per route (chat vs ingestion).</li>
+            <li><strong>Retrieval:</strong> Logic drift, index freshness, no-results rate.</li>
+            <li><strong>Ingestion:</strong> Queue depth, processing failures, document throughput.</li>
+        </ul>
+
+        <h2>11) Day-2 Operating Model</h2>
+        <p>This avoids “who owns it?” fights during incidents.</p>
+
+        <img src="../assets/diagrams/png/organizational-governance-structure.png" alt="AI Governance Structure"
+            loading="lazy">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Area</th>
+                    <th>Primary owner</th>
+                    <th>What they own</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>APIM + identity boundary</td>
+                    <td>Platform team</td>
+                    <td>Auth, rate limits, token budgets, routing</td>
+                </tr>
+                <tr>
+                    <td>Orchestrator API</td>
+                    <td>App team</td>
+                    <td>Prompting, validation, contracts, fallback logic</td>
+                </tr>
+                <tr>
+                    <td>Search + Retrieval</td>
+                    <td>Data team</td>
+                    <td>Index schema, chunking, filters, freshness</td>
+                </tr>
+                <tr>
+                    <td>Security + Compliance</td>
+                    <td>Security team</td>
+                    <td>Content safety, audit reviews, policy sign-off</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>12) Testing and Gates</h2>
+        <p>Credibility comes from a <strong>Golden Test Set</strong> of 30–50 questions including "must refuse"
+            scenarios and prompt injection attempts. Block release if citation coverage drops or cross-group retrieval
+            is detected.</p>
+
+        <h2>13) GenAIOps Change Control</h2>
+
+        <img src="../assets/diagrams/png/mlops-genaiops.png" alt="GenAIOps Lifecycle" loading="lazy">
+
+        <p>Version everything that changes behavior: `promptVersion`, `indexVersion`, `policyVersion`. Your release
+            gates must verify security trimming and injection resistance before every deployment.</p>
+
+        <h2>14) Responsible AI (Minimum Controls)</h2>
+
+        <img src="../assets/diagrams/png/responsible-ai.png" alt="Responsible AI Controls" loading="lazy">
+
+        <p>Responsible AI is not a slide. It’s enforcement. Ensure citations are transparent, content safety filters are
+            active (input/output), and PII usage is explicitly governed.</p>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2>Scene 2: The Definition of Done</h2>
+        <p><strong>Client Sponsor:</strong> “So, what did we really ship?”</p>
+        <p><strong>Morpheus:</strong> “A Copilot that doesn’t leak data, doesn’t collapse under load, and leaves an
+            evidence trail for every answer.”</p>
+        <p><strong>Upendra:</strong> “That is <strong>Well-Architected AI</strong>. The rest is just compute.”</p>
+
+        <div
+            style="background: rgba(59, 130, 246, 0.1); border: 1px solid #3b82f6; border-radius: 12px; padding: 2rem; margin-top: 3rem; text-align: center;">
+            <h3 style="margin-top: 0; color: #3b82f6;">Ready to operationalize your AI?</h3>
+            <p style="margin-bottom: 2rem;">I help organizations turn stalled pilots into governed production engines.
+            </p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="../pages/contact.html" class="btn btn-primary">Contact Me</a>
+                <a href="../toolkits/UKLifeLabs-Wave1-Starter-Kit.zip" class="btn btn-outline"
+                    style="border-color: #22c55e; color: #22c55e;">Download Playbook</a>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 4rem 0;">
+            <a href="../blog.html" class="btn btn-primary" style="display: inline-block; padding: 1rem 2rem;">
+                <i class="fas fa-arrow-left"></i> Back to Insights
+            </a>
+        </div>
+    </article>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Upendra Kumar. All rights reserved. This content is personal and not affiliated with
+                Rackspace Technology.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/journeytocloudwithupendra/" target="_blank" title="LinkedIn"><i
+                        class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/appliedailearner" target="_blank" title="GitHub"><i
+                        class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        if (hamburger && navMenu) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+        }
+    </script>
+    <script src="../js/case-study-nav.js"></script>
+    <script src="../js/particles.js"></script>
+</body>
+
+</html>
