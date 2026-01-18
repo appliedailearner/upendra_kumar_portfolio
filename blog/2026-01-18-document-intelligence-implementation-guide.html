@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Complete implementation guide for Document Intelligence Copilot using Application Gateway for Containers. Includes setup steps, cost analysis, migration strategies, monitoring, and CI/CD pipelines.">
+    <title>Document Intelligence Copilot: Complete Implementation Guide | Upendra Kumar</title>
+
+    <link rel="stylesheet" href="../css/style.css?v=25">
+    <link rel="stylesheet" href="../css/premium.css?v=25">
+    <style>
+        .nav-logo-uk {
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+            border-radius: 8px !important;
+        }
+
+        .blog-post-hero {
+            padding: 120px 0 60px;
+            background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.15), transparent 60%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .blog-post-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .blog-post-content h2 {
+            color: var(--text-main);
+            font-size: 2rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .blog-post-content h3 {
+            color: #e2e8f0;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-post-content pre {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            border-left: 3px solid #a855f7;
+        }
+
+        .blog-post-content code {
+            background: rgba(168, 85, 247, 0.1);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #a855f7;
+        }
+
+        .blog-post-content pre code {
+            background: none;
+            padding: 0;
+            color: #e2e8f0;
+        }
+
+        .premium-insight-box {
+            background: rgba(59, 130, 246, 0.05);
+            border-left: 4px solid #3b82f6;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .cost-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .cost-table th {
+            background: rgba(59, 130, 246, 0.1);
+            padding: 1rem;
+            text-align: left;
+            color: #3b82f6;
+            font-weight: 600;
+        }
+
+        .cost-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .cost-table tr:last-child td {
+            border-bottom: none;
+        }
+    </style>
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+        data-cf-beacon='{"token": "8e562ea0e8e64f9e9b9e4c3f5d2a1b8c"}'></script>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container nav-container">
+            <a href="../index.html" class="nav-logo">
+                <span class="nav-logo-uk">UK</span>
+                <span class="nav-logo-text">Upendra Kumar</span>
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="../index.html#expertise" class="nav-link">Expertise</a></li>
+                <li><a href="../index.html#projects" class="nav-link">Projects</a></li>
+                <li><a href="../presentations.html" class="nav-link">Presentations</a></li>
+                <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="blog-post-hero">
+        <div class="container">
+            <div style="max-width: 800px;">
+                <div
+                    style="display: inline-block; background: rgba(168, 85, 247, 0.1); padding: 0.5rem 1rem; border-radius: 20px; margin-bottom: 1rem;">
+                    <span style="color: #a855f7; font-weight: 600; font-size: 0.9rem;">IMPLEMENTATION GUIDE</span>
+                </div>
+                <h1
+                    style="font-size: 3rem; margin-bottom: 1rem; font-family: 'Outfit', sans-serif; background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                    Document Intelligence Copilot:<br>Complete Implementation Guide
+                </h1>
+                <p style="font-size: 1.25rem; color: #94a3b8; margin-bottom: 2rem;">
+                    Production-grade setup with Application Gateway for Containers, cost analysis, migration strategies,
+                    and operational excellence
+                </p>
+                <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.95rem; color: #64748b;">
+                    <span><i class="far fa-calendar" style="margin-right: 0.5rem;"></i>January 18, 2026</span>
+                    <span><i class="far fa-clock" style="margin-right: 0.5rem;"></i>25 min read</span>
+                    <span><i class="fas fa-tag" style="margin-right: 0.5rem;"></i>Azure AI, AKS, AGC</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="blog-post-content">
+
+        <div class="premium-insight-box" style="border-left-color: #3b82f6;">
+            <p style="margin: 0; font-size: 1rem;">
+                <i class="fas fa-info-circle" style="color: #3b82f6; margin-right: 0.5rem;"></i>
+                <strong>Prerequisites:</strong> This guide assumes you've read the
+                <a href="2026-01-17-document-intelligence-copilot-azure.html"
+                    style="color: #60a5fa; text-decoration: underline;">architecture overview</a>.
+                This is the deep-dive implementation guide with complete setup steps, cost breakdowns, and migration
+                strategies.
+            </p>
+        </div>
+
+        <h2><span class="gradient-text">Table of Contents</span></h2>
+        <ol style="line-height: 2;">
+            <li><a href="#architecture-evolution" style="color: #60a5fa;">Architecture Evolution: Why Application
+                    Gateway for Containers</a></li>
+            <li><a href="#agc-setup" style="color: #60a5fa;">Complete AGC Setup Guide (5 Steps)</a></li>
+            <li><a href="#cost-analysis" style="color: #60a5fa;">Cost Analysis: $1K to $19K/Month Scenarios</a></li>
+            <li><a href="#migration-guide" style="color: #60a5fa;">7-Week Migration Guide (NGINX → AGC)</a></li>
+            <li><a href="#monitoring" style="color: #60a5fa;">Monitoring & Observability</a></li>
+            <li><a href="#troubleshooting" style="color: #60a5fa;">Troubleshooting Runbooks</a></li>
+            <li><a href="#testing" style="color: #60a5fa;">Testing Strategies</a></li>
+            <li><a href="#cicd" style="color: #60a5fa;">Complete CI/CD Pipeline</a></li>
+            <li><a href="#resources" style="color: #60a5fa;">YouTube Videos & Microsoft Learn References</a></li>
+        </ol>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2 id="architecture-evolution"><span class="gradient-text">1. Architecture Evolution: Why Application Gateway
+                for Containers</span></h2>
+
+        <p>In late 2024, the Kubernetes community announced that the <code>ingress-nginx</code> controller will be
+            <strong>retired in March 2026</strong>. This affects millions of production deployments worldwide.
+        </p>
+
+        <h3>Timeline</h3>
+        <pre><code>2024 ────────── 2025 ────────── 2026 ────────── 2027+
+  │                │                │                │
+  ├─ AGC GA        ├─ NGINX         ├─ Gateway API  ├─ Full
+  │  (Available)   │  Retirement    │  (Istio)      │  Migration
+  │                │  (March)       │  Available    │  Complete</code></pre>
+
+        <h3>Microsoft's Strategic Direction</h3>
+
+        <p>Microsoft is investing in two future-proof solutions:</p>
+
+        <div class="premium-insight-box">
+            <h4 style="margin: 0 0 1rem 0; color: #3b82f6;">1. Application Gateway for Containers (AGC) - Available Now
+            </h4>
+            <ul>
+                <li>Azure-native Layer 7 load balancer</li>
+                <li>Kubernetes Gateway API support</li>
+                <li>Built-in WAF and security features</li>
+                <li>Direct pod communication (better performance)</li>
+                <li>Managed by Microsoft (no manual updates)</li>
+            </ul>
+        </div>
+
+        <div class="premium-insight-box" style="border-left-color: #a855f7; background: rgba(168, 85, 247, 0.05);">
+            <h4 style="margin: 0 0 1rem 0; color: #a855f7;">2. Gateway API with Istio - Coming H1 2026</h4>
+            <ul>
+                <li>Kubernetes Gateway API implementation</li>
+                <li>Powered by Istio control plane</li>
+                <li>Advanced traffic management</li>
+                <li>Service mesh capabilities</li>
+            </ul>
+        </div>
+
+        <p><strong>This guide uses Application Gateway for Containers (AGC)</strong> as the long-term, production-ready
+            solution.</p>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2 id="agc-setup"><span class="gradient-text">2. Complete AGC Setup Guide</span></h2>
+
+        <p>Follow these 5 steps to deploy Application Gateway for Containers for your RAG Copilot.</p>
+
+        <h3>Prerequisites</h3>
+
+        <pre><code># Azure CLI version 2.50.0 or later
+az version
+
+# AKS cluster with managed identity
+az aks show -g myResourceGroup -n myAKSCluster --query identity
+
+# Required permissions
+az role assignment list --assignee &lt;your-identity&gt; --scope &lt;aks-resource-id&gt;</code></pre>
+
+        <p><strong>Required Roles:</strong></p>
+        <ul>
+            <li><code>Contributor</code> on the AKS cluster</li>
+            <li><code>Network Contributor</code> on the VNET</li>
+            <li><code>Managed Identity Operator</code> on the AKS managed identity</li>
+        </ul>
+
+        <h3>Step 1: Enable the AGC Add-on</h3>
+
+        <pre><code># Register the feature (if not already registered)
+az feature register \
+  --namespace Microsoft.ContainerService \
+  --name AKS-ExtensionManager
+
+# Wait for registration (check status)
+az feature show \
+  --namespace Microsoft.ContainerService \
+  --name AKS-ExtensionManager
+
+# Enable the add-on
+az aks enable-addons \
+  --resource-group myResourceGroup \
+  --name myAKSCluster \
+  --addons azure-application-gateway-for-containers
+
+# Verify installation
+kubectl get pods -n azure-alb-system</code></pre>
+
+        <p><strong>Expected Output:</strong></p>
+        <pre><code>NAME                                  READY   STATUS    RESTARTS   AGE
+alb-controller-7d4b8c9f5d-x7k2m      1/1     Running   0          2m
+alb-controller-bootstrap-xyz123      0/1     Completed 0          3m</code></pre>
+
+        <h3>Step 2: Deploy the Traffic Controller (Bicep)</h3>
+
+        <p>Create the AGC infrastructure using Bicep:</p>
+
+        <pre><code>@description('Name of the Application Gateway for Containers')
+param agcName string
+
+@description('Location for all resources')
+param location string = resourceGroup().location
+
+@description('Subnet ID for AGC')
+param subnetId string
+
+// Application Gateway for Containers (Traffic Controller)
+resource trafficController 'Microsoft.ServiceNetworking/trafficControllers@2023-11-01' = {
+  name: agcName
+  location: location
+  properties: {
+    associations: [
+      {
+        subnet: {
+          id: subnetId
+        }
+      }
+    ]
+  }
+}
+
+// Frontend configuration
+resource frontend 'Microsoft.ServiceNetworking/trafficControllers/frontends@2023-11-01' = {
+  parent: trafficController
+  name: '${agcName}-frontend'
+  location: location
+  properties: {
+    fqdn: 'api.mycompany.com'
+  }
+}
+
+output trafficControllerId string = trafficController.id
+output frontendFqdn string = frontend.properties.fqdn</code></pre>
+
+        <p><strong>Deploy:</strong></p>
+        <pre><code>az deployment group create \
+  --resource-group myResourceGroup \
+  --template-file infra/modules/agc.bicep \
+  --parameters agcName=agc-rag-copilot \
+               subnetId=/subscriptions/{sub-id}/resourceGroups/{rg}/providers/Microsoft.Network/virtualNetworks/{vnet}/subnets/agc-subnet</code></pre>
+
+        <h3>Step 3: Configure Gateway API Resources</h3>
+
+        <pre><code>apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: rag-gateway
+  namespace: ai-workloads
+spec:
+  gatewayClassName: azure-alb-external
+  listeners:
+  - name: https-listener
+    protocol: HTTPS
+    port: 443
+    hostname: "api.mycompany.com"
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: tls-cert-secret</code></pre>
+
+        <h3>Step 4: Configure HTTPRoute for Path-Based Routing</h3>
+
+        <pre><code>apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: chat-route
+  namespace: ai-workloads
+spec:
+  parentRefs:
+  - name: rag-gateway
+  hostnames:
+  - "api.mycompany.com"
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /v1/chat
+      method: POST
+    backendRefs:
+    - name: rag-orchestrator-service
+      port: 8000</code></pre>
+
+        <h3>Step 5: Enable WAF Protection</h3>
+
+        <pre><code>apiVersion: alb.networking.azure.io/v1
+kind: ApplicationLoadBalancerPolicy
+metadata:
+  name: waf-policy
+  namespace: ai-workloads
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: Gateway
+    name: rag-gateway
+  waf:
+    enabled: true
+    mode: Prevention
+    ruleSetType: OWASP
+    ruleSetVersion: "3.2"</code></pre>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2 id="cost-analysis"><span class="gradient-text">3. Cost Analysis: What Will This Actually Cost?</span></h2>
+
+        <p>Let's break down the total cost of ownership with real numbers across three deployment scenarios.</p>
+
+        <h3>Scenario 1: Small Deployment (100 users, 10k queries/month)</h3>
+
+        <table class="cost-table">
+            <thead>
+                <tr>
+                    <th>Component</th>
+                    <th>Cost/Month</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>AGC</td>
+                    <td>$92</td>
+                </tr>
+                <tr>
+                    <td>AKS (2 nodes)</td>
+                    <td>$385</td>
+                </tr>
+                <tr>
+                    <td>APIM Basic</td>
+                    <td>$150</td>
+                </tr>
+                <tr>
+                    <td>OpenAI (GPT-3.5)</td>
+                    <td>$150</td>
+                </tr>
+                <tr>
+                    <td>AI Search Basic</td>
+                    <td>$75</td>
+                </tr>
+                <tr>
+                    <td>Doc Intelligence</td>
+                    <td>$15</td>
+                </tr>
+                <tr>
+                    <td>Networking</td>
+                    <td>$100</td>
+                </tr>
+                <tr>
+                    <td>Storage & Logs</td>
+                    <td>$100</td>
+                </tr>
+                <tr style="background: rgba(168, 85, 247, 0.1);">
+                    <td><strong>TOTAL</strong></td>
+                    <td><strong>$1,067/month</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Scenario 2: Medium Deployment (1,000 users, 100k queries/month)</h3>
+
+        <table class="cost-table">
+            <thead>
+                <tr>
+                    <th>Component</th>
+                    <th>Cost/Month</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>AGC</td>
+                    <td>$150</td>
+                </tr>
+                <tr>
+                    <td>AKS (5 nodes)</td>
+                    <td>$770</td>
+                </tr>
+                <tr>
+                    <td>APIM Standard</td>
+                    <td>$750</td>
+                </tr>
+                <tr>
+                    <td>OpenAI (GPT-4)</td>
+                    <td>$1,400</td>
+                </tr>
+                <tr>
+                    <td>AI Search S1</td>
+                    <td>$250</td>
+                </tr>
+                <tr>
+                    <td>Doc Intelligence</td>
+                    <td>$150</td>
+                </tr>
+                <tr>
+                    <td>Networking</td>
+                    <td>$900</td>
+                </tr>
+                <tr>
+                    <td>Storage & Logs</td>
+                    <td>$350</td>
+                </tr>
+                <tr style="background: rgba(168, 85, 247, 0.1);">
+                    <td><strong>TOTAL</strong></td>
+                    <td><strong>$4,720/month</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Scenario 3: Enterprise Deployment (10,000 users, 1M queries/month)</h3>
+
+        <table class="cost-table">
+            <thead>
+                <tr>
+                    <th>Component</th>
+                    <th>Cost/Month</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>AGC</td>
+                    <td>$500</td>
+                </tr>
+                <tr>
+                    <td>AKS (15 nodes)</td>
+                    <td>$2,310</td>
+                </tr>
+                <tr>
+                    <td>APIM Premium</td>
+                    <td>$3,000</td>
+                </tr>
+                <tr>
+                    <td>OpenAI (GPT-4 + PTU)</td>
+                    <td>$8,000</td>
+                </tr>
+                <tr>
+                    <td>AI Search S2</td>
+                    <td>$1,000</td>
+                </tr>
+                <tr>
+                    <td>Doc Intelligence</td>
+                    <td>$1,500</td>
+                </tr>
+                <tr>
+                    <td>Networking</td>
+                    <td>$1,500</td>
+                </tr>
+                <tr>
+                    <td>Storage & Logs</td>
+                    <td>$1,000</td>
+                </tr>
+                <tr style="background: rgba(168, 85, 247, 0.1);">
+                    <td><strong>TOTAL</strong></td>
+                    <td><strong>$18,810/month</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="premium-insight-box" style="border-left-color: #f59e0b; background: rgba(245, 158, 11, 0.05);">
+            <h4 style="margin: 0 0 1rem 0; color: #f59e0b;">💡 Cost Optimization Strategies</h4>
+            <ul style="margin: 0;">
+                <li><strong>Reserved Capacity:</strong> Save 30-50% on Azure OpenAI PTU for predictable workloads</li>
+                <li><strong>APIM Semantic Caching:</strong> Reduce OpenAI calls by 40-60%</li>
+                <li><strong>Spot VMs:</strong> Save 70-90% on compute costs for batch workloads</li>
+                <li><strong>Log Analytics Commitment Tiers:</strong> Save 15-30% on logging costs</li>
+            </ul>
+        </div>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2 id="migration-guide"><span class="gradient-text">4. 7-Week Migration Guide (NGINX → AGC)</span></h2>
+
+        <p>This parallel deployment strategy ensures zero downtime during migration.</p>
+
+        <h3>Week 1: Preparation</h3>
+        <ul>
+            <li>Audit current NGINX configuration</li>
+            <li>Map Ingress resources to HTTPRoute</li>
+            <li>Create conversion scripts</li>
+        </ul>
+
+        <h3>Week 2: Deploy AGC</h3>
+        <ul>
+            <li>Deploy AGC infrastructure (Bicep)</li>
+            <li>Deploy Gateway resources in test namespace</li>
+            <li>Run smoke tests</li>
+        </ul>
+
+        <h3>Week 3: Canary Deployment</h3>
+        <ul>
+            <li>Deploy production Gateway</li>
+            <li>Configure traffic splitting</li>
+            <li>Route 10% of traffic to AGC</li>
+        </ul>
+
+        <h3>Weeks 4-6: Gradual Migration</h3>
+        <ul>
+            <li><strong>Week 4:</strong> 25% traffic to AGC</li>
+            <li><strong>Week 5:</strong> 50% traffic to AGC</li>
+            <li><strong>Week 6:</strong> 100% traffic to AGC</li>
+        </ul>
+
+        <h3>Week 7: Decommission NGINX</h3>
+        <ul>
+            <li>Verify zero traffic on NGINX</li>
+            <li>Backup and remove NGINX</li>
+            <li>Clean up DNS records</li>
+        </ul>
+
+        <div class="premium-insight-box" style="border-left-color: #ef4444; background: rgba(239, 68, 68, 0.05);">
+            <h4 style="margin: 0 0 0.5rem 0; color: #ef4444;">🔧 Rollback Procedure</h4>
+            <p style="margin: 0; font-size: 0.95rem;">If issues occur, immediately switch DNS back to NGINX. Wait 5-15
+                minutes for DNS propagation and monitor traffic shift.</p>
+        </div>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2 id="monitoring"><span class="gradient-text">5. Monitoring & Observability</span></h2>
+
+        <h3>Key Metrics to Monitor</h3>
+
+        <pre><code>// AGC Capacity Utilization
+AzureMetrics
+| where ResourceProvider == "MICROSOFT.SERVICENETWORKING"
+| where MetricName == "CapacityUnits"
+| summarize avg(Average), max(Maximum) by bin(TimeGenerated, 5m)
+
+// OpenAI Token Usage
+AzureDiagnostics
+| where ResourceProvider == "MICROSOFT.COGNITIVESERVICES"
+| extend tokens = toint(parse_json(properties_s).usage.total_tokens)
+| summarize sum(tokens) by bin(TimeGenerated, 1h)</code></pre>
+
+        <h3>Critical Alerts</h3>
+        <ul>
+            <li><strong>High Error Rate:</strong> >5% for 5 minutes</li>
+            <li><strong>AGC Capacity:</strong> >85% utilization</li>
+            <li><strong>OpenAI Quota:</strong> 429 errors detected</li>
+            <li><strong>Low Citation Rate:</strong>
+                <80% of responses</li>
+        </ul>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2 id="troubleshooting"><span class="gradient-text">6. Troubleshooting Runbooks</span></h2>
+
+        <h3>Runbook 1: 403 Forbidden Errors (Private DNS Issue)</h3>
+        <p><strong>Root Cause:</strong> Private DNS zones not linked to AKS VNET</p>
+        <p><strong>Solution:</strong></p>
+        <pre><code>az network private-dns link vnet create \
+  --resource-group myResourceGroup \
+  --zone-name privatelink.openai.azure.com \
+  --name aks-vnet-link \
+  --virtual-network /subscriptions/{sub}/resourceGroups/{rg}/providers/Microsoft.Network/virtualNetworks/aks-vnet</code></pre>
+
+        <h3>Runbook 2: 429 Too Many Requests (Quota Exhaustion)</h3>
+        <p><strong>Immediate Fix:</strong> Increase TPM quota if available</p>
+        <p><strong>Long-term Solution:</strong> Implement APIM retry policy and semantic caching</p>
+
+        <h3>Runbook 3: Slow Query Performance</h3>
+        <p><strong>Solution:</strong> Reduce AI Search top results from 50 to 10, implement parallel processing</p>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2 id="testing"><span class="gradient-text">7. Testing Strategies</span></h2>
+
+        <h3>Unit Testing</h3>
+        <pre><code>def test_citation_extraction(orchestrator):
+    mock_response = {
+        "choices": [{
+            "message": {
+                "content": "The refund policy is... [doc1.pdf, page 5]"
+            }
+        }]
+    }
+    citations = orchestrator.extract_citations(mock_response)
+    assert len(citations) == 1
+    assert citations[0].document == "doc1.pdf"</code></pre>
+
+        <h3>Load Testing</h3>
+        <pre><code># Test with 100 concurrent users
+locust -f tests/load/locustfile.py \
+  --host https://api.mycompany.com \
+  --users 100 \
+  --spawn-rate 10 \
+  --run-time 10m</code></pre>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2 id="cicd"><span class="gradient-text">8. Complete CI/CD Pipeline</span></h2>
+
+        <p>7-stage GitHub Actions workflow for production deployment:</p>
+
+        <ol>
+            <li><strong>Validate Infrastructure:</strong> Bicep validation and what-if analysis</li>
+            <li><strong>Security Scanning:</strong> Trivy, Checkov, APIM policy validation</li>
+            <li><strong>Build and Test:</strong> Unit tests, Docker build, image scanning</li>
+            <li><strong>Deploy Infrastructure:</strong> Bicep deployment to Azure</li>
+            <li><strong>Deploy Application:</strong> Push to ACR, deploy to AKS</li>
+            <li><strong>Smoke Tests:</strong> Health checks, chat endpoint validation</li>
+            <li><strong>Rollback:</strong> Automatic rollback on failure</li>
+        </ol>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2 id="resources"><span class="gradient-text">9. YouTube Videos & Microsoft Learn References</span></h2>
+
+        <h3>Essential YouTube Videos</h3>
+
+        <div
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+            <div style="background: rgba(255, 255, 255, 0.02); border-radius: 8px; overflow: hidden;">
+                <a href="https://www.youtube.com/watch?v=vZE3vbJWqKs" target="_blank" style="text-decoration: none;">
+                    <img src="https://img.youtube.com/vi/vZE3vbJWqKs/hqdefault.jpg"
+                        alt="Advanced RAG with Azure AI Search" style="width: 100%; display: block;">
+                    <div style="padding: 1rem;">
+                        <h4 style="margin: 0 0 0.5rem 0; color: #e2e8f0;">Advanced RAG with Azure AI Search</h4>
+                        <p style="margin: 0; font-size: 0.9rem; color: #94a3b8;">Microsoft Build 2024 - Hybrid search,
+                            semantic ranking, vector optimization</p>
+                    </div>
+                </a>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.02); border-radius: 8px; overflow: hidden;">
+                <a href="https://www.youtube.com/watch?v=kD-xR8zKM9g" target="_blank" style="text-decoration: none;">
+                    <img src="https://img.youtube.com/vi/kD-xR8zKM9g/hqdefault.jpg" alt="GenAI Gateway in APIM"
+                        style="width: 100%; display: block;">
+                    <div style="padding: 1rem;">
+                        <h4 style="margin: 0 0 0.5rem 0; color: #e2e8f0;">GenAI Gateway Capabilities in Azure API
+                            Management</h4>
+                        <p style="margin: 0; font-size: 0.9rem; color: #94a3b8;">Token limits, semantic caching, safety
+                            policies</p>
+                    </div>
+                </a>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.02); border-radius: 8px; overflow: hidden;">
+                <a href="https://www.youtube.com/watch?v=qVW_Kx1wB0M" target="_blank" style="text-decoration: none;">
+                    <img src="https://img.youtube.com/vi/qVW_Kx1wB0M/hqdefault.jpg" alt="Private Network Deployment"
+                        style="width: 100%; display: block;">
+                    <div style="padding: 1rem;">
+                        <h4 style="margin: 0 0 0.5rem 0; color: #e2e8f0;">Deploying an AI App to a Private Network on
+                            Azure</h4>
+                        <p style="margin: 0; font-size: 0.9rem; color: #94a3b8;">Private endpoints, Bicep templates,
+                            network topology</p>
+                    </div>
+                </a>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.02); border-radius: 8px; overflow: hidden;">
+                <a href="https://www.youtube.com/watch?v=8g3TQGYqZ2c" target="_blank" style="text-decoration: none;">
+                    <img src="https://img.youtube.com/vi/8g3TQGYqZ2c/hqdefault.jpg"
+                        alt="Application Gateway for Containers" style="width: 100%; display: block;">
+                    <div style="padding: 1rem;">
+                        <h4 style="margin: 0 0 0.5rem 0; color: #e2e8f0;">What is Application Gateway for Containers?
+                        </h4>
+                        <p style="margin: 0; font-size: 0.9rem; color: #94a3b8;">AGC introduction, Gateway API,
+                            strategic direction</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <h3>Microsoft Learn References</h3>
+
+        <div
+            style="background: rgba(59, 130, 246, 0.05); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #3b82f6; margin: 2rem 0;">
+            <h4 style="margin: 0 0 1rem 0; color: #3b82f6;">Azure Architecture Center</h4>
+            <ul style="margin: 0;">
+                <li><a href="https://learn.microsoft.com/en-us/azure/search/retrieval-augmented-generation-overview"
+                        target="_blank" style="color: #60a5fa;">Retrieval Augmented Generation (RAG) in Azure AI
+                        Search</a></li>
+                <li><a href="https://learn.microsoft.com/en-us/azure/architecture/ai-ml/architecture/baseline-openai-e2e-chat"
+                        target="_blank" style="color: #60a5fa;">Azure OpenAI chat baseline architecture</a></li>
+                <li><a href="https://learn.microsoft.com/en-us/azure/architecture/networking/architecture/hub-spoke"
+                        target="_blank" style="color: #60a5fa;">Hub-spoke network topology in Azure</a></li>
+            </ul>
+        </div>
+
+        <div
+            style="background: rgba(168, 85, 247, 0.05); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #a855f7; margin: 2rem 0;">
+            <h4 style="margin: 0 0 1rem 0; color: #a855f7;">Application Gateway for Containers</h4>
+            <ul style="margin: 0;">
+                <li><a href="https://learn.microsoft.com/en-us/azure/application-gateway/for-containers/overview"
+                        target="_blank" style="color: #c084fc;">What is Application Gateway for Containers?</a></li>
+                <li><a href="https://learn.microsoft.com/en-us/azure/application-gateway/for-containers/quickstart-deploy-application-gateway-for-containers-alb-controller"
+                        target="_blank" style="color: #c084fc;">Quickstart: Deploy Application Gateway for
+                        Containers</a></li>
+                <li><a href="https://learn.microsoft.com/en-us/azure/application-gateway/for-containers/how-to-gateway-api-support"
+                        target="_blank" style="color: #c084fc;">Gateway API support in AGC</a></li>
+            </ul>
+        </div>
+
+        <div
+            style="background: rgba(34, 197, 94, 0.05); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #22c55e; margin: 2rem 0;">
+            <h4 style="margin: 0 0 1rem 0; color: #22c55e;">Azure AI Services</h4>
+            <ul style="margin: 0;">
+                <li><a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/quotas-limits" target="_blank"
+                        style="color: #4ade80;">Azure OpenAI Service quotas and limits</a></li>
+                <li><a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/provisioned-throughput"
+                        target="_blank" style="color: #4ade80;">Provisioned throughput units (PTU)</a></li>
+                <li><a href="https://learn.microsoft.com/en-us/azure/search/vector-search-overview" target="_blank"
+                        style="color: #4ade80;">Vector search in Azure AI Search</a></li>
+            </ul>
+        </div>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2><span class="gradient-text">Summary</span></h2>
+
+        <p>This implementation guide provides everything you need to deploy a production-grade Document Intelligence
+            Copilot using Application Gateway for Containers. You now have:</p>
+
+        <ul>
+            <li>✅ Complete AGC setup guide (5 steps)</li>
+            <li>✅ Detailed cost analysis (3 scenarios)</li>
+            <li>✅ 7-week migration strategy</li>
+            <li>✅ Monitoring and troubleshooting runbooks</li>
+            <li>✅ Testing strategies and CI/CD pipeline</li>
+            <li>✅ Curated resources for deep learning</li>
+        </ul>
+
+        <div class="premium-insight-box" style="border-left-color: #a855f7; background: rgba(168, 85, 247, 0.05);">
+            <p style="margin: 0; font-size: 1rem;">
+                <i class="fas fa-arrow-left" style="color: #a855f7; margin-right: 0.5rem;"></i>
+                <strong>Back to Architecture Overview:</strong>
+                <a href="2026-01-17-document-intelligence-copilot-azure.html"
+                    style="color: #c084fc; text-decoration: underline;">Read the architecture overview and design
+                    principles</a>
+            </p>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Upendra Kumar. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../js/main.js"></script>
+</body>
+
+</html>
