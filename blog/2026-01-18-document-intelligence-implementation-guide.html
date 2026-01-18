@@ -218,6 +218,56 @@
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
             border-radius: 8px !important;
         }
+
+        /* Series Navigation */
+        .series-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 2rem 0;
+        }
+
+        .series-item {
+            flex: 1;
+            min-width: 250px;
+            padding: 1rem;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid transparent;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .series-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .series-item.active {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: #3b82f6;
+        }
+
+        .series-label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #94a3b8;
+            margin-bottom: 0.4rem;
+        }
+
+        .series-title {
+            display: block;
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.4;
+        }
     </style>
 
     <!-- Preconnect for performance -->
@@ -294,6 +344,24 @@
 
     <!-- Main Content -->
     <div class="blog-post-content">
+
+        <!-- Series Navigation -->
+        <div class="series-nav">
+            <a href="2026-01-17-document-intelligence-copilot-azure.html" class="series-item">
+                <span class="series-label"><i class="fas fa-check-circle" style="color: #10b981;"></i> Part 1:
+                    Architecture</span>
+                <span class="series-title">RAG Pattern & Azure Doc Intelligence</span>
+            </a>
+            <div class="series-item active">
+                <span class="series-label"><i class="fas fa-dot-circle" style="color: #3b82f6;"></i> Part 2:
+                    Implementation</span>
+                <span class="series-title">Step-by-Step Production Guide</span>
+            </div>
+            <a href="2026-01-19-well-architected-ai-go-live-playbook.html" class="series-item">
+                <span class="series-label"><i class="far fa-circle"></i> Part 3: Go-Live</span>
+                <span class="series-title">Well-Architected Playbook</span>
+            </a>
+        </div>
 
         <div class="premium-insight-box" style="border-left-color: #3b82f6;">
             <p style="margin: 0; font-size: 1rem;">
