@@ -111,6 +111,97 @@
         .cost-table tr:last-child td {
             border-bottom: none;
         }
+
+        /* Video Vault Grid (Premium Refinement) */
+        .video-vault-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        @media (min-width: 900px) {
+            .video-vault-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .video-card {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #1e293b;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+        }
+
+        .video-facade {
+            position: relative;
+            padding-bottom: 56.25%;
+            /* 16:9 Aspect Ratio */
+            height: 0;
+        }
+
+        .video-facade img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-card:hover .video-facade img {
+            opacity: 1;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.5rem;
+            border: 2px solid #fff;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .video-card:hover .play-button {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: #3b82f6;
+            border-color: #3b82f6;
+        }
+
+        .video-meta {
+            padding: 1.5rem;
+        }
+
+        .video-meta h4 {
+            margin: 0 0 0.5rem 0 !important;
+            font-size: 1.1rem;
+            color: #fff !important;
+            line-height: 1.4;
+        }
+
+        .video-meta p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
     </style>
 
     <!-- Preconnect for performance -->
@@ -712,57 +803,65 @@ locust -f tests/load/locustfile.py \
 
         <h3>Essential YouTube Videos</h3>
 
-        <div
-            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
-            <div style="background: rgba(255, 255, 255, 0.02); border-radius: 8px; overflow: hidden;">
-                <a href="https://www.youtube.com/watch?v=vZE3vbJWqKs" target="_blank" style="text-decoration: none;">
+        <div class="video-vault-grid">
+            <!-- Video 1: Advanced RAG -->
+            <div class="video-card" onclick="loadVideo(this)" data-id="vZE3vbJWqKs">
+                <div class="video-facade">
                     <img src="https://img.youtube.com/vi/vZE3vbJWqKs/hqdefault.jpg"
-                        alt="Advanced RAG with Azure AI Search" style="width: 100%; display: block;">
-                    <div style="padding: 1rem;">
-                        <h4 style="margin: 0 0 0.5rem 0; color: #e2e8f0;">Advanced RAG with Azure AI Search</h4>
-                        <p style="margin: 0; font-size: 0.9rem; color: #94a3b8;">Microsoft Build 2024 - Hybrid search,
-                            semantic ranking, vector optimization</p>
+                        alt="Advanced RAG with Azure AI Search" loading="lazy">
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
                     </div>
-                </a>
+                </div>
+                <div class="video-meta">
+                    <h4>Advanced RAG with Azure AI Search</h4>
+                    <p>Microsoft Build 2024 - Hybrid search, semantic ranking, vector optimization</p>
+                </div>
             </div>
 
-            <div style="background: rgba(255, 255, 255, 0.02); border-radius: 8px; overflow: hidden;">
-                <a href="https://www.youtube.com/watch?v=kD-xR8zKM9g" target="_blank" style="text-decoration: none;">
-                    <img src="https://img.youtube.com/vi/kD-xR8zKM9g/hqdefault.jpg" alt="GenAI Gateway in APIM"
-                        style="width: 100%; display: block;">
-                    <div style="padding: 1rem;">
-                        <h4 style="margin: 0 0 0.5rem 0; color: #e2e8f0;">GenAI Gateway Capabilities in Azure API
-                            Management</h4>
-                        <p style="margin: 0; font-size: 0.9rem; color: #94a3b8;">Token limits, semantic caching, safety
-                            policies</p>
+            <!-- Video 2: GenAI Gateway -->
+            <div class="video-card" onclick="loadVideo(this)" data-id="kD-xR8zKM9g">
+                <div class="video-facade">
+                    <img src="https://img.youtube.com/vi/kD-xR8zKM9g/hqdefault.jpg"
+                        alt="GenAI Gateway Capabilities in Azure API Management" loading="lazy">
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
                     </div>
-                </a>
+                </div>
+                <div class="video-meta">
+                    <h4>GenAI Gateway Capabilities in Azure API Management</h4>
+                    <p>Token limits, semantic caching, safety policies</p>
+                </div>
             </div>
 
-            <div style="background: rgba(255, 255, 255, 0.02); border-radius: 8px; overflow: hidden;">
-                <a href="https://www.youtube.com/watch?v=qVW_Kx1wB0M" target="_blank" style="text-decoration: none;">
-                    <img src="https://img.youtube.com/vi/qVW_Kx1wB0M/hqdefault.jpg" alt="Private Network Deployment"
-                        style="width: 100%; display: block;">
-                    <div style="padding: 1rem;">
-                        <h4 style="margin: 0 0 0.5rem 0; color: #e2e8f0;">Deploying an AI App to a Private Network on
-                            Azure</h4>
-                        <p style="margin: 0; font-size: 0.9rem; color: #94a3b8;">Private endpoints, Bicep templates,
-                            network topology</p>
+            <!-- Video 3: Private Network Deployment -->
+            <div class="video-card" onclick="loadVideo(this)" data-id="qVW_Kx1wB0M">
+                <div class="video-facade">
+                    <img src="https://img.youtube.com/vi/qVW_Kx1wB0M/hqdefault.jpg"
+                        alt="Deploying an AI App to a Private Network on Azure" loading="lazy">
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
                     </div>
-                </a>
+                </div>
+                <div class="video-meta">
+                    <h4>Deploying an AI App to a Private Network on Azure</h4>
+                    <p>Private endpoints, Bicep templates, network topology</p>
+                </div>
             </div>
 
-            <div style="background: rgba(255, 255, 255, 0.02); border-radius: 8px; overflow: hidden;">
-                <a href="https://www.youtube.com/watch?v=8g3TQGYqZ2c" target="_blank" style="text-decoration: none;">
+            <!-- Video 4: Application Gateway for Containers -->
+            <div class="video-card" onclick="loadVideo(this)" data-id="8g3TQGYqZ2c">
+                <div class="video-facade">
                     <img src="https://img.youtube.com/vi/8g3TQGYqZ2c/hqdefault.jpg"
-                        alt="Application Gateway for Containers" style="width: 100%; display: block;">
-                    <div style="padding: 1rem;">
-                        <h4 style="margin: 0 0 0.5rem 0; color: #e2e8f0;">What is Application Gateway for Containers?
-                        </h4>
-                        <p style="margin: 0; font-size: 0.9rem; color: #94a3b8;">AGC introduction, Gateway API,
-                            strategic direction</p>
+                        alt="What is Application Gateway for Containers?" loading="lazy">
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
                     </div>
-                </a>
+                </div>
+                <div class="video-meta">
+                    <h4>What is Application Gateway for Containers?</h4>
+                    <p>AGC introduction, Gateway API, strategic direction</p>
+                </div>
             </div>
         </div>
 
@@ -847,6 +946,29 @@ locust -f tests/load/locustfile.py \
     <!-- JavaScript -->
     <script src="../js/main.js"></script>
     <script src="../js/particles.js"></script>
+    <script>
+        // Load Video Function
+        function loadVideo(card) {
+            const videoId = card.getAttribute('data-id');
+            const start = card.getAttribute('data-start');
+            const iframe = document.createElement('iframe');
+            let src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            if (start) src += `&start=${start}`;
+
+            iframe.setAttribute('src', src);
+            iframe.setAttribute('frameborder', '0');
+            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+            iframe.setAttribute('allowfullscreen', '');
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.position = 'absolute';
+            iframe.style.top = '0';
+            iframe.style.left = '0';
+
+            card.innerHTML = '';
+            card.appendChild(iframe);
+        }
+    </script>
 </body>
 
 </html>
