@@ -79,7 +79,26 @@ The website must be a **Single Page Application (SPA)** with smooth scroll navig
     *   Add JSON-LD `Person` schema for Google rich results.
     *   Use proper semantic tags (`<header>`, `<main>`, `<section>`, `<footer>`).
 
-## 4. Implementation Steps (For the Agent)
+## 4. Enterprise Architecture Standards (Mandatory)
+Any cloud solution presented on this site MUST adhere to the "Wave 1" Enterprise baseline established in Jan 2026:
+
+1.  **APIM-First Strategy:**
+    *   **Rule:** No direct API access. All traffic must flow via Azure API Management.
+    *   **Policy:** Must enforce JWT Validation, Token Limits (Cost Control), and Event Hub Logging (Audit).
+2.  **Data Contracts (Provenance):**
+    *   **Rule:** RAG responses must provide source-of-truth citations.
+    *   **Schema:** Responses must return a `citations` array with `file_name`, `page_number`, and `text_snippet`.
+3.  **Security Trimming:**
+    *   **Rule:** "Permission-Aware Retrieval" is required.
+    *   **Implementation:** All Search Indexes must include `group_ids` for ACL enforcement.
+4.  **Ingestion Compliance:**
+    *   **Flow:** PDF -> Layout Model (Doc Intel) -> Semantic Chunking -> Embedding -> Index.
+    *   **Constraint:** Never dump raw text. Use Layout models to preserve structure.
+5.  **Deliverables:**
+    *   **Rule:** Every architecture blog must include a downloadable `Starter-Kit.zip`.
+    *   **Contents:** Actual JSON Schemas, APIM Policies, and Load Test scripts (Locust).
+
+## 5. Implementation Steps (For the Agent)
 1.  **Setup:** Create project structure (`index.html`, `css/style.css`, `css/leadership.css`, `js/main.js`).
 2.  **Styles:** Define CSS Variables for the "Slate Palette" first.
 3.  **Skeleton:** Build the HTML structure section by section.

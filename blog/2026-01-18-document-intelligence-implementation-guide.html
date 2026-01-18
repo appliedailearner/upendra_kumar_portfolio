@@ -1026,7 +1026,9 @@ locust -f tests/load/locustfile.py \
             const videoId = card.getAttribute('data-id');
             const start = card.getAttribute('data-start');
             const iframe = document.createElement('iframe');
-            let src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            // FIX: Add 'origin' to satisfy YouTube CORS/CORP policies
+            // FIX: Add 'rel=0' to suggest related videos from same channel only
+            let src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&origin=${window.location.origin}`;
             if (start) src += `&start=${start}`;
 
             iframe.setAttribute('src', src);
