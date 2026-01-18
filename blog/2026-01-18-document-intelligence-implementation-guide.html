@@ -998,8 +998,12 @@ locust -f tests/load/locustfile.py \
             iframe.style.top = '0';
             iframe.style.left = '0';
 
-            card.innerHTML = '';
-            card.appendChild(iframe);
+            // Find the video-facade within the card
+            const facade = card.querySelector('.video-facade');
+            if (!facade) return;
+
+            facade.innerHTML = ''; // Clear image and play button
+            facade.appendChild(iframe); // Add iframe TO THE FACADE to keep aspect ratio
         }
     </script>
 </body>
