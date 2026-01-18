@@ -497,6 +497,19 @@ spec:
     - name: rag-orchestrator-service
       port: 8000</code></pre>
 
+        <div class="premium-insight-box" style="border-left-color: #ef4444; background: rgba(239, 68, 68, 0.05);">
+            <h4 style="margin: 0 0 1rem 0; color: #ef4444;">🔒 Step 4b: The Critical Security Filter</h4>
+            <p style="margin: 0 0 1rem 0; font-size: 0.95rem;">
+                This single line is the difference between a prototype and production. Your RAG orchestrator MUST inject
+                this filter into every AI Search query:
+            </p>
+            <pre style="background: rgba(0,0,0,0.3); border: none; margin: 0;"><code style="color: #ef4444;">// The filter every query MUST have
+{
+  "search": "user question",
+  "filter": "group_ids/any(g: search.in(g, 'user_department_id'))"
+}</code></pre>
+        </div>
+
         <h3>Step 5: Enable WAF Protection</h3>
 
         <pre><code>apiVersion: alb.networking.azure.io/v1
@@ -820,135 +833,140 @@ locust -f tests/load/locustfile.py \
         <h3>Essential YouTube Videos</h3>
 
         <div class="video-vault-grid">
-            <!-- Video 1: Document Intelligence + RAG (Azure AI Show) -->
-            <div class="video-card" onclick="loadVideo(this)" data-id="SOBdR-xxE04">
+            <!-- Video 1: Vector Search & RAG (Microsoft Mechanics) -->
+            <div class="video-card" onclick="loadVideo(this)" data-id="SoeR-wR_b_w">
                 <div class="video-facade">
-                    <img src="https://img.youtube.com/vi/SOBdR-xxE04/hqdefault.jpg"
-                        alt="Transform RAG and Search with Azure AI Document Intelligence">
+                    <img src="https://img.youtube.com/vi/SoeR-wR_b_w/hqdefault.jpg"
+                        alt="Vector Search and RAG in Azure AI Search">
                     <div class="play-button">
                         <i class="fas fa-play"></i>
                     </div>
                 </div>
                 <div class="video-meta">
-                    <h4>Transform RAG with Document Intelligence</h4>
-                    <p>Azure AI Show - Advanced RAG patterns</p>
+                    <h4>Vector Search & RAG</h4>
+                    <p>Microsoft Mechanics - Deep dive into vector retrieval</p>
                 </div>
             </div>
 
-            <!-- Video 2: Document Intelligence Ingestion (Microsoft Reactor) -->
-            <div class="video-card" onclick="loadVideo(this)" data-id="Iv8ecyimgTI">
+            <!-- Video 2: Azure AI Document Intelligence (Azure Friday) -->
+            <div class="video-card" onclick="loadVideo(this)" data-id="3n_y_A_q_4c">
                 <div class="video-facade">
-                    <img src="https://img.youtube.com/vi/Iv8ecyimgTI/hqdefault.jpg"
-                        alt="Accelerate Data Ingestion and Extraction">
+                    <img src="https://img.youtube.com/vi/3n_y_A_q_4c/hqdefault.jpg"
+                        alt="Azure AI Document Intelligence Overview">
                     <div class="play-button">
                         <i class="fas fa-play"></i>
                     </div>
                 </div>
                 <div class="video-meta">
-                    <h4>Accelerate Data Ingestion and Extraction</h4>
-                    <p>Microsoft Reactor - Data ingestion strategies</p>
+                    <h4>Document Intelligence Overview</h4>
+                    <p>Azure Friday - Structure extraction capabilities</p>
                 </div>
             </div>
 
-            <!-- Video 3: APIM as GenAI Gateway -->
-            <div class="video-card" onclick="loadVideo(this)" data-id="-6pq-r7AUe4">
+            <!-- Video 3: Manage Token Spend (Microsoft Mechanics) -->
+            <div class="video-card" onclick="loadVideo(this)" data-id="7f4I1uK-V7U">
                 <div class="video-facade">
-                    <img src="https://img.youtube.com/vi/-6pq-r7AUe4/hqdefault.jpg"
-                        alt="Take full control of your AI APIs">
+                    <img src="https://img.youtube.com/vi/7f4I1uK-V7U/hqdefault.jpg"
+                        alt="Control Costs with Azure API Management">
                     <div class="play-button">
                         <i class="fas fa-play"></i>
                     </div>
                 </div>
                 <div class="video-meta">
-                    <h4>Take Control of Your AI APIs</h4>
-                    <p>Azure API Management Gateway features</p>
-                </div>
-            </div>
-
-            <!-- Video 4: Security Trimming for RAG -->
-            <div class="video-card" onclick="loadVideo(this)" data-id="4PKug91OSw8">
-                <div class="video-facade">
-                    <img src="https://img.youtube.com/vi/4PKug91OSw8/hqdefault.jpg"
-                        alt="Data Access Control for AI RAG Apps">
-                    <div class="play-button">
-                        <i class="fas fa-play"></i>
-                    </div>
-                </div>
-                <div class="video-meta">
-                    <h4>Data Access Control for AI RAG Apps</h4>
-                    <p>Security trimming implementation strategies</p>
+                    <h4>Control AI Costs</h4>
+                    <p>Microsoft Mechanics - APIM Token Limit Policy</p>
                 </div>
             </div>
         </div>
-
-        <h3>Microsoft Learn References</h3>
-
-        <div
-            style="background: rgba(59, 130, 246, 0.05); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #3b82f6; margin: 2rem 0;">
-            <h4 style="margin: 0 0 1rem 0; color: #3b82f6;">Azure Architecture Center</h4>
-            <ul style="margin: 0;">
-                <li><a href="https://learn.microsoft.com/en-us/azure/search/retrieval-augmented-generation-overview"
-                        target="_blank" style="color: #60a5fa;">Retrieval Augmented Generation (RAG) in Azure AI
-                        Search</a></li>
-                <li><a href="https://learn.microsoft.com/en-us/azure/architecture/ai-ml/architecture/baseline-openai-e2e-chat"
-                        target="_blank" style="color: #60a5fa;">Azure OpenAI chat baseline architecture</a></li>
-                <li><a href="https://learn.microsoft.com/en-us/azure/architecture/networking/architecture/hub-spoke"
-                        target="_blank" style="color: #60a5fa;">Hub-spoke network topology in Azure</a></li>
-            </ul>
+        <div class="video-meta">
+            <h4>Take Control of Your AI APIs</h4>
+            <p>Azure API Management Gateway features</p>
         </div>
+    </div>
 
-        <div
-            style="background: rgba(168, 85, 247, 0.05); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #a855f7; margin: 2rem 0;">
-            <h4 style="margin: 0 0 1rem 0; color: #a855f7;">Application Gateway for Containers</h4>
-            <ul style="margin: 0;">
-                <li><a href="https://learn.microsoft.com/en-us/azure/application-gateway/for-containers/overview"
-                        target="_blank" style="color: #c084fc;">What is Application Gateway for Containers?</a></li>
-                <li><a href="https://learn.microsoft.com/en-us/azure/application-gateway/for-containers/quickstart-deploy-application-gateway-for-containers-alb-controller"
-                        target="_blank" style="color: #c084fc;">Quickstart: Deploy Application Gateway for
-                        Containers</a></li>
-                <li><a href="https://learn.microsoft.com/en-us/azure/application-gateway/for-containers/how-to-gateway-api-support"
-                        target="_blank" style="color: #c084fc;">Gateway API support in AGC</a></li>
-            </ul>
+    <!-- Video 4: Security Trimming for RAG -->
+    <div class="video-card" onclick="loadVideo(this)" data-id="4PKug91OSw8">
+        <div class="video-facade">
+            <img src="https://img.youtube.com/vi/4PKug91OSw8/hqdefault.jpg" alt="Data Access Control for AI RAG Apps">
+            <div class="play-button">
+                <i class="fas fa-play"></i>
+            </div>
         </div>
-
-        <div
-            style="background: rgba(34, 197, 94, 0.05); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #22c55e; margin: 2rem 0;">
-            <h4 style="margin: 0 0 1rem 0; color: #22c55e;">Azure AI Services</h4>
-            <ul style="margin: 0;">
-                <li><a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/quotas-limits" target="_blank"
-                        style="color: #4ade80;">Azure OpenAI Service quotas and limits</a></li>
-                <li><a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/provisioned-throughput"
-                        target="_blank" style="color: #4ade80;">Provisioned throughput units (PTU)</a></li>
-                <li><a href="https://learn.microsoft.com/en-us/azure/search/vector-search-overview" target="_blank"
-                        style="color: #4ade80;">Vector search in Azure AI Search</a></li>
-            </ul>
+        <div class="video-meta">
+            <h4>Data Access Control for AI RAG Apps</h4>
+            <p>Security trimming implementation strategies</p>
         </div>
+    </div>
+    </div>
 
-        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+    <h3>Microsoft Learn References</h3>
 
-        <h2><span class="gradient-text">Summary</span></h2>
-
-        <p>This implementation guide provides everything you need to deploy a production-grade Document Intelligence
-            Copilot using Application Gateway for Containers. You now have:</p>
-
-        <ul>
-            <li>✅ Complete AGC setup guide (5 steps)</li>
-            <li>✅ Detailed cost analysis (3 scenarios)</li>
-            <li>✅ 7-week migration strategy</li>
-            <li>✅ Monitoring and troubleshooting runbooks</li>
-            <li>✅ Testing strategies and CI/CD pipeline</li>
-            <li>✅ Curated resources for deep learning</li>
+    <div
+        style="background: rgba(59, 130, 246, 0.05); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #3b82f6; margin: 2rem 0;">
+        <h4 style="margin: 0 0 1rem 0; color: #3b82f6;">Azure Architecture Center</h4>
+        <ul style="margin: 0;">
+            <li><a href="https://learn.microsoft.com/en-us/azure/search/retrieval-augmented-generation-overview"
+                    target="_blank" style="color: #60a5fa;">Retrieval Augmented Generation (RAG) in Azure AI
+                    Search</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/azure/architecture/ai-ml/architecture/baseline-openai-e2e-chat"
+                    target="_blank" style="color: #60a5fa;">Azure OpenAI chat baseline architecture</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/azure/architecture/networking/architecture/hub-spoke"
+                    target="_blank" style="color: #60a5fa;">Hub-spoke network topology in Azure</a></li>
         </ul>
+    </div>
 
-        <div class="premium-insight-box" style="border-left-color: #a855f7; background: rgba(168, 85, 247, 0.05);">
-            <p style="margin: 0; font-size: 1rem;">
-                <i class="fas fa-arrow-left" style="color: #a855f7; margin-right: 0.5rem;"></i>
-                <strong>Back to Architecture Overview:</strong>
-                <a href="2026-01-17-document-intelligence-copilot-azure.html"
-                    style="color: #c084fc; text-decoration: underline;">Read the architecture overview and design
-                    principles</a>
-            </p>
-        </div>
+    <div
+        style="background: rgba(168, 85, 247, 0.05); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #a855f7; margin: 2rem 0;">
+        <h4 style="margin: 0 0 1rem 0; color: #a855f7;">Application Gateway for Containers</h4>
+        <ul style="margin: 0;">
+            <li><a href="https://learn.microsoft.com/en-us/azure/application-gateway/for-containers/overview"
+                    target="_blank" style="color: #c084fc;">What is Application Gateway for Containers?</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/azure/application-gateway/for-containers/quickstart-deploy-application-gateway-for-containers-alb-controller"
+                    target="_blank" style="color: #c084fc;">Quickstart: Deploy Application Gateway for
+                    Containers</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/azure/application-gateway/for-containers/how-to-gateway-api-support"
+                    target="_blank" style="color: #c084fc;">Gateway API support in AGC</a></li>
+        </ul>
+    </div>
+
+    <div
+        style="background: rgba(34, 197, 94, 0.05); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #22c55e; margin: 2rem 0;">
+        <h4 style="margin: 0 0 1rem 0; color: #22c55e;">Azure AI Services</h4>
+        <ul style="margin: 0;">
+            <li><a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/quotas-limits" target="_blank"
+                    style="color: #4ade80;">Azure OpenAI Service quotas and limits</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/provisioned-throughput"
+                    target="_blank" style="color: #4ade80;">Provisioned throughput units (PTU)</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/azure/search/vector-search-overview" target="_blank"
+                    style="color: #4ade80;">Vector search in Azure AI Search</a></li>
+        </ul>
+    </div>
+
+    <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+    <h2><span class="gradient-text">Summary</span></h2>
+
+    <p>This implementation guide provides everything you need to deploy a production-grade Document Intelligence
+        Copilot using Application Gateway for Containers. You now have:</p>
+
+    <ul>
+        <li>✅ Complete AGC setup guide (5 steps)</li>
+        <li>✅ Detailed cost analysis (3 scenarios)</li>
+        <li>✅ 7-week migration strategy</li>
+        <li>✅ Monitoring and troubleshooting runbooks</li>
+        <li>✅ Testing strategies and CI/CD pipeline</li>
+        <li>✅ Curated resources for deep learning</li>
+    </ul>
+
+    <div class="premium-insight-box" style="border-left-color: #a855f7; background: rgba(168, 85, 247, 0.05);">
+        <p style="margin: 0; font-size: 1rem;">
+            <i class="fas fa-arrow-left" style="color: #a855f7; margin-right: 0.5rem;"></i>
+            <strong>Back to Architecture Overview:</strong>
+            <a href="2026-01-17-document-intelligence-copilot-azure.html"
+                style="color: #c084fc; text-decoration: underline;">Read the architecture overview and design
+                principles</a>
+        </p>
+    </div>
 
     </div>
 
