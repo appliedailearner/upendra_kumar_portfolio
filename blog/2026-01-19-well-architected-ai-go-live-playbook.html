@@ -456,7 +456,7 @@
         <img src="../assets/diagrams/png/Architecting Production ready AI Systems.webp"
             alt="Architecting Production Ready AI Systems" loading="lazy">
 
-        <h2>The Cast</h2>
+        <h2><span class="gradient-text">The Cast</span></h2>
         <div class="cast-grid">
             <div class="cast-card theme-upendra">
                 <img src="../images/blog/2026-01-09/upendra-kumar.webp" alt="Upendra" class="cast-avatar">
@@ -482,7 +482,7 @@
 
         <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
 
-        <h2>Scene 1: The Question that Matters</h2>
+        <h2><span class="gradient-text">Scene 1: The Question that Matters</span></h2>
         <p><strong>Project Manager:</strong> “We go live next week. Are we production-ready?”</p>
         <p><strong>Trinity:</strong> “The chat works. The ingestion pipeline is moving documents. It looks great in the
             playground.”</p>
@@ -492,7 +492,7 @@
             <strong>safe, reliable, cost-controlled, testable, and operable</strong>. Anything else is just compute.”
         </p>
 
-        <h2>1) Why AI Architecture is Different</h2>
+        <h2><span class="gradient-text">1) Why AI Architecture is Different</span></h2>
         <p>Traditional software fails in predictable ways. AI applications fail in <strong>surprising ways</strong>:</p>
         <ul>
             <li><strong>Non-determinism:</strong> the same question might get different answers</li>
@@ -502,7 +502,7 @@
         </ul>
         <p>To counter this, we don’t just code. We <strong>architect guardrails</strong>.</p>
 
-        <h2>2) WAF Pillars → Production Guardrails</h2>
+        <h2><span class="gradient-text">2) WAF Pillars → Production Guardrails</span></h2>
         <p>Upendra turns “principles” into <strong>controls</strong>. This is what makes the design review easy.</p>
         <table>
             <thead>
@@ -541,7 +541,7 @@
             </tbody>
         </table>
 
-        <h2>3) Reference Architecture: Two Lanes, One Gateway</h2>
+        <h2><span class="gradient-text">3) Reference Architecture: Two Lanes, One Gateway</span></h2>
         <p>To prevent downstream chaos, we separate the workload into <strong>two isolated lanes</strong> with one
             boundary.</p>
 
@@ -557,7 +557,7 @@
         </ul>
         <p><strong>Why this works:</strong> bulkhead isolation. Ingestion can be on fire and chat still holds p95.</p>
 
-        <h2>4) The Five-Layer Model</h2>
+        <h2><span class="gradient-text">4) The Five-Layer Model</span></h2>
         <p>Upendra stops the “patchwork architecture” by layering the workload.</p>
 
         <img src="../assets/diagrams/png/personas-to-architectures.png" alt="Five Layer AI Architecture" loading="lazy">
@@ -600,7 +600,7 @@
         </table>
         <p><strong>Rule:</strong> the client is a view. The orchestrator is the brain.</p>
 
-        <h2>5) The AI Workload Design Loop</h2>
+        <h2><span class="gradient-text">5) The AI Workload Design Loop</span></h2>
         <p><strong>Trinity:</strong> “Once deployed, we are done, right?”<br>
             <strong>Upendra:</strong> “In AI, you are never done. You ship, then you correct drift.”
         </p>
@@ -612,7 +612,7 @@
             <li><strong>Control change</strong>: version prompts, indexes, policies, model deployments</li>
         </ol>
 
-        <h2>6) Platform Decisions (Wave 1 Tips)</h2>
+        <h2><span class="gradient-text">6) Platform Decisions (Wave 1 Tips)</span></h2>
         <h3>AKS vs ACA</h3>
         <ul>
             <li><strong>AKS</strong>: best for regulated production patterns (network control, segmentation, multiple
@@ -629,7 +629,7 @@
             <li>Prefer managed options (Azure ML) over "always on" VM clusters for sporadic training jobs.</li>
         </ul>
 
-        <h2>7) The Three Golden Production Contracts</h2>
+        <h2><span class="gradient-text">7) The Three Golden Production Contracts</span></h2>
         <p>Upendra insists most copilots fail because they lack clear <strong>contracts</strong>.</p>
 
         <img src="../assets/diagrams/png/protect-apis.webp" alt="Protecting APIs with APIM" loading="lazy">
@@ -647,7 +647,7 @@
         <p>The model is <strong>not</strong> your security boundary. Retrieval is. Security trimming must be enforced
             using validated identity claims so users only see authorised content.</p>
 
-        <h2>8) Grounding Data Design</h2>
+        <h2><span class="gradient-text">8) Grounding Data Design</span></h2>
         <p><strong>Morpheus:</strong> “Show me the mechanism that prevents cross-team leaks.”<br>
             <strong>Upendra:</strong> “It’s not the model. It’s the metadata and filters.”
         </p>
@@ -660,12 +660,12 @@
             <li>`classification`, `ingestedAt`, `indexVersion`</li>
         </ul>
 
-        <h2>9) Data Platform Strategy</h2>
+        <h2><span class="gradient-text">9) Data Platform Strategy</span></h2>
         <p>Don’t build an extra data platform “because AI”. Start simple with ADLS for raw/extracted content and AI
             Search for vectors. Add complexity (Fabric/OneLake) only when specific aggregation or governance needs
             demand it.</p>
 
-        <h2>10) Operations: Monitor Signals, Not Hopes</h2>
+        <h2><span class="gradient-text">10) Operations: Monitor Signals, Not Hopes</span></h2>
         <ul>
             <li><strong>Model:</strong> Refusal rate, p95 latency, 429 throttle events.</li>
             <li><strong>Cost:</strong> Tokens per request, cost per route (chat vs ingestion).</li>
@@ -673,7 +673,7 @@
             <li><strong>Ingestion:</strong> Queue depth, processing failures, document throughput.</li>
         </ul>
 
-        <h2>11) Day-2 Operating Model</h2>
+        <h2><span class="gradient-text">11) Day-2 Operating Model</span></h2>
         <p>This avoids “who owns it?” fights during incidents.</p>
 
         <img src="../assets/diagrams/png/organizational-governance-structure.png" alt="AI Governance Structure"
@@ -711,19 +711,19 @@
             </tbody>
         </table>
 
-        <h2>12) Testing and Gates</h2>
+        <h2><span class="gradient-text">12) Testing and Gates</span></h2>
         <p>Credibility comes from a <strong>Golden Test Set</strong> of 30–50 questions including "must refuse"
             scenarios and prompt injection attempts. Block release if citation coverage drops or cross-group retrieval
             is detected.</p>
 
-        <h2>13) GenAIOps Change Control</h2>
+        <h2><span class="gradient-text">13) GenAIOps Change Control</span></h2>
 
         <img src="../assets/diagrams/png/mlops-genaiops.png" alt="GenAIOps Lifecycle" loading="lazy">
 
         <p>Version everything that changes behavior: `promptVersion`, `indexVersion`, `policyVersion`. Your release
             gates must verify security trimming and injection resistance before every deployment.</p>
 
-        <h2>14) Responsible AI (Minimum Controls)</h2>
+        <h2><span class="gradient-text">14) Responsible AI (Minimum Controls)</span></h2>
 
         <img src="../assets/diagrams/png/responsible-ai.png" alt="Responsible AI Controls" loading="lazy">
 
@@ -732,7 +732,7 @@
 
         <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
 
-        <h2>Scene 2: The Definition of Done</h2>
+        <h2><span class="gradient-text">Scene 2: The Definition of Done</span></h2>
         <p><strong>Client Sponsor:</strong> “So, what did we really ship?”</p>
         <p><strong>Morpheus:</strong> “A Copilot that doesn’t leak data, doesn’t collapse under load, and leaves an
             evidence trail for every answer.”</p>
