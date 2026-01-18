@@ -496,6 +496,26 @@ spec:
     - name: rag-orchestrator-service
       port: 8000</code></pre>
 
+        <div class="premium-insight-box" style="border-left-color: #a855f7; background: rgba(168, 85, 247, 0.05);">
+            <h4 style="margin: 0 0 1rem 0; color: #a855f7;">📋 The Index Schema (Minimum Viable)</h4>
+            <p style="margin: 0 0 1rem 0; font-size: 0.95rem;">
+                You cannot implement security trimming without the right fields. Here is the JSON definition for your
+                Azure AI Search index:
+            </p>
+            <pre style="background: rgba(0,0,0,0.3); border: none; margin: 0;"><code style="color: #d8b4fe;">{
+  "name": "rag-index-v1",
+  "fields": [
+    { "name": "id", "type": "Edm.String", "key": true },
+    { "name": "content", "type": "Edm.String", "searchable": true },
+    { "name": "embedding", "type": "Collection(Edm.Single)", "dimensions": 1536, "vectorSearchProfile": "my-profile" },
+    { "name": "metadata_storage_path", "type": "Edm.String" },
+    { "name": "page_number", "type": "Edm.Int32" },
+    { "name": "group_ids", "type": "Collection(Edm.String)", "filterable": true },
+    { "name": "classification", "type": "Edm.String", "filterable": true }
+  ]
+}</code></pre>
+        </div></code></pre>
+
         <div class="premium-insight-box" style="border-left-color: #ef4444; background: rgba(239, 68, 68, 0.05);">
             <h4 style="margin: 0 0 1rem 0; color: #ef4444;">🔒 Step 4b: The Critical Security Filter</h4>
             <p style="margin: 0 0 1rem 0; font-size: 0.95rem;">
@@ -509,7 +529,27 @@ spec:
 }</code></pre>
         </div>
 
-        <h3>Step 5: Enable WAF Protection</h3>
+        <h3>Step 5: The Ingestion Pipeline (The Missing Link)</h3>
+
+        <p>Most guides skip this, but it's 50% of the work. Networking is plumbing; Data is gold. Here is the robust
+            path from PDF to Index:</p>
+
+        <ol>
+            <li><strong>Extract (Layout Model):</strong> Do not use simple OCR. Use the <code>prebuilt-layout</code>
+                model in Document Intelligence to identify paragraphs, tables, and headlines. Keep the
+                <code>page_number</code> metadata for every span!</li>
+            <li><strong>Chunk Strategy:</strong> Split by "Semantic Paragraph". Do not break sentences. Overlap by 50
+                tokens.</li>
+            <li><strong>Embed:</strong> Pass chunks to <code>text-embedding-ada-002</code> to get the 1536-dimensional
+                vector.</li>
+            <li><strong>Index:</strong> Push the JSON payload (Content + Vector + <code>group_ids</code>) to Azure AI
+                Search.</li>
+        </ol>
+
+        <p><strong>Dev Tip:</strong> Run this pipeline efficiently using an Azure Function with an Event Grid trigger on
+            the ADLS `landing/` container.</p>
+
+        <h3>Step 6: Enable WAF Protection</h3>
 
         <pre><code>apiVersion: alb.networking.azure.io/v1
 kind: ApplicationLoadBalancerPolicy

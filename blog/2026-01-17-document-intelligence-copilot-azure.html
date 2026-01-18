@@ -829,6 +829,32 @@
             <li>Audit logs (traceability)</li>
         </ul>
 
+        <div class="premium-insight-box"
+            style="border-left-color: #f59e0b; background: rgba(245, 158, 11, 0.05); margin: 1.5rem 0;">
+            <h4 style="margin: 0 0 1rem 0; color: #f59e0b;">🛡️ The Audit Log Schema (Compliance Gold)</h4>
+            <p style="margin: 0 0 1rem 0; font-size: 0.95rem;">
+                Don't just log "200 OK". Regulators need to know <em>what</em> was sent. Your APIM
+                <code>log-to-eventhub</code> policy must capture this structure:
+            </p>
+            <pre style="background: rgba(0,0,0,0.3); border: 1px solid rgba(245, 158, 11, 0.2);"><code class="language-json">{
+  "timestamp": "2026-01-18T10:00:00Z",
+  "user_id": "upendra@company.com",
+  "department": "IT_Architecture",
+  "request_id": "req-guid-123",
+  "action": "rag_query",
+  "input_tokens": 150,
+  "output_tokens": 300,
+  "retrieved_documents": [
+    { 
+      "doc_id": "HR_Policy.pdf", 
+      "index_version": "v1.2", 
+      "classification": "Internal" 
+    }
+  ],
+  "model_deployment": "gpt-4-turbo-0125"
+}</code></pre>
+        </div>
+
         <h3>Runtime layer (AKS vs ACA)</h3>
         <p><strong>Recommendation: use AKS for production.</strong> It fits regulated enterprise patterns (network
             segmentation, control). Use ACA only for pilots.</p>
@@ -858,6 +884,29 @@
             <li>Orchestrator calls Azure OpenAI with retrieved chunks</li>
             <li>Response returns with citations</li>
         </ol>
+
+        <div class="premium-insight-box"
+            style="border-left-color: #22c55e; background: rgba(34, 197, 94, 0.05); margin: 1.5rem 0;">
+            <h4 style="margin: 0 0 1rem 0; color: #22c55e;">📜 The Data Contract: How we prove it</h4>
+            <p style="margin: 0 0 1rem 0; font-size: 0.95rem;">
+                Your generic chatbot fails because it returns text. A proper RAG system returns
+                <strong>Evidence</strong>.
+                The frontend must enforce this schema:
+            </p>
+            <pre style="background: rgba(0,0,0,0.3); border: 1px solid rgba(34, 197, 94, 0.2);"><code class="language-json">{
+  "answer": "The standard policy allows 15 days of PTO...",
+  "citations": [
+    {
+      "id": "doc-123",
+      "filename": "HR_Policies_2025.pdf",
+      "page_number": 5,
+      "text_snippet": "...employees accrue 1.25 days per month...",
+      "relevance_score": 0.89
+    }
+  ],
+  "refusal_reason": null
+}</code></pre>
+        </div>
 
         <h3>Flow B: Ingestion (async, heavy workload)</h3>
         <ol>
