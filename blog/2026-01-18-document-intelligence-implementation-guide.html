@@ -113,17 +113,17 @@
             border-bottom: none;
         }
 
-        /* Video Vault Grid (Premium Refinement) */
-        .video-vault-grid {
+        /* Video Grid (New Layout) */
+        .video-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1rem;
+            gap: 2rem;
             margin: 2rem 0;
         }
 
         @media (min-width: 900px) {
-            .video-vault-grid {
-                grid-template-columns: repeat(3, 1fr);
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -132,8 +132,12 @@
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
             background: #1e293b;
-            cursor: pointer;
+            padding: 1.5rem;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            /* Equal height */
+            display: flex;
+            flex-direction: column;
         }
 
         .video-card:hover {
@@ -141,66 +145,71 @@
             box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
         }
 
-        .video-facade {
-            position: relative;
-            padding-bottom: 56.25%;
-            /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-            background: #000;
+        .video-card h3 {
+            margin: 0 0 1rem 0 !important;
+            font-size: 1.1rem !important;
+            color: #fff !important;
+            line-height: 1.4;
+            min-height: 2.8rem;
+            /* Align titles approx 2 lines */
         }
 
-        .video-facade img,
-        .video-facade iframe {
+        .video-embed {
+            position: relative;
+            padding-bottom: 56.25%;
+            /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #000;
+            margin-bottom: 1rem;
+            flex-grow: 0;
+            /* Don't stretch */
+        }
+
+        .video-embed iframe {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover !important;
-            /* Force cover to prevent distortion */
             border: none;
+            z-index: 10;
+            /* Ensure iframe is on top if loaded */
         }
 
-        .play-button {
+        .video-fallback {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 1.5rem;
-            border: 2px solid #fff;
-            transition: transform 0.3s ease, background 0.3s ease;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            /* Behind iframe */
+            display: block;
         }
 
-        .video-card:hover .play-button {
-            transform: translate(-50%, -50%) scale(1.1);
-            background: #3b82f6;
-            border-color: #3b82f6;
+        .video-fallback img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .video-meta {
-            padding: 1.5rem;
-        }
-
-        .video-meta h4 {
-            margin: 0 0 0.5rem 0 !important;
-            font-size: 1.1rem;
-            color: #fff !important;
-            line-height: 1.4;
-        }
-
-        .video-meta p {
-            margin: 0;
+        .video-link {
+            text-align: right;
+            margin-top: auto;
+            /* Push to bottom if flex */
             font-size: 0.9rem;
-            color: #94a3b8;
+        }
+
+        .video-link a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .video-link a:hover {
+            text-decoration: underline;
         }
 
         /* --- Header / Nav Styles (Injected for consistency) --- */
@@ -872,141 +881,173 @@ locust -f tests/load/locustfile.py \
 
         <h3>Essential YouTube Videos</h3>
 
-        <div class="video-vault-grid">
-            <!-- Video 1: Vector Search & RAG (Microsoft Mechanics) -->
-            <div class="video-card" onclick="loadVideo(this)" data-id="ugJy9QkgLYg">
-                <div class="video-facade">
-                    <img src="https://img.youtube.com/vi/ugJy9QkgLYg/hqdefault.jpg"
-                        alt="Vector Search and RAG in Azure AI Search">
-                    <div class="play-button">
-                        <i class="fas fa-play"></i>
-                    </div>
-                </div>
-                <div class="video-meta">
-                    <h4>Vector Search & RAG</h4>
-                    <p>Microsoft Mechanics - RAG at Scale & Vector Search (Pablo Castro)</p>
-                </div>
-            </div>
+        <section class="video-grid">
+            <!-- Card 1 -->
+            <article class="video-card">
+                <h3>RAG at scale with Azure AI Search</h3>
 
-            <!-- Video 2: Azure AI Document Intelligence (Azure Friday) -->
-            <div class="video-card" onclick="loadVideo(this)" data-id="3n_y_A_q_4c">
-                <div class="video-facade">
-                    <img src="https://img.youtube.com/vi/3n_y_A_q_4c/hqdefault.jpg"
-                        alt="Azure AI Document Intelligence Overview">
-                    <div class="play-button">
-                        <i class="fas fa-play"></i>
-                    </div>
-                </div>
-                <div class="video-meta">
-                    <h4>Document Intelligence Overview</h4>
-                    <p>Azure Friday - Structure extraction capabilities</p>
-                </div>
-            </div>
+                <div class="video-embed">
+                    <iframe src="https://www.youtube-nocookie.com/embed/NVp9jiMDdXc"
+                        title="RAG at scale with Azure AI Search" frameborder="0" loading="lazy"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
 
-            <!-- Video 3: Manage Token Spend (Microsoft Mechanics) -->
-            <div class="video-card" onclick="loadVideo(this)" data-id="7f4I1uK-V7U">
-                <div class="video-facade">
-                    <img src="https://img.youtube.com/vi/7f4I1uK-V7U/hqdefault.jpg"
-                        alt="Control Costs with Azure API Management">
-                    <div class="play-button">
-                        <i class="fas fa-play"></i>
-                    </div>
+                    <!-- Thumbnail fallback (shown only if iframe blocked) -->
+                    <a class="video-fallback" href="https://www.youtube.com/watch?v=NVp9jiMDdXc" target="_blank"
+                        rel="noopener">
+                        <img src="https://i3.ytimg.com/vi/NVp9jiMDdXc/hqdefault.jpg"
+                            alt="RAG at scale with Azure AI Search" loading="lazy" />
+                    </a>
                 </div>
-                <div class="video-meta">
-                    <h4>Control AI Costs</h4>
-                    <p>Microsoft Mechanics - APIM Token Limit Policy</p>
+
+                <p class="video-link">
+                    <a href="https://www.youtube.com/watch?v=NVp9jiMDdXc" target="_blank" rel="noopener">Watch on
+                        YouTube →</a>
+                </p>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="video-card">
+                <h3>Azure AI Document Intelligence: extraction patterns</h3>
+
+                <div class="video-embed">
+                    <iframe src="https://www.youtube-nocookie.com/embed/gh1kRmpoKxc"
+                        title="Azure AI Document Intelligence: extraction patterns" frameborder="0" loading="lazy"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+
+                    <a class="video-fallback" href="https://www.youtube.com/watch?v=gh1kRmpoKxc" target="_blank"
+                        rel="noopener">
+                        <img src="https://i3.ytimg.com/vi/gh1kRmpoKxc/hqdefault.jpg"
+                            alt="Azure AI Document Intelligence: extraction patterns" loading="lazy" />
+                    </a>
                 </div>
-            </div>
+
+                <p class="video-link">
+                    <a href="https://www.youtube.com/watch?v=gh1kRmpoKxc" target="_blank" rel="noopener">Watch on
+                        YouTube →</a>
+                </p>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="video-card">
+                <h3>Azure API Management: token control and guardrails</h3>
+
+                <div class="video-embed">
+                    <iframe src="https://www.youtube-nocookie.com/embed/tc-rUS_-FN0"
+                        title="Azure API Management: token control and guardrails" frameborder="0" loading="lazy"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+
+                    <a class="video-fallback" href="https://www.youtube.com/watch?v=tc-rUS_-FN0" target="_blank"
+                        rel="noopener">
+                        <img src="https://i3.ytimg.com/vi/tc-rUS_-FN0/hqdefault.jpg"
+                            alt="Azure API Management: token control and guardrails" loading="lazy" />
+                    </a>
+                </div>
+
+                <p class="video-link">
+                    <a href="https://www.youtube.com/watch?v=tc-rUS_-FN0" target="_blank" rel="noopener">Watch on
+                        YouTube →</a>
+                </p>
+            </article>
+
+            <!-- Card 4 -->
+            <article class="video-card">
+                <h3>APIM as AI Gateway: securing and scaling AI APIs</h3>
+
+                <div class="video-embed">
+                    <iframe src="https://www.youtube-nocookie.com/embed/gOopye0Hwo4"
+                        title="APIM as AI Gateway: securing and scaling AI APIs" frameborder="0" loading="lazy"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+
+                    <a class="video-fallback" href="https://www.youtube.com/watch?v=gOopye0Hwo4" target="_blank"
+                        rel="noopener">
+                        <img src="https://i3.ytimg.com/vi/gOopye0Hwo4/hqdefault.jpg"
+                            alt="APIM as AI Gateway: securing and scaling AI APIs" loading="lazy" />
+                    </a>
+                </div>
+
+                <p class="video-link">
+                    <a href="https://www.youtube.com/watch?v=gOopye0Hwo4" target="_blank" rel="noopener">Watch on
+                        YouTube →</a>
+                </p>
+            </article>
+        </section>
+
+        <h3>Microsoft Learn References</h3>
+
+        <div
+            style="background: rgba(59, 130, 246, 0.05); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #3b82f6; margin: 2rem 0;">
+            <h4 style="margin: 0 0 1rem 0; color: #3b82f6;">Azure Architecture Center</h4>
+            <ul style="margin: 0;">
+                <li><a href="https://learn.microsoft.com/en-us/azure/search/retrieval-augmented-generation-overview"
+                        target="_blank" style="color: #60a5fa;">Retrieval Augmented Generation (RAG) in Azure AI
+                        Search</a></li>
+                <li><a href="https://learn.microsoft.com/en-us/azure/architecture/ai-ml/architecture/baseline-openai-e2e-chat"
+                        target="_blank" style="color: #60a5fa;">Azure OpenAI chat baseline architecture</a></li>
+                <li><a href="https://learn.microsoft.com/en-us/azure/architecture/networking/architecture/hub-spoke"
+                        target="_blank" style="color: #60a5fa;">Hub-spoke network topology in Azure</a></li>
+            </ul>
         </div>
-        <div class="video-meta">
-            <h4>Take Control of Your AI APIs</h4>
-            <p>Azure API Management Gateway features</p>
-        </div>
-    </div>
 
-    <!-- Video 4: Security Trimming for RAG (Data Access) -->
-    <div class="video-card" onclick="loadVideo(this)" data-id="vjbNSMswN2I">
-        <div class="video-facade">
-            <img src="https://img.youtube.com/vi/vjbNSMswN2I/hqdefault.jpg" alt="Data Access Control for AI RAG Apps">
-            <div class="play-button">
-                <i class="fas fa-play"></i>
-            </div>
+        <div
+            style="background: rgba(168, 85, 247, 0.05); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #a855f7; margin: 2rem 0;">
+            <h4 style="margin: 0 0 1rem 0; color: #a855f7;">Application Gateway for Containers</h4>
+            <ul style="margin: 0;">
+                <li><a href="https://learn.microsoft.com/en-us/azure/application-gateway/for-containers/overview"
+                        target="_blank" style="color: #c084fc;">What is Application Gateway for Containers?</a></li>
+                <li><a href="https://learn.microsoft.com/en-us/azure/application-gateway/for-containers/quickstart-deploy-application-gateway-for-containers-alb-controller"
+                        target="_blank" style="color: #c084fc;">Quickstart: Deploy Application Gateway for
+                        Containers</a></li>
+                <li><a href="https://learn.microsoft.com/en-us/azure/application-gateway/for-containers/how-to-gateway-api-support"
+                        target="_blank" style="color: #c084fc;">Gateway API support in AGC</a></li>
+            </ul>
         </div>
-        <div class="video-meta">
-            <h4>Data Access Control for AI RAG Apps</h4>
-            <p>Azure Friday - Intro to RAG with Security Context</p>
+
+        <div
+            style="background: rgba(34, 197, 94, 0.05); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #22c55e; margin: 2rem 0;">
+            <h4 style="margin: 0 0 1rem 0; color: #22c55e;">Azure AI Services</h4>
+            <ul style="margin: 0;">
+                <li><a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/quotas-limits" target="_blank"
+                        style="color: #4ade80;">Azure OpenAI Service quotas and limits</a></li>
+                <li><a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/provisioned-throughput"
+                        target="_blank" style="color: #4ade80;">Provisioned throughput units (PTU)</a></li>
+                <li><a href="https://learn.microsoft.com/en-us/azure/search/vector-search-overview" target="_blank"
+                        style="color: #4ade80;">Vector search in Azure AI Search</a></li>
+            </ul>
         </div>
-    </div>
-    </div>
 
-    <h3>Microsoft Learn References</h3>
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
 
-    <div
-        style="background: rgba(59, 130, 246, 0.05); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #3b82f6; margin: 2rem 0;">
-        <h4 style="margin: 0 0 1rem 0; color: #3b82f6;">Azure Architecture Center</h4>
-        <ul style="margin: 0;">
-            <li><a href="https://learn.microsoft.com/en-us/azure/search/retrieval-augmented-generation-overview"
-                    target="_blank" style="color: #60a5fa;">Retrieval Augmented Generation (RAG) in Azure AI
-                    Search</a></li>
-            <li><a href="https://learn.microsoft.com/en-us/azure/architecture/ai-ml/architecture/baseline-openai-e2e-chat"
-                    target="_blank" style="color: #60a5fa;">Azure OpenAI chat baseline architecture</a></li>
-            <li><a href="https://learn.microsoft.com/en-us/azure/architecture/networking/architecture/hub-spoke"
-                    target="_blank" style="color: #60a5fa;">Hub-spoke network topology in Azure</a></li>
+        <h2><span class="gradient-text">Summary</span></h2>
+
+        <p>This implementation guide provides everything you need to deploy a production-grade Document Intelligence
+            Copilot using Application Gateway for Containers. You now have:</p>
+
+        <ul>
+            <li>✅ Complete AGC setup guide (5 steps)</li>
+            <li>✅ Detailed cost analysis (3 scenarios)</li>
+            <li>✅ 7-week migration strategy</li>
+            <li>✅ Monitoring and troubleshooting runbooks</li>
+            <li>✅ Testing strategies and CI/CD pipeline</li>
+            <li>✅ Curated resources for deep learning</li>
         </ul>
-    </div>
 
-    <div
-        style="background: rgba(168, 85, 247, 0.05); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #a855f7; margin: 2rem 0;">
-        <h4 style="margin: 0 0 1rem 0; color: #a855f7;">Application Gateway for Containers</h4>
-        <ul style="margin: 0;">
-            <li><a href="https://learn.microsoft.com/en-us/azure/application-gateway/for-containers/overview"
-                    target="_blank" style="color: #c084fc;">What is Application Gateway for Containers?</a></li>
-            <li><a href="https://learn.microsoft.com/en-us/azure/application-gateway/for-containers/quickstart-deploy-application-gateway-for-containers-alb-controller"
-                    target="_blank" style="color: #c084fc;">Quickstart: Deploy Application Gateway for
-                    Containers</a></li>
-            <li><a href="https://learn.microsoft.com/en-us/azure/application-gateway/for-containers/how-to-gateway-api-support"
-                    target="_blank" style="color: #c084fc;">Gateway API support in AGC</a></li>
-        </ul>
-    </div>
-
-    <div
-        style="background: rgba(34, 197, 94, 0.05); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #22c55e; margin: 2rem 0;">
-        <h4 style="margin: 0 0 1rem 0; color: #22c55e;">Azure AI Services</h4>
-        <ul style="margin: 0;">
-            <li><a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/quotas-limits" target="_blank"
-                    style="color: #4ade80;">Azure OpenAI Service quotas and limits</a></li>
-            <li><a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/provisioned-throughput"
-                    target="_blank" style="color: #4ade80;">Provisioned throughput units (PTU)</a></li>
-            <li><a href="https://learn.microsoft.com/en-us/azure/search/vector-search-overview" target="_blank"
-                    style="color: #4ade80;">Vector search in Azure AI Search</a></li>
-        </ul>
-    </div>
-
-    <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
-
-    <h2><span class="gradient-text">Summary</span></h2>
-
-    <p>This implementation guide provides everything you need to deploy a production-grade Document Intelligence
-        Copilot using Application Gateway for Containers. You now have:</p>
-
-    <ul>
-        <li>✅ Complete AGC setup guide (5 steps)</li>
-        <li>✅ Detailed cost analysis (3 scenarios)</li>
-        <li>✅ 7-week migration strategy</li>
-        <li>✅ Monitoring and troubleshooting runbooks</li>
-        <li>✅ Testing strategies and CI/CD pipeline</li>
-        <li>✅ Curated resources for deep learning</li>
-    </ul>
-
-    <div class="premium-insight-box" style="border-left-color: #a855f7; background: rgba(168, 85, 247, 0.05);">
-        <p style="margin: 0; font-size: 1rem;">
-            <i class="fas fa-arrow-left" style="color: #a855f7; margin-right: 0.5rem;"></i>
-            <strong>Back to Architecture Overview:</strong>
-            <a href="2026-01-17-document-intelligence-copilot-azure.html"
-                style="color: #c084fc; text-decoration: underline;">Read the architecture overview and design
-                principles</a>
-        </p>
-    </div>
+        <div class="premium-insight-box" style="border-left-color: #a855f7; background: rgba(168, 85, 247, 0.05);">
+            <p style="margin: 0; font-size: 1rem;">
+                <i class="fas fa-arrow-left" style="color: #a855f7; margin-right: 0.5rem;"></i>
+                <strong>Back to Architecture Overview:</strong>
+                <a href="2026-01-17-document-intelligence-copilot-azure.html"
+                    style="color: #c084fc; text-decoration: underline;">Read the architecture overview and design
+                    principles</a>
+            </p>
+        </div>
 
     </div>
 
