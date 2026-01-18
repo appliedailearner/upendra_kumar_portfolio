@@ -203,6 +203,13 @@
             font-size: 0.9rem;
             color: #94a3b8;
         }
+
+        /* --- Header / Nav Styles (Injected for consistency) --- */
+        .nav-logo-uk {
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+            border-radius: 8px !important;
+        }
     </style>
 
     <!-- Preconnect for performance -->
@@ -224,23 +231,31 @@
 <body class="dark-theme">
     <canvas id="particles-canvas"></canvas>
     <!-- Navigation -->
-    <nav class="nav">
-        <div class="container nav-container">
-            <a href="../index.html" class="nav-logo">
-                <span class="nav-logo-uk">UK</span>
-                <span class="nav-logo-text">Upendra Kumar</span>
-            </a>
-            <button class="nav-toggle" aria-label="Toggle navigation">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand" style="display: flex; align-items: center; gap: 1rem;">
+                <a href="../index.html" style="text-decoration: none;">
+                    <div class="nav-logo-uk">UK</div>
+                </a>
+                <div>
+                    <h2>Upendra Kumar</h2>
+                    <p class="nav-tagline">Professional Services Delivery Architect</p>
+                </div>
+            </div>
             <ul class="nav-menu">
-                <li><a href="../index.html#expertise" class="nav-link">Expertise</a></li>
-                <li><a href="../index.html#projects" class="nav-link">Projects</a></li>
-                <li><a href="../presentations.html" class="nav-link">Presentations</a></li>
-                <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../pages/expertise.html">Expertise</a></li>
+                <li><a href="../blog.html" class="active">Insights</a></li>
+                <li><a href="../pages/contact.html">Contact</a></li>
+                <li><a href="../assets/pdf/Upendra_Kumar_Resume.pdf" target="_blank" class="nav-resume-btn">
+                        <i class="fas fa-download"></i> Resume</a></li>
             </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </nav>
 
