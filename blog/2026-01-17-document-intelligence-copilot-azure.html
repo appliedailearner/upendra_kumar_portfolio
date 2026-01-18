@@ -267,6 +267,95 @@
             border-color: #3b82f6;
         }
 
+        /* Video Vault Grid */
+        .video-vault-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        @media (min-width: 900px) {
+            .video-vault-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .video-card {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #1e293b;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+        }
+
+        .video-facade {
+            position: relative;
+            padding-bottom: 56.25%;
+            /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .video-facade img,
+        .video-facade iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover !important;
+            border: none;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.5rem;
+            border: 2px solid #fff;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .video-card:hover .play-button {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: #3b82f6;
+            border-color: #3b82f6;
+        }
+
+        .video-meta {
+            padding: 1.5rem;
+        }
+
+        .video-meta h4 {
+            margin: 0 0 0.5rem 0 !important;
+            font-size: 1.1rem;
+            color: #fff !important;
+            line-height: 1.4;
+        }
+
+        .video-meta p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
         /* --- Story & Cast Styles (Injected) --- */
         .cast-grid {
             display: grid;
@@ -1283,6 +1372,58 @@ jobs:
 
         <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
 
+        <h3>Essential Resources</h3>
+        <p>Watch these sessions to understand the "Security Sandwich" architecture in depth.</p>
+
+        <div class="video-vault-grid">
+            <!-- Video 1: Retrieval Augmented Generation (Azure AI Search) -->
+            <div class="video-card" onclick="loadVideo(this)" data-id="tW2EA4aZ_KE">
+                <div class="video-facade">
+                    <img src="https://img.youtube.com/vi/tW2EA4aZ_KE/hqdefault.jpg"
+                        alt="Retrieval Augmented Generation with Azure AI Search">
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-meta">
+                    <h4>RAG in Azure AI Search</h4>
+                    <p>Azure Friday - Core Layout & Retrieval concepts</p>
+                </div>
+            </div>
+
+            <!-- Video 2: Building Copilots (Azure OpenAI) -->
+            <div class="video-card" onclick="loadVideo(this)" data-id="Dy60f4j6w4I">
+                <div class="video-facade">
+                    <img src="https://img.youtube.com/vi/Dy60f4j6w4I/hqdefault.jpg"
+                        alt="Build your own Copilot with Azure OpenAI Service">
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-meta">
+                    <h4>Build your own Copilot</h4>
+                    <p>Microsoft Mechanics - The 'how-to' of Copilot stacks</p>
+                </div>
+            </div>
+
+            <!-- Video 3: Vector Search (Microsoft Mechanics) -->
+            <div class="video-card" onclick="loadVideo(this)" data-id="4_eQ_y5d5_c">
+                <div class="video-facade">
+                    <img src="https://img.youtube.com/vi/4_eQ_y5d5_c/hqdefault.jpg"
+                        alt="Vector Search in Azure AI Search">
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-meta">
+                    <h4>Vector Search Deep Dive</h4>
+                    <p>Microsoft Mechanics - Understanding embeddings</p>
+                </div>
+            </div>
+        </div>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
         <h3>Ready to operationalize your Azure journey?</h3>
         <p>
             I help organizations turn stalled cloud initiatives into execution engines.
@@ -1341,6 +1482,34 @@ jobs:
             securityLevel: 'loose',
             fontFamily: 'Outfit'
         });
+    </script>
+
+    <script>
+        // Load Video Function (Preserves Aspect Ratio)
+        function loadVideo(card) {
+            const videoId = card.getAttribute('data-id');
+            const start = card.getAttribute('data-start');
+            const iframe = document.createElement('iframe');
+            let src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            if (start) src += `&start=${start}`;
+
+            iframe.setAttribute('src', src);
+            iframe.setAttribute('frameborder', '0');
+            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+            iframe.setAttribute('allowfullscreen', '');
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.position = 'absolute';
+            iframe.style.top = '0';
+            iframe.style.left = '0';
+
+            // Find the video-facade within the card
+            const facade = card.querySelector('.video-facade');
+            if (!facade) return;
+
+            facade.innerHTML = ''; // Clear image and play button
+            facade.appendChild(iframe); // Add iframe TO THE FACADE to keep aspect ratio
+        }
     </script>
 </body>
 
