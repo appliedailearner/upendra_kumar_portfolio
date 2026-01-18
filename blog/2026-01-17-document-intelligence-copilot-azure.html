@@ -228,6 +228,12 @@
             border: 1px solid rgba(168, 85, 247, 0.2);
         }
 
+        /*
+         * HTML for "The AI Implementation Masterclass" label:
+         * <div style="margin-bottom: 0.5rem; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #a855f7;">
+         *     <i class="fas fa-layer-group"></i> The AI Implementation Masterclass
+         * </div>
+         */
         /* Series Navigation */
         .series-nav {
             display: flex;
@@ -504,6 +510,56 @@
         .executive-insight strong {
             color: #fbbf24;
         }
+
+        /* Series Navigation */
+        .series-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 2rem 0;
+        }
+
+        .series-item {
+            flex: 1;
+            min-width: 250px;
+            padding: 1rem;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid transparent;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .series-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .series-item.active {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: #3b82f6;
+        }
+
+        .series-label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #94a3b8;
+            margin-bottom: 0.4rem;
+        }
+
+        .series-title {
+            display: block;
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.4;
+        }
     </style>
 
     <!-- Performance: Preconnect to Font & Script Servers -->
@@ -587,6 +643,26 @@
 
     <!-- Blog Post Content -->
     <article class="blog-post-content">
+        <!-- Series Navigation -->
+        <div
+            style="margin-bottom: 0.5rem; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #a855f7;">
+            <i class="fas fa-layer-group"></i> The AI Implementation Masterclass
+        </div>
+        <div class="series-nav">
+            <div class="series-item active">
+                <span class="series-label"><i class="fas fa-check-circle" style="color: #3b82f6;"></i> Part 1:
+                    Architecture</span>
+                <span class="series-title">RAG Pattern & Azure Doc Intelligence</span>
+            </div>
+            <a href="2026-01-18-document-intelligence-implementation-guide.html" class="series-item">
+                <span class="series-label"><i class="far fa-circle"></i> Part 2: Implementation</span>
+                <span class="series-title">Step-by-Step Production Guide</span>
+            </a>
+            <a href="2026-01-19-well-architected-ai-go-live-playbook.html" class="series-item">
+                <span class="series-label"><i class="far fa-circle"></i> Part 3: Go-Live</span>
+                <span class="series-title">Well-Architected Playbook</span>
+            </a>
+        </div>
         <p class="lead" style="font-size: 1.25rem; font-weight: 500; color: #fff;">
             <strong>Stop building toy copilots.</strong>
         </p>
