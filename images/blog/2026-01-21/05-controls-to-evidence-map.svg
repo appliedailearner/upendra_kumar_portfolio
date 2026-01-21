@@ -2,75 +2,199 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
   <defs>
     <style>
-      .title { font: 700 32px 'Segoe UI', Arial, sans-serif; fill: #111; }
-      .subtitle { font: 400 18px 'Segoe UI', Arial, sans-serif; fill: #444; }
-      .h2 { font: 700 22px 'Segoe UI', Arial, sans-serif; fill: #111; }
-      .text { font: 400 18px 'Segoe UI', Arial, sans-serif; fill: #111; }
-      .small { font: 400 14px 'Segoe UI', Arial, sans-serif; fill: #333; }
-      .note { font: 400 14px 'Segoe UI', Arial, sans-serif; fill: #555; }
-      .box { fill: #fff; stroke: #BFC7D5; stroke-width: 2; rx: 18; ry: 18; }
-      .box2 { fill: #F7F9FC; stroke: #BFC7D5; stroke-width: 2; rx: 18; ry: 18; }
-      .accent { fill: #EAF3FF; stroke: #2B78E4; stroke-width: 2; rx: 18; ry: 18; }
-      .line { stroke: #6B7280; stroke-width: 2.5; fill: none; }
-      .arrow { marker-end: url(#arrow); }
-      .dash { stroke-dasharray: 8 6; }
+      /* Typography */
+      .font-header { font: 800 48px 'Outfit', 'Segoe UI', sans-serif; fill: #F8FAFC; letter-spacing: -0.02em; }
+      .font-sub { font: 400 24px 'Inter', 'Segoe UI', sans-serif; fill: #94A3B8; }
+      
+      .font-row-title { font: 700 20px 'Outfit', 'Segoe UI', sans-serif; fill: #E2E8F0; }
+      .font-row-text { font: 400 16px 'Inter', 'Segoe UI', sans-serif; fill: #CBD5E1; }
+      .font-col-header { font: 600 22px 'Outfit', 'Segoe UI', sans-serif; fill: #38BDF8; text-transform: uppercase; letter-spacing: 0.05em; }
+      
+      /* Containers */
+      .glass-panel { 
+        fill: rgba(15, 23, 42, 0.6); 
+        stroke: rgba(56, 189, 248, 0.2); 
+        stroke-width: 1; 
+        rx: 12; ry: 12;
+      }
+      .glass-header {
+        fill: rgba(56, 189, 248, 0.1);
+        rx: 8; ry: 8;
+      }
+      
+      /* Icons */
+      .icon-blue { fill: #38BDF8; }
+      .icon-orange { fill: #F97316; }
+      .icon-green { fill: #22C55E; }
+      .icon-purple { fill: #A855F7; }
+      .icon-red { fill: #EF4444; }
+      
+      /* Glow */
+      .glow-line {
+        stroke: #38BDF8;
+        stroke-width: 2;
+        stroke-dasharray: 4 4;
+        opacity: 0.3;
+      }
     </style>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L9,3 L0,6 Z" fill="#6B7280" />
-    </marker>
+    
+    <radialGradient id="glow-bg" cx="50%" cy="0%" r="80%">
+        <stop offset="0%" style="stop-color:rgba(168, 85, 247, 0.15)"/>
+        <stop offset="100%" style="stop-color:rgba(15, 23, 42, 0)"/>
+    </radialGradient>
   </defs>
-<text x="60" y="70" class="title" text-anchor="start">Audit Pack Blueprint</text>
-<text x="60" y="105" class="subtitle" text-anchor="start">Which control produces which evidence in the UKLifeLabs AI Gateway</text>
-<text x="80" y="190" class="h2" text-anchor="start">Control point</text>
-<text x="700" y="190" class="h2" text-anchor="start">What it enforces</text>
-<text x="1280" y="190" class="h2" text-anchor="start">Evidence we retain</text>
-<line x1="60" y1="210" x2="1860" y2="210" class="line"/>
-<rect x="60" y="200" width="1800" height="95" class="box2"/>
-<text x="80" y="250" class="small" text-anchor="start">Cloudflare Edge</text>
-<text x="700" y="250" class="note" text-anchor="start">DDoS absorption, bot management, TLS policy,</text>
-<text x="700" y="272" class="note" text-anchor="start">caching rules (as approved)</text>
-<text x="1280" y="250" class="note" text-anchor="start">Edge logs, WAF events, request IDs,</text>
-<text x="1280" y="272" class="note" text-anchor="start">geo/IP signals</text>
-<rect x="60" y="295" width="1800" height="95" class="box"/>
-<text x="80" y="345" class="small" text-anchor="start">Palo Alto (North-South)</text>
-<text x="700" y="345" class="note" text-anchor="start">Ingress allow/deny, egress control, threat</text>
-<text x="700" y="367" class="note" text-anchor="start">prevention profiles</text>
-<text x="1280" y="345" class="note" text-anchor="start">Firewall logs, rule hits, threat logs,</text>
-<text x="1280" y="367" class="note" text-anchor="start">session metadata</text>
-<rect x="60" y="390" width="1800" height="95" class="box2"/>
-<text x="80" y="440" class="small" text-anchor="start">App Gateway + WAF</text>
-<text x="700" y="440" class="note" text-anchor="start">App-layer filtering, URL routing, header</text>
-<text x="700" y="462" class="note" text-anchor="start">sanitation, OWASP rules</text>
-<text x="1280" y="440" class="note" text-anchor="start">WAF logs, access logs, blocked</text>
-<text x="1280" y="462" class="note" text-anchor="start">signatures, backend pool routing</text>
-<rect x="60" y="485" width="1800" height="95" class="box"/>
-<text x="80" y="535" class="small" text-anchor="start">API Management (Products)</text>
-<text x="700" y="535" class="note" text-anchor="start">AuthN/Z, subscription keys, quotas, rate</text>
-<text x="700" y="557" class="note" text-anchor="start">limits, schema validation, transformation</text>
-<text x="1280" y="535" class="note" text-anchor="start">APIM traces, policy decisions,</text>
-<text x="1280" y="557" class="note" text-anchor="start">product/subscription ID, correlation</text>
-<text x="1280" y="579" class="note" text-anchor="start">IDs</text>
-<rect x="60" y="580" width="1800" height="95" class="box2"/>
-<text x="80" y="630" class="small" text-anchor="start">FortiGate (East-West)</text>
-<text x="700" y="630" class="note" text-anchor="start">Spoke-to-spoke inspection, segmentation,</text>
-<text x="700" y="652" class="note" text-anchor="start">internal allowlists</text>
-<text x="1280" y="630" class="note" text-anchor="start">Flow logs, rule hits, session metadata</text>
-<rect x="60" y="675" width="1800" height="95" class="box"/>
-<text x="80" y="725" class="small" text-anchor="start">Azure AI Search</text>
-<text x="700" y="725" class="note" text-anchor="start">Hybrid retrieval, semantic ranking, vector</text>
-<text x="700" y="747" class="note" text-anchor="start">search controls</text>
-<text x="1280" y="725" class="note" text-anchor="start">Query logs, index version, chunkIds</text>
-<text x="1280" y="747" class="note" text-anchor="start">returned, scoring metadata</text>
-<rect x="60" y="770" width="1800" height="95" class="box2"/>
-<text x="80" y="820" class="small" text-anchor="start">Azure OpenAI / Foundry</text>
-<text x="700" y="820" class="note" text-anchor="start">Model execution in-region, content filters,</text>
-<text x="700" y="842" class="note" text-anchor="start">deployment isolation</text>
-<text x="1280" y="820" class="note" text-anchor="start">RequestId, modelId/deploymentId, token</text>
-<text x="1280" y="842" class="note" text-anchor="start">usage, content safety actions</text>
-<rect x="60" y="865" width="1800" height="95" class="box"/>
-<text x="80" y="915" class="small" text-anchor="start">Observability</text>
-<text x="700" y="915" class="note" text-anchor="start">End-to-end traceability and alerting</text>
-<text x="1280" y="915" class="note" text-anchor="start">App Insights traces, Log Analytics</text>
-<text x="1280" y="937" class="note" text-anchor="start">queries, dashboards, SLO reports</text>
-<text x="60" y="1040" class="note" text-anchor="start">Tip: auditors ask "show me the control" then "show me the evidence". This table is the bridge.</text>
+
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#0F172A" /> <!-- Dark Slate Background -->
+  <circle cx="960" cy="0" r="1200" fill="url(#glow-bg)" />
+  
+  <!-- Header -->
+  <text x="100" y="100" class="font-header">Audit Pack Blueprint: Controls to Evidence</text>
+  <text x="100" y="140" class="font-sub">Mapping the "Chain of Custody" from Policy to Artifact</text>
+
+  <!-- Column Headers -->
+  <g transform="translate(100, 200)">
+      <rect width="1720" height="60" class="glass-header" />
+      <text x="80" y="38" class="font-col-header">Control Point</text>
+      <text x="600" y="38" class="font-col-header">What it Enforces</text>
+      <text x="1200" y="38" class="font-col-header">Evidence We Retain (The Artifact)</text>
+  </g>
+
+  <!-- ROW 1: Cloudflare -->
+  <g transform="translate(100, 280)">
+      <rect width="1720" height="80" class="glass-panel" />
+      
+      <!-- Icon: Cloud -->
+      <g transform="translate(30, 25) scale(1.5)">
+           <path d="M12.6,3.4c-0.1,0-0.3,0-0.4,0c-1.8,0-3.3,1.3-3.6,3c0,0,0,0,0,0C8.3,6.3,8.1,6.3,7.9,6.3C5.6,6.3,3.7,8.2,3.7,10.5C3.7,12.8,5.6,14.7,7.9,14.7H20c1.9,0,3.5-1.6,3.5-3.5S21.9,7.7,20,7.7c-0.1,0-0.2,0-0.3,0C19.2,5.2,16.2,3.4,12.6,3.4z" class="icon-orange"/>
+      </g>
+      <text x="80" y="45" class="font-row-title">Cloudflare Edge</text>
+      
+      <text x="600" y="35" class="font-row-text">DDoS absorption, bot management, TLS policy,</text>
+      <text x="600" y="55" class="font-row-text">approved caching rules</text>
+      
+      <text x="1200" y="35" class="font-row-text" style="fill:#94A3B8">Edge logs, WAF events, request IDs,</text>
+      <text x="1200" y="55" class="font-row-text" style="fill:#94A3B8">geo/IP reputation signals</text>
+  </g>
+
+  <!-- ROW 2: Palo Alto -->
+  <g transform="translate(100, 370)">
+      <rect width="1720" height="80" class="glass-panel" />
+      
+      <!-- Icon: Shield -->
+      <g transform="translate(30, 25) scale(1.5)">
+           <path d="M10,0 L0,5 L0,11 C0,17 4,22 10,24 C16,22 20,17 20,11 L20,5 L10,0 Z" class="icon-blue"/>
+      </g>
+      <text x="80" y="45" class="font-row-title">Palo Alto (N-S)</text>
+      
+      <text x="600" y="35" class="font-row-text">Ingress/Egress control, IDPS profiles,</text>
+      <text x="600" y="55" class="font-row-text">threat prevention</text>
+      
+      <text x="1200" y="35" class="font-row-text" style="fill:#94A3B8">Firewall traffic logs, threat logs,</text>
+      <text x="1200" y="55" class="font-row-text" style="fill:#94A3B8">session metadata</text>
+  </g>
+
+  <!-- ROW 3: App Gateway -->
+  <g transform="translate(100, 460)">
+      <rect width="1720" height="80" class="glass-panel" />
+      
+      <!-- Icon: Routing -->
+      <g transform="translate(30, 25) scale(1.5)">
+           <path d="M16 0v6.18h-4.82l6.82 8.18 6.82-8.18H20V0h-4zM8.18 20.64L0 27.46V32h32v-4.54l-8.18-6.82H8.18z" class="icon-purple"/>
+      </g>
+      <text x="80" y="45" class="font-row-title">App Gateway WAF</text>
+      
+      <text x="600" y="35" class="font-row-text">L7 filtering, URL routing, header sanitation,</text>
+      <text x="600" y="55" class="font-row-text">OWASP CRS ruleset</text>
+      
+      <text x="1200" y="35" class="font-row-text" style="fill:#94A3B8">WAF logs, access logs, blocked signatures,</text>
+      <text x="1200" y="55" class="font-row-text" style="fill:#94A3B8">backend pool selection</text>
+  </g>
+
+  <!-- ROW 4: APIM -->
+  <g transform="translate(100, 550)">
+      <rect width="1720" height="80" class="glass-panel" />
+      
+      <!-- Icon: Gateway/Hex -->
+      <g transform="translate(30, 25) scale(1.5)">
+           <path d="M10,0 L18.66,5 L18.66,15 L10,20 L1.34,15 L1.34,5 L10,0 Z M10,4 L4.8,7 L4.8,13 L10,16 L15.2,13 L15.2,7 L10,4 Z" class="icon-blue"/>
+      </g>
+      <text x="80" y="45" class="font-row-title">API Management</text>
+      
+      <text x="600" y="35" class="font-row-text">AuthN/Z, subscription keys, quotas,</text>
+      <text x="600" y="55" class="font-row-text">rate limits, schema validation</text>
+      
+      <text x="1200" y="35" class="font-row-text" style="fill:#94A3B8">APIM Inspector traces, policy decisions,</text>
+      <text x="1200" y="55" class="font-row-text" style="fill:#94A3B8">Product/Sub ID, Correlation IDs</text>
+  </g>
+
+  <!-- ROW 5: FortiGate -->
+  <g transform="translate(100, 640)">
+      <rect width="1720" height="80" class="glass-panel" />
+      
+      <!-- Icon: Wall/Lock -->
+      <g transform="translate(30, 25) scale(1.5)">
+           <path d="M4,4 H20 V20 H4 Z M6,6 V18 H18 V6 H6 M10,10 H14 V14 H10 V10" class="icon-red"/>
+      </g>
+      <text x="80" y="45" class="font-row-title">FortiGate (E-W)</text>
+      
+      <text x="600" y="35" class="font-row-text">Spoke-to-spoke inspection, segmentation,</text>
+      <text x="600" y="55" class="font-row-text">internal zero-trust allowlists</text>
+      
+      <text x="1200" y="35" class="font-row-text" style="fill:#94A3B8">Flow logs, rule hits, session metadata,</text>
+      <text x="1200" y="55" class="font-row-text" style="fill:#94A3B8">denied lateral movement</text>
+  </g>
+
+  <!-- ROW 6: AI Search -->
+  <g transform="translate(100, 730)">
+      <rect width="1720" height="80" class="glass-panel" />
+      
+      <!-- Icon: Search -->
+      <g transform="translate(30, 25) scale(1.5)">
+           <circle cx="10" cy="10" r="7" stroke="#38BDF8" stroke-width="2" fill="none"/>
+           <line x1="15" y1="15" x2="20" y2="20" stroke="#38BDF8" stroke-width="2"/>
+      </g>
+      <text x="80" y="45" class="font-row-title">Azure AI Search</text>
+      
+      <text x="600" y="35" class="font-row-text">Hybrid retrieval, semantic ranking,</text>
+      <text x="600" y="55" class="font-row-text">vector access controls</text>
+      
+      <text x="1200" y="35" class="font-row-text" style="fill:#94A3B8">Query logs, index version, chunkIds returned,</text>
+      <text x="1200" y="55" class="font-row-text" style="fill:#94A3B8">scoring logic metadata</text>
+  </g>
+
+  <!-- ROW 7: OpenAI -->
+  <g transform="translate(100, 820)">
+      <rect width="1720" height="80" class="glass-panel" />
+      
+      <!-- Icon: Spark/AI -->
+      <g transform="translate(30, 25) scale(1.5)">
+           <path d="M10,0 L12,8 L20,10 L12,12 L10,20 L8,12 L0,10 L8,8 Z" class="icon-purple"/>
+      </g>
+      <text x="80" y="45" class="font-row-title">Azure OpenAI</text>
+      
+      <text x="600" y="35" class="font-row-text">Model execution (In-Region), content filters,</text>
+      <text x="600" y="55" class="font-row-text">deployment isolation</text>
+      
+      <text x="1200" y="35" class="font-row-text" style="fill:#94A3B8">RequestId, modelId, token usage,</text>
+      <text x="1200" y="55" class="font-row-text" style="fill:#94A3B8">content safety filter actions</text>
+  </g>
+
+  <!-- ROW 8: Observability -->
+  <g transform="translate(100, 910)">
+      <rect width="1720" height="80" class="glass-panel" />
+      
+      <!-- Icon: Eye -->
+      <g transform="translate(30, 25) scale(1.5)">
+           <path d="M1,12 C1,12 5,4 12,4 C19,4 23,12 23,12 C23,12 19,20 12,20 C5,20 1,12 1,12 Z M12,17 C9,17 7,15 7,12 C7,9 9,7 12,7 C15,7 17,9 17,12 C17,15 15,17 12,17 Z" class="icon-green"/>
+      </g>
+      <text x="80" y="45" class="font-row-title">Observability</text>
+      
+      <text x="600" y="35" class="font-row-text">End-to-end traceability, alerting,</text>
+      <text x="600" y="55" class="font-row-text">SLO measurement</text>
+      
+      <text x="1200" y="35" class="font-row-text" style="fill:#94A3B8">App Insights traces, Log Analytics queries,</text>
+      <text x="1200" y="55" class="font-row-text" style="fill:#94A3B8">dashboards, compliance reports</text>
+  </g>
+
 </svg>
