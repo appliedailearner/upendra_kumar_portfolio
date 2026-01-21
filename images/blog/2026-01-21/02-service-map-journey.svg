@@ -2,14 +2,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="2200" height="1240" viewBox="0 0 2200 1240">
   <defs>
     <style>
-      /* Solid State Typography - Scaled Up */
+      /* Solid State Typography */
       .title { font: 800 56px 'Outfit', 'Segoe UI', sans-serif; fill: #FFFFFF; letter-spacing: -0.02em; }
       .subtitle { font: 600 32px 'Inter', 'Segoe UI', sans-serif; fill: #CBD5E1; letter-spacing: 0.01em; }
       
-      /* Swimlane Headers */
       .h2 { font: 800 28px 'Outfit', 'Segoe UI', sans-serif; fill: #E2E8F0; text-transform: uppercase; letter-spacing: 0.05em; opacity: 1; }
       
-      /* Card Text - LARGER */
       .small { font: 700 26px 'Inter', 'Segoe UI', sans-serif; fill: #FFFFFF; letter-spacing: 0.01em; }
       .note { font: 500 20px 'Inter', 'Segoe UI', sans-serif; fill: #F1F5F9; }
       
@@ -38,53 +36,71 @@
         rx: 16; ry: 16; 
       }
       
-      .line { stroke: #94A3B8; stroke-width: 5; fill: none; opacity: 1; }
-      .arrow { marker-end: url(#arrow); }
+      /* ANIMATED ARROWS */
+      @keyframes flow {
+        to { stroke-dashoffset: -20; }
+      }
+      
+      /* Main Flow (Horizontal) - Cyan Neon */
+      .line-flow { 
+        stroke: #38BDF8; 
+        stroke-width: 4; 
+        fill: none; 
+        stroke-dasharray: 12 6; 
+        animation: flow 1s linear infinite; 
+        filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.5));
+      }
+      
+      /* Vertical Connectors (Vertical) - Purple Neon */
+      .line-vertical { 
+        stroke: #A855F7; 
+        stroke-width: 3; 
+        fill: none; 
+        stroke-dasharray: 8 8; 
+        animation: flow 2s linear infinite reverse; 
+        opacity: 0.8;
+      }
+      
+      .arrow-cyan { marker-end: url(#arrow-cyan); }
+      .arrow-purple { marker-end: url(#arrow-purple); }
       
       .footer-note { font: 600 20px 'Inter', sans-serif; fill: #CBD5E1; font-style: italic; }
     </style>
     
-    <marker id="arrow" markerWidth="20" markerHeight="20" refX="18" refY="10" orient="auto">
-      <path d="M2,2 L18,10 L2,18 L2,2" fill="#94A3B8" />
+    <!-- Arrowhead Markers -->
+    <marker id="arrow-cyan" markerWidth="16" markerHeight="16" refX="14" refY="8" orient="auto">
+      <path d="M2,2 L14,8 L2,14 L2,2" fill="#38BDF8" />
+    </marker>
+    
+    <marker id="arrow-purple" markerWidth="16" markerHeight="16" refX="14" refY="8" orient="auto">
+      <path d="M2,2 L14,8 L2,14 L2,2" fill="#A855F7" />
     </marker>
   </defs>
 
-  <!-- Solid Background (Expanded) -->
+  <!-- Solid Background -->
   <rect width="2200" height="1240" fill="#020617" /> 
 
   <!-- Header -->
   <text x="80" y="100" class="title" text-anchor="start">Service Map Journey</text>
   <text x="80" y="150" class="subtitle" text-anchor="start">From user intent to regulated evidence • <tspan fill="#38BDF8" font-weight="700">TOGAF Service View</tspan></text>
 
-  <!-- Swimlanes - Adjusted for 2200 width -->
-  <!-- Business -->
+  <!-- Swimlanes -->
   <rect x="60" y="200" width="2080" height="200" class="box2"/>
   <text x="100" y="255" class="h2" text-anchor="start">Business</text> 
   <text x="100" y="290" class="h2" text-anchor="start">Canvas</text> 
   
-  <!-- Platform -->
   <rect x="60" y="440" width="2080" height="240" class="box2"/>
   <text x="100" y="495" class="h2" text-anchor="start">AI Platform</text>
   <text x="100" y="530" class="h2" text-anchor="start">Services</text> 
   
-  <!-- Security -->
   <rect x="60" y="720" width="2080" height="200" class="box2"/>
   <text x="100" y="775" class="h2" text-anchor="start">Security &amp;</text>
   <text x="100" y="810" class="h2" text-anchor="start">Controls</text>
   
-  <!-- Operations -->
   <rect x="60" y="960" width="2080" height="120" class="box2"/>
   <text x="100" y="1030" class="h2" text-anchor="start">Operations</text>
 
-  <!-- Process Flow Nodes
-       Canvas Width: 2200
-       Start X: 420 (Leaves 360px for Header Col)
-       Stride: 290px
-       Box Width: 250px (Leaves 40px Gap)
-       Y Base: 500
-       Height: 140
-  -->
-
+  <!-- Nodes -->
   <!-- 1. Ask -->
   <rect x="420" y="490" width="250" height="140" class="box"/>
   <text x="545" y="535" class="small" text-anchor="middle">1. Ask / Submit</text>
@@ -121,38 +137,38 @@
   <text x="1995" y="575" class="note" text-anchor="middle">Trace + Log</text>
   <text x="1995" y="605" class="note" text-anchor="middle">Compliance</text>
 
-  <!-- Connecting Arrows -->
-  <line x1="670" y1="560" x2="710" y2="560" class="line arrow"/>
-  <line x1="960" y1="560" x2="1000" y2="560" class="line arrow"/>
-  <line x1="1250" y1="560" x2="1290" y2="560" class="line arrow"/>
-  <line x1="1540" y1="560" x2="1580" y2="560" class="line arrow"/>
-  <line x1="1830" y1="560" x2="1870" y2="560" class="line arrow"/>
+  <!-- Connecting Arrows (ANIMATED) -->
+  <line x1="670" y1="560" x2="710" y2="560" class="line-flow arrow-cyan"/>
+  <line x1="960" y1="560" x2="1000" y2="560" class="line-flow arrow-cyan"/>
+  <line x1="1250" y1="560" x2="1290" y2="560" class="line-flow arrow-cyan"/>
+  <line x1="1540" y1="560" x2="1580" y2="560" class="line-flow arrow-cyan"/>
+  <line x1="1830" y1="560" x2="1870" y2="560" class="line-flow arrow-cyan"/>
 
-  <!-- Vertical Overlays -->
+  <!-- Vertical Overlays (ANIMATED VERTICAL) -->
   <!-- Regulator -->
   <rect x="420" y="240" width="250" height="140" class="accent"/>
   <text x="545" y="295" class="small" text-anchor="middle" fill="#A855F7">Regulator</text>
   <text x="545" y="330" class="note" text-anchor="middle">Safe answers</text>
   <text x="545" y="360" class="note" text-anchor="middle">Citations req.</text>
-  <line x1="545" y1="380" x2="545" y2="490" class="line arrow" stroke-dasharray="8 8"/>
+  <line x1="545" y1="380" x2="545" y2="490" class="line-vertical arrow-purple"/>
 
   <!-- Identity -->
   <rect x="710" y="750" width="250" height="140" class="accent"/>
   <text x="835" y="805" class="small" text-anchor="middle" fill="#A855F7">Zero Trust</text>
   <text x="835" y="840" class="note" text-anchor="middle">Conditional Access</text>
-  <line x1="835" y1="630" x2="835" y2="750" class="line arrow" stroke-dasharray="8 8"/>
+  <line x1="835" y1="630" x2="835" y2="750" class="line-vertical arrow-purple"/>
 
   <!-- Network -->
   <rect x="1000" y="750" width="250" height="140" class="accent"/>
   <text x="1125" y="805" class="small" text-anchor="middle" fill="#A855F7">Network</text>
   <text x="1125" y="840" class="note" text-anchor="middle">WAF Policies</text>
-  <line x1="1125" y1="630" x2="1125" y2="750" class="line arrow" stroke-dasharray="8 8"/>
+  <line x1="1125" y1="630" x2="1125" y2="750" class="line-vertical arrow-purple"/>
 
   <!-- Audit -->
   <rect x="1870" y="750" width="250" height="140" class="accent"/>
   <text x="1995" y="805" class="small" text-anchor="middle" fill="#A855F7">Audit Pack</text>
   <text x="1995" y="840" class="note" text-anchor="middle">Full Trajectory</text>
-  <line x1="1995" y1="630" x2="1995" y2="750" class="line arrow" stroke-dasharray="8 8"/>
+  <line x1="1995" y1="630" x2="1995" y2="750" class="line-vertical arrow-purple"/>
 
   <!-- Footer Ops Bar -->
   <text x="420" y="1030" class="footer-note" text-anchor="start">Continuous Assurance: IaC + CI/CD + Policy-as-Code + Observability enforced across every step.</text>
