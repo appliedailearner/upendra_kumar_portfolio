@@ -6,7 +6,68 @@
 
 ---
 
-## Step 1: Gather Inputs
+---
+
+## Phase 1: Content Strategy & Generation (The "Stop Asking AI to Write" Framework)
+**Objective:** Before generating any HTML, use this 8-step framework to structure the high-value content.
+
+### Step 1: Voice Extraction (The "Realist Architect" Persona)
+**Concept:** Raw content goes in, authentic voice comes out.
+**Context:** The author (Upendra) is a "Realist Architect".
+*   **Tone:** Authoritative, collaborative, "No-BS".
+*   **Theme:** "Production survivor" vs "Demo dreamer". High contrast between Myth vs Reality.
+*   **Style:** Short, punchy sentences. Dialogue-driven (e.g., "Mr. Project Manager asked..."). Use of metaphors (Trinity/Morpheus).
+**PROMPT:** "Analyze the user's raw notes. Extract the 'Realist Architect' tone. Ensure the output sounds like a battle-tested expert, not a generic AI. Remove fluffy adjectives."
+
+### Step 2: Build a Content Bank (Chaos -> Organization)
+**Concept:** Turn scattered thoughts into a structured ban.
+**PROMPT:** "Turn these raw notes/experiences into a content bank. For each idea, identify:
+1.  **The Lesson:** What is the hard truth?
+2.  **The Emotion:** Frustration? Relief? Confidence?
+3.  **The Angle:** 'The Trap', 'The Fix', or 'The Vision'."
+
+### Step 3: Generate Hooks, Not Posts
+**Concept:** The hook is the hardest part. It must stop the scroll.
+**PROMPT:** "Generate 5 scroll-stopping hooks for this topic. They must be under 20 words, curiosity-driven, and specific.
+*   *Bad:* 'Here is how to do migration.'
+*   *Good:* 'The bank had 298 servers and 0% confidence. Here is how we fixed it.'"
+
+### Step 4: Map the Structure
+**Concept:** Architecture before writing.
+**PROMPT:** "Create a post outline using this flow:
+1.  **The Hook:** The scroll stopper.
+2.  **The Story/Context:** The characters (Manager, Architect, Client) and the conflict.
+3.  **The Insight:** The specific technical solution (The 'Realist' fix).
+4.  **The Transition:** 'Ready to operationalize?'
+5.  **The CTA:** Contact/Download."
+
+### Step 5: Add Proof Points
+**Concept:** Claims need evidence.
+**PROMPT:** "For every technical claim made in the draft, find a way to back it up:
+*   A specific stat (e.g., '48% coverage').
+*   A personal war story ('Friday’s playback was close').
+*   A contrarian take ('New assessments are not magic reset buttons')."
+
+### Step 6: Refine for Platform
+**Concept:** Platform-native formatting.
+**PROMPT:** "Ensure the content is scannable. Use bolding for key insights. Keep paragraphs short (1-2 sentences max for dramatic effect)."
+
+### Step 7: Humanize the Output
+**Concept:** AI -> Human translation.
+**PROMPT:** "Review the draft for 'AI Tells'.
+*   *Remove:* 'In the rapidly evolving landscape...', 'Unlock the power of...', usage of 'delve'.
+*   *Replace with:* Direct, active verbs. 'We stopped guessing.' 'He closed the laptop.'"
+
+### Step 8: Create a Reusable System
+**Concept:** Repeatable framework.
+**Action:** Ensure this generated content fits the `{{CONTENT_BODY_HTML}}` placeholder in Phase 2.
+
+---
+
+## Phase 2: Technical Assembly & Formatting
+**Objective:** Take the content generated in Phase 1 and wrap it in the production-grade HTML template.
+
+### Step 1: Gather Inputs (from Phase 1)
 **Ask the user for the following information (if not already provided):**
 1.  **Blog Title:** The main headline.
 2.  **Date:** Publication date (Format: YYYY-MM-DD).
