@@ -257,11 +257,11 @@
         <p><strong>Fact check for geography:</strong> Azure’s UK regions are <strong>UK South</strong> and <strong>UK
                 West</strong>. UKLifeLabs uses these two regions to meet sovereignty and resilience requirements.</p>
 
-        <h2 id="scene-1"><span class="gradient-text">Scene 1: "We already have Palo Alto and FortiGate. Why add
-                anything?"</span></h2>
-        <p><strong>The PM:</strong> "We already pay for Palo Alto and FortiGate. Why are you proposing Application
+        <h2 id="scene-1"><span class="gradient-text">Challenge 1: The Perimeter Fallacy</span></h2>
+        <p><strong>The Stakeholder:</strong> "We already pay for Palo Alto and FortiGate. Why are you proposing
+            Application
             Gateway, Cloudflare, APIM, and Traffic Manager on top?"</p>
-        <p><strong>Morpheus:</strong> "Because firewalls protect networks. They don’t govern APIs. And our Copilot is an
+        <p><strong>The Principle:</strong> "Firewalls protect networks. They don’t govern APIs. Our Copilot is an
             API product, not a web page."</p>
 
         <h3>What Palo Alto + FortiGate do best</h3>
@@ -280,9 +280,10 @@
         <p><strong>Key takeaway:</strong> <strong>Network security is necessary. API governance is what makes it
                 defensible.</strong></p>
 
-        <h2 id="scene-2"><span class="gradient-text">Scene 2: Why Application Gateway exists (and why Palo Alto is not
-                the right hammer)</span></h2>
-        <p><strong>Upendra:</strong> "Palo Alto decides whether a request can enter the estate. Application Gateway
+        <h2 id="scene-2"><span class="gradient-text">Decision 2: Separation of Concerns (Ingress vs Firewall)</span>
+        </h2>
+        <p><strong>The Architecture:</strong> "Palo Alto decides whether a request can enter the estate. Application
+            Gateway
             decides where the request goes inside Azure, with web-grade controls."</p>
 
         <h3>Why Application Gateway "shines" in this pattern</h3>
@@ -294,10 +295,12 @@
             <li>Cleaner ownership split: platform team owns app ingress patterns without turning firewall changes into
                 release blockers</li>
         </ul>
-        <p><strong>Morpheus:</strong> "Firewall rules should move slowly. App routing changes every sprint. Mix them and
+        <p><strong>The Reality:</strong> "Firewall rules should move slowly. App routing changes every sprint. Mix them
+            and
             you create exceptions. Exceptions become bypasses. Bypasses become findings."</p>
 
-        <h2 id="scene-3"><span class="gradient-text">Scene 3: Why Cloudflare here, and not Azure Front Door</span></h2>
+        <h2 id="scene-3"><span class="gradient-text">Decision 3: Edge Strategy (Cloudflare vs Azure Front Door)</span>
+        </h2>
         <p>This is not a "feature debate." It is an <strong>operating model</strong> decision.</p>
 
         <h3>What Azure Front Door is good at</h3>
@@ -318,7 +321,7 @@
         <p><strong>Key takeaway:</strong> If Cloudflare is the enterprise edge standard, adding another edge (Front
             Door) often creates overlap, not extra safety.</p>
 
-        <h2 id="scene-4"><span class="gradient-text">Scene 4: "Then why Traffic Manager as well?"</span></h2>
+        <h2 id="scene-4"><span class="gradient-text">Pattern 4: Multi-Region High Availability</span></h2>
         <p>Because it solves a different job than Cloudflare.</p>
         <p><strong>Traffic Manager is DNS-based routing</strong>, used to steer clients to regional endpoints based on
             health and routing policies.</p>
@@ -331,8 +334,8 @@
         <p>Cloudflare can load-balance too. Traffic Manager keeps regional failover logic <strong>inside the Azure
                 operating model</strong>, which helps platform teams, incident response, and auditors.</p>
 
-        <h2 id="scene-5"><span class="gradient-text">Scene 5: Why Zscaler is not redundant</span></h2>
-        <p><strong>The PM:</strong> "We already have Cloudflare. Why do we need Zscaler?"</p>
+        <h2 id="scene-5"><span class="gradient-text">Defense in Depth: Workforce Zero Trust</span></h2>
+        <p><strong>Common Question:</strong> "We already have Cloudflare. Why do we need Zscaler?"</p>
         <p>Because Zscaler is typically about <strong>workforce and egress</strong>, not public ingress.</p>
 
         <h3>What Zscaler adds</h3>
@@ -342,10 +345,11 @@
                 VPN models</li>
             <li><strong>A stronger "who accessed what" story</strong> for admins, engineers, and operators</li>
         </ul>
-        <p><strong>Morpheus:</strong> "Cloudflare protects the front door. Zscaler controls how our people reach
+        <p><strong>The Differentiator:</strong> "Cloudflare protects the front door. Zscaler controls how our people
+            reach
             internal services and what leaves the building."</p>
 
-        <h2 id="scene-6"><span class="gradient-text">Scene 6: The UKLifeLabs AI Gateway pattern</span></h2>
+        <h2 id="scene-6"><span class="gradient-text">The Target Architecture: The UKLifeLabs AI Gateway</span></h2>
 
         <h3>Lane A: Chat (real-time)</h3>
         <ol>
@@ -416,9 +420,9 @@
             </div>
         </div>
 
-        <h2 id="corridors-vs-gates"><span class="gradient-text">Corridors vs Gates: Why APIM Products are
-                mandatory</span></h2>
-        <p><strong>Trinity:</strong> "Paths are corridors. Products are gates."</p>
+        <h2 id="corridors-vs-gates"><span class="gradient-text">Governance Model: Corridors (Paths) vs Gates
+                (Products)</span></h2>
+        <p><strong>Concept:</strong> "Paths are corridors. Products are gates."</p>
 
         <h3>Paths are corridors</h3>
         <p>Using only paths like <code>/internal/*</code> and <code>/external/*</code> makes governance soft:</p>
@@ -459,7 +463,7 @@
             </figcaption>
         </figure>
 
-        <h2 id="regional-deployments"><span class="gradient-text">Regional deployments over global ones</span></h2>
+        <h2 id="regional-deployments"><span class="gradient-text">Sovereignty Strategy: Regional by Design</span></h2>
         <p>UKLifeLabs treats <strong>data residency and processing locality</strong> as a first-order constraint.</p>
 
         <figure style="margin: 2rem 0; text-align: center;">
@@ -487,7 +491,8 @@
         <p><strong>Key takeaway:</strong> <strong>Regional deployments reduce sovereignty risk. Policy makes it
                 enforceable.</strong></p>
 
-        <h2 id="taxi-vs-private-car"><span class="gradient-text">Taxi vs Private Car: TPM vs PTU</span></h2>
+        <h2 id="taxi-vs-private-car"><span class="gradient-text">Capacity Strategy: Throughput Modes (TPM vs PTU)</span>
+        </h2>
         <p>This is where pilots die in production.</p>
 
         <h3>TPM is a taxi</h3>
@@ -520,8 +525,7 @@
             </figcaption>
         </figure>
 
-        <h2 id="regulatory-aware-rag"><span class="gradient-text">"Regulatory-aware RAG" is part of the gateway
-                contract</span></h2>
+        <h2 id="regulatory-aware-rag"><span class="gradient-text">Pattern: Regulatory-Aware RAG</span></h2>
         <p>UKLifeLabs treats Retrieval-Augmented Generation as a controlled pattern, not a dev convenience.</p>
 
         <h3>The baseline pattern (the "gold standard" starting point)</h3>
@@ -548,9 +552,9 @@
         </ul>
         <p><strong>Key takeaway:</strong> If you can’t reproduce how an answer was created, it’s not production.</p>
 
-        <h2 id="compliance-evidence"><span class="gradient-text">Compliance evidence: not a dashboard, a package</span>
+        <h2 id="compliance-evidence"><span class="gradient-text">Compliance Strategy: Evidence as a Product</span>
         </h2>
-        <p><strong>Morpheus:</strong> "Auditors don’t want confidence. They want artifacts."</p>
+        <p><strong>Principle:</strong> "Auditors don’t want confidence. They want artifacts."</p>
         <p>UKLifeLabs builds an evidence pack using:</p>
         <ul>
             <li><strong>Microsoft Service Trust Portal</strong> for Microsoft audit reports and compliance artifacts
@@ -561,8 +565,8 @@
         </ul>
         <p><strong>Key takeaway:</strong> Evidence is designed upfront. If you "add it later," you add risk.</p>
 
-        <h2 id="devsecops"><span class="gradient-text">DevSecOps, but for regulated AI</span></h2>
-        <p><strong>Trinity (DevOps hat):</strong> "If gateway rules aren’t versioned, tested, and promoted like code,
+        <h2 id="devsecops"><span class="gradient-text">Operational Excellence: DevSecOps for AI</span></h2>
+        <p><strong>The Standard:</strong> "If gateway rules aren’t versioned, tested, and promoted like code,
             they will drift."</p>
         <p>UKLifeLabs standardises:</p>
         <ul>
@@ -581,7 +585,7 @@
             </figcaption>
         </figure>
 
-        <h2 id="togaf-journey"><span class="gradient-text">TOGAF-style service journey map</span></h2>
+        <h2 id="togaf-journey"><span class="gradient-text">Service Architecture: The Request Journey</span></h2>
         <p>Leadership doesn’t buy boxes. They buy <strong>services</strong> and <strong>journeys</strong>.</p>
 
         <h3>Business Journey: "Regulatory Query to Evidence"</h3>
