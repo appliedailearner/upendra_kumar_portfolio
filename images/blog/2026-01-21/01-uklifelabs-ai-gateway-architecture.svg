@@ -6,8 +6,8 @@
       /* Typography */
       .font-header { font: 800 48px 'Outfit', 'Segoe UI', sans-serif; fill: #F8FAFC; letter-spacing: -0.02em; }
       .font-sub { font: 400 24px 'Inter', 'Segoe UI', sans-serif; fill: #94A3B8; }
-      .font-label { font: 600 20px 'Inter', 'Segoe UI', sans-serif; fill: #F1F5F9; text-anchor: middle; }
-      .font-desc { font: 400 14px 'Inter', 'Segoe UI', sans-serif; fill: #CBD5E1; text-anchor: middle; opacity: 0.8; }
+      .font-label { font: 600 18px 'Inter', 'Segoe UI', sans-serif; fill: #F1F5F9; text-anchor: middle; }
+      .font-desc { font: 400 13px 'Inter', 'Segoe UI', sans-serif; fill: #CBD5E1; text-anchor: middle; opacity: 0.8; }
       .font-region { font: 700 28px 'Outfit', 'Segoe UI', sans-serif; fill: #38BDF8; text-transform: uppercase; letter-spacing: 0.05em; }
       
       /* Containers */
@@ -26,16 +26,8 @@
         rx: 16; ry: 16;
       }
       
-      /* Services Buttons */
-      .service-box {
-        fill: #1E293B;
-        stroke: #38BDF8;
-        stroke-width: 2;
-        rx: 8; ry: 8;
-        filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
-      }
-      .service-box-security { stroke: #F43F5E; } /* Red for Security */
-      .service-box-data { stroke: #22C55E; } /* Green for Data */
+      /* Service Icons Containers */
+      .icon-bg { fill: transparent; }
       
       /* Data Flows */
       .flow {
@@ -53,8 +45,15 @@
         to { stroke-dashoffset: 0; }
       }
       
-      /* Icons Paths (Simplified) */
-      .icon { fill: #fff; opacity: 0.9; }
+      /* Icon Paths */
+      .icon-blue { fill: #0078D4; }
+      .icon-purple { fill: #8A2BE2; }
+      .icon-green { fill: #107C10; }
+      .icon-mag { fill: #C6007E; }
+      .icon-orange { fill: #FF8C00; }
+      .icon-white { fill: #FFFFFF; }
+      .icon-path { stroke: none; }
+
     </style>
     
     <!-- Arrows -->
@@ -92,138 +91,127 @@
 
   <!-- LAYER 1: GLOBAL ROUTING -->
   <g transform="translate(60, 180)">
-    <rect width="1800" height="140" class="glass-panel" />
+    <rect width="1800" height="160" class="glass-panel" />
     <text x="40" y="50" class="font-region" style="font-size:20px; fill:#94A3B8;">Global Ingress Layer</text>
     
     <!-- Internet -->
-    <g transform="translate(1400, 30)">
-       <circle cx="50" cy="50" r="40" fill="rgba(255,255,255,0.05)" stroke="#fff" stroke-width="1" stroke-dasharray="4 4" />
-       <text x="50" y="55" class="font-label">Internet</text>
+    <g transform="translate(1450, 40)">
+       <circle cx="40" cy="40" r="40" fill="transparent" stroke="#fff" stroke-dasharray="2 2" />
+       <!-- Globe/Internet Icon -->
+       <path transform="translate(15, 15) scale(1.5)" d="M16.01 0 C 7.18 0 0.01 7.17 0.01 16 C 0.01 24.83 7.18 32 16.01 32 C 24.85 32 32.01 24.83 32.01 16 C 32.01 7.17 24.85 0 16.01 0 M 16.01 2.87 C 18.06 6.84 19.34 11.23 19.82 16 L 12.19 16 C 12.67 11.23 13.96 6.84 16.01 2.87 M 4.88 8.87 L 10.37 8.87 C 9.68 11.1 9.22 13.48 9.04 16 L 3.09 16 C 3.32 13.46 3.95 11.08 4.88 8.87 M 3.09 16 L 9.04 16 C 9.22 18.52 9.68 20.9 10.37 23.13 L 4.88 23.13 C 3.95 20.92 3.32 18.54 3.09 16 M 16.01 29.13 C 13.96 25.16 12.67 20.77 12.19 16 L 19.82 16 C 19.34 20.77 18.06 25.16 16.01 29.13 M 21.64 23.13 L 27.13 23.13 C 28.06 20.92 28.69 18.54 28.92 16 L 22.97 16 C 22.79 18.52 22.33 20.9 21.64 23.13 M 22.97 16 L 28.92 16 C 28.69 13.46 28.06 11.08 27.13 8.87 L 21.64 8.87 C 22.33 11.1 22.79 13.48 22.97 16 Z" class="icon-white"/>
+       <text x="40" y="100" class="font-label">Internet</text>
     </g>
     
     <!-- Cloudflare -->
-    <g transform="translate(900, 30)">
-       <rect width="200" height="80" class="service-box service-box-security" />
-       <text x="100" y="45" class="font-label">Cloudflare</text>
-       <text x="100" y="65" class="font-desc">Enterprise Edge + WAF</text>
+    <g transform="translate(950, 40)">
+       <path transform="translate(0,0) scale(3)" d="M12.6,3.4c-0.1,0-0.3,0-0.4,0c-1.8,0-3.3,1.3-3.6,3c0,0,0,0,0,0C8.3,6.3,8.1,6.3,7.9,6.3C5.6,6.3,3.7,8.2,3.7,10.5C3.7,12.8,5.6,14.7,7.9,14.7H20c1.9,0,3.5-1.6,3.5-3.5S21.9,7.7,20,7.7c-0.1,0-0.2,0-0.3,0C19.2,5.2,16.2,3.4,12.6,3.4z" fill="#F48120"/> <!-- Orange Cloud -->
+       <text x="50" y="100" class="font-label">Cloudflare</text>
+       <text x="50" y="120" class="font-desc">WAF + Edge</text>
     </g>
     
     <!-- Traffic Manager -->
-    <g transform="translate(400, 30)">
-       <rect width="220" height="80" class="service-box" />
-       <text x="110" y="45" class="font-label">Traffic Manager</text>
-       <text x="110" y="65" class="font-desc">DNS Priority Routing</text>
+    <g transform="translate(450, 40)">
+       <!-- Traffic Manager / Load Balancer Icon -->
+       <path transform="translate(10,10) scale(1.8)" d="M18.5,12.5l-3.2,3.2l-1.4-1.4l5.7-5.7l5.7,5.7l-1.4,1.4l-3.2-3.2v8.1H32V0h-3.2v6H22.9V0h-3.2v6 H11.8V0H8.6v6H0v14.6h11.3v-8.1l-3.2,3.2l-1.4-1.4l5.7-5.7l5.7,5.7l-1.4,1.4l-3.2-3.2V25H18.5V12.5z M25.6,3.2h3.2v17.4h-3.2V3.2z M16.5,3.2h3.2v4.8h-3.2V3.2z M16.5,11.3h3.2v9.3h-3.2V11.3z" class="icon-blue"/>
+       <text x="40" y="100" class="font-label">Traffic Manager</text>
+       <text x="40" y="120" class="font-desc">DNS Routing</text>
     </g>
     
-    <!-- Connections -->
-    <line x1="1350" y1="70" x2="1110" y2="70" class="flow" marker-end="url(#arrow-blue)" />
-    <line x1="890" y1="70" x2="630" y2="70" class="flow" marker-end="url(#arrow-blue)" />
-    
-    <!-- Downward Flow -->
-    <path d="M510,110 L510,160" class="flow" marker-end="url(#arrow-blue)" />
+    <!-- Connector Lines -->
+    <line x1="1400" y1="80" x2="1150" y2="80" class="flow" marker-end="url(#arrow-blue)" />
+    <line x1="900" y1="80" x2="600" y2="80" class="flow" marker-end="url(#arrow-blue)" />
+    <path d="M500,140 L500,200 L300,200" class="flow" style="display:none" /> <!-- Logic connector -->
   </g>
 
-  <!-- LAYER 2: UK WEST (ACTIVE) -->
-  <g transform="translate(60, 360)">
-    <rect width="1150" height="680" class="glass-panel" stroke="#38BDF8" stroke-width="3" />
+  <!-- LAYER 2: UK WEST -->
+  <g transform="translate(60, 380)">
+    <rect width="1150" height="660" class="glass-panel" stroke="#38BDF8" stroke-width="3" />
     <text x="40" y="50" class="font-region">Region A: UK West (Active)</text>
-    <text x="400" y="50" class="font-desc" style="text-anchor:start;">Primary workload processing</text>
 
     <!-- DMZ -->
-    <g transform="translate(50, 90)">
-        <!-- Palo Alto -->
+    <g transform="translate(100, 100)">
+        <!-- Palo Alto (Firewall) -->
         <g transform="translate(0, 0)">
-            <rect width="220" height="90" class="service-box service-box-security" />
-            <text x="110" y="40" class="font-label">Palo Alto</text>
-            <text x="110" y="70" class="font-desc">N-S Inspection</text>
+            <rect width="180" height="120" rx="8" fill="rgba(255,255,255,0.05)" />
+            <path transform="translate(65, 20) scale(1.5)" d="M16 0C7.16 0 0 7.16 0 16s7.16 16 16 16 16-7.16 16-16S24.84 0 16 0zm-2 24h-4v-4h4v4zm0-6h-4V8h4v10zm8 6h-4v-4h4v4zm0-6h-4V8h4v10z" class="icon-orange" />
+            <text x="90" y="85" class="font-label">Palo Alto</text>
+            <text x="90" y="105" class="font-desc">N-S Insp.</text>
         </g>
         
-        <!-- App Gateway -->
-        <g transform="translate(300, 0)">
-            <rect width="220" height="90" class="service-box service-box-security" />
-            <text x="110" y="40" class="font-label">App Gateway</text>
-            <text x="110" y="70" class="font-desc">L7 WAF</text>
+        <!-- App Gateway (L7 LB) -->
+        <g transform="translate(250, 0)">
+            <rect width="180" height="120" rx="8" fill="rgba(255,255,255,0.05)" />
+            <path transform="translate(65, 20) scale(1.5)" d="M16 0v6.18h-4.82l6.82 8.18 6.82-8.18H20V0h-4zM8.18 20.64L0 27.46V32h32v-4.54l-8.18-6.82H8.18z" class="icon-blue" />
+            <text x="90" y="85" class="font-label">AppGW</text>
+            <text x="90" y="105" class="font-desc">WAF L7</text>
         </g>
         
-        <!-- APIM -->
-        <g transform="translate(600, 0)">
-            <rect width="220" height="90" class="service-box" />
-            <text x="110" y="40" class="font-label">APIM</text>
-            <text x="110" y="70" class="font-desc">AI Gateway Policy</text>
+        <!-- APIM (Gateway) -->
+        <g transform="translate(500, 0)">
+            <rect width="180" height="120" rx="8" fill="rgba(255,255,255,0.05)" />
+            <path transform="translate(65, 20) scale(1.5)" d="M16 0L3.27 5.61 9.4 11.75l-4.14 4.14L0 10.63v10.74l5.26 5.26 4.14-4.14 6.14 6.14 12.73-5.26L16 0zm-1.07 19.47l-4.14 4.14-1.06-1.06V14.3l4.14-4.14 8 .87.87 8-7.81 1.44z" class="icon-purple" />
+            <text x="90" y="85" class="font-label">APIM</text>
+            <text x="90" y="105" class="font-desc">Policy</text>
         </g>
-
-        <!-- DMZ Arrows -->
-        <line x1="225" y1="45" x2="295" y2="45" class="flow" marker-end="url(#arrow-blue)" />
-        <line x1="525" y1="45" x2="595" y2="45" class="flow" marker-end="url(#arrow-blue)" />
         
-        <!-- Split to Lanes -->
-        <path d="M710,90 L710,140 L300,140 L300,220" class="flow" marker-end="url(#arrow-blue)" />
-        <path d="M710,90 L710,140 L800,140 L800,220" class="flow flow-data" marker-end="url(#arrow-green)" />
+        <line x1="180" y1="60" x2="250" y2="60" class="flow" marker-end="url(#arrow-blue)" />
+        <line x1="430" y1="60" x2="500" y2="60" class="flow" marker-end="url(#arrow-blue)" />
+        
+        <!-- Routing to Lanes -->
+         <path d="M590,120 L590,180 L350,180 L350,220" class="flow" marker-end="url(#arrow-blue)" />
+         <path d="M590,120 L590,180 L850,180 L850,220" class="flow flow-data" marker-end="url(#arrow-green)" />
     </g>
 
-    <!-- Lane A: Chat -->
-    <g transform="translate(50, 250)">
-        <rect width="500" height="380" fill="rgba(6, 182, 212, 0.05)" rx="12" stroke="rgba(6, 182, 212, 0.2)" />
-        <text x="250" y="35" class="font-label" style="fill:#22D3EE;">Lane A: Real-time Chat</text>
+    <!-- Lane A -->
+    <g transform="translate(100, 320)">
+        <rect width="450" height="300" fill="rgba(6,182,212,0.05)" rx="12" stroke="rgba(6,182,212,0.3)" />
+        <text x="225" y="30" class="font-label" style="fill:#22D3EE">Lane A: Chat</text>
         
-        <g transform="translate(140, 60)">
-            <rect width="220" height="70" class="service-box" />
-            <text x="110" y="40" class="font-label">AI Search</text>
+        <!-- AI Search -->
+        <g transform="translate(40, 50)">
+            <path transform="scale(1.2)" d="M25.7,24.3l-6.1-6.1c1.3-1.6,2.1-3.6,2.1-5.9c0-5-4-9-9-9s-9,4-9,9s4,9,9,9c2.3,0,4.3-0.8,5.9-2.1l6.1,6.1 L25.7,24.3z M12.7,19.3c-3.9,0-7-3.1-7-7s3.1-7,7-7s7,3.1,7,7S16.6,19.3,12.7,19.3z" class="icon-blue"/>
+            <text x="80" y="15" class="font-label" style="text-anchor:start">AI Search</text>
         </g>
         
-        <g transform="translate(140, 160)">
-            <rect width="220" height="70" class="service-box" />
-            <text x="110" y="40" class="font-label">Azure OpenAI</text>
+        <!-- OpenAI -->
+        <g transform="translate(40, 150)">
+             <path transform="scale(1.2)" d="M28.5,14c0-1.7-1.4-3-3-3h-1.6c-0.6-2.5-2.8-4.3-5.5-4.3c-2,0-3.8,1-4.8,2.6c-1-1.6-2.9-2.6-4.8-2.6 c-3.1,0-5.7,2.5-5.7,5.7c0,1,0.3,1.9,0.8,2.7c-2.3,0.9-3.9,3.1-3.9,5.7c0,3.3,2.7,6,6,6h22.6c0.8,0,1.5-0.7,1.5-1.5V14H28.5z" class="icon-purple"/>
+             <text x="80" y="15" class="font-label" style="text-anchor:start">OpenAI (PTU)</text>
         </g>
-        
-        <g transform="translate(140, 260)">
-            <rect width="220" height="70" class="service-box" />
-            <text x="110" y="40" class="font-label">Response Builder</text>
-        </g>
-        
-        <line x1="250" y1="130" x2="250" y2="155" class="flow" marker-end="url(#arrow-blue)" />
-        <line x1="250" y1="230" x2="250" y2="255" class="flow" marker-end="url(#arrow-blue)" />
     </g>
-
-    <!-- Lane B: Ingestion -->
-    <g transform="translate(580, 250)">
-        <rect width="500" height="380" fill="rgba(34, 197, 94, 0.05)" rx="12" stroke="rgba(34, 197, 94, 0.2)" />
-        <text x="250" y="35" class="font-label" style="fill:#4ADE80;">Lane B: Data Ingestion</text>
-
-        <g transform="translate(140, 60)">
-            <rect width="220" height="70" class="service-box service-box-data" />
-            <text x="110" y="40" class="font-label">ADLS Gen2</text>
-        </g>
-        
-        <g transform="translate(140, 160)">
-            <rect width="220" height="70" class="service-box service-box-data" />
-            <text x="110" y="40" class="font-label">Doc Intelligence</text>
-        </g>
-        
-        <g transform="translate(140, 260)">
-            <rect width="220" height="70" class="service-box service-box-data" />
-            <text x="110" y="40" class="font-label">Indexer</text>
-        </g>
-
-        <line x1="250" y1="130" x2="250" y2="155" class="flow flow-data" marker-end="url(#arrow-green)" />
-        <line x1="250" y1="230" x2="250" y2="255" class="flow flow-data" marker-end="url(#arrow-green)" />
-    </g>
-  </g>
-
-  <!-- LAYER 3: UK SOUTH (FAILOVER) -->
-  <g transform="translate(1250, 360)">
-    <rect width="610" height="680" class="glass-panel-inactive" />
-    <text x="40" y="50" class="font-region" style="fill:#64748B;">Region B: UK South</text>
-    <text x="320" y="50" class="font-desc" style="text-anchor:start;">Passive / Failover</text>
     
-    <g transform="translate(80, 250)">
-        <text x="225" y="0" class="font-label" style="font-size:32px; fill:#475569;">STANDBY REPLICA</text>
-        <text x="225" y="40" class="font-desc">Infrastructure Deployed &amp; Synced</text>
-        <text x="225" y="70" class="font-desc">Traffic Manager Probe: 200 OK</text>
+    <!-- Lane B -->
+    <g transform="translate(600, 320)">
+        <rect width="450" height="300" fill="rgba(34,197,94,0.05)" rx="12" stroke="rgba(34,197,94,0.3)" />
+        <text x="225" y="30" class="font-label" style="fill:#4ADE80">Lane B: Ingestion</text>
+
+        <!-- Storage -->
+        <g transform="translate(40, 50)">
+            <path transform="scale(1.2)" d="M26,9c0,2.8-5.8,5-13,5S0,11.8,0,9s5.8-5,13-5S26,6.2,26,9z M0,13.5v5c0,2.8,5.8,5,13,5s13-2.2,13-5v-5 c0,2.8-5.8,5-13,5S0,16.3,0,13.5z M0,22.5v5c0,2.8,5.8,5,13,5s13-2.2,13-5v-5c0,2.8-5.8,5-13,5S0,25.3,0,22.5z" class="icon-green"/>
+            <text x="80" y="15" class="font-label" style="text-anchor:start">ADLS Gen2</text>
+        </g>
+        
+        <!-- Doc Intel -->
+        <g transform="translate(40, 150)">
+            <path transform="scale(1.2)" d="M20,0H4C1.8,0,0,1.8,0,4v24c0,2.2,1.8,4,4,4h24c2.2,0,4-1.8,4-4V12L20,0z M20,14h8V4h-8V14z" class="icon-green"/>
+            <text x="80" y="15" class="font-label" style="text-anchor:start">Doc Intel</text>
+        </g>
     </g>
   </g>
-  
-  <!-- Ingress Line Connecting top to Region A -->
-  <path d="M510,320 L510,480" class="flow" style="display:none;" /> <!-- Logical connection via stacking -->
+
+  <!-- LAYER 3: UK SOUTH -->
+  <g transform="translate(1250, 380)">
+    <rect width="610" height="660" class="glass-panel-inactive" />
+    <text x="40" y="50" class="font-region" style="fill:#64748B">Region B: UK South</text>
+    
+    <g transform="translate(180, 250)">
+        <!-- Generic Server Icon -->
+        <path transform="scale(4)" d="M22,2v20c0,1.1-0.9,2-2,2H4c-1.1,0-2-0.9-2-2V2c0-1.1,0.9-2,2-2h16C21.1,0,22,0.9,22,2z M4,2v4h16V2H4z M4,8v4h16V8 H4z M4,14v4h16v-4H4z" fill="#475569" opacity="0.5"/>
+        <text x="50" y="120" class="font-label" style="fill:#64748B">Standby Replica</text>
+    </g>
+  </g>
+
+  <!-- Connector from Global to West -->
+  <line x1="450" y1="260" x2="450" y2="400" class="flow" style="display:none;" />
 
 </svg>
