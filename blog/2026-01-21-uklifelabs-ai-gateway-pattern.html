@@ -165,6 +165,32 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
+        .premium-hook {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 500;
+            line-height: 1.6;
+            color: #f1f5f9;
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid #a855f7;
+            padding: 2rem;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 2.5rem;
+            position: relative;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .premium-hook::before {
+            content: '"';
+            position: absolute;
+            top: 0;
+            left: 1rem;
+            font-size: 4rem;
+            color: rgba(168, 85, 247, 0.1);
+            font-family: serif;
+            line-height: 1;
+        }
     </style>
 
     <!-- Performance: Preconnect to Font & Script Servers -->
@@ -241,10 +267,11 @@
 
     <!-- Blog Post Content -->
     <article class="blog-post-content">
-        <p class="lead" style="font-size: 1.3rem; color: var(--primary-color); font-weight: 600;">
-            The room is calm until an auditor asks a simple question: "Show me where the data goes, which region it
-            lands in, who can call the model, and what evidence you can produce."
-        </p>
+        <div class="premium-hook">
+            The room is calm until an auditor asks a simple question: <span
+                style="color: #e2e8f0; font-style: italic;">"Show me where the data goes, which region it
+                lands in, who can call the model, and what evidence you can produce."</span>
+        </div>
 
         <p>That is the moment most AI pilots fail.</p>
         <p>UKLifeLabs doesn’t ship pilots. We ship <strong>standards</strong>.</p>
