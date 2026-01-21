@@ -51,6 +51,7 @@
       .icon-green { fill: #107C10; }
       .icon-mag { fill: #C6007E; }
       .icon-orange { fill: #FF8C00; }
+      .icon-red { fill: #DC2626; }
       .icon-white { fill: #FFFFFF; }
       .icon-path { stroke: none; }
 
@@ -128,8 +129,8 @@
     <rect width="1150" height="660" class="glass-panel" stroke="#38BDF8" stroke-width="3" />
     <text x="40" y="50" class="font-region">Region A: UK West (Active)</text>
 
-    <!-- DMZ -->
-    <g transform="translate(100, 100)">
+    <!-- DMZ / Security Hub -->
+    <g transform="translate(50, 100)">
         <!-- Palo Alto (Firewall) -->
         <g transform="translate(0, 0)">
             <rect width="180" height="120" rx="8" fill="rgba(255,255,255,0.05)" />
@@ -138,8 +139,17 @@
             <text x="90" y="105" class="font-desc">N-S Insp.</text>
         </g>
         
+        <!-- FortiGate (E-W Firewall) -->
+        <g transform="translate(200, 0)">
+            <rect width="180" height="120" rx="8" fill="rgba(255,255,255,0.05)" />
+             <!-- Slightly different shield/wall icon for FortiGate -->
+            <path transform="translate(65, 20) scale(1.5)" d="M16,0 L0,8 V16 C0,25 7,30 16,32 C25,30 32,25 32,16 V8 L16,0 Z M24,16 L16,24 L8,16" style="fill:#F43F5E; opacity: 0.9;" />
+            <text x="90" y="85" class="font-label">FortiGate</text>
+            <text x="90" y="105" class="font-desc">E-W Insp.</text>
+        </g>
+
         <!-- App Gateway (L7 LB) -->
-        <g transform="translate(250, 0)">
+        <g transform="translate(420, 0)">
             <rect width="180" height="120" rx="8" fill="rgba(255,255,255,0.05)" />
             <path transform="translate(65, 20) scale(1.5)" d="M16 0v6.18h-4.82l6.82 8.18 6.82-8.18H20V0h-4zM8.18 20.64L0 27.46V32h32v-4.54l-8.18-6.82H8.18z" class="icon-blue" />
             <text x="90" y="85" class="font-label">AppGW</text>
@@ -147,19 +157,20 @@
         </g>
         
         <!-- APIM (Gateway) -->
-        <g transform="translate(500, 0)">
+        <g transform="translate(640, 0)">
             <rect width="180" height="120" rx="8" fill="rgba(255,255,255,0.05)" />
             <path transform="translate(65, 20) scale(1.5)" d="M16 0L3.27 5.61 9.4 11.75l-4.14 4.14L0 10.63v10.74l5.26 5.26 4.14-4.14 6.14 6.14 12.73-5.26L16 0zm-1.07 19.47l-4.14 4.14-1.06-1.06V14.3l4.14-4.14 8 .87.87 8-7.81 1.44z" class="icon-purple" />
             <text x="90" y="85" class="font-label">APIM</text>
             <text x="90" y="105" class="font-desc">Policy</text>
         </g>
         
-        <line x1="180" y1="60" x2="250" y2="60" class="flow" marker-end="url(#arrow-blue)" />
-        <line x1="430" y1="60" x2="500" y2="60" class="flow" marker-end="url(#arrow-blue)" />
+        <!-- Flow: Palo -> AppGW (skipping FortiGate visual flow for N-S simplicity, but showing it exists) -->
+        <line x1="180" y1="60" x2="420" y2="60" class="flow" marker-end="url(#arrow-blue)" stroke-dasharray="4 4" />
+        <line x1="600" y1="60" x2="640" y2="60" class="flow" marker-end="url(#arrow-blue)" />
         
         <!-- Routing to Lanes -->
-         <path d="M590,120 L590,180 L350,180 L350,220" class="flow" marker-end="url(#arrow-blue)" />
-         <path d="M590,120 L590,180 L850,180 L850,220" class="flow flow-data" marker-end="url(#arrow-green)" />
+         <path d="M730,120 L730,180 L490,180 L490,220" class="flow" marker-end="url(#arrow-blue)" />
+         <path d="M730,120 L730,180 L990,180 L990,220" class="flow flow-data" marker-end="url(#arrow-green)" />
     </g>
 
     <!-- Lane A -->
