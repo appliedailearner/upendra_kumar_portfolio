@@ -166,6 +166,137 @@
             -webkit-text-fill-color: transparent;
         }
 
+        /* --- TYPOGRAPHY PACK ADDITIONS --- */
+
+        /* 1. Optical Kerning & Balance for Headers */
+        .blog-post-content h2,
+        .blog-post-content h3 {
+            letter-spacing: -0.02em;
+            text-wrap: balance;
+        }
+
+        /* 2. Custom Check-Lists & Arrow-Lists */
+        .list-check {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .list-check li {
+            position: relative;
+            padding-left: 1.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .list-check li::before {
+            content: '\f00c';
+            /* FontAwesome Check */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: #a855f7;
+            font-size: 1rem;
+        }
+
+        .list-arrow {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .list-arrow li {
+            position: relative;
+            padding-left: 1.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .list-arrow li::before {
+            content: '\f061';
+            /* FontAwesome Arrow Right */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: #3b82f6;
+            font-size: 1rem;
+        }
+
+        /* 3. Insight Cards (Replacing plain Key Takeaways) */
+        .insight-card {
+            background: linear-gradient(to right, rgba(59, 130, 246, 0.1), transparent);
+            border-left: 4px solid #3b82f6;
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 2rem 0;
+            display: flex;
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .insight-card i {
+            font-size: 1.5rem;
+            color: #3b82f6;
+            margin-top: 0.2rem;
+        }
+
+        .insight-content strong {
+            color: #fff;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        /* 4. Terminal Code Blocks */
+        .terminal-block {
+            background: #0f172a;
+            /* Slate 900 */
+            border-radius: 8px;
+            border: 1px solid #334155;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .terminal-header {
+            background: #1e293b;
+            /* Slate 800 */
+            padding: 0.5rem 1rem;
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: 1px solid #334155;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red {
+            background: #ef4444;
+        }
+
+        .dot-yellow {
+            background: #eab308;
+        }
+
+        .dot-green {
+            background: #22c55e;
+        }
+
+        .terminal-body {
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+            color: #e2e8f0;
+            overflow-x: auto;
+        }
+
+        .cmd-prompt::before {
+            content: '$ ';
+            color: #22c55e;
+            font-weight: bold;
+        }
+
         .premium-hook {
             font-family: 'Outfit', sans-serif;
             font-size: 1.4rem;
@@ -276,7 +407,8 @@
         <p>That is the moment most AI pilots fail.</p>
         <p>UKLifeLabs doesn’t ship pilots. We ship <strong>standards</strong>.</p>
         <p>This post explains the <strong>AI Gateway architecture</strong> we use to keep copilots:</p>
-        <ul>
+        <p>This post explains the <strong>AI Gateway architecture</strong> we use to keep copilots:</p>
+        <ul class="list-check">
             <li><strong>Regional:</strong> pinned to <strong>UK West + UK South</strong></li>
             <li><strong>Governed:</strong> <strong>APIM Products</strong>, not just routes and paths</li>
             <li><strong>Provable:</strong> audit trails you can hand to assessors</li>
@@ -304,8 +436,13 @@
             <li><strong>API governance</strong> (consumer entitlements, quotas, lifecycle, consistent auth policy)</li>
             <li><strong>Copilot controls</strong> (per-consumer usage plans, token budgets, traceability hooks)</li>
         </ul>
-        <p><strong>Key takeaway:</strong> <strong>Network security is necessary. API governance is what makes it
-                defensible.</strong></p>
+        <div class="insight-card">
+            <i class="fas fa-lightbulb"></i>
+            <div class="insight-content">
+                <strong>Key Takeaway</strong>
+                Network security is necessary. API governance is what makes it defensible.
+            </div>
+        </div>
 
         <h2 id="scene-2"><span class="gradient-text">Decision 2: Separation of Concerns (Ingress vs Firewall)</span>
         </h2>
@@ -315,7 +452,8 @@
 
         <h3>Why Application Gateway "shines" in this pattern</h3>
         <p>Application Gateway is built for Azure-native Layer 7 concerns:</p>
-        <ul>
+        <p>Application Gateway is built for Azure-native Layer 7 concerns:</p>
+        <ul class="list-check">
             <li>Host and path-based routing for multiple lanes (chat vs ingestion)</li>
             <li>WAF policy close to workloads</li>
             <li>Consistent TLS behaviors and backend health probing</li>
@@ -345,15 +483,22 @@
                 operate within UK West and UK South." Adding an additional global edge layer can complicate narrative
                 and troubleshooting.</li>
         </ol>
-        <p><strong>Key takeaway:</strong> If Cloudflare is the enterprise edge standard, adding another edge (Front
-            Door) often creates overlap, not extra safety.</p>
+        <div class="insight-card">
+            <i class="fas fa-exclamation-triangle" style="color: #f59e0b;"></i> <!-- Amber for Warning/Caution -->
+            <div class="insight-content">
+                <strong>Key Takeaway</strong>
+                If Cloudflare is the enterprise edge standard, adding another edge (Front Door) often creates overlap,
+                not extra safety.
+            </div>
+        </div>
 
         <h2 id="scene-4"><span class="gradient-text">Pattern 4: Multi-Region High Availability</span></h2>
         <p>Because it solves a different job than Cloudflare.</p>
         <p><strong>Traffic Manager is DNS-based routing</strong>, used to steer clients to regional endpoints based on
             health and routing policies.</p>
         <p>UKLifeLabs uses Traffic Manager to implement:</p>
-        <ul>
+        <p>UKLifeLabs uses Traffic Manager to implement:</p>
+        <ul class="list-arrow">
             <li><strong>Regional failover:</strong> <strong>UK West ↔ UK South</strong></li>
             <li>Planned maintenance routing</li>
             <li>Health-probe-driven endpoint selection</li>
@@ -405,8 +550,14 @@
             </li>
             <li>Index versions are promoted with approvals, not ad hoc pushes</li>
         </ol>
-        <p><strong>Key takeaway:</strong> UKLifeLabs separates chat and ingestion because <strong>they require different
-                controls, owners, and audit evidence.</strong></p>
+        <div class="insight-card">
+            <i class="fas fa-layer-group"></i>
+            <div class="insight-content">
+                <strong>Key Takeaway</strong>
+                UKLifeLabs separates chat and ingestion because they require different controls, owners, and audit
+                evidence.
+            </div>
+        </div>
 
         <figure style="margin: 2rem 0; text-align: center;">
             <img src="../images/blog/2026-01-21/01-uklifelabs-ai-gateway-architecture.svg"
@@ -452,8 +603,9 @@
         <p><strong>Concept:</strong> "Paths are corridors. Products are gates."</p>
 
         <h3>Paths are corridors</h3>
-        <p>Using only paths like <code>/internal/*</code> and <code>/external/*</code> makes governance soft:</p>
-        <ul>
+        <p>Using only paths like <code class="cmd-prompt">/internal/*</code> and <code
+                class="cmd-prompt">/external/*</code> makes governance soft:</p>
+        <ul class="list-arrow" style="margin-bottom: 2rem;">
             <li>Consumer lifecycle becomes ad hoc</li>
             <li>Quotas become blunt (one size fits all)</li>
             <li>Segregation of duties blurs (app teams end up owning access decisions)</li>
@@ -478,8 +630,13 @@
                 </ul>
             </li>
         </ul>
-        <p><strong>Key takeaway:</strong> <strong>Paths organise traffic. Products govern access. UKLifeLabs needs
-                governance.</strong></p>
+        <div class="insight-card">
+            <i class="fas fa-key"></i>
+            <div class="insight-content">
+                <strong>Key Takeaway</strong>
+                Paths organise traffic. Products govern access. UKLifeLabs needs governance.
+            </div>
+        </div>
 
         <figure style="margin: 2rem 0; text-align: center;">
             <img src="../images/blog/2026-01-21/03-apim-products-corridors-vs-gates.svg"
@@ -515,8 +672,13 @@
             <li>Use <strong>Azure Policy</strong> to restrict resource deployments to approved regions</li>
             <li>Use Landing Zone guardrails so the platform is enforceable, not advisory</li>
         </ul>
-        <p><strong>Key takeaway:</strong> <strong>Regional deployments reduce sovereignty risk. Policy makes it
-                enforceable.</strong></p>
+        <div class="insight-card">
+            <i class="fas fa-globe-europe"></i>
+            <div class="insight-content">
+                <strong>Key Takeaway</strong>
+                Regional deployments reduce sovereignty risk. Policy makes it enforceable.
+            </div>
+        </div>
 
         <h2 id="taxi-vs-private-car"><span class="gradient-text">Capacity Strategy: Throughput Modes (TPM vs PTU)</span>
         </h2>
@@ -541,7 +703,13 @@
             <li>TPM for early experimentation and non-critical usage</li>
             <li>PTU for production lanes with resilience requirements and impact tolerance constraints</li>
         </ul>
-        <p><strong>Key takeaway:</strong> <strong>TPM proves value. PTU proves resilience.</strong></p>
+        <div class="insight-card">
+            <i class="fas fa-tachometer-alt"></i>
+            <div class="insight-content">
+                <strong>Key Takeaway</strong>
+                TPM proves value. PTU proves resilience.
+            </div>
+        </div>
 
         <figure style="margin: 2rem 0; text-align: center;">
             <img src="../images/blog/2026-01-21/04-tpm-vs-ptu-taxi-vs-private-car.svg" alt="TPM vs PTU Comparison"
@@ -571,13 +739,34 @@
                     models</strong></li>
             <li>Evidence-grade response metadata:
                 <ul>
-                    <li><code>requestId</code>, <code>indexVersion</code>, <code>docIds</code>, <code>chunkIds</code>,
-                        <code>modelDeploymentId</code>, <code>policyVersion</code>
-                    </li>
+                    <ul>
+                        <li class="terminal-block">
+                            <div class="terminal-header">
+                                <div class="terminal-dot dot-red"></div>
+                                <div class="terminal-dot dot-yellow"></div>
+                                <div class="terminal-dot dot-green"></div>
+                            </div>
+                            <div class="terminal-body">
+                                <span class="cmd-prompt">cat response_metadata.json</span><br>
+                                {<br>
+                                &nbsp;&nbsp;"requestId": "req-12345",<br>
+                                &nbsp;&nbsp;"indexVersion": "v2026.01.21",<br>
+                                &nbsp;&nbsp;"docIds": ["policy-uk-01", "risk-assessment-v2"],<br>
+                                &nbsp;&nbsp;"modelDeploymentId": "gpt-4-32k"<br>
+                                }
+                            </div>
+                        </li>
+                    </ul>
                 </ul>
             </li>
         </ul>
-        <p><strong>Key takeaway:</strong> If you can’t reproduce how an answer was created, it’s not production.</p>
+        <div class="insight-card">
+            <i class="fas fa-file-contract"></i>
+            <div class="insight-content">
+                <strong>Key Takeaway</strong>
+                If you can’t reproduce how an answer was created, it’s not production.
+            </div>
+        </div>
 
         <h2 id="compliance-evidence"><span class="gradient-text">Compliance Strategy: Evidence as a Product</span>
         </h2>
@@ -590,7 +779,13 @@
             <li><strong>Azure Policy</strong> (built-ins + initiatives) as enforceable guardrails</li>
             <li>Policy-as-code patterns from public repos to avoid "hand-crafted compliance"</li>
         </ul>
-        <p><strong>Key takeaway:</strong> Evidence is designed upfront. If you "add it later," you add risk.</p>
+        <div class="insight-card">
+            <i class="fas fa-shield-alt"></i>
+            <div class="insight-content">
+                <strong>Key Takeaway</strong>
+                Evidence is designed upfront. If you "add it later," you add risk.
+            </div>
+        </div>
 
         <h2 id="devsecops"><span class="gradient-text">Operational Excellence: DevSecOps for AI</span></h2>
         <p><strong>The Standard:</strong> "If gateway rules aren’t versioned, tested, and promoted like code,
@@ -644,8 +839,13 @@
             <li>Workforce control: Zscaler</li>
             <li>Compliance posture: Defender for Cloud + Policy + Trust reports</li>
         </ul>
-        <p><strong>Key takeaway:</strong> The "extra layers" stop looking extra when you map them to journey control
-            points.</p>
+        <div class="insight-card">
+            <i class="fas fa-map-signs"></i>
+            <div class="insight-content">
+                <strong>Key Takeaway</strong>
+                The "extra layers" stop looking extra when you map them to journey control points.
+            </div>
+        </div>
 
         <h2 id="watch-learn"><span class="gradient-text">Watch & Learn: Deep Dives</span></h2>
         <ul>
