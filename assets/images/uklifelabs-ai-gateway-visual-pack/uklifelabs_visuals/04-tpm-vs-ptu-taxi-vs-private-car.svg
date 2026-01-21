@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <style>
+      .title { font: 700 32px 'Segoe UI', Arial, sans-serif; fill: #111; }
+      .subtitle { font: 400 18px 'Segoe UI', Arial, sans-serif; fill: #444; }
+      .h2 { font: 700 22px 'Segoe UI', Arial, sans-serif; fill: #111; }
+      .text { font: 400 18px 'Segoe UI', Arial, sans-serif; fill: #111; }
+      .small { font: 400 14px 'Segoe UI', Arial, sans-serif; fill: #333; }
+      .note { font: 400 14px 'Segoe UI', Arial, sans-serif; fill: #555; }
+      .box { fill: #fff; stroke: #BFC7D5; stroke-width: 2; rx: 18; ry: 18; }
+      .box2 { fill: #F7F9FC; stroke: #BFC7D5; stroke-width: 2; rx: 18; ry: 18; }
+      .accent { fill: #EAF3FF; stroke: #2B78E4; stroke-width: 2; rx: 18; ry: 18; }
+      .line { stroke: #6B7280; stroke-width: 2.5; fill: none; }
+      .arrow { marker-end: url(#arrow); }
+      .dash { stroke-dasharray: 8 6; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3 L0,6 Z" fill="#6B7280" />
+    </marker>
+  </defs>
+<text x="60" y="70" class="title" text-anchor="start">Model Capacity Choices</text>
+<text x="60" y="105" class="subtitle" text-anchor="start">Taxi vs Private Car. Why UKLifeLabs uses TPM for burst and PTU for predictability.</text>
+<rect x="80" y="180" width="850" height="820" class="box2"/>
+<text x="120" y="230" class="h2" text-anchor="start">Taxi: TPM (token-per-minute)</text>
+<text x="120" y="265" class="note" text-anchor="start">Pay-as-you-go capacity. Great for spiky demand.</text>
+<rect x="140" y="320" width="710" height="150" class="box"/>
+<text x="170" y="365" class="text" text-anchor="start">Best for</text>
+<text x="170" y="405" class="note" text-anchor="start">POCs, pilots, irregular workloads,
+non-critical batch runs</text>
+<rect x="140" y="490" width="710" height="150" class="box"/>
+<text x="170" y="535" class="text" text-anchor="start">Trade-offs</text>
+<text x="170" y="575" class="note" text-anchor="start">Quota ceilings, noisy-neighbour risk,
+capacity can be constrained</text>
+<rect x="140" y="660" width="710" height="150" class="box"/>
+<text x="170" y="705" class="text" text-anchor="start">Controls we add</text>
+<text x="170" y="745" class="note" text-anchor="start">APIM quotas, per-product throttling,
+regional fallback strategy</text>
+<rect x="140" y="830" width="710" height="150" class="box"/>
+<text x="170" y="875" class="text" text-anchor="start">Signals to watch</text>
+<text x="170" y="915" class="note" text-anchor="start">429s, queue depth, latency,
+per-tenant token burn</text>
+<rect x="990" y="180" width="850" height="820" class="box2"/>
+<text x="1030" y="230" class="h2" text-anchor="start">Private Car: PTU (provisioned throughput)</text>
+<text x="1030" y="265" class="note" text-anchor="start">Reserved capacity. Predictable latency for production.</text>
+<rect x="1050" y="320" width="710" height="150" class="box"/>
+<text x="1080" y="365" class="text" text-anchor="start">Best for</text>
+<text x="1080" y="405" class="note" text-anchor="start">Production assistants, regulated
+customer-facing journeys</text>
+<rect x="1050" y="490" width="710" height="150" class="box"/>
+<text x="1080" y="535" class="text" text-anchor="start">Trade-offs</text>
+<text x="1080" y="575" class="note" text-anchor="start">Commit spend, capacity planning,
+need governance on usage</text>
+<rect x="1050" y="660" width="710" height="150" class="box"/>
+<text x="1080" y="705" class="text" text-anchor="start">Controls we add</text>
+<text x="1080" y="745" class="note" text-anchor="start">Chargeback tags, budgets,
+SLO-based scaling, DR drills</text>
+<rect x="1050" y="830" width="710" height="150" class="box"/>
+<text x="1080" y="875" class="text" text-anchor="start">Signals to watch</text>
+<text x="1080" y="915" class="note" text-anchor="start">Utilization %, headroom,
+latency SLO adherence</text>
+<text x="60" y="1035" class="note" text-anchor="start">Rule of thumb: start with Taxi for discovery, move to Private Car once the route is stable and business-critical.</text>
+</svg>

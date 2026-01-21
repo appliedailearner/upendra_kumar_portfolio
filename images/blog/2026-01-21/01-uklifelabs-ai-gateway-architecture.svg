@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <style>
+      .title { font: 700 32px 'Segoe UI', Arial, sans-serif; fill: #111; }
+      .subtitle { font: 400 18px 'Segoe UI', Arial, sans-serif; fill: #444; }
+      .h2 { font: 700 22px 'Segoe UI', Arial, sans-serif; fill: #111; }
+      .text { font: 400 18px 'Segoe UI', Arial, sans-serif; fill: #111; }
+      .small { font: 400 14px 'Segoe UI', Arial, sans-serif; fill: #333; }
+      .note { font: 400 14px 'Segoe UI', Arial, sans-serif; fill: #555; }
+      .box { fill: #fff; stroke: #BFC7D5; stroke-width: 2; rx: 18; ry: 18; }
+      .box2 { fill: #F7F9FC; stroke: #BFC7D5; stroke-width: 2; rx: 18; ry: 18; }
+      .accent { fill: #EAF3FF; stroke: #2B78E4; stroke-width: 2; rx: 18; ry: 18; }
+      .line { stroke: #6B7280; stroke-width: 2.5; fill: none; }
+      .arrow { marker-end: url(#arrow); }
+      .dash { stroke-dasharray: 8 6; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3 L0,6 Z" fill="#6B7280" />
+    </marker>
+  </defs>
+<text x="60" y="70" class="title" text-anchor="start">UKLifeLabs AI Gateway</text>
+<text x="60" y="105" class="subtitle" text-anchor="start">Regional, governed, audit-ready AI access for regulated workloads (UK West + UK South)</text>
+<rect x="60" y="140" width="1800" height="120" class="box2"/>
+<text x="90" y="175" class="h2" text-anchor="start">Global routing</text>
+<rect x="360" y="165" width="360" height="70" class="accent"/>
+<text x="540" y="210" class="text" text-anchor="middle">Azure Traffic Manager (DNS failover)</text>
+<rect x="760" y="165" width="320" height="70" class="accent"/>
+<text x="920" y="210" class="text" text-anchor="middle">Cloudflare (Enterprise Edge)</text>
+<rect x="1120" y="165" width="320" height="70" class="box"/>
+<text x="1280" y="210" class="text" text-anchor="middle">Internet clients</text>
+<line x1="1120" y1="200" x2="1080" y2="200" class="line arrow"/>
+<line x1="760" y1="200" x2="720" y2="200" class="line arrow"/>
+<line x1="360" y1="200" x2="320" y2="200" class="line arrow"/>
+<rect x="60" y="280" width="1800" height="740" class="box2"/>
+<text x="90" y="320" class="h2" text-anchor="start">Azure landing zones (pinned to UK regions)</text>
+<text x="90" y="350" class="note" text-anchor="start">Key: North-South enforced by Palo Alto. East-West enforced by FortiGate. Workforce access governed by Zscaler.</text>
+<rect x="90" y="380" width="850" height="600" class="box"/>
+<text x="120" y="420" class="h2" text-anchor="start">Region A: UK West (Active)</text>
+<rect x="120" y="460" width="240" height="90" class="accent"/>
+<text x="240" y="515" class="small" text-anchor="middle">Palo Alto
+(North-South)</text>
+<rect x="390" y="460" width="260" height="90" class="accent"/>
+<text x="520" y="515" class="small" text-anchor="middle">App Gateway + WAF
+(L7 routing)</text>
+<rect x="680" y="460" width="230" height="90" class="accent"/>
+<text x="795" y="515" class="small" text-anchor="middle">APIM
+(Products, policy)</text>
+<line x1="360" y1="505" x2="390" y2="505" class="line arrow"/>
+<line x1="650" y1="505" x2="680" y2="505" class="line arrow"/>
+<rect x="120" y="580" width="370" height="360" class="box2"/>
+<text x="140" y="615" class="h2" text-anchor="start">Lane A: Chat (real-time)</text>
+<rect x="150" y="650" width="310" height="70" class="box"/>
+<text x="305" y="695" class="small" text-anchor="middle">Azure AI Search
+(hybrid retrieval)</text>
+<rect x="150" y="740" width="310" height="70" class="box"/>
+<text x="305" y="785" class="small" text-anchor="middle">Azure OpenAI / Foundry
+(regional deployment)</text>
+<rect x="150" y="830" width="310" height="70" class="box"/>
+<text x="305" y="875" class="small" text-anchor="middle">Response + Citations
+(requestId, chunkIds)</text>
+<line x1="305" y1="720" x2="305" y2="740" class="line arrow"/>
+<line x1="305" y1="810" x2="305" y2="830" class="line arrow"/>
+<rect x="520" y="580" width="370" height="360" class="box2"/>
+<text x="540" y="615" class="h2" text-anchor="start">Lane B: Ingestion (batch)</text>
+<rect x="550" y="650" width="310" height="70" class="box"/>
+<text x="705" y="695" class="small" text-anchor="middle">ADLS (landing)
+Private endpoints</text>
+<rect x="550" y="740" width="310" height="70" class="box"/>
+<text x="705" y="785" class="small" text-anchor="middle">Document Intelligence
+(structure extraction)</text>
+<rect x="550" y="830" width="310" height="70" class="box"/>
+<text x="705" y="875" class="small" text-anchor="middle">Index to Azure AI Search
+(indexVersion)</text>
+<line x1="705" y1="720" x2="705" y2="740" class="line arrow"/>
+<line x1="705" y1="810" x2="705" y2="830" class="line arrow"/>
+<path d="M795 550 C795 580, 305 560, 305 650" class="line arrow"/>
+<path d="M795 550 C795 610, 705 560, 705 650" class="line arrow"/>
+<rect x="120" y="930" width="790" height="40" class="accent"/>
+<text x="515" y="956" class="small" text-anchor="middle">FortiGate (East-West enforcement between VNets / spokes)</text>
+<rect x="120" y="430" width="300" height="40" class="box"/>
+<text x="270" y="457" class="small" text-anchor="middle">Workforce access via Zscaler</text>
+<rect x="1010" y="380" width="820" height="600" class="box"/>
+<text x="1040" y="420" class="h2" text-anchor="start">Region B: UK South (Failover)</text>
+<text x="1040" y="450" class="note" text-anchor="start">Same policy baseline, same lanes, tested failover.</text>
+<rect x="1040" y="500" width="220" height="70" class="accent"/>
+<text x="1150" y="545" class="small" text-anchor="middle">Palo Alto</text>
+<rect x="1280" y="500" width="240" height="70" class="accent"/>
+<text x="1400" y="545" class="small" text-anchor="middle">AppGW + WAF</text>
+<rect x="1540" y="500" width="220" height="70" class="accent"/>
+<text x="1650" y="545" class="small" text-anchor="middle">APIM</text>
+<line x1="1260" y1="535" x2="1280" y2="535" class="line arrow"/>
+<line x1="1520" y1="535" x2="1540" y2="535" class="line arrow"/>
+<rect x="1040" y="600" width="720" height="330" class="box2"/>
+<text x="1060" y="635" class="h2" text-anchor="start">Chat + Ingestion lanes replicated</text>
+<text x="1060" y="670" class="note" text-anchor="start">AI Search, Document Intelligence, Storage, and model deployments remain regional.
+Private endpoints and policy guardrails enforced.</text>
+<text x="90" y="370" class="note" text-anchor="start">Traffic steers users to the active region. Failover uses DNS health probes.</text>
+<path d="M420 260 C420 320, 520 340, 520 460" class="line arrow"/>
+<path d="M420 260 C520 320, 1380 340, 1380 500" class="line arrow"/>
+</svg>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <style>
+      .title { font: 700 32px 'Segoe UI', Arial, sans-serif; fill: #111; }
+      .subtitle { font: 400 18px 'Segoe UI', Arial, sans-serif; fill: #444; }
+      .h2 { font: 700 22px 'Segoe UI', Arial, sans-serif; fill: #111; }
+      .text { font: 400 18px 'Segoe UI', Arial, sans-serif; fill: #111; }
+      .small { font: 400 14px 'Segoe UI', Arial, sans-serif; fill: #333; }
+      .note { font: 400 14px 'Segoe UI', Arial, sans-serif; fill: #555; }
+      .box { fill: #fff; stroke: #BFC7D5; stroke-width: 2; rx: 18; ry: 18; }
+      .box2 { fill: #F7F9FC; stroke: #BFC7D5; stroke-width: 2; rx: 18; ry: 18; }
+      .accent { fill: #EAF3FF; stroke: #2B78E4; stroke-width: 2; rx: 18; ry: 18; }
+      .line { stroke: #6B7280; stroke-width: 2.5; fill: none; }
+      .arrow { marker-end: url(#arrow); }
+      .dash { stroke-dasharray: 8 6; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3 L0,6 Z" fill="#6B7280" />
+    </marker>
+  </defs>
+<text x="60" y="70" class="title" text-anchor="start">Audit Pack Blueprint</text>
+<text x="60" y="105" class="subtitle" text-anchor="start">Which control produces which evidence in the UKLifeLabs AI Gateway</text>
+<text x="80" y="190" class="h2" text-anchor="start">Control point</text>
+<text x="700" y="190" class="h2" text-anchor="start">What it enforces</text>
+<text x="1280" y="190" class="h2" text-anchor="start">Evidence we retain</text>
+<line x1="60" y1="210" x2="1860" y2="210" class="line"/>
+<rect x="60" y="200" width="1800" height="95" class="box2"/>
+<text x="80" y="250" class="small" text-anchor="start">Cloudflare Edge</text>
+<text x="700" y="250" class="note" text-anchor="start">DDoS absorption, bot management, TLS policy,</text>
+<text x="700" y="272" class="note" text-anchor="start">caching rules (as approved)</text>
+<text x="1280" y="250" class="note" text-anchor="start">Edge logs, WAF events, request IDs,</text>
+<text x="1280" y="272" class="note" text-anchor="start">geo/IP signals</text>
+<rect x="60" y="295" width="1800" height="95" class="box"/>
+<text x="80" y="345" class="small" text-anchor="start">Palo Alto (North-South)</text>
+<text x="700" y="345" class="note" text-anchor="start">Ingress allow/deny, egress control, threat</text>
+<text x="700" y="367" class="note" text-anchor="start">prevention profiles</text>
+<text x="1280" y="345" class="note" text-anchor="start">Firewall logs, rule hits, threat logs,</text>
+<text x="1280" y="367" class="note" text-anchor="start">session metadata</text>
+<rect x="60" y="390" width="1800" height="95" class="box2"/>
+<text x="80" y="440" class="small" text-anchor="start">App Gateway + WAF</text>
+<text x="700" y="440" class="note" text-anchor="start">App-layer filtering, URL routing, header</text>
+<text x="700" y="462" class="note" text-anchor="start">sanitation, OWASP rules</text>
+<text x="1280" y="440" class="note" text-anchor="start">WAF logs, access logs, blocked</text>
+<text x="1280" y="462" class="note" text-anchor="start">signatures, backend pool routing</text>
+<rect x="60" y="485" width="1800" height="95" class="box"/>
+<text x="80" y="535" class="small" text-anchor="start">API Management (Products)</text>
+<text x="700" y="535" class="note" text-anchor="start">AuthN/Z, subscription keys, quotas, rate</text>
+<text x="700" y="557" class="note" text-anchor="start">limits, schema validation, transformation</text>
+<text x="1280" y="535" class="note" text-anchor="start">APIM traces, policy decisions,</text>
+<text x="1280" y="557" class="note" text-anchor="start">product/subscription ID, correlation</text>
+<text x="1280" y="579" class="note" text-anchor="start">IDs</text>
+<rect x="60" y="580" width="1800" height="95" class="box2"/>
+<text x="80" y="630" class="small" text-anchor="start">FortiGate (East-West)</text>
+<text x="700" y="630" class="note" text-anchor="start">Spoke-to-spoke inspection, segmentation,</text>
+<text x="700" y="652" class="note" text-anchor="start">internal allowlists</text>
+<text x="1280" y="630" class="note" text-anchor="start">Flow logs, rule hits, session metadata</text>
+<rect x="60" y="675" width="1800" height="95" class="box"/>
+<text x="80" y="725" class="small" text-anchor="start">Azure AI Search</text>
+<text x="700" y="725" class="note" text-anchor="start">Hybrid retrieval, semantic ranking, vector</text>
+<text x="700" y="747" class="note" text-anchor="start">search controls</text>
+<text x="1280" y="725" class="note" text-anchor="start">Query logs, index version, chunkIds</text>
+<text x="1280" y="747" class="note" text-anchor="start">returned, scoring metadata</text>
+<rect x="60" y="770" width="1800" height="95" class="box2"/>
+<text x="80" y="820" class="small" text-anchor="start">Azure OpenAI / Foundry</text>
+<text x="700" y="820" class="note" text-anchor="start">Model execution in-region, content filters,</text>
+<text x="700" y="842" class="note" text-anchor="start">deployment isolation</text>
+<text x="1280" y="820" class="note" text-anchor="start">RequestId, modelId/deploymentId, token</text>
+<text x="1280" y="842" class="note" text-anchor="start">usage, content safety actions</text>
+<rect x="60" y="865" width="1800" height="95" class="box"/>
+<text x="80" y="915" class="small" text-anchor="start">Observability</text>
+<text x="700" y="915" class="note" text-anchor="start">End-to-end traceability and alerting</text>
+<text x="1280" y="915" class="note" text-anchor="start">App Insights traces, Log Analytics</text>
+<text x="1280" y="937" class="note" text-anchor="start">queries, dashboards, SLO reports</text>
+<text x="60" y="1040" class="note" text-anchor="start">Tip: auditors ask "show me the control" then "show me the evidence". This table is the bridge.</text>
+</svg>
