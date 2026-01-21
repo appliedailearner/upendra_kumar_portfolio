@@ -1,101 +1,229 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
   <defs>
+    <!-- Styles -->
     <style>
-      .title { font: 700 32px 'Segoe UI', Arial, sans-serif; fill: #111; }
-      .subtitle { font: 400 18px 'Segoe UI', Arial, sans-serif; fill: #444; }
-      .h2 { font: 700 22px 'Segoe UI', Arial, sans-serif; fill: #111; }
-      .text { font: 400 18px 'Segoe UI', Arial, sans-serif; fill: #111; }
-      .small { font: 400 14px 'Segoe UI', Arial, sans-serif; fill: #333; }
-      .note { font: 400 14px 'Segoe UI', Arial, sans-serif; fill: #555; }
-      .box { fill: #fff; stroke: #BFC7D5; stroke-width: 2; rx: 18; ry: 18; }
-      .box2 { fill: #F7F9FC; stroke: #BFC7D5; stroke-width: 2; rx: 18; ry: 18; }
-      .accent { fill: #EAF3FF; stroke: #2B78E4; stroke-width: 2; rx: 18; ry: 18; }
-      .line { stroke: #6B7280; stroke-width: 2.5; fill: none; }
-      .arrow { marker-end: url(#arrow); }
-      .dash { stroke-dasharray: 8 6; }
+      /* Typography */
+      .font-header { font: 800 48px 'Outfit', 'Segoe UI', sans-serif; fill: #F8FAFC; letter-spacing: -0.02em; }
+      .font-sub { font: 400 24px 'Inter', 'Segoe UI', sans-serif; fill: #94A3B8; }
+      .font-label { font: 600 20px 'Inter', 'Segoe UI', sans-serif; fill: #F1F5F9; text-anchor: middle; }
+      .font-desc { font: 400 14px 'Inter', 'Segoe UI', sans-serif; fill: #CBD5E1; text-anchor: middle; opacity: 0.8; }
+      .font-region { font: 700 28px 'Outfit', 'Segoe UI', sans-serif; fill: #38BDF8; text-transform: uppercase; letter-spacing: 0.05em; }
+      
+      /* Containers */
+      .glass-panel { 
+        fill: rgba(15, 23, 42, 0.4); 
+        stroke: rgba(56, 189, 248, 0.3); 
+        stroke-width: 2; 
+        rx: 16; ry: 16;
+        backdrop-filter: blur(10px);
+      }
+      .glass-panel-inactive {
+        fill: rgba(15, 23, 42, 0.2);
+        stroke: rgba(148, 163, 184, 0.2);
+        stroke-width: 1;
+        stroke-dasharray: 8 8;
+        rx: 16; ry: 16;
+      }
+      
+      /* Services Buttons */
+      .service-box {
+        fill: #1E293B;
+        stroke: #38BDF8;
+        stroke-width: 2;
+        rx: 8; ry: 8;
+        filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
+      }
+      .service-box-security { stroke: #F43F5E; } /* Red for Security */
+      .service-box-data { stroke: #22C55E; } /* Green for Data */
+      
+      /* Data Flows */
+      .flow {
+        fill: none;
+        stroke: #38BDF8;
+        stroke-width: 3;
+        stroke-dasharray: 12 12;
+        opacity: 0.8;
+        animation: flowAnim 3s linear infinite;
+      }
+      .flow-data { stroke: #22C55E; animation-duration: 6s; }
+      
+      @keyframes flowAnim {
+        from { stroke-dashoffset: 24; }
+        to { stroke-dashoffset: 0; }
+      }
+      
+      /* Icons Paths (Simplified) */
+      .icon { fill: #fff; opacity: 0.9; }
     </style>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L9,3 L0,6 Z" fill="#6B7280" />
+    
+    <!-- Arrows -->
+    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L9,3 L0,6 Z" fill="#38BDF8" />
     </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L9,3 L0,6 Z" fill="#22C55E" />
+    </marker>
+    
+    <!-- Glow -->
+    <radialGradient id="glow-bg" cx="50%" cy="40%" r="60%">
+        <stop offset="0%" style="stop-color:rgba(56, 189, 248, 0.1)"/>
+        <stop offset="100%" style="stop-color:rgba(15, 23, 42, 0)"/>
+    </radialGradient>
   </defs>
-<text x="60" y="70" class="title" text-anchor="start">UKLifeLabs AI Gateway</text>
-<text x="60" y="105" class="subtitle" text-anchor="start">Regional, governed, audit-ready AI access for regulated workloads (UK West + UK South)</text>
-<rect x="60" y="140" width="1800" height="120" class="box2"/>
-<text x="90" y="175" class="h2" text-anchor="start">Global routing</text>
-<rect x="360" y="165" width="360" height="70" class="accent"/>
-<text x="540" y="210" class="text" text-anchor="middle">Azure Traffic Manager (DNS failover)</text>
-<rect x="760" y="165" width="320" height="70" class="accent"/>
-<text x="920" y="210" class="text" text-anchor="middle">Cloudflare (Enterprise Edge)</text>
-<rect x="1120" y="165" width="320" height="70" class="box"/>
-<text x="1280" y="210" class="text" text-anchor="middle">Internet clients</text>
-<line x1="1120" y1="200" x2="1080" y2="200" class="line arrow"/>
-<line x1="760" y1="200" x2="720" y2="200" class="line arrow"/>
-<line x1="360" y1="200" x2="320" y2="200" class="line arrow"/>
-<rect x="60" y="280" width="1800" height="740" class="box2"/>
-<text x="90" y="320" class="h2" text-anchor="start">Azure landing zones (pinned to UK regions)</text>
-<text x="90" y="350" class="note" text-anchor="start">Key: North-South enforced by Palo Alto. East-West enforced by FortiGate. Workforce access governed by Zscaler.</text>
-<rect x="90" y="380" width="850" height="600" class="box"/>
-<text x="120" y="420" class="h2" text-anchor="start">Region A: UK West (Active)</text>
-<rect x="120" y="460" width="240" height="90" class="accent"/>
-<text x="240" y="515" class="small" text-anchor="middle">Palo Alto
-(North-South)</text>
-<rect x="390" y="460" width="260" height="90" class="accent"/>
-<text x="520" y="515" class="small" text-anchor="middle">App Gateway + WAF
-(L7 routing)</text>
-<rect x="680" y="460" width="230" height="90" class="accent"/>
-<text x="795" y="515" class="small" text-anchor="middle">APIM
-(Products, policy)</text>
-<line x1="360" y1="505" x2="390" y2="505" class="line arrow"/>
-<line x1="650" y1="505" x2="680" y2="505" class="line arrow"/>
-<rect x="120" y="580" width="370" height="360" class="box2"/>
-<text x="140" y="615" class="h2" text-anchor="start">Lane A: Chat (real-time)</text>
-<rect x="150" y="650" width="310" height="70" class="box"/>
-<text x="305" y="695" class="small" text-anchor="middle">Azure AI Search
-(hybrid retrieval)</text>
-<rect x="150" y="740" width="310" height="70" class="box"/>
-<text x="305" y="785" class="small" text-anchor="middle">Azure OpenAI / Foundry
-(regional deployment)</text>
-<rect x="150" y="830" width="310" height="70" class="box"/>
-<text x="305" y="875" class="small" text-anchor="middle">Response + Citations
-(requestId, chunkIds)</text>
-<line x1="305" y1="720" x2="305" y2="740" class="line arrow"/>
-<line x1="305" y1="810" x2="305" y2="830" class="line arrow"/>
-<rect x="520" y="580" width="370" height="360" class="box2"/>
-<text x="540" y="615" class="h2" text-anchor="start">Lane B: Ingestion (batch)</text>
-<rect x="550" y="650" width="310" height="70" class="box"/>
-<text x="705" y="695" class="small" text-anchor="middle">ADLS (landing)
-Private endpoints</text>
-<rect x="550" y="740" width="310" height="70" class="box"/>
-<text x="705" y="785" class="small" text-anchor="middle">Document Intelligence
-(structure extraction)</text>
-<rect x="550" y="830" width="310" height="70" class="box"/>
-<text x="705" y="875" class="small" text-anchor="middle">Index to Azure AI Search
-(indexVersion)</text>
-<line x1="705" y1="720" x2="705" y2="740" class="line arrow"/>
-<line x1="705" y1="810" x2="705" y2="830" class="line arrow"/>
-<path d="M795 550 C795 580, 305 560, 305 650" class="line arrow"/>
-<path d="M795 550 C795 610, 705 560, 705 650" class="line arrow"/>
-<rect x="120" y="930" width="790" height="40" class="accent"/>
-<text x="515" y="956" class="small" text-anchor="middle">FortiGate (East-West enforcement between VNets / spokes)</text>
-<rect x="120" y="430" width="300" height="40" class="box"/>
-<text x="270" y="457" class="small" text-anchor="middle">Workforce access via Zscaler</text>
-<rect x="1010" y="380" width="820" height="600" class="box"/>
-<text x="1040" y="420" class="h2" text-anchor="start">Region B: UK South (Failover)</text>
-<text x="1040" y="450" class="note" text-anchor="start">Same policy baseline, same lanes, tested failover.</text>
-<rect x="1040" y="500" width="220" height="70" class="accent"/>
-<text x="1150" y="545" class="small" text-anchor="middle">Palo Alto</text>
-<rect x="1280" y="500" width="240" height="70" class="accent"/>
-<text x="1400" y="545" class="small" text-anchor="middle">AppGW + WAF</text>
-<rect x="1540" y="500" width="220" height="70" class="accent"/>
-<text x="1650" y="545" class="small" text-anchor="middle">APIM</text>
-<line x1="1260" y1="535" x2="1280" y2="535" class="line arrow"/>
-<line x1="1520" y1="535" x2="1540" y2="535" class="line arrow"/>
-<rect x="1040" y="600" width="720" height="330" class="box2"/>
-<text x="1060" y="635" class="h2" text-anchor="start">Chat + Ingestion lanes replicated</text>
-<text x="1060" y="670" class="note" text-anchor="start">AI Search, Document Intelligence, Storage, and model deployments remain regional.
-Private endpoints and policy guardrails enforced.</text>
-<text x="90" y="370" class="note" text-anchor="start">Traffic steers users to the active region. Failover uses DNS health probes.</text>
-<path d="M420 260 C420 320, 520 340, 520 460" class="line arrow"/>
-<path d="M420 260 C520 320, 1380 340, 1380 500" class="line arrow"/>
+
+  <!-- Background Ambience -->
+  <rect width="1920" height="1080" fill="transparent" />
+  <circle cx="960" cy="540" r="900" fill="url(#glow-bg)" />
+
+  <!-- Header -->
+  <text x="60" y="80" class="font-header">UKLifeLabs AI Gateway Pattern</text>
+  <text x="60" y="120" class="font-sub">High-Available, Regionally Governed Architecture • <tspan fill="#38BDF8" font-weight="700">Azure Design Blueprint</tspan></text>
+
+  <!-- Legend -->
+  <g transform="translate(1450, 50)">
+      <rect width="400" height="80" fill="rgba(15,23,42,0.8)" rx="10" stroke="#334155" />
+      <line x1="30" y1="25" x2="80" y2="25" class="flow" stroke-dasharray="0" stroke-width="4" /> 
+      <text x="95" y="30" class="font-desc" style="text-anchor:start; fill:#fff;">User Request (Real-time)</text>
+      
+      <line x1="30" y1="55" x2="80" y2="55" class="flow flow-data" stroke-dasharray="0" stroke-width="4" />
+      <text x="95" y="60" class="font-desc" style="text-anchor:start; fill:#fff;">Data Ingestion (Batch)</text>
+  </g>
+
+  <!-- LAYER 1: GLOBAL ROUTING -->
+  <g transform="translate(60, 180)">
+    <rect width="1800" height="140" class="glass-panel" />
+    <text x="40" y="50" class="font-region" style="font-size:20px; fill:#94A3B8;">Global Ingress Layer</text>
+    
+    <!-- Internet -->
+    <g transform="translate(1400, 30)">
+       <circle cx="50" cy="50" r="40" fill="rgba(255,255,255,0.05)" stroke="#fff" stroke-width="1" stroke-dasharray="4 4" />
+       <text x="50" y="55" class="font-label">Internet</text>
+    </g>
+    
+    <!-- Cloudflare -->
+    <g transform="translate(900, 30)">
+       <rect width="200" height="80" class="service-box service-box-security" />
+       <text x="100" y="45" class="font-label">Cloudflare</text>
+       <text x="100" y="65" class="font-desc">Enterprise Edge + WAF</text>
+    </g>
+    
+    <!-- Traffic Manager -->
+    <g transform="translate(400, 30)">
+       <rect width="220" height="80" class="service-box" />
+       <text x="110" y="45" class="font-label">Traffic Manager</text>
+       <text x="110" y="65" class="font-desc">DNS Priority Routing</text>
+    </g>
+    
+    <!-- Connections -->
+    <line x1="1350" y1="70" x2="1110" y2="70" class="flow" marker-end="url(#arrow-blue)" />
+    <line x1="890" y1="70" x2="630" y2="70" class="flow" marker-end="url(#arrow-blue)" />
+    
+    <!-- Downward Flow -->
+    <path d="M510,110 L510,160" class="flow" marker-end="url(#arrow-blue)" />
+  </g>
+
+  <!-- LAYER 2: UK WEST (ACTIVE) -->
+  <g transform="translate(60, 360)">
+    <rect width="1150" height="680" class="glass-panel" stroke="#38BDF8" stroke-width="3" />
+    <text x="40" y="50" class="font-region">Region A: UK West (Active)</text>
+    <text x="400" y="50" class="font-desc" style="text-anchor:start;">Primary workload processing</text>
+
+    <!-- DMZ -->
+    <g transform="translate(50, 90)">
+        <!-- Palo Alto -->
+        <g transform="translate(0, 0)">
+            <rect width="220" height="90" class="service-box service-box-security" />
+            <text x="110" y="40" class="font-label">Palo Alto</text>
+            <text x="110" y="70" class="font-desc">N-S Inspection</text>
+        </g>
+        
+        <!-- App Gateway -->
+        <g transform="translate(300, 0)">
+            <rect width="220" height="90" class="service-box service-box-security" />
+            <text x="110" y="40" class="font-label">App Gateway</text>
+            <text x="110" y="70" class="font-desc">L7 WAF</text>
+        </g>
+        
+        <!-- APIM -->
+        <g transform="translate(600, 0)">
+            <rect width="220" height="90" class="service-box" />
+            <text x="110" y="40" class="font-label">APIM</text>
+            <text x="110" y="70" class="font-desc">AI Gateway Policy</text>
+        </g>
+
+        <!-- DMZ Arrows -->
+        <line x1="225" y1="45" x2="295" y2="45" class="flow" marker-end="url(#arrow-blue)" />
+        <line x1="525" y1="45" x2="595" y2="45" class="flow" marker-end="url(#arrow-blue)" />
+        
+        <!-- Split to Lanes -->
+        <path d="M710,90 L710,140 L300,140 L300,220" class="flow" marker-end="url(#arrow-blue)" />
+        <path d="M710,90 L710,140 L800,140 L800,220" class="flow flow-data" marker-end="url(#arrow-green)" />
+    </g>
+
+    <!-- Lane A: Chat -->
+    <g transform="translate(50, 250)">
+        <rect width="500" height="380" fill="rgba(6, 182, 212, 0.05)" rx="12" stroke="rgba(6, 182, 212, 0.2)" />
+        <text x="250" y="35" class="font-label" style="fill:#22D3EE;">Lane A: Real-time Chat</text>
+        
+        <g transform="translate(140, 60)">
+            <rect width="220" height="70" class="service-box" />
+            <text x="110" y="40" class="font-label">AI Search</text>
+        </g>
+        
+        <g transform="translate(140, 160)">
+            <rect width="220" height="70" class="service-box" />
+            <text x="110" y="40" class="font-label">Azure OpenAI</text>
+        </g>
+        
+        <g transform="translate(140, 260)">
+            <rect width="220" height="70" class="service-box" />
+            <text x="110" y="40" class="font-label">Response Builder</text>
+        </g>
+        
+        <line x1="250" y1="130" x2="250" y2="155" class="flow" marker-end="url(#arrow-blue)" />
+        <line x1="250" y1="230" x2="250" y2="255" class="flow" marker-end="url(#arrow-blue)" />
+    </g>
+
+    <!-- Lane B: Ingestion -->
+    <g transform="translate(580, 250)">
+        <rect width="500" height="380" fill="rgba(34, 197, 94, 0.05)" rx="12" stroke="rgba(34, 197, 94, 0.2)" />
+        <text x="250" y="35" class="font-label" style="fill:#4ADE80;">Lane B: Data Ingestion</text>
+
+        <g transform="translate(140, 60)">
+            <rect width="220" height="70" class="service-box service-box-data" />
+            <text x="110" y="40" class="font-label">ADLS Gen2</text>
+        </g>
+        
+        <g transform="translate(140, 160)">
+            <rect width="220" height="70" class="service-box service-box-data" />
+            <text x="110" y="40" class="font-label">Doc Intelligence</text>
+        </g>
+        
+        <g transform="translate(140, 260)">
+            <rect width="220" height="70" class="service-box service-box-data" />
+            <text x="110" y="40" class="font-label">Indexer</text>
+        </g>
+
+        <line x1="250" y1="130" x2="250" y2="155" class="flow flow-data" marker-end="url(#arrow-green)" />
+        <line x1="250" y1="230" x2="250" y2="255" class="flow flow-data" marker-end="url(#arrow-green)" />
+    </g>
+  </g>
+
+  <!-- LAYER 3: UK SOUTH (FAILOVER) -->
+  <g transform="translate(1250, 360)">
+    <rect width="610" height="680" class="glass-panel-inactive" />
+    <text x="40" y="50" class="font-region" style="fill:#64748B;">Region B: UK South</text>
+    <text x="320" y="50" class="font-desc" style="text-anchor:start;">Passive / Failover</text>
+    
+    <g transform="translate(80, 250)">
+        <text x="225" y="0" class="font-label" style="font-size:32px; fill:#475569;">STANDBY REPLICA</text>
+        <text x="225" y="40" class="font-desc">Infrastructure Deployed &amp; Synced</text>
+        <text x="225" y="70" class="font-desc">Traffic Manager Probe: 200 OK</text>
+    </g>
+  </g>
+  
+  <!-- Ingress Line Connecting top to Region A -->
+  <path d="M510,320 L510,480" class="flow" style="display:none;" /> <!-- Logical connection via stacking -->
+
 </svg>
