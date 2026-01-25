@@ -8,6 +8,55 @@
         content="Cutover night has a predictable failure mode. DNS quietly sends your 'private' traffic toward the public world. Here's the hybrid DNS pattern we standardize on for landing zones—central Private DNS zones, Azure DNS Private Resolver, and a design you can validate in 60 seconds.">
     <title>The Hybrid DNS Pattern That Survives Cutover Night | Upendra Kumar</title>
 
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="The Hybrid DNS Pattern That Survives Cutover Night">
+    <meta property="og:description"
+        content="Cutover night has a predictable failure mode. DNS quietly sends your 'private' traffic toward the public world. Here's the hybrid DNS pattern we standardize on for landing zones.">
+    <meta property="og:image"
+        content="https://portfolio.upendrakumar.com/blog/assets/2026-01-26-dns-pattern/architecture-diagram.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url"
+        content="https://portfolio.upendrakumar.com/blog/2026-01-26-hybrid-dns-pattern-cutover-night.html">
+    <meta property="article:published_time" content="2026-01-26T00:00:00+05:30">
+    <meta property="article:author" content="Upendra Kumar">
+    <meta property="article:tag" content="Azure Networking">
+    <meta property="article:tag" content="Private Link">
+    <meta property="article:tag" content="DNS Governance">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Hybrid DNS Pattern That Survives Cutover Night">
+    <meta name="twitter:description"
+        content="Cutover night has a predictable failure mode. Here's the hybrid DNS pattern that survives it.">
+    <meta name="twitter:image"
+        content="https://portfolio.upendrakumar.com/blog/assets/2026-01-26-dns-pattern/architecture-diagram.png">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "The Hybrid DNS Pattern That Survives Cutover Night",
+      "image": "https://portfolio.upendrakumar.com/blog/assets/2026-01-26-dns-pattern/architecture-diagram.png",
+      "author": {
+        "@type": "Person",
+        "name": "Upendra Kumar",
+        "url": "https://portfolio.upendrakumar.com/"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Upendra Kumar"
+      },
+      "datePublished": "2026-01-26",
+      "dateModified": "2026-01-26",
+      "description": "Cutover night has a predictable failure mode. DNS quietly sends your 'private' traffic toward the public world. Here's the hybrid DNS pattern we standardize on for landing zones—central Private DNS zones, Azure DNS Private Resolver, and a design you can validate in 60 seconds.",
+      "articleBody": "A comprehensive guide to implementing hybrid DNS patterns for Azure Private Link using Azure DNS Private Resolver.",
+      "keywords": "Azure Networking, Private Link, DNS Governance, Azure DNS Private Resolver, Hybrid DNS, Private Endpoints"
+    }
+    </script>
+
     <link rel="stylesheet" href="../css/style.css?v=25">
     <link rel="stylesheet" href="../css/premium.css?v=25">
     <style>
@@ -280,7 +329,7 @@
 
         <p>Then someone runs one command:</p>
 
-        <pre><code>nslookup azsql1.database.windows.net</code></pre>
+        <pre><code>$ nslookup azsql1.database.windows.net</code></pre>
 
         <p>And the answer comes back public.</p>
 
@@ -291,6 +340,16 @@
         <p>This post documents the <strong>Hybrid DNS pattern</strong> we standardize on for UKLifeLabs-style landing
             zones. Central Private DNS zones in the hub. Azure DNS Private Resolver as the control plane. A design you
             can explain in 30 seconds and validate in 60.</p>
+
+        <!-- TL;DR Section -->
+        <div class="callout" style="margin: 2.5rem 0; background: rgba(59, 130, 246, 0.1); border-left-color: #3b82f6;">
+            <h4><i class="fas fa-bolt"></i> TL;DR</h4>
+            <p style="margin-bottom: 0;">Centralize Private DNS zones in your hub subscription. Use Azure DNS Private
+                Resolver (not VMs). One zone per service, never per team. Validate in 60 seconds with
+                <code>nslookup</code>. <a href="https://github.com/appliedailearner/privatednsresolver" target="_blank"
+                    style="color: var(--primary-color); text-decoration: underline;">Get the Terraform code →</a>
+            </p>
+        </div>
 
         <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
 
@@ -450,7 +509,7 @@
 
         <p>From on-prem:</p>
 
-        <pre><code>nslookup azsql1.database.windows.net</code></pre>
+        <pre><code>$ nslookup azsql1.database.windows.net</code></pre>
 
         <p><strong>Expected:</strong></p>
         <ul>
@@ -492,6 +551,32 @@
         <p><strong>Making DNS boring is.</strong></p>
 
         <p>This pattern does exactly that.</p>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2><span class="gradient-text">What's Next?</span></h2>
+
+        <div
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+            <div class="callout" style="margin: 0;">
+                <h4><i class="fas fa-code"></i> Get the Code</h4>
+                <p style="margin-bottom: 0.5rem;">Production-ready Terraform implementation</p>
+                <a href="https://github.com/appliedailearner/privatednsresolver" target="_blank"
+                    style="color: var(--primary-color); text-decoration: underline;">View on GitHub →</a>
+            </div>
+            <div class="callout callout-success" style="margin: 0;">
+                <h4><i class="fas fa-check-circle"></i> Validation Checklist</h4>
+                <p style="margin-bottom: 0.5rem;">Pre-cutover DNS validation steps</p>
+                <a href="../pages/azure-migration-toolkit.html"
+                    style="color: var(--primary-color); text-decoration: underline;">Download Toolkit →</a>
+            </div>
+            <div class="callout callout-warning" style="margin: 0;">
+                <h4><i class="fas fa-book"></i> Related Patterns</h4>
+                <p style="margin-bottom: 0.5rem;">Private Link best practices</p>
+                <a href="../blog.html" style="color: var(--primary-color); text-decoration: underline;">More Insights
+                    →</a>
+            </div>
+        </div>
 
         <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
 
