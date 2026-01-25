@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Cutover night has a predictable failure mode. DNS quietly sends your 'private' traffic toward the public world. Here's the hybrid DNS pattern we standardize on for landing zones—central Private DNS zones, Azure DNS Private Resolver, and a design you can validate in 60 seconds.">
+    <title>The Hybrid DNS Pattern That Survives Cutover Night | Upendra Kumar</title>
+
+    <link rel="stylesheet" href="../css/style.css?v=25">
+    <link rel="stylesheet" href="../css/premium.css?v=25">
+    <style>
+        .nav-logo-uk {
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+            border-radius: 8px !important;
+        }
+
+        /* Blog Post Specific Styles */
+        .blog-post-hero {
+            padding: 120px 0 60px;
+            background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.15), transparent 60%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .blog-post-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .blog-post-content h2 {
+            color: var(--text-main);
+            font-size: 2rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .blog-post-content h3 {
+            color: #e2e8f0;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-post-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-post-content ul,
+        .blog-post-content ol {
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .blog-post-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-post-content code {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .blog-post-content pre {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-left: 4px solid #0ea5e9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+
+        .blog-post-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .blog-post-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .blog-post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 2rem 0;
+        }
+
+        .blog-tag {
+            background: rgba(168, 85, 247, 0.1);
+            color: #a855f7;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .btn {
+            display: inline-block;
+            font-weight: 600;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+
+        .btn-primary:hover {
+            background-color: #2563eb;
+            border-color: #2563eb;
+        }
+
+        .btn-outline {
+            color: #3b82f6;
+            background-color: transparent;
+            border-color: #3b82f6;
+        }
+
+        .btn-outline:hover {
+            color: #fff;
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+
+        /* Architecture Diagram Styles */
+        .architecture-diagram {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 12px;
+        }
+
+        .architecture-diagram img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .architecture-diagram figcaption {
+            margin-top: 1rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        /* Callout Boxes */
+        .callout {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border-left: 4px solid #0ea5e9;
+            background: rgba(14, 165, 233, 0.1);
+            border-radius: 8px;
+        }
+
+        .callout-warning {
+            border-left-color: #f59e0b;
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        .callout-success {
+            border-left-color: #10b981;
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .callout h4 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+    </style>
+
+    <!-- Performance: Preconnect to Font & Script Servers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <!-- Typography: Inter (Body) & Outfit (Headings) with Swap for Performance -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="dark-theme">
+    <canvas id="particles-canvas"></canvas>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand" style="display: flex; align-items: center; gap: 1rem;">
+                <a href="../index.html" style="text-decoration: none;">
+                    <div class="nav-logo-uk">UK</div>
+                </a>
+                <div>
+                    <h2>Upendra Kumar</h2>
+                    <p class="nav-tagline">Professional Services Delivery Architect</p>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../pages/expertise.html">Expertise</a></li>
+                <li><a href="../blog.html" class="active">Insights</a></li>
+                <li><a href="../pages/contact.html">Contact</a></li>
+                <li><a href="../assets/pdf/Upendra_Kumar_Resume.pdf" target="_blank" class="nav-resume-btn">
+                        <i class="fas fa-download"></i> Resume</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blog Post Hero -->
+    <section class="blog-post-hero">
+        <div class="container" style="max-width: 1000px;">
+            <div style="margin-bottom: 1rem;">
+                <a href="../blog.html"
+                    style="color: var(--primary-color); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-arrow-left"></i> Back to Insights
+                </a>
+            </div>
+
+            <h1
+                style="font-family: 'Outfit', sans-serif; font-size: 3rem; line-height: 1.2; margin-bottom: 1.5rem; background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                The Hybrid DNS Pattern That Survives Cutover Night
+            </h1>
+
+            <div class="blog-post-meta">
+                <div><i class="fas fa-user"></i> Upendra Kumar</div>
+                <div><i class="fas fa-calendar"></i> January 26, 2026</div>
+                <div><i class="fas fa-clock"></i> 7 min read</div>
+            </div>
+
+            <div class="blog-post-tags">
+                <span class="blog-tag"><i class="fas fa-tag"></i> Azure Networking</span>
+                <span class="blog-tag"><i class="fas fa-tag"></i> Private Link</span>
+                <span class="blog-tag"><i class="fas fa-tag"></i> DNS Governance</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Post Content -->
+    <article class="blog-post-content">
+        <p class="lead" style="font-size: 1.3rem; color: var(--primary-color); font-weight: 600;">
+            Cutover night has a predictable failure mode.
+        </p>
+
+        <p>The hub is up. The VPN is stable. The Private Endpoint is approved. Azure SQL has public access disabled.
+            Everyone is ready to celebrate.</p>
+
+        <p>Then someone runs one command:</p>
+
+        <pre><code>nslookup azsql1.database.windows.net</code></pre>
+
+        <p>And the answer comes back public.</p>
+
+        <p>No outage banner. No firewall drop. No routing alarm.</p>
+
+        <p><strong>Just DNS quietly sending your "private" traffic toward the public world.</strong></p>
+
+        <p>This post documents the <strong>Hybrid DNS pattern</strong> we standardize on for UKLifeLabs-style landing
+            zones. Central Private DNS zones in the hub. Azure DNS Private Resolver as the control plane. A design you
+            can explain in 30 seconds and validate in 60.</p>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2><span class="gradient-text">What We Are Solving</span></h2>
+
+        <p>We want <strong>on-prem workloads</strong> and <strong>Azure spoke workloads</strong> to resolve Azure PaaS
+            service names to <strong>Private Endpoint IPs</strong>, without:</p>
+
+        <ul>
+            <li>DNS forwarder VM fleets</li>
+            <li>split-brain DNS zones across spokes</li>
+            <li>manual record creation during migration waves</li>
+            <li>last-minute fixes on cutover night</li>
+        </ul>
+
+        <div class="callout callout-warning">
+            <h4><i class="fas fa-exclamation-triangle"></i> Non-negotiable rule</h4>
+            <p>If the service is private, the name must always resolve to a private IP.</p>
+        </div>
+
+        <h2><span class="gradient-text">Challenge: DNS Ownership Breaks Private Endpoint Designs</span></h2>
+
+        <p>The most common failure is not networking. It is ownership.</p>
+
+        <p>When every team creates its own Private DNS zones, you get:</p>
+
+        <ul>
+            <li>inconsistent records</li>
+            <li>partial resolution depending on where the query originates</li>
+            <li>outages that only appear during cutover</li>
+        </ul>
+
+        <div class="callout">
+            <h4><i class="fas fa-lightbulb"></i> Key takeaway</h4>
+            <p>Private Endpoints are a network feature, but DNS is an operating-model decision.</p>
+        </div>
+
+        <h2><span class="gradient-text">Decision 1: Centralize Private DNS Zones in the Hub</span></h2>
+
+        <p>All Private DNS zones live in the <strong>Hub (Connectivity)</strong> subscription or resource group.</p>
+
+        <p><strong>Example:</strong></p>
+        <ul>
+            <li><code>privatelink.database.windows.net</code></li>
+        </ul>
+
+        <p><strong>Why this works:</strong></p>
+        <ul>
+            <li>single source of truth</li>
+            <li>simple governance story</li>
+            <li>predictable behavior across all spokes</li>
+        </ul>
+
+        <div class="callout callout-success">
+            <h4><i class="fas fa-check-circle"></i> Rule</h4>
+            <p>One zone per service. Never one zone per team.</p>
+        </div>
+
+        <h2><span class="gradient-text">Decision 2: Use Azure DNS Private Resolver (No DNS VMs)</span></h2>
+
+        <p>We deliberately avoid DNS forwarder VMs.</p>
+
+        <p>Instead we use:</p>
+        <ul>
+            <li><strong>Azure DNS Private Resolver</strong></li>
+            <li><strong>Inbound endpoint</strong> for on-prem → Azure queries</li>
+            <li>Optional <strong>Outbound endpoint</strong> for Azure → on-prem resolution</li>
+        </ul>
+
+        <p><strong>Benefits:</strong></p>
+        <ul>
+            <li>managed service</li>
+            <li>no patching</li>
+            <li>no custom HA design</li>
+            <li>built for hub-and-spoke scale</li>
+        </ul>
+
+        <div class="callout">
+            <h4><i class="fas fa-lightbulb"></i> Key takeaway</h4>
+            <p>DNS should not be a custom VM workload.</p>
+        </div>
+
+        <h2><span class="gradient-text">Target Architecture</span></h2>
+
+        <p><strong>Topology:</strong> On-prem → Hub → Spoke</p>
+
+        <figure class="architecture-diagram">
+            <img src="assets/2026-01-26-dns-pattern/architecture-diagram.png"
+                alt="Azure DNS Private Resolver Hybrid Architecture Diagram" loading="lazy">
+            <figcaption>Hybrid DNS Architecture: On-premises DNS queries flow through Azure DNS Private Resolver to
+                resolve Private Endpoint addresses</figcaption>
+        </figure>
+
+        <h3>Hub (Connectivity)</h3>
+        <ul>
+            <li>Azure DNS Private Resolver
+                <ul>
+                    <li>Inbound endpoint (example: <code>10.10.0.4</code>)</li>
+                </ul>
+            </li>
+            <li>Central Private DNS zone
+                <ul>
+                    <li><code>privatelink.database.windows.net</code></li>
+                </ul>
+            </li>
+            <li>VNet links to spokes that require resolution</li>
+        </ul>
+
+        <h3>Spoke (Workload)</h3>
+        <ul>
+            <li>Azure SQL Server (public access disabled)</li>
+            <li>Private Endpoint <code>pe-sql</code> (example: <code>10.20.1.4</code>)</li>
+            <li>Private DNS zone group linked to the hub zone</li>
+        </ul>
+
+        <h2><span class="gradient-text">Workflow: Cutover-Safe Resolution Path</span></h2>
+
+        <ol>
+            <li>Client queries <code>azsql1.database.windows.net</code> via on-prem DNS</li>
+            <li>On-prem DNS conditionally forwards <code>database.windows.net</code> to Resolver inbound endpoint</li>
+            <li>Inbound endpoint hands query to DNS Private Resolver</li>
+            <li>Resolver determines Private Link CNAME</li>
+            <li>Resolver queries <code>privatelink.database.windows.net</code></li>
+            <li>Private DNS zone returns Private Endpoint IP</li>
+            <li>Resolver returns answer to on-prem DNS</li>
+            <li>On-prem DNS returns private IP to client</li>
+            <li>Client connects privately to Azure SQL via Private Endpoint</li>
+        </ol>
+
+        <div class="callout callout-success">
+            <h4><i class="fas fa-check-circle"></i> Result</h4>
+            <p>Same name. Private IP. Private path.</p>
+        </div>
+
+        <h2><span class="gradient-text">Why This Survives Cutover Night</span></h2>
+
+        <ul>
+            <li>Central DNS governance</li>
+            <li>Predictable resolution chain</li>
+            <li>No hidden DNS VMs</li>
+            <li>One place to validate and troubleshoot</li>
+        </ul>
+
+        <h2><span class="gradient-text">Common Failure Modes</span></h2>
+
+        <div class="callout callout-warning">
+            <h4><i class="fas fa-exclamation-triangle"></i> Watch out for these</h4>
+            <ul style="margin-bottom: 0;">
+                <li>Forwarding <code>privatelink.*</code> instead of public suffix</li>
+                <li>Private DNS zone not linked to the required VNet</li>
+                <li>Private Endpoint missing DNS zone group</li>
+                <li>NSGs blocking UDP/TCP 53 to inbound endpoint</li>
+            </ul>
+        </div>
+
+        <h2><span class="gradient-text">60-Second Validation Test</span></h2>
+
+        <p>From on-prem:</p>
+
+        <pre><code>nslookup azsql1.database.windows.net</code></pre>
+
+        <p><strong>Expected:</strong></p>
+        <ul>
+            <li>Private Endpoint IP</li>
+        </ul>
+
+        <p>If you get a public IP, DNS is broken.</p>
+
+        <h2><span class="gradient-text">Operating Model</span></h2>
+
+        <h3>Platform Team</h3>
+        <ul>
+            <li>DNS Private Resolver</li>
+            <li>Private DNS zones</li>
+            <li>VNet links</li>
+            <li>Policy and guardrails</li>
+        </ul>
+
+        <h3>Application Teams</h3>
+        <ul>
+            <li>Private Endpoints</li>
+            <li>Request or attach DNS zone groups</li>
+        </ul>
+
+        <h2><span class="gradient-text">Reference Implementation</span></h2>
+
+        <p>A working Terraform-based reference implementation is available here:</p>
+
+        <p><a href="https://github.com/appliedailearner/privatednsresolver/tree/main" target="_blank"
+                style="color: var(--primary-color); text-decoration: underline;">https://github.com/appliedailearner/privatednsresolver</a>
+        </p>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h2><span class="gradient-text">Closing Thought</span></h2>
+
+        <p>Private Link is not the hard part.</p>
+
+        <p><strong>Making DNS boring is.</strong></p>
+
+        <p>This pattern does exactly that.</p>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h3>Ready to operationalize your Azure journey?</h3>
+        <p>
+            I help organizations turn stalled cloud initiatives into execution engines.
+        </p>
+        <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+            <a href="../pages/contact.html" class="btn btn-primary">Contact Me</a>
+            <a href="../pages/azure-migration-toolkit.html" class="btn btn-outline">View the Toolkit</a>
+        </div>
+
+        <!-- Back to Blog Button -->
+        <div style="text-align: center; margin: 4rem 0;">
+            <a href="../blog.html" class="btn btn-primary" style="display: inline-block; padding: 1rem 2rem;">
+                <i class="fas fa-arrow-left"></i> Back to Insights
+            </a>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Upendra Kumar. All rights reserved. This content is personal and not affiliated with
+                Rackspace Technology.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/journeytocloudwithupendra/" target="_blank" title="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/appliedailearner" target="_blank" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        if (hamburger && navMenu) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+        }
+    </script>
+
+    <!-- Smooth Navigation Enhancement -->
+    <script src="../js/case-study-nav.js"></script>
+    <script src="../js/particles.js"></script>
+</body>
+
+</html>
