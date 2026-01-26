@@ -673,6 +673,20 @@
             </ul>
         </div>
 
+        <h3 style="margin-top: 2.5rem; color: #94a3b8;">Alternative Configuration: All-In-One Path (Option B)</h3>
+        <p>In some strict designs, you might point Spoke VMs directly to the Inbound Endpoint IP as their custom DNS
+            server.</p>
+
+        <figure class="architecture-diagram" style="margin: 1.5rem 0; padding: 1.5rem;">
+            <img src="assets/2026-01-26-dns-pattern/figure-5-option-b.png"
+                alt="Option B: Pointing Spokes to Inbound Endpoint" loading="lazy">
+            <figcaption>Option B: Spoke workloads use the Inbound Endpoint (10.0.0.8) as their direct DNS server
+            </figcaption>
+        </figure>
+
+        <p><strong>Trade-off:</strong> This gives you one DNS IP for everything, but adds a dependency on the hub path
+            for all queries (even internal VNet ones).</p>
+
         <h2><span class="gradient-text">Why This Survives Cutover Night</span></h2>
 
         <ul>
