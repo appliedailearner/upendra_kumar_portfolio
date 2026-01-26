@@ -556,6 +556,36 @@
                 resolve Private Endpoint addresses</figcaption>
         </figure>
 
+        <h2><span class="gradient-text">The Mental Model: The Airport Analogy</span></h2>
+
+        <p>If the diagram above feels complex, use this mental model. Think of your Azure Hub not as a network, but as
+            an <strong>international airport</strong>.</p>
+
+        <p>The big question is always the same: <em>when someone asks for a name, who answers it, and where does the
+                question travel?</em></p>
+
+        <h3>Cast of Characters</h3>
+
+        <div class="callout" style="border-left-color: #8b5cf6; background: rgba(139, 92, 246, 0.1);">
+            <h4 style="color: #c4b5fd;"><i class="fas fa-plane-arrival"></i> The Inbound Endpoint (Arrival Gate)</h4>
+            <p style="margin-bottom: 0;">This is where questions from on-premises "land" in Azure. It receives queries
+                asking <em>"Where is that private SQL database?"</em></p>
+        </div>
+
+        <div class="callout" style="border-left-color: #ec4899; background: rgba(236, 72, 153, 0.1);">
+            <h4 style="color: #fbcfe8;"><i class="fas fa-plane-departure"></i> The Outbound Endpoint (Departure Gate)
+            </h4>
+            <p style="margin-bottom: 0;">This is where questions from Azure "fly out" to on-premises. It sends queries
+                asking <em>"Where is that legacy mainframe app?"</em></p>
+        </div>
+
+        <div class="callout" style="border-left-color: #3b82f6; background: rgba(59, 130, 246, 0.1);">
+            <h4 style="color: #93c5fd;"><i class="fas fa-book"></i> Private DNS Zone (The Phonebook)</h4>
+            <p style="margin-bottom: 0;">Azure's internal directory. If the name is in this book (e.g.,
+                <code>privatelink.database.windows.net</code>), Azure answers instantly with a private IP.
+            </p>
+        </div>
+
         <h3>Hub (Connectivity)</h3>
         <ul>
             <li>Azure DNS Private Resolver
@@ -595,6 +625,46 @@
         <div class="callout callout-success">
             <h4><i class="fas fa-check-circle"></i> Result</h4>
             <p>Same name. Private IP. Private path.</p>
+        </div>
+
+        <h2><span class="gradient-text">The 3 DNS Flows</span></h2>
+
+        <p>There are only three stories that matter. If you can trace these, you can troubleshoot anything.</p>
+
+        <div
+            style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+            <h4 style="color: #38bdf8; margin-top: 0;"><i class="fas fa-arrow-right"></i> Flow 1: On-prem asks for Azure
+                Private Name</h4>
+            <ul style="margin-bottom: 0;">
+                <li><strong>Scenario:</strong> On-prem app needs <code>blob.core.windows.net</code>.</li>
+                <li><strong>Path:</strong> On-prem DNS → Inbound Endpoint (Arrival Gate) → Azure DNS → Private DNS Zone.
+                </li>
+                <li><strong>Result:</strong> Returns Private Endpoint IP (e.g., <code>10.4.0.1</code>). No public IP
+                    ever crosses the wire.</li>
+            </ul>
+        </div>
+
+        <div
+            style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+            <h4 style="color: #c084fc; margin-top: 0;"><i class="fas fa-sync"></i> Flow 2: Azure VM asks for Azure
+                Private Name</h4>
+            <ul style="margin-bottom: 0;">
+                <li><strong>Scenario:</strong> Spoke VM needs to talk to the same Blob Storage.</li>
+                <li><strong>Path:</strong> Spoke VM → Azure DNS (168.63.129.16) → Checks Linked Private DNS Zones.</li>
+                <li><strong>Result:</strong> Returns Private Endpoint IP directly. Fast, internal, no hops.</li>
+            </ul>
+        </div>
+
+        <div
+            style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(236, 72, 153, 0.2); border-radius: 8px; padding: 1.5rem;">
+            <h4 style="color: #f472b6; margin-top: 0;"><i class="fas fa-arrow-left"></i> Flow 3: Azure VM asks for
+                On-prem Name</h4>
+            <ul style="margin-bottom: 0;">
+                <li><strong>Scenario:</strong> Spoke VM needs <code>app1.onprem.company.com</code>.</li>
+                <li><strong>Path:</strong> Spoke VM → Azure DNS → Forwarding Rule Set → Outbound Endpoint (Departure
+                    Gate) → On-prem DNS.</li>
+                <li><strong>Result:</strong> Returns on-prem IP (e.g., <code>192.168.0.8</code>).</li>
+            </ul>
         </div>
 
         <h2><span class="gradient-text">Why This Survives Cutover Night</span></h2>
