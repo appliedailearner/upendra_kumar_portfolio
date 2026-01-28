@@ -1,0 +1,9 @@
+variable "prefix" { type = string }
+variable "environment" { type = string }
+variable "location" { type = string }
+variable "vnet_address_space" { type = string }
+variable "aks_subnet_prefix" { type = string }
+variable "appgw_subnet_prefix" { type = string }
+variable "hub_pe_subnet_id" { type = string }
+variable "openai_dns_zone_id" { type = string }
+variable "pe_location" { type = string }

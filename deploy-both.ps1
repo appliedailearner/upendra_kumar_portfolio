@@ -6,6 +6,8 @@ param(
     [switch]$Force
 )
 
+$ErrorActionPreference = "Stop"
+
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host "Dual Deployment Script" -ForegroundColor Cyan
 Write-Host "GitHub Pages + Azure Storage" -ForegroundColor Cyan
@@ -17,14 +19,14 @@ Write-Host "STEP 1: Deploying to GitHub Pages" -ForegroundColor Yellow
 Write-Host "-----------------------------------" -ForegroundColor Gray
 
 # Check for changes
-$gitStatus = git status --porcelain
-if ($gitStatus) {
+$gitStatus = @(git status --porcelain)
+if ($gitStatus.Count -gt 0) {
     Write-Host "Changes detected. Committing..." -ForegroundColor Yellow
     
     git add .
     git commit -m $CommitMessage
     
-    if ($LASTEXITCODE -eq 0) {
+    if ($?) {
         Write-Host "✓ Changes committed" -ForegroundColor Green
     }
     else {
@@ -39,7 +41,7 @@ else {
 Write-Host "Pushing to GitHub..." -ForegroundColor Yellow
 git push origin main
 
-if ($LASTEXITCODE -eq 0) {
+if ($?) {
     Write-Host "✓ Pushed to GitHub successfully" -ForegroundColor Green
     Write-Host "  GitHub Actions will deploy to: https://portfolio.upendrakumar.com" -ForegroundColor Gray
 }
@@ -61,7 +63,7 @@ else {
     & "$PSScriptRoot\deploy-azure.ps1"
 }
 
-if ($LASTEXITCODE -eq 0) {
+if ($?) {
     Write-Host ""
     Write-Host "========================================" -ForegroundColor Cyan
     Write-Host "All Deployments Complete!" -ForegroundColor Green
