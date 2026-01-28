@@ -143,10 +143,13 @@ This is the restricted area where all the "work" happens. Only authorized staff 
 ### 8.4 APIM = "The VIP Concierge"
 The Concierge (API Management) stands at the door of the first-class cabin. They check your ID, count how many drinks (tokens) you’re allowed to have, and make sure the VIP area doesn't get overcrowded.
 
-### 8.5 GPT-4.1 (PTU) = "The Reserved First-Class Cabin"
-Unlike a regular flight where anyone can buy a seat (PAYG), PTU is a **Private Jet** waiting on the tarmac. It’s expensive, but it’s yours. It stays in the hanger (UK South) and is guaranteed to fly as soon as you arrive, regardless of how busy the main airport is.
+### 8.5 Redis Cache = "The Concierge's Memory Book"
+The Concierge keeps a **Memory Book** (Redis Cache) of recent conversations. If you ask the same question someone just asked 5 minutes ago, the Concierge doesn't need to bother the pilot (GPT-4)—they just read the answer from their book. This saves time and keeps the pilot fresh for new questions.
 
-### 8.6 Private Link = "The Underground Tunnels"
+### 8.6 GPT-4 (PTU) = "The Reserved First-Class Cabin (30/10/10 Split)"
+Unlike a regular flight where anyone can buy a seat (PAYG), PTU is a **Private Jet** waiting on the tarmac. We have **three separate jets**: a big one for Production (30 seats), and two smaller ones for Testing and Development (10 seats each). This way, test flights never delay the VIPs.
+
+### 8.7 Private Link = "The Underground Tunnels"
 Instead of walking through the public parking lot to get from the terminal to the office, everyone uses **Invisible Underground Tunnels**. To an outsider, it looks like nothing is moving, but the passengers are actually zipping between buildings in complete privacy.
 
 ---
@@ -250,17 +253,33 @@ This section provides the granular, portal-based instructions required to build 
     - Link the App Gateway to the `snet-appgw` subnet.
 
 ### Phase 3: AI Service Lockdown (Data Island)
-1.  **Azure OpenAI (PTU)**:
+1.  **Azure OpenAI (PTU Split)**:
     - Deploy the OpenAI resource in UK South.
     - **Networking**: Under the 'Firewall and Virtual Networks' tab, select **Disabled** (No public access).
-2.  **Private Endpoint Creation**:
+    - **Deployments**: Create 3 separate deployments:
+      - `gpt4-prod-deployment`: 30 PTU (Production)
+      - `gpt4-test-deployment`: 10 PTU (Testing)
+      - `gpt4-dev-deployment`: 10 PTU (Development)
+2.  **Azure Redis Cache Premium**:
+    - Deploy Redis Cache Premium (P1) in the Prod Spoke.
+    - **VNet Injection**: Select `snet-redis` (10.1.4.0/28).
+    - **TLS**: Set minimum TLS version to 1.2.
+    - **Eviction Policy**: Set to `allkeys-lru`.
+    - **Private Endpoint**: Create PE in Hub `snet-shared-pe` for centralized access.
+3.  **Private Endpoint Creation**:
     - In the **Shared Hub Subscription**, create a Private Endpoint for the OpenAI resource.
     - Target Subnet: `snet-shared-pe`.
     - Link to the `privatelink.openai.azure.com` Private DNS Zone.
-3.  **API Management (AI Gateway)**:
+4.  **API Management (AI Gateway)**:
     - Deploy APIM in **Internal** mode.
     - Place it in a dedicated subnet in the Hub.
-    - Configure the **Inbound Policy** to require Entra ID JWT validation.
+    - **External Cache**: Configure Redis connection string in APIM.
+    - **Inbound Policy**: Add cache-lookup policy with `vary-by-query-parameter` for prompt.
+    - **Outbound Policy**: Add cache-store policy with 3600s duration.
+    - **Backend Routing**: Configure environment-based routing using X-Environment header:
+      - `prod` → gpt4-prod-deployment (30 PTU)
+      - `test` → gpt4-test-deployment (10 PTU)
+      - `dev` → gpt4-dev-deployment (10 PTU)
 
 ### Phase 4: Global Ingress (Front Door)
 1.  **Azure Front Door Premium**:
@@ -315,17 +334,22 @@ The following provides a monthly estimate based on the "Regulator-Ready" standar
 
 | Service | Tier / SKU | Estimated Monthly Cost (GBP) | Rationale |
 | :--- | :--- | :--- | :--- |
-| **Azure OpenAI (PTU)** | GPT-4o (50 Units) | £15,000 - £18,000 | Core "Private Jet" capacity reservation (Reserved). |
+| **Azure OpenAI (PTU)** | GPT-4 (50 Units: 30+10+10) | £15,000 - £18,000 | Core "Private Jet" capacity split across 3 deployments. |
 | **Azure Firewall** | Premium | ~£1,100 | Centralized Hub security with IDPS & TLS Inspection. |
-| **AKS Cluster** | 2x DS2_v2 Nodes | ~£180 | Managed compute for UI and Backend logic. |
+| **Azure Redis Cache** | Premium P1 (6GB) | ~£250 | Semantic caching for APIM (LRU eviction). |
+| **APIM** | Premium (Multi-region) | ~£1,800 | AI Gateway with caching, throttling, PII masking. |
+| **AKS Cluster** | 3x DS2_v2 Nodes | ~£270 | Managed compute for UI and Backend logic. |
 | **App Gateway** | Standard_v2 (WAF) | ~£250 | Regional ingress and L7 load balancing. |
 | **Front Door** | Premium | ~£280 | Global security, WAF, and Private Link origin. |
 | **Hub Services** | DNS, PEs, Resolver | ~£150 | Shared connectivity and name resolution. |
+| **Azure Policy** | MCSB v2 (420+ controls) | £0 | Compliance monitoring (no additional cost). |
 | **DR Standby** | UK West (Passive) | ~£120 | "Cold" storage and VNets (No AKS nodes running). |
-| **TOTAL (Est)** | | **£17,080 - £20,080** | |
+| **TOTAL (Est)** | | **£19,220 - £22,220** | |
 
 ### 17.1 Cost Optimization Strategy
 - **Centralize the Hub**: By using **one** Firewall for all spokes (Prod, Non-Prod, DR), you save over £1,000/month per additional environment.
-- **PTU Scaling**: Ensure PTU is only committed for production. Use **Pay-As-You-Go (PAYG)** in the Non-Prod spoke to eliminate fixed costs during development.
+- **PTU Scaling**: The 30/10/10 split allows production to have guaranteed capacity while test/dev share smaller allocations. Consider PAYG for ad-hoc experimentation.
+- **Redis Caching**: The £250/month Redis investment saves significant PTU consumption. With 70-80% cache hit rate, you avoid ~£3,000-5,000/month in wasted OpenAI calls.
 - **Reserved Instances (RI)**: Commit to 1-year or 3-year RI for the AKS nodes and Firewall to reduce their base costs by up to 40%.
 - **Cold DR**: The UK West standby uses "Passive Cold" logic. No AKS nodes or AI models are provisioned until a failover is triggered.
+- **MCSB v2 Compliance**: Azure Policy enforcement is free, providing 420+ security controls at no additional cost.
