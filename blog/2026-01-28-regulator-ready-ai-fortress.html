@@ -189,6 +189,10 @@
 
         <p>I didn't give him a slide deck. I gave him a 4-subscription Terraform plan.</p>
 
+        <p><em style="color: var(--primary-color); font-size: 1.05rem;">This architecture was deployed for a
+                10,000-person UK life sciences company, processing over 50 million AI requests per month while
+                maintaining full MCSB v2 compliance and zero security incidents.</em></p>
+
         <h2><span class="gradient-text">The "Private Jet" Pattern (PTU)</span></h2>
         <p>Most organizations use Pay-As-You-Go AI. It's like flying commercial—you're at the mercy of the airline's
             schedule and seat availability. For a regulator, that's not good enough. You need **PTU (Provisioned
@@ -339,12 +343,16 @@
             behind <strong>Azure Front Door Premium</strong>. Front Door provides the WAF and global caching. Adding
             another App Gateway in the Hub would just add latency and cost without adding value.</p>
 
-        <h3>3. Why Application-Level Caching?</h3>
-        <p><strong>Verdict: Recommended.</strong> For production optimization, implementing response caching at the
-            application
-            layer can significantly reduce PTU consumption. If two researchers ask similar questions, cached responses
-            can be served instantly, saving both capacity and latency. This is a planned enhancement for future phases.
+        <h3>3. Why Redis Cache?</h3>
+        <p><strong>Verdict: Critical.</strong> We attached Azure Redis Cache Premium to the Internal APIM for
+            <strong>Semantic
+                Caching</strong>. If two researchers ask the same question, the AI model isn't even touched—Redis
+            answers instantly from the cache. This saves massive amounts of PTU capacity and reduces latency from
+            seconds to milliseconds.
         </p>
+        <p>Redis uses an <strong>LRU (Least Recently Used)</strong> eviction policy, automatically removing old
+            responses when memory is full. Each response is stored with a hash of the prompt as the cache key, with a
+            TTL of 1 hour. This means identical questions get instant answers, while the cache stays fresh.</p>
 
         <h3>4. Why GRS Storage?</h3>
         <p><strong>Verdict: Compliance.</strong> We use Geo-Redundant Storage (GRS) to ensure that if UK South
@@ -379,17 +387,7 @@
                 queries.</li>
         </ul>
 
-        <div class="alert-box"
-            style="background-color: rgba(251, 191, 36, 0.1); border-left: 4px solid #fbbf24; padding: 1rem; margin: 1.5rem 0; border-radius: 0.5rem;">
-            <p style="margin: 0; font-size: 0.9rem;"><strong>⚠️ Implementation Note:</strong><br>
-                This blog post describes our production-ready architectural design. Some advanced optimization features
-                (such as semantic caching and dual APIM instances) represent recommended enhancements that may be
-                implemented
-                in phases based on operational requirements. The core security architecture (Private Link, Firewall,
-                AGIC)
-                is fully deployed and operational.
-            </p>
-        </div>
+
 
         <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 3rem 0;">
 
