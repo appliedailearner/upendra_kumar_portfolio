@@ -15,7 +15,8 @@
   - *Rationale*: Prevents DNS "hairpinning" and provides a single management plane for Private Links.
 
 ### 1.3 Design Assumptions
-- **PTU Availability**: Assumes 50 PTU units are pre-allocated in UK South for the subscription.
+- **PTU Availability**: Assumes 50 PTU units are pre-allocated in UK South for the subscription, split across 3 deployments (30 Prod / 10 Test / 10 Dev).
+- **Redis Cache**: Assumes Azure Redis Cache Premium (P1) is deployed for semantic caching at the APIM layer.
 - **Connectivity**: Assumes the user has the necessary permissions to create VNet peerings across subscriptions.
 - **Subscription Limits**: Assumes the 'Shared Services' sub has enough quota for the Premium Firewall and Front Door.
 
@@ -23,7 +24,7 @@
 - **Risk**: Regional capacity exhaustion in UK South.
   - *Mitigation*: The standby UK West environment acts as a cold/warm recovery site.
 - **Risk**: Latency introduced by double-gatekeeping (AFD + AppGW + APIM).
-  - *Mitigation*: Using Private Link origins and AGIC's direct-pod-routing to minimize hops.
+  - *Mitigation*: Using Private Link origins, AGIC's direct-pod-routing, and Redis semantic caching to minimize hops and repeated AI calls.
 - **Risk**: Complexity of Multi-Subscription management.
   - *Mitigation*: Use of Terraform for unified, declarative infrastructure state.
 
@@ -48,6 +49,7 @@ Following CAF standards, we use a Hub-and-Spoke topology with non-overlapping IP
 | `snet-aks-nodes` | Prod Spoke | `10.1.1.0/24` | AKS Node Pool (Private IP space). |
 | `snet-appgw` | Prod Spoke | `10.1.2.0/24` | Regional Gateway (AGIC) Entry Point. |
 | `snet-ai-be` | Prod Spoke | `10.1.3.0/24` | Backend AI Services (SQL, Storage). |
+| `snet-redis` | Prod Spoke | `10.1.4.0/28` | Azure Redis Cache Premium (VNet Injection). |
 
 > [!TIP]
 > **Junior's Pitfall**: Always use `/26` or larger for the Firewall subnet; Azure requires it for scaling and upgrades.
@@ -89,11 +91,27 @@ To ensure the Firewall inspects all traffic, apply a **Route Table** to the AKS 
 
 ## 5. Implementation Checklist: Command Reference
 
-1.  **Register Providers**: `az provider register --namespace Microsoft.ContainerService`
-2.  **Verify PTU Quota**: Check Azure Portal -> Subscriptions -> Quotas for `GPT-4 (Provisioned)`. 
+### 5.1 Pre-Deployment
+1.  **Register Providers**: 
+    ```bash
+    az provider register --namespace Microsoft.ContainerService
+    az provider register --namespace Microsoft.CognitiveServices
+    az provider register --namespace Microsoft.Cache
+    ```
+2.  **Verify PTU Quota**: Check Azure Portal -> Subscriptions -> Quotas for `GPT-4 (Provisioned)`. Ensure 50 PTU available.
+
+### 5.2 Terraform Deployment
 3.  **Deploy Hub**: `terraform apply -target=module.hub`
 4.  **Deploy Spoke**: `terraform apply -target=module.spoke_prod`
-5.  **Verify DNS**: From an AKS Pod, run `nslookup ukl-openai.privatelink.openai.azure.com`. It MUST return a `10.100.x.x` address, not a public one.
+5.  **Deploy Redis Cache**: `terraform apply -target=module.redis`
+6.  **Deploy OpenAI with PTU Split**: `terraform apply -target=module.openai`
+7.  **Deploy Policy (MCSB v2)**: `terraform apply -target=module.policy`
+
+### 5.3 Verification Steps
+8.  **Verify DNS**: From an AKS Pod, run `nslookup ukl-openai.privatelink.openai.azure.com`. It MUST return a `10.100.x.x` address, not a public one.
+9.  **Verify Redis**: Test connection from APIM: `redis-cli -h <redis-hostname> -p 6380 -a <access-key> --tls PING`
+10. **Verify PTU Deployments**: Check Azure Portal -> OpenAI -> Deployments. Should see 3 deployments: `gpt4-prod-deployment` (30 PTU), `gpt4-test-deployment` (10 PTU), `gpt4-dev-deployment` (10 PTU).
+11. **Test Semantic Caching**: Send identical prompt twice to APIM, second response should be <50ms (cache hit).
 
 ---
 
