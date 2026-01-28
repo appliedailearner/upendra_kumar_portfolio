@@ -270,17 +270,35 @@
             <p class="diagram-caption">Figure 2.1: The Security Defense in Depth.</p>
         </div>
 
-        <h2><span class="gradient-text">The Policy Guardrails (NIST, PCI-DSS, MCBSR2)</span></h2>
+        <h2><span class="gradient-text">The Policy Guardrails (MCSB v2, NIST, PCI-DSS)</span></h2>
         <p>A "fortress" isn't just walls; it's the rules of engagement. We used <strong>Azure Policy</strong> to enforce
             the compliance standards automatically:</p>
         <ul style="margin-top: 0.5rem; margin-bottom: 1.5rem; list-style-type: disc; padding-left: 1.5rem;">
+            <li><strong>Microsoft Cloud Security Benchmark v2 (MCSB v2):</strong> The foundational security baseline for
+                Azure,
+                covering 420+ controls across Network Security, Identity, Data Protection, and the new <i>AI Security
+                    (AS)</i> domain.
+                We assigned the MCSB v2 Azure Policy initiative to all subscriptions for continuous compliance
+                monitoring. This ensures
+                our AI platform meets Microsoft's recommended security posture.</li>
             <li><strong>NIST 800-53:</strong> Enforced <i>"Deny Public IP"</i> on all network interfaces and required
                 TLS 1.2+ on all endpoints.</li>
             <li><strong>PCI-DSS:</strong> (For payment-adjacent flows) Enforced strict Role-Based Access Control (RBAC)
                 and encryption at rest for all Storage Accounts and SQL Databases.</li>
-            <li><strong>MCBSR2:</strong> (Minimum Cyber Security Standard) Enforced "UK South Only" for resource
-                deployments to guarantee data residency.</li>
         </ul>
+
+        <div class="alert-box"
+            style="background-color: rgba(59, 130, 246, 0.1); border-left: 4px solid var(--primary-color); padding: 1rem; margin: 1.5rem 0; border-radius: 0.5rem;">
+            <p style="margin: 0; font-size: 0.95rem;"><strong>Why MCSB v2 for AI Workloads?</strong><br>
+                Microsoft Cloud Security Benchmark v2 is the evolution of Azure Security Benchmark, adding specific
+                guidance
+                for AI workloads. The <strong>AS (AI Security)</strong> domain includes controls for securing AI
+                platforms
+                (AS-1: Private OpenAI), monitoring AI applications (AS-2: APIM logging), and protecting training data
+                (AS-3: encrypted storage).
+                This makes MCSB v2 the most comprehensive framework for regulator-ready AI architectures on Azure.
+            </p>
+        </div>
 
         <h2><span class="gradient-text">Hybrid Identity & Access</span></h2>
         <p>Identity is the new perimeter. We didn't create new bespoke credentials for this fortress. We extended the
