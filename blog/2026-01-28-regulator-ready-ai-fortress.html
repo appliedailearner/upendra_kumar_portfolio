@@ -244,7 +244,8 @@
         <p>This is where the magic happens. Sitting deep inside the private VNet, this second APIM instance talks
             <i>only</i> to the AI models. It handles the "Smart" logic:
         <ul style="margin-top: 0.5rem; margin-bottom: 1.5rem; list-style-type: disc; padding-left: 1.5rem;">
-            <li><strong>Request Validation:</strong> Ensuring prompts meet safety and compliance standards.</li>
+            <li><strong>Semantic Caching:</strong> Why ask GPT-4 the same question twice? Azure Redis Cache stores
+                responses.</li>
             <li><strong>PII Masking:</strong> Stripping patient names before the prompt leaves the zone.</li>
             <li><strong>Token Throttling:</strong> ensuring no single research team eats the whole PTU pie.</li>
         </ul>
@@ -259,7 +260,7 @@
             <p style="margin: 0; font-size: 0.95rem;"><strong>Why can't the External APIM call OpenAI
                     directly?</strong><br>
                 If the External Gateway skipped the Internal Gateway, we would lose our "Brain." We would bypass the
-                central PII masking rules, request validation policies, and the global token throttling.
+                <strong>Semantic Cache (Redis)</strong>, the central PII masking rules, and the global token throttling.
                 The Internal APIM is designed to be the <i>only</i> component with network access to the OpenAI Private
                 Endpoint, forcing all traffic to pass through our AI safety checks.
             </p>
