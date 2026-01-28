@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- VERSION: 2026-01-28-FINAL-REMOVAL-V3 -->
 
 <head>
     <meta charset="UTF-8">
@@ -8,9 +9,15 @@
         content="Inside the architecture of a Regulator-Ready AI Platform: How we used Azure Front Door, AKS, and Private Link to lock GPT-4.1 to UK South.">
     <title>Regulator-Ready AI: The 4-Sub Fortress | Upendra Kumar</title>
 
-    <link rel="stylesheet" href="../css/style.css?v=25">
-    <link rel="stylesheet" href="../css/premium.css?v=25">
+    <link rel="stylesheet" href="../css/style.css?v=27">
+    <link rel="stylesheet" href="../css/premium.css?v=27">
     <style>
+        /* FORCE HIDE TO ENSURE REMOVAL */
+        .toc,
+        .blog-sidebar {
+            display: none !important;
+        }
+
         .nav-logo-uk {
             background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
@@ -82,7 +89,7 @@
         .diagram-caption {
             margin-top: 1rem;
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-style: italic;
         }
 
@@ -118,24 +125,58 @@
             background: rgba(59, 130, 246, 0.1);
         }
 
-        /* Table of Contents */
+        /* Blog Layout - Single Column */
+        .blog-layout-grid {
+            display: block;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            position: relative;
+        }
+
+        /* Sidebar */
+        .blog-sidebar {
+            position: relative;
+        }
+
+        .blog-content {
+            min-width: 0;
+            /* Prevent grid blowout */
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .blog-content h2 {
+            color: var(--text-main);
+            font-size: 2rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Table of Contents - Sidebar Mode */
         .toc {
             position: sticky;
-            top: 80px;
-            background: rgba(15, 23, 42, 0.95);
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            max-width: 300px;
-            float: right;
-            margin-left: 2rem;
+            top: 140px;
+            /* Aligns with Nav + Breadcrumb */
+            background: transparent;
+            border-left: 2px solid rgba(168, 85, 247, 0.3);
+            border-radius: 0;
+            padding: 0 0 0 1.5rem;
+            margin: 0;
+            max-width: 100%;
+            float: none;
+            box-shadow: none;
         }
 
         .toc h3 {
             margin: 0 0 1rem 0;
-            font-size: 1.1rem;
-            color: var(--primary-color);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            display: block;
         }
 
         .toc ul {
@@ -149,14 +190,29 @@
         }
 
         .toc a {
-            color: var(--text-secondary);
+            color: var(--text-muted);
             text-decoration: none;
             font-size: 0.9rem;
-            transition: color 0.3s;
+            transition: all 0.2s;
+            display: block;
+            padding: 0.25rem 0;
+            border-left: 2px solid transparent;
+            /* Marker */
+            margin-left: -1.6rem;
+            /* Pull back to overlap border */
+            padding-left: 1.5rem;
         }
 
-        .toc a:hover {
+        .toc a:hover,
+        .toc a.active {
             color: var(--primary-color);
+            background: transparent;
+            border-left-color: var(--primary-color);
+        }
+
+        /* Diagram containers should clear floats */
+        .diagram-container {
+            clear: both;
         }
 
         /* Copy Button */
@@ -195,16 +251,17 @@
             right: 2rem;
             background: var(--primary-color);
             color: white;
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: all 0.3s;
             z-index: 1000;
+            font-size: 1.2rem;
         }
 
         .back-to-top.visible {
@@ -213,6 +270,7 @@
 
         .back-to-top:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(168, 85, 247, 0.4);
         }
 
         /* Results Box */
@@ -225,8 +283,8 @@
         }
 
         .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            display: block;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 1.5rem;
             margin-top: 1.5rem;
         }
@@ -250,12 +308,120 @@
             margin-top: 0.5rem;
         }
 
+        /* Sticky Navigation */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(168, 85, 247, 0.3);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb-container {
+            background: rgba(15, 23, 42, 0.6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: sticky;
+            top: 70px;
+            z-index: 1000;
+        }
+
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0.75rem 2rem;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+            color: #c084fc;
+        }
+
+        .breadcrumb .separator {
+            color: var(--text-muted);
+        }
+
+        .breadcrumb .current {
+            color: var(--text-secondary);
+        }
+
         @media (max-width: 768px) {
+            .breadcrumb-container {
+                top: 60px;
+            }
+
+            .breadcrumb {
+                font-size: 0.8rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .breadcrumb .current {
+                max-width: 200px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            /* Mobile TOC - Sidebar Mode */
+            .blog-layout-grid {
+                display: block;
+                padding: 1rem;
+            }
+
+            .blog-sidebar {
+                margin-bottom: 2rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding-bottom: 1rem;
+            }
+
             .toc {
-                float: none;
-                max-width: 100%;
                 position: relative;
                 top: 0;
+                border: none;
+                padding: 0;
+                margin: 0;
+                float: none;
+                max-width: 100%;
+            }
+
+            .toc h3 {
+                font-size: 1.1rem;
+                color: var(--primary-color);
+                border: 1px solid rgba(168, 85, 247, 0.3);
+                padding: 0.75rem;
+                border-radius: 8px;
+                background: rgba(168, 85, 247, 0.1);
+                text-align: center;
+                cursor: pointer;
+            }
+
+            .toc ul {
+                display: block;
+                margin-top: 1rem;
+                padding-left: 1rem;
+                border-left: 2px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .toc a {
+                border: none;
+                margin: 0;
+                padding: 0.5rem 0 0.5rem 1rem;
             }
         }
     </style>
@@ -287,390 +453,565 @@
         </div>
     </nav>
 
-    <section class="blog-post-hero">
-        <div class="container" style="max-width: 1000px;">
-            <div style="margin-bottom: 1rem;">
-                <a href="../blog.html"
-                    style="color: var(--primary-color); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
-                    <i class="fas fa-arrow-left"></i> Back to Insights
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb-container">
+        <div class="breadcrumb">
+            <a href="../index.html">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <span class="separator">›</span>
+            <a href="../blog.html">Insights</a>
+            <span class="separator">›</span>
+            <span class="current">Regulator-Ready AI: The 4-Subscription AI Fortress</span>
+        </div>
+    </div>
+
+    <!-- Hero Section removed from here, moving inside grid -->
+
+    <div class="blog-layout-grid">
+        <!-- Main Content -->
+        <article class="blog-content">
+            <!-- Hero Content Moved Here -->
+            <div style="margin-bottom: 3rem;">
+                <div style="margin-bottom: 1rem;">
+                    <a href="../blog.html"
+                        style="color: var(--primary-color); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-arrow-left"></i> Back to Insights
+                    </a>
+                </div>
+
+                <h1
+                    style="font-family: 'Outfit', sans-serif; font-size: 3rem; line-height: 1.2; margin-bottom: 1.5rem; background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                    Regulator-Ready AI: The 4-Subscription AI Fortress
+                </h1>
+
+                <div class="blog-post-meta">
+                    <div><i class="fas fa-user"></i> Upendra Kumar</div>
+                    <div><i class="fas fa-calendar"></i> January 28, 2026</div>
+                    <div><i class="fas fa-clock"></i> 10 min read</div>
+                </div>
+
+                <div class="blog-post-tags">
+                    <span class="blog-tag"><i class="fas fa-tag"></i> Azure AI</span>
+                    <span class="blog-tag"><i class="fas fa-tag"></i> Cybersecurity</span>
+                    <span class="blog-tag"><i class="fas fa-tag"></i> Terraform</span>
+                </div>
+                <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 2rem 0;">
+            </div>
+            <p class="lead" style="font-size: 1.3rem; color: var(--primary-color); font-weight: 600;">
+                The regulator didn't care about the demo. They cared about the data residency.
+            </p>
+
+            <p>In the "Demo-Ware" world, AI is easy. You grab an API key, throw some JSON at a public endpoint, and
+                celebrate. But when a multi-billion pound life sciences regulator walks into the room, "easy" is a
+                liability.</p>
+
+            <p>Mr. Compliance sat across from me. "Your AI looks great, Upendra," he said, tapping a pen against his
+                tablet.
+                "But can you guarantee that not one byte of our patient data ever touches a foreign server? And can you
+                prove that even if your web server is breached, the attacker can't sniff our model traffic?"</p>
+
+            <p>I didn't give him a slide deck. I gave him a 4-subscription Terraform plan.</p>
+
+            <p><em style="color: var(--primary-color); font-size: 1.05rem;">This architecture was deployed for a
+                    10,000-person UK life sciences company, processing over 50 million AI requests per month while
+                    maintaining full MCSB v2 compliance and zero security incidents.</em></p>
+
+            <!-- GitHub CTA Box - Primary -->
+            <div style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(59, 130, 246, 0.1)); 
+                    border: 2px solid rgba(168, 85, 247, 0.3); 
+                    border-radius: 12px; 
+                    padding: 2rem; 
+                    margin: 2.5rem 0; 
+                    text-align: center;">
+                <h3 style="margin: 0 0 1rem 0; color: #A855F7;">
+                    <i class="fab fa-github"></i> Want the Complete Terraform Code?
+                </h3>
+                <p style="margin: 0 0 1.5rem 0; font-size: 1.05rem;">
+                    Get the full Infrastructure-as-Code with 5 architecture diagrams,
+                    MCSB v2 compliance matrix, and step-by-step deployment guides.
+                </p>
+                <a href="https://github.com/appliedailearner/uklifelabsaisolution" target="_blank"
+                    style="display: inline-block; padding: 1rem 2.5rem; background: #A855F7; color: white; text-decoration: none; border-radius: 8px; font-weight: bold;">
+                    <i class="fab fa-github"></i> View on GitHub
+                </a>
+                <p style="margin: 1.5rem 0 0 0; font-size: 0.9rem; color: #94A3B8;">
+                    ⭐ Star the repo if it helps you build your AI fortress!
+                </p>
+            </div>
+
+            <!-- (TOC moved to sidebar) -->
+
+            <h2 id="ptu-pattern"><span class="gradient-text">The "Private Jet" Pattern (PTU)</span></h2>
+            <p>Most organizations use Pay-As-You-Go AI. It's like flying commercial—you're at the mercy of the airline's
+                schedule and seat availability. For a regulator, that's not good enough. You need **PTU (Provisioned
+                Throughput Units)**.</p>
+
+            <p>PTU is your AI's private jet. It's pre-allocated capacity that stays in one hangar (UK South). You pay
+                for
+                the plane whether it’s in the air or on the ground, but you’re guaranteed a flight. No noisy neighbors.
+                No
+                capacity-exhaustion errors during peak hours.</p>
+
+            <h3>The "30/10/10" Capacity Split</h3>
+            <p>But private jets are expensive. To make the CFO smile, we sliced the PTU across three separate
+                deployments.
+                We allocated <strong>30 PTU to Production</strong>, <strong>10 PTU to Test</strong>, and <strong>10 PTU
+                    to
+                    Dev</strong>
+                on the same OpenAI account. This isolation allows our data scientists to run heavy batch tests during
+                the
+                day without ever
+                impacting the live clinical trials. It's the only way to get "Five Nines" reliability without paying
+                "Five
+                Nines" prices.
+            </p>
+
+            <div class="diagram-container">
+                <img src="../assets/img/uklifelabs_solution_overview_corporate.png" alt="High-Level Solution Overview"
+                    loading="lazy">
+                <p class="diagram-caption">Figure 1: The Executive Summary - Global Traffic to Secure Spoke.</p>
+            </div>
+
+            <div class="diagram-container">
+                <img src="../assets/img/uklifelabs_network_flow_corporate.png" alt="Network Flow Diagram"
+                    loading="lazy">
+                <p class="diagram-caption">Figure 1.1: The Network Blueprint - Connectivity & Isolation.</p>
+            </div>
+
+            <!-- GitHub CTA Box - After Diagram -->
+            <div style="background: rgba(15, 23, 42, 0.8); 
+                    border-left: 6px solid #A855F7; 
+                    padding: 1.5rem; 
+                    margin: 2rem 0; 
+                    border-radius: 8px;
+                    box-shadow: 0 2px 8px rgba(168, 85, 247, 0.15);">
+                <p style="margin: 0; font-size: 1rem;">
+                    <strong><i class="fab fa-github"></i> Explore the Code:</strong>
+                    All Terraform modules, network configurations, and APIM policies are available on
+                    <a href="https://github.com/appliedailearner/uklifelabsaisolution" target="_blank"
+                        style="color: #A855F7; text-decoration: underline;">
+                        GitHub
+                    </a>
+                    with detailed deployment guides.
+                </p>
+            </div>
+
+            <h2 id="private-endpoint"><span class="gradient-text">Killing the Public Endpoint</span></h2>
+            <p>A "Regulator-Ready" platform has zero public internet ingress to the backend. We achieved this by using
+                **Azure Front Door Premium** with **Private Link Service (PLS)**.</p>
+
+            <p>Traffic hits the global edge, goes through a heavy-duty WAF, and then—instead of jumping onto the public
+                internet to find the regional gateway—it slips through an **Invisible Underground Tunnel** directly into
+                the
+                private VNet. The outside world sees nothing.</p>
+
+            <div class="diagram-container">
+                <img src="../assets/img/uklifelabs_service_journey_corporate.png" alt="Service Journey Map"
+                    loading="lazy">
+                <p class="diagram-caption">Figure 2: The 6-Step Service Journey.</p>
+            </div>
+
+            <h2 id="dual-gateway"><span class="gradient-text">The "Dual-Gateway" Defense</span></h2>
+            <p>A regulator asks: "Who watches the watcher?" We answered with two distinct API Management gateways.</p>
+
+            <h3>Gateway 1: The Bouncer (External)</h3>
+            <p>Sitting behind Front Door, this gateway handles the messy business of the outside world: mTLS
+                authentication,
+                subscription key validation, and basic rate limiting. It stops the DDoS attacks before they even smell
+                the
+                VNet.</p>
+
+            <h3>Gateway 2: The Brain Surgeon (Internal AI Gateway)</h3>
+            <p>This is where the magic happens. Sitting deep inside the private VNet, this second APIM instance talks
+                <i>only</i> to the AI models. It handles the "Smart" logic:
+            <ul style="margin-top: 0.5rem; margin-bottom: 1.5rem; list-style-type: disc; padding-left: 1.5rem;">
+                <li><strong>Semantic Caching:</strong> Why ask GPT-4 the same question twice? Azure Redis Cache stores
+                    responses.</li>
+                <li><strong>PII Masking:</strong> Stripping patient names before the prompt leaves the zone.</li>
+                <li><strong>Token Throttling:</strong> ensuring no single research team eats the whole PTU pie.</li>
+            </ul>
+            </p>
+
+            <p>APIM acts as the **VIP Concierge** for the AI model. It doesn't care about the user; it cares about the
+                tokens. It provides a single "Glass Wall" for auditing every model request, enforcing tiered throttling,
+                and
+                ensuring that no pod overstays its welcome in the PTU first-class cabin.</p>
+
+            <div class="alert-box"
+                style="background-color: rgba(59, 130, 246, 0.1); border-left: 4px solid var(--primary-color); padding: 1rem; margin: 1.5rem 0; border-radius: 0.5rem;">
+                <p style="margin: 0; font-size: 0.95rem;"><strong>Why can't the External APIM call OpenAI
+                        directly?</strong><br>
+                    If the External Gateway skipped the Internal Gateway, we would lose our "Brain." We would bypass the
+                    <strong>Semantic Cache (Redis)</strong>, the central PII masking rules, and the global token
+                    throttling.
+                    The Internal APIM is designed to be the <i>only</i> component with network access to the OpenAI
+                    Private
+                    Endpoint, forcing all traffic to pass through our AI safety checks.
+                </p>
+            </div>
+
+            <div class="diagram-container">
+                <img src="../assets/img/uklifelabs_security_flow_corporate.png" alt="Security Defense Flow"
+                    loading="lazy">
+                <p class="diagram-caption">Figure 2.1: The Security Defense in Depth.</p>
+            </div>
+
+            <h2 id="policy-guardrails"><span class="gradient-text">The Policy Guardrails (MCSB v2, NIST, PCI-DSS)</span>
+            </h2>
+            <p>A "fortress" isn't just walls; it's the rules of engagement. We used <strong>Azure Policy</strong> to
+                enforce
+                the compliance standards automatically:</p>
+            <ul style="margin-top: 0.5rem; margin-bottom: 1.5rem; list-style-type: disc; padding-left: 1.5rem;">
+                <li><strong>Microsoft Cloud Security Benchmark v2 (MCSB v2):</strong> The foundational security baseline
+                    for
+                    Azure,
+                    covering 420+ controls across Network Security, Identity, Data Protection, and the new <i>AI
+                        Security
+                        (AS)</i> domain.
+                    We assigned the MCSB v2 Azure Policy initiative to all subscriptions for continuous compliance
+                    monitoring. This ensures
+                    our AI platform meets Microsoft's recommended security posture.</li>
+                <li><strong>NIST 800-53:</strong> Enforced <i>"Deny Public IP"</i> on all network interfaces and
+                    required
+                    TLS 1.2+ on all endpoints.</li>
+                <li><strong>PCI-DSS:</strong> (For payment-adjacent flows) Enforced strict Role-Based Access Control
+                    (RBAC)
+                    and encryption at rest for all Storage Accounts and SQL Databases.</li>
+            </ul>
+
+            <div class="alert-box"
+                style="background-color: rgba(59, 130, 246, 0.1); border-left: 4px solid var(--primary-color); padding: 1rem; margin: 1.5rem 0; border-radius: 0.5rem;">
+                <p style="margin: 0; font-size: 0.95rem;"><strong>Why MCSB v2 for AI Workloads?</strong><br>
+                    Microsoft Cloud Security Benchmark v2 is the evolution of Azure Security Benchmark, adding specific
+                    guidance
+                    for AI workloads. The <strong>AS (AI Security)</strong> domain includes controls for securing AI
+                    platforms
+                    (AS-1: Private OpenAI), monitoring AI applications (AS-2: APIM logging), and protecting training
+                    data
+                    (AS-3: encrypted storage).
+                    This makes MCSB v2 the most comprehensive framework for regulator-ready AI architectures on Azure.
+                </p>
+            </div>
+
+            <!-- Results After 6 Months -->
+            <h2 id="results"><span class="gradient-text">Results After 6 Months</span></h2>
+            <div class="results-box">
+                <p style="font-size: 1.1rem; margin-bottom: 1rem;">Since deploying this architecture in production,
+                    we've
+                    achieved measurable success across security, performance, and cost efficiency:</p>
+                <div class="results-grid">
+                    <div class="result-item">
+                        <div class="result-number">50M+</div>
+                        <div class="result-label">AI Requests/Month</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-number">99.97%</div>
+                        <div class="result-label">Uptime (vs. 95% PAYG)</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-number">0</div>
+                        <div class="result-label">Security Incidents</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-number">72%</div>
+                        <div class="result-label">Redis Cache Hit Rate</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-number">£4,200</div>
+                        <div class="result-label">Monthly PTU Savings</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-number">3/3</div>
+                        <div class="result-label">Regulatory Audits Passed</div>
+                    </div>
+                </div>
+                <p style="margin-top: 1.5rem; font-style: italic; color: var(--text-muted);">"The 4-subscription model
+                    gave
+                    our CISO the confidence to approve AI in production. The audit trail alone saved us 200 hours during
+                    our
+                    ISO 27001 certification." — <strong>Head of IT Security</strong></p>
+            </div>
+
+            <!-- GitHub CTA Box - After Results -->
+            <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1)); 
+                    border: 2px solid rgba(16, 185, 129, 0.3); 
+                    border-radius: 12px; 
+                    padding: 2rem; 
+                    margin: 2.5rem 0;">
+                <h4 style="margin: 0 0 1rem 0; color: #10b981;">
+                    <i class="fas fa-rocket"></i> Ready to Build Your Own?
+                </h4>
+                <p style="margin: 0 0 1.5rem 0;">
+                    The complete Terraform infrastructure that powers these results is open-source and production-ready.
+                </p>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+                    <a href="https://github.com/appliedailearner/uklifelabsaisolution" target="_blank"
+                        style="display: inline-block; padding: 1rem 2rem; background: #10B981; color: white; text-decoration: none; border-radius: 8px; font-weight: bold;">
+                        <i class="fab fa-github"></i> Get the Code
+                    </a>
+                    <a href="https://github.com/appliedailearner/uklifelabsaisolution/blob/main/docs/quickstart.md"
+                        target="_blank"
+                        style="display: inline-block; padding: 1rem 2rem; background: transparent; color: #10B981; text-decoration: none; border-radius: 8px; border: 2px solid #10B981; font-weight: bold;">
+                        <i class="fas fa-book"></i> Quick Start Guide
+                    </a>
+                </div>
+            </div>
+
+            <h2><span class="gradient-text">Hybrid Identity & Access</span></h2>
+            <p>Identity is the new perimeter. We didn't create new bespoke credentials for this fortress. We extended
+                the
+                corporate trust:</p>
+            <ul style="margin-top: 0.5rem; margin-bottom: 1.5rem; list-style-type: disc; padding-left: 1.5rem;">
+                <li><strong>The Flow:</strong> Users authenticate via their existing **Windows AD** credentials
+                    on-premises.
+                </li>
+                <li><strong>The Sync:</strong> **Entra Connect** synchronizes these identities to **Entra ID** (Azure
+                    AD) in
+                    the cloud.</li>
+                <li><strong>The Gatekeeper:</strong> **Conditional Access** policies check the user's device health
+                    (Intune)
+                    and risk level before granting a token to access the Internal APIM.</li>
+            </ul <h2><span class="gradient-text">What Happens When UK South Goes Down?</span></h2>
+            environment—we don't pay for the compute while it's sitting idle, but the VNet, the security rules, and the
+            SQL Geo-Replication are already there, waiting for the signal.
+            </p>
+
+            <p><strong>Note on ACR (Azure Container Registry):</strong> The diagram shows ACR Geo-Replication. This
+                ensures
+                our Docker images are automatically synced to the UK West registry. If UK South fails, the standby AKS
+                cluster pulls images locally from UK West, avoiding any cross-region dependency during a crisis.</p>
+
+            <div class="diagram-container">
+                <img src="../assets/img/uklifelabs_dr_failover_journey_v5_corporate.png"
+                    alt="DR Failover Journey (Executive View)" loading="lazy">
+                <p class="diagram-caption">Figure 3: Automatic Global Failover in Action (PaaS Architecture).</p>
+            </div>
+
+            <h2 id="design-decisions"><span class="gradient-text">Architectural Design Decisions</span></h2>
+            <p>Every component in this architecture fought for its place. Here is why we chose them:</p>
+
+            <h3>1. Why App Gateway in Prod/Non-Prod?</h3>
+            <p><strong>Verdict: Essential.</strong> It acts as the <strong>Ingress Controller (AGIC)</strong> for the
+                AKS
+                clusters. While Front Door handles global traffic, it cannot route to specific Kubernetes pods inside a
+                private VNet. App Gateway bridges that gap securely.</p>
+
+            <h3>2. Why No App Gateway in the Hub?</h3>
+            <p><strong>Verdict: Redundant.</strong> The Hub already hosts the <strong>External APIM</strong> which sits
+                behind <strong>Azure Front Door Premium</strong>. Front Door provides the WAF and global caching. Adding
+                another App Gateway in the Hub would just add latency and cost without adding value.</p>
+
+            <h3>3. Why Redis Cache?</h3>
+            <p><strong>Verdict: Critical.</strong> We attached Azure Redis Cache Premium to the Internal APIM for
+                <strong>Semantic
+                    Caching</strong>. If two researchers ask the same question, the AI model isn't even touched—Redis
+                answers instantly from the cache. This saves massive amounts of PTU capacity and reduces latency from
+                seconds to milliseconds.
+            </p>
+            <p>Redis uses an <strong>LRU (Least Recently Used)</strong> eviction policy, automatically removing old
+                responses when memory is full. Each response is stored with a hash of the prompt as the cache key, with
+                a
+                TTL of 1 hour. This means identical questions get instant answers, while the cache stays fresh.</p>
+
+            <h3>4. Why GRS Storage?</h3>
+            <p><strong>Verdict: Compliance.</strong> We use Geo-Redundant Storage (GRS) to ensure that if UK South
+                disappears, the audit logs and model artifacts exist in UK West. It underpins our <strong>"Passive Cold"
+                    DR
+                    strategy</strong>.</p>
+
+            <h3>5. What about Key Vault?</h3>
+            <p><strong>Verdict: Mandatory.</strong> A fortress needs secure key storage. We use Azure Key Vault to
+                manage
+                the TLS certificates for the Application Gateway and APIM custom domains, as well as storing the API
+                keys
+                for any legacy subsystems that haven't migrated to Managed Identity yet.</p>
+
+            <!-- Lessons Learned -->
+            <h2 id="lessons-learned"><span class="gradient-text">Lessons Learned: What We'd Do Differently</span></h2>
+            <p>No architecture survives first contact with production unchanged. Here are the hard-earned lessons that
+                will
+                save you weeks of troubleshooting:</p>
+
+            <h3>1. The DNS Resolver Nightmare (3 Days Lost)</h3>
+            <p><strong>The Problem:</strong> We initially tried to use the Hub Firewall's DNS proxy feature to resolve
+                <code>privatelink.openai.azure.com</code>. It worked for the Hub VNet but failed spectacularly for the
+                Spoke
+                VNets and on-premises VPN users.
+            </p>
+            <p><strong>The Fix:</strong> Deploy a dedicated <strong>Azure Private DNS Resolver</strong> in the Hub with
+                inbound and outbound endpoints. Configure conditional forwarding rules for all
+                <code>privatelink.*</code>
+                zones. This added £50/month but saved our sanity.
+            </p>
+            <p><strong>Time Saved:</strong> If you do this from day one, you'll avoid the 3-day DNS debugging marathon
+                we
+                endured.</p>
+
+            <h3>2. Redis Cache Warm-Up (Cold Start Pain)</h3>
+            <p><strong>The Problem:</strong> On day one, Redis was empty. Every single AI request was a cache miss,
+                which
+                meant zero performance benefit and confused stakeholders asking "Where's the 98% latency reduction?"</p>
+            <p><strong>The Fix:</strong> We pre-populated the cache with the top 100 most common queries from our test
+                environment. We also adjusted expectations: cache hit rates start at 0% and climb to 70-80% over 2-3
+                weeks
+                as the cache learns usage patterns.</p>
+            <p><strong>Lesson:</strong> Set realistic expectations. Redis is an investment that pays dividends over
+                time,
+                not instantly.</p>
+
+            <h3>3. The "4-Subscription Tax" (Operational Overhead)</h3>
+            <p><strong>The Problem:</strong> Managing 4 separate Azure subscriptions (Shared Hub, Prod, Non-Prod, DR)
+                created unexpected operational friction. Each subscription needed its own RBAC assignments, budgets, and
+                policy exemptions.</p>
+            <p><strong>The Fix:</strong> We created a <strong>Management Group hierarchy</strong> to apply policies at
+                scale
+                and used <strong>Azure Lighthouse</strong> for centralized monitoring across all subscriptions. We also
+                standardized naming conventions religiously.</p>
+            <p><strong>Lesson:</strong> The 4-subscription model is powerful for isolation, but you MUST invest in
+                governance automation (Terraform, Azure Policy, Management Groups) or you'll drown in manual work.</p>
+
+            <h2 id="reality-check"><span class="gradient-text">The Engineering Reality Check (No Paper Architects
+                    Allowed)</span></h2>
+            <p>Diagrams are easy. Production is hard. Here are the three "ugly truths" about this architecture that you
+                need
+                to know before you build it:</p>
+            <ul style="margin-top: 0.5rem; margin-bottom: 2rem; list-style-type: disc; padding-left: 1.5rem;">
+                <li><strong>The DNS Headache:</strong> Getting <code>privatelink.openai.azure.com</code> to resolve
+                    correctly from the Hub Firewall, the Spoke AKS, and the On-Prem VPN simultaneously is the hardest
+                    part
+                    of this setup. We used a central <strong>Azure Private DNS Resolver</strong> in the Hub to forward
+                    conditional queries. Do not skip this plan.</li>
+                <li><strong>The "Premium" Tax:</strong> This is not a cheap architecture. Azure Front Door
+                    <i>Premium</i>
+                    and Azure Firewall <i>Premium</i> are required for the IDPS and WAF capabilities. The infrastructure
+                    baseline
+                    (excluding PTU) costs approximately £1,500-2,000/month (~$1,900-2,500 USD). With 50 PTU allocated,
+                    total
+                    monthly
+                    costs range from £17,000-20,000 (~$21,000-25,000 USD). Security and guaranteed capacity are
+                    investments,
+                    not features.
+                </li>
+                <li><strong>Physics is Real (Latency):</strong> The <a href="#network-flow">Network Flow</a> (Front Door
+                    ->
+                    Hub Firewall -> Spoke Gateway -> APIM -> AI) induces an estimated 15-20ms of network latency due to
+                    the
+                    multi-hop security architecture. This is exactly why the <strong>Redis Cache</strong> sidecar is
+                    non-negotiable—it saves round-trips for repeated
+                    queries.</li>
+            </ul>
+
+
+
+            <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 3rem 0;">
+
+            <!-- GitHub CTA Box - Before Deployment -->
+            <div style="background: rgba(59, 130, 246, 0.1); 
+                    border: 2px solid rgba(59, 130, 246, 0.3); 
+                    border-radius: 12px; 
+                    padding: 2rem; 
+                    margin: 2.5rem 0; 
+                    text-align: center;">
+                <h4 style="margin: 0 0 1rem 0; color: #3B82F6;">
+                    <i class="fas fa-code"></i> Skip the Manual Steps
+                </h4>
+                <p style="margin: 0 0 1.5rem 0;">
+                    Instead of clicking through the Azure Portal, deploy the entire infrastructure with Terraform in ~45
+                    minutes.
+                </p>
+                <a href="https://github.com/appliedailearner/uklifelabsaisolution" target="_blank"
+                    style="display: inline-block; padding: 1rem 2rem; background: #3B82F6; color: white; text-decoration: none; border-radius: 8px; font-weight: bold;">
+                    <i class="fab fa-github"></i> View Terraform Code
                 </a>
             </div>
 
-            <h1
-                style="font-family: 'Outfit', sans-serif; font-size: 3rem; line-height: 1.2; margin-bottom: 1.5rem; background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
-                Regulator-Ready AI: The 4-Subscription AI Fortress
-            </h1>
+            <h3 id="deployment">Deployment Runbook: Start Here</h3>
+            <p>Don't just read about it. Deploy it.</p>
+            <div
+                style="background: rgba(17, 24, 39, 0.8); padding: 1.5rem; border-radius: 0.5rem; border: 1px solid rgba(75, 85, 99, 0.4); font-family: monospace; margin-bottom: 2rem;">
+                <p style="margin-bottom: 0.5rem; color: #10b981;"># 1. Clone the Regulator-Ready Repo</p>
+                <p style="margin-bottom: 1rem; color: #d1d5db;">git clone
+                    https://github.com/appliedailearner/uklifelabsaisolution.git</p>
 
-            <div class="blog-post-meta">
-                <div><i class="fas fa-user"></i> Upendra Kumar</div>
-                <div><i class="fas fa-calendar"></i> January 28, 2026</div>
-                <div><i class="fas fa-clock"></i> 10 min read</div>
+                <p style="margin-bottom: 0.5rem; color: #10b981;"># 2. Login to Azure</p>
+                <p style="margin-bottom: 1rem; color: #d1d5db;">az login</p>
+
+                <p style="margin-bottom: 0.5rem; color: #10b981;"># 3. Apply the Terraform Blueprints</p>
+                <p style="margin-bottom: 0; color: #d1d5db;">cd infra && terraform init && terraform apply</p>
             </div>
 
-            <div class="blog-post-tags">
-                <span class="blog-tag"><i class="fas fa-tag"></i> Azure AI</span>
-                <span class="blog-tag"><i class="fas fa-tag"></i> Cybersecurity</span>
-                <span class="blog-tag"><i class="fas fa-tag"></i> Terraform</span>
-            </div>
-        </div>
-    </section>
-
-    <article class="blog-post-content">
-        <p class="lead" style="font-size: 1.3rem; color: var(--primary-color); font-weight: 600;">
-            The regulator didn't care about the demo. They cared about the data residency.
-        </p>
-
-        <p>In the "Demo-Ware" world, AI is easy. You grab an API key, throw some JSON at a public endpoint, and
-            celebrate. But when a multi-billion pound life sciences regulator walks into the room, "easy" is a
-            liability.</p>
-
-        <p>Mr. Compliance sat across from me. "Your AI looks great, Upendra," he said, tapping a pen against his tablet.
-            "But can you guarantee that not one byte of our patient data ever touches a foreign server? And can you
-            prove that even if your web server is breached, the attacker can't sniff our model traffic?"</p>
-
-        <p>I didn't give him a slide deck. I gave him a 4-subscription Terraform plan.</p>
-
-        <p><em style="color: var(--primary-color); font-size: 1.05rem;">This architecture was deployed for a
-                10,000-person UK life sciences company, processing over 50 million AI requests per month while
-                maintaining full MCSB v2 compliance and zero security incidents.</em></p>
-
-        <!-- Table of Contents -->
-        <div class="toc">
-            <h3><i class="fas fa-list"></i> Quick Navigation</h3>
-            <ul>
-                <li><a href="#ptu-pattern">PTU Pattern</a></li>
-                <li><a href="#private-endpoint">Private Endpoints</a></li>
-                <li><a href="#dual-gateway">Dual-Gateway Defense</a></li>
-                <li><a href="#policy-guardrails">Policy Guardrails</a></li>
-                <li><a href="#results">Results After 6 Months</a></li>
-                <li><a href="#design-decisions">Design Decisions</a></li>
-                <li><a href="#lessons-learned">Lessons Learned</a></li>
-                <li><a href="#deployment">Deployment Guide</a></li>
+            <h3>The Junior Engineer's Glossary</h3>
+            <p>Too many acronyms? Here is your cheat sheet:</p>
+            <ul style="display: block; grid-template-columns: 1fr 1fr; gap: 1rem; list-style: none; padding: 0;">
+                <li style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 0.5rem;">
+                    <strong>AGIC:</strong>
+                    <br><span style="font-size: 0.9em; opacity: 0.8;">Application Gateway Ingress Controller. It lets
+                        Kubernetes talk directly to the Azure Load Balancer.</span>
+                </li>
+                <li style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 0.5rem;">
+                    <strong>PTU:</strong>
+                    <br><span style="font-size: 0.9em; opacity: 0.8;">Provisioned Throughput Units. Buying "reserved
+                        seating" for AI capacity so you never get throttled.</span>
+                </li>
+                <li style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 0.5rem;"><strong>Private
+                        Link:</strong> <br><span style="font-size: 0.9em; opacity: 0.8;">A secret tunnel that connects
+                        Azure
+                        services (like SQL) to your VNet so traffic never hits the public internet.</span></li>
+                <li style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 0.5rem;"><strong>Semantic
+                        Caching:</strong> <br><span style="font-size: 0.9em; opacity: 0.8;">Storing the "meaning" of a
+                        question. If someone asks "Who is CEO?", we answer from Cache instead of paying OpenAI
+                        again.</span>
+                </li>
             </ul>
-        </div>
 
-        <h2 id="ptu-pattern"><span class="gradient-text">The "Private Jet" Pattern (PTU)</span></h2>
-        <p>Most organizations use Pay-As-You-Go AI. It's like flying commercial—you're at the mercy of the airline's
-            schedule and seat availability. For a regulator, that's not good enough. You need **PTU (Provisioned
-            Throughput Units)**.</p>
+            <div style="margin-top: 4rem;"></div>
 
-        <p>PTU is your AI's private jet. It's pre-allocated capacity that stays in one hangar (UK South). You pay for
-            the plane whether it’s in the air or on the ground, but you’re guaranteed a flight. No noisy neighbors. No
-            capacity-exhaustion errors during peak hours.</p>
-
-        <h3>The "30/10/10" Capacity Split</h3>
-        <p>But private jets are expensive. To make the CFO smile, we sliced the PTU across three separate deployments.
-            We allocated <strong>30 PTU to Production</strong>, <strong>10 PTU to Test</strong>, and <strong>10 PTU to
-                Dev</strong>
-            on the same OpenAI account. This isolation allows our data scientists to run heavy batch tests during the
-            day without ever
-            impacting the live clinical trials. It's the only way to get "Five Nines" reliability without paying "Five
-            Nines" prices.
-        </p>
-
-        <div class="diagram-container">
-            <img src="../assets/img/uklifelabs_solution_overview_corporate.png" alt="High-Level Solution Overview"
-                loading="lazy">
-            <p class="diagram-caption">Figure 1: The Executive Summary - Global Traffic to Secure Spoke.</p>
-        </div>
-
-        <div class="diagram-container">
-            <img src="../assets/img/uklifelabs_network_flow_corporate.png" alt="Network Flow Diagram" loading="lazy">
-            <p class="diagram-caption">Figure 1.1: The Network Blueprint - Connectivity & Isolation.</p>
-        </div>
-
-        <h2 id="private-endpoint"><span class="gradient-text">Killing the Public Endpoint</span></h2>
-        <p>A "Regulator-Ready" platform has zero public internet ingress to the backend. We achieved this by using
-            **Azure Front Door Premium** with **Private Link Service (PLS)**.</p>
-
-        <p>Traffic hits the global edge, goes through a heavy-duty WAF, and then—instead of jumping onto the public
-            internet to find the regional gateway—it slips through an **Invisible Underground Tunnel** directly into the
-            private VNet. The outside world sees nothing.</p>
-
-        <div class="diagram-container">
-            <img src="../assets/img/uklifelabs_service_journey_corporate.png" alt="Service Journey Map" loading="lazy">
-            <p class="diagram-caption">Figure 2: The 6-Step Service Journey.</p>
-        </div>
-
-        <h2 id="dual-gateway"><span class="gradient-text">The "Dual-Gateway" Defense</span></h2>
-        <p>A regulator asks: "Who watches the watcher?" We answered with two distinct API Management gateways.</p>
-
-        <h3>Gateway 1: The Bouncer (External)</h3>
-        <p>Sitting behind Front Door, this gateway handles the messy business of the outside world: mTLS authentication,
-            subscription key validation, and basic rate limiting. It stops the DDoS attacks before they even smell the
-            VNet.</p>
-
-        <h3>Gateway 2: The Brain Surgeon (Internal AI Gateway)</h3>
-        <p>This is where the magic happens. Sitting deep inside the private VNet, this second APIM instance talks
-            <i>only</i> to the AI models. It handles the "Smart" logic:
-        <ul style="margin-top: 0.5rem; margin-bottom: 1.5rem; list-style-type: disc; padding-left: 1.5rem;">
-            <li><strong>Semantic Caching:</strong> Why ask GPT-4 the same question twice? Azure Redis Cache stores
-                responses.</li>
-            <li><strong>PII Masking:</strong> Stripping patient names before the prompt leaves the zone.</li>
-            <li><strong>Token Throttling:</strong> ensuring no single research team eats the whole PTU pie.</li>
-        </ul>
-        </p>
-
-        <p>APIM acts as the **VIP Concierge** for the AI model. It doesn't care about the user; it cares about the
-            tokens. It provides a single "Glass Wall" for auditing every model request, enforcing tiered throttling, and
-            ensuring that no pod overstays its welcome in the PTU first-class cabin.</p>
-
-        <div class="alert-box"
-            style="background-color: rgba(59, 130, 246, 0.1); border-left: 4px solid var(--primary-color); padding: 1rem; margin: 1.5rem 0; border-radius: 0.5rem;">
-            <p style="margin: 0; font-size: 0.95rem;"><strong>Why can't the External APIM call OpenAI
-                    directly?</strong><br>
-                If the External Gateway skipped the Internal Gateway, we would lose our "Brain." We would bypass the
-                <strong>Semantic Cache (Redis)</strong>, the central PII masking rules, and the global token throttling.
-                The Internal APIM is designed to be the <i>only</i> component with network access to the OpenAI Private
-                Endpoint, forcing all traffic to pass through our AI safety checks.
-            </p>
-        </div>
-
-        <div class="diagram-container">
-            <img src="../assets/img/uklifelabs_security_flow_corporate.png" alt="Security Defense Flow" loading="lazy">
-            <p class="diagram-caption">Figure 2.1: The Security Defense in Depth.</p>
-        </div>
-
-        <h2 id="policy-guardrails"><span class="gradient-text">The Policy Guardrails (MCSB v2, NIST, PCI-DSS)</span>
-        </h2>
-        <p>A "fortress" isn't just walls; it's the rules of engagement. We used <strong>Azure Policy</strong> to enforce
-            the compliance standards automatically:</p>
-        <ul style="margin-top: 0.5rem; margin-bottom: 1.5rem; list-style-type: disc; padding-left: 1.5rem;">
-            <li><strong>Microsoft Cloud Security Benchmark v2 (MCSB v2):</strong> The foundational security baseline for
-                Azure,
-                covering 420+ controls across Network Security, Identity, Data Protection, and the new <i>AI Security
-                    (AS)</i> domain.
-                We assigned the MCSB v2 Azure Policy initiative to all subscriptions for continuous compliance
-                monitoring. This ensures
-                our AI platform meets Microsoft's recommended security posture.</li>
-            <li><strong>NIST 800-53:</strong> Enforced <i>"Deny Public IP"</i> on all network interfaces and required
-                TLS 1.2+ on all endpoints.</li>
-            <li><strong>PCI-DSS:</strong> (For payment-adjacent flows) Enforced strict Role-Based Access Control (RBAC)
-                and encryption at rest for all Storage Accounts and SQL Databases.</li>
-        </ul>
-
-        <div class="alert-box"
-            style="background-color: rgba(59, 130, 246, 0.1); border-left: 4px solid var(--primary-color); padding: 1rem; margin: 1.5rem 0; border-radius: 0.5rem;">
-            <p style="margin: 0; font-size: 0.95rem;"><strong>Why MCSB v2 for AI Workloads?</strong><br>
-                Microsoft Cloud Security Benchmark v2 is the evolution of Azure Security Benchmark, adding specific
-                guidance
-                for AI workloads. The <strong>AS (AI Security)</strong> domain includes controls for securing AI
-                platforms
-                (AS-1: Private OpenAI), monitoring AI applications (AS-2: APIM logging), and protecting training data
-                (AS-3: encrypted storage).
-                This makes MCSB v2 the most comprehensive framework for regulator-ready AI architectures on Azure.
-            </p>
-        </div>
-
-        <!-- Results After 6 Months -->
-        <h2 id="results"><span class="gradient-text">Results After 6 Months</span></h2>
-        <div class="results-box">
-            <p style="font-size: 1.1rem; margin-bottom: 1rem;">Since deploying this architecture in production, we've
-                achieved measurable success across security, performance, and cost efficiency:</p>
-            <div class="results-grid">
-                <div class="result-item">
-                    <div class="result-number">50M+</div>
-                    <div class="result-label">AI Requests/Month</div>
-                </div>
-                <div class="result-item">
-                    <div class="result-number">99.97%</div>
-                    <div class="result-label">Uptime (vs. 95% PAYG)</div>
-                </div>
-                <div class="result-item">
-                    <div class="result-number">0</div>
-                    <div class="result-label">Security Incidents</div>
-                </div>
-                <div class="result-item">
-                    <div class="result-number">72%</div>
-                    <div class="result-label">Redis Cache Hit Rate</div>
-                </div>
-                <div class="result-item">
-                    <div class="result-number">£4,200</div>
-                    <div class="result-label">Monthly PTU Savings</div>
-                </div>
-                <div class="result-item">
-                    <div class="result-number">3/3</div>
-                    <div class="result-label">Regulatory Audits Passed</div>
-                </div>
+            <h3>Operationalize Your AI Journey</h3>
+            <p>I help organizations turn stalled cloud initiatives into high-performance execution engines.</p>
+            <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+                <a href="../pages/contact.html" class="btn btn-primary">Contact Me</a>
+                <a href="https://github.com/appliedailearner/uklifelabsaisolution" target="_blank"
+                    class="btn btn-outline">View the Repository</a>
             </div>
-            <p style="margin-top: 1.5rem; font-style: italic; color: var(--text-muted);">"The 4-subscription model gave
-                our CISO the confidence to approve AI in production. The audit trail alone saved us 200 hours during our
-                ISO 27001 certification." — <strong>Head of IT Security</strong></p>
-        </div>
 
-        <h2><span class="gradient-text">Hybrid Identity & Access</span></h2>
-        <p>Identity is the new perimeter. We didn't create new bespoke credentials for this fortress. We extended the
-            corporate trust:</p>
-        <ul style="margin-top: 0.5rem; margin-bottom: 1.5rem; list-style-type: disc; padding-left: 1.5rem;">
-            <li><strong>The Flow:</strong> Users authenticate via their existing **Windows AD** credentials on-premises.
-            </li>
-            <li><strong>The Sync:</strong> **Entra Connect** synchronizes these identities to **Entra ID** (Azure AD) in
-                the cloud.</li>
-            <li><strong>The Gatekeeper:</strong> **Conditional Access** policies check the user's device health (Intune)
-                and risk level before granting a token to access the Internal APIM.</li>
-        </ul <h2><span class="gradient-text">What Happens When UK South Goes Down?</span></h2>
-        environment—we don't pay for the compute while it's sitting idle, but the VNet, the security rules, and the
-        SQL Geo-Replication are already there, waiting for the signal.
-        </p>
+            <!-- GitHub CTA Box - Footer -->
+            <div style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(59, 130, 246, 0.15)); 
+                    border: 2px solid rgba(168, 85, 247, 0.4); 
+                    border-radius: 16px; 
+                    padding: 3rem 2rem; 
+                    margin: 4rem 0; 
+                    text-align: center;">
+                <h3 style="margin: 0 0 1rem 0; font-size: 1.8rem;">
+                    <i class="fab fa-github"></i> Build Your AI Fortress
+                </h3>
+                <p
+                    style="margin: 0 0 2rem 0; font-size: 1.1rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    Get the complete Terraform infrastructure, compliance matrix, deployment guides, and architecture
+                    diagrams.
+                </p>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-bottom: 2rem;">
+                    <a href="https://github.com/appliedailearner/uklifelabsaisolution" target="_blank"
+                        style="display: inline-block; padding: 1.25rem 2.5rem; background: #A855F7; color: white; text-decoration: none; border-radius: 8px; font-size: 1.15rem; font-weight: bold;">
+                        <i class="fab fa-github"></i> View on GitHub
+                    </a>
+                    <a href="https://github.com/appliedailearner/uklifelabsaisolution/fork" target="_blank"
+                        style="display: inline-block; padding: 1.25rem 2.5rem; background: transparent; color: #A855F7; text-decoration: none; border-radius: 8px; border: 2px solid #A855F7; font-size: 1.15rem; font-weight: bold;">
+                        <i class="fas fa-code-branch"></i> Fork Repository
+                    </a>
+                </div>
+                <p style="margin: 0; font-size: 0.95rem; color: #94A3B8;">
+                    ⭐ <strong>Join 100+ engineers</strong> who have starred this repo
+                </p>
+            </div>
 
-        <p><strong>Note on ACR (Azure Container Registry):</strong> The diagram shows ACR Geo-Replication. This ensures
-            our Docker images are automatically synced to the UK West registry. If UK South fails, the standby AKS
-            cluster pulls images locally from UK West, avoiding any cross-region dependency during a crisis.</p>
-
-        <div class="diagram-container">
-            <img src="../assets/img/uklifelabs_dr_failover_journey_v5_corporate.png"
-                alt="DR Failover Journey (Executive View)" loading="lazy">
-            <p class="diagram-caption">Figure 3: Automatic Global Failover in Action (PaaS Architecture).</p>
-        </div>
-
-        <h2 id="design-decisions"><span class="gradient-text">Architectural Design Decisions</span></h2>
-        <p>Every component in this architecture fought for its place. Here is why we chose them:</p>
-
-        <h3>1. Why App Gateway in Prod/Non-Prod?</h3>
-        <p><strong>Verdict: Essential.</strong> It acts as the <strong>Ingress Controller (AGIC)</strong> for the AKS
-            clusters. While Front Door handles global traffic, it cannot route to specific Kubernetes pods inside a
-            private VNet. App Gateway bridges that gap securely.</p>
-
-        <h3>2. Why No App Gateway in the Hub?</h3>
-        <p><strong>Verdict: Redundant.</strong> The Hub already hosts the <strong>External APIM</strong> which sits
-            behind <strong>Azure Front Door Premium</strong>. Front Door provides the WAF and global caching. Adding
-            another App Gateway in the Hub would just add latency and cost without adding value.</p>
-
-        <h3>3. Why Redis Cache?</h3>
-        <p><strong>Verdict: Critical.</strong> We attached Azure Redis Cache Premium to the Internal APIM for
-            <strong>Semantic
-                Caching</strong>. If two researchers ask the same question, the AI model isn't even touched—Redis
-            answers instantly from the cache. This saves massive amounts of PTU capacity and reduces latency from
-            seconds to milliseconds.
-        </p>
-        <p>Redis uses an <strong>LRU (Least Recently Used)</strong> eviction policy, automatically removing old
-            responses when memory is full. Each response is stored with a hash of the prompt as the cache key, with a
-            TTL of 1 hour. This means identical questions get instant answers, while the cache stays fresh.</p>
-
-        <h3>4. Why GRS Storage?</h3>
-        <p><strong>Verdict: Compliance.</strong> We use Geo-Redundant Storage (GRS) to ensure that if UK South
-            disappears, the audit logs and model artifacts exist in UK West. It underpins our <strong>"Passive Cold" DR
-                strategy</strong>.</p>
-
-        <h3>5. What about Key Vault?</h3>
-        <p><strong>Verdict: Mandatory.</strong> A fortress needs secure key storage. We use Azure Key Vault to manage
-            the TLS certificates for the Application Gateway and APIM custom domains, as well as storing the API keys
-            for any legacy subsystems that haven't migrated to Managed Identity yet.</p>
-
-        <!-- Lessons Learned -->
-        <h2 id="lessons-learned"><span class="gradient-text">Lessons Learned: What We'd Do Differently</span></h2>
-        <p>No architecture survives first contact with production unchanged. Here are the hard-earned lessons that will
-            save you weeks of troubleshooting:</p>
-
-        <h3>1. The DNS Resolver Nightmare (3 Days Lost)</h3>
-        <p><strong>The Problem:</strong> We initially tried to use the Hub Firewall's DNS proxy feature to resolve
-            <code>privatelink.openai.azure.com</code>. It worked for the Hub VNet but failed spectacularly for the Spoke
-            VNets and on-premises VPN users.
-        </p>
-        <p><strong>The Fix:</strong> Deploy a dedicated <strong>Azure Private DNS Resolver</strong> in the Hub with
-            inbound and outbound endpoints. Configure conditional forwarding rules for all <code>privatelink.*</code>
-            zones. This added £50/month but saved our sanity.</p>
-        <p><strong>Time Saved:</strong> If you do this from day one, you'll avoid the 3-day DNS debugging marathon we
-            endured.</p>
-
-        <h3>2. Redis Cache Warm-Up (Cold Start Pain)</h3>
-        <p><strong>The Problem:</strong> On day one, Redis was empty. Every single AI request was a cache miss, which
-            meant zero performance benefit and confused stakeholders asking "Where's the 98% latency reduction?"</p>
-        <p><strong>The Fix:</strong> We pre-populated the cache with the top 100 most common queries from our test
-            environment. We also adjusted expectations: cache hit rates start at 0% and climb to 70-80% over 2-3 weeks
-            as the cache learns usage patterns.</p>
-        <p><strong>Lesson:</strong> Set realistic expectations. Redis is an investment that pays dividends over time,
-            not instantly.</p>
-
-        <h3>3. The "4-Subscription Tax" (Operational Overhead)</h3>
-        <p><strong>The Problem:</strong> Managing 4 separate Azure subscriptions (Shared Hub, Prod, Non-Prod, DR)
-            created unexpected operational friction. Each subscription needed its own RBAC assignments, budgets, and
-            policy exemptions.</p>
-        <p><strong>The Fix:</strong> We created a <strong>Management Group hierarchy</strong> to apply policies at scale
-            and used <strong>Azure Lighthouse</strong> for centralized monitoring across all subscriptions. We also
-            standardized naming conventions religiously.</p>
-        <p><strong>Lesson:</strong> The 4-subscription model is powerful for isolation, but you MUST invest in
-            governance automation (Terraform, Azure Policy, Management Groups) or you'll drown in manual work.</p>
-
-        <h2 id="reality-check"><span class="gradient-text">The Engineering Reality Check (No Paper Architects
-                Allowed)</span></h2>
-        <p>Diagrams are easy. Production is hard. Here are the three "ugly truths" about this architecture that you need
-            to know before you build it:</p>
-        <ul style="margin-top: 0.5rem; margin-bottom: 2rem; list-style-type: disc; padding-left: 1.5rem;">
-            <li><strong>The DNS Headache:</strong> Getting <code>privatelink.openai.azure.com</code> to resolve
-                correctly from the Hub Firewall, the Spoke AKS, and the On-Prem VPN simultaneously is the hardest part
-                of this setup. We used a central <strong>Azure Private DNS Resolver</strong> in the Hub to forward
-                conditional queries. Do not skip this plan.</li>
-            <li><strong>The "Premium" Tax:</strong> This is not a cheap architecture. Azure Front Door <i>Premium</i>
-                and Azure Firewall <i>Premium</i> are required for the IDPS and WAF capabilities. The infrastructure
-                baseline
-                (excluding PTU) costs approximately £1,500-2,000/month (~$1,900-2,500 USD). With 50 PTU allocated, total
-                monthly
-                costs range from £17,000-20,000 (~$21,000-25,000 USD). Security and guaranteed capacity are investments,
-                not features.
-            </li>
-            <li><strong>Physics is Real (Latency):</strong> The <a href="#network-flow">Network Flow</a> (Front Door ->
-                Hub Firewall -> Spoke Gateway -> APIM -> AI) induces an estimated 15-20ms of network latency due to the
-                multi-hop security architecture. This is exactly why the <strong>Redis Cache</strong> sidecar is
-                non-negotiable—it saves round-trips for repeated
-                queries.</li>
-        </ul>
-
-
-
-        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 3rem 0;">
-
-        <h3 id="deployment">Deployment Runbook: Start Here</h3>
-        <p>Don't just read about it. Deploy it.</p>
-        <div
-            style="background: rgba(17, 24, 39, 0.8); padding: 1.5rem; border-radius: 0.5rem; border: 1px solid rgba(75, 85, 99, 0.4); font-family: monospace; margin-bottom: 2rem;">
-            <p style="margin-bottom: 0.5rem; color: #10b981;"># 1. Clone the Regulator-Ready Repo</p>
-            <p style="margin-bottom: 1rem; color: #d1d5db;">git clone
-                https://github.com/appliedailearner/uklifelabsaisolution.git</p>
-
-            <p style="margin-bottom: 0.5rem; color: #10b981;"># 2. Login to Azure</p>
-            <p style="margin-bottom: 1rem; color: #d1d5db;">az login</p>
-
-            <p style="margin-bottom: 0.5rem; color: #10b981;"># 3. Apply the Terraform Blueprints</p>
-            <p style="margin-bottom: 0; color: #d1d5db;">cd infra && terraform init && terraform apply</p>
-        </div>
-
-        <h3>The Junior Engineer's Glossary</h3>
-        <p>Too many acronyms? Here is your cheat sheet:</p>
-        <ul style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; list-style: none; padding: 0;">
-            <li style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 0.5rem;"><strong>AGIC:</strong>
-                <br><span style="font-size: 0.9em; opacity: 0.8;">Application Gateway Ingress Controller. It lets
-                    Kubernetes talk directly to the Azure Load Balancer.</span>
-            </li>
-            <li style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 0.5rem;"><strong>PTU:</strong>
-                <br><span style="font-size: 0.9em; opacity: 0.8;">Provisioned Throughput Units. Buying "reserved
-                    seating" for AI capacity so you never get throttled.</span>
-            </li>
-            <li style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 0.5rem;"><strong>Private
-                    Link:</strong> <br><span style="font-size: 0.9em; opacity: 0.8;">A secret tunnel that connects Azure
-                    services (like SQL) to your VNet so traffic never hits the public internet.</span></li>
-            <li style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 0.5rem;"><strong>Semantic
-                    Caching:</strong> <br><span style="font-size: 0.9em; opacity: 0.8;">Storing the "meaning" of a
-                    question. If someone asks "Who is CEO?", we answer from Cache instead of paying OpenAI again.</span>
-            </li>
-        </ul>
-
-        <div style="margin-top: 4rem;"></div>
-
-        <h3>Operationalize Your AI Journey</h3>
-        <p>I help organizations turn stalled cloud initiatives into high-performance execution engines.</p>
-        <div style="margin-top: 2rem; display: flex; gap: 1rem;">
-            <a href="../pages/contact.html" class="btn btn-primary">Contact Me</a>
-            <a href="https://github.com/appliedailearner/uklifelabsaisolution" target="_blank"
-                class="btn btn-outline">View the Repository</a>
-        </div>
-
-        <div style="text-align: center; margin: 4rem 0;">
-            <a href="../blog.html" class="btn btn-primary" style="padding: 1rem 2rem;">
-                <i class="fas fa-arrow-left"></i> Back to Insights
-            </a>
-        </div>
-    </article>
+            <div style="text-align: center; margin: 4rem 0;">
+                <a href="../blog.html" class="btn btn-primary" style="padding: 1rem 2rem;">
+                    <i class="fas fa-arrow-left"></i> Back to Insights
+                </a>
+            </div>
+        </article>
+    </div> <!-- End Grid -->
 
     <footer class="footer">
         <div class="container">
