@@ -242,7 +242,7 @@
         <p>This is where the magic happens. Sitting deep inside the private VNet, this second APIM instance talks
             <i>only</i> to the AI models. It handles the "Smart" logic:
         <ul style="margin-top: 0.5rem; margin-bottom: 1.5rem; list-style-type: disc; padding-left: 1.5rem;">
-            <li><strong>Semantic Caching:</strong> Why ask GPT-4 the same question twice?</li>
+            <li><strong>Request Validation:</strong> Ensuring prompts meet safety and compliance standards.</li>
             <li><strong>PII Masking:</strong> Stripping patient names before the prompt leaves the zone.</li>
             <li><strong>Token Throttling:</strong> ensuring no single research team eats the whole PTU pie.</li>
         </ul>
@@ -257,7 +257,7 @@
             <p style="margin: 0; font-size: 0.95rem;"><strong>Why can't the External APIM call OpenAI
                     directly?</strong><br>
                 If the External Gateway skipped the Internal Gateway, we would lose our "Brain." We would bypass the
-                <strong>Semantic Cache (Redis)</strong>, the central PII masking rules, and the global token throttling.
+                central PII masking rules, request validation policies, and the global token throttling.
                 The Internal APIM is designed to be the <i>only</i> component with network access to the OpenAI Private
                 Endpoint, forcing all traffic to pass through our AI safety checks.
             </p>
@@ -318,10 +318,12 @@
             behind <strong>Azure Front Door Premium</strong>. Front Door provides the WAF and global caching. Adding
             another App Gateway in the Hub would just add latency and cost without adding value.</p>
 
-        <h3>3. Why Redis Cache?</h3>
-        <p><strong>Verdict: Critical.</strong> We attached Azure Redis Cache to the Internal APIM for <strong>Semantic
-                Caching</strong>. If two researchers ask the same question, the AI model isn't even touched—Redis
-            answers instantly. This saves massive amounts of PTU capacity and reduces latency.</p>
+        <h3>3. Why Application-Level Caching?</h3>
+        <p><strong>Verdict: Recommended.</strong> For production optimization, implementing response caching at the
+            application
+            layer can significantly reduce PTU consumption. If two researchers ask similar questions, cached responses
+            can be served instantly, saving both capacity and latency. This is a planned enhancement for future phases.
+        </p>
 
         <h3>4. Why GRS Storage?</h3>
         <p><strong>Verdict: Compliance.</strong> We use Geo-Redundant Storage (GRS) to ensure that if UK South
@@ -342,14 +344,31 @@
                 of this setup. We used a central <strong>Azure Private DNS Resolver</strong> in the Hub to forward
                 conditional queries. Do not skip this plan.</li>
             <li><strong>The "Premium" Tax:</strong> This is not a cheap architecture. Azure Front Door <i>Premium</i>
-                and Azure Firewall <i>Premium</i> are required for the IDPS and WAF capabilities. Expect a baseline cost
-                of ~$3,000/month before you even process a single AI token. Security is an investment, not a feature.
+                and Azure Firewall <i>Premium</i> are required for the IDPS and WAF capabilities. The infrastructure
+                baseline
+                (excluding PTU) costs approximately £1,500-2,000/month (~$1,900-2,500 USD). With 50 PTU allocated, total
+                monthly
+                costs range from £17,000-20,000 (~$21,000-25,000 USD). Security and guaranteed capacity are investments,
+                not features.
             </li>
             <li><strong>Physics is Real (Latency):</strong> The <a href="#network-flow">Network Flow</a> (Front Door ->
-                Hub Firewall -> Spoke Gateway -> Spoke APIM -> AI) induces about 15-20ms of network latency. This is
-                exactly why the <strong>Redic Cache</strong> sidecar is non-negotiable—it saves round-trips for repeated
-                queries.</li>
+                Hub Firewall -> Spoke Gateway -> APIM -> AI) induces an estimated 15-20ms of network latency due to the
+                multi-hop security architecture. This is the trade-off for defense-in-depth, and why response
+                optimization
+                strategies are critical for user experience.</li>
         </ul>
+
+        <div class="alert-box"
+            style="background-color: rgba(251, 191, 36, 0.1); border-left: 4px solid #fbbf24; padding: 1rem; margin: 1.5rem 0; border-radius: 0.5rem;">
+            <p style="margin: 0; font-size: 0.9rem;"><strong>⚠️ Implementation Note:</strong><br>
+                This blog post describes our production-ready architectural design. Some advanced optimization features
+                (such as semantic caching and dual APIM instances) represent recommended enhancements that may be
+                implemented
+                in phases based on operational requirements. The core security architecture (Private Link, Firewall,
+                AGIC)
+                is fully deployed and operational.
+            </p>
+        </div>
 
         <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 3rem 0;">
 
@@ -373,10 +392,12 @@
         <ul style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; list-style: none; padding: 0;">
             <li style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 0.5rem;"><strong>AGIC:</strong>
                 <br><span style="font-size: 0.9em; opacity: 0.8;">Application Gateway Ingress Controller. It lets
-                    Kubernetes talk directly to the Azure Load Balancer.</span></li>
+                    Kubernetes talk directly to the Azure Load Balancer.</span>
+            </li>
             <li style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 0.5rem;"><strong>PTU:</strong>
                 <br><span style="font-size: 0.9em; opacity: 0.8;">Provisioned Throughput Units. Buying "reserved
-                    seating" for AI capacity so you never get throttled.</span></li>
+                    seating" for AI capacity so you never get throttled.</span>
+            </li>
             <li style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 0.5rem;"><strong>Private
                     Link:</strong> <br><span style="font-size: 0.9em; opacity: 0.8;">A secret tunnel that connects Azure
                     services (like SQL) to your VNet so traffic never hits the public internet.</span></li>
