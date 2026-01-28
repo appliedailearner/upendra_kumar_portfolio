@@ -198,11 +198,13 @@
             the plane whether it’s in the air or on the ground, but you’re guaranteed a flight. No noisy neighbors. No
             capacity-exhaustion errors during peak hours.</p>
 
-        <h3>The "30/10/10" Capacity Split</h3>
-        <p>But private jets are expensive. To make the CFO smile, we sliced the PTU. We allocated <strong>30 PTU to
-                Production</strong>, <strong>10 PTU to Test</strong>, and <strong>10 PTU to Dev</strong> on the same
-            OpenAI resource. This allows our data scientists to run heavy batch tests during the day without ever
-            impacting the live clinical trials. It's the only way to get "Five Nines" reliability without paying "Five
+        <h3>The PTU Allocation Strategy</h3>
+        <p>We allocated <strong>50 PTU total</strong> across the platform, distributed across separate OpenAI
+            deployments
+            for Production, Test, and Development environments. This isolation allows our data scientists to run heavy
+            batch tests
+            without impacting live clinical trials. It's the only way to get "Five Nines" reliability without paying
+            "Five
             Nines" prices.
         </p>
 
