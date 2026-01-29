@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Synthesizing the AI Architecture Audit framework with Azure-native security controls. Learn how to bridge the gap between compliance theory and architectural reality.">
+    <title>Architectural Integrity: The AI Audit Framework on Azure | Upendra Kumar</title>
+
+    <link rel="stylesheet" href="../css/style.css?v=26">
+    <link rel="stylesheet" href="../css/premium.css?v=26">
+    <link rel="stylesheet" href="../css/dropdown.css">
+    <style>
+        .nav-logo-uk {
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+            border-radius: 8px !important;
+        }
+
+        /* Blog Post Specific Styles */
+        .blog-post-hero {
+            padding: 120px 0 60px;
+            background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.15), transparent 60%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .blog-post-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .blog-post-content h2 {
+            color: var(--text-main);
+            font-size: 2rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .blog-post-content h3 {
+            color: #e2e8f0;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-post-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-post-content ul,
+        .blog-post-content ol {
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .blog-post-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-post-content code {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .blog-post-content pre {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-left: 4px solid #0ea5e9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+
+        .blog-post-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .blog-post-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .blog-post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 2rem 0;
+        }
+
+        .blog-tag {
+            background: rgba(168, 85, 247, 0.1);
+            color: #a855f7;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .btn {
+            display: inline-block;
+            font-weight: 600;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+
+        .btn-primary:hover {
+            background-color: #2563eb;
+            border-color: #2563eb;
+        }
+
+        .btn-outline {
+            color: #3b82f6;
+            background-color: transparent;
+            border-color: #3b82f6;
+        }
+
+        .btn-outline:hover {
+            color: #fff;
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+
+        .audit-callout {
+            background: rgba(244, 63, 94, 0.05);
+            border: 1px solid rgba(244, 63, 94, 0.2);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+    </style>
+
+    <!-- Performance: Preconnect to Font & Script Servers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <!-- Typography -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="dark-theme">
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="dynamic-nav"></nav>
+    <script src="../js/navbar-component.js"></script>
+
+    <!-- Blog Post Hero -->
+    <section class="blog-post-hero">
+        <div class="container" style="max-width: 1000px;">
+            <div style="margin-bottom: 2rem;">
+                <a href="../blog.html"
+                    style="color: var(--primary-color); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem;">
+                    <i class="fas fa-arrow-left"></i> Back to Insights
+                </a>
+                <br>
+                <div
+                    style="display: inline-flex; align-items: center; gap: 8px; background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.3); padding: 4px 12px; border-radius: 20px; color: #f43f5e; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">
+                    <i class="fas fa-shield-halved"></i> Regulator-Ready Series
+                </div>
+            </div>
+
+            <h1
+                style="font-family: 'Outfit', sans-serif; font-size: 3rem; line-height: 1.2; margin-bottom: 1.5rem; background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                Architectural Integrity: The AI Audit Framework on Azure
+            </h1>
+
+            <div class="blog-post-meta">
+                <div><i class="fas fa-user"></i> Upendra Kumar</div>
+                <div><i class="fas fa-calendar"></i> January 29, 2026</div>
+                <div><i class="fas fa-clock"></i> 10 min read</div>
+            </div>
+
+            <div class="blog-post-tags">
+                <span class="blog-tag"><i class="fas fa-tag"></i> GRC</span>
+                <span class="blog-tag"><i class="fas fa-tag"></i> Azure AI</span>
+                <span class="blog-tag"><i class="fas fa-tag"></i> Compliance</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Post Content -->
+    <article class="blog-post-content">
+        <p class="lead" style="font-size: 1.3rem; color: var(--primary-color); font-weight: 600;">
+            Most AI architectures survive the developer demo but fail the regulator's audit. To close this gap, we must
+            synthesize global governance frameworks with local cloud rigor.
+        </p>
+
+        <p>
+            In the regulated world, "building it" is only half the battle. The other half is proving that it’s safe,
+            fair, and compliant.
+            When I look at external frameworks like the <a href="https://aiarchitectureaudit.com/" target="_blank"
+                style="color: var(--primary-color); text-decoration: underline;">AI Architecture Audit</a> methodology,
+            I don't just see a checklist;
+            I see a blueprint for architectural integrity.
+        </p>
+
+        <p>
+            In this post, I’ll show you how to map these high-level audit principles directly to <strong>Azure-native
+                technical controls</strong>. This is how you move from a "Trust me, it's safe" posture to a "Here is the
+            proof" posture.
+        </p>
+
+        <h2><span class="gradient-text">1. Governance & Accountability</span></h2>
+        <p>
+            An audit starts with asking: <em>"Who is responsible if the model hallucinations cause a financial
+                loss?"</em>
+        </p>
+        <p>
+            <strong>The Azure Implementation:</strong>
+            We don't just assign roles; we bake them into the infrastructure. By using <strong>Entra ID (Active
+                Directory)</strong> combined with <strong>Azure Policy</strong>, we enforce a "Governance-as-Code"
+            model. If a developer tries to deploy an AI model outside of a compliant Landing Zone, the audit engine
+            triggers an immediate block.
+        </p>
+
+        <h2><span class="gradient-text">2. Data Quality & Integrity</span></h2>
+        <p>
+            The audit framework asks: <em>"Is the training data clean, lawful, and secured?"</em>
+        </p>
+        <div class="audit-callout">
+            <i class="fas fa-info-circle" style="color: #f43f5e; margin-right: 0.5rem;"></i>
+            <strong>Technical Note:</strong> We use <strong>Microsoft Purview</strong> to automatically discover and
+            classify sensitive data (PII) before it ever touches a training pipeline. This creates an automated data
+            lineage that auditors love.
+        </div>
+
+        <h2><span class="gradient-text">3. Transparency & Explainability</span></h2>
+        <p>
+            <em>"Can you explain why the AI reached this conclusion?"</em> This is the "Magic Box" problem.
+        </p>
+        <p>
+            By integrating the <strong>Responsible AI Dashboard</strong> within Azure Machine Learning, we generate
+            error analysis and feature importance reports. We move the transparency from a PDF manual into a living,
+            real-time dashboard.
+        </p>
+
+        <h2><span class="gradient-text">4. Security & The "AI Fortress"</span></h2>
+        <p>
+            The framework requires "adequate information security." In the cloud, this means <strong>Zero
+                Trust</strong>.
+        </p>
+        <p>
+            We implement this via the <strong>AI Gateway Pattern</strong>. No direct access to LLMs. Everything flows
+            through <strong>Azure API Management</strong>, which handles the JWT validation, rate limiting, and
+            full-stack logging required for a GRC audit.
+        </p>
+
+        <div class="audit-callout"
+            style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2);">
+            <i class="fas fa-check-circle" style="color: #10b981; margin-right: 0.5rem;"></i>
+            <strong>Alignment:</strong> By synthesizing these principles, we aren't just following one rulebook; we are
+            building a multi-layered defense that satisfies both the board and the auditor.
+        </div>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h3>Ready to operationalize your Azure journey?</h3>
+        <p>
+            I help organizations turn stalled cloud initiatives into execution engines.
+        </p>
+        <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+            <a href="../pages/contact.html" class="btn btn-primary">Contact Me</a>
+            <a href="../pages/expertise.html" class="btn btn-outline">Explore Capabilities</a>
+        </div>
+
+        <!-- Back to Blog Button -->
+        <div style="text-align: center; margin: 4rem 0;">
+            <a href="../blog.html" class="btn btn-primary" style="display: inline-block; padding: 1rem 2rem;">
+                <i class="fas fa-arrow-left"></i> Back to Insights
+            </a>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Upendra Kumar. All rights reserved. This methodology synthesizes industry frameworks with
+                proprietary Azure workflows.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/journeytocloudwithupendra/" target="_blank" title="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/appliedailearner" target="_blank" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/particles.js"></script>
+</body>
+
+</html>

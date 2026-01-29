@@ -43,6 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <i class="fas fa-shield-halved"></i>
                                 <span>The AI Fortress Blueprint</span>
                             </a>
+                            <a href="${base}blog/2026-01-29-architectural-integrity-ai-audit-framework.html" class="dropdown-link">
+                                <i class="fas fa-file-contract"></i>
+                                <span>The AI Audit Framework</span>
+                            </a>
                             <a href="${base}blog/2026-01-21-uklifelabs-ai-gateway-pattern.html" class="dropdown-link">
                                 <i class="fas fa-route"></i>
                                 <span>AI Gateway Controls</span>

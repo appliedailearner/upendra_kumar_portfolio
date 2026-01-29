@@ -17,6 +17,7 @@
 *   **Tone:** Authoritative, collaborative, "No-BS".
 *   **Theme:** "Production survivor" vs "Demo dreamer". High contrast between Myth vs Reality.
 *   **Style:** Short, punchy sentences. Dialogue-driven (e.g., "Mr. Project Manager asked..."). Use of metaphors (Trinity/Morpheus).
+*   **Global Positioning:** The focus must be on Global Regulated Industries. While local examples (like UK South) can be used for technical depth, the overarching value proposition must be region-agnostic. Use "Enterprise-grade" or "Sovereign Cloud" instead of being region-locked.
 **PROMPT:** "Analyze the user's raw notes. Extract the 'Realist Architect' tone. Ensure the output sounds like a battle-tested expert, not a generic AI. Remove fluffy adjectives."
 
 ### Step 2: Build a Content Bank (Chaos -> Organization)
@@ -74,7 +75,8 @@
 3.  **Description:** A short summary (150-160 chars) for the `<meta name="description">` tag.
 4.  **Read Time:** Estimated reading time (e.g., "8 min read").
 5.  **Tags:** 2-4 keywords (e.g., Azure, Architecture, AI).
-6.  **Content:** The body of the blog post. (Accept Markdown or plain text).
+6.  **Series Type:** Which series does this belong to? (Regulator-Ready, Migration Chronicles, or Value Architect Playbook).
+7.  **Content:** The body of the blog post. (Accept Markdown or plain text).
 
 ---
 
@@ -107,6 +109,7 @@
 
     <link rel="stylesheet" href="../css/style.css?v=25">
     <link rel="stylesheet" href="../css/premium.css?v=25">
+    <link rel="stylesheet" href="../css/dropdown.css">
     <style>
         .nav-logo-uk {
             background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
@@ -256,43 +259,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
-<body class="dark-theme">
+    <body class="dark-theme">
     <canvas id="particles-canvas"></canvas>
+    
     <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-brand" style="display: flex; align-items: center; gap: 1rem;">
-                <a href="../index.html" style="text-decoration: none;">
-                    <div class="nav-logo-uk">UK</div>
-                </a>
-                <div>
-                    <h2>Upendra Kumar</h2>
-                    <p class="nav-tagline">Professional Services Delivery Architect</p>
-                </div>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="../pages/expertise.html">Expertise</a></li>
-                <li><a href="../blog.html" class="active">Insights</a></li>
-                <li><a href="../pages/contact.html">Contact</a></li>
-                <li><a href="../assets/pdf/Upendra_Kumar_Resume.pdf" target="_blank" class="nav-resume-btn">
-                        <i class="fas fa-download"></i> Resume</a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
+    <nav class="navbar" id="dynamic-nav"></nav>
+    <script src="../js/navbar-component.js"></script>
 
     <!-- Blog Post Hero -->
     <section class="blog-post-hero">
         <div class="container" style="max-width: 1000px;">
-            <div style="margin-bottom: 1rem;">
-                <a href="../blog.html" style="color: var(--primary-color); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+            <div style="margin-bottom: 2rem;">
+                <a href="../blog.html" style="color: var(--primary-color); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem;">
                     <i class="fas fa-arrow-left"></i> Back to Insights
                 </a>
+                <br>
+                <!-- Series Badge: Dynamic based on input -->
+                {{SERIES_BADGE_HTML}}
             </div>
 
             <h1 style="font-family: 'Outfit', sans-serif; font-size: 3rem; line-height: 1.2; margin-bottom: 1.5rem; background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
@@ -358,15 +341,7 @@
     </footer>
 
     <script>
-        // Mobile menu toggle
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
-        if (hamburger && navMenu) {
-            hamburger.addEventListener('click', () => {
-                hamburger.classList.toggle('active');
-                navMenu.classList.toggle('active');
-            });
-        }
+        // Mobile menu handles are now in navbar-component.js
     </script>
 
     <!-- Smooth Navigation Enhancement -->
