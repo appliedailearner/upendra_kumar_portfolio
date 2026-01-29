@@ -38,10 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         
                         <!-- Column 1: Regulator-Ready Series -->
                         <div class="dropdown-column">
-                            <h4 class="dropdown-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                🛡️ Regulator-Ready AI
-                                <span style="font-size: 0.6rem; background: #f43f5e; color: white; padding: 2px 6px; border-radius: 4px;">UK Specialist</span>
-                            </h4>
+                            <h4 class="dropdown-header">🛡️ Regulator-Ready AI</h4>
                             <a href="${base}blog/2026-01-28-regulator-ready-ai-fortress.html" class="dropdown-link">
                                 <i class="fas fa-shield-halved"></i>
                                 <span>The AI Fortress Blueprint</span>
