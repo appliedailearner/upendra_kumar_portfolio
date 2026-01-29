@@ -233,6 +233,54 @@
             proof" posture.
         </p>
 
+        <!-- Executive Comparison Table -->
+        <h2 style="margin-top: 4rem;"><span class="gradient-text">The Gap: Demo-Ready vs. Regulator-Ready</span></h2>
+        <div
+            style="overflow-x: auto; margin: 2rem 0; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(15, 23, 42, 0.4);">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem; text-align: left;">
+                <thead>
+                    <tr style="background: rgba(255,255,255,0.05); border-bottom: 2px solid rgba(255,255,255,0.1);">
+                        <th
+                            style="padding: 1.5rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">
+                            Audit Pillar</th>
+                        <th style="padding: 1.5rem; color: #f43f5e; font-weight: 700; text-transform: uppercase;">The
+                            "Demo-Ready" Way</th>
+                        <th style="padding: 1.5rem; color: #10b981; font-weight: 700; text-transform: uppercase;">The
+                            "Regulator-Ready" Way</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                        <td style="padding: 1.5rem; color: #fff; font-weight: 600;">Governance</td>
+                        <td style="padding: 1.5rem; color: #cbd5e1; opacity: 0.7;">Informal trust & manual access.</td>
+                        <td style="padding: 1.5rem; color: #fff;"><strong>Azure Policy 'Deny'</strong> & automated
+                            guardrails.</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                        <td style="padding: 1.5rem; color: #fff; font-weight: 600;">Data Quality</td>
+                        <td style="padding: 1.5rem; color: #cbd5e1; opacity: 0.7;">Raw CSVs/Blobs with no lineage.</td>
+                        <td style="padding: 1.5rem; color: #fff;"><strong>Microsoft Purview</strong> classification &
+                            scanning.</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                        <td style="padding: 1.5rem; color: #fff; font-weight: 600;">Security</td>
+                        <td style="padding: 1.5rem; color: #cbd5e1; opacity: 0.7;">Direct API keys in application code.
+                        </td>
+                        <td style="padding: 1.5rem; color: #fff;"><strong>AI Gateway (APIM)</strong> with Zero-Trust
+                            ingress.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1.5rem; color: #fff; font-weight: 600;">Explainability</td>
+                        <td style="padding: 1.5rem; color: #cbd5e1; opacity: 0.7;">"Prompt Engineering" trial & error.
+                        </td>
+                        <td style="padding: 1.5rem; color: #fff;"><strong>Responsible AI Dashboards</strong> with
+                            feature importance.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
         <!-- Visual Proof: Convergence Map -->
         <div style="margin: 3rem 0; text-align: center;">
             <img src="../images/blog/ai-audit-convergence-map.png" alt="AI Audit Azure Convergence Map"
@@ -355,6 +403,85 @@
             every AI workload is tagged for accountability, allowing the organization to justify the ROI of its
             innovation.
         </p>
+
+        <!-- Interactive Audit Readiness Tool -->
+        <h2 style="margin-top: 5rem;"><span class="gradient-text">Interactive: Assess Your Readiness</span></h2>
+        <p>Select the controls you have implemented to calculate your current Audit Maturity Score.</p>
+
+        <div class="glass-card" style="padding: 3rem; margin: 2rem 0; position: relative; overflow: hidden;">
+            <div id="readiness-score-display" style="position: absolute; top: 2rem; right: 2rem; text-align: center;">
+                <div
+                    style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">
+                    Maturity Score</div>
+                <div id="score-number" style="font-size: 3rem; font-weight: 800; color: var(--primary-color);">0%</div>
+            </div>
+
+            <div id="audit-calculator-form">
+                <div style="margin-bottom: 1.5rem;">
+                    <label class="calc-check-container"
+                        style="display: flex; align-items: center; gap: 1rem; cursor: pointer;">
+                        <input type="checkbox" class="audit-input" data-weight="25"
+                            style="width: 20px; height: 20px; accent-color: var(--primary-color);">
+                        <span style="color: #fff; font-weight: 500;">Azure Policy (Governance-as-Code) active?</span>
+                    </label>
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label class="calc-check-container"
+                        style="display: flex; align-items: center; gap: 1rem; cursor: pointer;">
+                        <input type="checkbox" class="audit-input" data-weight="25"
+                            style="width: 20px; height: 20px; accent-color: var(--primary-color);">
+                        <span style="color: #fff; font-weight: 500;">Microsoft Purview/Data Lineage implemented?</span>
+                    </label>
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label class="calc-check-container"
+                        style="display: flex; align-items: center; gap: 1rem; cursor: pointer;">
+                        <input type="checkbox" class="audit-input" data-weight="25"
+                            style="width: 20px; height: 20px; accent-color: var(--primary-color);">
+                        <span style="color: #fff; font-weight: 500;">AI Gateway (APIM/Security) operational?</span>
+                    </label>
+                </div>
+                <div style="margin-bottom: 2rem;">
+                    <label class="calc-check-container"
+                        style="display: flex; align-items: center; gap: 1rem; cursor: pointer;">
+                        <input type="checkbox" class="audit-input" data-weight="25"
+                            style="width: 20px; height: 20px; accent-color: var(--primary-color);">
+                        <span style="color: #fff; font-weight: 500;">Responsible AI Dashboard (Explainability)
+                            live?</span>
+                    </label>
+                </div>
+
+                <div id="calc-result-msg"
+                    style="padding: 1rem; border-radius: 8px; background: rgba(255,255,255,0.05); color: #94a3b8; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.1);">
+                    Select options to see your strategic recommendation...
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const inputs = document.querySelectorAll('.audit-input');
+            const scoreDisplay = document.getElementById('score-number');
+            const resultMsg = document.getElementById('calc-result-msg');
+
+            function updateScore() {
+                let total = 0;
+                inputs.forEach(input => {
+                    if (input.checked) total += parseInt(input.getAttribute('data-weight'));
+                });
+
+                scoreDisplay.innerText = total + "%";
+
+                if (total === 100) {
+                    resultMsg.innerHTML = '<span style="color: #10b981;"><i class="fas fa-check-circle"></i> <strong>Excellence:</strong> Your architecture is "Global Sovereign" ready. You are prepared for the most rigorous audits.</span>';
+                } else if (total >= 50) {
+                    resultMsg.innerHTML = '<span style="color: #f59e0b;"><i class="fas fa-exclamation-triangle"></i> <strong>Warning:</strong> You have the foundation, but security or explainability gaps may trigger a regulator red-flag.</span>';
+                } else {
+                    resultMsg.innerHTML = '<span style="color: #f43f5e;"><i class="fas fa-times-circle"></i> <strong>Risk:</strong> Your AI is "Demo-Only". Critical governance controls are missing. Contact us for a remediation strategy.</span>';
+                }
+            }
+
+            inputs.forEach(input => input.addEventListener('change', updateScore));
+        </script>
 
         <!-- Interactive Checklist Section -->
         <h2 style="margin-top: 4rem;"><span class="gradient-text">Self-Audit Readiness Checklist</span></h2>
