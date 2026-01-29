@@ -568,14 +568,13 @@
             </p>
 
             <div class="diagram-container">
-                <img src="../assets/img/uklifelabs_solution_overview_corporate.png" alt="High-Level Solution Overview"
+                <img src="../images/blog/2026-01-28/solution-overview.png" alt="High-Level Solution Overview"
                     loading="lazy">
                 <p class="diagram-caption">Figure 1: The Executive Summary - Global Traffic to Secure Spoke.</p>
             </div>
 
             <div class="diagram-container">
-                <img src="../assets/img/uklifelabs_network_flow_corporate.png" alt="Network Flow Diagram"
-                    loading="lazy">
+                <img src="../images/blog/2026-01-28/network-flow.png" alt="Network Flow Diagram" loading="lazy">
                 <p class="diagram-caption">Figure 1.1: The Network Blueprint - Connectivity & Isolation.</p>
             </div>
 
@@ -607,8 +606,7 @@
                 private VNet. The outside world sees nothing.</p>
 
             <div class="diagram-container">
-                <img src="../assets/img/uklifelabs_service_journey_corporate.png" alt="Service Journey Map"
-                    loading="lazy">
+                <img src="../images/blog/2026-01-28/service-journey.png" alt="Service Journey Map" loading="lazy">
                 <p class="diagram-caption">Figure 2: The 6-Step Service Journey.</p>
             </div>
 
@@ -630,6 +628,9 @@
                     responses.</li>
                 <li><strong>PII Masking:</strong> Stripping patient names before the prompt leaves the zone.</li>
                 <li><strong>Token Throttling:</strong> ensuring no single research team eats the whole PTU pie.</li>
+                <li><strong>Grounded Answers (MCP):</strong> Routing 'How-to' questions to a dedicated <strong>MS Learn
+                        MCP Server</strong> sidecar, ensuring the AI cites official Microsoft documentation rather than
+                    hallucinating.</li>
             </ul>
             </p>
 
@@ -652,8 +653,7 @@
             </div>
 
             <div class="diagram-container">
-                <img src="../assets/img/uklifelabs_security_flow_corporate.png" alt="Security Defense Flow"
-                    loading="lazy">
+                <img src="../images/blog/2026-01-28/security-perimeter.png" alt="Security Defense Flow" loading="lazy">
                 <p class="diagram-caption">Figure 2.1: The Security Defense in Depth.</p>
             </div>
 
@@ -679,6 +679,13 @@
                     (RBAC)
                     and encryption at rest for all Storage Accounts and SQL Databases.</li>
             </ul>
+
+            <p style="margin-top: 1.5rem;">
+                Beyond blocking bad resources with Azure Policy, we used <strong>Microsoft Purview</strong> to scan the
+                data inside them. By connecting Purview's Data Map to our Private Endpoints, we automatically classify
+                any PII entering our SQL or Cosmos DB instances, ensuring our 'Data Residency' promise isn't just a
+                promise—it's a verifiable fact.
+            </p>
 
             <div class="alert-box"
                 style="background-color: rgba(59, 130, 246, 0.1); border-left: 4px solid var(--primary-color); padding: 1rem; margin: 1.5rem 0; border-radius: 0.5rem;">
@@ -726,6 +733,12 @@
                         <div class="result-label">Regulatory Audits Passed</div>
                     </div>
                 </div>
+                <p style="margin-top: 1.5rem; color: var(--text-secondary);">
+                    <strong>How we sustained 99.97%:</strong> We deployed an <strong>Azure SRE Agent</strong>—an
+                    autonomous AI watcher that monitors our telemetry. It auto-triages routine alerts (like transient
+                    latency spikes) and executes restart runbooks for non-critical pods, freeing our human engineers to
+                    focus on architecture, not firefighting.
+                </p>
                 <p style="margin-top: 1.5rem; font-style: italic; color: var(--text-muted);">"The 4-subscription model
                     gave
                     our CISO the confidence to approve AI in production. The audit trail alone saved us 200 hours during
@@ -772,7 +785,9 @@
                 <li><strong>The Gatekeeper:</strong> **Conditional Access** policies check the user's device health
                     (Intune)
                     and risk level before granting a token to access the Internal APIM.</li>
-            </ul <h2><span class="gradient-text">What Happens When UK South Goes Down?</span></h2>
+            </ul>
+
+            <h2><span class="gradient-text">What Happens When UK South Goes Down?</span></h2>
             environment—we don't pay for the compute while it's sitting idle, but the VNet, the security rules, and the
             SQL Geo-Replication are already there, waiting for the signal.
             </p>
@@ -783,8 +798,8 @@
                 cluster pulls images locally from UK West, avoiding any cross-region dependency during a crisis.</p>
 
             <div class="diagram-container">
-                <img src="../assets/img/uklifelabs_dr_failover_journey_v5_corporate.png"
-                    alt="DR Failover Journey (Executive View)" loading="lazy">
+                <img src="../images/blog/2026-01-28/dr-failover.png" alt="DR Failover Journey (Executive View)"
+                    loading="lazy">
                 <p class="diagram-caption">Figure 3: Automatic Global Failover in Action (PaaS Architecture).</p>
             </div>
 
