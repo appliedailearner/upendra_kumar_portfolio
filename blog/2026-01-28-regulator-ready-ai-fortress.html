@@ -682,9 +682,10 @@
 
             <p style="margin-top: 1.5rem;">
                 Beyond blocking bad resources with Azure Policy, we used <strong>Microsoft Purview</strong> to scan the
-                data inside them. By connecting Purview's Data Map to our Private Endpoints, we automatically classify
-                any PII entering our SQL or Cosmos DB instances, ensuring our 'Data Residency' promise isn't just a
-                promise—it's a verifiable fact.
+                data inside them. By leveraging Purview's <strong>Managed Virtual Network</strong> to connect into our
+                Private Endpoints, we automatically classify
+                any PII entering our SQL or Cosmos DB instances without it ever traversing the public internet—making
+                our 'Data Residency' promise a verifiable fact.
             </p>
 
             <div class="alert-box"
@@ -734,8 +735,9 @@
                     </div>
                 </div>
                 <p style="margin-top: 1.5rem; color: var(--text-secondary);">
-                    <strong>How we sustained 99.97%:</strong> We deployed an <strong>Azure SRE Agent</strong>—an
-                    autonomous AI watcher that monitors our telemetry. It auto-triages routine alerts (like transient
+                    <strong>How we sustained 99.97%:</strong> We built and deployed a custom <strong>AI SRE
+                        Agent</strong> (using Azure OpenAI & Logic Apps)—an
+                    autonomous watcher that monitors our telemetry. It auto-triages routine alerts (like transient
                     latency spikes) and executes restart runbooks for non-critical pods, freeing our human engineers to
                     focus on architecture, not firefighting.
                 </p>
