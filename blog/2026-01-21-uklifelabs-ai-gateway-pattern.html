@@ -1377,6 +1377,62 @@
             <a href="../pages/azure-migration-toolkit.html" class="btn btn-outline">View the Toolkit</a>
         </div>
 
+        <!-- Social Share Section -->
+        <div class="social-share-container">
+            <p
+                style="color: #94a3b8; font-size: 0.8rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700;">
+                Spread the Insight</p>
+            <div class="social-share-buttons">
+                <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn(event)" title="Share on LinkedIn">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+                <a href="#" class="share-btn twitter" onclick="shareOnTwitter(event)" title="Share on X (Twitter)">
+                    <i class="fab fa-x-twitter"></i> Twitter
+                </a>
+                <a href="#" class="share-btn facebook" onclick="shareOnFacebook(event)" title="Share on Facebook">
+                    <i class="fab fa-facebook-f"></i> Facebook
+                </a>
+                <button class="share-btn copy-link" onclick="copyPageLink(this)" title="Copy Link">
+                    <i class="fas fa-link"></i> <span class="btn-text">Copy Link</span>
+                </button>
+            </div>
+        </div>
+
+        <script>
+            function shareOnLinkedIn(e) {
+                e.preventDefault();
+                const url = encodeURIComponent(window.location.href);
+                window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=600');
+            }
+
+            function shareOnTwitter(e) {
+                e.preventDefault();
+                const url = encodeURIComponent(window.location.href);
+                const text = encodeURIComponent(document.title);
+                window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
+            }
+
+            function shareOnFacebook(e) {
+                e.preventDefault();
+                const url = encodeURIComponent(window.location.href);
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+            }
+
+            function copyPageLink(btn) {
+                const url = window.location.href;
+                navigator.clipboard.writeText(url).then(() => {
+                    const btnText = btn.querySelector('.btn-text');
+                    const originalText = btnText.innerText;
+                    btnText.innerText = 'Copied!';
+                    btn.classList.add('copied');
+                    setTimeout(() => {
+                        btnText.innerText = originalText;
+                        btn.classList.remove('copied');
+                    }, 2000);
+                });
+            }
+        </script>
+
         <!-- Back to Blog Button -->
         <div style="text-align: center; margin: 4rem 0;">
             <a href="../blog.html" class="btn btn-primary" style="display: inline-block; padding: 1rem 2rem;">
