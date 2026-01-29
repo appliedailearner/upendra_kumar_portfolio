@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="../css/style.css?v=27">
     <link rel="stylesheet" href="../css/premium.css?v=27">
+    <link rel="stylesheet" href="../css/lightbox.css">
     <style>
         /* FORCE HIDE TO ENSURE REMOVAL */
         .toc,
@@ -434,6 +435,9 @@
 </head>
 
 <body class="dark-theme">
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
     <nav class="navbar">
         <div class="container">
             <div class="nav-brand">
@@ -1047,6 +1051,13 @@
         <i class="fas fa-arrow-up"></i>
     </div>
 
+    <!-- Lightbox Modal -->
+    <div id="imageLightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightboxImg">
+        <div id="lightboxCaption"></div>
+    </div>
+
     <script>
         // Back to Top functionality
         const backToTop = document.getElementById('backToTop');
@@ -1115,6 +1126,62 @@
         } else {
             addCopyButtons();
         }
+
+        // --- UI/UX ENHANCEMENTS: Scroll Progress & Lightbox ---
+
+        // 1. Scroll Progress Bar
+        const scrollProgress = document.getElementById('scrollProgress');
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            if (scrollProgress) {
+                scrollProgress.style.width = scrollPercent + '%';
+            }
+        });
+
+        // 2. Lightbox Functionality
+        const lightbox = document.getElementById('imageLightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const captionText = document.getElementById('lightboxCaption');
+        const closeBtn = document.getElementsByClassName('lightbox-close')[0];
+
+        // Attach click event to all diagram images
+        document.querySelectorAll('.diagram-container img').forEach(img => {
+            img.onclick = function () {
+                lightbox.style.display = "block";
+                lightboxImg.src = this.src;
+                // Use the caption text from the paragraph below the image if available
+                const caption = this.nextElementSibling ? this.nextElementSibling.innerText : this.alt;
+                captionText.innerHTML = caption;
+                document.body.style.overflow = "hidden"; // Prevent background scrolling
+            }
+        });
+
+        // Close functionality
+        if (closeBtn) {
+            closeBtn.onclick = function () {
+                lightbox.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+        }
+
+        // Close on clicking outside the image
+        lightbox.onclick = function (event) {
+            if (event.target === lightbox) {
+                lightbox.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+        }
+
+        // Close on Escape key
+        document.addEventListener('keydown', function (event) {
+            if (event.key === "Escape" && lightbox.style.display === "block") {
+                lightbox.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+        });
+
     </script>
 </body>
 
