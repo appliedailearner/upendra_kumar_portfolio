@@ -66,6 +66,7 @@
     <link rel="stylesheet" href="css/premium.css?v=46">
     <link rel="stylesheet" href="css/hero-premium.css?v=46">
     <link rel="stylesheet" href="css/enhancements.css?v=46">
+    <link rel="stylesheet" href="css/dropdown.css">
 
     <!-- Fonts: Inter Only -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -97,11 +98,11 @@
     </script>
     <!-- Microsoft Clarity -->
     <script type="text/javascript">
-        (function(c,l,a,r,i,t,y){
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "v5iynlmgo7");
+            (function (c, l, a, r, i, t, y) {
+                c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+                t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+                y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+            })(window, document, "clarity", "script", "v5iynlmgo7");
     </script>
 </head>
 
@@ -124,39 +125,8 @@
     <!-- Scroll Progress Indicator -->
     <div class="scroll-progress"></div>
     <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-brand" style="display: flex; align-items: center; gap: 1rem;">
-                <a href="/" style="text-decoration: none;">
-                    <video autoplay loop muted playsinline class="nav-logo-video">
-                        <source src="images/logo-animated.mp4" type="video/mp4">
-                    </video>
-                </a>
-                <div>
-                    <div class="brand-title">Upendra Kumar</div>
-                    <p class="nav-tagline">Professional Services Delivery Architect</p>
-                </div>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="/" class="active">Home</a></li>
-                <li><a href="pages/expertise.html">Expertise</a></li>
-                <li><a href="blog.html">Insights</a></li>
-                <li><a href="pages/contact.html">Contact</a></li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-primary text-white ms-lg-3 px-4 shadow-sm rounded-pill flex items-center gap-2"
-                        href="assets/pdf/Upendra_Kumar_Resume.pdf" target="_blank"
-                        style="line-height: 1.5; font-weight: 600;">
-                        <i class="fas fa-file-download"></i> Download Executive Brief
-                    </a>
-                </li>
-            </ul>
-            <div class="hamburger ms-auto" aria-label="Toggle navigation" role="button" tabindex="0">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
+    <nav class="navbar" id="dynamic-nav"></nav>
+    <script src="js/navbar-component.js"></script>
 
     <!-- Hero Section (Premium) -->
     <section id="home" class="hero hero-premium-layout">
