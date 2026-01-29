@@ -36,43 +36,43 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="dropdown-menu">
                     <div class="dropdown-content">
                         
-                        <!-- Column 1: AI -->
+                        <!-- Column 1: Regulator-Ready Series -->
                         <div class="dropdown-column">
-                            <h4 class="dropdown-header">🤖 AI Architecture</h4>
+                            <h4 class="dropdown-header">🛡️ Regulator-Ready AI</h4>
                             <a href="${base}blog/2026-01-28-regulator-ready-ai-fortress.html" class="dropdown-link">
                                 <i class="fas fa-shield-halved"></i>
-                                <span>Regulator-Ready AI Fortress</span>
+                                <span>The AI Fortress Blueprint</span>
                             </a>
                             <a href="${base}blog/2026-01-21-uklifelabs-ai-gateway-pattern.html" class="dropdown-link">
                                 <i class="fas fa-route"></i>
-                                <span>UKLifeLabs AI Gateway</span>
+                                <span>AI Gateway Controls</span>
                             </a>
                              <a href="${base}blog/2026-01-11-ai-hosting-decision-tree.html" class="dropdown-link">
                                 <i class="fas fa-sitemap"></i>
-                                <span>AI Hosting Decision Tree</span>
+                                <span>AI Hosting Strategy</span>
                             </a>
                         </div>
 
-                        <!-- Column 2: Azure -->
+                        <!-- Column 2: Migration Chronicles -->
                         <div class="dropdown-column">
-                            <h4 class="dropdown-header">☁️ Azure Core</h4>
+                            <h4 class="dropdown-header">🚀 Migration Chronicles</h4>
                             <a href="${base}blog/2026-01-26-hybrid-dns-pattern-cutover-night.html" class="dropdown-link">
                                 <i class="fas fa-network-wired"></i>
-                                <span>Hybrid DNS Pattern</span>
+                                <span>The Hybrid DNS Pattern</span>
                             </a>
-                            <a href="${base}blog/2025-12-25-azure-landing-zones.html" class="dropdown-link">
-                                <i class="fas fa-cloud"></i>
-                                <span>Enterprise Landing Zones</span>
+                            <a href="${base}blog/2026-01-06-the-bank-that-recalculated-reality.html" class="dropdown-link">
+                                <i class="fas fa-university"></i>
+                                <span>The Migration That Almost Failed</span>
                             </a>
-                            <a href="${base}blog/2026-01-15-from-tco-to-go-the-wave-1-azure-business-case-playbook.html" class="dropdown-link">
-                                <i class="fas fa-chart-pie"></i>
-                                <span>The TCO-to-Go Playbook</span>
+                            <a href="${base}blog/2025-12-30-azure-migrate-trap.html" class="dropdown-link">
+                                <i class="fas fa-triangle-exclamation"></i>
+                                <span>The Azure Migrate Trap</span>
                             </a>
                         </div>
 
-                        <!-- Column 3: Strategy -->
+                        <!-- Column 3: Value Architect -->
                         <div class="dropdown-column">
-                            <h4 class="dropdown-header">👔 Strategy & Lead</h4>
+                            <h4 class="dropdown-header">🧠 Value Architect Playbook</h4>
                             <a href="${base}blog/2026-01-02-value-selling-for-architects.html" class="dropdown-link">
                                 <i class="fas fa-sack-dollar"></i>
                                 <span>Value-Selling for Architects</span>
