@@ -163,12 +163,15 @@
             top: 100px;
             height: fit-content;
             padding: 1.5rem;
-            background: rgba(15, 23, 42, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             width: 250px;
             display: none;
             /* Hidden on small screens */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         @media (min-width: 1200px) {
@@ -205,11 +208,93 @@
             color: #94a3b8;
             text-decoration: none;
             font-size: 0.9rem;
-            transition: color 0.2s;
+            transition: all 0.2s ease;
+            display: block;
+            padding: 0.25rem 0;
+            border-left: 2px solid transparent;
+            padding-left: 1rem;
         }
 
-        .toc-link:hover {
+        .toc-link:hover,
+        .toc-link.active {
             color: var(--primary-color);
+            border-left-color: var(--primary-color);
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        /* Dash Calculator Styles */
+        .calc-dashboard {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 3rem;
+            margin: 3rem 0;
+            display: grid;
+            grid-template-columns: 1fr 200px;
+            gap: 2rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .calc-dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .calc-gauge-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .custom-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .custom-checkbox:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .checkmark {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #475569;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        input[type="checkbox"]:checked+.checkmark {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        }
+
+        .checkmark i {
+            color: #fff;
+            font-size: 0.8rem;
+            display: none;
+        }
+
+        input[type="checkbox"]:checked+.checkmark i {
+            display: block;
         }
     </style>
 
@@ -319,53 +404,56 @@
             <h2 id="gap" style="margin-top: 4rem;"><span class="gradient-text">The Gap: Demo-Ready vs.
                     Regulator-Ready</span></h2>
             <div
-                style="overflow-x: auto; margin: 2rem 0; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(15, 23, 42, 0.4);">
-                <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem; text-align: left;">
+                style="overflow-x: auto; margin: 2rem 0; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: rgba(15, 23, 42, 0.6); box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
+                <table style="width: 100%; border-collapse: collapse; font-size: 1rem; text-align: left;">
                     <thead>
-                        <tr style="background: rgba(255,255,255,0.05); border-bottom: 2px solid rgba(255,255,255,0.1);">
+                        <tr style="background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.1);">
                             <th
-                                style="padding: 1.5rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">
+                                style="padding: 2rem 1.5rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;">
                                 Audit Pillar</th>
-                            <th style="padding: 1.5rem; color: #f43f5e; font-weight: 700; text-transform: uppercase;">
-                                The
-                                "Demo-Ready" Way</th>
-                            <th style="padding: 1.5rem; color: #10b981; font-weight: 700; text-transform: uppercase;">
-                                The
-                                "Regulator-Ready" Way</th>
+                            <th
+                                style="padding: 2rem 1.5rem; color: #f43f5e; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">
+                                The Architecture "Demo"</th>
+                            <th
+                                style="padding: 2rem 1.5rem; color: #10b981; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; background: rgba(16, 185, 129, 0.05);">
+                                The "Regulator" Reality</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
                             <td style="padding: 1.5rem; color: #fff; font-weight: 600;">Governance</td>
-                            <td style="padding: 1.5rem; color: #cbd5e1; opacity: 0.7;">Informal trust & manual access.
+                            <td style="padding: 1.5rem; color: #94a3b8; opacity: 0.8;">Informal trust & manual access
+                                logs.
                             </td>
-                            <td style="padding: 1.5rem; color: #fff;"><strong>Azure Policy 'Deny'</strong> & automated
+                            <td style="padding: 1.5rem; color: #fff; background: rgba(16, 185, 129, 0.03);">
+                                <strong>Azure Policy 'Deny'</strong> & automated
                                 guardrails.</td>
                         </tr>
                         <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
                             <td style="padding: 1.5rem; color: #fff; font-weight: 600;">Data Quality</td>
-                            <td style="padding: 1.5rem; color: #cbd5e1; opacity: 0.7;">Raw CSVs/Blobs with no lineage.
+                            <td style="padding: 1.5rem; color: #94a3b8; opacity: 0.8;">Raw storage buckets with no
+                                metadata.
                             </td>
-                            <td style="padding: 1.5rem; color: #fff;"><strong>Microsoft Purview</strong> classification
-                                &
-                                scanning.</td>
+                            <td style="padding: 1.5rem; color: #fff; background: rgba(16, 185, 129, 0.03);">
+                                <strong>Microsoft Purview</strong> end-to-end
+                                lineage.</td>
                         </tr>
                         <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
                             <td style="padding: 1.5rem; color: #fff; font-weight: 600;">Security</td>
-                            <td style="padding: 1.5rem; color: #cbd5e1; opacity: 0.7;">Direct API keys in application
-                                code.
+                            <td style="padding: 1.5rem; color: #94a3b8; opacity: 0.8;">API keys embedded in app config
+                                files.
                             </td>
-                            <td style="padding: 1.5rem; color: #fff;"><strong>AI Gateway (APIM)</strong> with Zero-Trust
-                                ingress.
+                            <td style="padding: 1.5rem; color: #fff; background: rgba(16, 185, 129, 0.03);"><strong>AI
+                                    Gateway (APIM)</strong> with Zero-Trust.
                             </td>
                         </tr>
                         <tr>
                             <td style="padding: 1.5rem; color: #fff; font-weight: 600;">Explainability</td>
-                            <td style="padding: 1.5rem; color: #cbd5e1; opacity: 0.7;">"Prompt Engineering" trial &
-                                error.
+                            <td style="padding: 1.5rem; color: #94a3b8; opacity: 0.8;">Opaque LLM outputs with no
+                                monitoring.
                             </td>
-                            <td style="padding: 1.5rem; color: #fff;"><strong>Responsible AI Dashboards</strong> with
-                                feature importance.</td>
+                            <td style="padding: 1.5rem; color: #fff; background: rgba(16, 185, 129, 0.03);">
+                                <strong>Responsible AI Dashboards</strong>.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -505,51 +593,52 @@
     </h2>
     <p>Select the controls you have implemented to calculate your current Audit Maturity Score.</p>
 
-    <div class="glass-card" style="padding: 3rem; margin: 2rem 0; position: relative; overflow: hidden;">
-        <div id="readiness-score-display" style="position: absolute; top: 2rem; right: 2rem; text-align: center;">
-            <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">
-                Maturity Score</div>
-            <div id="score-number" style="font-size: 3rem; font-weight: 800; color: var(--primary-color);">0%</div>
+    <div class="calc-dashboard">
+        <div id="audit-calculator-form">
+            <label class="custom-checkbox">
+                <input type="checkbox" class="audit-input" data-weight="25" style="display: none;">
+                <div class="checkmark"><i class="fas fa-check"></i></div>
+                <div>
+                    <span style="color: #fff; font-weight: 600; display: block;">Governance-as-Code</span>
+                    <span style="color: #94a3b8; font-size: 0.85rem;">Azure Policy 'Deny' effect active?</span>
+                </div>
+            </label>
+            <label class="custom-checkbox">
+                <input type="checkbox" class="audit-input" data-weight="25" style="display: none;">
+                <div class="checkmark"><i class="fas fa-check"></i></div>
+                <div>
+                    <span style="color: #fff; font-weight: 600; display: block;">Automated Lineage</span>
+                    <span style="color: #94a3b8; font-size: 0.85rem;">Microsoft Purview scanning live?</span>
+                </div>
+            </label>
+            <label class="custom-checkbox">
+                <input type="checkbox" class="audit-input" data-weight="25" style="display: none;">
+                <div class="checkmark"><i class="fas fa-check"></i></div>
+                <div>
+                    <span style="color: #fff; font-weight: 600; display: block;">AI Gateway Security</span>
+                    <span style="color: #94a3b8; font-size: 0.85rem;">APIM with Zero-Trust operational?</span>
+                </div>
+            </label>
+            <label class="custom-checkbox">
+                <input type="checkbox" class="audit-input" data-weight="25" style="display: none;">
+                <div class="checkmark"><i class="fas fa-check"></i></div>
+                <div>
+                    <span style="color: #fff; font-weight: 600; display: block;">Explainability Hub</span>
+                    <span style="color: #94a3b8; font-size: 0.85rem;">Responsible AI Dashboards live?</span>
+                </div>
+            </label>
         </div>
 
-        <div id="audit-calculator-form">
-            <div style="margin-bottom: 1.5rem;">
-                <label class="calc-check-container"
-                    style="display: flex; align-items: center; gap: 1rem; cursor: pointer;">
-                    <input type="checkbox" class="audit-input" data-weight="25"
-                        style="width: 20px; height: 20px; accent-color: var(--primary-color);">
-                    <span style="color: #fff; font-weight: 500;">Azure Policy (Governance-as-Code) active?</span>
-                </label>
-            </div>
-            <div style="margin-bottom: 1.5rem;">
-                <label class="calc-check-container"
-                    style="display: flex; align-items: center; gap: 1rem; cursor: pointer;">
-                    <input type="checkbox" class="audit-input" data-weight="25"
-                        style="width: 20px; height: 20px; accent-color: var(--primary-color);">
-                    <span style="color: #fff; font-weight: 500;">Microsoft Purview/Data Lineage implemented?</span>
-                </label>
-            </div>
-            <div style="margin-bottom: 1.5rem;">
-                <label class="calc-check-container"
-                    style="display: flex; align-items: center; gap: 1rem; cursor: pointer;">
-                    <input type="checkbox" class="audit-input" data-weight="25"
-                        style="width: 20px; height: 20px; accent-color: var(--primary-color);">
-                    <span style="color: #fff; font-weight: 500;">AI Gateway (APIM/Security) operational?</span>
-                </label>
-            </div>
-            <div style="margin-bottom: 2rem;">
-                <label class="calc-check-container"
-                    style="display: flex; align-items: center; gap: 1rem; cursor: pointer;">
-                    <input type="checkbox" class="audit-input" data-weight="25"
-                        style="width: 20px; height: 20px; accent-color: var(--primary-color);">
-                    <span style="color: #fff; font-weight: 500;">Responsible AI Dashboard (Explainability)
-                        live?</span>
-                </label>
-            </div>
-
+        <div class="calc-gauge-container">
+            <div
+                style="font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem;">
+                Audit Readiness</div>
+            <div id="score-number"
+                style="font-size: 4rem; font-weight: 900; background: linear-gradient(135deg, #3b82f6, #a855f7); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                0%</div>
             <div id="calc-result-msg"
-                style="padding: 1rem; border-radius: 8px; background: rgba(255,255,255,0.05); color: #94a3b8; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.1);">
-                Select options to see your strategic recommendation...
+                style="text-align: center; font-size: 0.85rem; margin-top: 1rem; color: #94a3b8; line-height: 1.4;">
+                Select controls to see recommendation...
             </div>
         </div>
     </div>
@@ -558,6 +647,26 @@
         const inputs = document.querySelectorAll('.audit-input');
         const scoreDisplay = document.getElementById('score-number');
         const resultMsg = document.getElementById('calc-result-msg');
+        const tocLinks = document.querySelectorAll('.toc-link');
+
+        // Scroll Spy Logic
+        window.addEventListener('scroll', () => {
+            let current = "";
+            const sections = document.querySelectorAll('h2[id]');
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
 
         function updateScore() {
             let total = 0;
@@ -568,11 +677,11 @@
             scoreDisplay.innerText = total + "%";
 
             if (total === 100) {
-                resultMsg.innerHTML = '<span style="color: #10b981;"><i class="fas fa-check-circle"></i> <strong>Excellence:</strong> Your architecture is "Global Sovereign" ready. You are prepared for the most rigorous audits.</span>';
+                resultMsg.innerHTML = '<span style="color: #10b981;"><strong>Excellence:</strong> Your architecture is "Global Sovereign" ready.</span>';
             } else if (total >= 50) {
-                resultMsg.innerHTML = '<span style="color: #f59e0b;"><i class="fas fa-exclamation-triangle"></i> <strong>Warning:</strong> You have the foundation, but security or explainability gaps may trigger a regulator red-flag.</span>';
+                resultMsg.innerHTML = '<span style="color: #f59e0b;"><strong>Warning:</strong> Core foundations are missing. Red-flags probable.</span>';
             } else {
-                resultMsg.innerHTML = '<span style="color: #f43f5e;"><i class="fas fa-times-circle"></i> <strong>Risk:</strong> Your AI is "Demo-Only". Critical governance controls are missing. Contact us for a remediation strategy.</span>';
+                resultMsg.innerHTML = '<span style="color: #f43f5e;"><strong>At Risk:</strong> Your AI is "Demo-Only". Remediation required.</span>';
             }
         }
 
@@ -626,17 +735,25 @@
 
     <h3>Ready to operationalize your Azure journey?</h3>
     <p>
-        I help organizations turn stalled cloud initiatives into execution engines.
+        I help organizations turn stalled cloud initiatives into execution engines through the synthesis of GRC rigor
+        and architectural excellence.
     </p>
-    <div style="margin-top: 2rem; display: flex; gap: 1rem;">
-        <a href="../pages/contact.html" class="btn btn-primary">Contact Me</a>
-        <a href="../pages/expertise.html" class="btn btn-outline">Explore Capabilities</a>
+    <div style="margin-top: 3rem; display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center;">
+        <a href="../pages/contact.html" class="btn btn-primary"
+            style="padding: 1.2rem 3rem; border-radius: 50px; font-size: 1.1rem; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);">
+            Initiate Consultation <i class="fas fa-arrow-right" style="margin-left: 0.5rem;"></i>
+        </a>
+        <a href="../pages/expertise.html" class="btn btn-outline"
+            style="padding: 1.2rem 3rem; border-radius: 50px; font-size: 1.1rem;">
+            Explore Capability Map
+        </a>
     </div>
 
     <!-- Back to Blog Button -->
     <div style="text-align: center; margin: 4rem 0;">
-        <a href="../blog.html" class="btn btn-primary" style="display: inline-block; padding: 1rem 2rem;">
-            <i class="fas fa-arrow-left"></i> Back to Insights
+        <a href="../blog.html" style="color: #94a3b8; text-decoration: none; font-size: 0.9rem; transition: color 0.2s;"
+            onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">
+            <i class="fas fa-chevron-left"></i> Return to Insights Library
         </a>
     </div>
     </article>
