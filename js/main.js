@@ -166,27 +166,30 @@ if (scrollIndicator) {
     });
 }
 
-// ===== Intersection Observer for Fade-in Animations =====
+// ===== Intersection Observer for Fade-in/Reveal Animations =====
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
 };
 
-const fadeInObserver = new IntersectionObserver((entries) => {
+const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry, index) => {
         if (entry.isIntersecting) {
+            // Apply delay based on index for staggered effect if they appear together
             setTimeout(() => {
-                entry.target.classList.add('fade-in-visible');
-            }, index * 100); // Staggered animation
-            fadeInObserver.unobserve(entry.target);
+                entry.target.classList.add('fade-in-visible', 'is-visible');
+            }, index * 80);
+            revealObserver.unobserve(entry.target);
         }
     });
 }, observerOptions);
 
-// Observe all sections and cards
-document.querySelectorAll('section, .leadership-card, .cert-platform, .expertise-category, .pillar').forEach(el => {
-    el.classList.add('fade-in');
-    fadeInObserver.observe(el);
+// Select all premium architectural elements
+document.querySelectorAll('section, .leadership-card, .cert-platform, .expertise-category, .pillar, .reveal-on-scroll, .project-card-premium, .blog-card-new').forEach(el => {
+    if (!el.classList.contains('reveal-on-scroll')) {
+        el.classList.add('fade-in');
+    }
+    revealObserver.observe(el);
 });
 
 // ===== Parallax Effect on Hero =====
@@ -483,17 +486,17 @@ if (scrollToTopBtn) {
 function updateSavings(val) {
     const vmDisplay = document.getElementById('vm-count-display');
     const savingsDisplay = document.getElementById('savings-display');
-    
-    if(vmDisplay && savingsDisplay) {
+
+    if (vmDisplay && savingsDisplay) {
         vmDisplay.innerText = val;
         // Assume avg VM cost 100/mo, 30% savings = 30
-        const savings = val * 30; 
+        const savings = val * 30;
         savingsDisplay.innerText = '$' + savings.toLocaleString();
     }
 }
 
 // ===== Skills Radar Chart =====
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const ctx = document.getElementById('skillsRadarChart');
     if (ctx) {
         new Chart(ctx.getContext('2d'), {
@@ -548,19 +551,19 @@ function toggleProjectView(projectId, viewType) {
         if (viewType === 'business') {
             businessContent.classList.remove('hidden');
             technicalContent.classList.add('hidden');
-            
+
             businessBtn.classList.remove('text-gray-400', 'hover:text-white');
             businessBtn.classList.add('bg-blue-600', 'text-white');
-            
+
             technicalBtn.classList.remove('bg-blue-600', 'text-white');
             technicalBtn.classList.add('text-gray-400', 'hover:text-white');
         } else {
             businessContent.classList.add('hidden');
             technicalContent.classList.remove('hidden');
-            
+
             technicalBtn.classList.remove('text-gray-400', 'hover:text-white');
             technicalBtn.classList.add('bg-blue-600', 'text-white');
-            
+
             businessBtn.classList.remove('bg-blue-600', 'text-white');
             businessBtn.classList.add('text-gray-400', 'hover:text-white');
         }
@@ -569,40 +572,34 @@ function toggleProjectView(projectId, viewType) {
 
 // ===== Lightbox Logic =====
 document.addEventListener('DOMContentLoaded', () => {
-    // Create Lightbox Elements
-    const lightbox = document.createElement('div');
-    lightbox.className = 'lightbox-modal';
-    lightbox.innerHTML = `
-        <span class='lightbox-close'>&times;</span>
-        <img class='lightbox-content' id='lightbox-img'>
-    `;
-    document.body.appendChild(lightbox);
+    // Check if lightbox already exists (to avoid duplicate on some pages)
+    let lightbox = document.getElementById('lightbox');
+    if (!lightbox) {
+        lightbox = document.createElement('div');
+        lightbox.id = 'lightbox';
+        lightbox.className = 'lightbox-modal';
+        lightbox.innerHTML = `<img class='lightbox-content' id='lightboxImg'>`;
+        document.body.appendChild(lightbox);
+    }
 
-    const lightboxImg = document.getElementById('lightbox-img');
-    const closeBtn = document.querySelector('.lightbox-close');
+    const lightboxImg = document.getElementById('lightboxImg');
 
-    // Add click event to all project images
-    const images = document.querySelectorAll('.project-card img, .project-image-container img');
-    
-    images.forEach(img => {
-        img.classList.add('zoomable-image');
+    // Handle all zoomable images (both new 'zoomable-img' and old project images)
+    const zoomableElements = document.querySelectorAll('.zoomable-img, .zoomable-image, .project-card img, .project-card-detailed img');
+
+    zoomableElements.forEach(img => {
+        img.style.cursor = 'zoom-in';
         img.addEventListener('click', () => {
-            lightbox.style.display = 'flex'; // Use flex to center
-            lightbox.style.justifyContent = 'center';
-            lightbox.style.alignItems = 'center';
+            lightbox.classList.add('active');
+            lightbox.style.display = 'flex'; // Support old CSS fallback
             lightboxImg.src = img.src;
         });
     });
 
     // Close logic
-    closeBtn.addEventListener('click', () => {
-        lightbox.style.display = 'none';
-    });
-
-    lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) {
-            lightbox.style.display = 'none';
-        }
+    lightbox.addEventListener('click', () => {
+        lightbox.classList.remove('active');
+        lightbox.style.display = 'none'; // Support old CSS fallback
     });
 });
 
