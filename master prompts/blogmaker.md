@@ -455,9 +455,37 @@
 
 ---
 
-## Step 4: Final Instructions
+
+---
+
+## Step 5: Generate Beehiiv Newsletter Draft
+**Instruction:** Create a copy-paste email teaser that the user can put directly into Beehiiv.
+
+**Template:**
+```text
+Subject: {{TITLE}}
+
+Team,
+
+Real-world architecture is rarely as clean as the Visio diagrams.
+
+In my latest post, I break down:
+*   **The Problem:** [One sentence on the specific challenge]
+*   **The Reality:** Why the standard "textbook" answer failed.
+*   **The Fix:** The production-grade solution we actually deployed.
+
+👉 [Read the full article here]({{FILENAME}})
+
+Best,
+Upendra
+```
+
+---
+
+## Step 6: Final Instructions
 **Tell the user to:**
 1.  Save the HTML code to `blog/{{FILENAME}}`.
 2.  Insert the index snippet into `blog/index.html` at the top of the list.
 3.  **Run the RSS Generator:** `python c:\MyResumePortfolio\scripts\generate_rss.py`
-4.  Run the deployment script: `./deploy-azure.ps1`.
+4.  **Send the Email:** Copy the "Beehiiv Newsletter Draft" above and send it to your subscribers.
+5.  Run the deployment script: `./deploy-azure.ps1`.
