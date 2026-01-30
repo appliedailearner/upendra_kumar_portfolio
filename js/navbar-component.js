@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             <!-- MEGA MENU START -->
             <li class="nav-item-dropdown">
-                <a href="${base}blog.html" class="dropdown-trigger" style="display: flex; align-items: center; gap: 6px;">
+                <a href="${base}blog.html" class="dropdown-trigger" aria-haspopup="true" aria-expanded="false" style="display: flex; align-items: center; gap: 6px;">
                     Insights <i class="fas fa-chevron-down" style="font-size: 0.7em; opacity: 0.7;"></i>
                 </a>
                 <div class="dropdown-menu">
@@ -134,10 +134,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Mobile Dropdown Toggle
-    if (dropdownTrigger && window.innerWidth <= 992) {
+    if (dropdownTrigger) {
         dropdownTrigger.addEventListener('click', (e) => {
-            e.preventDefault();
-            dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+            if (window.innerWidth <= 992) {
+                e.preventDefault();
+                const isExpanded = dropdownTrigger.getAttribute('aria-expanded') === 'true';
+                dropdownTrigger.setAttribute('aria-expanded', !isExpanded);
+                dropdownMenu.style.display = isExpanded ? 'none' : 'block';
+            }
         });
     }
+
+    // Reset Dropdown on Resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 992) {
+            dropdownMenu.style.display = ''; // Reset to CSS default
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+    });
 });
