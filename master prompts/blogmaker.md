@@ -107,9 +107,41 @@
     <meta name="description" content="{{DESCRIPTION}}">
     <title>{{TITLE}} | Upendra Kumar</title>
 
-    <link rel="stylesheet" href="../css/style.css?v=25">
-    <link rel="stylesheet" href="../css/premium.css?v=25">
+    <link rel="stylesheet" href="../css/style.css?v=46">
+    <link rel="stylesheet" href="../css/premium.css?v=46">
     <link rel="stylesheet" href="../css/dropdown.css">
+
+    <!-- Performance: Critical Asset Preloading -->
+    <link rel="preload" href="../css/style.css?v=46" as="style">
+    <link rel="preload" href="../js/navbar-component.js" as="script">
+    <link rel="preload" href="../js/main.js" as="script">
+
+    <!-- JSON-LD Article Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "{{TITLE}}",
+      "image": "https://portfolio.upendrakumar.com/images/profile.webp",
+      "author": {
+        "@type": "Person",
+        "name": "Upendra Kumar",
+        "url": "https://portfolio.upendrakumar.com/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Upendra Kumar",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://portfolio.upendrakumar.com/favicon.ico"
+        }
+      },
+      "datePublished": "{{DATE}}",
+      "dateModified": "{{DATE}}",
+      "description": "{{DESCRIPTION}}"
+    }
+    </script>
+
     <style>
         .nav-logo-uk {
             background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
@@ -256,7 +288,9 @@
 
     <!-- Typography: Inter (Body) & Outfit (Headings) with Swap for Performance -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
+          crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 
     <body class="dark-theme">
@@ -321,16 +355,16 @@
         <div class="social-share-container">
             <p style="color: #94a3b8; font-size: 0.8rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700;">Spread the Insight</p>
             <div class="social-share-buttons">
-                <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn(event)" title="Share on LinkedIn">
+                <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn(event)" title="Share on LinkedIn" aria-label="Share on LinkedIn">
                     <i class="fab fa-linkedin"></i> LinkedIn
                 </a>
-                <a href="#" class="share-btn twitter" onclick="shareOnTwitter(event)" title="Share on X (Twitter)">
+                <a href="#" class="share-btn twitter" onclick="shareOnTwitter(event)" title="Share on X (Twitter)" aria-label="Share on Twitter">
                     <i class="fab fa-x-twitter"></i> Twitter
                 </a>
                 <a href="#" class="share-btn facebook" onclick="shareOnFacebook(event)" title="Share on Facebook">
                     <i class="fab fa-facebook-f"></i> Facebook
                 </a>
-                <button class="share-btn copy-link" onclick="copyPageLink(this)" title="Copy Link">
+                <button class="share-btn copy-link" onclick="copyPageLink(this)" title="Copy Link" aria-label="Copy Page Link">
                     <i class="fas fa-link"></i> <span class="btn-text">Copy Link</span>
                 </button>
             </div>
@@ -382,12 +416,12 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Upendra Kumar. All rights reserved. This content is personal and not affiliated with Rackspace Technology.</p>
+            <p>&copy; 2026 Upendra Kumar. All rights reserved.</p>
             <div class="social-links">
-                <a href="https://www.linkedin.com/in/journeytocloudwithupendra/" target="_blank" title="LinkedIn">
+                <a href="https://www.linkedin.com/in/journeytocloudwithupendra/" target="_blank" title="LinkedIn" aria-label="LinkedIn Profile">
                     <i class="fab fa-linkedin"></i>
                 </a>
-                <a href="https://github.com/appliedailearner" target="_blank" title="GitHub">
+                <a href="https://github.com/appliedailearner" target="_blank" title="GitHub" aria-label="GitHub Repository">
                     <i class="fab fa-github"></i>
                 </a>
             </div>
@@ -398,9 +432,8 @@
         // Mobile menu handles are now in navbar-component.js
     </script>
 
-    <!-- Smooth Navigation Enhancement -->
-    <script src="../js/case-study-nav.js"></script>
     <script src="../js/particles.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 </html>
 ```
