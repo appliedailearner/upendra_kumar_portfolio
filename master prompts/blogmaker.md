@@ -459,4 +459,5 @@
 **Tell the user to:**
 1.  Save the HTML code to `blog/{{FILENAME}}`.
 2.  Insert the index snippet into `blog/index.html` at the top of the list.
-3.  Run the deployment script: `./deploy-azure.ps1`.
+3.  **Run the RSS Generator:** `python c:\MyResumePortfolio\scripts\generate_rss.py`
+4.  Run the deployment script: `./deploy-azure.ps1`.
