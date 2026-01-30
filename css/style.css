@@ -1428,3 +1428,83 @@ body::before {
 .project-card-premium .project-content {
     padding: 2rem;
 }
+
+/* ===== Print Optimization ===== */
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+        font-family: 'Inter', serif;
+    }
+
+    .navbar,
+    .footer,
+    .scroll-progress,
+    .scroll-to-top,
+    .particles-canvas,
+    canvas,
+    .btn-primary,
+    .view-case-study-btn,
+    .ref-link-style {
+        display: none !important;
+    }
+
+    .container,
+    section,
+    article {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    .reveal-on-scroll {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        color: black !important;
+        background: none !important;
+        -webkit-text-fill-color: black !important;
+        page-break-after: avoid;
+    }
+
+    p,
+    li {
+        color: #333 !important;
+    }
+
+    img {
+        max-width: 100% !important;
+        page-break-inside: avoid;
+    }
+
+    .project-card-premium,
+    .blog-card-new,
+    .pillar-card {
+        page-break-inside: avoid;
+        margin-bottom: 2rem !important;
+        border: 1px solid #eee !important;
+    }
+
+    a::after {
+        content: " (" attr(href) ")";
+        font-size: 0.8rem;
+        color: #666;
+    }
+
+    .gradient-text,
+    .text-highlight-gradient {
+        background: none !important;
+        -webkit-text-fill-color: black !important;
+        color: black !important;
+    }
+}
