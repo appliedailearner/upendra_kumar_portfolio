@@ -322,42 +322,36 @@
             <h3>The "Subscription Vending" Requirement</h3>
             <p>Democratize access. You must automate subscription vending below.</p>
 
-            <!-- Microsoft Style Mermaid Diagram with Icons -->
+            <!-- Microsoft Style Mermaid Diagram (High Contrast / Solid Stencils) -->
             <div class="diagram-container" style="overflow-x: auto; background: #fff;">
                 <div class="mermaid">
                     %%{init: {'theme': 'base', 'themeVariables': { 'fontSize': '16px', 'fontFamily': 'Segoe UI',
-                    'primaryTextColor': '#243a5e', 'lineColor': '#7f7f7f'}}}%%
+                    'primaryTextColor': '#000', 'lineColor': '#333'}}}%%
                     flowchart TB
-                    linkStyle default stroke:#7f7f7f,stroke-width:2px;
+                    linkStyle default stroke:#505050,stroke-width:2px;
 
-                    %% Define Styles representing Azure Stencils (Borderless, Icon-focused)
-                    classDef stencil fill:#fff,stroke:none,color:#243a5e,stroke-width:0px;
-                    classDef container fill:#f9f9f9,stroke:#d1d1d1,color:#595959,stroke-width:1px,stroke-dasharray: 4 4;
+                    %% Solid Fill Styles (Azure Stencil Colors)
+                    classDef azure fill:#0078D4,stroke:none,color:#fff,rx:4,ry:4,font-weight:600;
+                    classDef security fill:#D83B01,stroke:none,color:#fff,rx:4,ry:4,font-weight:600;
+                    classDef identity fill:#005A9E,stroke:none,color:#fff,rx:4,ry:4,font-weight:600;
+                    classDef user fill:#333333,stroke:none,color:#fff,rx:4,ry:4,font-weight:600;
+                    classDef logic fill:#ffffff,stroke:#0078D4,color:#0078D4,stroke-width:2px,stroke-dasharray: 4
+                    4,font-weight:600;
 
-                    %% Nodes with FontAwesome simulating Azure Icons
-                    Dev["<i class='fas fa-user-tie fa-2x'
-                        style='color:#505050'></i><br /><strong>Developer</strong>"]:::stencil -->|Trigger| GH["<i
-                        class='fab fa-github fa-2x' style='color:#181717'></i><br /><strong>GitHub
-                        Actions</strong>"]:::stencil
+                    Dev[Developer]:::user -->|Trigger| GH[GitHub Actions]:::logic
 
                     subgraph Governance ["Platform Governance Scope"]
                     direction TB
-                    GH -->|1. Check| ID["<i class='fas fa-users-cog fa-2x' style='color:#0078D4'></i><br /><strong>Entra
-                        ID Group</strong>"]:::stencil
-                    ID -->|2. Auth| Fin["<i class='fas fa-calculator fa-2x'
-                        style='color:#0078D4'></i><br /><strong>Budget Code</strong>"]:::stencil
+                    GH -->|1. Check| ID[Entra ID Group]:::identity
+                    ID -->|2. Auth| Fin[Budget Code]:::identity
                     end
 
-                    Fin -->|3. Approve| Sub["<i class='fas fa-key fa-2x' style='color:#F2C811'></i><br /><strong>New
-                        Subscription</strong>"]:::stencil
-                    Sub -->|4. Deploy| Pol["<i class='fas fa-shield-alt fa-2x'
-                        style='color:#D83B01'></i><br /><strong>Azure Policy</strong>"]:::stencil
-                    Pol -->|5. Network| VNet["<i class='fas fa-network-wired fa-2x'
-                        style='color:#0078D4'></i><br /><strong>VNet Peering</strong>"]:::stencil
-                    VNet -->|Ready| App["<i class='fas fa-check-circle fa-2x'
-                        style='color:#107C10'></i><br /><strong>App Landing Zone</strong>"]:::stencil
+                    Fin -->|3. Approve| Sub[New Subscription]:::azure
+                    Sub -->|4. Deploy| Pol[Azure Policy]:::security
+                    Pol -->|5. Network| VNet[VNet Peering]:::azure
+                    VNet -->|Ready| App[App Landing Zone]:::user
 
-                    class Governance container
+                    class Governance logic
                 </div>
                 <div class="diagram-caption">Fig 1: Automated "Subscription Vending" Flow (Zero Ticket Ops)</div>
             </div>
