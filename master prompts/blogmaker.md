@@ -93,7 +93,7 @@
     *   This includes "Cast Members", diagrams, and footer logos.
 
 ## Step 2: Generate the Blog Post HTML
-**File Name:** Generate a filename based on the date and title: `blog/YYYY-MM-DD-kebab-case-title.html`
+**File Name:** Generate a filename based on the date and title: `C:\MyResumePortfolio\blog\YYYY-MM-DD-kebab-case-title.html`
 
 **Template:** Use the following HTML structure. **Do not modify the CSS classes or structure**, as they are critical for the site's theme. Replace `{{PLACEHOLDERS}}` with the user's input.
 
@@ -484,11 +484,11 @@ Upendra
 
 ## Step 6: Final Instructions
 **Tell the user to:**
-1.  Save the HTML code to `blog/{{FILENAME}}`.
-2.  Insert the index snippet into `blog/index.html` at the top of the list.
-3.  **Run the RSS Generator:** `python c:\MyResumePortfolio\scripts\generate_rss.py`
+1.  Save the HTML code to `C:\MyResumePortfolio\blog\{{FILENAME}}`.
+2.  Insert the index snippet into `C:\MyResumePortfolio\blog\index.html` at the top of the list.
+3.  **Run the RSS Generator:** `python "C:\MyResumePortfolio\scripts\generate_rss.py"`
 4.  **Send the Email:** Copy the "Beehiiv Newsletter Draft" above and send it to your subscribers (See Reference Guidelines below).
-5.  Run the deployment script: `./deploy-azure.ps1`.
+5.  Run the deployment script: `cd C:\MyResumePortfolio; ./deploy-both.ps1`.
 
 ---
 
