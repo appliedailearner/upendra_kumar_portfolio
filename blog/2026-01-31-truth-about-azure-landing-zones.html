@@ -281,6 +281,12 @@
                 run the "Enterprise-Scale" Terraform module, and congratulations—you are now "Enterprise Ready".
             </p>
 
+            <div class="diagram-container">
+                <img src="../images/alz-enterprise-scale.png"
+                    alt="Standard Azure Enterprise Scale Landing Zone Architecture">
+                <div class="diagram-caption">Fig 1: The "Standard" Enterprise Model (What consultants sell)</div>
+            </div>
+
             <p>The trap is believing that once the Bicep files run green, the job is done. Leaders fire the consultants,
                 hand the "keys" to operations, and walk away.</p>
 
@@ -322,38 +328,10 @@
             <h3>The "Subscription Vending" Requirement</h3>
             <p>Democratize access. You must automate subscription vending below.</p>
 
-            <!-- Microsoft Style Mermaid Diagram (High Contrast / Solid Stencils) -->
-            <div class="diagram-container" style="overflow-x: auto; background: #fff;">
-                <div class="mermaid">
-                    %%{init: {'theme': 'base', 'themeVariables': { 'fontSize': '16px', 'fontFamily': 'Segoe UI',
-                    'primaryTextColor': '#000', 'lineColor': '#333'}}}%%
-                    flowchart TB
-                    linkStyle default stroke:#505050,stroke-width:2px;
-
-                    %% Solid Fill Styles (Azure Stencil Colors)
-                    classDef azure fill:#0078D4,stroke:none,color:#fff,rx:4,ry:4,font-weight:600;
-                    classDef security fill:#D83B01,stroke:none,color:#fff,rx:4,ry:4,font-weight:600;
-                    classDef identity fill:#005A9E,stroke:none,color:#fff,rx:4,ry:4,font-weight:600;
-                    classDef user fill:#333333,stroke:none,color:#fff,rx:4,ry:4,font-weight:600;
-                    classDef logic fill:#ffffff,stroke:#0078D4,color:#0078D4,stroke-width:2px,stroke-dasharray: 4
-                    4,font-weight:600;
-
-                    Dev[Developer]:::user -->|Trigger| GH[GitHub Actions]:::logic
-
-                    subgraph Governance ["Platform Governance Scope"]
-                    direction TB
-                    GH -->|1. Check| ID[Entra ID Group]:::identity
-                    ID -->|2. Auth| Fin[Budget Code]:::identity
-                    end
-
-                    Fin -->|3. Approve| Sub[New Subscription]:::azure
-                    Sub -->|4. Deploy| Pol[Azure Policy]:::security
-                    Pol -->|5. Network| VNet[VNet Peering]:::azure
-                    VNet -->|Ready| App[App Landing Zone]:::user
-
-                    class Governance logic
-                </div>
-                <div class="diagram-caption">Fig 1: Automated "Subscription Vending" Flow (Zero Ticket Ops)</div>
+            <!-- Microsoft Style Diagram (PNG Image) -->
+            <div class="diagram-container">
+                <img src="../images/sub-vending.png" alt="Automated Subscription Vending Process Flow">
+                <div class="diagram-caption">Fig 2: Automated "Subscription Vending" Flow (Zero Ticket Ops)</div>
             </div>
 
             <h3>The Next Frontier: AI-Ready Landing Zones</h3>
