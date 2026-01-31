@@ -328,6 +328,24 @@
                 <strong>your Landing Zone is a failure</strong>.
             </div>
 
+            <h3>The "Subscription Democratization" Strategy</h3>
+            <p>A common myth is that Azure Subscriptions are expensive or difficult to manage. This leads to the "Noisy
+                Neighbor" anti-pattern: stuffing 50 disjointed apps into one subscription.</p>
+
+            <p><strong>The Reality:</strong> Subscriptions are a unit of <strong>Governance</strong>, not just billing.
+                They provide:</p>
+            <ul style="padding-left: 1.5rem; margin-bottom: 1.5rem;">
+                <li><strong>Isolation:</strong> One team's bad code can't hit the API rate limits of another team.</li>
+                <li><strong>Security:</strong> You can safely grant "Owner" rights to a team within their specific
+                    subscription boundary without risking the platform.</li>
+                <li><strong>Cost Clarity:</strong> No complex tagging required; the bill is split at the root.</li>
+            </ul>
+
+            <div class="diagram-container">
+                <img src="../images/sub-isolation.webp" loading="lazy" alt="Subscription Isolation vs Shared Chaos">
+                <div class="diagram-caption">Fig 1.5: Subscriptions are Boundaries. Use them.</div>
+            </div>
+
             <h3>The "Subscription Vending" Requirement</h3>
             <p>Democratize access. You must automate subscription vending below. Microsoft's official <a
                     href="https://learn.microsoft.com/en-us/azure/architecture/landing-zones/subscription-vending"
