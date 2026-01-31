@@ -131,12 +131,15 @@ try {
     # az storage blob delete-batch --account-name $StorageAccount --source $Container --pattern "*"
     
     # Upload all files
-    az storage blob upload-batch `
-        --account-name $StorageAccount `
-        --destination $Container `
-        --source $tempDir `
-        --overwrite `
-        --output table
+    $uploadArgs = @(
+        "storage", "blob", "upload-batch",
+        "--account-name", $StorageAccount,
+        "--destination", $Container,
+        "--source", $tempDir,
+        "--overwrite",
+        "--output", "table"
+    )
+    az $uploadArgs
     
     if ($LASTEXITCODE -eq 0) {
         Write-Host ""
