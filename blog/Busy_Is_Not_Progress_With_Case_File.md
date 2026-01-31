@@ -1,59 +1,108 @@
 # Busy Is Not Progress  
-## The Three-Coordinate Career Framework for Senior ICs and Managers
+## The Three-Coordinate Career Framework (with a real-world case file)
 
-This idea is inspired by Brad Wiens: before an autonomous system moves, it answers three questions.
+Motion feels productive. Direction is what changes your trajectory.
 
-1) Where am I right now?  
-2) Where am I trying to go?  
-3) What’s the path between the two, and how do I correct drift?
+Before an autonomous system moves, it answers three questions:
+
+1) **Where am I right now?**  
+2) **Where am I trying to go?**  
+3) **What’s the path between the two, and how do I correct drift?**
 
 Miss even one, and the system drifts.
 
 Careers drift the same way. People work harder, stay busy, optimize tasks, and still stall. Not because they lack drive, but because their internal map is fuzzy.
 
 This post turns “three coordinates” into a 90-day system you can run. It’s written for two tracks:
-- Senior ICs (architects/engineers) leveling up to bigger scope
-- Managers aiming for director
+- **Senior ICs** (architects/engineers) leveling up to bigger scope  
+- **Managers** aiming for director  
 
 ---
 
-## TL;DR
-You need three coordinates, written down:
-- **Baseline:** one page of reality. Skills, proof, constraints, friction.  
-- **Target Spec:** destination with constraints plus an ownership boundary.  
-- **Execution Loop:** 90 days, weekly shipping, weekly correction.
+## The cast
+A playbook needs a cast. This one has four roles:
 
-Then you run one scoreboard every Friday so you don’t lie to yourself.
+- **The Architect**: enforces clarity. Turns intent into a system.  
+- **The Operator**: gets pulled into everything. Always “busy.”  
+- **The Guardian**: protects constraints. Risk, governance, reputation.  
+- **The PM**: cares about cadence. If it’s not written, it doesn’t exist.  
+
+We’ll follow them through one moment that exposes the real problem.
 
 ---
 
-## The drift story most busy people are living
-Career drift rarely feels like failure. It feels like “normal”:
+## Scene 1: The quarterly review that changes the tone
+The Operator walks into the review with a calm confidence.
 
-- “I’m doing okay.”  
-- “Once this project ends.”  
-- “I just need more time.”  
-- “Something will open up.”
+“I’m shipping. I’m on every escalation. People rely on me.”
 
-Those aren’t plans. They’re placeholders. And placeholders quietly become permanent.
+The PM doesn’t argue. The PM asks one question:
 
-The cost is subtle:
-- reliable but replaceable  
-- skilled but under-positioned  
-- busy but not advancing  
+“Can you state your **current coordinates**, your **destination**, and your **path**, in one minute each?”
 
-You don’t fix this with motivation. You fix it with navigation.
+Silence.
+
+Not because the Operator is weak. Because the Operator has never been forced to write the map.
+
+The Architect sets a rule for the next 90 days:
+
+**No more motion without coordinates.**
+
+---
+
+## Scene 2: A case file that shows why coordinates matter
+The Architect pulls out a case file. Not to idolize people. To show mechanics.
+
+### Case File: The doorway conversation that reset a company’s map
+In late 2007, **Facebook had scale but no business engine**. The product was working. The model was not.
+
+At a Christmas party in December 2007, **Mark Zuckerberg met Sheryl Sandberg**, then a senior leader at Google. In a later profile, Zuckerberg recalled they talked for “probably an hour” **by the door**.  
+Source: *The New Yorker* profile by Ken Auletta.  
+
+A few months later, **Sandberg joined Facebook as COO**, starting March 24, 2008.  
+Source: Meta Newsroom announcement.  
+
+Financially, Facebook’s early years were not “inevitable success.” Facebook’s S-1 financials show that in 2008 it had **$272M revenue and a $56M loss**.  
+Source: S-1 figures summarized by TechCrunch.  
+
+Then the system changed. Not by working harder, but by making direction explicit. Sandberg’s role focused on building the **business and operating model** to scale revenue and operations.  
+Source: Meta Newsroom announcement.  
+
+Later, her life took an unrelated hit. In May 2015, her husband **Dave Goldberg** died while on vacation in Mexico after an exercise accident reported as a treadmill fall and head injury.  
+Source: *The Guardian* reporting.  
+
+Sandberg later wrote about rebuilding after losing “Option A,” and choosing to execute “Option B” with intent.  
+Source: publisher page for *Option B*.
+
+---
+
+### Debrief: The three coordinates hiding inside the case file
+**Coordinate 1, Baseline (reality, not vibes):**  
+- Millions of users and attention. Weak monetization. No durable operating model.  
+
+**Coordinate 2, Target (destination with constraints):**  
+- Build a real business without breaking the product’s trust and growth.  
+
+**Coordinate 3, Path (execution loop + drift correction):**  
+- Build a revenue engine, build an org cadence, measure, iterate.  
+- When life removed “Option A,” stop negotiating with reality. Run a new plan.
+
+**Punchline:** busy work didn’t fix the company. A clear map did.
+
+Now the Architect turns back to the Operator:
+
+“Good. You understand the model. Now we apply it to your career.”
 
 ---
 
 # Coordinate 1: Baseline  
 ## Current state, not your story
 
-Most people plan from a story. Stories are comforting. Stories also protect self-deception.
+Most professionals plan from a story. Stories are comforting. Stories also protect self-deception.
 
 A baseline is a one-page snapshot of reality. No spin. Just data.
 
-### Baseline Snapshot (copy/paste)
+### Baseline Snapshot
 ```text
 A) Role reality
 - What I actually do (top 5):
@@ -94,15 +143,15 @@ E) Friction log (last 30 days)
 ## Destination with constraints and an ownership boundary
 
 Most goals fail because they are slogans:
-- “I want growth.”
-- “I want leadership.”
-- “I want a better role.”
+- “I want growth.”  
+- “I want leadership.”  
+- “I want a better role.”  
 
 Those are not destinations.
 
 A usable destination is a spec you can evaluate as true or false in 12–18 months.
 
-### Target Spec (copy/paste)
+### Target Spec
 ```text
 - Target role title(s) (1–2):
 - Scope I want to own (ownership, not tasks):
@@ -123,7 +172,7 @@ Proof required (pick 5)
 5)
 ```
 
-The “ownership boundary” is what makes this senior-level. It forces you to define where your accountability starts and ends.
+The ownership boundary is what makes this senior-level. It forces you to define where your accountability starts and ends.
 
 ---
 
@@ -132,7 +181,7 @@ Most candidates read a job description and think: “I need more skills.”
 
 Senior hiring panels read a job description and think: “I need better proof.”
 
-A job description is a list of outcomes the company expects you to drive. So your plan should reverse-engineer outcomes into proof.
+A job description is a list of outcomes the company expects you to drive. Your plan should reverse-engineer outcomes into proof.
 
 ---
 
@@ -176,9 +225,9 @@ Pillar:
 ```
 
 ### Step 3: Convert proof into weekly shipping
-Choose 3–5 pillars for 90 days. Then commit to shipping one deliverable every week tied to those pillars.
+Choose 3–5 pillars for 90 days. Commit to shipping one deliverable every week tied to those pillars.
 
-No deliverable. No progress.
+No deliverable shipped, no progress.
 
 ---
 
@@ -189,7 +238,7 @@ A plan you write once is a wish list.
 
 A path is a loop: ship, measure, correct, repeat.
 
-### 90-day Execution Loop (copy/paste)
+### 90-day Execution Loop 
 ```text
 Objective (90 days): one measurable sentence.
 
@@ -238,7 +287,7 @@ Rule:
 
 Rule: ship one asset per week (Level 1 or 2). Ship one Level 3 asset per 90 days.
 
-Assets make your value legible, and they compound.
+Assets make your value legible. Then they compound.
 
 ---
 
@@ -249,7 +298,7 @@ Most people have experience. They just cannot present it.
 
 Build 6–8 Proof Cards. These become your interview story bank and your portfolio.
 
-### Proof Card (copy/paste)
+### Proof Card
 ```text
 - Context (2 lines):
 - Constraints (3 bullets):
@@ -311,7 +360,7 @@ Your Proof Cards should emphasize scope, influence, and repeatable operating mod
 ---
 
 # Make it interactive on your blog page
-Add these collapsible sections so readers can self-select.
+Add collapsible blocks so readers can self-select fast.
 
 ```html
 <details>
@@ -343,5 +392,9 @@ Run it for four weeks before you redesign it.
 
 ---
 
-## Reference
-- The three-coordinate framing is inspired by Brad Wiens, “Three Coordinates. One Trajectory.”
+## References (for the case file)
+- Meta Newsroom announcement: “Facebook Names Sheryl Sandberg Chief Operating Officer” (Mar 4, 2008)  
+- The New Yorker (Ken Auletta): “A Woman’s Place” (Jul 11, 2011)  
+- TechCrunch: “Facebook’s IPO: An End To All The Revenue Speculation” (Feb 1, 2012)  
+- The Guardian: reporting on Dave Goldberg’s death (May 2015)  
+- Publisher page for *Option B* (Sheryl Sandberg, Adam Grant)  
