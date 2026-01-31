@@ -487,5 +487,28 @@ Upendra
 1.  Save the HTML code to `blog/{{FILENAME}}`.
 2.  Insert the index snippet into `blog/index.html` at the top of the list.
 3.  **Run the RSS Generator:** `python c:\MyResumePortfolio\scripts\generate_rss.py`
-4.  **Send the Email:** Copy the "Beehiiv Newsletter Draft" above and send it to your subscribers.
+4.  **Send the Email:** Copy the "Beehiiv Newsletter Draft" above and send it to your subscribers (See Reference Guidelines below).
 5.  Run the deployment script: `./deploy-azure.ps1`.
+
+---
+
+## Reference: Manual Beehiiv Workflow (Teaser Strategy)
+
+**Since automation is paid, use this manual workflow:**
+
+1.  **Get the Link:** 
+    *   Copy the URL of your new blog post from the browser after deployment.
+    *   Example: `https://portfolio.upendrakumar.com/blog/2026-01-31-my-new-post.html`
+
+2.  **Go to Beehiiv:** 
+    *   Dashboard -> Write -> Posts -> Start Writing.
+
+3.  **Write the Teaser:** 
+    *   Paste the "Beehiiv Newsletter Draft" generated above.
+
+4.  **Add the Button:** 
+    *   Type `/button` in the editor.
+    *   **Label:** "Read the Full Article"
+    *   **URL:** [PASTE YOUR BLOG POST LINK HERE]
+
+5.  **Send:** Hit publish. This approach allows for a personal touch before directing readers to the technical content.
