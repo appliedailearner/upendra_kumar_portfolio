@@ -28,11 +28,13 @@
         mermaid.initialize({
             startOnLoad: true,
             theme: 'base',
+            securityLevel: 'loose', /* Required for FontAwesome Icons */
             fontFamily: 'Segoe UI, sans-serif',
+            flowchart: { curve: 'basis' },
             themeVariables: {
-                primaryColor: '#0078D4', /* Azure Blue */
-                primaryTextColor: '#fff',
-                primaryBorderColor: '#005a9e',
+                primaryColor: '#e6f2fb', /* Light Blue Background */
+                primaryTextColor: '#000',
+                primaryBorderColor: '#0078D4',
                 lineColor: '#505050',
                 secondaryColor: '#f0f0f0',
                 tertiaryColor: '#fff'
@@ -320,27 +322,30 @@
             <h3>The "Subscription Vending" Requirement</h3>
             <p>Democratize access. You must automate subscription vending below.</p>
 
-            <!-- Microsoft Style Mermaid Diagram -->
-            <div class="diagram-container">
+            <!-- Microsoft Style Mermaid Diagram with Icons -->
+            <div class="diagram-container" style="overflow-x: auto;">
                 <div class="mermaid">
-                    graph LR
-                    classDef user fill:#505050,stroke:#333,color:#fff,stroke-width:0px;
-                    classDef azure fill:#0078D4,stroke:#005a9e,color:#fff,stroke-width:2px;
-                    classDef logic fill:#ffffff,stroke:#0078D4,color:#0078D4,stroke-width:2px,stroke-dasharray: 5 5;
-                    classDef shield fill:#d13438,stroke:#a80000,color:#fff,stroke-width:2px;
+                    %%{init: {'theme': 'base', 'themeVariables': { 'fontSize': '14px'}}}%%
+                    flowchart LR
+                    classDef user fill:#505050,stroke:#333,color:#fff,stroke-width:0px,rx:5,ry:5;
+                    classDef azure fill:#fff,stroke:#0078D4,color:#000,stroke-width:2px,rx:5,ry:5;
+                    classDef logic fill:#f5f5f5,stroke:#0078D4,color:#0078D4,stroke-width:2px,stroke-dasharray: 5
+                    5,rx:5,ry:5;
+                    classDef shield fill:#fdf2f2,stroke:#d13438,color:#d13438,stroke-width:2px,rx:5,ry:5;
 
-                    Dev[Developer Request]:::user -->|Trigger| GH[GitHub Actions]:::logic
-                    GH -->|Permissions Check| ID[Entra ID Group]:::azure
-                    ID -->|Authorized| Logic{Approval Logic}:::logic
-                    Logic -->|Auto-Approve| Sub[New Subscription]:::azure
-                    Sub -->|Apply| Pol[Azure Policy]:::shield
-                    Pol -->|Configure| VNet[VNet Peering]:::azure
-                    VNet -->|Ready| App[App Landing Zone]:::user
+                    Dev["<i class='fas fa-user-tie'></i> Developer"]:::user -->|Trigger| GH["<i
+                        class='fab fa-github'></i> Actions"]:::logic
+                    GH -->|Check| ID["<i class='fas fa-users-cog'></i> Entra ID"]:::azure
+                    ID -->|Auth| Fin["<i class='fas fa-calculator'></i> Budget"]:::logic
+                    Fin -->|Approved| Sub["<i class='fas fa-key'></i> Sub"]:::azure
+                    Sub -->|Deploy| Pol["<i class='fas fa-shield-alt'></i> Policy"]:::shield
+                    Pol -->|Network| VNet["<i class='fas fa-network-wired'></i> Peering"]:::azure
+                    VNet -->|Ready| App["<i class='fas fa-check-circle'></i> App LZ"]:::user
 
                     subgraph "Platform Governance"
                     GH
                     ID
-                    Logic
+                    Fin
                     end
                 </div>
                 <div class="diagram-caption">Fig 1: Automated "Subscription Vending" Flow (Zero Ticket Ops)</div>
