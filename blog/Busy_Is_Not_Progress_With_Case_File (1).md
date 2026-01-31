@@ -102,7 +102,7 @@ Most professionals plan from a story. Stories are comforting. Stories also prote
 
 A baseline is a one-page snapshot of reality. No spin. Just data.
 
-### Baseline Snapshot
+### Baseline Snapshot (copy/paste)
 ```text
 A) Role reality
 - What I actually do (top 5):
@@ -151,7 +151,7 @@ Those are not destinations.
 
 A usable destination is a spec you can evaluate as true or false in 12–18 months.
 
-### Target Spec
+### Target Spec (copy/paste)
 ```text
 - Target role title(s) (1–2):
 - Scope I want to own (ownership, not tasks):
@@ -238,7 +238,7 @@ A plan you write once is a wish list.
 
 A path is a loop: ship, measure, correct, repeat.
 
-### 90-day Execution Loop 
+### 90-day Execution Loop (copy/paste)
 ```text
 Objective (90 days): one measurable sentence.
 
@@ -298,7 +298,7 @@ Most people have experience. They just cannot present it.
 
 Build 6–8 Proof Cards. These become your interview story bank and your portfolio.
 
-### Proof Card
+### Proof Card (copy/paste)
 ```text
 - Context (2 lines):
 - Constraints (3 bullets):
