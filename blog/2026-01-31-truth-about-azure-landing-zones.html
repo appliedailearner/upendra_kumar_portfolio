@@ -21,6 +21,25 @@
         })(window, document, "clarity", "script", "v5iynlmgo7");
     </script>
 
+    <!-- FontAwesome & Mermaid -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            fontFamily: 'Segoe UI, sans-serif',
+            themeVariables: {
+                primaryColor: '#0078D4', /* Azure Blue */
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#005a9e',
+                lineColor: '#505050',
+                secondaryColor: '#f0f0f0',
+                tertiaryColor: '#fff'
+            }
+        });
+    </script>
+
     <style>
         /* Shared Blog Styles */
         .nav-logo-uk {
@@ -76,6 +95,7 @@
             border-radius: 20px;
             font-size: 0.9rem;
             border: 1px solid rgba(168, 85, 247, 0.2);
+            font-weight: 500;
         }
 
         .btn-primary {
@@ -153,13 +173,45 @@
             margin: 1.5rem 0;
             border-radius: 0 8px 8px 0;
         }
+
+        /* Diagrams & Images */
+        .diagram-container {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .diagram-caption {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-top: 1rem;
+            font-weight: 500;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 0.5rem;
+        }
+
+        .ai-image-container {
+            margin: 2rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .ai-image-container img {
+            width: 100%;
+            display: block;
+        }
     </style>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800&family=Inter:wght@400;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body class="dark-theme">
@@ -245,24 +297,16 @@
 
             <h3>1. ALZ is an Operating Model, Not a Repo</h3>
             <p>The code is the easy part. The hard part is the <strong>politics of permission</strong>. If your Landing
-                Zone doesn't have a <strong>Platform Team</strong> to curate it, entropy will win. The moment you
-                deploy, business requirements immediately start to drift away from your initial design.</p>
+                Zone doesn't have a <strong>Platform Team</strong> to curate it, entropy will win.</p>
 
             <h3>2. The "Day 2" Cliff</h3>
             <p>90% of the work isn't <i>landing</i> the zone; it's <strong>preventing it from becoming a swamp</strong>.
             </p>
-            <ul style="padding-left: 1.5rem; margin-bottom: 1.5rem;">
-                <li><strong>The AI Architect's Gripe:</strong> "Your perfect Hub-and-Spoke is blocking my OpenAI private
-                    endpoints because you didn't plan for split-horizon DNS."</li>
-                <li><strong>The FinOps Nightmare:</strong> "Why do we have 400 orphaned disks in the 'Corp' management
-                    group?"</li>
-            </ul>
 
             <h2 id="the-fix"><span class="gradient-text">The Fix (Senior Advice)</span></h2>
 
             <h3>Treat Platform as a Product (PaaP)</h3>
-            <p>Your Landing Zone needs a <strong>Product Owner</strong>, a roadmap, and customers (your app teams). It
-                is not a utility; it is a service you offer internally.</p>
+            <p>Your Landing Zone needs a <strong>Product Owner</strong>, a roadmap, and customers (your app teams).</p>
 
             <div class="truth-box">
                 <strong
@@ -270,33 +314,52 @@
                     <i class="fas fa-check-circle"></i> The Litmus Test
                 </strong>
                 If your "customer" (a developer) needs 3 weeks and 5 ServiceNow tickets to get a new subscription,
-                <strong>your Landing Zone is a failure</strong>, no matter how pretty the architecture diagram is. You
-                have built a bottleneck, not an enabler.
+                <strong>your Landing Zone is a failure</strong>.
             </div>
 
             <h3>The "Subscription Vending" Requirement</h3>
-            <p>Democratize access. You must automate subscription vending. A developer should trigger a pipeline, passes
-                a budget check, and receive a fully governed subscription with networking pre-wired in 45 minutes, not
-                45 days.</p>
+            <p>Democratize access. You must automate subscription vending below.</p>
 
-            <h3>Policy != Paperwork</h3>
-            <p>Don't write a PDF security standard. Nobody reads it. Write an <strong>Azure Policy `deny`
-                    assignment</strong>.</p>
-            <p><strong>Realist Rule:</strong> If the platform allows a developer to do it, <i>it is allowed</i>. Don't
-                blame them for clicking a button ("Public IP") that you forgot to disable via Policy.</p>
+            <!-- Microsoft Style Mermaid Diagram -->
+            <div class="diagram-container">
+                <div class="mermaid">
+                    graph LR
+                    classDef user fill:#505050,stroke:#333,color:#fff,stroke-width:0px;
+                    classDef azure fill:#0078D4,stroke:#005a9e,color:#fff,stroke-width:2px;
+                    classDef logic fill:#ffffff,stroke:#0078D4,color:#0078D4,stroke-width:2px,stroke-dasharray: 5 5;
+                    classDef shield fill:#d13438,stroke:#a80000,color:#fff,stroke-width:2px;
 
-            <h3>Kill ClickOps</h3>
-            <p><strong>Read-Only Access for EVERYONE in Production.</strong> Yes, even you, the lead architect. If you
-                can't fix it via a Pull Request, you haven't built a resilient platform. You're just improvising.</p>
+                    Dev[Developer Request]:::user -->|Trigger| GH[GitHub Actions]:::logic
+                    GH -->|Permissions Check| ID[Entra ID Group]:::azure
+                    ID -->|Authorized| Logic{Approval Logic}:::logic
+                    Logic -->|Auto-Approve| Sub[New Subscription]:::azure
+                    Sub -->|Apply| Pol[Azure Policy]:::shield
+                    Pol -->|Configure| VNet[VNet Peering]:::azure
+                    VNet -->|Ready| App[App Landing Zone]:::user
+
+                    subgraph "Platform Governance"
+                    GH
+                    ID
+                    Logic
+                    end
+                </div>
+                <div class="diagram-caption">Fig 1: Automated "Subscription Vending" Flow (Zero Ticket Ops)</div>
+            </div>
+
             <h3>The Next Frontier: AI-Ready Landing Zones</h3>
+
+            <div class="ai-image-container">
+                <img src="../images/ai-landing-zone-glass.png"
+                    alt="Abstract visualization of a secure AI Landing Zone fortress">
+            </div>
+
             <p>Recently, organizations have been scrambling to adopt the <a
                     href="https://github.com/Azure/AI-Landing-Zones" target="_blank"
                     style="color: #3b82f6; text-decoration: underline;">Azure AI Landing Zone</a> reference
                 architectures. The pattern remains the same: <strong>Governance must enable speed.</strong></p>
 
             <p>To accelerate enterprise AI adoption, you cannot just "open the firewall." You need a dedicated
-                <strong>"Smart Router"</strong> pattern:
-            </p>
+                <strong>"Smart Router"</strong> pattern:</p>
 
             <ul style="padding-left: 1.5rem; margin-bottom: 1.5rem;">
                 <li><strong>Shared AI Hub:</strong> Centralize your APIM and Cognitive Services provisioning to prevent
@@ -322,6 +385,10 @@
                     target="_blank" style="color: #c084fc; text-decoration: underline;">Enterprise AI Adoption</a>
                 strategy has already failed.
             </div>
+
+            <h3>Kill ClickOps</h3>
+            <p><strong>Read-Only Access for EVERYONE in Production.</strong> Yes, even you, the lead architect. If you
+                can't fix it via a Pull Request, you haven't built a resilient platform. You're just improvising.</p>
 
         </article>
     </div>
