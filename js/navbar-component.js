@@ -77,6 +77,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         <!-- Column 3: Value Architect -->
                         <div class="dropdown-column">
                             <h4 class="dropdown-header">🧠 Value Architect Playbook</h4>
+                            <a href="${base}blog/2026-02-01-busy-is-not-progress.html" class="dropdown-link">
+                                <i class="fas fa-compass"></i>
+                                <span>Busy Is Not Progress</span>
+                            </a>
                             <a href="${base}blog/2026-01-02-value-selling-for-architects.html" class="dropdown-link">
                                 <i class="fas fa-sack-dollar"></i>
                                 <span>Value-Selling for Architects</span>
