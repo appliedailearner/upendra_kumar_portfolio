@@ -422,6 +422,8 @@
             <!-- Scenario 1: Parallel -->
             <div
                 style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 1.5rem;">
+                <img src="../images/scenario_parallel_v2.png" alt="Parallel Architecture: Firewall separate from WAF"
+                    style="width: 100%; border-radius: 4px; margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.1);">
                 <h4 style="color: #4ade80; margin-top: 0;">1. The Parallel Pattern (The Pragmatist)</h4>
                 <p style="font-size: 0.9rem; margin-bottom: 1rem;"><strong>Layout:</strong> AppGW and Firewall sit
                     side-by-side. Web traffic hits AppGW; Non-web hits Firewall.</p>
@@ -438,6 +440,8 @@
             <!-- Scenario 2: AppGW before FW -->
             <div
                 style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 1.5rem;">
+                <img src="../images/scenario_appgw_first_v2.png" alt="AppGW before Firewall: Zero Trust Inspection"
+                    style="width: 100%; border-radius: 4px; margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.1);">
                 <h4 style="color: #60a5fa; margin-top: 0;">2. AppGW -> Firewall (The Fortress)</h4>
                 <p style="font-size: 0.9rem; margin-bottom: 1rem;"><strong>Layout:</strong> Traffic hits WAF first, then
                     is piped through Firewall for heavy inspection.</p>
@@ -454,6 +458,8 @@
             <!-- Scenario 3: FW before AppGW -->
             <div
                 style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 1.5rem;">
+                <img src="../images/scenario_firewall_first_v2.png" alt="Firewall before AppGW: Edge Protection"
+                    style="width: 100%; border-radius: 4px; margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.1);">
                 <h4 style="color: #f472b6; margin-top: 0;">3. Firewall -> AppGW (The Shield)</h4>
                 <p style="font-size: 0.9rem; margin-bottom: 1rem;"><strong>Layout:</strong> Firewall filters bad IPs at
                     the edge, THEN passes clean traffic to WAF.</p>
