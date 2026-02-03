@@ -273,6 +273,72 @@
             flex-shrink: 0;
             margin-top: 0.25rem;
         }
+
+        /* --- SENIOR ARCHITECT: BREAK-OUT LAYOUT --- */
+        .break-out-diagram {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            display: flex;
+            justify-content: center;
+            margin-top: 3.5rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .break-out-diagram img {
+            width: 100%;
+            max-width: 1000px;
+            height: auto;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+
+        @media (max-width: 1040px) {
+            .break-out-diagram {
+                width: 100%;
+                left: 0;
+                right: 0;
+                margin-left: 0;
+                margin-right: 0;
+                padding: 0 1rem;
+            }
+
+            .break-out-diagram img {
+                border-radius: 8px;
+            }
+        }
+
+        /* --- BACK TO TOP NAVIGATION --- */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: rgba(59, 130, 246, 0.8);
+            color: white;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            z-index: 1000;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        #backToTop:hover {
+            transform: translateY(-5px);
+            background: #3b82f6;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
     </style>
 
     <!-- Performance: Preconnect to Font & Script Servers -->
@@ -373,9 +439,9 @@
             </div>
         </div>
 
-        <img src="../assets/images/azure_unified_solution_architecture.webp"
-            alt="Unified Azure Solution Architecture Diagram" class="diagram-img" loading="lazy" decoding="async"
-            width="1200" height="675">
+        <div class="break-out-diagram">
+            <img src="../images/first_instinct_v5.png" alt="Hub-and-Spoke Basics: Clean Blueprint">
+        </div>
 
         <h2><span class="gradient-text">1. The Architecture: Hub-and-Spoke Reality</span></h2>
 
@@ -384,8 +450,9 @@
             assertions. This isn't just about connectivity; it's about <strong>Control</strong>.
         </p>
 
-        <img src="../assets/images/azure_lab_full_topology.webp" alt="Full Azure Landing Zone Topology Diagram"
-            class="diagram-img" loading="lazy" decoding="async" width="1200" height="675">
+        <div class="break-out-diagram">
+            <img src="../images/first_instinct_v5.png" alt="Azure Landing Zone Topology: Clean Blueprint">
+        </div>
 
         <h3>The Core Components</h3>
         <ul>
@@ -408,9 +475,9 @@
             App, Firewall -> Internet). We chose <strong>Parallel</strong> (Zero Trust Edge).
         </p>
 
-        <img src="../assets/images/azure_network_flow_diagram.webp"
-            alt="Azure Network Flow Diagram showing Parallel Design" class="diagram-img" loading="lazy" decoding="async"
-            width="1200" height="675">
+        <div class="break-out-diagram">
+            <img src="../images/design_decisions_v5.png" alt="Parallel Edge Security: Clean Framework">
+        </div>
 
         <p><strong>Why Parallel?</strong></p>
         <ul>
@@ -428,8 +495,9 @@
             no single failure results in compromise.
         </p>
 
-        <img src="../assets/images/azure_security_flow_diagram.webp" alt="Azure Security Flow Diagram"
-            class="diagram-img" loading="lazy" decoding="async" width="1200" height="675">
+        <div class="break-out-diagram">
+            <img src="../images/defense_in_depth_v5.png" alt="Defense in Depth: Clean Engineering Layers">
+        </div>
 
         <h3>The Non-Negotiables</h3>
         <ol>
@@ -448,8 +516,9 @@
             implement three pillars to "prove the negative."
         </p>
 
-        <img src="../assets/images/azure_observability_data_flow.webp" alt="Azure Observability Data Flow Diagram"
-            class="diagram-img" loading="lazy" decoding="async" width="1200" height="675">
+        <div class="break-out-diagram">
+            <img src="../images/observability_flow_v5.png" alt="Network Observability: Clean Data Pipeline">
+        </div>
 
         <table
             style="width: 100%; border-collapse: collapse; margin: 2rem 0; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1);">
@@ -528,65 +597,60 @@
                 target="_blank">three core patterns</a>. Here is the realist's take on when to use which:
         </p>
 
-        <div class="scenarios-grid"
-            style="display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin: 2rem 0;">
-
+        <div class="scenario-focus-section">
             <!-- Scenario 1: Parallel -->
-            <div
-                style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 1.5rem;">
-                <img src="../images/scenario_parallel_v3.png" alt="Parallel Architecture: Blueprint"
-                    style="width: 100%; border-radius: 4px; margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.1);"
-                    width="1200" height="675">
-                <h4 style="color: #4ade80; margin-top: 0;">1. The Parallel Pattern (The Pragmatist)</h4>
-                <p style="font-size: 0.9rem; margin-bottom: 1rem;"><strong>Layout:</strong> AppGW and Firewall sit
-                    side-by-side. Web traffic hits AppGW; Non-web hits Firewall.</p>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem; color: #cbd5e1;">
-                    <li><strong>✅ Pros:</strong> Simplest routing. No double-encryption capability needed. Cheapest.
-                    </li>
-                    <li><strong>⛔ Cons:</strong> Azure Firewall does NOT inspect the web traffic. You rely 100% on the
-                        WAF.</li>
-                    <li><strong>Verdict:</strong> Use this for 90% of standard enterprise apps where WAF protection is
-                        sufficient.</li>
-                </ul>
+            <h4 style="color: #4ade80; margin-top: 3rem;">1. The Parallel Pattern (The Pragmatist)</h4>
+            <p><strong>Layout:</strong> AppGW and Firewall sit side-by-side. Web traffic hits AppGW; Non-web hits
+                Firewall.</p>
+
+            <div class="break-out-diagram">
+                <img src="../images/scenario_parallel_v4.png" alt="Parallel Architecture: Clean Blueprint">
             </div>
+
+            <ul style="margin-bottom: 3rem;">
+                <li><strong>✅ Pros:</strong> Simplest routing. No double-encryption capability needed. Cheapest.</li>
+                <li><strong>⛔ Cons:</strong> Azure Firewall does NOT inspect the web traffic. You rely 100% on the WAF.
+                </li>
+                <li><strong>Verdict:</strong> Use this for 90% of standard enterprise apps where WAF protection is
+                    sufficient.</li>
+            </ul>
+
+            <hr style="border-color: rgba(255,255,255,0.05); margin: 3rem 0;">
 
             <!-- Scenario 2: AppGW before FW -->
-            <div
-                style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 1.5rem;">
-                <img src="../images/scenario_appgw_first_v3.png" alt="Fortress Architecture: Blueprint"
-                    style="width: 100%; border-radius: 4px; margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.1);"
-                    width="1200" height="675">
-                <h4 style="color: #60a5fa; margin-top: 0;">2. AppGW -> Firewall (The Fortress)</h4>
-                <p style="font-size: 0.9rem; margin-bottom: 1rem;"><strong>Layout:</strong> Traffic hits WAF first, then
-                    is piped through Firewall for heavy inspection.</p>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem; color: #cbd5e1;">
-                    <li><strong>✅ Pros:</strong> "Zero Trust". Firewall sees <em>everything</em>, even web packets.
-                        Preserves Client IP (via X-Forwarded-For).</li>
-                    <li><strong>⛔ Cons:</strong> Complex UDRs. Needs Azure Firewall Premium to meaningful inspect
-                        encrypted web traffic (TLS Inspection).</li>
-                    <li><strong>Verdict:</strong> Mandatory for Banking/High-Compliance where <em>Defense in Depth</em>
-                        is audited.</li>
-                </ul>
+            <h4 style="color: #60a5fa; margin-top: 3rem;">2. AppGW -> Firewall (The Fortress)</h4>
+            <p><strong>Layout:</strong> Traffic hits WAF first, then is piped through Firewall for heavy inspection.</p>
+
+            <div class="break-out-diagram">
+                <img src="../images/scenario_appgw_first_v4.png" alt="Fortress Architecture: Clean Blueprint">
             </div>
 
+            <ul style="margin-bottom: 3rem;">
+                <li><strong>✅ Pros:</strong> "Zero Trust". Firewall sees <em>everything</em>, even web packets.
+                    Preserves Client IP (via X-Forwarded-For).</li>
+                <li><strong>⛔ Cons:</strong> Complex UDRs. Needs Azure Firewall Premium to meaningful inspect encrypted
+                    web traffic (TLS Inspection).</li>
+                <li><strong>Verdict:</strong> Mandatory for Banking/High-Compliance where <em>Defense in Depth</em> is
+                    audited.</li>
+            </ul>
+
+            <hr style="border-color: rgba(255,255,255,0.05); margin: 3rem 0;">
+
             <!-- Scenario 3: FW before AppGW -->
-            <div
-                style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 1.5rem;">
-                <img src="../images/scenario_firewall_first_v3.png" alt="Shield Architecture: Blueprint"
-                    style="width: 100%; border-radius: 4px; margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.1);"
-                    width="1200" height="675">
-                <h4 style="color: #f472b6; margin-top: 0;">3. Firewall -> AppGW (The Shield)</h4>
-                <p style="font-size: 0.9rem; margin-bottom: 1rem;"><strong>Layout:</strong> Firewall filters bad IPs at
-                    the edge, THEN passes clean traffic to WAF.</p>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem; color: #cbd5e1;">
-                    <li><strong>✅ Pros:</strong> Stops DDoS/Scanners before they touch your expensive WAF instances.
-                    </li>
-                    <li><strong>⛔ Cons:</strong> <strong>Major Trap:</strong> The WAF only sees the Firewall's IP, not
-                        the Client ID, unless you enable expensive Proxy modes.</li>
-                    <li><strong>Verdict:</strong> Rare. Use only if you have a massive IP-blocking requirement at the
-                        edge.</li>
-                </ul>
+            <h4 style="color: #f472b6; margin-top: 3rem;">3. Firewall -> AppGW (The Shield)</h4>
+            <p><strong>Layout:</strong> Firewall filters bad IPs at the edge, THEN passes clean traffic to WAF.</p>
+
+            <div class="break-out-diagram">
+                <img src="../images/scenario_firewall_first_v4.png" alt="Shield Architecture: Clean Blueprint">
             </div>
+
+            <ul style="margin-bottom: 3rem;">
+                <li><strong>✅ Pros:</strong> Stops DDoS/Scanners before they touch your expensive WAF instances.</li>
+                <li><strong>⛔ Cons:</strong> <strong>Major Trap:</strong> The WAF only sees the Firewall's IP, not the
+                    Client ID, unless you enable expensive Proxy modes.</li>
+                <li><strong>Verdict:</strong> Rare. Use only if you have a massive IP-blocking requirement at the edge.
+                </li>
+            </ul>
         </div>
 
         <h2><span class="gradient-text">6. Troubleshooting the Trenches: The "404 Ghost"</span></h2>
@@ -785,6 +849,28 @@
 
     <script src="../js/particles.js"></script>
     <script src="../js/main.js"></script>
+
+    <!-- Back to Top Component -->
+    <a href="#" id="backToTop" title="Go to top">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <script>
+        // Back to Top Logic
+        const backToTopBtn = document.getElementById("backToTop");
+        window.onscroll = function () {
+            if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
+                backToTopBtn.style.display = "flex";
+            } else {
+                backToTopBtn.style.display = "none";
+            }
+        };
+
+        backToTopBtn.onclick = function (e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+    </script>
 </body>
 
 </html>
