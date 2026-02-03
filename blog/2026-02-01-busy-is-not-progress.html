@@ -394,23 +394,30 @@
         /* --- Premium UI Enhancements --- */
         .premium-hook {
             font-family: 'Outfit', sans-serif;
-            font-size: 1.5rem;
-            /* Increased size */
-            font-weight: 500;
-            line-height: 1.6;
-            color: #f8fafc !important;
-            /* Force White */
-            background: linear-gradient(to right, rgba(59, 130, 246, 0.1), transparent);
-            border-left: 4px solid #3b82f6;
+            /* Display font works best for gradient text */
+            font-size: 1.6rem;
+            font-weight: 700;
+            /* Bold weight required for gradient visibility */
+            line-height: 1.5;
+
+            /* Gradient Text Effect (Purple to Blue) */
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+
+            /* Container Styling */
+            background-color: rgba(255, 255, 255, 0.03);
+            /* Neutral background to let text pop */
+            border-left: 4px solid #a855f7;
+            /* Match the purple start of gradient */
             padding: 2.5rem;
-            /* More breathing room */
             border-radius: 0 16px 16px 0;
             margin-bottom: 3rem;
             position: relative;
-            backdrop-filter: blur(8px);
-            /* Glass effect */
+            backdrop-filter: blur(5px);
             border-top: 1px solid rgba(255, 255, 255, 0.05);
-            /* Subtle top highlight */
         }
 
         /* Cast Grid Styles */
@@ -677,7 +684,8 @@
 
             <div style="margin: 2rem 0;">
                 <img src="../images/blog/2026-02-01-ship-drift.png" alt="Concept: Drift vs Course"
-                    style="width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);" loading="lazy">
+                    style="width: 100%; max-height: 360px; object-fit: cover; object-position: center; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);"
+                    loading="lazy">
                 <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem; text-align: center;">Drift
                     happens silently when coordinates aren't fixed.</p>
             </div>
@@ -710,7 +718,7 @@
             <p>Most professionals plan from a story. Stories are comforting. Stories also protect self-deception. A
                 baseline is a one-page snapshot of reality. No spin. Just data.</p>
 
-            <h3>Baseline Snapshot (copy/paste)</h3>
+            <h3>Baseline Snapshot</h3>
             <pre><code>A) Role reality
 - What I actually do (top 5):
 - Decisions I own vs execute:
@@ -745,7 +753,7 @@ E) Friction log (last 30 days)
             <p>Most goals fail because they are slogans ("I want growth"). A usable destination is a spec you can
                 evaluate as true or false in 12–18 months.</p>
 
-            <h3>Target Spec (copy/paste)</h3>
+            <h3>Target Spec</h3>
             <pre><code>- Target role title(s) (1–2):
 - Scope I want to own (ownership, not tasks):
 - Domain focus:
@@ -776,10 +784,11 @@ Proof required (pick 5)
 
             <div style="margin: 2rem 0;">
                 <img src="../images/blog/2026-02-01-execution-grid.png" alt="Concept: Execution Grid"
-                    style="width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);" loading="lazy">
+                    style="width: 100%; max-height: 360px; object-fit: cover; object-position: center; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);"
+                    loading="lazy">
             </div>
 
-            <h3>90-day Execution Loop (copy/paste)</h3>
+            <h3>90-day Execution Loop</h3>
             <pre><code>Objective (90 days): one measurable sentence.
 
 Key Results (3–5):
@@ -803,7 +812,7 @@ Weekly cadence (calendar it)
                 <h3 style="margin-top: 0; color: #fff;">Need this system ready-to-go?</h3>
                 <p style="margin-bottom: 2rem; color: #cbd5e1;">I've packaged these templates, the drift calculator, and
                     the asset examples into a single kit.</p>
-                <a href="Career_Navigation_Kit.zip" class="btn btn-primary"
+                <a href="../assets/downloads/Career_Navigation_Kit.zip" class="btn btn-primary"
                     style="padding: 1rem 2rem; font-size: 1.1rem;">
                     <i class="fas fa-download"></i> Download the Career Navigation Kit
                 </a>
@@ -842,7 +851,7 @@ Weekly cadence (calendar it)
             <p>I help organizations and architects turn stalled initiatives into execution engines.</p>
             <div style="margin-top: 2rem; display: flex; gap: 1rem;">
                 <a href="../pages/contact.html" class="btn btn-primary">Contact Me</a>
-                <a href="Career_Navigation_Kit.zip" class="btn btn-outline">Download the Kit</a>
+                <a href="../assets/downloads/Career_Navigation_Kit.zip" class="btn btn-outline">Download the Kit</a>
             </div>
 
             <!-- Social Share Section -->
