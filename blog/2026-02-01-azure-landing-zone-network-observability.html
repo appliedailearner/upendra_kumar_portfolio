@@ -201,6 +201,28 @@
             color: transparent;
             display: inline;
         }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #a855f7, #3b82f6);
+        }
     </style>
 
     <!-- Performance: Preconnect to Font & Script Servers -->
@@ -264,16 +286,22 @@
             VNets—they inspect, block, and rigorously audit every packet.
         </p>
 
-        <p>
-            Cloud reliability failures often represent a failure of "Day 2" operations: configuration drift, silent
-            security failures, and opaque network paths. When your manager asks, "Why did that connection fail at 3
-            AM?", pointing to a static Visio diagram isn't enough.
-        </p>
+        <div class="glass-card">
+            <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">
+                <i class="fas fa-bolt" style="color: #fbbf24; margin-right: 0.5rem;"></i>
+                Cloud reliability failures often represent a failure of "Day 2" operations: configuration drift, silent
+                security failures, and opaque network paths. When your manager asks, <em>"Why did that connection fail
+                    at 3
+                    AM?"</em>, pointing to a static Visio diagram isn't enough.
+            </p>
 
-        <p>
-            This guide is not a "Hello World" tutorial. It documents a <strong>production-grade Landing Zone</strong>
-            built for auditability, utilizing the "Trinity" of Observability to prove your network is healthy.
-        </p>
+            <p style="margin-bottom: 0;">
+                <i class="fas fa-check-circle" style="color: #22c55e; margin-right: 0.5rem;"></i>
+                This guide is not a "Hello World" tutorial. It documents a <strong>production-grade Landing
+                    Zone</strong>
+                built for auditability, utilizing the "Trinity" of Observability to prove your network is healthy.
+            </p>
+        </div>
 
         <img src="../assets/images/azure_unified_solution_architecture.png"
             alt="Unified Azure Solution Architecture Diagram" class="diagram-img">
