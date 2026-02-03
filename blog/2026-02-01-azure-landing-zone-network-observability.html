@@ -534,7 +534,7 @@
             <!-- Scenario 1: Parallel -->
             <div
                 style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 1.5rem;">
-                <img src="../images/scenario_parallel_v2.webp" alt="Parallel Architecture: Firewall separate from WAF"
+                <img src="../images/scenario_parallel_v3.png" alt="Parallel Architecture: Blueprint"
                     style="width: 100%; border-radius: 4px; margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.1);"
                     width="1200" height="675">
                 <h4 style="color: #4ade80; margin-top: 0;">1. The Parallel Pattern (The Pragmatist)</h4>
@@ -553,7 +553,7 @@
             <!-- Scenario 2: AppGW before FW -->
             <div
                 style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 1.5rem;">
-                <img src="../images/scenario_appgw_first_v2.webp" alt="AppGW before Firewall: Zero Trust Inspection"
+                <img src="../images/scenario_appgw_first_v3.png" alt="Fortress Architecture: Blueprint"
                     style="width: 100%; border-radius: 4px; margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.1);"
                     width="1200" height="675">
                 <h4 style="color: #60a5fa; margin-top: 0;">2. AppGW -> Firewall (The Fortress)</h4>
@@ -572,7 +572,7 @@
             <!-- Scenario 3: FW before AppGW -->
             <div
                 style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 1.5rem;">
-                <img src="../images/scenario_firewall_first_v2.webp" alt="Firewall before AppGW: Edge Protection"
+                <img src="../images/scenario_firewall_first_v3.png" alt="Shield Architecture: Blueprint"
                     style="width: 100%; border-radius: 4px; margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.1);"
                     width="1200" height="675">
                 <h4 style="color: #f472b6; margin-top: 0;">3. Firewall -> AppGW (The Shield)</h4>
@@ -589,7 +589,57 @@
             </div>
         </div>
 
-        <h2><span class="gradient-text">6. The Cost of Reality (FinOps)</span></h2>
+        <h2><span class="gradient-text">6. Troubleshooting the Trenches: The "404 Ghost"</span></h2>
+
+        <div
+            style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(239, 68, 68, 0.3); border-left: 4px solid #ef4444; padding: 2rem; border-radius: 8px; margin: 2rem 0;">
+            <h3 style="color: #ef4444; margin-top: 0;"><i class="fas fa-ghost"></i> The Problem: What actually happened
+            </h3>
+            <p>
+                Imagine you went to a high-security office building and said to the receptionist:
+                <strong>“Hi, I’m here to meet <em>someone</em>.”</strong>
+            </p>
+            <p>The receptionist looks at you and says: <em>“Who exactly? I only let people in if you ask for a specific
+                    name.”</em></p>
+            <p>
+                That’s what our initial <strong>404 Not Found</strong> error was. The Application Gateway was knocking
+                on the App Service’s door but saying something vague like: <em>“I’m here for a website.”</em>
+            </p>
+            <p>
+                Azure App Service is a multi-tenant environment. It says: <strong>“I only respond if you call me by my
+                    exact name.”</strong> That “exact name” is the <strong>Host header</strong>.
+            </p>
+        </div>
+
+        <h3>Why App Service rejected the request</h3>
+        <ul>
+            <li><strong>Decision Engine:</strong> App Service uses the <strong>Host header</strong> to decide <em>which
+                    app</em> you’re asking for among thousands.</li>
+            <li><strong>Identity Crisis:</strong> The Application Gateway was sending a generic Host header; the App
+                Service didn’t recognize it.</li>
+            <li><strong>Result:</strong> 404 – Not Found. Nothing was broken; the app was just being called by the wrong
+                name.</li>
+        </ul>
+
+        <div
+            style="background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.2); border-left: 4px solid #22c55e; padding: 1.5rem; border-radius: 8px; margin: 2rem 0;">
+            <h4 style="color: #22c55e; margin-top: 0;"><i class="fas fa-wrench"></i> The Fix: Use its Real Name</h4>
+            <p>We told the Gateway: <em>“When you talk to the App Service, use its real name, not a generic one.”</em>
+            </p>
+            <pre><code>pick_host_name_from_backend_address = true</code></pre>
+            <p style="font-size: 0.95rem; margin-top: 1rem;">
+                This tells the Gateway: <strong>“Look at the backend URL (app-spoke2-obs…), and use that exact hostname
+                    in every request.”</strong>
+            </p>
+        </div>
+
+        <p
+            style="font-style: italic; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; color: #94a3b8; margin-bottom: 2rem;">
+            <strong>The Takeaway:</strong> The app was fine. The gateway was just using the wrong name. Once it used the
+            app’s real hostname, the 404 disappeared, and traffic flowed normally.
+        </p>
+
+        <h2><span class="gradient-text">7. The Cost of Reality (FinOps)</span></h2>
         <p>
             "Why Premium? Why not Standard?" This is the most common question I get. The answer is simple: <strong>TLS
                 Inspection</strong>.
@@ -605,7 +655,7 @@
             the root cause, it's a negligible insurance premium.
         </p>
 
-        <h2><span class="gradient-text">6. Future Hardening</span></h2>
+        <h2><span class="gradient-text">8. Future Hardening</span></h2>
         <p>To move from "Baseline" to "Enterprise Standard," the roadmap includes:</p>
         <ul>
             <li><strong>Single Pane of Glass:</strong> Azure Workbook to correlate "Red" traffic flows with Firewall
