@@ -566,6 +566,7 @@
                 <li class="toc-item"><a href="#troubleshooting" class="toc-link">6. Troubleshooting</a></li>
                 <li class="toc-item"><a href="#cost" class="toc-link">7. Cost (FinOps)</a></li>
                 <li class="toc-item"><a href="#hardening" class="toc-link">8. Roadmap</a></li>
+                <li class="toc-item"><a href="#checklist" class="toc-link">Architect Checklist</a></li>
                 <li class="toc-item"><a href="#resources" class="toc-link">Resource Kit</a></li>
                 <li class="toc-item"><a href="#deploy" class="toc-link">Deploy Code</a></li>
             </ul>
@@ -1079,6 +1080,48 @@
                 <a href="https://github.com/appliedailearner/AzureLandingZoneNetworkObservability" target="_blank"
                     class="btn btn-primary"><i class="fab fa-github"></i> Get the Code</a>
                 <a href="../pages/contact.html" class="btn btn-outline">Discuss Your Architecture</a>
+            </div>
+
+            <!-- Architect's Final Checklist -->
+            <h2 id="checklist" style="margin-top: 4rem;"><span class="gradient-text">Architect's Post-Deployment
+                    Checklist</span></h2>
+            <p>Before you hand over the keys to the platform team, ensure you can answer 'Yes' to these five high-stakes
+                questions:</p>
+
+            <div class="glass-card" style="padding: 2.5rem; margin: 2rem 0; border-left: 4px solid #3b82f6;">
+                <ul style="list-style: none; padding-left: 0; margin-bottom: 0;">
+                    <li style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem;">
+                        <input type="checkbox"
+                            style="width: 20px; height: 20px; margin-top: 4px; border: 2px solid #3b82f6; border-radius: 4px; cursor: pointer;">
+                        <span><strong>UDR Enforcement:</strong> Do all Spoke subnets have a <code>0.0.0.0/0</code> UDR
+                            pointing to the Firewall Hub IP (and is BGP propagation disabled)?</span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem;">
+                        <input type="checkbox"
+                            style="width: 20px; height: 20px; margin-top: 4px; border: 2px solid #3b82f6; border-radius: 4px; cursor: pointer;">
+                        <span><strong>Encryption Audit:</strong> Have you used <strong>VNet Flow Logs</strong> to
+                            mathematically prove that traffic between critical nodes is encrypted at 128/256-bit?</span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem;">
+                        <input type="checkbox"
+                            style="width: 20px; height: 20px; margin-top: 4px; border: 2px solid #3b82f6; border-radius: 4px; cursor: pointer;">
+                        <span><strong>Host Header Integrity:</strong> Is
+                            <code>pick_host_name_from_backend_address</code> set
+                            on all App Gateway backends to kill the "404 Ghost"?</span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem;">
+                        <input type="checkbox"
+                            style="width: 20px; height: 20px; margin-top: 4px; border: 2px solid #3b82f6; border-radius: 4px; cursor: pointer;">
+                        <span><strong>SNAT Scaling:</strong> Have you audited the Firewall's SNAT port utilization for
+                            Spokes making high-frequency external API calls?</span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0;">
+                        <input type="checkbox"
+                            style="width: 20px; height: 20px; margin-top: 4px; border: 2px solid #3b82f6; border-radius: 4px; cursor: pointer;">
+                        <span><strong>Path Validation:</strong> Is <strong>Connection Monitor</strong> testing the
+                            Hub-to-Internet and Hub-to-Hybrid paths every 60 seconds with active alerting?</span>
+                    </li>
+                </ul>
             </div>
 
             <!-- Social Share Section -->
