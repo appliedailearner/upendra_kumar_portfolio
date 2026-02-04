@@ -399,6 +399,96 @@
             color: #94a3b8 !important;
             line-height: 1.4 !important;
         }
+
+        /* Sticky ToC Styles */
+        .toc-sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+            padding: 1.5rem;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            width: 280px;
+            display: none;
+            /* Hidden on small screens */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            align-self: flex-start;
+        }
+
+        @media (min-width: 1200px) {
+            .blog-layout-wrapper {
+                display: flex;
+                gap: 4rem;
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 2rem;
+            }
+
+            .toc-sidebar {
+                display: block;
+            }
+
+            .blog-post-content {
+                margin: 0;
+                padding: 4rem 0;
+                flex: 1;
+            }
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-item {
+            margin-bottom: 0.75rem;
+        }
+
+        .toc-link {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            display: block;
+            padding: 0.25rem 0;
+            border-left: 2px solid transparent;
+            padding-left: 1rem;
+        }
+
+        .toc-link:hover,
+        .toc-link.active {
+            color: #fff;
+            border-left-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.05);
+            padding-left: 0.5rem;
+        }
+
+        /* Scroll Progress Bar */
+        .scroll-progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            z-index: 9999;
+        }
+
+        .scroll-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #a855f7, #3b82f6);
+            width: 0%;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+            transition: width 0.1s ease-out;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
     </style>
 
     <!-- Performance: Preconnect to Font & Script Servers -->
@@ -416,6 +506,10 @@
 </head>
 
 <body class="dark-theme">
+    <!-- Scroll Progress -->
+    <div class="scroll-progress-container">
+        <div class="scroll-progress-bar" id="scrollProgress"></div>
+    </div>
     <canvas id="particles-canvas"></canvas>
 
     <!-- Navigation -->
@@ -456,529 +550,635 @@
     </section>
 
     <!-- Blog Post Content -->
-    <article class="blog-post-content">
-        <!-- Executive Summary Block -->
-        <div class="exec-summary-container">
-            <span class="exec-label">Architect's Reality Check</span>
+    <div class="blog-layout-wrapper">
+        <aside class="toc-sidebar">
+            <h4
+                style="color: #fff; margin-bottom: 1.5rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">
+                In this article</h4>
+            <ul class="toc-list">
+                <li class="toc-item"><a href="#reality-check" class="toc-link">Reality Check</a></li>
+                <li class="toc-item"><a href="#architecture" class="toc-link">1. The Architecture</a></li>
+                <li class="toc-item"><a href="#parallel-edge" class="toc-link">2. Edge Design</a></li>
+                <li class="toc-item"><a href="#defense-in-depth" class="toc-link">3. Defense in Depth</a></li>
+                <li class="toc-item"><a href="#observability" class="toc-link">4. Observability</a></li>
+                <li class="toc-item"><a href="#topology" class="toc-link">5. WAF Topology</a></li>
+                <li class="toc-item"><a href="#asymmetric-routing" class="toc-link">Asymmetric Routing</a></li>
+                <li class="toc-item"><a href="#troubleshooting" class="toc-link">6. Troubleshooting</a></li>
+                <li class="toc-item"><a href="#cost" class="toc-link">7. Cost (FinOps)</a></li>
+                <li class="toc-item"><a href="#hardening" class="toc-link">8. Roadmap</a></li>
+                <li class="toc-item"><a href="#resources" class="toc-link">Resource Kit</a></li>
+                <li class="toc-item"><a href="#deploy" class="toc-link">Deploy Code</a></li>
+            </ul>
+        </aside>
 
-            <div class="exec-hook">
-                The "textbook" Hub-and-Spoke diagram is a lie. <br>
-                <span class="exec-highlight">Real-world networks don't just "connect"—they inspect, block, and
-                    audit.</span>
-            </div>
+        <article class="blog-post-content">
+            <!-- Executive Summary Block -->
+            <div class="exec-summary-container" id="reality-check">
+                <span class="exec-label">Architect's Reality Check</span>
 
-            <div class="exec-grid">
-                <!-- Risk Column -->
-                <div class="insight-box">
-                    <i class="fas fa-exclamation-triangle insight-icon" style="color: #fbbf24;"></i>
-                    <div>
-                        <strong
-                            style="color: #fff; display: block; margin-bottom: 0.5rem; font-family: 'Outfit', sans-serif;">The
-                            Silent Risk</strong>
-                        <p style="font-size: 0.95rem; margin: 0; color: #cbd5e1;">
-                            Reliability failures are often "Day 2" ops failures: drift, silent blocks, and opaque paths.
-                            When the CEO asks <em>"Why is it down?"</em>, a static Visio diagram is useless.
-                        </p>
-                    </div>
+                <div class="exec-hook">
+                    The "textbook" Hub-and-Spoke diagram is a lie. <br>
+                    <span class="exec-highlight">Real-world networks don't just "connect"—they inspect, block, and
+                        audit.</span>
                 </div>
 
-                <!-- Solution Column -->
-                <div class="insight-box">
-                    <i class="fas fa-shield-alt insight-icon" style="color: #22c55e;"></i>
-                    <div>
-                        <strong
-                            style="color: #fff; display: block; margin-bottom: 0.5rem; font-family: 'Outfit', sans-serif;">The
-                            Production Standard</strong>
-                        <p style="font-size: 0.95rem; margin: 0; color: #cbd5e1;">
-                            This is not "Hello World". This is a <strong>Production Landing Zone</strong> built for
-                            auditability,
-                            using the "Trinity of Observability" to mathematically prove network health.
-                        </p>
+                <div class="exec-grid">
+                    <!-- Risk Column -->
+                    <div class="insight-box">
+                        <i class="fas fa-exclamation-triangle insight-icon" style="color: #fbbf24;"></i>
+                        <div>
+                            <strong
+                                style="color: #fff; display: block; margin-bottom: 0.5rem; font-family: 'Outfit', sans-serif;">The
+                                Silent Risk</strong>
+                            <p style="font-size: 0.95rem; margin: 0; color: #cbd5e1;">
+                                Reliability failures are often "Day 2" ops failures: drift, silent blocks, and opaque
+                                paths.
+                                When the CEO asks <em>"Why is it down?"</em>, a static Visio diagram is useless.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Solution Column -->
+                    <div class="insight-box">
+                        <i class="fas fa-shield-alt insight-icon" style="color: #22c55e;"></i>
+                        <div>
+                            <strong
+                                style="color: #fff; display: block; margin-bottom: 0.5rem; font-family: 'Outfit', sans-serif;">The
+                                Production Standard</strong>
+                            <p style="font-size: 0.95rem; margin: 0; color: #cbd5e1;">
+                                This is not "Hello World". This is a <strong>Production Landing Zone</strong> built for
+                                auditability,
+                                using the "Trinity of Observability" to mathematically prove network health.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
 
-        <h2><span class="gradient-text">1. The Architecture: Hub-and-Spoke Reality</span></h2>
+            <h2><span class="gradient-text" id="architecture">1. The Architecture: Hub-and-Spoke Reality</span></h2>
 
-        <p>
-            We implemented a Microsoft-native landing zone that mandates inspection and continuously validates
-            assertions. This isn't just about connectivity; it's about <strong>Control</strong>.
-        </p>
-
-        <div
-            style="background: rgba(59, 130, 246, 0.05); border-left: 4px solid #3b82f6; padding: 1.25rem; margin: 1.5rem 0; border-radius: 4px;">
-            <p style="margin: 0; font-style: italic; font-size: 0.95rem; color: #94a3b8;">
-                <strong>New to Azure?</strong> Think of VNet Peering like a direct highway between two cities. By
-                default, cars just drive through. A <strong>User Defined Route (UDR)</strong> is like a mandatory exit
-                ramp—it forces every car to pass through a security toll booth (the Firewall) before they can finish
-                their journey.
-            </p>
-        </div>
-
-        <div class="break-out-diagram">
-            <img src="../images/hub_spoke_gold_v1.webp" alt="Azure Landing Zone Topology: Gold Standard Blueprint">
-        </div>
-
-        <h3>The Core Components</h3>
-        <ul>
-            <li><strong>Hub VNet (Secure Core):</strong> The central inspection point (<code>10.0.0.0/16</code>) hosting
-                Azure Firewall Premium in its dedicated <code>10.0.1.0/24</code> subnet.</li>
-            <li><strong>Spoke 1 (IaaS Workload):</strong> Hosts Windows Server 2022 ("UKLabs") in
-                <code>10.1.0.0/16</code>. No Public IPs allowed.
-            </li>
-            <li><strong>Spoke 2 (PaaS Workload):</strong> Hosts VNet-integrated Linux Web Apps in
-                <code>10.2.0.0/16</code>, forcing traffic through the Hub.
-            </li>
-            <li><strong>On-Prem Simulation:</strong> A dedicated VNet peered to the Hub to mimic an ExpressRoute
-                connection, proving hybrid connectivity.</li>
-        </ul>
-
-        <h2><span class="gradient-text">2. Design Decision: Parallel Edge Security</span></h2>
-
-        <p>
-            A common debate in Azure networking is "Serial Chaining" (WAF -> Firewall -> App) versus "Parallel" (WAF ->
-            App, Firewall -> Internet). We chose <strong>Parallel</strong> (Zero Trust Edge).
-        </p>
-
-        <div class="break-out-diagram">
-            <img src="../images/parallel_pattern_gold_v1.webp" alt="Parallel Edge Security: Gold Standard Framework">
-        </div>
-
-        <p><strong>Why Parallel?</strong></p>
-        <ul>
-            <li><strong>Efficiency:</strong> Avoids the "Firewall Tax" (latency and throughput costs) on pure web
-                traffic that has already been scrubbed by the WAF.</li>
-            <li><strong>Visibility:</strong> Preserves the Client IP address for WAF geo-blocking and logging.</li>
-            <li><strong>Specialization:</strong> The WAF handles OWASP threats (SQLi, XSS), while the Firewall handles
-                core IDPS and TLS inspection for egress.</li>
-        </ul>
-
-        <h2><span class="gradient-text">3. Security: Defense in Depth</span></h2>
-
-        <p>
-            Security is not a single appliance; it's layers. Our design implements a "Defense in Depth" strategy where
-            no single failure results in compromise.
-        </p>
-
-        <div class="break-out-diagram">
-            <img src="../images/defense_in_depth_gold_v1.webp" alt="Defense in Depth: Gold Standard Engineering">
-        </div>
-
-        <h3>The Non-Negotiables</h3>
-        <ol>
-            <li><strong>Single Inspection Plane:</strong> Azure Firewall Premium is the <em>only</em> path for east-west
-                and egress traffic.</li>
-            <li><strong>Mandatory WAF:</strong> Inbound HTTP(S) must pass through App Gateway WAF v2 in Prevention Mode.
-            </li>
-            <li><strong>Micro-segmentation:</strong> NSGs are applied on <em>every</em> subnet with a "Default Deny"
-                mindset.</li>
-        </ol>
-
-        <h2><span class="gradient-text">4. The "Trinity" of Observability</span></h2>
-
-        <p>
-            This is where most implementations fail. They build the network but forget to build the eyes to see it. We
-            implement three pillars to "prove the negative."
-        </p>
-
-        <div class="break-out-diagram">
-            <img src="../images/observability_trinity_gold_v1.webp" alt="Network Observability: Gold Standard Trinity">
-        </div>
-
-        <p><strong>The Proof of Life:</strong> Below are the actual outcomes of the Trinity implementation. These aren't
-            just logs—they are the operational brain of your Landing Zone.</p>
-
-        <div class="break-out-diagram">
-            <img src="../images/vnet_flow_logs_authentic.png"
-                alt="Azure Traffic Analytics: Authentic VNet Flow Logs Dashboard">
-        </div>
-
-        <div class="break-out-diagram">
-            <img src="../images/connection_monitor_authentic.png"
-                alt="Azure Connection Monitor: Authentic Path Validation Results">
-        </div>
-
-        <table
-            style="width: 100%; border-collapse: collapse; margin: 2rem 0; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1);">
-            <thead>
-                <tr style="background: rgba(59, 130, 246, 0.2);">
-                    <th style="padding: 1rem; text-align: left; border: 1px solid rgba(255,255,255,0.1);">Tool</th>
-                    <th style="padding: 1rem; text-align: left; border: 1px solid rgba(255,255,255,0.1);">Role</th>
-                    <th style="padding: 1rem; text-align: left; border: 1px solid rgba(255,255,255,0.1);">What it does
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);"><strong>VNet Flow
-                            Logs</strong><br><span style="font-size: 0.8em; color: #4ade80;">(Recommended)</span></td>
-                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">The Wide Lens</td>
-                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">Records entire VNet traffic.
-                        Captures encryption status. The modern standard.</td>
-                </tr>
-                <tr>
-                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);"><strong>NSG Flow
-                            Logs</strong><br><span style="font-size: 0.8em; color: #9ca3af;">(Legacy)</span></td>
-                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">The Macro Lens</td>
-                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">Records granular Subnet/NIC
-                        events. Use only for legacy parity.</td>
-                </tr>
-                <tr>
-                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);"><strong>Traffic
-                            Analytics</strong></td>
-                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">The Brain</td>
-                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">Visualizes flows, detecting
-                        malicious IPs and drift.</td>
-                </tr>
-                <tr>
-                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);"><strong>Connection
-                            Monitor</strong></td>
-                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">The Pulse</td>
-                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">Tests critical paths (VM ->
-                        Google DNS) 24/7.</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div
-            style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; padding: 1.5rem; margin: 2rem 0; border-radius: 4px;">
-            <h4 style="margin-top: 0; color: #3b82f6;">💡 Architect's Note: VNet Flow Logs vs. NSG Flow Logs</h4>
-            <p style="margin-bottom: 1rem;">
-                Microsoft is evolving from <strong>NSG Flow Logs</strong> to the newer <strong>VNet Flow Logs</strong>
-                engine. While they look similar, the distinction matters for simple reasons:
-            </p>
-            <ul style="margin-bottom: 0;">
-                <li><strong>Simplicity:</strong> VNet Flow Logs are enabled at the VNet level, preventing the "missed
-                    subnet" configuration drift common with NSG-level logging.</li>
-                <li><strong>Encryption Visibility:</strong> Only VNet Flow Logs can report the <em>Encryption
-                        Status</em> of traffic (critical if using VNet Encryption).</li>
-            </ul>
-            <p style="margin-top: 1rem; margin-bottom: 0.5rem;"><strong>When to use which?</strong></p>
-            <ul style="margin-bottom: 0;">
-                <li><strong>✅ USE VNet Flow Logs:</strong> For all new deployments ("Greenfield") and when you need to
-                    audit VNet Encryption.</li>
-                <li><strong>⛔ DO NOT USE NSG Flow Logs:</strong> Unless you have a specific legacy requirement to
-                    monitor <em>only</em> a single NIC in a shared subnet to save fractional storage costs.</li>
-                <li><strong>Blind Spots:</strong> Remember that traffic <em>to</em> a Private Endpoint cannot be
-                    recorded at the endpoint itself. You <strong>must</strong> capture it at the source VM (the client
-                    side).</li>
-            </ul>
-        </div>
-
-        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
-
-        <h2><span class="gradient-text">5. The Topology Dilemma: Where does the WAF go?</span></h2>
-        <p>
-            One of the most heated debates in Azure architecture is the placement of the <strong>Application Gateway
-                (WAF)</strong> relative to the <strong>Azure Firewall</strong>. Microsoft Learn documents <a
-                href="https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway"
-                target="_blank">three core patterns</a>. Here is the realist's take on when to use which:
-        </p>
-
-        <div class="scenario-focus-section">
-            <!-- Scenario 1: Parallel -->
-            <h4 style="color: #4ade80; margin-top: 3rem;">1. The Parallel Pattern (The Pragmatist)</h4>
-            <p><strong>Layout:</strong> AppGW and Firewall sit side-by-side. Web traffic hits AppGW; Non-web hits
-                Firewall.</p>
-
-            <div class="break-out-diagram">
-                <img src="../images/parallel_pattern_gold_v1.webp" alt="Parallel Architecture: Gold Standard Blueprint">
-            </div>
-
-            <ul style="margin-bottom: 3rem;">
-                <li><strong>✅ Pros:</strong> Simplest routing. No double-encryption capability needed. Cheapest.</li>
-                <li><strong>⛔ Cons:</strong> Azure Firewall does NOT inspect the web traffic. You rely 100% on the WAF.
-                </li>
-                <li><strong>Verdict:</strong> Use this for 90% of standard enterprise apps where WAF protection is
-                    sufficient.</li>
-            </ul>
-
-            <hr style="border-color: rgba(255,255,255,0.05); margin: 3rem 0;">
-
-            <!-- Scenario 2: AppGW before FW -->
-            <h4 style="color: #60a5fa; margin-top: 3rem;">2. AppGW -> Firewall (The Fortress)</h4>
-            <p><strong>Layout:</strong> Traffic hits WAF first, then is piped through Firewall for heavy inspection.</p>
-
-            <div class="break-out-diagram">
-                <img src="../images/fortress_pattern_gold_v1.webp" alt="Fortress Architecture: Gold Standard Blueprint">
-            </div>
-
-            <ul style="margin-bottom: 3rem;">
-                <li><strong>✅ Pros:</strong> "Zero Trust". Firewall sees <em>everything</em>, even web packets.
-                    Preserves Client IP (via X-Forwarded-For).</li>
-                <li><strong>⛔ Cons:</strong> Complex UDRs. Needs Azure Firewall Premium to meaningful inspect encrypted
-                    web traffic (TLS Inspection).</li>
-                <li><strong>Verdict:</strong> Mandatory for Banking/High-Compliance where <em>Defense in Depth</em> is
-                    audited.</li>
-            </ul>
-
-            <hr style="border-color: rgba(255,255,255,0.05); margin: 3rem 0;">
-
-            <!-- Scenario 3: FW before AppGW -->
-            <h4 style="color: #f472b6; margin-top: 3rem;">3. Firewall -> AppGW (The Shield)</h4>
-            <p><strong>Layout:</strong> Firewall filters bad IPs at the edge, THEN passes clean traffic to WAF.</p>
-
-            <div class="break-out-diagram">
-                <img src="../images/shield_pattern_gold_v1.webp" alt="Shield Architecture: Gold Standard Blueprint">
-            </div>
-
-            <ul style="margin-bottom: 3rem;">
-                <li><strong>✅ Pros:</strong> Stops DDoS/Scanners before they touch your expensive WAF instances.</li>
-                <li><strong>⛔ Cons:</strong> <strong>Major Trap:</strong> The WAF only sees the Firewall's IP, not the
-                    Client ID, unless you enable expensive Proxy modes.</li>
-                <li><strong>Verdict:</strong> Rare. Use only if you have a massive IP-blocking requirement at the edge.
-                </li>
-            </ul>
-        </div>
-
-        <div
-            style="background: rgba(244, 63, 94, 0.05); border: 1px solid rgba(244, 63, 94, 0.2); border-left: 4px solid #f43f5e; padding: 2rem; border-radius: 8px; margin: 2rem 0;">
-            <h3 style="color: #f43f5e; margin-top: 0;"><i class="fas fa-random"></i> The Veteran's Trap: Asymmetric
-                Routing</h3>
-            <p>In a real-world Hub-and-Spoke, traffic often fails because it takes two different paths.
-                <strong>Request</strong> goes through the Firewall; <strong>Response</strong> tries to bypass it via a
-                default peering route. The Firewall sees a one-way connection and "gracefuly" drops the packet (Stateful
-                Filtering).
-            </p>
-            <p style="margin-top: 1rem;"><strong>The Fix: Use a Gateway UDR.</strong> You must apply a
-                <code>0.0.0.0/0</code> route to the <strong>GatewaySubnet</strong> (in the Hub) pointing to the
-                Firewall's internal IP. This ensures the "return leg" of the conversation is forced back through the
-                same inspector.
+            <p>
+                We implemented a Microsoft-native landing zone that mandates inspection and continuously validates
+                assertions. This isn't just about connectivity; it's about <strong>Control</strong>.
             </p>
 
             <div
-                style="margin-top: 1.5rem; background: rgba(255, 255, 255, 0.03); border: 1px dashed rgba(244, 63, 94, 0.4); padding: 1.5rem; border-radius: 8px;">
-                <p style="margin: 0; font-size: 0.9rem; line-height: 1.6;">
-                    <i class="fas fa-plane-departure" style="color: #f43f5e; margin-right: 0.5rem;"></i>
-                    <strong>The Airport Analogy:</strong> Imagine you go through **Airport Security** to catch a flight.
-                    The guard checks your ID and lets you in. If you try to return by walking through the **unmanned
-                    baggage exit**, the security system freaks out. Why? Because the guards at the exit never saw you
-                    leave, and the guards at the entrance are still waiting for you to walk back past them. A Stateful
-                    Firewall is that guard—if it doesn't see the "Hello" (Request), it will never allow the "Goodbye"
-                    (Response).
+                style="background: rgba(59, 130, 246, 0.05); border-left: 4px solid #3b82f6; padding: 1.25rem; margin: 1.5rem 0; border-radius: 4px;">
+                <p style="margin: 0; font-style: italic; font-size: 0.95rem; color: #94a3b8;">
+                    <strong>New to Azure?</strong> Think of VNet Peering like a direct highway between two cities. By
+                    default, cars just drive through. A <strong>User Defined Route (UDR)</strong> is like a mandatory
+                    exit
+                    ramp—it forces every car to pass through a security toll booth (the Firewall) before they can finish
+                    their journey.
                 </p>
             </div>
-        </div>
 
-        <h2><span class="gradient-text">6. Troubleshooting the Trenches: The "404 Ghost"</span></h2>
-
-        <div
-            style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(239, 68, 68, 0.3); border-left: 4px solid #ef4444; padding: 2rem; border-radius: 8px; margin: 2rem 0;">
-            <h3 style="color: #ef4444; margin-top: 0;"><i class="fas fa-ghost"></i> The Problem: What actually happened
-            </h3>
-            <p>
-                Imagine you went to a high-security office building and said to the receptionist:
-                <strong>“Hi, I’m here to meet <em>someone</em>.”</strong>
-            </p>
-            <p>The receptionist looks at you and says: <em>“Who exactly? I only let people in if you ask for a specific
-                    name.”</em></p>
-            <p>
-                That’s what our initial <strong>404 Not Found</strong> error was. The Application Gateway was knocking
-                on the App Service’s door but saying something vague like: <em>“I’m here for a website.”</em>
-            </p>
-            <p>
-                Azure App Service is a multi-tenant environment. It says: <strong>“I only respond if you call me by my
-                    exact name.”</strong> That “exact name” is the <strong>Host header</strong>.
-            </p>
-        </div>
-
-        <h3>Why App Service rejected the request</h3>
-        <ul>
-            <li><strong>Decision Engine:</strong> App Service uses the <strong>Host header</strong> to decide <em>which
-                    app</em> you’re asking for among thousands.</li>
-            <li><strong>Identity Crisis:</strong> The Application Gateway was sending a generic Host header; the App
-                Service didn’t recognize it.</li>
-            <li><strong>Result:</strong> 404 – Not Found. Nothing was broken; the app was just being called by the wrong
-                name.</li>
-        </ul>
-
-        <div
-            style="background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.2); border-left: 4px solid #22c55e; padding: 1.5rem; border-radius: 8px; margin: 2rem 0;">
-            <h4 style="color: #22c55e; margin-top: 0;"><i class="fas fa-wrench"></i> The Fix: Use its Real Name</h4>
-            <p>We told the Gateway: <em>“When you talk to the App Service, use its real name, not a generic one.”</em>
-            </p>
-            <pre><code>pick_host_name_from_backend_address = true</code></pre>
-            <p style="font-size: 0.95rem; margin-top: 1rem;">
-                This tells the Gateway: <strong>“Look at the backend URL (app-spoke2-obs…), and use that exact hostname
-                    in every request.”</strong>
-            </p>
-        </div>
-
-        <p
-            style="font-style: italic; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; color: #94a3b8; margin-bottom: 2rem;">
-            <strong>The Takeaway:</strong> The app was fine. The gateway was just using the wrong name. Once it used the
-            app’s real hostname, the 404 disappeared, and traffic flowed normally.
-        </p>
-
-        <h2><span class="gradient-text">7. The Cost of Reality (FinOps)</span></h2>
-        <p>
-            "Why Premium? Why not Standard?" This is the most common question I get. The answer is simple: <strong>TLS
-                Inspection</strong>.
-        </p>
-        <p>
-            Standard Firewall is blind to encrypted traffic (which is 99% of modern malware c2). If you can't inspect
-            inside the HTTPS tunnel, you aren't secure; you're just routing packets.
-        </p>
-        <p>
-            <strong>The Expert's Scalability Check:</strong> In high-throughput Landing Zones, watch out for
-            <strong>SNAT
-                Port Exhaustion</strong>. If your Spokes are making thousands of concurrent outbound API calls, the
-            Firewall's Public IP pool will run dry.
-            <br><strong>Solution:</strong> Scale horizontally by adding more Public IPs to the Firewall instance (up to
-            250 supported).
-        </p>
-        <p>
-            <strong>Don't forget the Observability tax:</strong> While NSG Flow Logs are cheap (pennies/GB), looking at
-            them isn't. Traffic Analytics processing and the <strong>Connection Monitor</strong> agents (approx.
-            $25/month per node) add up. However, compared to the $10,000/hour cost of a Sev-1 outage where you "guess"
-            the root cause, it's a negligible insurance premium.
-        </p>
-
-        <h2><span class="gradient-text">8. Future Hardening</span></h2>
-        <p>To move from "Baseline" to "Enterprise Standard," the roadmap includes:</p>
-        <ul>
-            <li><strong>Single Pane of Glass:</strong> Azure Workbook to correlate "Red" traffic flows with Firewall
-                Deny events.</li>
-            <li><strong>Policy-Driven Governance:</strong> Assigning Azure Policy (e.g.,
-                <code>Deny-PublicIP-On-Spokes</code>) to enforce standards in code.
-            </li>
-            <li><strong>Azure Network Manager:</strong> Transitioning from manual peering to <strong>Connectivity
-                    Groups</strong> and global "Security Admin Rules" to manage the "Lie" at scale. Use this once you
-                surpass 5 Spokes.</li>
-            <li><strong>Centralized DNS Resolver:</strong> Implementing the <strong>Private DNS Resolver Hub</strong> to
-                eliminate static forwarders and prevent internal DNS leaks.</li>
-            <li><strong>CI/CD Pipelines:</strong> Moving from local "ClickOps" to GitHub Actions using OIDC Federation.
-            </li>
-            <li><strong>Identity Hardening:</strong> Enabling System Assigned Managed Identity for Spoke VMs for
-                zero-credential access.</li>
-        </ul>
-
-        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
-
-        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
-
-        <h3>📚 Deep Dive Resource Kit</h3>
-        <p>Curated assets for building and auditing production-grade Azure environments.</p>
-
-        <div class="resource-grid">
-            <!-- Documentation -->
-            <a href="https://learn.microsoft.com/en-us/azure/network-watcher/vnet-flow-logs-overview" target="_blank"
-                class="resource-card">
-                <div class="resource-icon"><i class="fas fa-file-alt"></i></div>
-                <div class="resource-info">
-                    <h4>VNet Flow Logs Guide</h4>
-                    <p>The next-gen engine for total VNet visibility and encryption auditing.</p>
-                </div>
-            </a>
-
-            <a href="https://learn.microsoft.com/en-us/security/benchmark/azure/baselines/network-watcher-security-baseline"
-                target="_blank" class="resource-card">
-                <div class="resource-icon"><i class="fas fa-shield-virus"></i></div>
-                <div class="resource-info">
-                    <h4>Security Baseline</h4>
-                    <p>Official Microsoft security controls for Network Watcher compliance.</p>
-                </div>
-            </a>
-
-            <!-- Video Content -->
-            <a href="https://www.youtube.com/watch?v=0UWIVDKUdYo" target="_blank" class="resource-card">
-                <div class="resource-icon"><i class="fab fa-youtube"></i></div>
-                <div class="resource-info">
-                    <h4>Network Deep Dive</h4>
-                    <p>Advanced diagnostic patterns and real-world troubleshooting workflows.</p>
-                </div>
-            </a>
-
-            <!-- Community/Blog -->
-            <a href="https://techcommunity.microsoft.com/category/azure-network-security/blog/azurenetworksecurityblog"
-                target="_blank" class="resource-card">
-                <div class="resource-icon"><i class="fas fa-rss"></i></div>
-                <div class="resource-info">
-                    <h4>MSFT Security Blog</h4>
-                    <p>Stay ahead of edge-case vulnerabilities and new inspection features.</p>
-                </div>
-            </a>
-        </div>
-
-        <h3>Ready to deploy?</h3>
-        <p>
-            The full Terraform codebase, including the Windows Server 2022 refactor and Connection Monitor logic, is
-            available on GitHub.
-        </p>
-        <div style="margin-top: 2rem; display: flex; gap: 1rem;">
-            <a href="https://github.com/appliedailearner/AzureLandingZoneNetworkObservability" target="_blank"
-                class="btn btn-primary"><i class="fab fa-github"></i> Get the Code</a>
-            <a href="../pages/contact.html" class="btn btn-outline">Discuss Your Architecture</a>
-        </div>
-
-        <!-- Social Share Section -->
-        <div class="social-share-container">
-            <p
-                style="color: #94a3b8; font-size: 0.8rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700;">
-                Spread the Insight</p>
-            <div class="social-share-buttons">
-                <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn(event)" title="Share on LinkedIn"
-                    aria-label="Share on LinkedIn">
-                    <i class="fab fa-linkedin"></i> LinkedIn
-                </a>
-                <a href="#" class="share-btn twitter" onclick="shareOnTwitter(event)" title="Share on X (Twitter)"
-                    aria-label="Share on Twitter">
-                    <i class="fab fa-x-twitter"></i> Twitter
-                </a>
-                <a href="#" class="share-btn facebook" onclick="shareOnFacebook(event)" title="Share on Facebook">
-                    <i class="fab fa-facebook-f"></i> Facebook
-                </a>
-                <button class="share-btn copy-link" onclick="copyPageLink(this)" title="Copy Link"
-                    aria-label="Copy Page Link">
-                    <i class="fas fa-link"></i> <span class="btn-text">Copy Link</span>
-                </button>
+            <div class="break-out-diagram">
+                <img src="../images/hub_spoke_gold_v1.webp" alt="Azure Landing Zone Topology: Gold Standard Blueprint">
             </div>
-        </div>
 
-        <script>
-            function shareOnLinkedIn(e) {
-                e.preventDefault();
-                const url = encodeURIComponent(window.location.href);
-                window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=600');
-            }
+            <h3>The Core Components</h3>
+            <ul>
+                <li><strong>Hub VNet (Secure Core):</strong> The central inspection point (<code>10.0.0.0/16</code>)
+                    hosting
+                    Azure Firewall Premium in its dedicated <code>10.0.1.0/24</code> subnet.</li>
+                <li><strong>Spoke 1 (IaaS Workload):</strong> Hosts Windows Server 2022 ("UKLabs") in
+                    <code>10.1.0.0/16</code>. No Public IPs allowed.
+                </li>
+                <li><strong>Spoke 2 (PaaS Workload):</strong> Hosts VNet-integrated Linux Web Apps in
+                    <code>10.2.0.0/16</code>, forcing traffic through the Hub.
+                </li>
+                <li><strong>On-Prem Simulation:</strong> A dedicated VNet peered to the Hub to mimic an ExpressRoute
+                    connection, proving hybrid connectivity.</li>
+            </ul>
 
-            function shareOnTwitter(e) {
-                e.preventDefault();
-                const url = encodeURIComponent(window.location.href);
-                const text = encodeURIComponent(document.title);
-                window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
-            }
+            <h2><span class="gradient-text" id="parallel-edge">2. Design Decision: Parallel Edge Security</span></h2>
 
-            function shareOnFacebook(e) {
-                e.preventDefault();
-                const url = encodeURIComponent(window.location.href);
-                window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
-            }
+            <p>
+                A common debate in Azure networking is "Serial Chaining" (WAF -> Firewall -> App) versus "Parallel" (WAF
+                ->
+                App, Firewall -> Internet). We chose <strong>Parallel</strong> (Zero Trust Edge).
+            </p>
 
-            function copyPageLink(btn) {
-                const url = window.location.href;
-                navigator.clipboard.writeText(url).then(() => {
-                    const btnText = btn.querySelector('.btn-text');
-                    const originalText = btnText.innerText;
-                    btnText.innerText = 'Copied!';
-                    btn.classList.add('copied');
-                    setTimeout(() => {
-                        btnText.innerText = originalText;
-                        btn.classList.remove('copied');
-                    }, 2000);
-                });
-            }
-        </script>
+            <div class="break-out-diagram">
+                <img src="../images/parallel_pattern_gold_v1.webp"
+                    alt="Parallel Edge Security: Gold Standard Framework">
+            </div>
 
-        <!-- Back to Blog Button -->
-        <div style="text-align: center; margin: 4rem 0;">
-            <a href="../blog.html" class="btn btn-primary" style="display: inline-block; padding: 1rem 2rem;">
-                <i class="fas fa-arrow-left"></i> Back to Insights
-            </a>
-        </div>
-    </article>
+            <p><strong>Why Parallel?</strong></p>
+            <ul>
+                <li><strong>Efficiency:</strong> Avoids the "Firewall Tax" (latency and throughput costs) on pure web
+                    traffic that has already been scrubbed by the WAF.</li>
+                <li><strong>Visibility:</strong> Preserves the Client IP address for WAF geo-blocking and logging.</li>
+                <li><strong>Specialization:</strong> The WAF handles OWASP threats (SQLi, XSS), while the Firewall
+                    handles
+                    core IDPS and TLS inspection for egress.</li>
+            </ul>
+
+            <h2><span class="gradient-text" id="defense-in-depth">3. Security: Defense in Depth</span></h2>
+
+            <p>
+                Security is not a single appliance; it's layers. Our design implements a "Defense in Depth" strategy
+                where
+                no single failure results in compromise.
+            </p>
+
+            <div class="break-out-diagram">
+                <img src="../images/defense_in_depth_gold_v1.webp" alt="Defense in Depth: Gold Standard Engineering">
+            </div>
+
+            <h3>The Non-Negotiables</h3>
+            <ol>
+                <li><strong>Single Inspection Plane:</strong> Azure Firewall Premium is the <em>only</em> path for
+                    east-west
+                    and egress traffic.</li>
+                <li><strong>Mandatory WAF:</strong> Inbound HTTP(S) must pass through App Gateway WAF v2 in Prevention
+                    Mode.
+                </li>
+                <li><strong>Micro-segmentation:</strong> NSGs are applied on <em>every</em> subnet with a "Default Deny"
+                    mindset.</li>
+            </ol>
+
+            <h2><span class="gradient-text" id="observability">4. The "Trinity" of Observability</span></h2>
+
+            <p>
+                This is where most implementations fail. They build the network but forget to build the eyes to see it.
+                We
+                implement three pillars to "prove the negative."
+            </p>
+
+            <div class="break-out-diagram">
+                <img src="../images/observability_trinity_gold_v1.webp"
+                    alt="Network Observability: Gold Standard Trinity">
+            </div>
+
+            <p><strong>The Proof of Life:</strong> Below are the actual outcomes of the Trinity implementation. These
+                aren't
+                just logs—they are the operational brain of your Landing Zone.</p>
+
+            <div class="break-out-diagram">
+                <img src="../images/vnet_flow_logs_authentic.png"
+                    alt="Azure Traffic Analytics: Authentic VNet Flow Logs Dashboard">
+            </div>
+
+            <div class="break-out-diagram">
+                <img src="../images/connection_monitor_authentic.png"
+                    alt="Azure Connection Monitor: Authentic Path Validation Results">
+            </div>
+
+            <table
+                style="width: 100%; border-collapse: collapse; margin: 2rem 0; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1);">
+                <thead>
+                    <tr style="background: rgba(59, 130, 246, 0.2);">
+                        <th style="padding: 1rem; text-align: left; border: 1px solid rgba(255,255,255,0.1);">Tool</th>
+                        <th style="padding: 1rem; text-align: left; border: 1px solid rgba(255,255,255,0.1);">Role</th>
+                        <th style="padding: 1rem; text-align: left; border: 1px solid rgba(255,255,255,0.1);">What it
+                            does
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);"><strong>VNet Flow
+                                Logs</strong><br><span style="font-size: 0.8em; color: #4ade80;">(Recommended)</span>
+                        </td>
+                        <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">The Wide Lens</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">Records entire VNet traffic.
+                            Captures encryption status. The modern standard.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);"><strong>NSG Flow
+                                Logs</strong><br><span style="font-size: 0.8em; color: #9ca3af;">(Legacy)</span></td>
+                        <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">The Macro Lens</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">Records granular Subnet/NIC
+                            events. Use only for legacy parity.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);"><strong>Traffic
+                                Analytics</strong></td>
+                        <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">The Brain</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">Visualizes flows, detecting
+                            malicious IPs and drift.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);"><strong>Connection
+                                Monitor</strong></td>
+                        <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">The Pulse</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">Tests critical paths (VM ->
+                            Google DNS) 24/7.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div
+                style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; padding: 1.5rem; margin: 2rem 0; border-radius: 4px;">
+                <h4 style="margin-top: 0; color: #3b82f6;">💡 Architect's Note: VNet Flow Logs vs. NSG Flow Logs</h4>
+                <p style="margin-bottom: 1rem;">
+                    Microsoft is evolving from <strong>NSG Flow Logs</strong> to the newer <strong>VNet Flow
+                        Logs</strong>
+                    engine. While they look similar, the distinction matters for simple reasons:
+                </p>
+                <ul style="margin-bottom: 0;">
+                    <li><strong>Simplicity:</strong> VNet Flow Logs are enabled at the VNet level, preventing the
+                        "missed
+                        subnet" configuration drift common with NSG-level logging.</li>
+                    <li><strong>Encryption Visibility:</strong> Only VNet Flow Logs can report the <em>Encryption
+                            Status</em> of traffic (critical if using VNet Encryption).</li>
+                </ul>
+                <p style="margin-top: 1rem; margin-bottom: 0.5rem;"><strong>When to use which?</strong></p>
+                <ul style="margin-bottom: 0;">
+                    <li><strong>✅ USE VNet Flow Logs:</strong> For all new deployments ("Greenfield") and when you need
+                        to
+                        audit VNet Encryption.</li>
+                    <li><strong>⛔ DO NOT USE NSG Flow Logs:</strong> Unless you have a specific legacy requirement to
+                        monitor <em>only</em> a single NIC in a shared subnet to save fractional storage costs.</li>
+                    <li><strong>Blind Spots:</strong> Remember that traffic <em>to</em> a Private Endpoint cannot be
+                        recorded at the endpoint itself. You <strong>must</strong> capture it at the source VM (the
+                        client
+                        side).</li>
+                </ul>
+            </div>
+
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+            <h2><span class="gradient-text" id="topology">5. The Topology Dilemma: Where does the WAF go?</span></h2>
+            <p>
+                One of the most heated debates in Azure architecture is the placement of the <strong>Application Gateway
+                    (WAF)</strong> relative to the <strong>Azure Firewall</strong>. Microsoft Learn documents <a
+                    href="https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway"
+                    target="_blank">three core patterns</a>. Here is the realist's take on when to use which:
+            </p>
+
+            <div class="scenario-focus-section">
+                <!-- Scenario 1: Parallel -->
+                <h4 style="color: #4ade80; margin-top: 3rem;">1. The Parallel Pattern (The Pragmatist)</h4>
+                <p><strong>Layout:</strong> AppGW and Firewall sit side-by-side. Web traffic hits AppGW; Non-web hits
+                    Firewall.</p>
+
+                <div class="break-out-diagram">
+                    <img src="../images/parallel_pattern_gold_v1.webp"
+                        alt="Parallel Architecture: Gold Standard Blueprint">
+                </div>
+
+                <ul style="margin-bottom: 3rem;">
+                    <li><strong>✅ Pros:</strong> Simplest routing. No double-encryption capability needed. Cheapest.
+                    </li>
+                    <li><strong>⛔ Cons:</strong> Azure Firewall does NOT inspect the web traffic. You rely 100% on the
+                        WAF.
+                    </li>
+                    <li><strong>Verdict:</strong> Use this for 90% of standard enterprise apps where WAF protection is
+                        sufficient.</li>
+                </ul>
+
+                <hr style="border-color: rgba(255,255,255,0.05); margin: 3rem 0;">
+
+                <!-- Scenario 2: AppGW before FW -->
+                <h4 style="color: #60a5fa; margin-top: 3rem;">2. AppGW -> Firewall (The Fortress)</h4>
+                <p><strong>Layout:</strong> Traffic hits WAF first, then is piped through Firewall for heavy inspection.
+                </p>
+
+                <div class="break-out-diagram">
+                    <img src="../images/fortress_pattern_gold_v1.webp"
+                        alt="Fortress Architecture: Gold Standard Blueprint">
+                </div>
+
+                <ul style="margin-bottom: 3rem;">
+                    <li><strong>✅ Pros:</strong> "Zero Trust". Firewall sees <em>everything</em>, even web packets.
+                        Preserves Client IP (via X-Forwarded-For).</li>
+                    <li><strong>⛔ Cons:</strong> Complex UDRs. Needs Azure Firewall Premium to meaningful inspect
+                        encrypted
+                        web traffic (TLS Inspection).</li>
+                    <li><strong>Verdict:</strong> Mandatory for Banking/High-Compliance where <em>Defense in Depth</em>
+                        is
+                        audited.</li>
+                </ul>
+
+                <hr style="border-color: rgba(255,255,255,0.05); margin: 3rem 0;">
+
+                <!-- Scenario 3: FW before AppGW -->
+                <h4 style="color: #f472b6; margin-top: 3rem;">3. Firewall -> AppGW (The Shield)</h4>
+                <p><strong>Layout:</strong> Firewall filters bad IPs at the edge, THEN passes clean traffic to WAF.</p>
+
+                <div class="break-out-diagram">
+                    <img src="../images/shield_pattern_gold_v1.webp" alt="Shield Architecture: Gold Standard Blueprint">
+                </div>
+
+                <ul style="margin-bottom: 3rem;">
+                    <li><strong>✅ Pros:</strong> Stops DDoS/Scanners before they touch your expensive WAF instances.
+                    </li>
+                    <li><strong>⛔ Cons:</strong> <strong>Major Trap:</strong> The WAF only sees the Firewall's IP, not
+                        the
+                        Client ID, unless you enable expensive Proxy modes.</li>
+                    <li><strong>Verdict:</strong> Rare. Use only if you have a massive IP-blocking requirement at the
+                        edge.
+                    </li>
+                </ul>
+            </div>
+
+            <div style="background: rgba(244, 63, 94, 0.05); border: 1px solid rgba(244, 63, 94, 0.2); border-left: 4px solid #f43f5e; padding: 2rem; border-radius: 8px; margin: 2rem 0;"
+                id="asymmetric-routing">
+                <h3 style="color: #f43f5e; margin-top: 0;"><i class="fas fa-random"></i> The Veteran's Trap: Asymmetric
+                    Routing</h3>
+                <p>In a real-world Hub-and-Spoke, traffic often fails because it takes two different paths.
+                    <strong>Request</strong> goes through the Firewall; <strong>Response</strong> tries to bypass it via
+                    a
+                    default peering route. The Firewall sees a one-way connection and "gracefuly" drops the packet
+                    (Stateful
+                    Filtering).
+                </p>
+                <p style="margin-top: 1rem;"><strong>The Fix: Use a Gateway UDR.</strong> You must apply a
+                    <code>0.0.0.0/0</code> route to the <strong>GatewaySubnet</strong> (in the Hub) pointing to the
+                    Firewall's internal IP. This ensures the "return leg" of the conversation is forced back through the
+                    same inspector.
+                </p>
+
+                <div
+                    style="margin-top: 1.5rem; background: rgba(255, 255, 255, 0.03); border: 1px dashed rgba(244, 63, 94, 0.4); padding: 1.5rem; border-radius: 8px;">
+                    <p style="margin: 0; font-size: 0.9rem; line-height: 1.6;">
+                        <i class="fas fa-plane-departure" style="color: #f43f5e; margin-right: 0.5rem;"></i>
+                        <strong>The Airport Analogy:</strong> Imagine you go through **Airport Security** to catch a
+                        flight.
+                        The guard checks your ID and lets you in. If you try to return by walking through the **unmanned
+                        baggage exit**, the security system freaks out. Why? Because the guards at the exit never saw
+                        you
+                        leave, and the guards at the entrance are still waiting for you to walk back past them. A
+                        Stateful
+                        Firewall is that guard—if it doesn't see the "Hello" (Request), it will never allow the
+                        "Goodbye"
+                        (Response).
+                    </p>
+                </div>
+            </div>
+
+            <h2><span class="gradient-text" id="troubleshooting">6. Troubleshooting the Trenches: The "404 Ghost"</span>
+            </h2>
+
+            <div
+                style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(239, 68, 68, 0.3); border-left: 4px solid #ef4444; padding: 2rem; border-radius: 8px; margin: 2rem 0;">
+                <h3 style="color: #ef4444; margin-top: 0;"><i class="fas fa-ghost"></i> The Problem: What actually
+                    happened
+                </h3>
+                <p>
+                    Imagine you went to a high-security office building and said to the receptionist:
+                    <strong>“Hi, I’m here to meet <em>someone</em>.”</strong>
+                </p>
+                <p>The receptionist looks at you and says: <em>“Who exactly? I only let people in if you ask for a
+                        specific
+                        name.”</em></p>
+                <p>
+                    That’s what our initial <strong>404 Not Found</strong> error was. The Application Gateway was
+                    knocking
+                    on the App Service’s door but saying something vague like: <em>“I’m here for a website.”</em>
+                </p>
+                <p>
+                    Azure App Service is a multi-tenant environment. It says: <strong>“I only respond if you call me by
+                        my
+                        exact name.”</strong> That “exact name” is the <strong>Host header</strong>.
+                </p>
+            </div>
+
+            <h3>Why App Service rejected the request</h3>
+            <ul>
+                <li><strong>Decision Engine:</strong> App Service uses the <strong>Host header</strong> to decide
+                    <em>which
+                        app</em> you’re asking for among thousands.
+                </li>
+                <li><strong>Identity Crisis:</strong> The Application Gateway was sending a generic Host header; the App
+                    Service didn’t recognize it.</li>
+                <li><strong>Result:</strong> 404 – Not Found. Nothing was broken; the app was just being called by the
+                    wrong
+                    name.</li>
+            </ul>
+
+            <div
+                style="background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.2); border-left: 4px solid #22c55e; padding: 1.5rem; border-radius: 8px; margin: 2rem 0;">
+                <h4 style="color: #22c55e; margin-top: 0;"><i class="fas fa-wrench"></i> The Fix: Use its Real Name</h4>
+                <p>We told the Gateway: <em>“When you talk to the App Service, use its real name, not a generic
+                        one.”</em>
+                </p>
+                <pre><code>pick_host_name_from_backend_address = true</code></pre>
+                <p style="font-size: 0.95rem; margin-top: 1rem;">
+                    This tells the Gateway: <strong>“Look at the backend URL (app-spoke2-obs…), and use that exact
+                        hostname
+                        in every request.”</strong>
+                </p>
+            </div>
+
+            <p
+                style="font-style: italic; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; color: #94a3b8; margin-bottom: 2rem;">
+                <strong>The Takeaway:</strong> The app was fine. The gateway was just using the wrong name. Once it used
+                the
+                app’s real hostname, the 404 disappeared, and traffic flowed normally.
+            </p>
+
+            <h2><span class="gradient-text" id="cost">7. The Cost of Reality (FinOps)</span></h2>
+            <p>
+                "Why Premium? Why not Standard?" This is the most common question I get. The answer is simple:
+                <strong>TLS
+                    Inspection</strong>.
+            </p>
+            <p>
+                Standard Firewall is blind to encrypted traffic (which is 99% of modern malware c2). If you can't
+                inspect
+                inside the HTTPS tunnel, you aren't secure; you're just routing packets.
+            </p>
+            <p>
+                <strong>The Expert's Scalability Check:</strong> In high-throughput Landing Zones, watch out for
+                <strong>SNAT
+                    Port Exhaustion</strong>. If your Spokes are making thousands of concurrent outbound API calls, the
+                Firewall's Public IP pool will run dry.
+                <br><strong>Solution:</strong> Scale horizontally by adding more Public IPs to the Firewall instance (up
+                to
+                250 supported).
+            </p>
+            <p>
+                <strong>Don't forget the Observability tax:</strong> While NSG Flow Logs are cheap (pennies/GB), looking
+                at
+                them isn't. Traffic Analytics processing and the <strong>Connection Monitor</strong> agents (approx.
+                $25/month per node) add up. However, compared to the $10,000/hour cost of a Sev-1 outage where you
+                "guess"
+                the root cause, it's a negligible insurance premium.
+            </p>
+
+            <h2><span class="gradient-text" id="hardening">8. Future Hardening</span></h2>
+            <p>To move from "Baseline" to "Enterprise Standard," the roadmap includes:</p>
+            <ul>
+                <li><strong>Single Pane of Glass:</strong> Azure Workbook to correlate "Red" traffic flows with Firewall
+                    Deny events.</li>
+                <li><strong>Policy-Driven Governance:</strong> Assigning Azure Policy (e.g.,
+                    <code>Deny-PublicIP-On-Spokes</code>) to enforce standards in code.
+                </li>
+                <li><strong>Azure Network Manager:</strong> Transitioning from manual peering to <strong>Connectivity
+                        Groups</strong> and global "Security Admin Rules" to manage the "Lie" at scale. Use this once
+                    you
+                    surpass 5 Spokes.</li>
+                <li><strong>Centralized DNS Resolver:</strong> Implementing the <strong>Private DNS Resolver
+                        Hub</strong> to
+                    eliminate static forwarders and prevent internal DNS leaks.</li>
+                <li><strong>CI/CD Pipelines:</strong> Moving from local "ClickOps" to GitHub Actions using OIDC
+                    Federation.
+                </li>
+                <li><strong>Identity Hardening:</strong> Enabling System Assigned Managed Identity for Spoke VMs for
+                    zero-credential access.</li>
+            </ul>
+
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+            <h3 id="resources">📚 Deep Dive Resource Kit</h3>
+            <p>Curated assets for building and auditing production-grade Azure environments.</p>
+
+            <div class="resource-grid">
+                <!-- Documentation -->
+                <a href="https://learn.microsoft.com/en-us/azure/network-watcher/vnet-flow-logs-overview"
+                    target="_blank" class="resource-card">
+                    <div class="resource-icon"><i class="fas fa-file-alt"></i></div>
+                    <div class="resource-info">
+                        <h4>VNet Flow Logs Guide</h4>
+                        <p>The next-gen engine for total VNet visibility and encryption auditing.</p>
+                    </div>
+                </a>
+
+                <a href="https://learn.microsoft.com/en-us/security/benchmark/azure/baselines/network-watcher-security-baseline"
+                    target="_blank" class="resource-card">
+                    <div class="resource-icon"><i class="fas fa-shield-virus"></i></div>
+                    <div class="resource-info">
+                        <h4>Security Baseline</h4>
+                        <p>Official Microsoft security controls for Network Watcher compliance.</p>
+                    </div>
+                </a>
+
+                <!-- Video Content -->
+                <a href="https://www.youtube.com/watch?v=0UWIVDKUdYo" target="_blank" class="resource-card">
+                    <div class="resource-icon"><i class="fab fa-youtube"></i></div>
+                    <div class="resource-info">
+                        <h4>Network Deep Dive</h4>
+                        <p>Advanced diagnostic patterns and real-world troubleshooting workflows.</p>
+                    </div>
+                </a>
+
+                <!-- Community/Blog -->
+                <a href="https://techcommunity.microsoft.com/category/azure-network-security/blog/azurenetworksecurityblog"
+                    target="_blank" class="resource-card">
+                    <div class="resource-icon"><i class="fas fa-rss"></i></div>
+                    <div class="resource-info">
+                        <h4>MSFT Security Blog</h4>
+                        <p>Stay ahead of edge-case vulnerabilities and new inspection features.</p>
+                    </div>
+                </a>
+            </div>
+
+            <h3 id="deploy">Ready to deploy?</h3>
+            <p>
+                The full Terraform codebase, including the Windows Server 2022 refactor and Connection Monitor logic, is
+                available on GitHub.
+            </p>
+            <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+                <a href="https://github.com/appliedailearner/AzureLandingZoneNetworkObservability" target="_blank"
+                    class="btn btn-primary"><i class="fab fa-github"></i> Get the Code</a>
+                <a href="../pages/contact.html" class="btn btn-outline">Discuss Your Architecture</a>
+            </div>
+
+            <!-- Social Share Section -->
+            <div class="social-share-container">
+                <p
+                    style="color: #94a3b8; font-size: 0.8rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700;">
+                    Spread the Insight</p>
+                <div class="social-share-buttons">
+                    <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn(event)" title="Share on LinkedIn"
+                        aria-label="Share on LinkedIn">
+                        <i class="fab fa-linkedin"></i> LinkedIn
+                    </a>
+                    <a href="#" class="share-btn twitter" onclick="shareOnTwitter(event)" title="Share on X (Twitter)"
+                        aria-label="Share on Twitter">
+                        <i class="fab fa-x-twitter"></i> Twitter
+                    </a>
+                    <a href="#" class="share-btn facebook" onclick="shareOnFacebook(event)" title="Share on Facebook">
+                        <i class="fab fa-facebook-f"></i> Facebook
+                    </a>
+                    <button class="share-btn copy-link" onclick="copyPageLink(this)" title="Copy Link"
+                        aria-label="Copy Page Link">
+                        <i class="fas fa-link"></i> <span class="btn-text">Copy Link</span>
+                    </button>
+                </div>
+            </div>
+
+            <script>
+                function shareOnLinkedIn(e) {
+                    e.preventDefault();
+                    const url = encodeURIComponent(window.location.href);
+                    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=600');
+                }
+
+                function shareOnTwitter(e) {
+                    e.preventDefault();
+                    const url = encodeURIComponent(window.location.href);
+                    const text = encodeURIComponent(document.title);
+                    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
+                }
+
+                function shareOnFacebook(e) {
+                    e.preventDefault();
+                    const url = encodeURIComponent(window.location.href);
+                    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+                }
+
+                function copyPageLink(btn) {
+                    const url = window.location.href;
+                    navigator.clipboard.writeText(url).then(() => {
+                        const btnText = btn.querySelector('.btn-text');
+                        const originalText = btnText.innerText;
+                        btnText.innerText = 'Copied!';
+                        btn.classList.add('copied');
+                        setTimeout(() => {
+                            btnText.innerText = originalText;
+                            btn.classList.remove('copied');
+                        }, 2000);
+                    });
+                }
+            </script>
+
+            <!-- Back to Blog Button -->
+            <div style="text-align: center; margin: 4rem 0;">
+                <a href="../blog.html" class="btn btn-primary" style="display: inline-block; padding: 1rem 2rem;">
+                    <i class="fas fa-arrow-left"></i> Back to Insights
+                </a>
+            </div>
+        </article>
+    </div>
+
+    <script>
+        // Scroll Progress & Scroll Spy Logic
+        const scrollProgressBar = document.getElementById('scrollProgress');
+        const tocLinks = document.querySelectorAll('.toc-link');
+        const sections = document.querySelectorAll('h2[id], h3[id], div[id]');
+
+        window.addEventListener('scroll', () => {
+            // 1. Update Progress Bar
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            scrollProgressBar.style.width = scrolled + "%";
+
+            // 2. Update Scroll Spy (TOC Highlighting)
+            let current = "";
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
 
     <!-- Footer -->
     <footer class="footer">
