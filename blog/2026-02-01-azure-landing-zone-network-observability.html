@@ -489,6 +489,94 @@
         html {
             scroll-behavior: smooth;
         }
+
+        /* Architect Checklist Polish */
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .checklist-item:hover {
+            background: rgba(59, 130, 246, 0.05);
+            border-color: rgba(59, 130, 246, 0.2);
+            transform: translateX(5px);
+        }
+
+        .checklist-item.checked {
+            background: rgba(34, 197, 94, 0.05);
+            border-color: rgba(34, 197, 94, 0.2);
+        }
+
+        .custom-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #3b82f6;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .checklist-item.checked .custom-checkbox {
+            background: #22c55e;
+            border-color: #22c55e;
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+        }
+
+        .custom-checkbox::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: white;
+            font-size: 14px;
+            display: none;
+        }
+
+        .checklist-item.checked .custom-checkbox::after {
+            display: block;
+        }
+
+        .audit-status-card {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 12px;
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .audit-progress-text {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-bottom: 1rem;
+            display: block;
+        }
     </style>
 
     <!-- Performance: Preconnect to Font & Script Servers -->
@@ -1089,39 +1177,46 @@
                 questions:</p>
 
             <div class="glass-card" style="padding: 2.5rem; margin: 2rem 0; border-left: 4px solid #3b82f6;">
-                <ul style="list-style: none; padding-left: 0; margin-bottom: 0;">
-                    <li style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem;">
-                        <input type="checkbox"
-                            style="width: 20px; height: 20px; margin-top: 4px; border: 2px solid #3b82f6; border-radius: 4px; cursor: pointer;">
+                <div id="architect-checklist">
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="custom-checkbox"></div>
                         <span><strong>UDR Enforcement:</strong> Do all Spoke subnets have a <code>0.0.0.0/0</code> UDR
                             pointing to the Firewall Hub IP (and is BGP propagation disabled)?</span>
-                    </li>
-                    <li style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem;">
-                        <input type="checkbox"
-                            style="width: 20px; height: 20px; margin-top: 4px; border: 2px solid #3b82f6; border-radius: 4px; cursor: pointer;">
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="custom-checkbox"></div>
                         <span><strong>Encryption Audit:</strong> Have you used <strong>VNet Flow Logs</strong> to
                             mathematically prove that traffic between critical nodes is encrypted at 128/256-bit?</span>
-                    </li>
-                    <li style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem;">
-                        <input type="checkbox"
-                            style="width: 20px; height: 20px; margin-top: 4px; border: 2px solid #3b82f6; border-radius: 4px; cursor: pointer;">
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="custom-checkbox"></div>
                         <span><strong>Host Header Integrity:</strong> Is
                             <code>pick_host_name_from_backend_address</code> set
                             on all App Gateway backends to kill the "404 Ghost"?</span>
-                    </li>
-                    <li style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem;">
-                        <input type="checkbox"
-                            style="width: 20px; height: 20px; margin-top: 4px; border: 2px solid #3b82f6; border-radius: 4px; cursor: pointer;">
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="custom-checkbox"></div>
                         <span><strong>SNAT Scaling:</strong> Have you audited the Firewall's SNAT port utilization for
                             Spokes making high-frequency external API calls?</span>
-                    </li>
-                    <li style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0;">
-                        <input type="checkbox"
-                            style="width: 20px; height: 20px; margin-top: 4px; border: 2px solid #3b82f6; border-radius: 4px; cursor: pointer;">
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="custom-checkbox"></div>
                         <span><strong>Path Validation:</strong> Is <strong>Connection Monitor</strong> testing the
                             Hub-to-Internet and Hub-to-Hybrid paths every 60 seconds with active alerting?</span>
-                    </li>
-                </ul>
+                    </div>
+                </div>
+
+                <div id="auditSuccessCard" class="audit-status-card">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">🏆</div>
+                    <h4 style="color: #22c55e; margin: 0 0 0.5rem 0;">Architecture Audit Certified</h4>
+                    <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 1.5rem;">Your Landing Zone meets the
+                        Senior
+                        Architect standard for production-grade networking.</p>
+                    <button class="btn btn-outline" onclick="copyChecklistResults()"
+                        style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+                        <i class="fas fa-copy"></i> Copy for Documentation
+                    </button>
+                </div>
             </div>
 
             <!-- Social Share Section -->
@@ -1221,6 +1316,47 @@
                 }
             });
         });
+
+        // Architect Checklist Advanced Logic
+        function toggleCheck(item) {
+            item.classList.toggle('checked');
+            updateAuditStatus();
+        }
+
+        function updateAuditStatus() {
+            const items = document.querySelectorAll('.checklist-item');
+            const checkedItems = document.querySelectorAll('.checklist-item.checked');
+            const successCard = document.getElementById('auditSuccessCard');
+
+            if (checkedItems.length === items.length) {
+                successCard.style.display = 'block';
+                // Trigger a small scroll to ensure the card is visible
+                successCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            } else {
+                successCard.style.display = 'none';
+            }
+        }
+
+        function copyChecklistResults() {
+            const items = document.querySelectorAll('.checklist-item');
+            let results = "🏗️ AZURE LANDING ZONE ARCHITECT AUDIT\n";
+            results += "===================================\n";
+            items.forEach(item => {
+                const status = item.classList.contains('checked') ? "[X]" : "[ ]";
+                const text = item.querySelector('span').innerText.split('\n')[0];
+                results += `${status} ${text}\n`;
+            });
+            results += "\n✅ AUDIT CERTIFIED BY: Upendra Kumar's Portfolio Tool";
+
+            navigator.clipboard.writeText(results).then(() => {
+                const btn = document.querySelector('#auditSuccessCard .btn');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> Results Copied!';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                }, 2000);
+            });
+        }
     </script>
 
     <!-- Footer -->
