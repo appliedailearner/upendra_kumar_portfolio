@@ -507,6 +507,16 @@
             assertions. This isn't just about connectivity; it's about <strong>Control</strong>.
         </p>
 
+        <div
+            style="background: rgba(59, 130, 246, 0.05); border-left: 4px solid #3b82f6; padding: 1.25rem; margin: 1.5rem 0; border-radius: 4px;">
+            <p style="margin: 0; font-style: italic; font-size: 0.95rem; color: #94a3b8;">
+                <strong>New to Azure?</strong> Think of VNet Peering like a direct highway between two cities. By
+                default, cars just drive through. A <strong>User Defined Route (UDR)</strong> is like a mandatory exit
+                ramp—it forces every car to pass through a security toll booth (the Firewall) before they can finish
+                their journey.
+            </p>
+        </div>
+
         <div class="break-out-diagram">
             <img src="../images/hub_spoke_gold_v1.webp" alt="Azure Landing Zone Topology: Gold Standard Blueprint">
         </div>
@@ -723,6 +733,22 @@
             </ul>
         </div>
 
+        <div
+            style="background: rgba(244, 63, 94, 0.05); border: 1px solid rgba(244, 63, 94, 0.2); border-left: 4px solid #f43f5e; padding: 2rem; border-radius: 8px; margin: 2rem 0;">
+            <h3 style="color: #f43f5e; margin-top: 0;"><i class="fas fa-random"></i> The Veteran's Trap: Asymmetric
+                Routing</h3>
+            <p>In a real-world Hub-and-Spoke, traffic often fails because it takes two different paths.
+                <strong>Request</strong> goes through the Firewall; <strong>Response</strong> tries to bypass it via a
+                default peering route. The Firewall sees a one-way connection and "gracefuly" drops the packet (Stateful
+                Filtering).
+            </p>
+            <p style="margin-top: 1rem;"><strong>The Fix: Use a Gateway UDR.</strong> You must apply a
+                <code>0.0.0.0/0</code> route to the <strong>GatewaySubnet</strong> (in the Hub) pointing to the
+                Firewall's internal IP. This ensures the "return leg" of the conversation is forced back through the
+                same inspector.
+            </p>
+        </div>
+
         <h2><span class="gradient-text">6. Troubleshooting the Trenches: The "404 Ghost"</span></h2>
 
         <div
@@ -783,6 +809,14 @@
             inside the HTTPS tunnel, you aren't secure; you're just routing packets.
         </p>
         <p>
+            <strong>The Expert's Scalability Check:</strong> In high-throughput Landing Zones, watch out for
+            <strong>SNAT
+                Port Exhaustion</strong>. If your Spokes are making thousands of concurrent outbound API calls, the
+            Firewall's Public IP pool will run dry.
+            <br><strong>Solution:</strong> Scale horizontally by adding more Public IPs to the Firewall instance (up to
+            250 supported).
+        </p>
+        <p>
             <strong>Don't forget the Observability tax:</strong> While NSG Flow Logs are cheap (pennies/GB), looking at
             them isn't. Traffic Analytics processing and the <strong>Connection Monitor</strong> agents (approx.
             $25/month per node) add up. However, compared to the $10,000/hour cost of a Sev-1 outage where you "guess"
@@ -797,6 +831,11 @@
             <li><strong>Policy-Driven Governance:</strong> Assigning Azure Policy (e.g.,
                 <code>Deny-PublicIP-On-Spokes</code>) to enforce standards in code.
             </li>
+            <li><strong>Azure Network Manager:</strong> Transitioning from manual peering to <strong>Connectivity
+                    Groups</strong> and global "Security Admin Rules" to manage the "Lie" at scale. Use this once you
+                surpass 5 Spokes.</li>
+            <li><strong>Centralized DNS Resolver:</strong> Implementing the <strong>Private DNS Resolver Hub</strong> to
+                eliminate static forwarders and prevent internal DNS leaks.</li>
             <li><strong>CI/CD Pipelines:</strong> Moving from local "ClickOps" to GitHub Actions using OIDC Federation.
             </li>
             <li><strong>Identity Hardening:</strong> Enabling System Assigned Managed Identity for Spoke VMs for
