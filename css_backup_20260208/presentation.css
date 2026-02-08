@@ -1,0 +1,370 @@
+/* Executive Presentation Theme */
+:root {
+    --bg-dark: #0f172a;
+    --slide-bg: #1e293b;
+    --accent: #38bdf8;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    overflow: hidden;
+    /* Force scroll via container */
+}
+
+.deck-container {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    /* Hide Scrollbar */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE/Edge */
+}
+
+/* Particle Canvas Styles */
+#particles-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    /* Behind everything */
+    pointer-events: none;
+}
+
+.deck-container::-webkit-scrollbar {
+    display: none;
+    /* Chrome/Safari */
+}
+
+.slide {
+    height: 100vh;
+    width: 100%;
+    scroll-snap-align: start;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    /* Make slide background transparent so particles show through */
+    background: transparent;
+}
+
+/* Add a gradient overlay to the BODY instead, so it sits behind content but above particles if needed, 
+   or we just let the slide content have the background. 
+   Actually, let's give the slide a semi-transparent background to ensure readability. */
+.slide::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(circle at center, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.9) 100%);
+}
+
+.slide-content {
+    max-width: 1000px;
+    width: 90%;
+    padding: 4rem;
+    background: rgba(30, 41, 59, 0.4);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    border-radius: 24px;
+    box-shadow: 0 0 50px -10px rgba(56, 189, 248, 0.15), 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+    /* Ensure content fits */
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Slide Header */
+.slide-header {
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.slide-title {
+    font-size: 2.5rem;
+    margin: 0;
+    background: linear-gradient(to right, #fff, #94a3b8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.slide-number {
+    font-family: 'Inter', monospace;
+    color: var(--accent);
+    opacity: 0.5;
+    font-size: 1.2rem;
+}
+
+/* Content Layouts */
+.slide-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    /* Center items vertically */
+}
+
+.slide-text {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+.slide-text ul {
+    list-style: none;
+    padding: 0;
+}
+
+.slide-text li {
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+    position: relative;
+}
+
+.slide-text li::before {
+    content: '➔';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+}
+
+/* Navigation Overlay */
+.deck-nav {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 100;
+    display: flex;
+    gap: 1rem;
+}
+
+.deck-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+}
+
+.deck-btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg-dark);
+}
+
+/* Title Slide Specifics */
+.slide.title-slide .slide-content {
+    text-align: center;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    /* Remove padding for center alignment */
+}
+
+.slide.title-slide h1 {
+    font-size: 4.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+}
+
+.slide.title-slide p {
+    font-size: 1.5rem;
+    color: var(--accent);
+}
+
+/* Animations */
+.animate-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease-out;
+}
+
+.visible .animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.delay-1 {
+    animation-delay: 0.2s;
+}
+
+.delay-2 {
+    animation-delay: 0.4s;
+}
+
+.delay-3 {
+    animation-delay: 0.6s;
+}
+
+/* Progress Bar */
+#deck-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: var(--accent);
+    width: 0%;
+    z-index: 200;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 10px var(--accent);
+}
+
+/* Print Styles */
+@media print {
+    body {
+        overflow: visible;
+        background: white;
+        color: black;
+    }
+
+    .deck-container {
+        height: auto;
+        overflow: visible;
+        display: block;
+    }
+
+    .slide {
+        height: 100vh;
+        /* Force page break */
+        page-break-after: always;
+        break-after: page;
+        background: white !important;
+        border-bottom: none;
+        color: black;
+    }
+
+    .slide-content {
+        background: none !important;
+        box-shadow: none !important;
+        border: none !important;
+        backdrop-filter: none;
+        color: black;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    p,
+    span,
+    strong,
+    li {
+        color: black !important;
+        background: none !important;
+        -webkit-text-fill-color: black !important;
+    }
+
+    .deck-nav,
+    #deck-progress,
+    .top-nav-project {
+        display: none !important;
+    }
+}
+
+
+/* Back Link Container */
+.back-link-container {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    z-index: 100;
+}
+
+/* 📱 Mobile Responsiveness (Senior UX Expert Addition) */
+@media (max-width: 768px) {
+    .back-link-container {
+        top: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        background: rgba(15, 23, 42, 0.9);
+        padding: 0.5rem 0;
+        backdrop-filter: blur(8px);
+    }
+
+    .slide-content {
+        padding: 1.5rem;
+        width: 95%;
+        border-radius: 16px;
+    }
+
+    .slide-header {
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .slide-title {
+        font-size: 1.75rem;
+        /* Smaller title */
+        line-height: 1.2;
+    }
+
+    .slide.title-slide h1 {
+        font-size: 2.75rem;
+        /* Smaller hero title */
+    }
+
+    .slide.title-slide p {
+        font-size: 1.1rem;
+    }
+
+    .slide-grid {
+        grid-template-columns: 1fr;
+        /* Stack columns */
+        gap: 1.5rem;
+    }
+
+    .slide-text {
+        font-size: 1rem;
+        /* Readable body text */
+    }
+
+    .slide-text li {
+        margin-bottom: 0.8rem;
+    }
+
+    .deck-nav {
+        bottom: 1rem;
+        right: 1rem;
+    }
+
+    .deck-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    /* Adjust specific layouts that use inline flex/grid */
+    .stats-grid,
+    [style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+    }
+}
