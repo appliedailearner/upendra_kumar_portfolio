@@ -8,6 +8,24 @@
 
 ---
 
+## Phase 0: The "Senior Architect" Standards (Mandatory Checks)
+**Before generating any text, you must commit to these 3 Non-Negotiables:**
+
+1.  **Quantifiable ROI (The CFO Requirement):**
+    *   *Never* say: "We improved efficiency."
+    *   *Always* say: "We cut TCO by 30% (~$120k/yr)" or "Reduced deployment time from 5 days to 4 hours."
+    *   *Rule:* If you can't put a number on it, it's a junior-level post. Find the metric.
+
+2.  **Integrity & Trust (The CTO Requirement):**
+    *   *Simulated vs. Real:* If a system is a demo, label it `(DEMO)`.
+    *   *War Stories:* Do not invent failures. Use real architectural challenges (latency, split-brain DNS, cost blowouts).
+
+3.  **Mobile Safety (The User Experience):**
+    *   *No Heavy Animations:* If suggesting a new UI component, ensure it is disabled on mobile or uses `prefers-reduced-motion`.
+    *   *Touch Targets:* All interactive elements must be large enough for a thumb.
+
+---
+
 ## Phase 1: Content Strategy & Generation (The "Stop Asking AI to Write" Framework)
 **Objective:** Before generating any HTML, use this 8-step framework to structure the high-value content.
 
@@ -46,6 +64,7 @@
 **Concept:** Claims need evidence.
 **PROMPT:** "For every technical claim made in the draft, find a way to back it up:
 *   A specific stat (e.g., '48% coverage').
+*   **A Financial Metric (REQUIRED):** Cost savings ($), Time reduction (%), or Risk mitigation ($ at risk).
 *   A personal war story ('Friday’s playback was close').
 *   A contrarian take ('New assessments are not magic reset buttons')."
 
@@ -107,12 +126,12 @@
     <meta name="description" content="{{DESCRIPTION}}">
     <title>{{TITLE}} | Upendra Kumar</title>
 
-    <link rel="stylesheet" href="../css/style.css?v=46">
-    <link rel="stylesheet" href="../css/premium.css?v=46">
+    <link rel="stylesheet" href="../css/style.css?v=48">
+    <link rel="stylesheet" href="../css/premium.css?v=48">
     <link rel="stylesheet" href="../css/dropdown.css">
 
     <!-- Performance: Critical Asset Preloading -->
-    <link rel="preload" href="../css/style.css?v=46" as="style">
+    <link rel="preload" href="../css/style.css?v=48" as="style">
     <link rel="preload" href="../js/navbar-component.js" as="script">
     <link rel="preload" href="../js/main.js" as="script">
 

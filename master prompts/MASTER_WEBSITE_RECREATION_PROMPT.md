@@ -4,6 +4,14 @@
 
 ---
 
+## 🏗️ 0. The "Senior Architect" Non-Negotiables
+**Every update or new page must pass these 3 checks:**
+1.  **Quantifiable ROI:** No generic benefits. Use specific numbers (e.g., "30% TCO reduction," "$120k/yr saved").
+2.  **Integrity:** Label all demos as `(DEMO)`. Do not invent war stories.
+3.  **Mobile Safety:** Disable heavy animations (e.g., orbs) on mobile devices to prevent battery drain.
+
+---
+
 ## 🏛️ 1. Core Architecture: Multi-Page Digital Hub
 The site is NOT a single-page app. It is a structured hub designed for authority.
 - **Root:** `index.html` (Landing & Positioning).
@@ -30,6 +38,8 @@ Move beyond generic "Azure Solutions." Every line of code and content must commu
   - **Success Green:** Emerald (`#10B981`).
   - **Alert/Specialist:** Rose (`#f43f5e`).
 - **Typography:** 'Outfit' for Headlines (Bold/Premium), 'Inter' for Body (Global readability).
+- **Consolidation:** All premium styles (hero, animations) are consolidated into `css/premium.css`. Avoid fragmentation.
+- **Mobile Performance:** Heavy styling (glassmorphism/orbs) must degrade gracefully or be disabled on mobile viewports.
 
 ---
 
@@ -47,7 +57,8 @@ All technical content and code generated must follow these Jan 2026 standards:
 1. **APIM-First:** All AI/Workload traffic must flow via Azure API Management.
 2. **Data Residency:** Architecture must address data sovereignty and encryption-at-rest.
 3. **Downloadable Kits:** Every technical case study must provide a `Starter-Kit.zip`.
-4. **Series Badges:** Every blog hero must feature a series-branded badge (Regulator-Ready, Migration Chronicles, or Value Architect Playbook).
+4. **Series Badges:** Every blog hero must feature a series-branded badge.
+5. **Cache Busting:** All CSS/JS links must use a version query string (e.g., `?v=48`) to ensure instant updates.
 
 ---
 
