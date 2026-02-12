@@ -389,6 +389,101 @@
             margin-bottom: 1rem;
             display: block;
         }
+
+        /* --- Video Vault Grid --- */
+        .video-vault-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .video-card-v2 {
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(15, 23, 42, 0.6);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            text-decoration: none;
+        }
+
+        .video-card-v2:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(59, 130, 246, 0.3);
+            background: rgba(30, 41, 59, 0.8);
+        }
+
+        .video-facade-v2 {
+            position: relative;
+            padding-bottom: 56.25%;
+            /* 16:9 */
+            height: 0;
+            background: #000;
+        }
+
+        .video-facade-v2 img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .video-card-v2:hover .video-facade-v2 img {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .play-button-v2 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.8rem;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            transition: all 0.4s ease;
+            z-index: 2;
+        }
+
+        .video-card-v2:hover .play-button-v2 {
+            transform: translate(-50%, -50%) scale(1.15);
+            background: #3b82f6;
+            border-color: #fff;
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+        }
+
+        .video-card-v2 .play-button-v2 i {
+            margin-left: 5px;
+            /* Visual centering for play icon */
+        }
+
+        .video-label-v2 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.1rem;
+            z-index: 3;
+            font-family: 'Outfit', sans-serif;
+        }
     </style>
 
     <!-- Performance: Preconnect to Font & Script Servers -->
@@ -1454,62 +1549,43 @@
             </div>
         </div>
 
-        <!-- YouTube Masterclasses -->
-        <h3 id="videos" style="margin-top: 3rem !important;"><i class="fab fa-youtube text-red-500"></i> Video
-            Masterclass Library</h3>
-        <div class="video-grid"
-            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+        <!-- YouTube Masterclasses (Video Vault Refactor) -->
+        <h2
+            style="background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem;">
+            Resources</h2>
+        <h3 id="videos" style="margin-top: 2rem !important;"><i class="fab fa-youtube text-red-600"></i> Video Vault
+            (Must Watch)</h3>
+        <p style="color: #94a3b8; font-size: 1.1rem; margin-bottom: 3rem;">Expert deep-dives on the patterns used in
+            this architecture.</p>
 
-            <div class="video-card"
-                style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden;">
-                <div
-                    style="aspect-ratio: 16/9; background: #000; position: relative; display: flex; align-items: center; justify-content: center;">
-                    <i class="fab fa-youtube text-4xl text-red-600"></i>
-                    <a href="https://www.youtube.com/watch?v=uopHk4whfiE" target="_blank"
-                        style="position: absolute; inset: 0;" aria-label="Watch AWS Masterclass"></a>
-                </div>
-                <div style="padding: 1.5rem;">
-                    <div style="font-size: 0.75rem; color: #ff9900; font-weight: 800; text-transform: uppercase;">
-                        re:Invent TNC216</div>
-                    <h4 style="margin: 0.5rem 0; color: white;">AWS: Are you Well-Architected?</h4>
-                    <p style="font-size: 0.85rem; color: #94a3b8; margin: 0;">Deep dive into cross-account automation
-                        and strategic governance.</p>
-                </div>
-            </div>
+        <div class="video-vault-grid">
 
-            <div class="video-card"
-                style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden;">
-                <div
-                    style="aspect-ratio: 16/9; background: #000; position: relative; display: flex; align-items: center; justify-content: center;">
-                    <i class="fab fa-youtube text-4xl text-red-600"></i>
-                    <a href="https://www.youtube.com/watch?v=CBar6XeA1lE" target="_blank"
-                        style="position: absolute; inset: 0;" aria-label="Watch Azure Masterclass"></a>
+            <a href="https://www.youtube.com/watch?v=uopHk4whfiE" target="_blank" class="video-card-v2">
+                <div class="video-facade-v2">
+                    <img src="https://img.youtube.com/vi/uopHk4whfiE/maxresdefault.jpg"
+                        alt="AWS re:Invent 2023 Masterclass">
+                    <div class="play-button-v2"><i class="fas fa-play"></i></div>
+                    <div class="video-label-v2">AWS: Are you Well-Architected?</div>
                 </div>
-                <div style="padding: 1.5rem;">
-                    <div style="font-size: 0.75rem; color: #3b82f6; font-weight: 800; text-transform: uppercase;">Learn
-                        Live</div>
-                    <h4 style="margin: 0.5rem 0; color: white;">Azure WAF: Introduction & Best Practices</h4>
-                    <p style="font-size: 0.85rem; color: #94a3b8; margin: 0;">Operational excellence guidelines for
-                        mission-critical Azure workloads.</p>
-                </div>
-            </div>
+            </a>
 
-            <div class="video-card"
-                style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden;">
-                <div
-                    style="aspect-ratio: 16/9; background: #000; position: relative; display: flex; align-items: center; justify-content: center;">
-                    <i class="fab fa-youtube text-4xl text-red-600"></i>
-                    <a href="https://www.youtube.com/watch?v=pM45hWKia5o" target="_blank"
-                        style="position: absolute; inset: 0;" aria-label="Watch GCP Masterclass"></a>
+            <a href="https://www.youtube.com/watch?v=CBar6XeA1lE" target="_blank" class="video-card-v2">
+                <div class="video-facade-v2">
+                    <img src="https://img.youtube.com/vi/CBar6XeA1lE/maxresdefault.jpg"
+                        alt="Azure Well-Architected Masterclass">
+                    <div class="play-button-v2"><i class="fas fa-play"></i></div>
+                    <div class="video-label-v2">Azure WAF: Introduction & Best Practices</div>
                 </div>
-                <div style="padding: 1.5rem;">
-                    <div style="font-size: 0.75rem; color: #4285f4; font-weight: 800; text-transform: uppercase;">Cloud
-                        Adoption Essentials</div>
-                    <h4 style="margin: 0.5rem 0; color: white;">GCP: Cloud Architecture Basics</h4>
-                    <p style="font-size: 0.85rem; color: #94a3b8; margin: 0;">Master the high-level design principles of
-                        Google Cloud Platform.</p>
+            </a>
+
+            <a href="https://www.youtube.com/watch?v=pM45hWKia5o" target="_blank" class="video-card-v2">
+                <div class="video-facade-v2">
+                    <img src="https://img.youtube.com/vi/pM45hWKia5o/maxresdefault.jpg"
+                        alt="Google Cloud Architecture Basics">
+                    <div class="play-button-v2"><i class="fas fa-play"></i></div>
+                    <div class="video-label-v2">GCP: Cloud Architecture Basics</div>
                 </div>
-            </div>
+            </a>
 
         </div>
 
