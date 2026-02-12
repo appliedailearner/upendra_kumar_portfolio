@@ -478,7 +478,7 @@
             style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 16px; padding: 2rem; margin-bottom: 4rem; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
             <h3 style="margin-top: 0 !important; color: #3b82f6 !important; font-size: 1.4rem !important;"><i
                     class="fas fa-chart-line mr-2"></i> Interactive: CRA Maturity Scoreboard</h3>
-            <p style="font-size: 0.95rem; color: #94a3b8;">Self-assess your enterprise readiness across 5 critical
+            <p style="font-size: 0.95rem; color: #94a3b8;">Self-assess your enterprise readiness across 6 critical
                 pillars (0.0 to 5.0 scale).</p>
 
             <div id="scoreboard-grid"
@@ -517,6 +517,13 @@
                     <input type="range" min="0" max="5" step="0.5" value="2.5" oninput="calculateReadinessScore()"
                         class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-500"
                         data-pillar="app">
+                </div>
+                <div class="score-input">
+                    <label style="display: block; font-size: 0.85rem; color: white; margin-bottom: 0.5rem;">Zero Trust
+                        Readiness</label>
+                    <input type="range" min="0" max="5" step="0.5" value="2.5" oninput="calculateReadinessScore()"
+                        class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                        data-pillar="ztna">
                 </div>
             </div>
 
@@ -654,6 +661,11 @@
         <p>Before launching Week 1, ensure you have these inputs. Without them, you will spend the first sprint chasing
             permissions instead of data.</p>
         <p><em>Example Scope Assumptions: Up to 7,350 VMs, 480 Databases, 275 Network Segments, 920 TB Storage.</em></p>
+        <p style="font-size: 0.85rem; color: #94a3b8; font-style: italic; margin-top: -1rem; margin-bottom: 2rem;">
+            <i class="fas fa-info-circle mr-1"></i> <strong>Audit Note:</strong> Specialized workloads (SAP HANA,
+            Mainframe/AS400, or legacy physical Solaris/AIX) require an additional 4-week deep-dive phase and are
+            typically excluded from baseline TCO models.
+        </p>
 
         <div class="table-container">
             <table>
@@ -926,40 +938,53 @@
                 <thead>
                     <tr>
                         <th>Criteria Category</th>
-                        <th>Specific Requirement</th>
-                        <th>Weight (1-10)</th>
-                        <th>AWS Score</th>
-                        <th>Azure Score</th>
+                        <th>Requirement</th>
+                        <th>Weight</th>
+                        <th>AWS</th>
+                        <th>Azure</th>
+                        <th>OCI</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><strong>Technical</strong></td>
-                        <td>Native support for Windows/SQL workloads (BYOL)</td>
+                        <td>BYOL Support (Windows/SQL)</td>
                         <td>10</td>
                         <td><span class="status-dot dot-med"></span> 4</td>
+                        <td><span class="status-dot dot-high"></span> 5</td>
                         <td><span class="status-dot dot-high"></span> 5</td>
                     </tr>
                     <tr>
                         <td><strong>Commercial</strong></td>
-                        <td>Existing EA/EDP discount applicability</td>
+                        <td>EA/EDP Discounts</td>
                         <td>9</td>
                         <td><span class="status-dot dot-med"></span> 3</td>
+                        <td><span class="status-dot dot-high"></span> 5</td>
+                        <td><span class="status-dot dot-med"></span> 3</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pricing</strong></td>
+                        <td>Global Price Parity</td>
+                        <td>8</td>
+                        <td><span class="status-dot dot-low"></span> 2</td>
+                        <td><span class="status-dot dot-low"></span> 2</td>
                         <td><span class="status-dot dot-high"></span> 5</td>
                     </tr>
                     <tr>
                         <td><strong>Operational</strong></td>
-                        <td>Integration with existing AD/Identity stack</td>
+                        <td>Identity Stack (AD)</td>
                         <td>8</td>
                         <td><span class="status-dot dot-med"></span> 4</td>
                         <td><span class="status-dot dot-high"></span> 5</td>
+                        <td><span class="status-dot dot-med"></span> 3</td>
                     </tr>
                     <tr>
                         <td><strong>Innovation</strong></td>
-                        <td>GenAI model availability (Vertex/OpenAI/Bedrock)</td>
+                        <td>GenAI / LLM Access</td>
                         <td>7</td>
                         <td><span class="status-dot dot-high"></span> 5</td>
                         <td><span class="status-dot dot-high"></span> 5</td>
+                        <td><span class="status-dot dot-med"></span> 4</td>
                     </tr>
                     <tr>
                         <td><strong>Ecosystem</strong></td>
