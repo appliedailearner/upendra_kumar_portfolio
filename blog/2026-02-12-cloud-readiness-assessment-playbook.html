@@ -347,10 +347,94 @@
 
     <!-- Blog Post Content -->
     <article class="blog-post-content">
-        <p class="lead" style="font-size: 1.3rem; color: var(--primary-color); font-weight: 600;">
-            Stop guessing. Start measuring. This is the definitive Phase 1 playbook for running a Cloud Readiness
-            Assessment (CRA) that actually leads to a decision.
+        <p class="lead"
+            style="font-size: 1.3rem; color: #60a5fa; font-weight: 600; border-left: 4px solid #3b82f6; padding-left: 1.5rem; margin-bottom: 3rem;">
+            De-risk your roadmap. Stop speculating on infrastructure costs and start measuring readiness with a
+            Principal-Grade framework designed for the Fortune 500. This is the definitive Phase 1 playbook for
+            running a Cloud Readiness Assessment (CRA) that actually leads to a decision.
         </p>
+
+        <!-- CRA Maturity Scoreboard -->
+        <div class="maturity-widget"
+            style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 16px; padding: 2rem; margin-bottom: 4rem; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
+            <h3 style="margin-top: 0 !important; color: #3b82f6 !important; font-size: 1.4rem !important;"><i
+                    class="fas fa-chart-line mr-2"></i> Interactive: CRA Maturity Scoreboard</h3>
+            <p style="font-size: 0.95rem; color: #94a3b8;">Self-assess your enterprise readiness across 5 critical
+                pillars (0.0 to 5.0 scale).</p>
+
+            <div id="scoreboard-grid"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+                <div class="score-input">
+                    <label style="display: block; font-size: 0.85rem; color: white; margin-bottom: 0.5rem;">CMDB
+                        Accuracy</label>
+                    <input type="range" min="0" max="5" step="0.5" value="2.5" oninput="calculateReadinessScore()"
+                        class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                        data-pillar="cmdb">
+                </div>
+                <div class="score-input">
+                    <label style="display: block; font-size: 0.85rem; color: white; margin-bottom: 0.5rem;">Security
+                        Governance</label>
+                    <input type="range" min="0" max="5" step="0.5" value="2.5" oninput="calculateReadinessScore()"
+                        class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                        data-pillar="security">
+                </div>
+                <div class="score-input">
+                    <label style="display: block; font-size: 0.85rem; color: white; margin-bottom: 0.5rem;">FinOps
+                        Maturity</label>
+                    <input type="range" min="0" max="5" step="0.5" value="2.5" oninput="calculateReadinessScore()"
+                        class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                        data-pillar="finops">
+                </div>
+                <div class="score-input">
+                    <label style="display: block; font-size: 0.85rem; color: white; margin-bottom: 0.5rem;">Skills
+                        Readiness</label>
+                    <input type="range" min="0" max="5" step="0.5" value="2.5" oninput="calculateReadinessScore()"
+                        class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                        data-pillar="skills">
+                </div>
+                <div class="score-input">
+                    <label style="display: block; font-size: 0.85rem; color: white; margin-bottom: 0.5rem;">App
+                        Modernization</label>
+                    <input type="range" min="0" max="5" step="0.5" value="2.5" oninput="calculateReadinessScore()"
+                        class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                        data-pillar="app">
+                </div>
+            </div>
+
+            <div id="readiness-result"
+                style="margin-top: 2.5rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1rem;">
+                <span style="font-size: 0.85rem; color: #94a3b8;">Cumulative Readiness Score</span>
+                <div id="readiness-score" style="font-size: 3rem; font-weight: 800; color: #60a5fa;">2.5 / 5.0</div>
+                <div id="readiness-verdict"
+                    style="font-size: 1rem; color: white; margin-top: 0.5rem; font-weight: 600;">"Cautious Deployment
+                    Advised"</div>
+            </div>
+        </div>
+
+        <script>
+            function calculateReadinessScore() {
+                const sliders = document.querySelectorAll('#scoreboard-grid input');
+                let total = 0;
+                sliders.forEach(s => total += parseFloat(s.value));
+                const average = (total / sliders.length).toFixed(1);
+
+                const scoreDisplay = document.getElementById('readiness-score');
+                const verdictDisplay = document.getElementById('readiness-verdict');
+
+                scoreDisplay.innerText = `${average} / 5.0`;
+
+                if (average < 2) {
+                    verdictDisplay.innerText = '"High Transformation Risk"';
+                    verdictDisplay.style.color = '#ef4444';
+                } else if (average < 3.5) {
+                    verdictDisplay.innerText = '"Foundational Work Required"';
+                    verdictDisplay.style.color = '#f59e0b';
+                } else {
+                    verdictDisplay.innerText = '"Ready for Accelerated Scale"';
+                    verdictDisplay.style.color = '#10b981';
+                }
+            }
+        </script>
 
         <h2>Who This Is For & What You Will Get</h2>
         <ul>
@@ -535,59 +619,118 @@
                     <tr>
                         <td><strong>Phase 5: Strategy Report</strong></td>
                         <td>Week 10–11</td>
-                        <td>Synthesis of all findings, executive deck creation, final presentation.</td>
-                        <td>Cloud Strategy Report, Exec Presentation.</td>
-                        <td>Final sign-off from SteerCo.</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <h2>Deliverables List (With Templates)</h2>
-        <p>Don't start from scratch. Use these standardized templates to accelerate delivery.</p>
+        <h2>Principal-Grade Deliverable Library (Phase 1)</h2>
+        <p>The following toolkit represents the core "Strategic Assets" generated during a Phase 1 assessment. Each
+            template is designed for executive presentation and technical rigor.</p>
 
-        <h3>Phase 1 & 2: Governance & Discovery</h3>
-        <ul>
-            <li><strong>Project Plan:</strong> <a
-                    href="https://github.com/appliedailearner/Cloud-readiness-assessment/blob/main/cloud-readiness-assessment-toolkit/docs/TEMPLATE_Project-Plan.md">TEMPLATE_Project-Plan.md</a>
-                - <em>Defines milestones, RACI, and critical path.</em></li>
-            <li><strong>Communication Plan:</strong> <a
-                    href="https://github.com/appliedailearner/Cloud-readiness-assessment/blob/main/cloud-readiness-assessment-toolkit/docs/TEMPLATE_Communication-Plan.md">TEMPLATE_Communication-Plan.md</a>
-                - <em>Who needs to know what, and when.</em></li>
-            <li><strong>Infrastructure Discovery Report:</strong> <a
-                    href="https://github.com/appliedailearner/Cloud-readiness-assessment/blob/main/cloud-readiness-assessment-toolkit/docs/TEMPLATE_Infrastructure-Discovery-Report.md">TEMPLATE_Infrastructure-Discovery-Report.md</a>
-                - <em>Raw inventory, utilization stats, and "Zombie" server list.</em></li>
-        </ul>
+        <div class="toolkit-grid"
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
 
-        <h3>Phase 3: CSP Selection</h3>
-        <ul>
-            <li><strong>Evaluation Matrix:</strong> <a
-                    href="https://github.com/appliedailearner/Cloud-readiness-assessment/blob/main/cloud-readiness-assessment-toolkit/docs/TEMPLATE_Evaluation-Matrix.csv">TEMPLATE_Evaluation-Matrix.csv</a>
-                - <em>Weighted scoring model for objective vendor comparison.</em></li>
-        </ul>
+            <!-- Plan & Governance -->
+            <div class="toolkit-card"
+                style="background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; transition: all 0.3s ease; cursor: pointer;"
+                onmouseover="this.style.borderColor='#3b82f6'; this.style.transform='translateY(-5px)';"
+                onmouseout="this.style.borderColor='rgba(255,255,255,0.05)'; this.style.transform='translateY(0)';">
+                <div style="display: flex; justify-content: space-between; align-items: start;">
+                    <i class="fas fa-tasks text-blue-400 text-2xl"></i>
+                    <span
+                        style="font-size: 0.75rem; background: #3b82f6; color: white; padding: 2px 8px; border-radius: 12px; font-weight: bold;">GOVERNANCE</span>
+                </div>
+                <div>
+                    <h4 style="margin: 0; color: white;">Strategic Lifecycle Plan</h4>
+                    <p style="font-size: 0.85rem; color: #94a3b8; margin: 0.5rem 0;">11-week roadmap including
+                        board-level sign-off milestones and tooling procurement gates.</p>
+                </div>
+                <div style="margin-top: auto; display: flex; gap: 1rem;">
+                    <a href="https://github.com/appliedailearner/Cloud-readiness-assessment/blob/main/cloud-readiness-assessment-toolkit/docs/TEMPLATE_Project-Plan.md"
+                        style="font-size: 0.85rem; color: #60a5fa; font-weight: 600;">Project Plan <i
+                            class="fas fa-external-link-alt"></i></a>
+                    <a href="https://github.com/appliedailearner/Cloud-readiness-assessment/blob/main/cloud-readiness-assessment-toolkit/docs/TEMPLATE_Communication-Plan.md"
+                        style="font-size: 0.85rem; color: #60a5fa; font-weight: 600;">Comm Plan <i
+                            class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
 
-        <h3>Phase 4: TCO</h3>
-        <ul>
-            <li><strong>TCO Model Inputs:</strong> <a
-                    href="https://github.com/appliedailearner/Cloud-readiness-assessment/blob/main/cloud-readiness-assessment-toolkit/docs/TEMPLATE_TCO-Model-Inputs.csv">TEMPLATE_TCO-Model-Inputs.csv</a>
-                - <em>Data collection sheet for licensing, labor, and datacenter costs.</em></li>
-        </ul>
+            <!-- Discovery -->
+            <div class="toolkit-card"
+                style="background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; transition: all 0.3s ease; cursor: pointer;"
+                onmouseover="this.style.borderColor='#10b981'; this.style.transform='translateY(-5px)';"
+                onmouseout="this.style.borderColor='rgba(255,255,255,0.05)'; this.style.transform='translateY(0)';">
+                <div style="display: flex; justify-content: space-between; align-items: start;">
+                    <i class="fas fa-microscope text-green-400 text-2xl"></i>
+                    <span
+                        style="font-size: 0.75rem; background: #10b981; color: white; padding: 2px 8px; border-radius: 12px; font-weight: bold;">TECHNICAL</span>
+                </div>
+                <div>
+                    <h4 style="margin: 0; color: white;">Infra Discovery Report</h4>
+                    <p style="font-size: 0.85rem; color: #94a3b8; margin: 0.5rem 0;">Inventory summaries, modernization
+                        candidates, and zombie server analysis for baseline optimization.</p>
+                </div>
+                <div style="margin-top: auto;">
+                    <a href="https://github.com/appliedailearner/Cloud-readiness-assessment/blob/main/cloud-readiness-assessment-toolkit/docs/TEMPLATE_Infrastructure-Discovery-Report.md"
+                        style="font-size: 0.85rem; color: #60a5fa; font-weight: 600;">Discovery Template <i
+                            class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
 
-        <h3>Phase 5: Strategy</h3>
-        <ul>
-            <li><strong>Cloud Strategy Report:</strong> <a
-                    href="https://github.com/appliedailearner/Cloud-readiness-assessment/blob/main/cloud-readiness-assessment-toolkit/docs/TEMPLATE_Cloud-Strategy-Report.md">TEMPLATE_Cloud-Strategy-Report.md</a>
-                - <em>The comprehensive narrative document.</em></li>
-            <li><strong>Executive Presentation:</strong> <a
-                    href="https://github.com/appliedailearner/Cloud-readiness-assessment/blob/main/cloud-readiness-assessment-toolkit/docs/TEMPLATE_Executive-Presentation-Outline.md">TEMPLATE_Executive-Presentation-Outline.md</a>
-                - <em>The slide deck for the board.</em></li>
-        </ul>
+            <!-- Financials -->
+            <div class="toolkit-card"
+                style="background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; transition: all 0.3s ease; cursor: pointer;"
+                onmouseover="this.style.borderColor='#f59e0b'; this.style.transform='translateY(-5px)';"
+                onmouseout="this.style.borderColor='rgba(255,255,255,0.05)'; this.style.transform='translateY(0)';">
+                <div style="display: flex; justify-content: space-between; align-items: start;">
+                    <i class="fas fa-calculator text-amber-400 text-2xl"></i>
+                    <span
+                        style="font-size: 0.75rem; background: #f59e0b; color: white; padding: 2px 8px; border-radius: 12px; font-weight: bold;">FINANCIAL</span>
+                </div>
+                <div>
+                    <h4 style="margin: 0; color: white;">TCO & Evaluation Model</h4>
+                    <p style="font-size: 0.85rem; color: #94a3b8; margin: 0.5rem 0;">Excel-optimized data models for
+                        weighted vendor scoring and 3-year P&L impact projection.</p>
+                </div>
+                <div style="margin-top: auto; display: flex; gap: 1rem;">
+                    <a href="https://github.com/appliedailearner/Cloud-readiness-assessment/blob/main/cloud-readiness-assessment-toolkit/docs/TEMPLATE_Evaluation-Matrix.csv"
+                        style="font-size: 0.85rem; color: #60a5fa; font-weight: 600;">Scoring Matrix <i
+                            class="fas fa-file-excel"></i></a>
+                    <a href="https://github.com/appliedailearner/Cloud-readiness-assessment/blob/main/cloud-readiness-assessment-toolkit/docs/TEMPLATE_TCO-Model-Inputs.csv"
+                        style="font-size: 0.85rem; color: #60a5fa; font-weight: 600;">TCO Inputs <i
+                            class="fas fa-file-excel"></i></a>
+                </div>
+            </div>
 
-        <h2>Scoring Model for Hyper-Scaler Selection</h2>
-        <p>To avoid bias, use a transparent scoring model. <strong>Scale:</strong> 0 (Does not meet) to 5
-            (Exceeds/Differentiator). <strong>Weighting:</strong> 1 (Low) to 10 (Critical).</p>
-        <p><strong>Rule:</strong> No score above 3 without evidence (e.g., case study, POC result, or documented
-            feature).</p>
+            <!-- Executive -->
+            <div class="toolkit-card"
+                style="background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; transition: all 0.3s ease; cursor: pointer;"
+                onmouseover="this.style.borderColor='#a855f7'; this.style.transform='translateY(-5px)';"
+                onmouseout="this.style.borderColor='rgba(255,255,255,0.05)'; this.style.transform='translateY(0)';">
+                <div style="display: flex; justify-content: space-between; align-items: start;">
+                    <i class="fas fa-chess-king text-purple-400 text-2xl"></i>
+                    <span
+                        style="font-size: 0.75rem; background: #a855f7; color: white; padding: 2px 8px; border-radius: 12px; font-weight: bold;">STRATEGY</span>
+                </div>
+                <div>
+                    <h4 style="margin: 0; color: white;">Board-Ready Synthesis</h4>
+                    <p style="font-size: 0.85rem; color: #94a3b8; margin: 0.5rem 0;">Final strategy narrative and an
+                        8-slide executive outline covering the 'Risk of Inaction'.</p>
+                </div>
+                <div style="margin-top: auto; display: flex; gap: 1rem;">
+                    <a href="https://github.com/appliedailearner/Cloud-readiness-assessment/blob/main/cloud-readiness-assessment-toolkit/docs/TEMPLATE_Cloud-Strategy-Report.md"
+                        style="font-size: 0.85rem; color: #60a5fa; font-weight: 600;">Full Report <i
+                            class="fas fa-external-link-alt"></i></a>
+                    <a href="https://github.com/appliedailearner/Cloud-readiness-assessment/blob/main/cloud-readiness-assessment-toolkit/docs/TEMPLATE_Executive-Presentation-Outline.md"
+                        style="font-size: 0.85rem; color: #60a5fa; font-weight: 600;">Exec Slide Deck <i
+                            class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="margin-top: 3rem;"></div>
 
         <div class="callout-box">
             <h3>Technical Advisory: PaaS-First Modernization</h3>
