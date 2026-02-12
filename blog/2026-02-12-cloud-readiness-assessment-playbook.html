@@ -390,99 +390,91 @@
             display: block;
         }
 
-        /* --- Video Vault Grid --- */
+        /* --- Video Vault Grid (Standardized) --- */
         .video-vault-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
         }
 
-        .video-card-v2 {
-            border-radius: 16px;
+        .video-card {
+            border-radius: 12px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #1e293b;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             text-decoration: none;
+            display: block;
+            position: relative;
         }
 
-        .video-card-v2:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(59, 130, 246, 0.3);
-            background: rgba(30, 41, 59, 0.8);
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
         }
 
-        .video-facade-v2 {
+        .video-facade {
             position: relative;
             padding-bottom: 56.25%;
-            /* 16:9 */
+            /* 16:9 Aspect Ratio */
             height: 0;
             background: #000;
         }
 
-        .video-facade-v2 img {
+        .video-facade img {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.7;
-            transition: opacity 0.4s ease, transform 0.4s ease;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
         }
 
-        .video-card-v2:hover .video-facade-v2 img {
+        .video-card:hover .video-facade img {
             opacity: 1;
-            transform: scale(1.05);
         }
 
-        .play-button-v2 {
+        .play-button {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 70px;
-            height: 70px;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(4px);
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.7);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #fff;
-            font-size: 1.8rem;
-            border: 2px solid rgba(255, 255, 255, 0.8);
-            transition: all 0.4s ease;
+            font-size: 1.5rem;
+            border: 2px solid #fff;
+            transition: transform 0.3s ease, background 0.3s ease;
             z-index: 2;
         }
 
-        .video-card-v2:hover .play-button-v2 {
-            transform: translate(-50%, -50%) scale(1.15);
+        .video-card:hover .play-button {
+            transform: translate(-50%, -50%) scale(1.1);
             background: #3b82f6;
-            border-color: #fff;
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+            border-color: #3b82f6;
         }
 
-        .video-card-v2 .play-button-v2 i {
-            margin-left: 5px;
-            /* Visual centering for play icon */
-        }
-
-        .video-label-v2 {
+        .video-label {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            padding: 1.5rem;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+            padding: 1rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
             color: #fff;
-            font-weight: 700;
-            font-size: 1.1rem;
+            font-weight: 600;
+            font-size: 0.9rem;
             z-index: 3;
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
     </style>
 
@@ -1549,9 +1541,9 @@
             </div>
         </div>
 
-        <!-- YouTube Masterclasses (Video Vault Refactor) -->
+        <!-- YouTube Masterclasses (Standardized Video Vault) -->
         <h2
-            style="background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem;">
+            style="background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; font-family: 'Outfit', sans-serif;">
             Resources</h2>
         <h3 id="videos" style="margin-top: 2rem !important;"><i class="fab fa-youtube text-red-600"></i> Video Vault
             (Must Watch)</h3>
@@ -1560,30 +1552,28 @@
 
         <div class="video-vault-grid">
 
-            <a href="https://www.youtube.com/watch?v=uopHk4whfiE" target="_blank" class="video-card-v2">
-                <div class="video-facade-v2">
-                    <img src="https://img.youtube.com/vi/uopHk4whfiE/maxresdefault.jpg"
-                        alt="AWS re:Invent 2023 Masterclass">
-                    <div class="play-button-v2"><i class="fas fa-play"></i></div>
-                    <div class="video-label-v2">AWS: Are you Well-Architected?</div>
+            <a href="https://www.youtube.com/watch?v=uopHk4whfiE" target="_blank" class="video-card">
+                <div class="video-facade">
+                    <img src="https://i.ytimg.com/vi/uopHk4whfiE/hqdefault.jpg" alt="AWS Well-Architected Masterclass">
+                    <div class="play-button"><i class="fas fa-play"></i></div>
+                    <div class="video-label">AWS: Are you Well-Architected?</div>
                 </div>
             </a>
 
-            <a href="https://www.youtube.com/watch?v=CBar6XeA1lE" target="_blank" class="video-card-v2">
-                <div class="video-facade-v2">
-                    <img src="https://img.youtube.com/vi/CBar6XeA1lE/maxresdefault.jpg"
+            <a href="https://www.youtube.com/watch?v=CBar6XeA1lE" target="_blank" class="video-card">
+                <div class="video-facade">
+                    <img src="https://i.ytimg.com/vi/CBar6XeA1lE/hqdefault.jpg"
                         alt="Azure Well-Architected Masterclass">
-                    <div class="play-button-v2"><i class="fas fa-play"></i></div>
-                    <div class="video-label-v2">Azure WAF: Introduction & Best Practices</div>
+                    <div class="play-button"><i class="fas fa-play"></i></div>
+                    <div class="video-label">Azure WAF: Introduction & Best Practices</div>
                 </div>
             </a>
 
-            <a href="https://www.youtube.com/watch?v=pM45hWKia5o" target="_blank" class="video-card-v2">
-                <div class="video-facade-v2">
-                    <img src="https://img.youtube.com/vi/pM45hWKia5o/maxresdefault.jpg"
-                        alt="Google Cloud Architecture Basics">
-                    <div class="play-button-v2"><i class="fas fa-play"></i></div>
-                    <div class="video-label-v2">GCP: Cloud Architecture Basics</div>
+            <a href="https://www.youtube.com/watch?v=pM45hWKia5o" target="_blank" class="video-card">
+                <div class="video-facade">
+                    <img src="https://i.ytimg.com/vi/pM45hWKia5o/hqdefault.jpg" alt="GCP Cloud Architecture Basics">
+                    <div class="play-button"><i class="fas fa-play"></i></div>
+                    <div class="video-label">GCP: Cloud Architecture Basics</div>
                 </div>
             </a>
 
