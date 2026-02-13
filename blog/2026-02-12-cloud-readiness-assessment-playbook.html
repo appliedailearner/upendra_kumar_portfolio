@@ -1423,7 +1423,8 @@
                                 <div class="question-item">
                                     <div class="q-content">
                                         <div class="q-text">Is data classified (Public/Confidential/Restricted)
-                                            <em>before</em> migration?</div>
+                                            <em>before</em> migration?
+                                        </div>
                                         <div class="q-why"><strong>Why it matters:</strong> "Lift and Shift" of
                                             unclassified data creates a compliance nightmare. You can't apply DLP
                                             policies if you don't know what the data is.</div>
@@ -2237,6 +2238,101 @@
                 <li><strong>Risks:</strong> Legacy app latency requires network redesign.</li>
                 <li><strong>Decision Needed:</strong> Approve Phase 2 (Foundation Build) budget by [Date].</li>
             </ul>
+        </div>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 4rem 0;">
+
+        <!-- DECISION PROTOCOL (NEW) -->
+        <h2 id="decision-protocol" style="color: white; margin-bottom: 2rem;">The Decision Protocol: From Score to
+            Strategy</h2>
+        <p>You have your readiness score. You have your gaps. Now, what is the actual strategic move? Use this "Realist"
+            framework to decide.</p>
+
+        <!-- 1. Rules of Thumb -->
+        <div class="decision-card"
+            style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+            <h3 style="color: #60a5fa; margin-top: 0;"><i class="fas fa-gavel mr-2"></i> Rule 1: The Multi-Cloud "Rule
+                of Thumb"</h3>
+            <p style="color: #cbd5e1; font-size: 1.05rem;">Stop asking "Which cloud is best?" and start asking "Where is
+                the gravity?"</p>
+
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+                <div class="thumb-item">
+                    <strong style="color: #10b981; display: block; margin-bottom: 0.5rem;">Single Cloud
+                        (Default)</strong>
+                    <p style="font-size: 0.9rem; color: #94a3b8;">Unless you have a hard regulatory constraint or M&A
+                        reality, <strong>pick one</strong>. The cost of splitting skills (Terraform vs Bicep, IAM vs
+                        Entra) usually outweighs the "vendor lock-in" risk for 90% of enterprises.</p>
+                </div>
+                <div class="thumb-item">
+                    <strong style="color: #f59e0b; display: block; margin-bottom: 0.5rem;">Hybrid (Reality)</strong>
+                    <p style="font-size: 0.9rem; color: #94a3b8;">Choose this when latency to on-prem
+                        (manufacturing/healthcare) or data residency (Mainframe/AS400 dependencies) is a physics
+                        problem, not a preference.</p>
+                </div>
+                <div class="thumb-item">
+                    <strong style="color: #ef4444; display: block; margin-bottom: 0.5rem;">Multi-Cloud
+                        (Advanced)</strong>
+                    <p style="font-size: 0.9rem; color: #94a3b8;">Only if you can name the <em>specific workload</em>
+                        that fails on Azure but works on AWS (or vice versa). If you can't fund two separate Ops teams,
+                        you can't afford Multi-Cloud.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. The Framework Stack -->
+        <h3 style="margin-bottom: 1.5rem;">The "Operating System" for Success</h3>
+        <div class="framework-grid"
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+
+            <!-- CAF -->
+            <a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/" target="_blank"
+                style="text-decoration: none;">
+                <div class="framework-card"
+                    style="background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 1.5rem; height: 100%; transition: transform 0.2s;">
+                    <div style="color: #3b82f6; font-size: 1.5rem; margin-bottom: 1rem;"><i
+                            class="fas fa-map-marked-alt"></i></div>
+                    <h4 style="color: white; margin: 0 0 0.5rem 0;">Adoption (CAF)</h4>
+                    <p style="font-size: 0.85rem; color: #94a3b8; margin: 0;">The "How". Readiness + Operating Model.
+                        Don't invent your own migration phases; use this.</p>
+                </div>
+            </a>
+
+            <!-- WAF -->
+            <a href="https://learn.microsoft.com/en-us/azure/well-architected/" target="_blank"
+                style="text-decoration: none;">
+                <div class="framework-card"
+                    style="background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 1.5rem; height: 100%; transition: transform 0.2s;">
+                    <div style="color: #a855f7; font-size: 1.5rem; margin-bottom: 1rem;"><i
+                            class="fas fa-drafting-compass"></i></div>
+                    <h4 style="color: white; margin: 0 0 0.5rem 0;">Quality (WAF)</h4>
+                    <p style="font-size: 0.85rem; color: #94a3b8; margin: 0;">The "Quality Bar". Workload-by-workload
+                        review. If it fails WAF, it doesn't go to Prod.</p>
+                </div>
+            </a>
+
+            <!-- FinOps -->
+            <a href="https://www.finops.org/framework/" target="_blank" style="text-decoration: none;">
+                <div class="framework-card"
+                    style="background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 1.5rem; height: 100%; transition: transform 0.2s;">
+                    <div style="color: #10b981; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-coins"></i>
+                    </div>
+                    <h4 style="color: white; margin: 0 0 0.5rem 0;">Value (FinOps)</h4>
+                    <p style="font-size: 0.85rem; color: #94a3b8; margin: 0;">The "Cost". Ensure the 'Best Cloud'
+                        includes cost control, not just day-1 price.</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- 3. Portfolio Assessment -->
+        <div class="callout-box"
+            style="border-left: 4px solid #f59e0b; background: rgba(245, 158, 11, 0.1); padding: 1.5rem; border-radius: 0 8px 8px 0; margin-bottom: 3rem;">
+            <h4 style="color: #f59e0b; margin-top: 0;">Strategic Resource: Portfolio Assessment</h4>
+            <p style="font-size: 0.95rem; color: #cbd5e1;">Need to pick clouds based on data? Use the <a
+                    href="https://docs.aws.amazon.com/pdfs/prescriptive-guidance/latest/strategy-application-portfolio-assessment-migration/strategy-application-portfolio-assessment-migration.pdf"
+                    target="_blank" style="color: #f59e0b; text-decoration: underline;">AWS Strategy Application
+                    Portfolio Assessment (PDF)</a>. It’s vendor-neutral enough to apply to any diverse estate.</p>
         </div>
 
         <hr style="border-color: rgba(255,255,255,0.1); margin: 4rem 0;">
