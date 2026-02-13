@@ -1302,54 +1302,815 @@
                 resonates with the CFO more than raw VM pricing.</p>
         </div>
 
-        <h2>Cloud Maturity + Gap Analysis</h2>
-        <p>This measures your organizational readiness, not just technical readiness.</p>
+        <!-- INTERACTIVE CLOUD READINESS ASSESSMENT (8-DIMENSION) -->
+        <div class="interactive-questionnaire" id="cra-assessment">
+            <div class="questionnaire-header">
+                <h3><i class="fas fa-tasks mr-2"></i> Interactive Readiness Assessment</h3>
+                <p>Audit your organization across 8 critical dimensions. Results are plotted in real-time on the Radar
+                    Chart below.</p>
+            </div>
 
-        <div class="callout-box security">
-            <h3>Security Mandate: Data Sovereignty</h3>
-            <p>For brownfield estates (920 TB), <strong>Data Classification</strong> is the bottleneck. If PII data
-                exists, your cloud architecture must enforce geo-fencing. The audit warns: don't move data until you've
-                classified it. Use Phase 1 to define the "Data Residency" policy for all in-scope apps.</p>
+            <!-- Dashboard Layout -->
+            <div class="assessment-dashboard">
+                <!-- Left Column: Questions -->
+                <div class="questions-column">
+                    <!-- Tabs -->
+                    <div class="category-tabs" id="cra-tabs">
+                        <button class="tab-btn active" data-tab="financial" title="FinOps & Economics"><i
+                                class="fas fa-coins"></i> FinOps</button>
+                        <button class="tab-btn" data-tab="architecture" title="Technical Architecture"><i
+                                class="fas fa-server"></i> Arch</button>
+                        <button class="tab-btn" data-tab="data" title="Data Strategy"><i class="fas fa-database"></i>
+                            Data</button>
+                        <button class="tab-btn" data-tab="security" title="Security & Compliance"><i
+                                class="fas fa-shield-alt"></i> Sec</button>
+                        <button class="tab-btn" data-tab="ops" title="Operations"><i class="fas fa-cogs"></i>
+                            Ops</button>
+                        <button class="tab-btn" data-tab="ux" title="User Experience"><i class="fas fa-users"></i>
+                            UX</button>
+                        <button class="tab-btn" data-tab="governance" title="Governance & People"><i
+                                class="fas fa-gavel"></i> Gov</button>
+                        <button class="tab-btn" data-tab="ai" title="AI Readiness"><i class="fas fa-brain"></i>
+                            AI</button>
+                    </div>
+
+                    <!-- Question Panels -->
+                    <div class="question-panels" id="cra-panels">
+                        <!-- Financial -->
+                        <div class="panel active" id="panel-financial">
+                            <div class="panel-header">
+                                <h4>Financial & Economic Readiness</h4>
+                                <span class="badge-togaf">Phase B: Business Arch</span>
+                            </div>
+                            <div class="question-list">
+                                <div class="question-item">
+                                    <div class="q-content">
+                                        <div class="q-text">Do you have a defined "Tagging Taxonomy" enforced before
+                                            resources are created?</div>
+                                        <div class="q-why"><strong>Why it matters:</strong> Without forced tagging (Cost
+                                            Center, App Owner), you cannot do chargeback. FinOps fails day 1.</div>
+                                        <a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/naming-and-tagging"
+                                            target="_blank" class="q-ref"><i class="fas fa-external-link-alt"></i> Ref:
+                                            CAF Tagging</a>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="cra-checkbox" data-category="financial"
+                                            onchange="updateAssessment()">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="question-item">
+                                    <div class="q-content">
+                                        <div class="q-text">Have you quantified "Unit Economics" (e.g., cost per
+                                            transaction) vs just total spend?</div>
+                                        <div class="q-why"><strong>Why it matters:</strong> Cloud is consumption-based.
+                                            if you don't track unit cost, scaling business means scaling waste.</div>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="cra-checkbox" data-category="financial"
+                                            onchange="updateAssessment()">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Architecture -->
+                        <div class="panel" id="panel-architecture">
+                            <div class="panel-header">
+                                <h4>Architecture & Technical Debt</h4>
+                                <span class="badge-togaf">Phase C/D: Tech Arch</span>
+                            </div>
+                            <div class="question-list">
+                                <div class="question-item">
+                                    <div class="q-content">
+                                        <div class="q-text">Have we audited for "Non-x86" dependencies (Mainframe,
+                                            AS/400, Solaris)?</div>
+                                        <div class="q-why"><strong>Why it matters:</strong> These require specialized
+                                            "bare metal" solutions in Azure/AWS and often break standard lift-and-shift
+                                            timelines.</div>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="cra-checkbox" data-category="architecture"
+                                            onchange="updateAssessment()">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="question-item">
+                                    <div class="q-content">
+                                        <div class="q-text">Is the "Landing Zone" design (Hub-Spoke) approved by
+                                            InfoSec?</div>
+                                        <div class="q-why"><strong>Why it matters:</strong> You cannot deploy apps
+                                            securely without a pre-approved network foundation (Firewalls, VNET
+                                            peering).</div>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="cra-checkbox" data-category="architecture"
+                                            onchange="updateAssessment()">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Data -->
+                        <div class="panel" id="panel-data">
+                            <div class="panel-header">
+                                <h4>Data Strategy & Hygiene</h4>
+                                <span class="badge-togaf">Phase C: Data Arch</span>
+                            </div>
+                            <div class="question-list">
+                                <div class="question-item">
+                                    <div class="q-content">
+                                        <div class="q-text">Is data classified (Public/Confidential/Restricted)
+                                            <em>before</em> migration?</div>
+                                        <div class="q-why"><strong>Why it matters:</strong> "Lift and Shift" of
+                                            unclassified data creates a compliance nightmare. You can't apply DLP
+                                            policies if you don't know what the data is.</div>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="cra-checkbox" data-category="data"
+                                            onchange="updateAssessment()">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Security -->
+                        <div class="panel" id="panel-security">
+                            <div class="panel-header">
+                                <h4>Security & Compliance (Zero Trust)</h4>
+                                <span class="badge-togaf">Phase G: Risk</span>
+                            </div>
+                            <div class="question-list">
+                                <div class="question-item">
+                                    <div class="q-content">
+                                        <div class="q-text"><strong>GDPR/Sovereignty:</strong> Are data residency
+                                            boundaries defined for all workloads?</div>
+                                        <div class="q-why"><strong>Why it matters:</strong> For UK/EU entities, moving
+                                            data to a US region (even by accident) is a legal violation. Policy must
+                                            enforce regions.</div>
+                                        <a href="https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/"
+                                            target="_blank" class="q-ref"><i class="fas fa-external-link-alt"></i> Ref:
+                                            ICO GDPR</a>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="cra-checkbox" data-category="security"
+                                            onchange="updateAssessment()">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="question-item">
+                                    <div class="q-content">
+                                        <div class="q-text">Is Identity (Entra ID) the new perimeter (MFA enforced)?
+                                        </div>
+                                        <div class="q-why"><strong>Why it matters:</strong> Firewalls aren't enough. In
+                                            the cloud, Identity is the control plane. 99% of breaches are identity
+                                            theft.</div>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="cra-checkbox" data-category="security"
+                                            onchange="updateAssessment()">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ops -->
+                        <div class="panel" id="panel-ops">
+                            <div class="panel-header">
+                                <h4>Operational Readiness</h4>
+                                <span class="badge-togaf">Phase E: Opportunities</span>
+                            </div>
+                            <div class="question-list">
+                                <div class="question-item">
+                                    <div class="q-content">
+                                        <div class="q-text">Do we have an automated patching strategy for cloud VMs?
+                                        </div>
+                                        <div class="q-why"><strong>Why it matters:</strong> You can't use on-prem
+                                            GPO/SCCM seamlessly. You need Azure Update Manager or AWS Systems Manager.
+                                        </div>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="cra-checkbox" data-category="ops"
+                                            onchange="updateAssessment()">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- UX -->
+                        <div class="panel" id="panel-ux">
+                            <div class="panel-header">
+                                <h4>User Experience (Latency/Perf)</h4>
+                                <span class="badge-togaf">Human-Centric Design</span>
+                            </div>
+                            <div class="question-list">
+                                <div class="question-item">
+                                    <div class="q-content">
+                                        <div class="q-text">Have we tested "VDI Latency" for remote users?</div>
+                                        <div class="q-why"><strong>Why it matters:</strong> For Azure Virtual Desktop or
+                                            Citrix, latency > 150ms kills productivity. Don't guess; measure.</div>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="cra-checkbox" data-category="ux"
+                                            onchange="updateAssessment()">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Governance -->
+                        <div class="panel" id="panel-governance">
+                            <div class="panel-header">
+                                <h4>Governance & People</h4>
+                                <span class="badge-togaf">Phase G: Governance</span>
+                            </div>
+                            <div class="question-list">
+                                <div class="question-item">
+                                    <div class="q-content">
+                                        <div class="q-text">Is there a functioning "Cloud Center of Excellence" (CCoE)?
+                                        </div>
+                                        <div class="q-why"><strong>Why it matters:</strong> A CCoE bridges the gap
+                                            between traditional IT and Cloud DevOps. Without it, you get "Shadow IT".
+                                        </div>
+                                        <a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/organize/cloud-center-of-excellence"
+                                            target="_blank" class="q-ref"><i class="fas fa-external-link-alt"></i> Ref:
+                                            CAF CCoE</a>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="cra-checkbox" data-category="governance"
+                                            onchange="updateAssessment()">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="question-item">
+                                    <div class="q-content">
+                                        <div class="q-text">Has the team been trained on Terraform/Bicep (IaC)?</div>
+                                        <div class="q-why"><strong>Why it matters:</strong> Clicking in the portal is
+                                            fine for POCs, but fatal for production. Infrastructure as Code is
+                                            mandatory.</div>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="cra-checkbox" data-category="governance"
+                                            onchange="updateAssessment()">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AI Readiness -->
+                        <div class="panel" id="panel-ai">
+                            <div class="panel-header">
+                                <h4>AI Readiness (GenAI/LLM)</h4>
+                                <span class="badge-togaf">NIST AI RMF</span>
+                            </div>
+                            <div class="question-list">
+                                <div class="question-item">
+                                    <div class="q-content">
+                                        <div class="q-text"><strong>Data Hygiene:</strong> Is unstructured data
+                                            (PDFs/Docs) clean enough for RAG ingestion?</div>
+                                        <div class="q-why"><strong>Why it matters:</strong> "Garbage In, Garbage Out."
+                                            RAG models hallucinate if fed duplicate, obsolete, or poorly formatted
+                                            documents.</div>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="cra-checkbox" data-category="ai"
+                                            onchange="updateAssessment()">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="question-item">
+                                    <div class="q-content">
+                                        <div class="q-text"><strong>Compute:</strong> Have we reserved GPU capacity
+                                            (H100/A100) or are we relying on spot instances?</div>
+                                        <div class="q-why"><strong>Why it matters:</strong> High-end GPUs are scarce.
+                                            Production AI cannot rely on "Spot" instances that can be evicted at any
+                                            second.</div>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="cra-checkbox" data-category="ai"
+                                            onchange="updateAssessment()">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="question-item">
+                                    <div class="q-content">
+                                        <div class="q-text"><strong>Responsible AI:</strong> Is there a policy framework
+                                            for AI Bias & Hallucination?</div>
+                                        <div class="q-why"><strong>Why it matters:</strong> You are liable for your AI's
+                                            output. Governance must exist <em>before</em> the first prompt is sent.
+                                        </div>
+                                        <a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank"
+                                            class="q-ref"><i class="fas fa-external-link-alt"></i> Ref: NIST AI RMF</a>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="cra-checkbox" data-category="ai"
+                                            onchange="updateAssessment()">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Right Column: Visualization -->
+                <div class="viz-column">
+                    <div class="radar-container">
+                        <canvas id="readinessRadar"></canvas>
+                        <!-- Fallback for Sreen Readers -->
+                        <table class="sr-only" aria-label="Readiness Score Summary">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Score (%)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="sr-table-body">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="score-summary">
+                        <div class="score-label">Overall Readiness</div>
+                        <div class="score-big" id="total-score">0%</div>
+                        <div class="score-verdict" id="score-verdict">Not Assessed</div>
+                    </div>
+
+                    <button class="btn btn-primary export-btn" onclick="exportToExcel()">
+                        <i class="fas fa-file-excel mr-2"></i> Download Board Report (XLS)
+                    </button>
+                    <p class="export-note">Generates a CSV compatible with Excel/PowerBI.</p>
+                </div>
+            </div>
         </div>
 
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Domain</th>
-                        <th>Current State</th>
-                        <th>Target State</th>
-                        <th>Gap / Risk</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Identity</strong></td>
-                        <td>On-prem AD, disjointed RBAC.</td>
-                        <td>Entra ID / IAM federated SSO.</td>
-                        <td>High: No MFA on admin accounts.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Network</strong></td>
-                        <td>Perimeter firewall model.</td>
-                        <td>Zero Trust, Hub-Spoke.</td>
-                        <td>Medium: Flat network topology.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>FinOps</strong></td>
-                        <td>Quarterly manual reviews.</td>
-                        <td>Real-time budge alerts & tagging.</td>
-                        <td>Critical: No tagging strategy exists.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Platform</strong></td>
-                        <td>Manual VM provisioning (Ticket based).</td>
-                        <td>IaC (Terraform/Bicep) pipelines.</td>
-                        <td>High: Skill gap in Terraform.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <style>
+            /* --- Interactive Questionnaire Styles (Command Center Theme) --- */
+            .interactive-questionnaire {
+                background: rgba(15, 23, 42, 0.6);
+                border: 1px solid rgba(59, 130, 246, 0.2);
+                border-radius: 16px;
+                padding: 2rem;
+                margin-bottom: 4rem;
+                backdrop-filter: blur(12px);
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            }
+
+            .questionnaire-header {
+                text-align: center;
+                margin-bottom: 2.5rem;
+            }
+
+            .questionnaire-header h3 {
+                color: #38bdf8 !important;
+                font-size: 1.8rem !important;
+                margin-bottom: 0.5rem !important;
+            }
+
+            .assessment-dashboard {
+                display: grid;
+                grid-template-columns: 1.2fr 0.8fr;
+                gap: 2.5rem;
+            }
+
+            @media (max-width: 900px) {
+                .assessment-dashboard {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            /* Tabs */
+            .category-tabs {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                margin-bottom: 1.5rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding-bottom: 1rem;
+            }
+
+            .tab-btn {
+                background: transparent;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                color: #94a3b8;
+                padding: 0.5rem 1rem;
+                border-radius: 20px;
+                cursor: pointer;
+                font-size: 0.85rem;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .tab-btn:hover {
+                background: rgba(255, 255, 255, 0.05);
+                color: white;
+            }
+
+            .tab-btn.active {
+                background: rgba(59, 130, 246, 0.15);
+                border-color: #3b82f6;
+                color: #60a5fa;
+                box-shadow: 0 0 10px rgba(59, 130, 246, 0.1);
+            }
+
+            /* Panels */
+            .question-panels .panel {
+                display: none;
+                animation: fadeIn 0.4s ease;
+            }
+
+            .question-panels .panel.active {
+                display: block;
+            }
+
+            .panel-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 1.5rem;
+                padding-bottom: 0.5rem;
+                border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+            }
+
+            .panel-header h4 {
+                margin: 0;
+                color: white;
+                font-size: 1.1rem;
+            }
+
+            .badge-togaf {
+                font-size: 0.7rem;
+                background: rgba(168, 85, 247, 0.15);
+                color: #d8b4fe;
+                padding: 2px 8px;
+                border-radius: 4px;
+                border: 1px solid rgba(168, 85, 247, 0.3);
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            /* Question Items */
+            .question-list {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .question-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 1.5rem;
+                background: rgba(255, 255, 255, 0.02);
+                padding: 1rem;
+                border-radius: 8px;
+                border: 1px solid rgba(255, 255, 255, 0.05);
+                transition: background 0.3s;
+            }
+
+            .question-item:hover {
+                background: rgba(255, 255, 255, 0.05);
+            }
+
+            .q-text {
+                font-weight: 500;
+                color: white;
+                margin-bottom: 0.5rem;
+            }
+
+            .q-why {
+                font-size: 0.85rem;
+                color: #94a3b8;
+                line-height: 1.5;
+            }
+
+            .q-ref {
+                display: inline-block;
+                margin-top: 0.5rem;
+                font-size: 0.75rem;
+                color: #60a5fa;
+                text-decoration: none;
+            }
+
+            .q-ref:hover {
+                text-decoration: underline;
+            }
+
+            /* Toggle Switch */
+            .toggle-switch {
+                position: relative;
+                width: 50px;
+                height: 26px;
+                flex-shrink: 0;
+            }
+
+            .toggle-switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+            .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #334155;
+                transition: .4s;
+                border-radius: 34px;
+            }
+
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 20px;
+                width: 20px;
+                left: 3px;
+                bottom: 3px;
+                background-color: white;
+                transition: .4s;
+                border-radius: 50%;
+            }
+
+            input:checked+.slider {
+                background-color: #10b981;
+                box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+            }
+
+            input:checked+.slider:before {
+                transform: translateX(24px);
+            }
+
+            /* Viz Column */
+            .viz-column {
+                background: rgba(0, 0, 0, 0.2);
+                border-radius: 12px;
+                padding: 1.5rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .radar-container {
+                width: 100%;
+                max-width: 350px;
+                position: relative;
+                margin-bottom: 1.5rem;
+            }
+
+            .score-summary {
+                text-align: center;
+                margin-bottom: 1.5rem;
+            }
+
+            .score-label {
+                font-size: 0.85rem;
+                color: #94a3b8;
+                margin-bottom: 0.25rem;
+            }
+
+            .score-big {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: white;
+                line-height: 1;
+            }
+
+            .score-verdict {
+                font-size: 0.95rem;
+                font-weight: 600;
+                margin-top: 5px;
+                color: #94a3b8;
+            }
+
+            .export-btn {
+                width: 100%;
+                font-size: 0.9rem;
+            }
+
+            .export-note {
+                margin-top: 0.5rem;
+                font-size: 0.75rem;
+                color: #64748b;
+                text-align: center;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(5px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        </style>
+
+        <!-- Chart.js for Radar -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script>
+            // --- Interactive Assessment Logic ---
+
+            // State
+            const state = {
+                scores: {
+                    financial: { total: 2, current: 0 },
+                    architecture: { total: 2, current: 0 },
+                    data: { total: 1, current: 0 },
+                    security: { total: 2, current: 0 },
+                    ops: { total: 1, current: 0 },
+                    ux: { total: 1, current: 0 },
+                    governance: { total: 2, current: 0 },
+                    ai: { total: 3, current: 0 }
+                },
+                chart: null
+            };
+
+            // Init
+            document.addEventListener('DOMContentLoaded', () => {
+                initTabs();
+                initChart();
+                updateAssessment(); // Initial calc
+            });
+
+            // Tabs Logic
+            function initTabs() {
+                const tabs = document.querySelectorAll('.tab-btn');
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        // Deactivate all
+                        document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+                        document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+
+                        // Activate clicked
+                        tab.classList.add('active');
+                        const targetId = `panel-${tab.dataset.tab}`;
+                        document.getElementById(targetId).classList.add('active');
+                    });
+                });
+            }
+
+            // Chart Logic
+            function initChart() {
+                const ctx = document.getElementById('readinessRadar').getContext('2d');
+
+                // Gradient Fill
+                const gradient = ctx.createRadialGradient(175, 175, 0, 175, 175, 175);
+                gradient.addColorStop(0, 'rgba(59, 130, 246, 0.5)');
+                gradient.addColorStop(1, 'rgba(59, 130, 246, 0.1)');
+
+                state.chart = new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Financial', 'Arch', 'Data', 'Security', 'Ops', 'UX', 'Gov', 'AI'],
+                        datasets: [{
+                            label: 'Readiness Score',
+                            data: [0, 0, 0, 0, 0, 0, 0, 0],
+                            backgroundColor: gradient,
+                            borderColor: '#3b82f6',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#fff',
+                            pointBorderColor: '#3b82f6'
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            r: {
+                                beginAtZero: true,
+                                max: 100,
+                                ticks: { display: false, stepSize: 20 },
+                                grid: { color: 'rgba(255,255,255,0.1)' },
+                                pointLabels: {
+                                    color: '#cbd5e1',
+                                    font: { size: 11, family: 'Inter' }
+                                },
+                                angleLines: { color: 'rgba(255,255,255,0.1)' }
+                            }
+                        },
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        maintainAspectRatio: false
+                    }
+                });
+            }
+
+            // Calculation & Update
+            function updateAssessment() {
+                // Reset currents
+                for (let key in state.scores) state.scores[key].current = 0;
+
+                // Tally checks
+                const checkboxes = document.querySelectorAll('.cra-checkbox');
+                checkboxes.forEach(cb => {
+                    if (cb.checked) {
+                        state.scores[cb.dataset.category].current++;
+                    }
+                });
+
+                // Calculate Percentages
+                const percentages = [];
+                let totalPossible = 0;
+                let totalAchieved = 0;
+
+                // Order matches chart labels: Fin, Arch, Data, Sec, Ops, UX, Gov, AI
+                const order = ['financial', 'architecture', 'data', 'security', 'ops', 'ux', 'governance', 'ai'];
+
+                order.forEach(cat => {
+                    const s = state.scores[cat];
+                    const pct = (s.current / s.total) * 100;
+                    percentages.push(pct);
+
+                    totalPossible += s.total;
+                    totalAchieved += s.current;
+                });
+
+                // Update Chart
+                if (state.chart) {
+                    state.chart.data.datasets[0].data = percentages;
+                    state.chart.update();
+                }
+
+                // Update Big Number
+                const globalPct = Math.round((totalAchieved / totalPossible) * 100);
+                const scoreDisplay = document.getElementById('total-score');
+                scoreDisplay.innerText = `${globalPct}%`;
+
+                // Update Verdict
+                const verdictDisplay = document.getElementById('score-verdict');
+                if (globalPct < 30) {
+                    verdictDisplay.innerHTML = '<span style="color:#ef4444">High Risk: Not Ready</span>';
+                    scoreDisplay.style.color = '#ef4444';
+                } else if (globalPct < 70) {
+                    verdictDisplay.innerHTML = '<span style="color:#f59e0b">Caution: Gaps Exist</span>';
+                    scoreDisplay.style.color = '#f59e0b';
+                } else {
+                    verdictDisplay.innerHTML = '<span style="color:#10b981">Ready for Pilot</span>';
+                    scoreDisplay.style.color = '#10b981';
+                }
+
+                // Update Accessibility Table
+                const tbody = document.getElementById('sr-table-body');
+                tbody.innerHTML = '';
+                order.forEach((cat, idx) => {
+                    const row = `<tr><td>${cat}</td><td>${percentages[idx]}%</td></tr>`;
+                    tbody.innerHTML += row;
+                });
+            }
+
+            // Export to Excel (CSV)
+            function exportToExcel() {
+                const date = new Date().toISOString().split('T')[0];
+                let csv = `Cloud Readiness Assessment Report\nDate,${date}\n\n`;
+                csv += `Category,Question,Status,Why it matters\n`;
+
+                // Loop through all inputs to gather data
+                const inputs = document.querySelectorAll('.cra-checkbox');
+                inputs.forEach(input => {
+                    const category = input.dataset.category.toUpperCase();
+                    // Traverse DOM to find question text
+                    const container = input.closest('.question-item');
+                    const question = container.querySelector('.q-text').innerText.replace(/,/g, ';'); // Escape commas
+                    const why = container.querySelector('.q-why').innerText.replace(/,/g, ';').replace('Why it matters:', '').trim();
+                    const status = input.checked ? "READY" : "RISK";
+
+                    csv += `${category},"${question}",${status},"${why}"\n`;
+                });
+
+                // Add Summary
+                const score = document.getElementById('total-score').innerText;
+                csv += `\nOVERALL READINESS SCORE,${score}\n`;
+
+                // Download
+                const blob = new Blob([csv], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.setAttribute('hidden', '');
+                a.setAttribute('href', url);
+                a.setAttribute('download', `CRA_Report_${date}.csv`);
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+        </script>
 
         <h2>Common Failure Points & Prevention</h2>
         <ul>
