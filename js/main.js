@@ -621,3 +621,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+
+// ===== Live System Status Simulation =====
+document.addEventListener('DOMContentLoaded', () => {
+    const latencyEl = document.getElementById('azure-latency');
+    const uptimeEl = document.getElementById('api-uptime');
+    const statusEl = document.getElementById('ai-status');
+
+    if (latencyEl && uptimeEl && statusEl) {
+        // Randomize Latency (80ms - 120ms)
+        const latency = Math.floor(Math.random() * (120 - 80 + 1)) + 80;
+        latencyEl.innerText = \\ms\;
+        
+        // Randomize Uptime
+        const uptime = (Math.random() * (100 - 99.95) + 99.95).toFixed(2);
+        uptimeEl.innerText = \\%\;
+
+        // Randomize Status
+        const statuses = ['Ready', 'Optimal', 'Active', 'Online'];
+        const status = statuses[Math.floor(Math.random() * statuses.length)];
+        statusEl.innerText = status;
+    }
+});
+
