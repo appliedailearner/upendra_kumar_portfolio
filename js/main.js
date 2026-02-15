@@ -631,11 +631,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (latencyEl && uptimeEl && statusEl) {
         // Randomize Latency (80ms - 120ms)
         const latency = Math.floor(Math.random() * (120 - 80 + 1)) + 80;
-        latencyEl.innerText = \\ms\;
-        
-        // Randomize Uptime
+        latencyEl.innerText = latency + 'ms';
+        if (latency < 100) latencyEl.classList.add('text-green-400');
+        else latencyEl.classList.add('text-yellow-400');
+
+        // Randomize Uptime (99.95% - 100.00%)
         const uptime = (Math.random() * (100 - 99.95) + 99.95).toFixed(2);
-        uptimeEl.innerText = \\%\;
+        uptimeEl.innerText = uptime + '%';
 
         // Randomize Status
         const statuses = ['Ready', 'Optimal', 'Active', 'Online'];
@@ -643,4 +645,3 @@ document.addEventListener('DOMContentLoaded', () => {
         statusEl.innerText = status;
     }
 });
-
