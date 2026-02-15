@@ -14,7 +14,7 @@
     <meta property="og:description"
         content="Cutover night has a predictable failure mode. DNS quietly sends your 'private' traffic toward the public world. Here's the hybrid DNS pattern we standardize on for landing zones.">
     <meta property="og:image"
-        content="https://portfolio.upendrakumar.com/blog/assets/2026-01-26-dns-pattern/architecture-diagram.png">
+        content="https://portfolio.upendrakumar.com/blog/assets/2026-01-26-dns-pattern/architecture-diagram.webp">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:url"
@@ -31,7 +31,7 @@
     <meta name="twitter:description"
         content="Cutover night has a predictable failure mode. Here's the hybrid DNS pattern that survives it.">
     <meta name="twitter:image"
-        content="https://portfolio.upendrakumar.com/blog/assets/2026-01-26-dns-pattern/architecture-diagram.png">
+        content="https://portfolio.upendrakumar.com/blog/assets/2026-01-26-dns-pattern/architecture-diagram.webp">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -39,7 +39,7 @@
       "@context": "https://schema.org",
       "@type": "TechArticle",
       "headline": "The Hybrid DNS Pattern That Survives Cutover Night",
-      "image": "https://portfolio.upendrakumar.com/blog/assets/2026-01-26-dns-pattern/architecture-diagram.png",
+      "image": "https://portfolio.upendrakumar.com/blog/assets/2026-01-26-dns-pattern/architecture-diagram.webp",
       "author": {
         "@type": "Person",
         "name": "Upendra Kumar",
@@ -527,16 +527,17 @@
         <p><strong>Topology:</strong> On-prem → Hub → Spoke</p>
 
         <figure class="architecture-diagram">
-            <img src="assets/2026-01-26-dns-pattern/architecture-diagram.png"
-                alt="Azure DNS Private Resolver Hybrid Architecture Diagram" loading="lazy">
+            <img src="assets/2026-01-26-dns-pattern/architecture-diagram.webp"
+                alt="Azure DNS Private Resolver Hybrid Architecture Diagram" loading="lazy" width="800" height="450">
             <figcaption>Hybrid DNS Architecture: On-premises DNS queries flow through Azure DNS Private Resolver to
                 resolve Private Endpoint addresses</figcaption>
 
             <details style="margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
                 <summary style="cursor: pointer; color: var(--primary-color); font-weight: 500;"><i
                         class="fas fa-microchip"></i> View Technical Topology Schematic</summary>
-                <img src="assets/2026-01-26-dns-pattern/technical-topology.png" alt="Technical Topology Diagram"
-                    style="width: 100%; margin-top: 1rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);">
+                <img src="assets/2026-01-26-dns-pattern/technical-topology.webp" alt="Technical Topology Diagram"
+                    style="width: 100%; margin-top: 1rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);"
+                    loading="lazy" width="800" height="600">
             </details>
         </figure>
 
@@ -619,13 +620,15 @@
             style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
             <h4 style="color: #38bdf8; margin-top: 0;"><i class="fas fa-arrow-right"></i> Flow 1: On-prem asks for Azure
                 Private Name</h4>
-            <img src="assets/2026-01-26-dns-pattern/figure-2-flow-1.png" alt="Flow 1 Diagram: On-prem to Azure"
-                style="width: 100%; border-radius: 6px; margin: 1rem 0; border: 1px solid rgba(56, 189, 248, 0.2);">
+            <img src="assets/2026-01-26-dns-pattern/figure-2-flow-1.webp" alt="Flow 1 Diagram: On-prem to Azure"
+                style="width: 100%; border-radius: 6px; margin: 1rem 0; border: 1px solid rgba(56, 189, 248, 0.2);"
+                loading="lazy" width="800" height="400">
             <details style="margin-bottom: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.5rem;">
                 <summary style="cursor: pointer; color: #38bdf8; font-size: 0.9em;"><i class="fas fa-microchip"></i>
                     View Technical Flow Schematic</summary>
-                <img src="assets/2026-01-26-dns-pattern/technical-flow-1.png" alt="Technical Flow 1 Diagram"
-                    style="width: 100%; margin-top: 0.5rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);">
+                <img src="assets/2026-01-26-dns-pattern/technical-flow-1.webp" alt="Technical Flow 1 Diagram"
+                    style="width: 100%; margin-top: 0.5rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);"
+                    loading="lazy" width="800" height="600">
             </details>
             <ul style="margin-bottom: 0;">
                 <li><strong>Scenario:</strong> On-prem app needs <code>blob.core.windows.net</code>.</li>
@@ -640,13 +643,15 @@
             style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
             <h4 style="color: #c084fc; margin-top: 0;"><i class="fas fa-sync"></i> Flow 2: Azure VM asks for Azure
                 Private Name</h4>
-            <img src="assets/2026-01-26-dns-pattern/figure-3-flow-2.png" alt="Flow 2 Diagram: Azure to Azure"
-                style="width: 100%; border-radius: 6px; margin: 1rem 0; border: 1px solid rgba(168, 85, 247, 0.2);">
+            <img src="assets/2026-01-26-dns-pattern/figure-3-flow-2.webp" alt="Flow 2 Diagram: Azure to Azure"
+                style="width: 100%; border-radius: 6px; margin: 1rem 0; border: 1px solid rgba(168, 85, 247, 0.2);"
+                loading="lazy" width="800" height="400">
             <details style="margin-bottom: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.5rem;">
                 <summary style="cursor: pointer; color: #c084fc; font-size: 0.9em;"><i class="fas fa-microchip"></i>
                     View Technical Flow Schematic</summary>
-                <img src="assets/2026-01-26-dns-pattern/technical-flow-2.png" alt="Technical Flow 2 Diagram"
-                    style="width: 100%; margin-top: 0.5rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);">
+                <img src="assets/2026-01-26-dns-pattern/technical-flow-2.webp" alt="Technical Flow 2 Diagram"
+                    style="width: 100%; margin-top: 0.5rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);"
+                    loading="lazy" width="800" height="600">
             </details>
             <ul style="margin-bottom: 0;">
                 <li><strong>Scenario:</strong> Spoke VM needs to talk to the same Blob Storage.</li>
@@ -659,13 +664,15 @@
             style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(236, 72, 153, 0.2); border-radius: 8px; padding: 1.5rem;">
             <h4 style="color: #f472b6; margin-top: 0;"><i class="fas fa-arrow-left"></i> Flow 3: Azure VM asks for
                 On-prem Name</h4>
-            <img src="assets/2026-01-26-dns-pattern/figure-4-flow-3.png" alt="Flow 3 Diagram: Azure to On-prem"
-                style="width: 100%; border-radius: 6px; margin: 1rem 0; border: 1px solid rgba(236, 72, 153, 0.2);">
+            <img src="assets/2026-01-26-dns-pattern/figure-4-flow-3.webp" alt="Flow 3 Diagram: Azure to On-prem"
+                style="width: 100%; border-radius: 6px; margin: 1rem 0; border: 1px solid rgba(236, 72, 153, 0.2);"
+                loading="lazy" width="800" height="400">
             <details style="margin-bottom: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.5rem;">
                 <summary style="cursor: pointer; color: #f472b6; font-size: 0.9em;"><i class="fas fa-microchip"></i>
                     View Technical Flow Schematic</summary>
-                <img src="assets/2026-01-26-dns-pattern/technical-flow-3.png" alt="Technical Flow 3 Diagram"
-                    style="width: 100%; margin-top: 0.5rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);">
+                <img src="assets/2026-01-26-dns-pattern/technical-flow-3.webp" alt="Technical Flow 3 Diagram"
+                    style="width: 100%; margin-top: 0.5rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);"
+                    loading="lazy" width="800" height="600">
             </details>
             <ul style="margin-bottom: 0;">
                 <li><strong>Scenario:</strong> Spoke VM needs <code>app1.onprem.company.com</code>.</li>
@@ -680,13 +687,14 @@
             server.</p>
 
         <figure class="architecture-diagram" style="margin: 1.5rem 0; padding: 1.5rem;">
-            <img src="assets/2026-01-26-dns-pattern/figure-5-option-b.png"
-                alt="Option B: Pointing Spokes to Inbound Endpoint" loading="lazy">
+            <img src="assets/2026-01-26-dns-pattern/figure-5-option-b.webp"
+                alt="Option B: Pointing Spokes to Inbound Endpoint" loading="lazy" width="800" height="400">
             <details style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.5rem;">
                 <summary style="cursor: pointer; color: var(--text-muted); font-size: 0.9em; font-style: italic;"><i
                         class="fas fa-microchip"></i> View Technical Schematic for Option B</summary>
-                <img src="assets/2026-01-26-dns-pattern/technical-option-b.png" alt="Technical Option B Diagram"
-                    style="width: 100%; margin-top: 0.5rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);">
+                <img src="assets/2026-01-26-dns-pattern/technical-option-b.webp" alt="Technical Option B Diagram"
+                    style="width: 100%; margin-top: 0.5rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);"
+                    loading="lazy" width="800" height="600">
             </details>
             <figcaption>Option B: Spoke workloads use the Inbound Endpoint (10.0.0.8) as their direct DNS server
             </figcaption>
@@ -787,70 +795,70 @@
 
         <h3>Ready to operationalize your Azure journey?</h3>
         <p>
-            
+
         </p>
         <div style="margin-top: 2rem; display: flex; gap: 1rem;">
             <a href="../pages/contact.html" class="btn btn-primary">Contact Me</a>
             <a href="../pages/azure-migration-toolkit.html" class="btn btn-outline">View the Toolkit</a>
         </div>
 
-                    <!-- Social Share Section -->
-            <div class="social-share-container">
-                <p
-                    style="color: #94a3b8; font-size: 0.8rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700;">
-                    Spread the Insight</p>
-                <div class="social-share-buttons">
-                    <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn(event)" title="Share on LinkedIn">
-                        <i class="fab fa-linkedin"></i> LinkedIn
-                    </a>
-                    <a href="#" class="share-btn twitter" onclick="shareOnTwitter(event)" title="Share on X (Twitter)">
-                        <i class="fab fa-x-twitter"></i> Twitter
-                    </a>
-                    <a href="#" class="share-btn facebook" onclick="shareOnFacebook(event)" title="Share on Facebook">
-                        <i class="fab fa-facebook-f"></i> Facebook
-                    </a>
-                    <button class="share-btn copy-link" onclick="copyPageLink(this)" title="Copy Link">
-                        <i class="fas fa-link"></i> <span class="btn-text">Copy Link</span>
-                    </button>
-                </div>
+        <!-- Social Share Section -->
+        <div class="social-share-container">
+            <p
+                style="color: #94a3b8; font-size: 0.8rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700;">
+                Spread the Insight</p>
+            <div class="social-share-buttons">
+                <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn(event)" title="Share on LinkedIn">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+                <a href="#" class="share-btn twitter" onclick="shareOnTwitter(event)" title="Share on X (Twitter)">
+                    <i class="fab fa-x-twitter"></i> Twitter
+                </a>
+                <a href="#" class="share-btn facebook" onclick="shareOnFacebook(event)" title="Share on Facebook">
+                    <i class="fab fa-facebook-f"></i> Facebook
+                </a>
+                <button class="share-btn copy-link" onclick="copyPageLink(this)" title="Copy Link">
+                    <i class="fas fa-link"></i> <span class="btn-text">Copy Link</span>
+                </button>
             </div>
+        </div>
 
-            <script>
-                function shareOnLinkedIn(e) {
-                    e.preventDefault();
-                    const url = encodeURIComponent(window.location.href);
-                    window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + url, '_blank', 'width=600,height=600');
-                }
+        <script>
+            function shareOnLinkedIn(e) {
+                e.preventDefault();
+                const url = encodeURIComponent(window.location.href);
+                window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + url, '_blank', 'width=600,height=600');
+            }
 
-                function shareOnTwitter(e) {
-                    e.preventDefault();
-                    const url = encodeURIComponent(window.location.href);
-                    const text = encodeURIComponent(document.title);
-                    window.open('https://twitter.com/intent/tweet?url=' + url + '&text=' + text, '_blank', 'width=600,height=400');
-                }
+            function shareOnTwitter(e) {
+                e.preventDefault();
+                const url = encodeURIComponent(window.location.href);
+                const text = encodeURIComponent(document.title);
+                window.open('https://twitter.com/intent/tweet?url=' + url + '&text=' + text, '_blank', 'width=600,height=400');
+            }
 
-                function shareOnFacebook(e) {
-                    e.preventDefault();
-                    const url = encodeURIComponent(window.location.href);
-                    window.open('https://www.facebook.com/sharer/sharer.php?u=' + url, '_blank', 'width=600,height=400');
-                }
+            function shareOnFacebook(e) {
+                e.preventDefault();
+                const url = encodeURIComponent(window.location.href);
+                window.open('https://www.facebook.com/sharer/sharer.php?u=' + url, '_blank', 'width=600,height=400');
+            }
 
-                function copyPageLink(btn) {
-                    const url = window.location.href;
-                    navigator.clipboard.writeText(url).then(() => {
-                        const btnText = btn.querySelector('.btn-text');
-                        const originalText = btnText.innerText;
-                        btnText.innerText = 'Copied!';
-                        btn.classList.add('copied');
-                        setTimeout(() => {
-                            btnText.innerText = originalText;
-                            btn.classList.remove('copied');
-                        }, 2000);
-                    });
-                }
-            </script>
+            function copyPageLink(btn) {
+                const url = window.location.href;
+                navigator.clipboard.writeText(url).then(() => {
+                    const btnText = btn.querySelector('.btn-text');
+                    const originalText = btnText.innerText;
+                    btnText.innerText = 'Copied!';
+                    btn.classList.add('copied');
+                    setTimeout(() => {
+                        btnText.innerText = originalText;
+                        btn.classList.remove('copied');
+                    }, 2000);
+                });
+            }
+        </script>
 
-            <!-- Back to Blog Button -->
+        <!-- Back to Blog Button -->
         <div style="text-align: center; margin: 4rem 0;">
             <a href="../blog.html" class="btn btn-primary" style="display: inline-block; padding: 1rem 2rem;">
                 <i class="fas fa-arrow-left"></i> Back to Insights
