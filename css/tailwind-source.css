@@ -1,3 +1,15 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@source "../index.html";
+@source "../js/**/*.js";
+@source "../blog/**/*.html";
+
+@theme {
+    --color-primary: #0078D4;
+    --color-secondary: #7c3aed;
+    --color-dark: #0a0a0f;
+    --color-navy: #0f0f23;
+}
+
+/* Enable class-based dark mode */
+@variant dark (&:where(.dark, .dark *));
