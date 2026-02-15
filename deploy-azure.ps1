@@ -27,10 +27,13 @@ Get-ChildItem -Path $sourceDir -Recurse -ErrorAction SilentlyContinue | ForEach-
     }
 }
 
-# Upload
-Write-Host "Uploading..."
-$azArgs = @("storage", "blob", "upload-batch", "--account-name", $StorageAccount, "--destination", $Container, "--source", $tempDir, "--overwrite")
-az $azArgs
+# Upload Assets (Long Cache - 1 Year)
+Write-Host "Uploading assets (images, css, js)..."
+az storage blob upload-batch --account-name $StorageAccount --destination $Container --source $tempDir --pattern "*" --content-cache-control "public, max-age=31536000" --overwrite
+
+# Upload HTML (Short Cache - 1 Hour)
+Write-Host "Uploading HTML files..."
+az storage blob upload-batch --account-name $StorageAccount --destination $Container --source $tempDir --pattern "*.html" --content-cache-control "public, max-age=3600" --overwrite
 
 if ($LASTEXITCODE -eq 0) { 
     Write-Host "Success!" -ForegroundColor Green 

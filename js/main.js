@@ -495,50 +495,68 @@ function updateSavings(val) {
     }
 }
 
-// ===== Skills Radar Chart =====
+// ===== Skills Radar Chart (Lazy Loaded) =====
 document.addEventListener('DOMContentLoaded', function () {
-    const ctx = document.getElementById('skillsRadarChart');
-    if (ctx) {
-        new Chart(ctx.getContext('2d'), {
-            type: 'radar',
-            data: {
-                labels: ['Cloud Strategy', 'Azure Architecture', 'DevOps/SRE', 'Security/Compliance', 'AI/ML Innovation', 'Leadership'],
-                datasets: [{
-                    label: 'Proficiency Level',
-                    data: [95, 90, 85, 88, 80, 92],
-                    fill: true,
-                    backgroundColor: 'rgba(14, 165, 233, 0.2)',
-                    borderColor: 'rgba(14, 165, 233, 1)',
-                    pointBackgroundColor: 'rgba(14, 165, 233, 1)',
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: 'rgba(14, 165, 233, 1)'
-                }]
-            },
-            options: {
-                elements: {
-                    line: { borderWidth: 3 }
-                },
-                scales: {
-                    r: {
-                        angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
-                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
-                        pointLabels: {
-                            color: '#94a3b8',
-                            font: { size: 12, family: '\'Outfit\', sans-serif' }
-                        },
-                        ticks: { display: false, backdropColor: 'transparent' },
-                        suggestedMin: 50,
-                        suggestedMax: 100
-                    }
-                },
-                plugins: {
-                    legend: { display: false }
-                }
+    const skillsChartCanvas = document.getElementById('skillsRadarChart');
+
+    if (skillsChartCanvas) {
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                // Load Chart.js dynamically
+                const script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+                script.onload = () => {
+                    initSkillsChart(skillsChartCanvas);
+                };
+                document.head.appendChild(script);
+                observer.disconnect();
             }
-        });
+        }, { threshold: 0.1 }); // Trigger when 10% visible
+
+        observer.observe(skillsChartCanvas);
     }
 });
+
+function initSkillsChart(ctx) {
+    new Chart(ctx.getContext('2d'), {
+        type: 'radar',
+        data: {
+            labels: ['Cloud Strategy', 'Azure Architecture', 'DevOps/SRE', 'Security/Compliance', 'AI/ML Innovation', 'Leadership'],
+            datasets: [{
+                label: 'Proficiency Level',
+                data: [95, 90, 85, 88, 80, 92],
+                fill: true,
+                backgroundColor: 'rgba(14, 165, 233, 0.2)',
+                borderColor: 'rgba(14, 165, 233, 1)',
+                pointBackgroundColor: 'rgba(14, 165, 233, 1)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgba(14, 165, 233, 1)'
+            }]
+        },
+        options: {
+            elements: {
+                line: { borderWidth: 3 }
+            },
+            scales: {
+                r: {
+                    angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                    grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                    pointLabels: {
+                        color: '#94a3b8',
+                        font: { size: 12, family: '\'Outfit\', sans-serif' }
+                    },
+                    ticks: { display: false, backdropColor: 'transparent' },
+                    suggestedMin: 50,
+                    suggestedMax: 100
+                }
+            },
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+}
 
 // ===== Project View Toggle =====
 function toggleProjectView(projectId, viewType) {
