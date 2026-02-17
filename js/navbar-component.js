@@ -157,4 +157,9 @@ document.addEventListener('DOMContentLoaded', () => {
             hamburger.classList.remove('active');
         }
     });
+
+    // Inject Command Palette Script Globally
+    const cmdScript = document.createElement('script');
+    cmdScript.src = `${base}js/command-palette.js`;
+    document.body.appendChild(cmdScript);
 });
