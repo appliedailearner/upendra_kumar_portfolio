@@ -388,10 +388,12 @@
                 on-premises. No exceptions."</strong></p>
         <p>It sounds reasonable on paper. You want unified policy enforcement, deep packet inspection (DPI) in your
             trusted DMZ, and a single pane of glass for auditing. So, you implement <strong>Forced Tunneling</strong>.
-            You inject a <code>0.0.0.0/0</code> route via BGP or UDR that drags every single packet—from user requests
+            You inject a <code>0.0.0.0/0</code> route via BGP (Border Gateway Protocol) or UDR (User Defined Route) that
+            drags every single packet—from user requests
             to Windows updates—back to your data center.</p>
-        <p>Then the alerts start firing: Windows VMs de-activating, firewalls losing threat intel, client connections
-            resetting despite "Allow" rules.</p>
+        <p>Then the alerts start firing: Windows VMs de-activating because they can't reach KMS (Key Management
+            Service), firewalls losing threat intel, and client connections
+            resetting due to DNAT (Destination Network Address Translation) failures despite "Allow" rules.</p>
         <p>The CISO's mandate isn't wrong—they are trying to enforce Zero Trust. However, Forced Tunneling is a legacy
             data-center approach applied to a cloud-native problem. You didn't just route traffic; you broke the
             fundamental assumptions of the cloud. Here is how to implement <strong>Cloud-Native Zero Trust</strong>
@@ -410,7 +412,7 @@
             <li><strong>Gateway Route Propagation:</strong> If "Propagate gateway routes" is set to Yes on a Route
                 Table, on-prem BGP routes are automatically injected. If disabled, only your manual UDRs apply.
                 Disabling this is a common tactic to isolate subnets (like the Application Gateway subnet) from
-                receiving the on-prem <code>0.0.0.0/0</code> route.</li>
+                receiving the on-prem <code>0.0.0.0/0</code> route and breaking inbound routing.</li>
             <li><strong>Asymmetric Routing:</strong> Traffic enters Azure via one path (e.g., direct via front-end
                 Public IP) but attempts to leave via another (e.g., forced tunneled back to on-prem). Firewalls drop
                 this stateful mismatch immediately.</li>
@@ -503,7 +505,8 @@
                     <td><code>Storage</code> (Service Tag)</td>
                     <td>Internet</td>
                     <td>Prevents massive blob storage backups from saturating the ExpressRoute circuit. <em>Note: If
-                            data exfiltration is a concern, use Private Endpoints instead of this bypass.</em></td>
+                            data exfiltration is a concern, do not use a direct Internet bypass. Instead, use Private
+                            Endpoints or route through Azure Firewall using Service Tags with TLS Inspection.</em></td>
                 </tr>
                 <tr>
                     <td>Force-Tunnel-Default</td>
