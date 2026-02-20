@@ -8,9 +8,10 @@ from diagrams.onprem.network import Internet
 
 graph_attr = {
     "pad": "0.1",
-    "nodesep": "0.4",
-    "ranksep": "0.5",
+    "nodesep": "0.6",
+    "ranksep": "0.8",
     "margin": "0",
+    "splines": "ortho",
     "bgcolor": "transparent"
 }
 
@@ -83,14 +84,11 @@ with Diagram("3. Routing & Migration Sync", show=False, filename=os.path.join(di
         fw_asia = Firewall("Japan East")
         
     sync_edge = Edge(color="purple", style="dotted")
+    fws = [fw_east, fw_west, fw_asia]
     
-    ig_merge >> sync_edge >> fw_east
-    ig_merge >> sync_edge >> fw_west
-    ig_merge >> sync_edge >> fw_asia
-    
-    ig_migrate >> sync_edge >> fw_east
-    ig_migrate >> sync_edge >> fw_west
-    ig_migrate >> sync_edge >> fw_asia
+    ig_merge >> sync_edge >> fws
+    ig_migrate >> sync_edge >> fws
+    ig_hq >> sync_edge >> fws
     
     with Cluster("Regional Workloads"):
         vnet1 = VirtualNetworks("App VNet America")
