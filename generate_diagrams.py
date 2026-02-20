@@ -11,7 +11,6 @@ graph_attr = {
     "nodesep": "0.6",
     "ranksep": "0.8",
     "margin": "0",
-    "splines": "ortho",
     "bgcolor": "transparent"
 }
 
