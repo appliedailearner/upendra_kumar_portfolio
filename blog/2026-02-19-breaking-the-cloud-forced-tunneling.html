@@ -413,28 +413,28 @@ Next Hop: Internet</code></pre>
 
         <h3>The Logic Board (Mermaid)</h3>
         <p>For the architects, here is the flow diff:</p>
-        <pre><code class="language-mermaid">
-graph TD
-    %% THE TRAP (BROKEN)
-    subgraph Trap [The Trap: Broken Logic]
-        FW_Bad[Azure Firewall] -- "0.0.0.0/0 (Forced)" --> VPNG_Bad[On-Prem Gateway]
-        VPNG_Bad -. "Blocked" .-x Internet_Bad((Microsoft))
-    end
-    
-    style FW_Bad fill:#ffcccc,stroke:#ff0000
-</code></pre>
+        <div class="mermaid">
+            graph TD
+            %% THE TRAP (BROKEN)
+            subgraph Trap [The Trap: Broken Logic]
+            FW_Bad[Azure Firewall] -- "0.0.0.0/0 (Forced)" --> VPNG_Bad[On-Prem Gateway]
+            VPNG_Bad -. "Blocked" .-x Internet_Bad((Microsoft))
+            end
 
-        <pre><code class="language-mermaid">
-graph TD
-    %% THE FIX (SPLIT PLANES)
-    subgraph Fix [The Fix: Split Planes]
-        FW_Good[Azure Firewall] 
-        Data[Data Plane] --> VPNG_Good[On-Prem Gateway]
-        Mgmt[Mgmt Plane] --> Internet_Good((Microsoft))
-    end
+            style FW_Bad fill:#ffcccc,stroke:#ff0000
+        </div>
 
-    style FW_Good fill:#ccffcc,stroke:#00aa00
-</code></pre>
+        <div class="mermaid">
+            graph TD
+            %% THE FIX (SPLIT PLANES)
+            subgraph Fix [The Fix: Split Planes]
+            FW_Good[Azure Firewall]
+            Data[Data Plane] --> VPNG_Good[On-Prem Gateway]
+            Mgmt[Mgmt Plane] --> Internet_Good((Microsoft))
+            end
+
+            style FW_Good fill:#ccffcc,stroke:#00aa00
+        </div>
 
         <h2 id="summary">Summary</h2>
         <p>
@@ -546,6 +546,12 @@ graph TD
 
     <script src="../js/particles.js"></script>
     <script src="../js/main.js"></script>
+
+    <!-- Mermaid JS for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
 </body>
 
 </html>
