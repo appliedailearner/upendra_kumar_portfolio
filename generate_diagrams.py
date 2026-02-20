@@ -7,17 +7,32 @@ from diagrams.onprem.client import Users, Client
 from diagrams.onprem.network import Internet
 
 graph_attr = {
-    "pad": "0.1",
-    "nodesep": "0.6",
-    "ranksep": "0.8",
+    "pad": "0.2",
+    "nodesep": "0.8",
+    "ranksep": "1.2",
     "margin": "0",
-    "bgcolor": "transparent"
+    "bgcolor": "transparent",
+    "fontname": "Segoe UI",
+    "fontsize": "16",
+    "dpi": "300"
+}
+
+node_attr = {
+    "fontname": "Segoe UI",
+    "fontsize": "12",
+    "fontcolor": "#333333"
+}
+
+edge_attr = {
+    "fontname": "Segoe UI",
+    "fontsize": "10",
+    "color": "#555555"
 }
 
 os.environ["PATH"] += os.pathsep + r"C:\Program Files\Graphviz\bin"
 dir_path = r"C:\Users\upend\.gemini\antigravity\brain\f8cf40ca-8d39-4eae-a103-d569d17b22d2"
 
-with Diagram("1. Access Control (VIP Pass)", show=False, filename=os.path.join(dir_path, "access_control_pro"), direction="LR", graph_attr=graph_attr):
+with Diagram("1. Access Control (VIP Pass)", show=False, filename=os.path.join(dir_path, "access_control_pro"), direction="LR", graph_attr=graph_attr, node_attr=node_attr, edge_attr=edge_attr):
     with Cluster("Ingress Sources"):
         devs = Users("Remote Developers")
         partners = Users("Partner Vendors")
@@ -44,7 +59,7 @@ with Diagram("1. Access Control (VIP Pass)", show=False, filename=os.path.join(d
     fw >> api
     fw >> test
 
-with Diagram("2. Security & Quarantine", show=False, filename=os.path.join(dir_path, "security_quarantine_pro"), direction="LR", graph_attr=graph_attr):
+with Diagram("2. Security & Quarantine", show=False, filename=os.path.join(dir_path, "security_quarantine_pro"), direction="LR", graph_attr=graph_attr, node_attr=node_attr, edge_attr=edge_attr):
     with Cluster("Threat Landscape & Updates"):
         hackers = Internet("Malicious Botnets")
         sick = VMWindows("Quarantined VMs")
@@ -70,7 +85,7 @@ with Diagram("2. Security & Quarantine", show=False, filename=os.path.join(dir_p
     fw >> Edge(color="darkred", style="dashed", label="Dropped") >> internal
     fw >> Edge(color="darkred", style="dashed", label="Blocked") >> internet
 
-with Diagram("3. Routing & Migration Sync", show=False, filename=os.path.join(dir_path, "routing_migration_pro"), direction="TB", graph_attr=graph_attr):
+with Diagram("3. Routing & Migration Sync", show=False, filename=os.path.join(dir_path, "routing_migration_pro"), direction="TB", graph_attr=graph_attr, node_attr=node_attr, edge_attr=edge_attr):
     with Cluster("Azure Resource Manager (Hub)"):
         with Cluster("Central IP Groups"):
             ig_merge = NetworkSecurityGroupsClassic("IP Group:\nNew-Subsidiary")
@@ -97,7 +112,7 @@ with Diagram("3. Routing & Migration Sync", show=False, filename=os.path.join(di
     fw_west >> vnet2
     fw_asia >> Edge(style="dashed", label="Backup Path") >> vnet1
 
-with Diagram("Core Routing Architecture", show=False, filename=os.path.join(dir_path, "core_routing_pro"), direction="TB", graph_attr=graph_attr):
+with Diagram("Core Routing Architecture", show=False, filename=os.path.join(dir_path, "core_routing_pro"), direction="TB", graph_attr=graph_attr, node_attr=node_attr, edge_attr=edge_attr):
     with Cluster("Azure Virtual Network"):
         app_subnet = VirtualNetworks("App Subnet\n(RT-Performance-Bypass)")
 
