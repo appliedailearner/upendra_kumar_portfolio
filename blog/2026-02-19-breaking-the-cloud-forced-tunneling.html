@@ -441,6 +441,51 @@ Next Hop: Internet</code></pre>
                 style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);" />
         </div>
 
+        <h2 id="the-implementation-terraform"><span class="gradient-text">5. The Implementation (Terraform)</span></h2>
+        <p>
+            The trick to deploying this via Infrastructure as Code is that you cannot retroactively apply Forced
+            Tunneling to an existing Azure Firewall. It must be declared at creation using the
+            <code>management_ip_configuration</code> block. By simply including this block, Azure automatically
+            provisions the firewall in Forced Tunneling mode.
+        </p>
+
+        <div class="code-container">
+            <pre><code>resource "azurerm_firewall" "fw" {
+  name                = "fw-hub-prod"
+  # ... (standard config) ...
+
+  # The Data Plane (Your forced traffic)
+  ip_configuration {
+    name                 = "data-ip-config"
+    subnet_id            = azurerm_subnet.fw_data.id
+    public_ip_address_id = azurerm_public_ip.fw_data_pip.id
+  }
+
+  # THE FIX: The Management Plane (Microsoft's escape hatch)
+  management_ip_configuration {
+    name                 = "mgmt-ip-config"
+    subnet_id            = azurerm_subnet.fw_mgmt.id
+    public_ip_address_id = azurerm_public_ip.fw_mgmt_pip.id
+  }
+}</code></pre>
+        </div>
+
+        <div class="premium-callout-box"
+            style="margin: 2rem 0; padding: 1.5rem; background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.1)); border-left: 4px solid #3b82f6; border-radius: 8px;">
+            <p style="margin: 0; font-size: 1.1rem; color: #e2e8f0;">
+                <i class="fas fa-box-open" style="color: #3b82f6; margin-right: 0.5rem;"></i>
+                <strong>Deployable Reference Architecture</strong>
+            </p>
+            <p style="margin: 0.5rem 0 1rem; color: var(--text-secondary);">
+                I have published the complete, deployable Terraform module for this pattern—including the VNet, Subnets,
+                Public IPs, and Route Tables—on my GitHub.
+            </p>
+            <a href="https://github.com/appliedailearner/Azure-Forced-Tunneling" target="_blank" class="btn btn-outline"
+                style="border-color: #3b82f6; color: #3b82f6;">
+                View the full Terraform code on GitHub <i class="fab fa-github" style="margin-left: 0.5rem;"></i>
+            </a>
+        </div>
+
         <h2 id="summary">Summary</h2>
         <p>
             Forced Tunneling is a powerful architectural pattern, but it is not a "toggle and forget" setting. It
