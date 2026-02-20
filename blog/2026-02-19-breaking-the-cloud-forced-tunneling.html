@@ -291,10 +291,34 @@
             "Why are client connections resetting even though the firewall rule says <strong>Allow</strong>?"
         </p>
         <p>
-            You didn't just route traffic. You broke the fundamental assumptions of the cloud. Here is how to fix it
-            without getting fired.
+            The CISO's mandate isn't wrong—they are trying to enforce Zero Trust, prevent data exfiltration, and
+            maintain regulatory compliance. However, Forced Tunneling is a legacy data-center approach applied to a
+            cloud-native problem.
+        </p>
+        <p>
+            You didn't just route traffic. You broke the fundamental assumptions of the cloud. Here is how to implement
+            <strong>Cloud-Native Zero Trust</strong>—satisfying the strict security mandates without sacrificing the
+            operational integrity of your firewall.
         </p>
 
+        <h2 id="the-architecture-trap"><span class="gradient-text">The Architecture: A Simple Analogy</span></h2>
+        <div
+            style="background: rgba(168, 85, 247, 0.05); border: 1px solid rgba(168, 85, 247, 0.1); border-radius: 8px; padding: 2rem; margin: 2rem 0;">
+            <h3 style="margin-top: 0; color: #a855f7;">The "Over-Controlled Mailroom"</h3>
+            <p>
+                Imagine your Azure Firewall is a corporate <strong>Mailroom</strong>.
+            </p>
+            <ul>
+                <li><strong>The Job:</strong> Inspect all packages leaving the building to prevent data theft.</li>
+                <li><strong>The Rule (Forced Tunneling):</strong> "ALL outgoing mail must go to Head Office (On-Prem)
+                    for a second check."</li>
+            </ul>
+            <p><strong>The Problem:</strong> The Mailroom needs to order its own supplies (Security Updates) to keep
+                working. When it tries to order, the rule forces the order to Head Office first. Head Office doesn't
+                recognize the Mailroom's internal request and blocks it. The Mailroom shuts down.</p>
+            <p><strong>The Solution:</strong> You need a "Staff Entrance" (Management Plane). Regular mail goes to Head
+                Office, but the Mailroom's own supply orders go directly to the store (Internet).</p>
+        </div>
         <h2 id="the-chicken-and-egg-crisis"><span class="gradient-text">1. The "Chicken-and-Egg" Crisis</span></h2>
         <p>
             Here is the hard truth: <strong>Azure Firewall is a managed service that needs to talk to its control
@@ -403,24 +427,7 @@ Next Hop: Internet</code></pre>
             This keeps the activation traffic on the Azure backbone, ensuring your licenses stay valid.
         </p>
 
-        <h2 id="the-architecture-trap"><span class="gradient-text">The Architecture: A Simple Analogy</span></h2>
-        <div
-            style="background: rgba(168, 85, 247, 0.05); border: 1px solid rgba(168, 85, 247, 0.1); border-radius: 8px; padding: 2rem; margin: 2rem 0;">
-            <h3 style="margin-top: 0; color: #a855f7;">The "Over-Controlled Mailroom"</h3>
-            <p>
-                Imagine your Azure Firewall is a corporate <strong>Mailroom</strong>.
-            </p>
-            <ul>
-                <li><strong>The Job:</strong> Inspect all packages leaving the building to prevent data theft.</li>
-                <li><strong>The Rule (Forced Tunneling):</strong> "ALL outgoing mail must go to Head Office (On-Prem)
-                    for a second check."</li>
-            </ul>
-            <p><strong>The Problem:</strong> The Mailroom needs to order its own supplies (Security Updates) to keep
-                working. When it tries to order, the rule forces the order to Head Office first. Head Office doesn't
-                recognize the Mailroom's internal request and blocks it. The Mailroom shuts down.</p>
-            <p><strong>The Solution:</strong> You need a "Staff Entrance" (Management Plane). Regular mail goes to Head
-                Office, but the Mailroom's own supply orders go directly to the store (Internet).</p>
-        </div>
+
 
         <h3>The Logic Board</h3>
         <p>For the architects, here is the flow diff:</p>
