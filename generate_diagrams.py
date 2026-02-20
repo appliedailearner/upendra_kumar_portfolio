@@ -91,3 +91,21 @@ with Diagram("3. Routing & Migration Sync", show=False, filename=os.path.join(di
     fw_east >> vnet1
     fw_west >> vnet2
     fw_asia >> Edge(style="dashed", label="Backup Path") >> vnet1
+
+with Diagram("Core Routing Architecture", show=False, filename=os.path.join(dir_path, "core_routing_pro"), direction="TB"):
+    with Cluster("Azure Virtual Network"):
+        app_subnet = VirtualNetworks("App Subnet\n(RT-Performance-Bypass)")
+
+        with Cluster("Forced Tunnel Path (Latency)"):
+            er_vpn = Firewall("ExpressRoute / VPN Gateway")
+            on_prem_fw = Firewall("On-Premises DMZ Firewall")
+            
+        with Cluster("Microsoft Backbone (Speed)"):
+            azure_cloud = VirtualNetworks("AzureCloud\n(Service Tag)")
+            azure_sql = SQLDatabases("Azure SQL\n(Service Tag)")
+
+    app_subnet >> Edge(color="darkred", style="dashed", label="0.0.0.0/0 All Other Traffic\n(Backhauled / High Latency)") >> er_vpn
+    er_vpn >> Edge(color="darkred", style="dashed", label="BGP Route") >> on_prem_fw
+
+    app_subnet >> Edge(color="darkgreen", label="UDR Bypass\n(Direct / Low Latency)") >> azure_cloud
+    app_subnet >> Edge(color="darkgreen", label="UDR Bypass\n(Direct / Low Latency)") >> azure_sql

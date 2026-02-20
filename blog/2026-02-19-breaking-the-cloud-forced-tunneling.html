@@ -424,29 +424,12 @@
             send trusted Azure service traffic directly to the Azure backbone, while keeping unknown/internet traffic
             securely forced back to on-premises.</p>
 
-        <div class="mermaid">
-            graph TD
-            classDef default fill:#1e293b,stroke:#38bdf8,color:#e2e8f0,stroke-width:1px
-            classDef bypass fill:#0369a1,stroke:#7dd3fc,color:#fff,stroke-width:2px
-            classDef onprem fill:#0f172a,stroke:#64748b,color:#fff
-
-            AppSubnet["App Subnet<br />(Route Table: RT-Performance-Bypass)"]
-
-            subgraph Microsoft Backbone
-            AzCloud["AzureCloud<br />(Service Tag)"]:::bypass
-            SQL[("Azure SQL<br />(Service Tag)")]:::bypass
-            end
-
-            subgraph Forced Tunnel Path
-            ER[ExpressRoute / VPN Gateway]
-            OnPrem[On-Premises DMZ Firewall]:::onprem
-            end
-
-            AppSubnet ===>|"UDR Bypass<br />(Direct / Low Latency)"| AzCloud
-            AppSubnet ===>|"UDR Bypass<br />(Direct / Low Latency)"| SQL
-
-            AppSubnet -.->|"0.0.0.0/0 All Other Traffic<br />(Backhauled / High Latency)"| ER
-            ER -.->|"BGP Route"| OnPrem
+        <div
+            style="background: rgba(15, 23, 42, 0.5); padding: 1rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); margin: 2rem 0; text-align: center;">
+            <img src="../images/blog/core_routing_pro.png" alt="Azure Core Routing and Forced Tunneling Flow"
+                style="max-width: 100%; height: auto; border-radius: 8px;">
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 1rem; margin-bottom: 0;"><em>Fig: Azure
+                    Forced Tunneling (High Latency) vs Selective UDR Bypass (Low Latency).</em></p>
         </div>
 
         <div
@@ -541,10 +524,12 @@
                 The "Pizza Party" Analogy</span></h2>
         <p>In our diagram above, we used <strong>Service Tags</strong> (like <code>AzureCloud</code> and
             <code>Sql</code>) to give a "Fast Pass" to Microsoft's own services. Service Tags are basically giant lists
-            of IP addresses that Microsoft manages for you automatically.</p>
+            of IP addresses that Microsoft manages for you automatically.
+        </p>
         <p>But what if you want a Fast Pass for a list of <strong>your own custom partner companies</strong>, your
             <strong>remote developers</strong>, or your <strong>3 favorite branch offices</strong>? Microsoft doesn't
-            make Service Tags for your personal friends! This is where <strong>Azure IP Groups</strong> come in.</p>
+            make Service Tags for your personal friends! This is where <strong>Azure IP Groups</strong> come in.
+        </p>
 
         <div
             style="background: rgba(59, 130, 246, 0.05); border-left: 4px solid #3b82f6; padding: 1.5rem; margin: 2rem 0; border-radius: 0 8px 8px 0;">
