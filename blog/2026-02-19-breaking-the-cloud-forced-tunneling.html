@@ -392,6 +392,50 @@ Next Hop: Internet</code></pre>
             This keeps the activation traffic on the Azure backbone, ensuring your licenses stay valid.
         </p>
 
+        <h2 id="the-architecture-trap"><span class="gradient-text">The Architecture: A Simple Analogy</span></h2>
+        <div
+            style="background: rgba(168, 85, 247, 0.05); border: 1px solid rgba(168, 85, 247, 0.1); border-radius: 8px; padding: 2rem; margin: 2rem 0;">
+            <h3 style="margin-top: 0; color: #a855f7;">The "Over-Controlled Mailroom"</h3>
+            <p>
+                Imagine your Azure Firewall is a corporate <strong>Mailroom</strong>.
+            </p>
+            <ul>
+                <li><strong>The Job:</strong> Inspect all packages leaving the building to prevent data theft.</li>
+                <li><strong>The Rule (Forced Tunneling):</strong> "ALL outgoing mail must go to Head Office (On-Prem)
+                    for a second check."</li>
+            </ul>
+            <p><strong>The Problem:</strong> The Mailroom needs to order its own supplies (Security Updates) to keep
+                working. When it tries to order, the rule forces the order to Head Office first. Head Office doesn't
+                recognize the Mailroom's internal request and blocks it. The Mailroom shuts down.</p>
+            <p><strong>The Solution:</strong> You need a "Staff Entrance" (Management Plane). Regular mail goes to Head
+                Office, but the Mailroom's own supply orders go directly to the store (Internet).</p>
+        </div>
+
+        <h3>The Logic Board (Mermaid)</h3>
+        <p>For the architects, here is the flow diff:</p>
+        <pre><code class="language-mermaid">
+graph TD
+    %% THE TRAP (BROKEN)
+    subgraph Trap [The Trap: Broken Logic]
+        FW_Bad[Azure Firewall] -- "0.0.0.0/0 (Forced)" --> VPNG_Bad[On-Prem Gateway]
+        VPNG_Bad -. "Blocked" .-x Internet_Bad((Microsoft))
+    end
+    
+    style FW_Bad fill:#ffcccc,stroke:#ff0000
+</code></pre>
+
+        <pre><code class="language-mermaid">
+graph TD
+    %% THE FIX (SPLIT PLANES)
+    subgraph Fix [The Fix: Split Planes]
+        FW_Good[Azure Firewall] 
+        Data[Data Plane] --> VPNG_Good[On-Prem Gateway]
+        Mgmt[Mgmt Plane] --> Internet_Good((Microsoft))
+    end
+
+    style FW_Good fill:#ccffcc,stroke:#00aa00
+</code></pre>
+
         <h2 id="summary">Summary</h2>
         <p>
             Forced Tunneling is a powerful architectural pattern, but it is not a "toggle and forget" setting. It
