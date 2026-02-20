@@ -411,29 +411,16 @@ Next Hop: Internet</code></pre>
                 Office, but the Mailroom's own supply orders go directly to the store (Internet).</p>
         </div>
 
-        <h3>The Logic Board (Mermaid)</h3>
+        <h3>The Logic Board</h3>
         <p>For the architects, here is the flow diff:</p>
-        <div class="mermaid">
-            graph TD
-            %% THE TRAP (BROKEN)
-            subgraph Trap [The Trap: Broken Logic]
-            FW_Bad[Azure Firewall] -- "0.0.0.0/0 (Forced)" --> VPNG_Bad[On-Prem Gateway]
-            VPNG_Bad -. "Blocked" .-x Internet_Bad((Microsoft))
-            end
-
-            style FW_Bad fill:#ffcccc,stroke:#ff0000
+        <div style="text-align: center; margin: 2rem 0;">
+            <img src="../images/blog/diagram-trap.png" alt="The Trap: Broken Logic Architecture"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);" />
         </div>
 
-        <div class="mermaid">
-            graph TD
-            %% THE FIX (SPLIT PLANES)
-            subgraph Fix [The Fix: Split Planes]
-            FW_Good[Azure Firewall]
-            Data[Data Plane] --> VPNG_Good[On-Prem Gateway]
-            Mgmt[Mgmt Plane] --> Internet_Good((Microsoft))
-            end
-
-            style FW_Good fill:#ccffcc,stroke:#00aa00
+        <div style="text-align: center; margin: 2rem 0;">
+            <img src="../images/blog/diagram-fix.png" alt="The Fix: Split Planes Architecture"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);" />
         </div>
 
         <h2 id="summary">Summary</h2>

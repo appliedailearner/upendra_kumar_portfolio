@@ -1,0 +1,28 @@
+%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#1e293b', 'primaryTextColor': '#f8fafc', 'primaryBorderColor': '#3b82f6', 'lineColor': '#94a3b8', 'secondaryColor': '#0f172a', 'tertiaryColor': '#0f172a', 'edgeLabelBackground': 'transparent', 'fontFamily': 'Outfit, sans-serif'}}}%%
+graph LR
+subgraph Azure [" Azure Cloud Edge "]
+    subgraph FW [" Azure Firewall "]
+        Data("fa:fa-server Data Plane<br/>(AzureFirewallSubnet)")
+        Mgmt("fa:fa-cogs Management Plane<br/>(AzureFirewallMgmtSubnet)")
+    end
+end
+
+subgraph OnPrem [" On-Premises Datacenter "]
+    VPNG("fa:fa-network-wired On-Premises<br/>VPN Gateway")
+end
+
+Internet(("fab:fa-microsoft Microsoft<br/>Control Plane<br/>(Internet)"))
+
+Data -- "Data Flow:<br/>Forced Tunnel (0.0.0.0/0)" --> VPNG
+Mgmt -- "Management Flow:<br/>Direct Internet Access" --> Internet
+
+style Azure fill:#0f172a80,stroke:#3b82f6,stroke-width:2px,stroke-dasharray: 5 5,color:#cbd5e1,rx:10,ry:10
+style OnPrem fill:#0f172a80,stroke:#94a3b8,stroke-width:2px,stroke-dasharray: 5 5,color:#cbd5e1,rx:10,ry:10
+style FW fill:none,stroke:none,color:#cbd5e1
+style Data fill:#1e293b,stroke:#3b82f6,stroke-width:2px,color:#fff,rx:8,ry:8
+style Mgmt fill:#1e293b,stroke:#a855f7,stroke-width:2px,color:#fff,rx:8,ry:8
+style VPNG fill:#1e293b,stroke:#94a3b8,stroke-width:2px,color:#fff,rx:8,ry:8
+style Internet fill:#1e3a8a,stroke:#60a5fa,stroke-width:2px,color:#fff
+
+linkStyle 0 stroke:#f8fafc,stroke-width:3px,color:#e2e8f0
+linkStyle 1 stroke:#10b981,stroke-width:3px,color:#10b981
