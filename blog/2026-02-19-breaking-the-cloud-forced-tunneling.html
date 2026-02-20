@@ -402,7 +402,8 @@
             know when diagnosing routing in Azure:</p>
         <ul>
             <li><strong>Longest Prefix Match:</strong> Azure routes traffic based on the most specific prefix. A UDR for
-                <code>10.0.0.0/24</code> will always override a BGP route for <code>10.0.0.0/16</code>.</li>
+                <code>10.0.0.0/24</code> will always override a BGP route for <code>10.0.0.0/16</code>.
+            </li>
             <li><strong>Effective Routes:</strong> What you see in the Route Table blade isn't always the truth. You
                 must check "Effective Routes" on the network interface (NIC) to see the merged reality of UDRs, BGP, and
                 System routes.</li>
@@ -425,21 +426,27 @@
 
         <div class="mermaid">
             graph TD
-            OnPrem[On-Premises DMZ Firewall] -- BGP 0.0.0.0/0 --> ER[ExpressRoute / VPN Gateway]
-            ER --> Hub[Azure Hub VNet]
+            classDef default fill:#1e293b,stroke:#38bdf8,color:#e2e8f0,stroke-width:1px
+            classDef bypass fill:#0369a1,stroke:#7dd3fc,color:#fff,stroke-width:2px
+            classDef onprem fill:#0f172a,stroke:#64748b,color:#fff
 
-            subgraph Azure Cloud
-            Hub --> AppSubnet[App Subnet RTL: RT-Performance-Bypass]
-            AppSubnet -. Forced Backhaul (Latency) .-> ER
-            AppSubnet == UDR Bypass (Speed) ==> AzCloud((AzureCloud Service Tag))
-            AppSubnet == UDR Bypass (Speed) ==> SQL((Azure SQL))
+            AppSubnet["App Subnet<br />(Route Table: RT-Performance-Bypass)"]
+
+            subgraph Microsoft Backbone
+            AzCloud["AzureCloud<br />(Service Tag)"]:::bypass
+            SQL[("Azure SQL<br />(Service Tag)")]:::bypass
             end
 
-            style OnPrem fill:#1e293b,stroke:#38bdf8
-            style ER fill:#475569,stroke:#94a3b8
-            style AppSubnet fill:#0f172a,stroke:#a855f7
-            style AzCloud fill:#0369a1,stroke:#38bdf8,color:#fff
-            style SQL fill:#0369a1,stroke:#38bdf8,color:#fff
+            subgraph Forced Tunnel Path
+            ER[ExpressRoute / VPN Gateway]
+            OnPrem[On-Premises DMZ Firewall]:::onprem
+            end
+
+            AppSubnet ===>|"UDR Bypass<br />(Direct / Low Latency)"| AzCloud
+            AppSubnet ===>|"UDR Bypass<br />(Direct / Low Latency)"| SQL
+
+            AppSubnet -.->|"0.0.0.0/0 All Other Traffic<br />(Backhauled / High Latency)"| ER
+            ER -.->|"BGP Route"| OnPrem
         </div>
 
         <h3>Example Route Table: RT-Performance-Bypass</h3>
@@ -485,7 +492,8 @@
         <h2 id="the-chicken-and-egg-crisis"><span class="gradient-text">1. The "Chicken-and-Egg" Crisis</span></h2>
         <p>Azure Firewall is a managed service that needs to talk to its control plane. When you force tunnel
             <code>0.0.0.0/0</code> to on-prem, you blind the firewall. It can't download the signature updates required
-            to inspect the traffic.</p>
+            to inspect the traffic.
+        </p>
 
         <h3>The Fix: Split the Planes</h3>
         <p>You must separate the <strong>Management Plane</strong> from the <strong>Data Plane</strong>. This is an
@@ -587,7 +595,8 @@ Next Hop Type: Internet</code></pre>
                     <td>Run <code>Test-NetConnection -ComputerName 20.118.99.224 -Port 1688</code>. Check Effective
                         Routes for KMS IPs.</td>
                     <td>Add specific UDRs for the two Global KMS IPs (20.118.99.224/32, 40.83.235.53/32) pointing to
-                        <code>Internet</code>.</td>
+                        <code>Internet</code>.
+                    </td>
                 </tr>
                 <tr>
                     <td>Inbound website traffic connects but hangs (Timeout).</td>
@@ -601,7 +610,8 @@ Next Hop Type: Internet</code></pre>
                     <td>Check Effective Routes on the VM NIC. Verify if traffic is riding traversing the ExpressRoute to
                         on-prem.</td>
                     <td>Implement the Selective Bypass Pattern using Service Tags (e.g., <code>Storage</code> ->
-                        <code>Internet</code>).</td>
+                        <code>Internet</code>).
+                    </td>
                 </tr>
                 <tr>
                     <td>Unexpected Internet breakout (traffic ignoring the tunnel).</td>
