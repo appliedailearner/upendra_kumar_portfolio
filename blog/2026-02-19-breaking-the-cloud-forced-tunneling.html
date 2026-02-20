@@ -449,6 +449,54 @@
             ER -.->|"BGP Route"| OnPrem
         </div>
 
+        <div
+            style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); border-left: 4px solid #10b981; border-radius: 8px; padding: 2rem; margin: 3rem 0;">
+            <h3 style="margin-top: 0; color: #10b981; font-family: 'Outfit', sans-serif; font-size: 1.6rem;">
+                <i class="fas fa-ticket-alt" style="margin-right: 0.5rem;"></i> The "VIP Fast Pass" Explained
+            </h3>
+            <p style="color: #e2e8f0; font-size: 1.05rem; line-height: 1.7; margin-bottom: 1.5rem;">
+                Think of the <strong>App Subnet</strong> as a school full of students. Forced Tunneling is a strict rule
+                that says <em>every single school bus must drive downtown to the Principal's Office (On-Prem
+                    Firewall)</em> before going anywhere.<br><br>
+                If your class just wants to go to the playground right next door (Azure SQL) or the museum (AzureCloud),
+                driving all the way downtown through heavy traffic (ExpressRoute) is a huge waste of time. <br><br>
+                So, network engineers hand out a <strong>VIP Fast Pass (UDR Bypass)</strong>. If you are going to an
+                approved, safe place (Microsoft Backbone), you get a secret shortcut that skips the traffic and gets you
+                there instantly!
+            </p>
+            <p style="color: #e2e8f0; font-size: 1rem; margin-bottom: 1rem; font-weight: 600;">Here is how you actually
+                build that VIP Fast Pass in Terraform using Service Tags (The Green Path):</p>
+
+            <pre
+                style="background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 8px; padding: 1.5rem; overflow-x: auto;"><code class="language-hcl" style="color: #e2e8f0; font-family: 'Courier New', monospace; font-size: 0.95rem;">resource "azurerm_route_table" "rt_fw_data" {
+  name                          = "rt-afw-data-001"
+  location                      = azurerm_resource_group.rg.location
+  resource_group_name           = azurerm_resource_group.rg.name
+
+  # 1. The Strict Rule (Go to the Principal's Office)
+  route {
+    name                   = "Force-Tunnel-OnPrem"
+    address_prefix         = "0.0.0.0/0"
+    next_hop_type          = "VirtualAppliance"
+    next_hop_in_ip_address = var.on_prem_firewall_ip
+  }
+
+  # 2. THE VIP FAST PASS (Shortcut to Microsoft Services)
+  route {
+    name           = "Allow-AzureCloud-Direct"
+    address_prefix = "AzureCloud" 
+    next_hop_type  = "Internet"
+  }
+
+  # 3. THE VIP FAST PASS (Shortcut to Database)
+  route {
+    name           = "Allow-AzureSQL-Direct"
+    address_prefix = "Sql" 
+    next_hop_type  = "Internet"
+  }
+}</code></pre>
+        </div>
+
         <h3>Example Route Table: RT-Performance-Bypass</h3>
         <table class="ts-table">
             <thead>
