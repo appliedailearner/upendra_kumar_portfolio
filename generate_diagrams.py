@@ -7,11 +7,11 @@ from diagrams.onprem.client import Users, Client
 from diagrams.onprem.network import Internet
 
 graph_attr = {
-    "pad": "0.2",
+    "pad": "0.5",
     "nodesep": "0.8",
     "ranksep": "1.2",
-    "margin": "0",
-    "bgcolor": "transparent",
+    "margin": "0.2",
+    "bgcolor": "white",
     "fontname": "Segoe UI",
     "fontsize": "16",
     "dpi": "300"
@@ -124,8 +124,11 @@ with Diagram("Core Routing Architecture", show=False, filename=os.path.join(dir_
             azure_cloud = VirtualNetworks("AzureCloud\n(Service Tag)")
             azure_sql = SQLDatabases("Azure SQL\n(Service Tag)")
 
-    app_subnet >> Edge(color="darkred", style="dashed", label="0.0.0.0/0 All Other Traffic\n(Backhauled / High Latency)") >> er_vpn
-    er_vpn >> Edge(color="darkred", style="dashed", label="BGP Route") >> on_prem_fw
+    # Force the two bottom clusters to render side-by-side with plenty of space
+    er_vpn - Edge(style="invis") - azure_cloud
 
-    app_subnet >> Edge(color="darkgreen", label="UDR Bypass\n(Direct / Low Latency)") >> azure_cloud
-    app_subnet >> Edge(color="darkgreen", label="UDR Bypass\n(Direct / Low Latency)") >> azure_sql
+    app_subnet >> Edge(color="darkred", style="dashed", label=" 0.0.0.0/0 All Other Traffic\n(Backhauled / High Latency) ") >> er_vpn
+    er_vpn >> Edge(color="darkred", style="dashed", label=" BGP Route ") >> on_prem_fw
+
+    app_subnet >> Edge(color="darkgreen", label=" UDR Bypass\n(Direct / Low Latency) ") >> azure_cloud
+    app_subnet >> Edge(color="darkgreen", label=" UDR Bypass\n(Direct / Low Latency) ") >> azure_sql
