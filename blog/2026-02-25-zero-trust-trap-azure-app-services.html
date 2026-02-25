@@ -320,6 +320,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <!-- Mermaid.js for Architecture Flowcharts -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            themeVariables: {
+                primaryColor: '#3b82f6',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#3b82f6',
+                lineColor: '#60a5fa',
+                secondaryColor: '#1e293b',
+                tertiaryColor: '#0f172a'
+            }
+        });
+    </script>
 </head>
 
 <body class="dark-theme">
@@ -474,43 +491,32 @@
         <h2><span class="gradient-text">The Architecture Decision Tree</span></h2>
         <p>Before diving into the topologies, use this quick guide to determine which pattern fits your exact
             requirements:</p>
-        <div
-            style="background: rgba(30, 41, 59, 1); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
-            <ul style="list-style-type: none; padding-left: 0; color: #cbd5e1; margin: 0;">
-                <li style="margin-bottom: 0.8rem;"><strong><i class="fas fa-long-arrow-alt-right"
-                            style="color: #3b82f6; width: 20px;"></i> Do you need public inbound access?</strong>
-                    <ul
-                        style="list-style-type: none; padding-left: 2rem; margin-top: 0.5rem; border-left: 2px solid rgba(255,255,255,0.1); margin-bottom: 0;">
-                        <li style="margin-bottom: 0.5rem;"><span style="color: #f8fafc;">No, internal VNet only</span>
-                            &rarr; Use <a href="#scenario-1" style="color: #60a5fa; text-decoration: none;">Scenario
-                                1</a> or <a href="#scenario-3" style="color: #60a5fa; text-decoration: none;">Scenario
-                                3</a></li>
-                        <li><span style="color: #f8fafc;">Yes, from the internet</span> &rarr; Proceed below &darr;</li>
-                    </ul>
-                </li>
-                <li style="margin-bottom: 0.8rem; margin-top: 1rem;"><strong><i class="fas fa-long-arrow-alt-right"
-                            style="color: #3b82f6; width: 20px;"></i> Do you need a WAF (Layer 7 Inspection)?</strong>
-                    <ul
-                        style="list-style-type: none; padding-left: 2rem; margin-top: 0.5rem; border-left: 2px solid rgba(255,255,255,0.1); margin-bottom: 0;">
-                        <li style="margin-bottom: 0.5rem;"><span style="color: #f8fafc;">No, standard web app</span>
-                            &rarr; Use <a href="#scenario-2" style="color: #60a5fa; text-decoration: none;">Scenario
-                                2</a></li>
-                        <li><span style="color: #f8fafc;">Yes, OWASP required</span> &rarr; Proceed below &darr;</li>
-                    </ul>
-                </li>
-                <li style="margin-top: 1rem;"><strong><i class="fas fa-long-arrow-alt-right"
-                            style="color: #3b82f6; width: 20px;"></i> Do you require API Throttling & Developer
-                        Portals?</strong>
-                    <ul
-                        style="list-style-type: none; padding-left: 2rem; margin-top: 0.5rem; border-left: 2px solid rgba(255,255,255,0.1); margin-bottom: 0;">
-                        <li style="margin-bottom: 0.5rem;"><span style="color: #f8fafc;">No, just a WAF</span> &rarr;
-                            Use <a href="#scenario-4" style="color: #60a5fa; text-decoration: none;">Scenario 4</a></li>
-                        <li><span style="color: #f8fafc;">Yes, full API Mgmt</span> &rarr; Use <a href="#scenario-6"
-                                style="color: #ef4444; text-decoration: none; font-weight: bold;">Scenario 6 (The Gold
-                                Standard)</a></li>
-                    </ul>
-                </li>
-            </ul>
+        <div class="mermaid-tree-container"
+            style="background: rgba(30, 41, 59, 1); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 2rem; margin-bottom: 3rem; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);">
+            <div class="mermaid" style="display: flex; justify-content: center;">
+                graph TD
+                Start([Determine Your Strategy]) --> Public{Public Access?}
+                Public -- "No (Internal)" --> Internal[Blueprint 1 or 3]
+                Public -- "Yes (Internet)" --> WAF{WAF / Layer 7?}
+                WAF -- "No (Simple)" --> Simple[Blueprint 2]
+                WAF -- "Yes (Regulated)" --> APIM{API Governance?}
+                APIM -- "No" --> Cluster[Blueprint 4]
+                APIM -- "Yes" --> Gold[Blueprint 6: Gold Standard]
+
+                click Internal "#scenario-1"
+                click Simple "#scenario-2"
+                click Cluster "#scenario-4"
+                click Gold "#scenario-6"
+
+                style Start fill:#334155,stroke:#3b82f6,color:#fff,stroke-width:2px
+                style Public fill:#1e293b,stroke:#3b82f6,color:#fff
+                style WAF fill:#1e293b,stroke:#3b82f6,color:#fff
+                style APIM fill:#1e293b,stroke:#3b82f6,color:#fff
+                style Gold fill:#1e1b4b,stroke:#ef4444,color:#fff,stroke-width:3px
+                style Internal fill:#1e293b,stroke:#94a3b8,color:#cbd5e1
+                style Simple fill:#1e293b,stroke:#94a3b8,color:#cbd5e1
+                style Cluster fill:#1e293b,stroke:#94a3b8,color:#cbd5e1
+            </div>
         </div>
 
         <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 3rem 0;">
