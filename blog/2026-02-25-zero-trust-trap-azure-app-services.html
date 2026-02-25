@@ -511,23 +511,7 @@
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
 
-    <!-- Mermaid.js for Architecture Flowcharts -->
-    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-    <script>
-        mermaid.initialize({
-            startOnLoad: true,
-            theme: 'dark',
-            securityLevel: 'loose',
-            themeVariables: {
-                primaryColor: '#3b82f6',
-                primaryTextColor: '#fff',
-                primaryBorderColor: '#3b82f6',
-                lineColor: '#60a5fa',
-                secondaryColor: '#1e293b',
-                tertiaryColor: '#0f172a'
-            }
-        });
-    </script>
+
 </head>
 
 <body class="dark-theme">
@@ -698,50 +682,9 @@
         <h2><span class="gradient-text">The Architecture Decision Tree</span></h2>
         <p>Before diving into the topologies, use this quick guide to determine which pattern fits your exact
             requirements:</p>
-        <div class="mermaid-tree-container">
-            <div class="mermaid" style="display: flex; justify-content: center;">
-                flowchart TD
-                Start(["<i class='fas fa-compass'></i> Start Engine"])
-
-                subgraph Internal ["<i class='fas fa-user-shield'></i> Internal clients (VNet)"]
-                direction TB
-                S1["<b>Blueprint 1/3: Sovereign Isolation</b><br /><i>Phase 1: Zero-Trust Perimeter</i>"]
-                end
-
-                subgraph Internet ["<i class='fas fa-globe'></i> Internet clients (Public)"]
-                direction TB
-                Public{Public Access?}
-                WAF{WAF / Layer 7?}
-                APIM{API Governance?}
-
-                S2["<b>Blueprint 2: Identity-Shielded N-Tier</b><br /><i>Frontend Shielding UI</i>"]
-                S4["<b>Blueprint 4: WAF-Protected Perimeter</b><br /><i>Enterprise Layer 7 Defense</i>"]
-                S6["<b>Blueprint 6: Gold Standard Governance</b><br /><i>Zenith of API Security</i>"]
-                end
-
-                Start --> Public
-                Public -- "Isolated Gateway" --> Internal
-                Public -- "Internet Exposure" --> WAF
-                WAF -- "Simple Route" --> S2
-                WAF -- "Regulated Route" --> APIM
-                APIM -- "Standard Protection" --> S4
-                APIM -- "Elite Governance" --> S6
-
-                click S1 "#scenario-1"
-                click S2 "#scenario-2"
-                click S4 "#scenario-4"
-                click S6 "#scenario-6"
-
-                classDef decision fill:#1e293b,stroke:#3b82f6,color:#fff,stroke-width:2px;
-                classDef blueprint fill:#1e293b,stroke:#94a3b8,color:#cbd5e1,stroke-width:1px;
-                classDef gold fill:#1e1b4b,stroke:#ef4444,color:#fff,stroke-width:3px;
-                classDef start fill:#334155,stroke:#3b82f6,color:#fff;
-
-                class Public,WAF,APIM decision;
-                class S1,S2,S4 blueprint;
-                class S6 gold;
-                class Start start;
-            </div>
+        <div class="mermaid-tree-container" style="text-align: center;">
+            <img src="../images/blog/diagrams/flowchart.jpg" alt="Architecture Decision Tree Flowchart"
+                style="max-width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
         </div>
 
         <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 3rem 0;">
