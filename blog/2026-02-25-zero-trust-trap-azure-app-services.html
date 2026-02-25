@@ -279,9 +279,11 @@
         </p>
         <p>
             <strong>The Realistic Fix:</strong> You have two options to stop the bleeding.
-            First, deploy self-hosted agents (like an Azure Container App Job) directly into your VNet.
+            First, deploy self-hosted agents (like an Azure Container App Job) directly into your VNet. <em>(Note: For
+                pure Zero Trust, this is the only true secure path.)</em>
             Second, use Azure DevOps Service Tags to explicitly whitelist your deployment pipelines while keeping the
-            rest of the world blocked.
+            rest of the world blocked. <em>(Note: Service Tags still expose the endpoint to any Azure DevOps tenant
+                globally unless further restricted by Entra ID auth.)</em>
         </p>
 
         <h2><span class="gradient-text">The API Management Blindspot</span></h2>
@@ -296,7 +298,10 @@
         </p>
         <p>
             To securely bridge APIM to a private App Service backend, APIM must be deployed using <strong>VNet
-                Integration (External or Internal Mode)</strong>. This guarantees APIM acts as a native citizen of your
+                Integration (External or Internal Mode)</strong>. <em>(Crucial Architect Note: Injecting APIM into a
+                VNet requires the <strong>Developer, Premium, or v2 tiers</strong>. Basic and Standard tiers cannot do
+                VNet integration—don't design a solution your client's budget can't support.)</em> This guarantees APIM
+            acts as a native citizen of your
             VNet, capable of resolving your private DNS zones and routing traffic across the Microsoft backbone network
             directly to your isolated App Service. Implementing this architecture reduced one client's publicly exposed
             surface area by 100%, mitigating over $1.2M in potential compliance fines.
@@ -304,11 +309,18 @@
 
         <h2><span class="gradient-text">6 Enterprise Topologies (Blueprint Validation)</span></h2>
         <p>
-            There is no "one size fits all" for Azure networking. Based on Microsoft Quickstart templates, here are the
-            validated patterns you should be deploying:
+            <em>What does "VNet Integration" actually do? It simply delegates a dedicated empty subnet inside your VNet
+                to the App Service, giving it a secure outbound path.</em>
+        </p>
+        <p>
+            There is no "one size fits all" for Azure networking. Based on Microsoft Quickstart templates and the
+            <strong>Azure Landing Zone (ALZ)</strong> architecture, here are the
+            validated patterns you should be deploying inside your Application Landing Zone (Spoke VNet):
         </p>
 
-        <h3>1. The Baseline Private Web App</h3>
+        <h3>1. The Baseline Private Web App <span
+                style="font-size: 0.9rem; color: #a855f7; border: 1px solid #a855f7; padding: 2px 8px; border-radius: 12px; margin-left: 10px; vertical-align: middle;">Effort:
+                Low</span></h3>
         <p><strong>The Analogy:</strong> The VIP Room. The club is open, but this room is strictly invitation-only from
             the inside.</p>
         <p><strong>Scenario:</strong> You need a single Web App entirely isolated from the public internet, accessible
@@ -327,12 +339,15 @@
                 style="max-width: 80%; border-radius: 8px;" loading="lazy">
         </div>
 
-        <h3>2. Secure N-Tier Architecture (Frontend to Private Backend)</h3>
+        <h3>2. Secure N-Tier Architecture (Frontend to Private Backend) <span
+                style="font-size: 0.9rem; color: #f59e0b; border: 1px solid #f59e0b; padding: 2px 8px; border-radius: 12px; margin-left: 10px; vertical-align: middle;">Effort:
+                Medium</span></h3>
         <p><strong>The Analogy:</strong> The Speakeasy. You can enter the front room (Frontend), but you need a secret
             hallway (VNet routing) to get through to the back room (Backend).</p>
         <p><strong>Scenario:</strong> Your React Frontend (Public) needs to talk to a .NET Backend, but the Backend must
             remain hidden. The Frontend utilizes <strong>VNet Regional Integration</strong>. The Backend has an inbound
-            <strong>Private Endpoint</strong>.</p>
+            <strong>Private Endpoint</strong>.
+        </p>
         <div
             style="margin: 1.5rem 0; padding: 1.2rem; background: rgba(59, 130, 246, 0.05); border-left: 3px solid #3b82f6; border-radius: 4px;">
             <p style="margin-bottom: 0.5rem;"><strong><i class="fas fa-check-circle" style="color: #22c55e;"></i>
@@ -347,7 +362,9 @@
                 style="max-width: 80%; border-radius: 8px;" loading="lazy">
         </div>
 
-        <h3>3. Web App Outbound to Private Target (VNet Injection)</h3>
+        <h3>3. Web App Outbound to Private Target (VNet Injection) <span
+                style="font-size: 0.9rem; color: #a855f7; border: 1px solid #a855f7; padding: 2px 8px; border-radius: 12px; margin-left: 10px; vertical-align: middle;">Effort:
+                Low</span></h3>
         <p><strong>The Analogy:</strong> The Armored Car. The app safely travels through the wild internet by taking a
             secure, heavily-guarded dedicated tunnel to its destination.</p>
         <p><strong>Scenario:</strong> Your Web App needs to securely reach a 3rd party or down-stream managed service
@@ -366,7 +383,9 @@
                 style="max-width: 80%; border-radius: 8px;" loading="lazy">
         </div>
 
-        <h3>4. The App Gateway WAF Pattern</h3>
+        <h3>4. The App Gateway WAF Pattern <span
+                style="font-size: 0.9rem; color: #ef4444; border: 1px solid #ef4444; padding: 2px 8px; border-radius: 12px; margin-left: 10px; vertical-align: middle;">Effort:
+                High</span></h3>
         <p><strong>The Analogy:</strong> The Bouncer. Nobody gets to the party without getting patted down for weapons
             (SQLi/XSS) at the front door.</p>
         <p><strong>Scenario:</strong> You need Enterprise-grade Layer 7 protection. All traffic must hit an Application
@@ -385,11 +404,15 @@
                 style="max-width: 80%; border-radius: 8px;" loading="lazy">
         </div>
 
-        <h3>5. Egress: App Service to Private SQL</h3>
+        <h3>5. Egress: App Service to Private SQL <span
+                style="font-size: 0.9rem; color: #f59e0b; border: 1px solid #f59e0b; padding: 2px 8px; border-radius: 12px; margin-left: 10px; vertical-align: middle;">Effort:
+                Medium</span></h3>
         <p><strong>The Analogy:</strong> The Tell-Tale Heart. The database is buried securely under the floorboards (the
             VNet), and the App Service is the only one who knows exactly where to listen.</p>
         <p><strong>Scenario:</strong> Compliance dictates Azure SQL Database cannot have public endpoints exposed. The
-            App Service uses VNet Integration to route SQL queries (1433) safely.</p>
+            App Service uses VNet Integration to route SQL queries (1433) safely. <em>(ARB Note: Combine this network
+                isolation with a System-Assigned Managed Identity for passwordless Entra ID authentication to achieve
+                true Zero Trust.)</em></p>
         <div
             style="margin: 1.5rem 0; padding: 1.2rem; background: rgba(59, 130, 246, 0.05); border-left: 3px solid #3b82f6; border-radius: 4px;">
             <p style="margin-bottom: 0.5rem;"><strong><i class="fas fa-check-circle" style="color: #22c55e;"></i>
@@ -405,7 +428,9 @@
                 style="max-width: 80%; border-radius: 8px;" loading="lazy">
         </div>
 
-        <h3>6. The "Gold Standard" Enterprise APIM + WAF</h3>
+        <h3>6. The "Gold Standard" Enterprise APIM + WAF <span
+                style="font-size: 0.9rem; color: #ef4444; border: 1px solid #ef4444; padding: 2px 8px; border-radius: 12px; margin-left: 10px; vertical-align: middle;">Effort:
+                High</span></h3>
         <p><strong>The Analogy:</strong> The Airport Security. WAF is the metal detector, APIM is the boarding pass
             check, and the App service is the plane.</p>
         <p><strong>Scenario:</strong> Application Gateway (Public) -> API Management (Internal VNet Mode) -> App Service
