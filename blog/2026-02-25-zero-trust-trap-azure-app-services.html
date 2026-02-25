@@ -305,7 +305,30 @@
             VNet, capable of resolving your private DNS zones and routing traffic across the Microsoft backbone network
             directly to your isolated App Service. Implementing this architecture reduced one client's publicly exposed
             surface area by 100%, mitigating over $1.2M in potential compliance fines.
-        </p>
+            <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 3rem 0;">
+
+            <!-- GITHUB REPO CALLOUT -->
+        <div
+            style="margin: 2rem 0; padding: 1.5rem; background: linear-gradient(145deg, rgba(30, 41, 59, 1) 0%, rgba(15, 23, 42, 1) 100%); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; border-left: 4px solid #3b82f6; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
+            <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                <div style="color: #3b82f6; font-size: 1.5rem; margin-top: 0.2rem;">
+                    <i class="fab fa-github"></i>
+                </div>
+                <div>
+                    <h4 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; color: #f8fafc; font-weight: 600;">Show Me The
+                        Code: Enterprise Terraform</h4>
+                    <p style="margin: 0 0 1rem 0; color: #cbd5e1; font-size: 0.95rem; line-height: 1.5;">Every
+                        architecture pattern discussed below has been rigorously tested and translated into Fortune-500
+                        grade Terraform Infrastructure-as-Code (IaC) templates, complete with Network Security Groups,
+                        Managed Identity RBAC, and Log Analytics Workspaces.</p>
+                    <a href="https://github.com/appliedailearner/The-Zero-Trust-Trap-Why-Your-Azure-App-Service-Private-Endpoints-Keep-Breaking"
+                        target="_blank" rel="noopener noreferrer"
+                        style="display: inline-block; padding: 0.5rem 1rem; background-color: #3b82f6; color: white; text-decoration: none; border-radius: 4px; font-weight: 500; font-size: 0.9rem; transition: background-color 0.2s;">
+                        Clone the Official Repository Here &rarr;
+                    </a>
+                </div>
+            </div>
+        </div>
 
         <h2><span class="gradient-text">6 Enterprise Topologies (Blueprint Validation)</span></h2>
         <p>
@@ -338,6 +361,13 @@
             <img src="../images/blog/diagrams/1_Baseline_Private_WebApp.png" alt="Baseline Private Web App Diagram"
                 style="max-width: 80%; border-radius: 8px;" loading="lazy">
         </div>
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <a href="https://github.com/appliedailearner/The-Zero-Trust-Trap-Why-Your-Azure-App-Service-Private-Endpoints-Keep-Breaking/tree/main/1-baseline-private-webapp"
+                target="_blank" rel="noopener noreferrer"
+                style="display: inline-block; padding: 0.4rem 0.8rem; background: rgba(255,255,255,0.05); color: #94a3b8; text-decoration: none; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; font-size: 0.85rem; transition: background 0.2s;">
+                <i class="fab fa-github" style="margin-right: 0.4rem;"></i> View Terraform for Scenario 1
+            </a>
+        </div>
 
         <h3>2. Secure N-Tier Architecture (Frontend to Private Backend) <span
                 style="font-size: 0.9rem; color: #f59e0b; border: 1px solid #f59e0b; padding: 2px 8px; border-radius: 12px; margin-left: 10px; vertical-align: middle; white-space: nowrap; display: inline-block;">Effort:
@@ -361,6 +391,13 @@
             <img src="../images/blog/diagrams/2_Secure_NTier_WebApp.png" alt="N Tier Web App Diagram"
                 style="max-width: 80%; border-radius: 8px;" loading="lazy">
         </div>
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <a href="https://github.com/appliedailearner/The-Zero-Trust-Trap-Why-Your-Azure-App-Service-Private-Endpoints-Keep-Breaking/tree/main/2-secure-ntier-webapp"
+                target="_blank" rel="noopener noreferrer"
+                style="display: inline-block; padding: 0.4rem 0.8rem; background: rgba(255,255,255,0.05); color: #94a3b8; text-decoration: none; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; font-size: 0.85rem; transition: background 0.2s;">
+                <i class="fab fa-github" style="margin-right: 0.4rem;"></i> View Terraform for Scenario 2
+            </a>
+        </div>
 
         <h3>3. Web App Outbound to Private Target (VNet Injection) <span
                 style="font-size: 0.9rem; color: #a855f7; border: 1px solid #a855f7; padding: 2px 8px; border-radius: 12px; margin-left: 10px; vertical-align: middle; white-space: nowrap; display: inline-block;">Effort:
@@ -382,6 +419,13 @@
             <img src="../images/blog/diagrams/3_WebApp_VNetInjection_PE.png" alt="Web App VNet Injection Diagram"
                 style="max-width: 80%; border-radius: 8px;" loading="lazy">
         </div>
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <a href="https://github.com/appliedailearner/The-Zero-Trust-Trap-Why-Your-Azure-App-Service-Private-Endpoints-Keep-Breaking/tree/main/3-webapp-vnet-injection"
+                target="_blank" rel="noopener noreferrer"
+                style="display: inline-block; padding: 0.4rem 0.8rem; background: rgba(255,255,255,0.05); color: #94a3b8; text-decoration: none; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; font-size: 0.85rem; transition: background 0.2s;">
+                <i class="fab fa-github" style="margin-right: 0.4rem;"></i> View Terraform for Scenario 3
+            </a>
+        </div>
 
         <h3>4. The App Gateway WAF Pattern <span
                 style="font-size: 0.9rem; color: #ef4444; border: 1px solid #ef4444; padding: 2px 8px; border-radius: 12px; margin-left: 10px; vertical-align: middle; white-space: nowrap; display: inline-block;">Effort:
@@ -402,6 +446,13 @@
         <div style="text-align: center; margin: 2rem 0;">
             <img src="../images/blog/diagrams/4_AppGateway_WebApp_PE.png" alt="App Gateway WAF Pattern Diagram"
                 style="max-width: 80%; border-radius: 8px;" loading="lazy">
+        </div>
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <a href="https://github.com/appliedailearner/The-Zero-Trust-Trap-Why-Your-Azure-App-Service-Private-Endpoints-Keep-Breaking/tree/main/4-appgw-waf-pattern"
+                target="_blank" rel="noopener noreferrer"
+                style="display: inline-block; padding: 0.4rem 0.8rem; background: rgba(255,255,255,0.05); color: #94a3b8; text-decoration: none; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; font-size: 0.85rem; transition: background 0.2s;">
+                <i class="fab fa-github" style="margin-right: 0.4rem;"></i> View Terraform for Scenario 4
+            </a>
         </div>
 
         <h3>5. Egress: App Service to Private SQL <span
@@ -427,6 +478,13 @@
             <img src="../images/blog/diagrams/5_SQL_over_PE.png" alt="SQL over Private Endpoint"
                 style="max-width: 80%; border-radius: 8px;" loading="lazy">
         </div>
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <a href="https://github.com/appliedailearner/The-Zero-Trust-Trap-Why-Your-Azure-App-Service-Private-Endpoints-Keep-Breaking/tree/main/5-egress-sql-over-pe"
+                target="_blank" rel="noopener noreferrer"
+                style="display: inline-block; padding: 0.4rem 0.8rem; background: rgba(255,255,255,0.05); color: #94a3b8; text-decoration: none; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; font-size: 0.85rem; transition: background 0.2s;">
+                <i class="fab fa-github" style="margin-right: 0.4rem;"></i> View Terraform for Scenario 5
+            </a>
+        </div>
 
         <h3>6. The "Gold Standard" Enterprise APIM + WAF <span
                 style="font-size: 0.9rem; color: #ef4444; border: 1px solid #ef4444; padding: 2px 8px; border-radius: 12px; margin-left: 10px; vertical-align: middle; white-space: nowrap; display: inline-block;">Effort:
@@ -448,7 +506,13 @@
             <img src="../images/blog/diagrams/6_GoldStandard_WAF_APIM_WebApp.png" alt="Gold Standard APIM WAF Diagram"
                 style="max-width: 80%; border-radius: 8px;" loading="lazy">
         </div>
-
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <a href="https://github.com/appliedailearner/The-Zero-Trust-Trap-Why-Your-Azure-App-Service-Private-Endpoints-Keep-Breaking/tree/main/6-gold-standard-apim-waf"
+                target="_blank" rel="noopener noreferrer"
+                style="display: inline-block; padding: 0.4rem 0.8rem; background: rgba(255,255,255,0.05); color: #94a3b8; text-decoration: none; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; font-size: 0.85rem; transition: background 0.2s;">
+                <i class="fab fa-github" style="margin-right: 0.4rem;"></i> View Terraform for Scenario 6
+            </a>
+        </div>
 
         <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
 
