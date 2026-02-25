@@ -180,6 +180,65 @@
             background-color: #3b82f6;
             border-color: #3b82f6;
         }
+
+        /* High-Impact Punchy Hero Improvement */
+        .punchy-hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin: 2rem 0 3rem 0;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            border-left: 5px solid #3b82f6;
+        }
+
+        .punchy-hero-text {
+            color: #f8fafc !important;
+            font-size: 1.45rem !important;
+            line-height: 1.6 !important;
+            font-weight: 500 !important;
+            margin: 0 !important;
+        }
+
+        .realist-badge {
+            display: inline-block;
+            background: #3b82f6;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .production-ready-badge {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-left: 10px;
+            vertical-align: middle;
+            box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+            text-transform: uppercase;
+        }
+
+        .architecture-blueprint-badge {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-left: 10px;
+            vertical-align: middle;
+            text-transform: uppercase;
+        }
     </style>
 
     <!-- Performance: Preconnect to Font & Script Servers -->
@@ -238,11 +297,16 @@
 
     <!-- Blog Post Content -->
     <article class="blog-post-content">
-        <p class="lead" style="font-size: 1.3rem; color: var(--primary-color); font-weight: 600;">
-            The CISO asked for "Zero Trust." The engineering team clicked "Disable Public Access." Three minutes later,
-            the production APIs went offline for 4,000 users. Here's the realist's guide to fixing Azure App Service
-            network isolation.
-        </p>
+        <div class="punchy-hero">
+            <span class="realist-badge">Critical Incident Report</span>
+            <p class="punchy-hero-text">
+                The CISO asked for <strong>"Zero Trust."</strong> The engineering team clicked "Disable Public Access."
+                <br><br>
+                Three minutes later, the production APIs went offline for <strong>4,000 users</strong>. This wasn't a
+                hack—it was a configuration trap. Here is the realist's guide to fixing Azure App Service network
+                isolation before it breaks your business.
+            </p>
+        </div>
 
         <!-- Content Body -->
         <h2><span class="gradient-text">The Illusion of the "Private Door"</span></h2>
@@ -261,6 +325,15 @@
             workloads. When you kill public access, you instantly break two massive dependencies: your <strong>API
                 Gateway</strong> and your <strong>CI/CD Pipelines</strong>. Let's fix that.
         </p>
+
+        <div
+            style="background: rgba(59, 130, 246, 0.05); border-left: 4px solid #3b82f6; padding: 1.5rem; border-radius: 8px; margin: 2rem 0; font-style: italic;">
+            <h4 style="color: #3b82f6; margin-top: 0; margin-bottom: 0.5rem;"><i class="fas fa-bolt"></i> The Realist's
+                Perspective</h4>
+            "Zero Trust isn't about blocking the internet; it's about verifying every request as if it originated from
+            an open network. If you block the network but haven't solved for Identity (RBAC) or Observability, you
+            haven't built a fortress—you've built a tomb for your application uptime."
+        </div>
 
         <figure style="margin: 3rem 0; text-align: center;">
             <img src="../images/blog/diagrams/final_azure_architecture_diagram.png"
@@ -385,9 +458,8 @@
             validated patterns you should be deploying inside your Application Landing Zone (Spoke VNet):
         </p>
 
-        <h3>1. The Baseline Private Web App <span
-                style="font-size: 0.9rem; color: #a855f7; border: 1px solid #a855f7; padding: 2px 8px; border-radius: 12px; margin-left: 10px; vertical-align: middle; white-space: nowrap; display: inline-block;">Effort:
-                Low</span></h3>
+        <h3>Scenario 1: Total Lockdown (The CISO's Choice) <span class="architecture-blueprint-badge">Blueprint</span>
+        </h3>
         <p><strong>The Analogy:</strong> The VIP Room. The club is open, but this room is strictly invitation-only from
             the inside.</p>
         <p><strong>Scenario:</strong> You need a single Web App entirely isolated from the public internet, accessible
@@ -420,9 +492,8 @@
             </a>
         </div>
 
-        <h3>2. Secure N-Tier Architecture (Frontend to Private Backend) <span
-                style="font-size: 0.9rem; color: #f59e0b; border: 1px solid #f59e0b; padding: 2px 8px; border-radius: 12px; margin-left: 10px; vertical-align: middle; white-space: nowrap; display: inline-block;">Effort:
-                Medium</span></h3>
+        <h3>Scenario 2: The Secure Speakeasy (N-Tier Isolation) <span
+                class="architecture-blueprint-badge">Blueprint</span></h3>
         <p><strong>The Analogy:</strong> The Speakeasy. You can enter the front room (Frontend), but you need a secret
             hallway (VNet routing) to get through to the back room (Backend).</p>
         <p><strong>Scenario:</strong> Your React Frontend (Public) needs to talk to a .NET Backend, but the Backend must
@@ -457,9 +528,8 @@
             </a>
         </div>
 
-        <h3>3. Web App Outbound to Private Target (VNet Injection) <span
-                style="font-size: 0.9rem; color: #a855f7; border: 1px solid #a855f7; padding: 2px 8px; border-radius: 12px; margin-left: 10px; vertical-align: middle; white-space: nowrap; display: inline-block;">Effort:
-                Low</span></h3>
+        <h3>Scenario 3: The Armored Exit (VNet Injection Outbound) <span
+                class="architecture-blueprint-badge">Blueprint</span></h3>
         <p><strong>The Analogy:</strong> The Armored Car. The app safely travels through the wild internet by taking a
             secure, heavily-guarded dedicated tunnel to its destination.</p>
         <p><strong>Scenario:</strong> Your Web App needs to securely reach a 3rd party or down-stream managed service
@@ -492,9 +562,8 @@
             </a>
         </div>
 
-        <h3>4. The App Gateway WAF Pattern <span
-                style="font-size: 0.9rem; color: #ef4444; border: 1px solid #ef4444; padding: 2px 8px; border-radius: 12px; margin-left: 10px; vertical-align: middle; white-space: nowrap; display: inline-block;">Effort:
-                High</span></h3>
+        <h3>Scenario 4: The Bouncer (App Gateway + WAF Integration) <span class="production-ready-badge">Production
+                Grade</span></h3>
         <p><strong>The Analogy:</strong> The Bouncer. Nobody gets to the party without getting patted down for weapons
             (SQLi/XSS) at the front door.</p>
         <p><strong>Scenario:</strong> You need Enterprise-grade Layer 7 protection. All traffic must hit an Application
@@ -527,9 +596,8 @@
             </a>
         </div>
 
-        <h3>5. Egress: App Service to Private SQL <span
-                style="font-size: 0.9rem; color: #f59e0b; border: 1px solid #f59e0b; padding: 2px 8px; border-radius: 12px; margin-left: 10px; vertical-align: middle; white-space: nowrap; display: inline-block;">Effort:
-                Medium</span></h3>
+        <h3>Scenario 5: The Tell-Tale Heart (Egress to Private SQL) <span class="production-ready-badge">Production
+                Grade</span></h3>
         <p><strong>The Analogy:</strong> The Tell-Tale Heart. The database is buried securely under the floorboards (the
             VNet), and the App Service is the only one who knows exactly where to listen.</p>
         <p><strong>Scenario:</strong> Compliance dictates Azure SQL Database cannot have public endpoints exposed. The
@@ -565,9 +633,8 @@
             </a>
         </div>
 
-        <h3>6. The "Gold Standard" Enterprise APIM + WAF <span
-                style="font-size: 0.9rem; color: #ef4444; border: 1px solid #ef4444; padding: 2px 8px; border-radius: 12px; margin-left: 10px; vertical-align: middle; white-space: nowrap; display: inline-block;">Effort:
-                High</span></h3>
+        <h3>Scenario 6: The Fortress (Gold Standard APIM + WAF) <span class="production-ready-badge">Production
+                Grade</span></h3>
         <p><strong>The Analogy:</strong> The Airport Security. WAF is the metal detector, APIM is the boarding pass
             check, and the App service is the plane.</p>
         <p><strong>Scenario:</strong> Application Gateway (Public) -> API Management (Internal VNet Mode) -> App Service
@@ -647,6 +714,15 @@
         </div>
 
         <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <div
+            style="background: rgba(168, 85, 247, 0.05); border-left: 4px solid #a855f7; padding: 1.5rem; border-radius: 8px; margin: 2rem 0; font-style: italic;">
+            <h4 style="color: #a855f7; margin-top: 0; margin-bottom: 0.5rem;"><i class="fas fa-microchip"></i> The
+                Realist's Perspective</h4>
+            "In Azure, the 'Gold Standard' isn't about having the most expensive services. It's about having the most
+            predictable failure modes. APIM + App Gateway + Private Endpoints is a powerhouse, but only if you've
+            mastered the lifecycle of the underlying subnets and DNS records."
+        </div>
 
         <h3>Ready to operationalize your Azure journey?</h3>
         <p>
