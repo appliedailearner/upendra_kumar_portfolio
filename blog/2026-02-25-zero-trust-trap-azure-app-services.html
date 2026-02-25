@@ -365,32 +365,27 @@
     <!-- Blog Post Content -->
     <article class="blog-post-content">
         <div class="punchy-hero">
-            <span class="realist-badge">Critical Incident Report</span>
+            <span class="realist-badge">Executive Risk Briefing</span>
             <p class="punchy-hero-text">
-                The CISO asked for <strong>"Zero Trust."</strong> The engineering team clicked "Disable Public Access."
-                <br><br>
-                Three minutes later, the production APIs went offline for <strong>4,000 users</strong>. This wasn't a
-                hack—it was a configuration trap. Here is the realist's guide to fixing Azure App Service network
-                isolation before it breaks your business.
+                Your CISO requested a <strong>"Zero Trust"</strong> perimeter. Your engineers clicked "Disable Public
+                Access." <br><br>
+                Three minutes later, your production APIs were offline for <strong>4,000 users</strong>. This wasn't a
+                breach—it was a <strong>Compliance Facade</strong>. Here is the surgical guide to mastering Azure App
+                Service isolation without sacrificing operational uptime.
             </p>
         </div>
 
         <!-- Content Body -->
-        <h2><span class="gradient-text">The Illusion of the "Private Door"</span></h2>
+        <h2><span class="gradient-text">The Facade of Network Isolation</span></h2>
         <p>
-            Think of your Azure App Service as a corporate building with two doors.
+            Network isolation in Azure is a facade. Architects often build fortresses while leaving the service tunnels
+            wide open to CI/CD and DNS misconfigurations.
         </p>
         <p>
-            <strong>Door 1: The Public Door (Internet).</strong> Anyone can try the handle. If it's unlocked, they're
-            in.<br>
-            <strong>Door 2: The Private Door (Private Endpoint).</strong> Only employees already inside the corporate
-            campus (your VNet) can even see this door exists.
-        </p>
-        <p>
-            The textbook security recommendation is simple: Build a Private Endpoint (Door 2), then lock the Public Door
-            (Disable Public Network Access). But in an enterprise environment, textbook answers usually break legacy
-            workloads. When you kill public access, you instantly break two massive dependencies: your <strong>API
-                Gateway</strong> and your <strong>CI/CD Pipelines</strong>. Let's fix that.
+            The industry standard for security is straightforward: Deploy a Private Endpoint, then terminate public
+            network access. However, in enterprise ecosystems, these textbook answers trigger catastrophic failures for
+            **API Gateways** and **Inbound CI/CD pipelines**. We don't just fix the network; we solve for the
+            application lifecycle.
         </p>
 
         <figure style="margin: 2.5rem 0; text-align: center;">
@@ -403,22 +398,20 @@
 
         <div
             style="background: rgba(59, 130, 246, 0.05); border-left: 4px solid #3b82f6; padding: 1.5rem; border-radius: 8px; margin: 2rem 0; font-style: italic;">
-            <h4 style="color: #3b82f6; margin-top: 0; margin-bottom: 0.5rem;"><i class="fas fa-bolt"></i> The Realist's
-                Perspective</h4>
-            "Zero Trust isn't about blocking the internet; it's about verifying every request as if it originated from
-            an open network. If you block the network but haven't solved for Identity (RBAC) or Observability, you
-            haven't built a fortress—you've built a tomb for your application uptime."
+            <h4 style="color: #3b82f6; margin-top: 0; margin-bottom: 0.5rem;"><i class="fas fa-bolt"></i> The
+                Architect's Perspective</h4>
+            "Zero Trust is not a network setting; it's a verification strategy. If you isolate the network but haven't
+            solved for Identity (RBAC) or Observability, you haven't built a fortress—you've built an operational tomb."
         </div>
 
         <figure style="margin: 3rem 0; text-align: center;">
-            <img src="../images/blog/diagrams/final_azure_architecture_diagram.png"
-                alt="Azure Architecture Diagram with Official Icons"
+            <img src="../images/blog/diagrams/Gold_Standard_v2.png" alt="Azure Gold Standard Architecture Diagram"
                 style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);" loading="lazy">
             <figcaption style="color: var(--text-muted); font-size: 0.9rem; margin-top: 1rem;">The Gold Standard:
                 Isolating Web Apps behind an APIM Gateway using Private Endpoints.</figcaption>
         </figure>
 
-        <h2><span class="gradient-text">The CI/CD Outage ($0 to $50k in 10 minutes)</span></h2>
+        <h2><span class="gradient-text">Deployment Post-Mortems: The CI/CD Trap</span></h2>
         <p>
             The most common trap I see is the Friday afternoon deployment failure. You disable public network access to
             secure your App Service. Congratulations, you just locked out GitHub Actions and Azure DevOps. Those public
@@ -522,7 +515,7 @@
 
         <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 3rem 0;">
 
-        <h2><span class="gradient-text">6 Enterprise Topologies (Blueprint Validation)</span></h2>
+        <h2><span class="gradient-text">6 Strategic Blueprints for Sovereign Perimeters</span></h2>
         <p>
             <em>What does "VNet Integration" actually do? It simply delegates a dedicated empty subnet inside your VNet
                 to the App Service, giving it a secure outbound path.</em>
@@ -533,11 +526,11 @@
             validated patterns you should be deploying inside your Application Landing Zone (Spoke VNet):
         </p>
 
-        <h3 id="scenario-1">Scenario 1: Total Lockdown (The CISO's Choice) <span
+        <h3 id="scenario-1">Blueprint 1: The Zero-Trust Perimeter (Internal Only) <span
                 class="architecture-blueprint-badge">Blueprint</span>
         </h3>
-        <p><strong>The Analogy:</strong> The VIP Room. The club is open, but this room is strictly invitation-only from
-            the inside.</p>
+        <p><strong>Strategic Intent:</strong> Full isolation for internal-only applications where internet exposure is a
+            non-negotiable risk.</p>
         <p><strong>Scenario:</strong> You need a single Web App entirely isolated from the public internet, accessible
             only from within the corporate VNet via a Jumpbox, ExpressRoute, or VPN.</p>
         <div
@@ -576,10 +569,10 @@
             </a>
         </div>
 
-        <h3 id="scenario-2">Scenario 2: The Secure Speakeasy (N-Tier Isolation) <span
+        <h3 id="scenario-2">Blueprint 2: N-Tier Identity Isolation <span
                 class="architecture-blueprint-badge">Blueprint</span></h3>
-        <p><strong>The Analogy:</strong> The Speakeasy. You can enter the front room (Frontend), but you need a secret
-            hallway (VNet routing) to get through to the back room (Backend).</p>
+        <p><strong>Strategic Intent:</strong> Securing the backend tier from public access while maintaining a governed
+            public frontend layer.</p>
         <p><strong>Scenario:</strong> Your React Frontend (Public) needs to talk to a .NET Backend, but the Backend must
             remain hidden. The Frontend utilizes <strong>VNet Regional Integration</strong>. The Backend has an inbound
             <strong>Private Endpoint</strong>.
@@ -620,10 +613,10 @@
             </a>
         </div>
 
-        <h3 id="scenario-3">Scenario 3: The Armored Exit (VNet Injection Outbound) <span
+        <h3 id="scenario-3">Blueprint 3: Governed Egress (Outbound VNet Tunnel) <span
                 class="architecture-blueprint-badge">Blueprint</span></h3>
-        <p><strong>The Analogy:</strong> The Armored Car. The app safely travels through the wild internet by taking a
-            secure, heavily-guarded dedicated tunnel to its destination.</p>
+        <p><strong>Strategic Intent:</strong> Guaranteeing that all application outbound traffic is routed through a
+            managed network perimeter before reaching the public internet.</p>
         <p><strong>Scenario:</strong> Your Web App needs to securely reach a 3rd party or down-stream managed service
             that is locked behind a Private Endpoint in your VNet.</p>
         <div
@@ -661,11 +654,11 @@
             </a>
         </div>
 
-        <h3 id="scenario-4">Scenario 4: The Bouncer (App Gateway + WAF Integration) <span
+        <h3 id="scenario-4">Blueprint 4: WAF Orchestration (App Gateway Integration) <span
                 class="production-ready-badge">Production
                 Grade</span></h3>
-        <p><strong>The Analogy:</strong> The Bouncer. Nobody gets to the party without getting patted down for weapons
-            (SQLi/XSS) at the front door.</p>
+        <p><strong>Strategic Intent:</strong> Centralized Layer 7 inspection and OWASP mitigation for public-facing web
+            applications.</p>
         <p><strong>Scenario:</strong> You need Enterprise-grade Layer 7 protection. All traffic must hit an Application
             Gateway v2 first. The Gateway sits in a peered VNet and routes privately using the Private DNS Zone.</p>
         <div
@@ -704,11 +697,11 @@
             </a>
         </div>
 
-        <h3 id="scenario-5">Scenario 5: The Tell-Tale Heart (Egress to Private SQL) <span
+        <h3 id="scenario-5">Blueprint 5: Isolated Data Ingress (Private SQL Hub) <span
                 class="production-ready-badge">Production
                 Grade</span></h3>
-        <p><strong>The Analogy:</strong> The Tell-Tale Heart. The database is buried securely under the floorboards (the
-            VNet), and the App Service is the only one who knows exactly where to listen.</p>
+        <p><strong>Strategic Intent:</strong> Removing the database from the public internet entirely by leveraging
+            private network routing for all data plane traffic.</p>
         <p><strong>Scenario:</strong> Compliance dictates Azure SQL Database cannot have public endpoints exposed. The
             App Service uses VNet Integration to route SQL queries (1433) safely. <em>(ARB Note: Combine this network
                 isolation with a System-Assigned Managed Identity for passwordless Entra ID authentication to achieve
@@ -751,11 +744,11 @@
             </a>
         </div>
 
-        <h3 id="scenario-6">Scenario 6: The Fortress (Gold Standard APIM + WAF) <span
+        <h3 id="scenario-6">Blueprint 6: Enterprise API Governance (Gold Standard) <span
                 class="production-ready-badge">Production
                 Grade</span></h3>
-        <p><strong>The Analogy:</strong> The Airport Security. WAF is the metal detector, APIM is the boarding pass
-            check, and the App service is the plane.</p>
+        <p><strong>Strategic Intent:</strong> The absolute zenith of Azure security: Layer 7 WAF inspection combined
+            with API lifecycle management and full network isolation.</p>
         <p><strong>Scenario:</strong> Application Gateway (Public) -> API Management (Internal VNet Mode) -> App Service
             (Private Endpoint). The ultimate perimeter defense.</p>
         <div
@@ -798,16 +791,16 @@
 
         <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
 
-        <h2><span class="gradient-text">The "Gotcha!" Troubleshooting FAQ</span></h2>
-        <p>Your Terraform deployed flawlessly, but the app is throwing a 503 HTTP Error. Welcome to Day-2 operations.
-            Here is how my team solves the most common critical failures in production:</p>
+        <h2><span class="gradient-text">Production Post-Mortems: Lessons from the Field</span></h2>
+        <p>Infrastructure in code is deterministic; infrastructure in production is unforgiving. Here is how we resolve
+            the critical "Day 2" failures encountered at the enterprise scale:</p>
 
         <div style="margin: 2rem 0;">
             <div
                 style="margin-bottom: 1.5rem; padding: 1.2rem; background: rgba(15, 23, 42, 0.8); border-left: 3px solid #f59e0b; border-radius: 4px;">
-                <h4 style="margin: 0 0 0.5rem 0; color: #f8fafc;"><i class="fas fa-question-circle"
-                        style="color: #f59e0b; margin-right: 0.5rem;"></i> "My App Gateway is reporting a 502 Bad
-                    Gateway to the Private App Service!"</h4>
+                <h4 style="margin: 0 0 0.5rem 0; color: #f8fafc;"><i class="fas fa-exclamation-triangle"
+                        style="color: #f59e0b; margin-right: 0.5rem;"></i> Post-Mortem 1: Resolving the 502 Routing
+                    Vacuum</h4>
                 <p style="margin: 0; color: #cbd5e1; font-size: 0.95rem;"><strong>The Fix:</strong> Did you configure
                     the Custom Probe? App Gateways forward requests with their own host header. App Services will reject
                     this if they expect the `hostname.azurewebsites.net` header. You must set <em>"Pick Hostname from
@@ -816,9 +809,9 @@
 
             <div
                 style="margin-bottom: 1.5rem; padding: 1.2rem; background: rgba(15, 23, 42, 0.8); border-left: 3px solid #ef4444; border-radius: 4px;">
-                <h4 style="margin: 0 0 0.5rem 0; color: #f8fafc;"><i class="fas fa-question-circle"
-                        style="color: #ef4444; margin-right: 0.5rem;"></i> "My Function App fails to deploy or start
-                    when using Storage Private Endpoints!"</h4>
+                <h4 style="margin: 0 0 0.5rem 0; color: #f8fafc;"><i class="fas fa-exclamation-triangle"
+                        style="color: #ef4444; margin-right: 0.5rem;"></i> Post-Mortem 2: Bridging the CI/CD Isolation
+                    Gap</h4>
                 <p style="margin: 0; color: #cbd5e1; font-size: 0.95rem;"><strong>The Fix:</strong> You probably deleted
                     the Access Keys entirely while migrating to Entra ID Managed Identity. If you are using Linux
                     Elastic Premium (EP1+), the orchestrator <strong>strictly requires</strong> the
@@ -830,9 +823,9 @@
 
             <div
                 style="margin-bottom: 0; padding: 1.2rem; background: rgba(15, 23, 42, 0.8); border-left: 3px solid #3b82f6; border-radius: 4px;">
-                <h4 style="margin: 0 0 0.5rem 0; color: #f8fafc;"><i class="fas fa-question-circle"
-                        style="color: #3b82f6; margin-right: 0.5rem;"></i> "I can't resolve the Private Endpoint via
-                    VPN/ExpressRoute!"</h4>
+                <h4 style="margin: 0 0 0.5rem 0; color: #f8fafc;"><i class="fas fa-exclamation-triangle"
+                        style="color: #3b82f6; margin-right: 0.5rem;"></i> Post-Mortem 3: DNS Resolution & Split-Brain
+                    Mitigation</h4>
                 <p style="margin: 0; color: #cbd5e1; font-size: 0.95rem;"><strong>The Fix:</strong> The #1 reason for
                     Private Endpoint failure is DNS Blackholing. Your on-premises DNS server must conditionally forward
                     queries for `privatelink.azurewebsites.net` to the Azure DNS Private Resolver INBOUND endpoint IP
@@ -847,16 +840,16 @@
         <div
             style="background: rgba(168, 85, 247, 0.05); border-left: 4px solid #a855f7; padding: 1.5rem; border-radius: 8px; margin: 2rem 0; font-style: italic;">
             <h4 style="color: #a855f7; margin-top: 0; margin-bottom: 0.5rem;"><i class="fas fa-microchip"></i> The
-                Realist's Perspective</h4>
+                Architect's Ledger</h4>
             "In Azure, the 'Gold Standard' isn't about having the most expensive services. It's about having the most
             predictable failure modes. APIM + App Gateway + Private Endpoints is a powerhouse, but only if you've
             mastered the lifecycle of the underlying subnets and DNS records."
         </div>
 
-        <h3>Ready to operationalize your Azure journey?</h3>
+        <h3>Ready to operationalize your Azure perimeter?</h3>
         <p>
-            Architecture in Visio is easy. Architecture in production is unforgiving. If you are struggling with
-            split-brain DNS or asynchronous routing issues while trying to achieve Zero Trust, let's talk.
+            Architecture in a diagram is deterministic; architecture in production is an evolution. If you are solving
+            for complex DNS routing or regulatory network isolation, let's architect your success.
         </p>
         <div style="margin-top: 2rem; display: flex; gap: 1rem;">
             <a href="../pages/contact.html" class="btn btn-primary">Contact Me</a>
