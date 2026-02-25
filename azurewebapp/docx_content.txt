@@ -1,4 +1,4 @@
-ICTSI App Service Private-Only SOPOption 2: Disable Public Network Access and use Private Endpoint (Singapore example)Date: 25 Feb 2026
+UKLifeLabs App Service Private-Only SOPOption 2: Disable Public Network Access and use Private Endpoint (Singapore example)Date: 25 Feb 2026
 Revision history
 Version
 Date
@@ -19,14 +19,14 @@ Why this exists (problem statement)If Public network access is enabled, the defa
 Web App name
 Private Endpoint name (example)
 Private IP (example)
-ictsi-restapi-v1
-pe-ictsi-restapi-v1
+UKLifeLabs-restapi-v1
+pe-UKLifeLabs-restapi-v1
 10.50.10.4
-ictsi-restapi-test-002
-pe-ictsi-restapi-test-002
+UKLifeLabs-restapi-test-002
+pe-UKLifeLabs-restapi-test-002
 10.50.10.5
-ictsi-event-grid-viewer
-pe-ictsi-event-grid-viewer
+UKLifeLabs-event-grid-viewer
+pe-UKLifeLabs-event-grid-viewer
 10.50.10.6
 3. Simple mental model (analogy)
 Think of your Web App as a building with two doors:
@@ -40,7 +40,7 @@ Figure: Private Endpoint places App Service behind a private IP in the VNet.
 Before you start, confirm:
 App Service plan supports Private Endpoint (not Free/Shared).
 You have RBAC rights to create Private Endpoints, Private DNS zones, and to approve private endpoint connections.
-APIM (or any caller) must have private network reachability to vnet-ictsi-sea-01 (same VNet, peering, or VPN/ExpressRoute).
+APIM (or any caller) must have private network reachability to vnet-UKLifeLabs-sea-01 (same VNet, peering, or VPN/ExpressRoute).
 You have a VM/jumpbox or self-hosted agent inside the VNet for testing and (if needed) deployments.
 CI/CD and SCM (Kudu) impact (do not skip)When you disable public network access, public GitHub/Azure DevOps hosted agents will not be able to deploy using Kudu/ZipDeploy.Plan to use self-hosted runners/agents inside the private network or an approved private deployment path.DNS must include both records: <app> and <app>.scm in the private DNS zone.
 6. Example naming and parameters
@@ -49,9 +49,9 @@ Example value
 Region
 Southeast Asia (Singapore)
 Resource group
-rg-ictsi-prod-sea-01
+rg-UKLifeLabs-prod-sea-01
 Virtual network
-vnet-ictsi-sea-01
+vnet-UKLifeLabs-sea-01
 Private endpoint subnet
 snet-private-endpoints (10.50.10.0/24)
 Private DNS zone (required)
@@ -65,21 +65,21 @@ DNS (app+scm)
 Private test
 APIM test
 Public access disabled
-ictsi-restapi-v1
+UKLifeLabs-restapi-v1
 Yes/No
 Approved
 Yes/No
 Yes/No
 Yes/No
 Yes/No
-ictsi-restapi-test-002
+UKLifeLabs-restapi-test-002
 Yes/No
 Approved
 Yes/No
 Yes/No
 Yes/No
 Yes/No
-ictsi-event-grid-viewer
+UKLifeLabs-event-grid-viewer
 Yes/No
 Approved
 Yes/No
@@ -97,7 +97,7 @@ Whether CI/CD uses public Kudu/ZipDeploy.
 8.2 Create or confirm Private DNS zone and VNet link
 Create or confirm the Private DNS zone:
 Private DNS zone name: privatelink.azurewebsites.net
-Link it to VNet: vnet-ictsi-sea-01 (enable auto-registration: No).
+Link it to VNet: vnet-UKLifeLabs-sea-01 (enable auto-registration: No).
 If you use enterprise DNS, configure forwarding so workloads in the VNet can resolve this zone.
 DNS reference (what must exist):
 Figure: Required private DNS zone and A records for app and SCM endpoints.
@@ -116,7 +116,7 @@ Pending example:
 Approved example:
 8.5 Validate private name resolution and private connectivity
 Run these tests from a VM/jumpbox inside the target VNet (or a peered VNet with the same DNS view).
-# DNS checks (run from inside the VNet)nslookup ictsi-restapi-v1.azurewebsites.netnslookup ictsi-restapi-v1.scm.azurewebsites.netnslookup ictsi-restapi-test-002.azurewebsites.netnslookup ictsi-restapi-test-002.scm.azurewebsites.netnslookup ictsi-event-grid-viewer.azurewebsites.netnslookup ictsi-event-grid-viewer.scm.azurewebsites.net# Connectivity check (HTTPS)# Use the standard hostname (not the privatelink hostname) so TLS matches *.azurewebsites.netcurl -I https://ictsi-restapi-v1.azurewebsites.netcurl -I https://ictsi-restapi-test-002.azurewebsites.netcurl -I https://ictsi-event-grid-viewer.azurewebsites.net
+# DNS checks (run from inside the VNet)nslookup UKLifeLabs-restapi-v1.azurewebsites.netnslookup UKLifeLabs-restapi-v1.scm.azurewebsites.netnslookup UKLifeLabs-restapi-test-002.azurewebsites.netnslookup UKLifeLabs-restapi-test-002.scm.azurewebsites.netnslookup UKLifeLabs-event-grid-viewer.azurewebsites.netnslookup UKLifeLabs-event-grid-viewer.scm.azurewebsites.net# Connectivity check (HTTPS)# Use the standard hostname (not the privatelink hostname) so TLS matches *.azurewebsites.netcurl -I https://UKLifeLabs-restapi-v1.azurewebsites.netcurl -I https://UKLifeLabs-restapi-test-002.azurewebsites.netcurl -I https://UKLifeLabs-event-grid-viewer.azurewebsites.net
 Expected resultsInside the VNet: <app>.azurewebsites.net resolves to a private IP (for example 10.50.10.x).Both app and scm names resolve privately.curl succeeds (HTTP 200/302/etc based on your app).
 8.6 Cutover: disable public network access
 This is the step that removes internet reachability. Do this only after Step 8.5 succeeds for the app and APIM reachability is confirmed.
@@ -150,7 +150,7 @@ DNS scm
 Private test
 APIM test
 PNA disabled
-ictsi-restapi-v1
+UKLifeLabs-restapi-v1
 □
 □
 □
@@ -158,7 +158,7 @@ ictsi-restapi-v1
 □
 □
 □
-ictsi-restapi-test-002
+UKLifeLabs-restapi-test-002
 □
 □
 □
@@ -166,7 +166,7 @@ ictsi-restapi-test-002
 □
 □
 □
-ictsi-event-grid-viewer
+UKLifeLabs-event-grid-viewer
 □
 □
 □

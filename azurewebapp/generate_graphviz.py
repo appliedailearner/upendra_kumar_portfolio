@@ -9,7 +9,7 @@ dot.attr('edge', fontname='Segoe UI', fontsize='9', color='#605E5C')
 dot.node('Client', 'Users / Internet Clients', shape='ellipse', fillcolor='#F3F2F1', color='#8A8886')
 
 with dot.subgraph(name='cluster_vnet') as vnet:
-    vnet.attr(label='Virtual Network: vnet-ictsi-sea-01', style='dashed', color='#0078D4', bgcolor='#F8F8F8', fontcolor='#0078D4')
+    vnet.attr(label='Virtual Network: vnet-UKLifeLabs-sea-01', style='dashed', color='#0078D4', bgcolor='#F8F8F8', fontcolor='#0078D4')
     vnet.node('APIM', 'Azure API Management\n(External/Internal VNet Mode)')
     vnet.node('PE', 'Azure Private Endpoint\nIP: 10.50.10.x')
 
@@ -26,3 +26,4 @@ dot.edge('APIM', 'DNS', label=' Resolves Backend Name', style='dashed')
 
 dot.render('architecture_diagram', format='png', cleanup=True)
 print("Graphviz PNG generated at architecture_diagram.png")
+

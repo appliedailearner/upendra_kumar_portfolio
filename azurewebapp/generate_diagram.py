@@ -9,7 +9,7 @@ diagram_code = """graph TD
 
     Client([Users / Internet Clients]):::user
 
-    subgraph VNET [Virtual Network: vnet-ictsi-sea-01]
+    subgraph VNET [Virtual Network: vnet-UKLifeLabs-sea-01]
         APIM[Azure API Management<br/>(External/Internal VNet Mode)]:::azure
         PE[Azure Private Endpoint<br/>IP: 10.50.10.x]:::azure
     end
@@ -99,3 +99,4 @@ with open("C:\\MyResumePortfolio\\azurewebapp\\architecture_diagram.html", "w", 
     f.write(html_content)
 
 print("HTML artifact created at C:\\MyResumePortfolio\\azurewebapp\\architecture_diagram.html")
+

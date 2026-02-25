@@ -21,12 +21,12 @@ edge_attr = {
     "fontsize": "10"
 }
 
-with Diagram("ICTSI App Service Private-Only Architecture", show=False, filename="azure_architecture_diagram_official", 
+with Diagram("UKLifeLabs App Service Private-Only Architecture", show=False, filename="azure_architecture_diagram_official", 
              graph_attr=graph_attr, node_attr=node_attr, edge_attr=edge_attr, outformat="png"):
 
     client = Users("Users /\nInternet Clients")
 
-    with Cluster("Virtual Network: vnet-ictsi-sea-01"):
+    with Cluster("Virtual Network: vnet-uklifelabs-sea-01"):
         apim = APIManagement("Azure API Management\n(External/Internal VNet Mode)")
         pe = PrivateEndpoint("Azure Private Endpoint\nIP: 10.50.10.x")
         

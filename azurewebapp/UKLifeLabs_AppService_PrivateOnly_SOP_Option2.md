@@ -1,4 +1,4 @@
-# ICTSI App Service Private-Only SOP
+# UKLifeLabs App Service Private-Only SOP
 Option 2: Disable Public Network Access and use Private Endpoint (Singapore example)
 Date: 25 Feb 2026
 
@@ -22,9 +22,9 @@ If Public network access is enabled, the default `https://<app>.azurewebsites.ne
 
 | Web App name            | Private Endpoint name (example)  | Private IP (example) |
 | :---                    | :---                             | :---                 |
-| ictsi-restapi-v1        | pe-ictsi-restapi-v1              | 10.50.10.4           |
-| ictsi-restapi-test-002  | pe-ictsi-restapi-test-002        | 10.50.10.5           |
-| ictsi-event-grid-viewer | pe-ictsi-event-grid-viewer       | 10.50.10.6           |
+| UKLifeLabs-restapi-v1        | pe-UKLifeLabs-restapi-v1              | 10.50.10.4           |
+| UKLifeLabs-restapi-test-002  | pe-UKLifeLabs-restapi-test-002        | 10.50.10.5           |
+| UKLifeLabs-event-grid-viewer | pe-UKLifeLabs-event-grid-viewer       | 10.50.10.6           |
 
 ## 3. Simple mental model (analogy)
 Think of your Web App as a building with two doors:
@@ -41,13 +41,13 @@ High-level flow (private-only):
 Before you start, confirm:
 1. App Service plan supports Private Endpoint (not Free/Shared).
 2. You have RBAC rights to create Private Endpoints, Private DNS zones, and to approve private endpoint connections.
-3. APIM (or any caller) must have private network reachability to `vnet-ictsi-sea-01` (same VNet, peering, or VPN/ExpressRoute).
+3. APIM (or any caller) must have private network reachability to `vnet-UKLifeLabs-sea-01` (same VNet, peering, or VPN/ExpressRoute).
 4. You have a VM/jumpbox or self-hosted agent inside the VNet for testing and (if needed) deployments.
 
 > [!WARNING]
 > CI/CD and SCM (Kudu) impact (do not skip)
 > When you disable public network access, public GitHub/Azure DevOps hosted agents will not be able to deploy using Kudu/ZipDeploy.
-> **Architectural Upgrade:** Use self-hosted runners/agents inside the private network (e.g., Azure Container Apps or VMSS agents joined to `vnet-ictsi-sea-01`). Alternatively, use Azure DevOps Service Tags or Run From Package (URL).
+> **Architectural Upgrade:** Use self-hosted runners/agents inside the private network (e.g., Azure Container Apps or VMSS agents joined to `vnet-UKLifeLabs-sea-01`). Alternatively, use Azure DevOps Service Tags or Run From Package (URL).
 > DNS must include both records: `<app>` and `<app>.scm` in the private DNS zone.
 
 ## 6. Example naming and parameters
@@ -55,8 +55,8 @@ Before you start, confirm:
 | Item                      | Example value                              |
 | :---                      | :---                                       |
 | Region                    | Southeast Asia (Singapore)                 |
-| Resource group            | rg-ictsi-prod-sea-01                       |
-| Virtual network           | vnet-ictsi-sea-01                          |
+| Resource group            | rg-UKLifeLabs-prod-sea-01                       |
+| Virtual network           | vnet-UKLifeLabs-sea-01                          |
 | Private endpoint subnet   | snet-private-endpoints (10.50.10.0/24)     |
 | Private DNS zone (required) | privatelink.azurewebsites.net            |
 
@@ -65,9 +65,9 @@ Do not disable public network access until all items are TRUE.
 
 | App                     | PE created | Connection state | DNS (app+scm) | Private test | APIM test | Public access disabled |
 | :---                    | :---       | :---             | :---          | :---         | :---      | :---                   |
-| ictsi-restapi-v1        | Yes/No     | Approved         | Yes/No        | Yes/No       | Yes/No    | Yes/No                 |
-| ictsi-restapi-test-002  | Yes/No     | Approved         | Yes/No        | Yes/No       | Yes/No    | Yes/No                 |
-| ictsi-event-grid-viewer | Yes/No     | Approved         | Yes/No        | Yes/No       | Yes/No    | Yes/No                 |
+| UKLifeLabs-restapi-v1        | Yes/No     | Approved         | Yes/No        | Yes/No       | Yes/No    | Yes/No                 |
+| UKLifeLabs-restapi-test-002  | Yes/No     | Approved         | Yes/No        | Yes/No       | Yes/No    | Yes/No                 |
+| UKLifeLabs-event-grid-viewer | Yes/No     | Approved         | Yes/No        | Yes/No       | Yes/No    | Yes/No                 |
 
 > [!IMPORTANT]
 > **APIM dependency (most common outage cause)**
@@ -87,7 +87,7 @@ For each app, record:
 ### 8.2 Create or confirm Private DNS zone and VNet link
 Create or confirm the Private DNS zone:
 * Private DNS zone name: `privatelink.azurewebsites.net`
-* Link it to VNet: `vnet-ictsi-sea-01` (enable auto-registration: No).
+* Link it to VNet: `vnet-UKLifeLabs-sea-01` (enable auto-registration: No).
 * If you use enterprise DNS, configure forwarding so workloads in the VNet can resolve this zone.
 
 ### 8.3 Create Private Endpoint for the Web App
@@ -106,15 +106,15 @@ Run these tests from a VM/jumpbox inside the target VNet (or a peered VNet with 
 
 ```bash
 # DNS checks (run from inside the VNet)
-nslookup ictsi-restapi-v1.azurewebsites.net
-nslookup ictsi-restapi-v1.scm.azurewebsites.net
-nslookup ictsi-restapi-test-002.azurewebsites.net
-nslookup ictsi-event-grid-viewer.azurewebsites.net
+nslookup UKLifeLabs-restapi-v1.azurewebsites.net
+nslookup UKLifeLabs-restapi-v1.scm.azurewebsites.net
+nslookup UKLifeLabs-restapi-test-002.azurewebsites.net
+nslookup UKLifeLabs-event-grid-viewer.azurewebsites.net
 
 # Connectivity check (HTTPS)
-curl -I https://ictsi-restapi-v1.azurewebsites.net
-curl -I https://ictsi-restapi-test-002.azurewebsites.net
-curl -I https://ictsi-event-grid-viewer.azurewebsites.net
+curl -I https://UKLifeLabs-restapi-v1.azurewebsites.net
+curl -I https://UKLifeLabs-restapi-test-002.azurewebsites.net
+curl -I https://UKLifeLabs-event-grid-viewer.azurewebsites.net
 ```
 
 **Expected results inside the VNet:**
@@ -150,7 +150,7 @@ If production impact occurs:
 ## 10. Notes and gotchas
 * **Slots:** Each deployment slot is treated as a separate target. Create and approve a private endpoint per slot.
 * **Access restrictions:** Access restrictions are not evaluated for private endpoint traffic. Public network access is the isolation control.
-* **TLS Custom Domains:** Always use `https://<app>.azurewebsites.net` in tests. If APIM uses a custom domain (e.g., `api.ictsi.com`), the custom domain still needs a Public DNS CNAME pointing to the App Service. However, the `privatelink` DNS zone handles the internal routing without breaking the TLS certificate seal.
+* **TLS Custom Domains:** Always use `https://<app>.azurewebsites.net` in tests. If APIM uses a custom domain (e.g., `api.UKLifeLabs.com`), the custom domain still needs a Public DNS CNAME pointing to the App Service. However, the `privatelink` DNS zone handles the internal routing without breaking the TLS certificate seal.
 
 ## 11. Custom Automation Snippets (IaC Appendix)
 To avoid manual ClickOps drift in the portal, use these scripts for repeatable execution.
@@ -179,9 +179,9 @@ az webapp update --name <app-name> --resource-group <rg-name> --set publicNetwor
 
 | App                     | PE created | PE approved | DNS app | DNS scm | Private test | APIM test | PNA disabled |
 | :---                    | :---       | :---        | :---    | :---    | :---         | :---      | :---         |
-| ictsi-restapi-v1        | []         | []          | []      | []      | []           | []        | []           |
-| ictsi-restapi-test-002  | []         | []          | []      | []      | []           | []        | []           |
-| ictsi-event-grid-viewer | []         | []          | []      | []      | []           | []        | []           |
+| UKLifeLabs-restapi-v1        | []         | []          | []      | []      | []           | []        | []           |
+| UKLifeLabs-restapi-test-002  | []         | []          | []      | []      | []           | []        | []           |
+| UKLifeLabs-event-grid-viewer | []         | []          | []      | []      | []           | []        | []           |
 
 **Appendix B. Reference docs**
 * Azure App Service Private Endpoint overview: https://learn.microsoft.com/en-us/azure/app-service/overview-private-endpoint
@@ -200,11 +200,11 @@ Follow these step-by-step instructions:
 1. In the Azure Portal, open your API Management instance.
 2. On the left menu under **Security**, click **Network**.
 3. Confirm that **Virtual network** is set to either **External** or **Internal** (Not "None").
-4. Check the **Virtual network** and **Subnet** listed. It must be `vnet-ictsi-sea-01` (or a VNet that is peered to it).
+4. Check the **Virtual network** and **Subnet** listed. It must be `vnet-UKLifeLabs-sea-01` (or a VNet that is peered to it).
 *(Note: If it says "None", stop here. You must migrate APIM to a VNet first, which is a major architectural change. Consult a senior architect.)*
 
 **Step 2: Link the DNS Zone to the APIM VNet**
-If APIM is in a VNet, it needs to know how to translate `ictsi-restapi-v1.azurewebsites.net` into the Private IP (`10.50.10.x`).
+If APIM is in a VNet, it needs to know how to translate `UKLifeLabs-restapi-v1.azurewebsites.net` into the Private IP (`10.50.10.x`).
 1. Search for **Private DNS zones** in the top search bar and open `privatelink.azurewebsites.net`.
 2. On the left menu, click **Virtual network links**.
 3. Check if the VNet where your APIM lives is listed here.
@@ -217,7 +217,7 @@ If your APIM policy uses `set-backend-service`, make sure the backend URL is sti
 Before declaring success, you must prove APIM can talk to the private App Service.
 1. Open your API Management instance in the Azure Portal.
 2. In the left menu, click **APIs**.
-3. Select your API (e.g., `ICTSI REST API v1`).
+3. Select your API (e.g., `UKLifeLabs REST API v1`).
 4. Click on the **Test** tab at the top.
 5. Select an operation (like `GET /health` or `GET /users`).
 6. Scroll down and click **Send**.
@@ -260,3 +260,4 @@ Depending on your enterprise requirements, separating frontend from backend or i
 **Scenario:** You are using Azure Functions for serverless processing, but the Azure Storage Account holding the Function's core executables and state data must be locked down to prevent data exfiltration.
 * **Architecture:** The Function App has VNet Integration to route traffic into the VNet. The Storage account has a **Private Endpoint** (specifically for `blob`, `file`, `queue`, and `table` sub-resources). The Function pulls its code privately.
 * **Official Microsoft Lab & Template:** [Function App + Secure Storage Endpoints](https://learn.microsoft.com/en-us/samples/azure/azure-quickstart-templates/function-app-storage-private-endpoints/)
+

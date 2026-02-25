@@ -9,4 +9,5 @@ def read_docx(file_path):
         with open('docx_content.txt', 'w', encoding='utf-8') as f:
             f.write(text)
 
-read_docx(r'C:\MyResumePortfolio\azurewebapp\ICTSI_AppService_PrivateOnly_SOP_Option2.docx')
+read_docx(r'C:\MyResumePortfolio\azurewebapp\UKLifeLabs_AppService_PrivateOnly_SOP_Option2.docx')
+
