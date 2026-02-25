@@ -290,12 +290,176 @@
             position: absolute;
             background: #3b82f6;
             color: white;
-            padding: 4px 8px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            pointer-events: auto;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hotspot-label:hover {
+            transform: scale(1.1);
+            background: #2563eb;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+        }
+
+        /* Briefing Modal */
+        .briefing-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .briefing-modal {
+            background: #1e293b;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 16px;
+            max-width: 600px;
+            width: 100%;
+            padding: 2.5rem;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .briefing-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .briefing-title {
+            color: #3b82f6;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.5rem;
+        }
+
+        .briefing-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .briefing-item h5 {
+            color: #f8fafc;
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .briefing-item p {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .briefing-tag {
+            padding: 2px 8px;
             border-radius: 4px;
             font-size: 0.7rem;
-            font-weight: 700;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            pointer-events: auto;
+            font-weight: 800;
+        }
+
+        .tag-benefit {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+
+        .tag-limit {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+
+        .tag-logic {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+        }
+
+        /* Terraform CTA Enhancements */
+        .terraform-cta {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background: rgba(59, 130, 246, 0.1);
+            color: #60a5fa !important;
+            text-decoration: none;
+            border: 1px solid #3b82f6;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+            margin-top: 1rem;
+        }
+
+        .terraform-cta:hover {
+            background: #3b82f6;
+            color: white !important;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .cta-pulse {
+            animation: subtlePulse 3s infinite;
+        }
+
+        @keyframes subtlePulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+            }
+        }
+
+        .code-available-badge {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            color: #60a5fa;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 5;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .hotspot-label:after {
@@ -557,21 +721,22 @@
         </div>
         <div style="text-align: center; margin: 2rem 0;">
             <div class="diagram-container" id="container-1">
+                <div class="code-available-badge"><i class="fab fa-github"></i> Source Code Below</div>
                 <button class="annotation-btn" onclick="toggleLens(1)"><i class="fas fa-search-plus"></i> Technical
                     Lens</button>
                 <img src="../images/blog/diagrams/Baseline.png" alt="Baseline Private Web App Diagram"
                     style="max-width: 80%; border-radius: 8px;" loading="lazy">
                 <div class="diagram-overlay">
-                    <div class="hotspot-label" style="top: 40%; right: 25%;">Private Endpoint: Inbound Traffic Only
+                    <div class="hotspot-label" style="top: 40%; right: 25%;" onclick="openBriefing('pe')"><i
+                            class="fas fa-info-circle"></i> Private Endpoint (Inbound)
                     </div>
                 </div>
             </div>
         </div>
         <div style="text-align: center; margin-bottom: 3rem;">
             <a href="https://github.com/appliedailearner/The-Zero-Trust-Trap-Why-Your-Azure-App-Service-Private-Endpoints-Keep-Breaking/tree/main/1-baseline-private-webapp"
-                target="_blank" rel="noopener noreferrer"
-                style="display: inline-block; padding: 0.4rem 0.8rem; background: rgba(255,255,255,0.05); color: #94a3b8; text-decoration: none; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; font-size: 0.85rem; transition: background 0.2s;">
-                <i class="fab fa-github" style="margin-right: 0.4rem;"></i> View Terraform for Scenario 1
+                target="_blank" rel="noopener noreferrer" class="terraform-cta cta-pulse">
+                <i class="fab fa-github"></i> View Terraform for Blueprint 1
             </a>
         </div>
 
@@ -601,21 +766,23 @@
         </div>
         <div style="text-align: center; margin: 2rem 0;">
             <div class="diagram-container" id="container-2">
+                <div class="code-available-badge"><i class="fab fa-github"></i> Source Code Below</div>
                 <button class="annotation-btn" onclick="toggleLens(2)"><i class="fas fa-search-plus"></i> Technical
                     Lens</button>
                 <img src="../images/blog/diagrams/SecureNTier.png" alt="N Tier Web App Diagram"
                     style="max-width: 80%; border-radius: 8px;" loading="lazy">
                 <div class="diagram-overlay">
-                    <div class="hotspot-label" style="top: 30%; left: 20%;">Regional VNet Integration (Outbound)</div>
-                    <div class="hotspot-label" style="top: 30%; right: 20%;">Private Endpoint (Inbound)</div>
+                    <div class="hotspot-label" style="top: 30%; left: 20%;" onclick="openBriefing('vnet-int')"><i
+                            class="fas fa-info-circle"></i> Regional VNet Integration (Outbound)</div>
+                    <div class="hotspot-label" style="top: 30%; right: 20%;" onclick="openBriefing('pe')"><i
+                            class="fas fa-info-circle"></i> Private Endpoint (Inbound)</div>
                 </div>
             </div>
         </div>
         <div style="text-align: center; margin-bottom: 3rem;">
             <a href="https://github.com/appliedailearner/The-Zero-Trust-Trap-Why-Your-Azure-App-Service-Private-Endpoints-Keep-Breaking/tree/main/2-secure-ntier-webapp"
-                target="_blank" rel="noopener noreferrer"
-                style="display: inline-block; padding: 0.4rem 0.8rem; background: rgba(255,255,255,0.05); color: #94a3b8; text-decoration: none; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; font-size: 0.85rem; transition: background 0.2s;">
-                <i class="fab fa-github" style="margin-right: 0.4rem;"></i> View Terraform for Scenario 2
+                target="_blank" rel="noopener noreferrer" class="terraform-cta">
+                <i class="fab fa-github"></i> View Terraform for Blueprint 2
             </a>
         </div>
 
@@ -643,20 +810,21 @@
         </div>
         <div style="text-align: center; margin: 2rem 0;">
             <div class="diagram-container" id="container-3">
+                <div class="code-available-badge"><i class="fab fa-github"></i> Source Code Below</div>
                 <button class="annotation-btn" onclick="toggleLens(3)"><i class="fas fa-search-plus"></i> Technical
                     Lens</button>
                 <img src="../images/blog/diagrams/Clean%20Architecure.png" alt="Web App VNet Injection Diagram"
                     style="max-width: 80%; border-radius: 8px;" loading="lazy">
                 <div class="diagram-overlay">
-                    <div class="hotspot-label" style="top: 50%; left: 30%;">Outbound VNet Tunnel</div>
+                    <div class="hotspot-label" style="top: 50%; left: 30%;" onclick="openBriefing('vnet-int')"><i
+                            class="fas fa-info-circle"></i> Outbound VNet Tunnel</div>
                 </div>
             </div>
         </div>
         <div style="text-align: center; margin-bottom: 3rem;">
             <a href="https://github.com/appliedailearner/The-Zero-Trust-Trap-Why-Your-Azure-App-Service-Private-Endpoints-Keep-Breaking/tree/main/3-webapp-vnet-injection"
-                target="_blank" rel="noopener noreferrer"
-                style="display: inline-block; padding: 0.4rem 0.8rem; background: rgba(255,255,255,0.05); color: #94a3b8; text-decoration: none; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; font-size: 0.85rem; transition: background 0.2s;">
-                <i class="fab fa-github" style="margin-right: 0.4rem;"></i> View Terraform for Scenario 3
+                target="_blank" rel="noopener noreferrer" class="terraform-cta">
+                <i class="fab fa-github"></i> View Terraform for Blueprint 3
             </a>
         </div>
 
@@ -685,21 +853,23 @@
         </div>
         <div style="text-align: center; margin: 2rem 0;">
             <div class="diagram-container" id="container-4">
+                <div class="code-available-badge"><i class="fab fa-github"></i> Source Code Below</div>
                 <button class="annotation-btn" onclick="toggleLens(4)"><i class="fas fa-search-plus"></i> Technical
                     Lens</button>
                 <img src="../images/blog/diagrams/Optimised.png" alt="App Gateway WAF Pattern Diagram"
                     style="max-width: 80%; border-radius: 8px;" loading="lazy">
                 <div class="diagram-overlay">
-                    <div class="hotspot-label" style="top: 20%; left: 15%;">WAF v2: Inspection Zone</div>
-                    <div class="hotspot-label" style="top: 20%; right: 15%;">Private DNS Integration</div>
+                    <div class="hotspot-label" style="top: 20%; left: 15%;" onclick="openBriefing('waf')"><i
+                            class="fas fa-info-circle"></i> WAF v2: Inspection Zone</div>
+                    <div class="hotspot-label" style="top: 20%; right: 15%;" onclick="openBriefing('dns')"><i
+                            class="fas fa-info-circle"></i> Private DNS Integration</div>
                 </div>
             </div>
         </div>
         <div style="text-align: center; margin-bottom: 3rem;">
             <a href="https://github.com/appliedailearner/The-Zero-Trust-Trap-Why-Your-Azure-App-Service-Private-Endpoints-Keep-Breaking/tree/main/4-appgw-waf-pattern"
-                target="_blank" rel="noopener noreferrer"
-                style="display: inline-block; padding: 0.4rem 0.8rem; background: rgba(255,255,255,0.05); color: #94a3b8; text-decoration: none; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; font-size: 0.85rem; transition: background 0.2s;">
-                <i class="fab fa-github" style="margin-right: 0.4rem;"></i> View Terraform for Scenario 4
+                target="_blank" rel="noopener noreferrer" class="terraform-cta">
+                <i class="fab fa-github"></i> View Terraform for Blueprint 4
             </a>
         </div>
 
@@ -732,21 +902,23 @@
         </div>
         <div style="text-align: center; margin: 2rem 0;">
             <div class="diagram-container" id="container-5">
+                <div class="code-available-badge"><i class="fab fa-github"></i> Source Code Below</div>
                 <button class="annotation-btn" onclick="toggleLens(5)"><i class="fas fa-search-plus"></i> Technical
                     Lens</button>
                 <img src="../images/blog/diagrams/Clean%20Architecure%20SQL%20over%20PE.png"
                     alt="SQL over Private Endpoint" style="max-width: 80%; border-radius: 8px;" loading="lazy">
                 <div class="diagram-overlay">
-                    <div class="hotspot-label" style="top: 40%; left: 20%;">Regional VNet Int (Outbound)</div>
-                    <div class="hotspot-label" style="top: 40%; right: 20%;">SQL Private Endpoint</div>
+                    <div class="hotspot-label" style="top: 40%; left: 20%;" onclick="openBriefing('vnet-int')"><i
+                            class="fas fa-info-circle"></i> Regional VNet Int (Outbound)</div>
+                    <div class="hotspot-label" style="top: 40%; right: 20%;" onclick="openBriefing('pe')"><i
+                            class="fas fa-info-circle"></i> SQL Private Endpoint</div>
                 </div>
             </div>
         </div>
         <div style="text-align: center; margin-bottom: 3rem;">
             <a href="https://github.com/appliedailearner/The-Zero-Trust-Trap-Why-Your-Azure-App-Service-Private-Endpoints-Keep-Breaking/tree/main/5-egress-sql-over-pe"
-                target="_blank" rel="noopener noreferrer"
-                style="display: inline-block; padding: 0.4rem 0.8rem; background: rgba(255,255,255,0.05); color: #94a3b8; text-decoration: none; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; font-size: 0.85rem; transition: background 0.2s;">
-                <i class="fab fa-github" style="margin-right: 0.4rem;"></i> View Terraform for Scenario 5
+                target="_blank" rel="noopener noreferrer" class="terraform-cta">
+                <i class="fab fa-github"></i> View Terraform for Blueprint 5
             </a>
         </div>
 
@@ -781,17 +953,19 @@
                 <img src="../images/blog/diagrams/Gold%20Standard.png" alt="Gold Standard APIM WAF Diagram"
                     style="max-width: 80%; border-radius: 8px;" loading="lazy">
                 <div class="diagram-overlay">
-                    <div class="hotspot-label" style="top: 20%; left: 15%;">WAF v2: Rejecting SQLi/XSS</div>
-                    <div class="hotspot-label" style="top: 20%; right: 15%;">APIM: Validating JWT/OIDC</div>
-                    <div class="hotspot-label" style="bottom: 25%; left: 45%;">App Service: Hidden from World</div>
+                    <div class="hotspot-label" style="top: 20%; left: 15%;" onclick="openBriefing('waf')"><i
+                            class="fas fa-info-circle"></i> WAF v2: Rejecting SQLi/XSS</div>
+                    <div class="hotspot-label" style="top: 20%; right: 15%;" onclick="openBriefing('apim')"><i
+                            class="fas fa-info-circle"></i> APIM: Validating JWT/OIDC</div>
+                    <div class="hotspot-label" style="bottom: 25%; left: 45%;" onclick="openBriefing('pe')"><i
+                            class="fas fa-info-circle"></i> App Service: Hidden from World</div>
                 </div>
             </div>
         </div>
         <div style="text-align: center; margin-bottom: 3rem;">
             <a href="https://github.com/appliedailearner/The-Zero-Trust-Trap-Why-Your-Azure-App-Service-Private-Endpoints-Keep-Breaking/tree/main/6-gold-standard-apim-waf"
-                target="_blank" rel="noopener noreferrer"
-                style="display: inline-block; padding: 0.4rem 0.8rem; background: rgba(255,255,255,0.05); color: #94a3b8; text-decoration: none; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; font-size: 0.85rem; transition: background 0.2s;">
-                <i class="fab fa-github" style="margin-right: 0.4rem;"></i> View Terraform for Scenario 6
+                target="_blank" rel="noopener noreferrer" class="terraform-cta">
+                <i class="fab fa-github"></i> View Terraform for Blueprint 6
             </a>
         </div>
 
@@ -801,55 +975,112 @@
         <p>Infrastructure in code is deterministic; infrastructure in production is unforgiving. Here is how we resolve
             the critical "Day 2" failures encountered at the enterprise scale:</p>
 
-        <div style="margin: 2rem 0;">
+        <div style="margin: 2.5rem 0; display: grid; grid-template-columns: 1fr; gap: 2rem;">
+            <!-- Incident Report 1 -->
             <div
-                style="margin-bottom: 1.5rem; padding: 1.2rem; background: rgba(15, 23, 42, 0.8); border-left: 3px solid #f59e0b; border-radius: 4px;">
-                <h4 style="margin: 0 0 0.5rem 0; color: #f8fafc;"><i class="fas fa-exclamation-triangle"
-                        style="color: #f59e0b; margin-right: 0.5rem;"></i> Post-Mortem 1: Resolving the 502 Routing
-                    Vacuum</h4>
-                <p style="margin: 0; color: #cbd5e1; font-size: 0.95rem;"><strong>The Fix:</strong> Did you configure
-                    the Custom Probe? App Gateways forward requests with their own host header. App Services will reject
-                    this if they expect the `hostname.azurewebsites.net` header. You must set <em>"Pick Hostname from
-                        Backend Target"</em> to <strong>Yes</strong> in your AppGW HTTP Settings.</p>
+                style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(245, 158, 11, 0.2); border-left: 4px solid #f59e0b; border-radius: 12px; padding: 2rem; position: relative; overflow: hidden;">
+                <div
+                    style="position: absolute; top: -10px; right: -10px; font-size: 5rem; color: rgba(245, 158, 11, 0.05); transform: rotate(15deg); pointer-events: none;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h4
+                    style="margin: 0 0 1.5rem 0; color: #f8fafc; font-size: 1.3rem; display: flex; align-items: center; gap: 12px;">
+                    <span
+                        style="background: rgba(245, 158, 11, 0.1); color: #f59e0b; padding: 4px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 800;">INCIDENT
+                        #01</span>
+                    Resolving the 502 Routing Vacuum
+                </h4>
+                <div style="display: grid; grid-template-columns: 1fr; gap: 1rem; color: #cbd5e1; font-size: 0.95rem;">
+                    <div><strong><i class="fas fa-biohazard" style="color: #ef4444; width: 20px;"></i> Impact:</strong>
+                        Total application blackout for external users despite passing "Zero Trust" compliance checks.
+                    </div>
+                    <div><strong><i class="fas fa-microscope" style="color: #3b82f6; width: 20px;"></i> Root
+                            Cause:</strong> Architecture Drift. App Gateway forwarded requests with its own host header,
+                        which Azure App Service rejected as an unrecognized domain.</div>
+                    <div
+                        style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); padding: 1rem; border-radius: 8px; margin-top: 0.5rem;">
+                        <strong><i class="fas fa-tools" style="color: #10b981;"></i> Strategic Resolution:</strong>
+                        Enable <em>"Pick Hostname from Backend Target"</em> in AppGW HTTP Settings. This synchronizes
+                        the SNI handshake and restores traffic flow without sacrificing SSL integrity.
+                    </div>
+                </div>
             </div>
 
+            <!-- Incident Report 2 -->
             <div
-                style="margin-bottom: 1.5rem; padding: 1.2rem; background: rgba(15, 23, 42, 0.8); border-left: 3px solid #ef4444; border-radius: 4px;">
-                <h4 style="margin: 0 0 0.5rem 0; color: #f8fafc;"><i class="fas fa-exclamation-triangle"
-                        style="color: #ef4444; margin-right: 0.5rem;"></i> Post-Mortem 2: Bridging the CI/CD Isolation
-                    Gap</h4>
-                <p style="margin: 0; color: #cbd5e1; font-size: 0.95rem;"><strong>The Fix:</strong> You probably deleted
-                    the Access Keys entirely while migrating to Entra ID Managed Identity. If you are using Linux
-                    Elastic Premium (EP1+), the orchestrator <strong>strictly requires</strong> the
-                    `WEBSITE_CONTENTAZUREFILECONNECTIONSTRING` to mount the code file share early in the boot process.
-                    Pure Entra ID for the content share is not yet fully supported on Linux. Revert the file share
-                    setting back to Connection Strings, but keep the triggers (Blob/Queue) on Managed Identity (via
-                    `AzureWebJobsStorage__accountName`).</p>
+                style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(239, 68, 68, 0.2); border-left: 4px solid #ef4444; border-radius: 12px; padding: 2rem; position: relative; overflow: hidden;">
+                <div
+                    style="position: absolute; top: -10px; right: -10px; font-size: 5rem; color: rgba(239, 68, 68, 0.05); transform: rotate(15deg); pointer-events: none;">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <h4
+                    style="margin: 0 0 1.5rem 0; color: #f8fafc; font-size: 1.3rem; display: flex; align-items: center; gap: 12px;">
+                    <span
+                        style="background: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 4px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 800;">INCIDENT
+                        #02</span>
+                    Bridging the CI/CD Isolation Gap
+                </h4>
+                <div style="display: grid; grid-template-columns: 1fr; gap: 1rem; color: #cbd5e1; font-size: 0.95rem;">
+                    <div><strong><i class="fas fa-biohazard" style="color: #ef4444; width: 20px;"></i> Impact:</strong>
+                        Linux Function Apps failing to mount content shares, leading to cryptic boot-loop failures.
+                    </div>
+                    <div><strong><i class="fas fa-microscope" style="color: #3b82f6; width: 20px;"></i> Root
+                            Cause:</strong> Entra ID Identity Gap. Linux orchestrators require legacy Connection Strings
+                        for early-stage SMB mounts of the code share before Managed Identity is fully initialized.</div>
+                    <div
+                        style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); padding: 1rem; border-radius: 8px; margin-top: 0.5rem;">
+                        <strong><i class="fas fa-tools" style="color: #10b981;"></i> Strategic Resolution:</strong>
+                        Maintain Connection Strings for `WEBSITE_CONTENTAZUREFILECONNECTIONSTRING` while offloading data
+                        plane triggers to Managed Identity. This hybrid approach guarantees boot stability in isolated
+                        VNets.
+                    </div>
+                </div>
             </div>
 
+            <!-- Incident Report 3 -->
             <div
-                style="margin-bottom: 0; padding: 1.2rem; background: rgba(15, 23, 42, 0.8); border-left: 3px solid #3b82f6; border-radius: 4px;">
-                <h4 style="margin: 0 0 0.5rem 0; color: #f8fafc;"><i class="fas fa-exclamation-triangle"
-                        style="color: #3b82f6; margin-right: 0.5rem;"></i> Post-Mortem 3: DNS Resolution & Split-Brain
-                    Mitigation</h4>
-                <p style="margin: 0; color: #cbd5e1; font-size: 0.95rem;"><strong>The Fix:</strong> The #1 reason for
-                    Private Endpoint failure is DNS Blackholing. Your on-premises DNS server must conditionally forward
-                    queries for `privatelink.azurewebsites.net` to the Azure DNS Private Resolver INBOUND endpoint IP
-                    located in your Hub VNet. If you simply point your laptop to Google's `8.8.8.8`, it will always
-                    resolve the App Service's public IP, which will immediately drop your traffic with an HTTP 403
-                    Forbidden since you disabled public network access.</p>
+                style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(59, 130, 246, 0.2); border-left: 4px solid #3b82f6; border-radius: 12px; padding: 2rem; position: relative; overflow: hidden;">
+                <div
+                    style="position: absolute; top: -10px; right: -10px; font-size: 5rem; color: rgba(59, 130, 246, 0.05); transform: rotate(15deg); pointer-events: none;">
+                    <i class="fas fa-network-wired"></i>
+                </div>
+                <h4
+                    style="margin: 0 0 1.5rem 0; color: #f8fafc; font-size: 1.3rem; display: flex; align-items: center; gap: 12px;">
+                    <span
+                        style="background: rgba(59, 130, 246, 0.1); color: #3b82f6; padding: 4px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 800;">INCIDENT
+                        #03</span>
+                    DNS Resolution & Split-Brain Mitigation
+                </h4>
+                <div style="display: grid; grid-template-columns: 1fr; gap: 1rem; color: #cbd5e1; font-size: 0.95rem;">
+                    <div><strong><i class="fas fa-biohazard" style="color: #ef4444; width: 20px;"></i> Impact:</strong>
+                        403 Forbidden errors when accessing private endpoints from on-premises or remote VPNs.</div>
+                    <div><strong><i class="fas fa-microscope" style="color: #3b82f6; width: 20px;"></i> Root
+                            Cause:</strong> DNS Blackholing. Public DNS resolvers (8.8.8.8) return the public IP, which
+                        is blocked. Only Azure Private DNS can resolve the internal 10.x.x.x address.</div>
+                    <div
+                        style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); padding: 1rem; border-radius: 8px; margin-top: 0.5rem;">
+                        <strong><i class="fas fa-tools" style="color: #10b981;"></i> Strategic Resolution:</strong>
+                        Deploy an Azure DNS Private Resolver. Configure on-premises conditional forwarders to route
+                        `privatelink.azurewebsites.net` traffic through the hub VNet for authoritative resolution.
+                    </div>
+                </div>
             </div>
         </div>
 
         <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
 
         <div
-            style="background: rgba(168, 85, 247, 0.05); border-left: 4px solid #a855f7; padding: 1.5rem; border-radius: 8px; margin: 2rem 0; font-style: italic;">
-            <h4 style="color: #a855f7; margin-top: 0; margin-bottom: 0.5rem;"><i class="fas fa-microchip"></i> The
-                Architect's Ledger</h4>
-            "In Azure, the 'Gold Standard' isn't about having the most expensive services. It's about having the most
-            predictable failure modes. APIM + App Gateway + Private Endpoints is a powerhouse, but only if you've
-            mastered the lifecycle of the underlying subnets and DNS records."
+            style="background: linear-gradient(145deg, rgba(168, 85, 247, 0.1), rgba(88, 28, 135, 0.1)); border: 1px solid rgba(168, 85, 247, 0.3); border-left: 5px solid #a855f7; padding: 2rem; border-radius: 12px; margin: 3rem 0; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
+            <h4
+                style="color: #a855f7; margin-top: 0; margin-bottom: 1rem; font-size: 1.2rem; display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-chess-king"></i> The Distinguished Architect's Ledger
+            </h4>
+            <p style="margin: 0; line-height: 1.7; color: #f8fafc; font-style: italic; font-size: 1.1rem;">
+                "In the realm of Enterprise Azure, the 'Gold Standard' isn't measured by the complexity of your
+                resources, <strong>but by the predictability of your failure modes.</strong> A perimeter composed of
+                APIM, Application Gateway, and Private Endpoints is a fortress—but only if you have mastered the
+                immutable lifecycle of subnets and DNS. Master the network, and you master the cloud."
+            </p>
         </div>
 
         <h3>Ready to operationalize your Azure perimeter?</h3>
@@ -946,6 +1177,32 @@
         </div>
     </footer>
 
+    <!-- Technical Briefing Modal -->
+    <div id="briefing-overlay" class="briefing-overlay" onclick="closeBriefing()">
+        <div class="briefing-modal" onclick="event.stopPropagation()">
+            <div class="briefing-close" onclick="closeBriefing()">&times;</div>
+            <h3 id="briefing-title" class="briefing-title">Briefing Title</h3>
+            <div class="briefing-grid">
+                <div class="briefing-item">
+                    <h5><i class="fas fa-brain" style="color: #a855f7;"></i> Easy Understanding</h5>
+                    <p id="briefing-simple">Definition here...</p>
+                </div>
+                <div class="briefing-item">
+                    <h5><i class="fas fa-rocket" style="color: #10b981;"></i> Benefits & Why Use It</h5>
+                    <p id="briefing-benefits">Benefits here...</p>
+                </div>
+                <div class="briefing-item">
+                    <h5><i class="fas fa-exclamation-triangle" style="color: #ef4444;"></i> Limitations</h5>
+                    <p id="briefing-limits">Limitations here...</p>
+                </div>
+                <div class="briefing-item">
+                    <h5><i class="fas fa-calendar-check" style="color: #3b82f6;"></i> When to Deploy</h5>
+                    <p id="briefing-usage">Usage scenarios here...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // --- Architecture Wizard Logic ---
         function wizardNext(currentStep, choice) {
@@ -1011,16 +1268,77 @@
         // --- Technical Lens Logic ---
         function toggleLens(id) {
             const container = document.getElementById(`container-${id}`);
+            if (!container) return;
             container.classList.toggle('lens-active');
 
             const btn = container.querySelector('.annotation-btn');
-            if (container.classList.contains('lens-active')) {
-                btn.innerHTML = '<i class="fas fa-search-minus"></i> Hide Lens';
-                btn.style.background = '#ef4444';
-            } else {
-                btn.innerHTML = '<i class="fas fa-search-plus"></i> Technical Lens';
-                btn.style.background = 'rgba(14, 165, 233, 0.8)';
+            if (btn) {
+                if (container.classList.contains('lens-active')) {
+                    btn.innerHTML = '<i class="fas fa-search-minus"></i> Hide Lens';
+                    btn.style.background = '#ef4444';
+                } else {
+                    btn.innerHTML = '<i class="fas fa-search-plus"></i> Technical Lens';
+                    btn.style.background = 'rgba(14, 165, 233, 0.8)';
+                }
             }
+        }
+
+        // --- Technical Briefing Logic ---
+        const briefingData = {
+            'pe': {
+                title: 'Private Endpoint (Sovereign Ingress)',
+                simple: 'The "unlisted phone number" for your Azure resources. A private IP accessible only within your VNet.',
+                benefits: 'Eliminates the public data plane. Neutralizes scanning bots and volumetric DDoS attacks by removing the resource from the public internet entirely.',
+                limits: 'DNS orchestration complexity. Requires Private DNS Resolver and peering logic to maintain local resolution chains.',
+                usage: 'Non-negotiable for production SQL, Storage, and Backend Application Tiers.'
+            },
+            'vnet-int': {
+                title: 'Regional VNet Integration (Secure Egress)',
+                simple: 'The digital "VPN tunnel" for your app to talk to your internal corporate infrastructure.',
+                benefits: 'Allows apps to reach private databases and on-premises resources without traversing the public internet. Guarantees traffic nunca leaves your sovereign perimeter.',
+                limits: 'Outbound only. Does not provide inbound privacy. Requires a dedicated /28 or /26 subnet.',
+                usage: 'Required whenever an app must access a Private Endpoint-protected backend or on-premises server.'
+            },
+            'waf': {
+                title: 'Web Application Firewall (Layer 7 Defense)',
+                simple: 'The "Secret Service" for your HTTP traffic. It inspects every byte for malicious patterns.',
+                benefits: 'OWASP Top 10 mitigation (SQLi, XSS) at the network edge. Blocks threats before they touch your application code.',
+                limits: 'Latency overhead (~30ms) and initial tuning noise. Requires careful rule management to prevent false positives.',
+                usage: 'Primary shield for any public-facing endpoint, particularly those handling sensitive PII or Financial data.'
+            },
+            'apim': {
+                title: 'API Management (Governance Gateway)',
+                simple: 'The "Central Command" for your API ecosystem. It handles keys, quotas, and internal routing.',
+                benefits: 'Unified policy enforcement (JWT validation, Rate Limiting, IP Filtering). abstracts backend complexity from developers.',
+                limits: 'Significant capital cost (Premium Tier required for VNet injection). Adds architectural weight to simple topologies.',
+                usage: 'Enterprise-scale microservices, public API monetization, and internal developer platforms.'
+            },
+            'dns': {
+                title: 'Private DNS Zones (Trust Resolution)',
+                simple: 'A private directory that maps internal service names to their secret 10.x.x.x IP addresses.',
+                benefits: 'Enables "Split-Brain" DNS: standard URLs work internally but fail for the public, ensuring only authorized paths resolve.',
+                limits: 'Resolution failures are the #1 cause of PE outages. Requires careful VNet linking and recursive resolver logic.',
+                usage: 'Every Private Endpoint implementation requires a supporting Private DNS Zone for correct handshake resolution.'
+            }
+        };
+
+        function openBriefing(key) {
+            const data = briefingData[key];
+            if (!data) return;
+
+            document.getElementById('briefing-title').innerText = data.title;
+            document.getElementById('briefing-simple').innerText = data.simple;
+            document.getElementById('briefing-benefits').innerText = data.benefits;
+            document.getElementById('briefing-limits').innerText = data.limits;
+            document.getElementById('briefing-usage').innerText = data.usage;
+
+            document.getElementById('briefing-overlay').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeBriefing() {
+            document.getElementById('briefing-overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
     </script>
 
