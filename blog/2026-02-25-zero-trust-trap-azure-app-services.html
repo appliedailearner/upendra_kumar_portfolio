@@ -263,7 +263,7 @@
         </p>
 
         <figure style="margin: 3rem 0; text-align: center;">
-            <img src="../../azurewebapp/final_azure_architecture_diagram.png"
+            <img src="../images/blog/diagrams/final_azure_architecture_diagram.png"
                 alt="Azure Architecture Diagram with Official Icons"
                 style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);" loading="lazy">
             <figcaption style="color: var(--text-muted); font-size: 0.9rem; margin-top: 1rem;">The Gold Standard:
@@ -308,36 +308,119 @@
             validated patterns you should be deploying:
         </p>
 
-        <h3>1. Secure N-Tier Architecture (Frontend to Private Backend)</h3>
-        <p>
-            Your React Frontend needs to talk to a .NET Backend, but the Backend must remain hidden. The Frontend
-            utilizes <strong>VNet Regional Integration</strong> (outbound into the VNet). The Backend has <strong>Public
-                Network Access Disabled</strong> and an inbound <strong>Private Endpoint</strong>.
-        </p>
+        <h3>1. The Baseline Private Web App</h3>
+        <p><strong>The Analogy:</strong> The VIP Room. The club is open, but this room is strictly invitation-only from
+            the inside.</p>
+        <p><strong>Scenario:</strong> You need a single Web App entirely isolated from the public internet, accessible
+            only from within the corporate VNet via a Jumpbox, ExpressRoute, or VPN.</p>
+        <div
+            style="margin: 1.5rem 0; padding: 1.2rem; background: rgba(59, 130, 246, 0.05); border-left: 3px solid #3b82f6; border-radius: 4px;">
+            <p style="margin-bottom: 0.5rem;"><strong><i class="fas fa-check-circle" style="color: #22c55e;"></i>
+                    Benefits:</strong> 100% public internet isolation.</p>
+            <p style="margin-bottom: 0.5rem;"><strong><i class="fas fa-bullseye" style="color: #f59e0b;"></i> Use
+                    Cases:</strong> Internal HR tools, Admin dashboards, Back-office APIs.</p>
+            <p style="margin-bottom: 0;"><strong><i class="fas fa-exclamation-triangle" style="color: #ef4444;"></i>
+                    Limitations:</strong> Harder to deploy to without self-hosted CI/CD agents.</p>
+        </div>
         <div style="text-align: center; margin: 2rem 0;">
-            <img src="../../azurewebapp/2_Secure_NTier_WebApp.png" alt="N Tier Web App Diagram"
+            <img src="../images/blog/diagrams/1_Baseline_Private_WebApp.png" alt="Baseline Private Web App Diagram"
                 style="max-width: 80%; border-radius: 8px;" loading="lazy">
         </div>
 
-        <h3>2. The App Gateway WAF Pattern</h3>
-        <p>
-            You need Enterprise-grade Layer 7 protection (Web Application Firewall). All traffic must hit an Application
-            Gateway v2 first. The Gateway sits in a peered VNet and routes privately to the App Service using the
-            Private DNS Zone. The App Service public endpoints remain off.
-        </p>
+        <h3>2. Secure N-Tier Architecture (Frontend to Private Backend)</h3>
+        <p><strong>The Analogy:</strong> The Speakeasy. You can enter the front room (Frontend), but you need a secret
+            hallway (VNet routing) to get through to the back room (Backend).</p>
+        <p><strong>Scenario:</strong> Your React Frontend (Public) needs to talk to a .NET Backend, but the Backend must
+            remain hidden. The Frontend utilizes <strong>VNet Regional Integration</strong>. The Backend has an inbound
+            <strong>Private Endpoint</strong>.</p>
+        <div
+            style="margin: 1.5rem 0; padding: 1.2rem; background: rgba(59, 130, 246, 0.05); border-left: 3px solid #3b82f6; border-radius: 4px;">
+            <p style="margin-bottom: 0.5rem;"><strong><i class="fas fa-check-circle" style="color: #22c55e;"></i>
+                    Benefits:</strong> Keeps databases and core logic off the internet while allowing public UX.</p>
+            <p style="margin-bottom: 0.5rem;"><strong><i class="fas fa-bullseye" style="color: #f59e0b;"></i> Use
+                    Cases:</strong> E-commerce sites, Public-facing SaaS apps, Customer portals.</p>
+            <p style="margin-bottom: 0;"><strong><i class="fas fa-exclamation-triangle" style="color: #ef4444;"></i>
+                    Limitations:</strong> Requires two separate App Services and careful DNS management.</p>
+        </div>
         <div style="text-align: center; margin: 2rem 0;">
-            <img src="../../azurewebapp/4_AppGateway_WebApp_PE.png" alt="App Gateway WAF Pattern Diagram"
+            <img src="../images/blog/diagrams/2_Secure_NTier_WebApp.png" alt="N Tier Web App Diagram"
                 style="max-width: 80%; border-radius: 8px;" loading="lazy">
         </div>
 
-        <h3>3. Egress: App Service to Private SQL</h3>
-        <p>
-            Compliance dictates your Azure SQL Database cannot have public endpoints exposed. The App Service uses VNet
-            Regional Integration to route its outbound SQL queries (port 1433) securely across the Microsoft Backbone to
-            the SQL Private IP.
-        </p>
+        <h3>3. Web App Outbound to Private Target (VNet Injection)</h3>
+        <p><strong>The Analogy:</strong> The Armored Car. The app safely travels through the wild internet by taking a
+            secure, heavily-guarded dedicated tunnel to its destination.</p>
+        <p><strong>Scenario:</strong> Your Web App needs to securely reach a 3rd party or down-stream managed service
+            that is locked behind a Private Endpoint in your VNet.</p>
+        <div
+            style="margin: 1.5rem 0; padding: 1.2rem; background: rgba(59, 130, 246, 0.05); border-left: 3px solid #3b82f6; border-radius: 4px;">
+            <p style="margin-bottom: 0.5rem;"><strong><i class="fas fa-check-circle" style="color: #22c55e;"></i>
+                    Benefits:</strong> Prevents data exfiltration by forcing all outbound traffic through the VNet.</p>
+            <p style="margin-bottom: 0.5rem;"><strong><i class="fas fa-bullseye" style="color: #f59e0b;"></i> Use
+                    Cases:</strong> Apps needing to talk to private Redis caches, Key Vaults, or internal VMs.</p>
+            <p style="margin-bottom: 0;"><strong><i class="fas fa-exclamation-triangle" style="color: #ef4444;"></i>
+                    Limitations:</strong> App Service plan must support VNet Integration (Basic or higher).</p>
+        </div>
         <div style="text-align: center; margin: 2rem 0;">
-            <img src="../../azurewebapp/5_SQL_over_PE.png" alt="SQL over Private Endpoint"
+            <img src="../images/blog/diagrams/3_WebApp_VNetInjection_PE.png" alt="Web App VNet Injection Diagram"
+                style="max-width: 80%; border-radius: 8px;" loading="lazy">
+        </div>
+
+        <h3>4. The App Gateway WAF Pattern</h3>
+        <p><strong>The Analogy:</strong> The Bouncer. Nobody gets to the party without getting patted down for weapons
+            (SQLi/XSS) at the front door.</p>
+        <p><strong>Scenario:</strong> You need Enterprise-grade Layer 7 protection. All traffic must hit an Application
+            Gateway v2 first. The Gateway sits in a peered VNet and routes privately using the Private DNS Zone.</p>
+        <div
+            style="margin: 1.5rem 0; padding: 1.2rem; background: rgba(59, 130, 246, 0.05); border-left: 3px solid #3b82f6; border-radius: 4px;">
+            <p style="margin-bottom: 0.5rem;"><strong><i class="fas fa-check-circle" style="color: #22c55e;"></i>
+                    Benefits:</strong> OWASP Top 10 protection, centralized TLS termination.</p>
+            <p style="margin-bottom: 0.5rem;"><strong><i class="fas fa-bullseye" style="color: #f59e0b;"></i> Use
+                    Cases:</strong> Regulated financial apps, Healthcare portals, High-value public ingress.</p>
+            <p style="margin-bottom: 0;"><strong><i class="fas fa-exclamation-triangle" style="color: #ef4444;"></i>
+                    Limitations:</strong> App Gateway v2 can be expensive and requires dedicated subnets.</p>
+        </div>
+        <div style="text-align: center; margin: 2rem 0;">
+            <img src="../images/blog/diagrams/4_AppGateway_WebApp_PE.png" alt="App Gateway WAF Pattern Diagram"
+                style="max-width: 80%; border-radius: 8px;" loading="lazy">
+        </div>
+
+        <h3>5. Egress: App Service to Private SQL</h3>
+        <p><strong>The Analogy:</strong> The Tell-Tale Heart. The database is buried securely under the floorboards (the
+            VNet), and the App Service is the only one who knows exactly where to listen.</p>
+        <p><strong>Scenario:</strong> Compliance dictates Azure SQL Database cannot have public endpoints exposed. The
+            App Service uses VNet Integration to route SQL queries (1433) safely.</p>
+        <div
+            style="margin: 1.5rem 0; padding: 1.2rem; background: rgba(59, 130, 246, 0.05); border-left: 3px solid #3b82f6; border-radius: 4px;">
+            <p style="margin-bottom: 0.5rem;"><strong><i class="fas fa-check-circle" style="color: #22c55e;"></i>
+                    Benefits:</strong> Satisfies strict DB isolation requirements. No public "Server firewall" rules
+                needed.</p>
+            <p style="margin-bottom: 0.5rem;"><strong><i class="fas fa-bullseye" style="color: #f59e0b;"></i> Use
+                    Cases:</strong> Banking Ledgers, Patient Health Records (PHI), PII databases.</p>
+            <p style="margin-bottom: 0;"><strong><i class="fas fa-exclamation-triangle" style="color: #ef4444;"></i>
+                    Limitations:</strong> Performance overhead (minimal) crossing the VNet boundary.</p>
+        </div>
+        <div style="text-align: center; margin: 2rem 0;">
+            <img src="../images/blog/diagrams/5_SQL_over_PE.png" alt="SQL over Private Endpoint"
+                style="max-width: 80%; border-radius: 8px;" loading="lazy">
+        </div>
+
+        <h3>6. The "Gold Standard" Enterprise APIM + WAF</h3>
+        <p><strong>The Analogy:</strong> The Airport Security. WAF is the metal detector, APIM is the boarding pass
+            check, and the App service is the plane.</p>
+        <p><strong>Scenario:</strong> Application Gateway (Public) -> API Management (Internal VNet Mode) -> App Service
+            (Private Endpoint). The ultimate perimeter defense.</p>
+        <div
+            style="margin: 1.5rem 0; padding: 1.2rem; background: rgba(59, 130, 246, 0.05); border-left: 3px solid #3b82f6; border-radius: 4px;">
+            <p style="margin-bottom: 0.5rem;"><strong><i class="fas fa-check-circle" style="color: #22c55e;"></i>
+                    Benefits:</strong> Layer 7 isolation + Identity/Rate-Limiting + Backend isolation.</p>
+            <p style="margin-bottom: 0.5rem;"><strong><i class="fas fa-bullseye" style="color: #f59e0b;"></i> Use
+                    Cases:</strong> Sovereign Cloud APIs, Regulated Open Banking platforms.</p>
+            <p style="margin-bottom: 0;"><strong><i class="fas fa-exclamation-triangle" style="color: #ef4444;"></i>
+                    Limitations:</strong> High cost and complex troubleshooting path (Tri-level logs).</p>
+        </div>
+        <div style="text-align: center; margin: 2rem 0;">
+            <img src="../images/blog/diagrams/6_GoldStandard_WAF_APIM_WebApp.png" alt="Gold Standard APIM WAF Diagram"
                 style="max-width: 80%; border-radius: 8px;" loading="lazy">
         </div>
 
