@@ -1,0 +1,26 @@
+graph TD
+    classDef azure fill:#0072C6,stroke:#fff,stroke-width:2px,color:#fff,rx:5,ry:5;
+    classDef vnet fill:#E3F2FD,stroke:#90CAF9,stroke-width:2px,stroke-dasharray: 5 5;
+    classDef user fill:#333,stroke:#fff,stroke-width:2px,color:#fff,rx:20,ry:20;
+
+    Client([Users / Internet Clients]):::user
+
+    subgraph VNET [Virtual Network: vnet-ictsi-sea-01]
+        APIM[Azure API Management<br/>External/Internal VNet Mode]:::azure
+        PE[Azure Private Endpoint<br/>IP: 10.50.10.x]:::azure
+    end
+
+    subgraph PAAS [Azure PaaS Services]
+        AppServer[Azure App Service Web App<br/>Public Access: Disabled]:::azure
+    end
+
+    DNS[Private DNS Zone<br/>privatelink.azurewebsites.net]:::azure
+
+    Client -->|HTTPS Request| APIM
+    APIM -->|Routes to Private IP| PE
+    PE -->|Private Link| AppServer
+
+    APIM -.->|Resolves Backend Name| DNS
+    DNS -.->|Returns 10.50.10.x| APIM
+
+    class VNET vnet;
