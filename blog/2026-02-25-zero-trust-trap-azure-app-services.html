@@ -1036,6 +1036,26 @@
         html {
             scroll-behavior: smooth;
         }
+
+        @media (min-width: 1200px) {
+            .blog-layout-wrapper {
+                display: flex;
+                gap: 4rem;
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 2rem;
+            }
+
+            .toc-sidebar {
+                display: block;
+            }
+
+            .blog-post-content {
+                margin: 0;
+                padding: 4rem 0;
+                flex: 1;
+            }
+        }
     </style>
 
     <!-- Performance: Preconnect to Font & Script Servers -->
@@ -2215,106 +2235,100 @@ resource "azurerm_private_endpoint" "app" {
     </div>
 
     <!-- Layout Wrapper End -->
+    <script>
+        // --- Consolidated Technical Briefing System ---
+        const briefingData = {
+            'kudu': {
+                title: 'CI/CD Deployment Block',
+                simple: 'Public Microsoft hosts cannot resolve your Internal VNet. Deployments will time out with 403 Forbidden.',
+                benefits: 'Ensures code changes are vetted within the perimeter. Forces the use of secure pathways like Self-Hosted Agents.',
+                limits: 'Creates a "Dead End" for standard GitHub/ADO hosted agents. Requires custom infrastructure setup.',
+                usage: 'Critical for any App Service with "Public Network Access" set to Disabled.'
+            },
+            'dns': {
+                title: 'Private DNS Resolution (recursive lookup)',
+                simple: 'The digital "phonebook" mapping private IPs to hostnames. Failure here is the #1 cause of PE outages.',
+                benefits: 'Prevents leakage of internal architecture to the public. Enables certificate validation (TLS) over private IPs.',
+                limits: 'Requires meticulous VNet linking and recursive resolution chains (168.63.129.16).',
+                usage: 'Must be linked to EVERY VNet in the communication chain (Hub and Spokes).'
+            },
+            'pe': {
+                title: 'Private Endpoint (L4 Isolation)',
+                simple: 'A secret portal into your VNet. Removes the public IP entirely.',
+                benefits: 'Eliminates public internet scans. Traffic stays on the Microsoft backbone. 100% isolation from volumetric DDoS.',
+                limits: 'Adds static cost ($7.30/mo base) and DNS complexity. Outbound traffic still needs VNet Integration.',
+                usage: 'Mandatory for backend APIs, databases, and sensitive PII processing apps.'
+            },
+            'apim': {
+                title: 'APIM Internal VNet Mode',
+                simple: 'Placing your API Gateway deep inside your network fortress.',
+                benefits: 'Consistent security policies at the edge. Centralized logging and threat protection.',
+                limits: 'Premium Tier only (~$2.5k/mo). Standard/Basic modes cannot talk to backend PEs easily.',
+                usage: 'For high-compliance ecosystems (HIPAA, PCI-DSS) where every API must be strictly governed.'
+            },
+            'vnet-int': {
+                title: 'Regional VNet Integration (Secure Egress)',
+                simple: 'The outbound "VPN" for your App Service to talk to your private resources.',
+                benefits: 'Enables access to VNet-isolated SQL databases, key vaults, and on-prem assets.',
+                limits: 'Does not provide inbound security. Requires a dedicated /28 subnet.',
+                usage: 'Essential whenever an app needs to pull data from a private backend.'
+            },
+            'waf': {
+                title: 'App Gateway WAF (L7 Defense)',
+                simple: 'The "Secret Service" for HTTP traffic. Inspects bytes for SQL injections and XSS.',
+                benefits: 'Stops malicious traffic BEFORE it enters your application codebase. OWASP Top 10 mitigation.',
+                limits: 'Slight latency (~30ms) and cost (~$250/mo). Requires SSL certificate management.',
+                usage: 'Non-negotiable for public-facing portals.'
+            }
+        };
 
-    // --- Consolidated Technical Briefing System ---
-    const briefingData = {
-    'kudu': {
-    title: 'CI/CD Deployment Block',
-    simple: 'Public Microsoft hosts cannot resolve your Internal VNet. Deployments will time out with 403
-    Forbidden.',
-    benefits: 'Ensures code changes are vetted within the perimeter. Forces the use of secure pathways like
-    Self-Hosted Agents.',
-    limits: 'Creates a "Dead End" for standard GitHub/ADO hosted agents. Requires custom infrastructure setup.',
-    usage: 'Critical for any App Service with "Public Network Access" set to Disabled.'
-    },
-    'dns': {
-    title: 'Private DNS Resolution (recursive lookup)',
-    simple: 'The digital "phonebook" mapping private IPs to hostnames. Failure here is the #1 cause of PE
-    outages.',
-    benefits: 'Prevents leakage of internal architecture to the public. Enables certificate validation (TLS)
-    over private IPs.',
-    limits: 'Requires meticulous VNet linking and recursive resolution chains (168.63.129.16).',
-    usage: 'Must be linked to EVERY VNet in the communication chain (Hub and Spokes).'
-    },
-    'pe': {
-    title: 'Private Endpoint (L4 Isolation)',
-    simple: 'A secret portal into your VNet. Removes the public IP entirely.',
-    benefits: 'Eliminates public internet scans. Traffic stays on the Microsoft backbone. 100% isolation from
-    volumetric DDoS.',
-    limits: 'Adds static cost ($7.30/mo base) and DNS complexity. Outbound traffic still needs VNet
-    Integration.',
-    usage: 'Mandatory for backend APIs, databases, and sensitive PII processing apps.'
-    },
-    'apim': {
-    title: 'APIM Internal VNet Mode',
-    simple: 'Placing your API Gateway deep inside your network fortress.',
-    benefits: 'Consistent security policies at the edge. Centralized logging and threat protection.',
-    limits: 'Premium Tier only (~$2.5k/mo). Standard/Basic modes cannot talk to backend PEs easily.',
-    usage: 'For high-compliance ecosystems (HIPAA, PCI-DSS) where every API must be strictly governed.'
-    },
-    'vnet-int': {
-    title: 'Regional VNet Integration (Secure Egress)',
-    simple: 'The outbound "VPN" for your App Service to talk to your private resources.',
-    benefits: 'Enables access to VNet-isolated SQL databases, key vaults, and on-prem assets.',
-    limits: 'Does not provide inbound security. Requires a dedicated /28 subnet.',
-    usage: 'Essential whenever an app needs to pull data from a private backend.'
-    },
-    'waf': {
-    title: 'App Gateway WAF (L7 Defense)',
-    simple: 'The "Secret Service" for HTTP traffic. Inspects bytes for SQL injections and XSS.',
-    benefits: 'Stops malicious traffic BEFORE it enters your application codebase. OWASP Top 10 mitigation.',
-    limits: 'Slight latency (~30ms) and cost (~$250/mo). Requires SSL certificate management.',
-    usage: 'Non-negotiable for public-facing portals.'
-    }
-    };
+        function openBriefing(key) {
+            const data = briefingData[key];
+            if (!data) return;
 
-    function openBriefing(key) {
-    const data = briefingData[key];
-    if (!data) return;
+            document.getElementById('briefing-title').innerText = data.title;
+            document.getElementById('briefing-simple').innerText = data.simple;
+            document.getElementById('briefing-benefits').innerText = data.benefits;
+            document.getElementById('briefing-limits').innerText = data.limits;
+            document.getElementById('briefing-usage').innerText = data.usage;
 
-    document.getElementById('briefing-title').innerText = data.title;
-    document.getElementById('briefing-simple').innerText = data.simple;
-    document.getElementById('briefing-benefits').innerText = data.benefits;
-    document.getElementById('briefing-limits').innerText = data.limits;
-    document.getElementById('briefing-usage').innerText = data.usage;
+            document.getElementById('briefing-overlay').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
 
-    document.getElementById('briefing-overlay').style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-    }
+        function closeBriefing() {
+            document.getElementById('briefing-overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
 
-    function closeBriefing() {
-    document.getElementById('briefing-overlay').style.display = 'none';
-    document.body.style.overflow = 'auto';
-    }
+        // --- Scroll Progress & TOC Spy ---
+        const scrollProgressBar = document.getElementById('scrollProgress');
+        const backToTopBtn = document.getElementById('backToTop');
+        const tocLinks = document.querySelectorAll('.toc-link');
+        const scrollSections = document.querySelectorAll('h2[id], div[id].punchy-hero, div[id].strategic-takeaway');
 
-    // --- Scroll Progress & TOC Spy ---
-    const scrollProgressBar = document.getElementById('scrollProgress');
-    const backToTopBtn = document.getElementById('backToTop');
-    const tocLinks = document.querySelectorAll('.toc-link');
-    const scrollSections = document.querySelectorAll('h2[id], div[id].punchy-hero, div[id].strategic-takeaway');
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
 
-    window.addEventListener('scroll', () => {
-    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (winScroll / height) * 100;
+            if (scrollProgressBar) scrollProgressBar.style.width = scrolled + "%";
+            if (winScroll > 500) backToTopBtn.classList.add('visible');
+            else backToTopBtn.classList.remove('visible');
 
-    if (scrollProgressBar) scrollProgressBar.style.width = scrolled + "%";
-    if (winScroll > 500) backToTopBtn.classList.add('visible');
-    else backToTopBtn.classList.remove('visible');
+            let current = "";
+            scrollSections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 150) current = section.getAttribute('id');
+            });
 
-    let current = "";
-    scrollSections.forEach(section => {
-    const sectionTop = section.offsetTop;
-    if (pageYOffset >= sectionTop - 150) current = section.getAttribute('id');
-    });
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) link.classList.add('active');
+            });
+        });
 
-    tocLinks.forEach(link => {
-    link.classList.remove('active');
-    if (link.getAttribute('href').includes(current)) link.classList.add('active');
-    });
-    });
-
-    window.dispatchEvent(new Event('scroll'));
+        window.dispatchEvent(new Event('scroll'));
     </script>
 
     <!-- Footer -->
@@ -2438,64 +2452,6 @@ resource "azurerm_private_endpoint" "app" {
                     btn.style.background = 'rgba(14, 165, 233, 0.8)';
                 }
             }
-        }
-
-        // --- Technical Briefing Logic ---
-        const briefingData = {
-            'pe': {
-                title: 'Private Endpoint (Sovereign Ingress)',
-                simple: 'The "unlisted phone number" for your Azure resources. A private IP accessible only within your VNet.',
-                benefits: 'Eliminates the public data plane. Neutralizes scanning bots and volumetric DDoS attacks by removing the resource from the public internet entirely.',
-                limits: 'DNS orchestration complexity. Requires Private DNS Resolver and peering logic to maintain local resolution chains.',
-                usage: 'Non-negotiable for production SQL, Storage, and Backend Application Tiers.'
-            },
-            'vnet-int': {
-                title: 'Regional VNet Integration (Secure Egress)',
-                simple: 'The digital "VPN tunnel" for your app to talk to your internal corporate infrastructure.',
-                benefits: 'Allows apps to reach private databases and on-premises resources without traversing the public internet. Guarantees traffic never leaves your sovereign perimeter.',
-                limits: 'Outbound only. Does not provide inbound privacy. Requires a dedicated /28 or /26 subnet.',
-                usage: 'Required whenever an app must access a Private Endpoint-protected backend or on-premises server.'
-            },
-            'waf': {
-                title: 'Web Application Firewall (Layer 7 Defense)',
-                simple: 'The "Secret Service" for your HTTP traffic. It inspects every byte for malicious patterns.',
-                benefits: 'OWASP Top 10 mitigation (SQLi, XSS) at the network edge. Blocks threats before they touch your application code.',
-                limits: 'Latency overhead (~30ms) and initial tuning noise. Requires careful rule management to prevent false positives.',
-                usage: 'Primary shield for any public-facing endpoint, particularly those handling sensitive PII or Financial data.'
-            },
-            'apim': {
-                title: 'API Management (Governance Gateway)',
-                simple: 'The "Central Command" for your API ecosystem. It handles keys, quotas, and internal routing.',
-                benefits: 'Unified policy enforcement (JWT validation, Rate Limiting, IP Filtering). abstracts backend complexity from developers.',
-                limits: 'Significant capital cost (Premium Tier required for VNet injection). Adds architectural weight to simple topologies.',
-                usage: 'Enterprise-scale microservices, public API monetization, and internal developer platforms.'
-            },
-            'dns': {
-                title: 'Private DNS Zones (Trust Resolution)',
-                simple: 'A private directory that maps internal service names to their secret 10.x.x.x IP addresses.',
-                benefits: 'Enables "Split-Brain" DNS: standard URLs work internally but fail for the public, ensuring only authorized paths resolve.',
-                limits: 'Resolution failures are the #1 cause of PE outages. Requires careful VNet linking and recursive resolver logic.',
-                usage: 'Every Private Endpoint implementation requires a supporting Private DNS Zone for correct handshake resolution.'
-            }
-        };
-
-        function openBriefing(key) {
-            const data = briefingData[key];
-            if (!data) return;
-
-            document.getElementById('briefing-title').innerText = data.title;
-            document.getElementById('briefing-simple').innerText = data.simple;
-            document.getElementById('briefing-benefits').innerText = data.benefits;
-            document.getElementById('briefing-limits').innerText = data.limits;
-            document.getElementById('briefing-usage').innerText = data.usage;
-
-            document.getElementById('briefing-overlay').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeBriefing() {
-            document.getElementById('briefing-overlay').style.display = 'none';
-            document.body.style.overflow = 'auto';
         }
     </script>
 
