@@ -1,6 +1,4 @@
 # Deploy to Both GitHub Pages and Azure Storage
-# This script deploys your website to both platforms
-
 param(
     [string]$CommitMessage = "Update portfolio website",
     [switch]$Force
@@ -19,14 +17,12 @@ Write-Host "STEP 1: Deploying to GitHub Pages" -ForegroundColor Yellow
 Write-Host "-----------------------------------" -ForegroundColor Gray
 
 # Check for changes
-$gitStatus = @(git status --porcelain)
-if ($gitStatus.Count -gt 0) {
+$gitStatus = git status --porcelain
+if ($gitStatus) {
     Write-Host "Changes detected. Committing..." -ForegroundColor Yellow
-    
     git add .
     git commit -m $CommitMessage
-    
-    if ($?) {
+    if ($LASTEXITCODE -eq 0) {
         Write-Host "✓ Changes committed" -ForegroundColor Green
     }
     else {
@@ -41,9 +37,8 @@ else {
 Write-Host "Pushing to GitHub..." -ForegroundColor Yellow
 git push origin main
 
-if ($?) {
+if ($LASTEXITCODE -eq 0) {
     Write-Host "✓ Pushed to GitHub successfully" -ForegroundColor Green
-    Write-Host "  GitHub Actions will deploy to: https://portfolio.upendrakumar.com" -ForegroundColor Gray
 }
 else {
     Write-Host "✗ Push failed!" -ForegroundColor Red
@@ -63,7 +58,7 @@ else {
     & "$PSScriptRoot\deploy-azure.ps1"
 }
 
-if ($?) {
+if ($LASTEXITCODE -eq 0) {
     Write-Host ""
     Write-Host "========================================" -ForegroundColor Cyan
     Write-Host "All Deployments Complete!" -ForegroundColor Green
