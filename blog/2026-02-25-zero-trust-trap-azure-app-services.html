@@ -997,6 +997,69 @@
 
         <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
 
+        <div id="framework-section"
+            style="background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 16px; padding: 3rem; margin: 4rem 0;">
+            <h2 style="margin-top: 0;"><i class="fas fa-microchip" style="color: #3b82f6; margin-right: 15px;"></i>The
+                Azure Zero-Trust Application Framework</h2>
+            <p>To move beyond ad-hoc settings, architecture must be governed by a formal framework. Below is the
+                integrated taxonomy for sovereign Azure perimeters.</p>
+
+            <div style="overflow-x: auto; margin: 2rem 0;">
+                <table
+                    style="width: 100%; border-collapse: collapse; background: rgba(15, 23, 42, 0.5); border-radius: 12px; overflow: hidden;">
+                    <thead>
+                        <tr
+                            style="background: rgba(59, 130, 246, 0.1); border-bottom: 2px solid rgba(59, 130, 246, 0.3);">
+                            <th style="padding: 1.2rem; text-align: left; color: #f8fafc;">Component</th>
+                            <th style="padding: 1.2rem; text-align: left; color: #f8fafc;">Responsibility</th>
+                            <th style="padding: 1.2rem; text-align: left; color: #f8fafc;">Trust Vector</th>
+                        </tr>
+                    </thead>
+                    <tbody style="color: #cbd5e1;">
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 1rem; font-weight: 700;">App Service</td>
+                            <td style="padding: 1rem;">Compute Runtime</td>
+                            <td style="padding: 1rem;"><span style="color: #10b981;">Sovereign</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 1rem; font-weight: 700;">Private Endpoint</td>
+                            <td style="padding: 1rem;">Inbound Isolation</td>
+                            <td style="padding: 1rem;"><span style="color: #3b82f6;">Inbound</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 1rem; font-weight: 700;">VNet Integration</td>
+                            <td style="padding: 1rem;">Outbound Tunnel</td>
+                            <td style="padding: 1rem;"><span style="color: #3b82f6;">Outbound</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 1rem; font-weight: 700;">App Gateway (WAF)</td>
+                            <td style="padding: 1rem;">Layer 7 Defense</td>
+                            <td style="padding: 1rem;"><span style="color: #ef4444;">Edge</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 1rem; font-weight: 700;">API Management</td>
+                            <td style="padding: 1rem;">Governance/Policy</td>
+                            <td style="padding: 1rem;"><span style="color: #a855f7;">Control</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div
+                style="background: rgba(59, 130, 246, 0.05); border: 1px dashed rgba(59, 130, 246, 0.3); border-radius: 12px; padding: 2rem; text-align: center;">
+                <h4 style="margin-top: 0; color: #f8fafc;">Access the Complete Framework</h4>
+                <p style="font-size: 0.95rem; color: #94a3b8; margin-bottom: 1.5rem;">I've released the full
+                    architectural decision tree, component relationship matrix, and edge-case mitigation guide as a
+                    standalone document.</p>
+                <a href="https://github.com/appliedailearner/The-Zero-Trust-Trap-Why-Your-Azure-App-Service-Private-Endpoints-Keep-Breaking/blob/main/Zero-Trust-Framework.md"
+                    class="btn btn-primary" target="_blank">
+                    <i class="fas fa-file-pdf"></i> Download Framework (MD/PDF)
+                </a>
+            </div>
+        </div>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
         <h2><span class="gradient-text">Production Post-Mortems: Lessons from the Field</span></h2>
         <p>Infrastructure in code is deterministic; infrastructure in production is unforgiving. Here is how we resolve
             the critical "Day 2" failures encountered at the enterprise scale:</p>
