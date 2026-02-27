@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Stop guessing with Azure Databricks security. Learn the zero-trust Private Endpoint architecture, split-brain DNS pitfalls, and how to avoid massive firewall bills.">
+    <title>Secure Azure Databricks: The Private Endpoint Survival Guide | Upendra Kumar</title>
+
+    <link rel="stylesheet" href="../css/style.css?v=48">
+    <link rel="stylesheet" href="../css/premium.css?v=48">
+    <link rel="stylesheet" href="../css/dropdown.css">
+
+    <!-- Performance: Critical Asset Preloading -->
+    <link rel="preload" href="../css/style.css?v=48" as="style">
+    <link rel="preload" href="../js/navbar-component.js" as="script">
+    <link rel="preload" href="../js/main.js" as="script">
+
+    <!-- JSON-LD Article Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Secure Azure Databricks: The Private Endpoint Survival Guide",
+      "image": "https://portfolio.upendrakumar.com/images/profile.webp",
+      "author": {
+        "@type": "Person",
+        "name": "Upendra Kumar",
+        "url": "https://portfolio.upendrakumar.com/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Upendra Kumar",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://portfolio.upendrakumar.com/favicon.ico"
+        }
+      },
+      "datePublished": "2026-02-27",
+      "dateModified": "2026-02-27",
+      "description": "Stop guessing with Azure Databricks security. Learn the zero-trust Private Endpoint architecture, split-brain DNS pitfalls, and how to avoid massive firewall bills."
+    }
+    </script>
+
+    <style>
+        .nav-logo-uk {
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+            border-radius: 8px !important;
+        }
+
+        /* Blog Post Specific Styles */
+        .blog-post-hero {
+            padding: 120px 0 60px;
+            background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.15), transparent 60%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .blog-post-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .blog-post-content h2 {
+            color: var(--text-main);
+            font-size: 2rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .blog-post-content h3 {
+            color: #e2e8f0;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-post-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-post-content ul,
+        .blog-post-content ol {
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .blog-post-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-post-content code {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .blog-post-content pre {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-left: 4px solid #0ea5e9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+
+        .blog-post-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .blog-post-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .blog-post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 2rem 0;
+        }
+
+        .blog-tag {
+            background: rgba(168, 85, 247, 0.1);
+            color: #a855f7;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .btn {
+            display: inline-block;
+            font-weight: 600;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+
+        .btn-primary:hover {
+            background-color: #2563eb;
+            border-color: #2563eb;
+        }
+
+        .btn-outline {
+            color: #3b82f6;
+            background-color: transparent;
+            border-color: #3b82f6;
+        }
+
+        .btn-outline:hover {
+            color: #fff;
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+    </style>
+
+    <!-- Performance: Preconnect to Font & Script Servers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <!-- Typography: Inter (Body) & Outfit (Headings) with Swap for Performance -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+
+<body class="dark-theme">
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="dynamic-nav"></nav>
+    <script src="../js/navbar-component.js"></script>
+
+    <!-- Blog Post Hero -->
+    <section class="blog-post-hero">
+        <div class="container" style="max-width: 1000px;">
+            <div style="margin-bottom: 2rem;">
+                <a href="../blog.html"
+                    style="color: var(--primary-color); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem;">
+                    <i class="fas fa-arrow-left"></i> Back to Insights
+                </a>
+                <br>
+                <span class="blog-tag tag-red"
+                    style="margin-bottom: 1rem; display: inline-block;">Regulator-Ready</span>
+            </div>
+
+            <h1
+                style="font-family: 'Outfit', sans-serif; font-size: 3rem; line-height: 1.2; margin-bottom: 1.5rem; background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                Secure Azure Databricks: The Private Endpoint Survival Guide
+            </h1>
+
+            <div class="blog-post-meta">
+                <div><i class="fas fa-user"></i> Upendra Kumar</div>
+                <div><i class="fas fa-calendar"></i> February 27, 2026</div>
+                <div><i class="fas fa-clock"></i> 12 min read</div>
+            </div>
+
+            <div class="blog-post-tags">
+                <span class="blog-tag"><i class="fas fa-tag"></i> Databricks</span>
+                <span class="blog-tag"><i class="fas fa-tag"></i> Private Link</span>
+                <span class="blog-tag"><i class="fas fa-tag"></i> Zero Trust</span>
+                <span class="blog-tag"><i class="fas fa-tag"></i> Azure Security</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Post Content -->
+    <article class="blog-post-content">
+        <p class="lead" style="font-size: 1.3rem; color: var(--primary-color); font-weight: 600;">
+            The regulator didn't care about our multi-million dollar Databricks demo. They pointed at the open public
+            endpoint. Here is how we locked down the Data Lake without breaking the bank or taking the network down.
+        </p>
+
+        <h2><span class="gradient-text">The Level-Set: What Are We Actually Defending?</span></h2>
+        <p>
+            If you're new to Microsoft or just starting in Cloud Architecture, let's step back before we talk about
+            firewalls and DNS. Why does a bank or a hospital even buy Azure Databricks and an Azure Data Lake? What
+            actually <em>are</em> they?
+        </p>
+
+        <h3>The Simple Analogy: The Warehouse and The Factory</h3>
+        <p>
+            Imagine a massive, empty warehouse where delivery trucks just dump raw materials (wood, metal, plastic) on
+            the floor 24/7. They don't sort it; they just drop it. This is your <strong>Azure Data Lake (specifically,
+                ADLS Gen2)</strong>. It is an infinitely massive, incredibly cheap hard drive in the cloud. We don't
+            organize the data exactly like a spreadsheet yet; we just dump raw application logs, millions of daily
+            transaction receipts, and customer audio recordings into the lake.
+        </p>
+        <p>
+            The problem? A warehouse full of unsorted materials is useless on its own. It's just a swamp.
+        </p>
+        <p>
+            This is where <strong>Azure Databricks</strong> comes in. Databricks is the highly advanced, robotic factory
+            built right next to the warehouse.
+        </p>
+        <p>
+            Databricks spins up massive compute clusters (hundreds of virtual machines) essentially acting as factory
+            machines. These machines go into the Data Lake (the warehouse), chew through petabytes of that raw swamp
+            water, assemble the pieces (clean the data), look for patterns (like credit card fraud), and turn it into
+            finished, polished products (actionable Business Intelligence reports).
+        </p>
+        <p>
+            <strong>The Real-World Use Case:</strong> Let's say a retail bank needs to process 50 million credit card
+            swipes from the last 24 hours to flag fraudulent anomalies before the market opens. A standard SQL database
+            would choke entirely under that weight. Databricks instead spins up 50 servers, processes the data in
+            parallel directly from the Data Lake in 15 minutes, and then spins those servers back down so you stop
+            paying for them.
+        </p>
+
+        <figure style="margin: 3rem 0; text-align: center;">
+            <img src="../assets/images/warehouse_factory.png"
+                alt="A conceptual 3D illustration showing a chaotic warehouse representing a Data Lake connected to a highly organized, robotic factory representing Azure Databricks."
+                style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+            <figcaption style="margin-top: 1rem; color: var(--text-muted); font-size: 0.9rem; font-style: italic;">
+                The Data Lake (Warehouse) stores the raw materials; Databricks (The Factory) processes them into value.
+            </figcaption>
+        </figure>
+
+        <h2><span class="gradient-text">The Exfiltration Threat (And Why VNet Injection Isn't Enough)</span></h2>
+        <p>
+            Deploying Azure Databricks isn't just about spinning up Spark clusters. For enterprise architects in
+            regulated industries, deploying Databricks means solving a fundamental <strong>data residency and
+                exfiltration paradox</strong>.
+        </p>
+        <p>
+            You lock down your ADLS Gen2 storage accounts. You hide them behind a firewall. But if your Databricks
+            clusters (which process this newly protected data) lack a secure perimeter back to the control plane, or
+            fetch secrets from public Key Vault endpoints, your data is still subject to exfiltration by a compromised
+            identity. If you're relying strictly on Service Endpoints or dynamic IP firewalling, you're playing a losing
+            game of whack-a-mole.
+        </p>
+        <p>
+            The fix? <strong>A full-stack Azure Private Endpoint architecture</strong>. But here’s the harsh reality: if
+            you do it wrong, you will break DNS, introduce split-brain routing, and artificially inflate your Azure
+            Firewall costs by tens of thousands of dollars per month. Let's look at the survival guide.
+        </p>
+
+        <h2><span class="gradient-text">1. The Real Story on Azure Private Endpoints</span></h2>
+        <p>
+            A Private Endpoint (PE) is literally just a virtual network interface (vNIC) injected into your subnet. It
+            grabs a private IP from your address pool. From that point on, reaching
+            <code>mydatalake.blob.core.windows.net</code> resolves to `10.1.x.x` instead of traversing the public
+            Microsoft edge.
+        </p>
+        <p>
+            <strong>Why it matters:</strong>
+        <ul>
+            <li><strong>Public Exposure Drop:</strong> Instantly nullifies public internet scanning and direct internet
+                access threats.</li>
+            <li><strong>Compliance Boundaries:</strong> Satisfies strict data residency controls. Traffic never leaves
+                the Azure backbone.</li>
+            <li><strong>Exfiltration Mitigation:</strong> An attacker with compromised credentials inside your VNet
+                cannot export data to <i>their</i> generic Azure Storage account. PEs enforce a specific resource path.
+            </li>
+        </ul>
+        </p>
+
+        <h2><span class="gradient-text">2. The 3 Private Link Flows in Databricks</span></h2>
+        <p>
+            Many teams slap a Private Endpoint on ADLS and call it a day, but a genuinely secure Databricks environment
+            requires <strong>three separate Private Link flows</strong>.
+        </p>
+        <ol>
+            <li><strong>Front-End Private Link:</strong> The connection from your users (via ExpressRoute/VPN) to the
+                Databricks Workspace UI.</li>
+            <li><strong>Back-End Private Link:</strong> The Secure Cluster Connectivity (SCC) relay. This is how the
+                injected VNet clusters securely talk <em>back</em> to the Databricks Control Plane without a public IP
+                assigned to the nodes.</li>
+            <li><strong>PaaS Private Endpoints:</strong> How the data plane (compute) privately reads/writes to ADLS
+                Gen2, pulls images from ACR, and fetches secrets from Azure Key Vault.</li>
+        </ol>
+
+        <h2><span class="gradient-text">3. The 30% Cost Trap (A Realist's Warning)</span></h2>
+        <p>
+            Here is where textbook architecture completely falls apart in production. Standard Hub-and-Spoke patterns
+            dictate that all inter-spoke and internet-bound traffic routes through an Azure Firewall (NVA) in the Hub.
+        </p>
+        <p>
+            <strong>Do not do this with Big Data Private Endpoints.</strong>
+        </p>
+        <p>
+            Databricks generates massive, bursty throughput. I have seen clients force cluster-to-storage traffic
+            through their highly-available firewall appliances "for visibility." Data processing through Azure Firewall
+            Premium costs roughly <strong>$0.016/GB</strong>. If a Spark job shuffles 100 TBs of data an hour, you are
+            adding thousands of dollars to your monthly Azure burn rate for literally zero security benefit (since the
+            traffic is entirely internal PE traffic anyway).
+        </p>
+        <p>
+            <strong>The Fix:</strong> Use User Defined Routes (UDRs) to explicitly bypass the NVA for Storage Private
+            IPs. Let the compute talk to the PE locally within the VNet.
+        </p>
+
+        <h2><span class="gradient-text">4. Taming the DNS Monster</span></h2>
+        <p>
+            The #1 failure mode during a Private Endpoint cutover is <strong>Split-Brain DNS</strong>.
+        </p>
+
+        <h3>The Simple Analogy: Two Maps to the Same Party</h3>
+        <p>
+            Imagine you are throwing a house party.
+            <br>&bull; You give your external friends (the public internet) the map address: "123 Main Street".
+            <br>&bull; You give your family members (who are already inside the house) a different map address: "Go down
+            the hallway to the Living Room".
+        </p>
+        <p>
+            "Split-Brain DNS" happens when your maps get mixed up. If a family member trying to reach the Living Room
+            asks for directions, and you accidentally hand them the public map ("123 Main Street"), they will walk out
+            the front door, get in their car, drive around the block, and try to re-enter through the front gate (which
+            is locked by the bouncer/firewall). The connection drops.
+        </p>
+
+        <figure style="margin: 3rem 0; text-align: center;">
+            <img src="../assets/images/split_brain_dns.png"
+                alt="A conceptual 3D illustration showing a person outside a house with a public map, and a person inside the house with an internal map, illustrating the concept of Split-Brain DNS."
+                style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+            <figcaption style="margin-top: 1rem; color: var(--text-muted); font-size: 0.9rem; font-style: italic;">
+                Split-Brain DNS occurs when internal and external clients receive conflicting "maps" to the same
+                resource.
+            </figcaption>
+        </figure>
+
+        <p>
+            In Azure, your on-premise servers and VNet servers must realize the Data Lake is "inside the house" (the
+            Private IP: <code>10.1.2.5</code>). If your internal servers accidentally use public DNS, they will resolve
+            the public IP of the Data Lake, route traffic out to the internet, and drop packets because the PaaS public
+            firewall is set to Deny.
+        </p>
+
+        <p>
+            If your application teams are allowed to deploy their own Azure Private DNS zones inside disparate spoke
+            VNets, you are literally giving out conflicting maps. You will experience catastrophic name resolution
+            failures when on-prem clients or interdependent applications try to resolve the endpoints.
+        </p>
+        <pre class="mermaid" style="background: transparent; border: none; padding: 0;">
+sequenceDiagram
+    participant Client as Client (On-Prem)
+    participant LocalDNS as Local DNS
+    participant AzurePR as Azure DNS Private Resolver (Hub)
+    participant PrivZone as Central Private DNS Zone
+
+    Client->>LocalDNS: Query: datalake.blob.core.windows.net
+    Note over LocalDNS: Conditional Forwarder active
+    LocalDNS->>AzurePR: Forward to Hub VNet Inbound IP
+    AzurePR->>PrivZone: Lookup A-Record
+    PrivZone-->>AzurePR: 10.1.2.5 (Private IP)
+    AzurePR-->>Client: Returns 10.1.2.5
+        </pre>
+        <p>
+            <strong>The Rule:</strong> Centralize your Azure Private DNS Zones in your Hub. Use the new <strong>Azure
+                DNS Private Resolver</strong>. On-premise DNS servers must conditionally forward
+            <code>core.windows.net</code>, <code>azure.net</code>, and <code>azuredatabricks.net</code> queries directly
+            to your centralized Resolver INBOUND endpoint.
+        </p>
+
+        <h2><span class="gradient-text">5. The "Cutover Night" Migration Checklist</span></h2>
+        <p>
+            Migrating from public to private is not an overnight "flip the switch" exercise. It's a progressive
+            lockdown.
+        </p>
+        <ul>
+            <li><strong>Discovery:</strong> Parse Storage Analytics logs. Map every external system reading the public
+                endpoint. You cannot shut off the public firewall without knowing who you are breaking.</li>
+            <li><strong>Parallel Path Phase:</strong> Build the Private Endpoints and link the DNS. Do not disable
+                Public Network Access yet. Let the VNet-injected components fail over to the private IP naturally while
+                legacy systems continue to use the public route.</li>
+            <li><strong>Pilot Cutover:</strong> Update on-prem forwarders. Ask a QA user to access the workspace.</li>
+            <li><strong>Lockdown:</strong> Toggle the PaaS firewall to "Deny all public network access." Use Azure
+                Policy (`DeployIfNotExists`) to ensure nobody turns it back on.</li>
+            </ol>
+
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+            <h3>Ready to operationalize your Azure journey?</h3>
+            <p>
+                We don't do textbook theories. We build robust, regulated, multi-region cloud architectures designed for
+                zero-trust environments.
+            </p>
+            <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+                <a href="../pages/contact.html" class="btn btn-primary">Contact Me</a>
+                <a href="../pages/azure-migration-toolkit.html" class="btn btn-outline">View the Toolkit</a>
+            </div>
+
+            <!-- Social Share Section -->
+            <div class=" সামাজিক-share-container" style="margin-top: 3rem;">
+                <p
+                    style="color: #94a3b8; font-size: 0.8rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700;">
+                    Spread the Insight</p>
+                <div class="social-share-buttons" style="display: flex; gap: 1rem;">
+                    <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn(event)" title="Share on LinkedIn"
+                        aria-label="Share on LinkedIn" style="color: #0077b5; text-decoration: none;">
+                        <i class="fab fa-linkedin" style="margin-right: 5px;"></i> LinkedIn
+                    </a>
+                    <a href="#" class="share-btn twitter" onclick="shareOnTwitter(event)" title="Share on X (Twitter)"
+                        aria-label="Share on Twitter" style="color: #1da1f2; text-decoration: none;">
+                        <i class="fab fa-x-twitter" style="margin-right: 5px;"></i> Twitter
+                    </a>
+                    <button class="share-btn copy-link btn btn-outline" onclick="copyPageLink(this)" title="Copy Link"
+                        aria-label="Copy Page Link"
+                        style="background: transparent; border: 1px solid #3b82f6; padding: 0.25rem 0.75rem; color: #3b82f6; border-radius: 4px; cursor: pointer;">
+                        <i class="fas fa-link"></i> <span class="btn-text">Copy Link</span>
+                    </button>
+                </div>
+            </div>
+
+            <script>
+                function shareOnLinkedIn(e) {
+                    e.preventDefault();
+                    const url = encodeURIComponent(window.location.href);
+                    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=600');
+                }
+
+                function shareOnTwitter(e) {
+                    e.preventDefault();
+                    const url = encodeURIComponent(window.location.href);
+                    const text = encodeURIComponent(document.title);
+                    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
+                }
+
+                function copyPageLink(btn) {
+                    const url = window.location.href;
+                    navigator.clipboard.writeText(url).then(() => {
+                        const btnText = btn.querySelector('.btn-text');
+                        const originalText = btnText.innerText;
+                        btnText.innerText = 'Copied!';
+                        btn.classList.add('copied');
+                        setTimeout(() => {
+                            btnText.innerText = originalText;
+                            btn.classList.remove('copied');
+                        }, 2000);
+                    });
+                }
+            </script>
+
+            <!-- Back to Blog Button -->
+            <div style="text-align: center; margin: 4rem 0;">
+                <a href="../blog.html" class="btn btn-primary" style="display: inline-block; padding: 1rem 2rem;">
+                    <i class="fas fa-arrow-left"></i> Back to Insights
+                </a>
+            </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Upendra Kumar. All rights reserved.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/journeytocloudwithupendra/" target="_blank" title="LinkedIn"
+                    aria-label="LinkedIn Profile">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/appliedailearner" target="_blank" title="GitHub"
+                    aria-label="GitHub Repository">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mermaid JS Integration -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+    <script src="../js/particles.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+
+</html>
