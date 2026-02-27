@@ -180,6 +180,163 @@
             background-color: #3b82f6;
             border-color: #3b82f6;
         }
+
+        /* --- Interactive Blog Features --- */
+        .blog-layout-container {
+            display: flex;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: flex-start;
+        }
+
+        .toc-container {
+            flex: 0 0 250px;
+            position: sticky;
+            top: 6rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: none;
+            /* Hidden on mobile */
+        }
+
+        .toc-container h4 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+
+        .toc-nav {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .toc-nav li {
+            margin-bottom: 0.75rem;
+        }
+
+        .toc-nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+            display: block;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+        }
+
+        .toc-nav a:hover,
+        .toc-nav a.active {
+            color: var(--primary-color);
+            border-left-color: var(--primary-color);
+        }
+
+        @media (min-width: 1024px) {
+            .toc-container {
+                display: block;
+            }
+
+            .blog-post-content {
+                flex: 1;
+                max-width: calc(100% - 250px - 3rem);
+                margin: 0;
+            }
+        }
+
+        /* Stateful Checklists */
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            border-left: 4px solid #64748b;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .checklist-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .checklist-item.checked {
+            border-left-color: #10b981;
+            opacity: 0.7;
+        }
+
+        .checklist-item.checked .task-text {
+            text-decoration: line-through;
+            color: #94a3b8;
+        }
+
+        .custom-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #64748b;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .checklist-item.checked .custom-checkbox {
+            background-color: #10b981;
+            border-color: #10b981;
+        }
+
+        .checklist-item.checked .custom-checkbox::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: white;
+            font-size: 12px;
+        }
+
+        /* Hover Tooltips */
+        .term-tooltip {
+            position: relative;
+            cursor: help;
+            border-bottom: 1px dashed var(--primary-color);
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .term-tooltip::before {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: max-content;
+            max-width: 250px;
+            padding: 0.5rem 0.75rem;
+            background: #1e293b;
+            color: #fff;
+            font-size: 0.85rem;
+            font-weight: 400;
+            line-height: 1.4;
+            border-radius: 6px;
+            text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s, visibility 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .term-tooltip:hover::before {
+            opacity: 1;
+            visibility: visible;
+        }
     </style>
 
     <!-- Performance: Preconnect to Font & Script Servers -->
@@ -237,361 +394,461 @@
     </section>
 
     <!-- Blog Post Content -->
-    <article class="blog-post-content">
-        <p class="lead" style="font-size: 1.3rem; color: var(--primary-color); font-weight: 600;">
-            The regulator didn't care about our multi-million dollar Databricks demo. They pointed at the open public
-            endpoint. Here is how we locked down the Data Lake without breaking the bank or taking the network down.
-        </p>
+    <!-- Blog Post Content & Floating Sidebar -->
+    <div class="blog-layout-container">
 
-        <h2><span class="gradient-text">The Level-Set: What Are We Actually Defending?</span></h2>
-        <p>
-            If you're new to Microsoft or just starting in Cloud Architecture, let's step back before we talk about
-            firewalls and DNS. Why does a bank or a hospital even buy Azure Databricks and an Azure Data Lake? What
-            actually <em>are</em> they?
-        </p>
-
-        <h3>The Simple Analogy: The Warehouse and The Factory</h3>
-        <p>
-            Imagine a massive, empty warehouse where delivery trucks just dump raw materials (wood, metal, plastic) on
-            the floor 24/7. They don't sort it; they just drop it. This is your <strong>Azure Data Lake (specifically,
-                ADLS Gen2)</strong>. It is an infinitely massive, incredibly cheap hard drive in the cloud. We don't
-            organize the data exactly like a spreadsheet yet; we just dump raw application logs, millions of daily
-            transaction receipts, and customer audio recordings into the lake.
-        </p>
-        <p>
-            The problem? A warehouse full of unsorted materials is useless on its own. It's just a swamp.
-        </p>
-        <p>
-            This is where <strong>Azure Databricks</strong> comes in. Databricks is the highly advanced, robotic factory
-            built right next to the warehouse.
-        </p>
-        <p>
-            Databricks spins up massive compute clusters (hundreds of virtual machines) essentially acting as factory
-            machines. These machines go into the Data Lake (the warehouse), chew through petabytes of that raw swamp
-            water, assemble the pieces (clean the data), look for patterns (like credit card fraud), and turn it into
-            finished, polished products (actionable Business Intelligence reports).
-        </p>
-        <p>
-            <strong>The Real-World Use Case:</strong> Let's say a retail bank needs to process 50 million credit card
-            swipes from the last 24 hours to flag fraudulent anomalies before the market opens. A standard SQL database
-            would choke entirely under that weight. Databricks instead spins up 50 servers, processes the data in
-            parallel directly from the Data Lake in 15 minutes, and then spins those servers back down so you stop
-            paying for them.
-        </p>
-
-        <figure style="margin: 3rem 0; text-align: center;">
-            <img src="../assets/images/warehouse_factory.png"
-                alt="A conceptual 3D illustration showing a chaotic warehouse representing a Data Lake connected to a highly organized, robotic factory representing Azure Databricks."
-                style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
-            <figcaption style="margin-top: 1rem; color: var(--text-muted); font-size: 0.9rem; font-style: italic;">
-                The Data Lake (Warehouse) stores the raw materials; Databricks (The Factory) processes them into value.
-            </figcaption>
-        </figure>
-
-        <h2><span class="gradient-text">The Exfiltration Threat (And Why VNet Injection Isn't Enough)</span></h2>
-        <p>
-            Deploying Azure Databricks isn't just about spinning up Spark clusters. For enterprise architects in
-            regulated industries, deploying Databricks means solving a fundamental <strong>data residency and
-                exfiltration paradox</strong>.
-        </p>
-        <p>
-            You lock down your ADLS Gen2 storage accounts. You hide them behind a firewall. But if your Databricks
-            clusters (which process this newly protected data) lack a secure perimeter back to the control plane, or
-            fetch secrets from public Key Vault endpoints, your data is still subject to exfiltration by a compromised
-            identity. If you're relying strictly on Service Endpoints or dynamic IP firewalling, you're playing a losing
-            game of whack-a-mole.
-        </p>
-        <p>
-            The fix? <strong>A full-stack Azure Private Endpoint architecture</strong>. But here’s the harsh reality: if
-            you do it wrong, you will break DNS, introduce split-brain routing, and artificially inflate your Azure
-            Firewall costs by tens of thousands of dollars per month. Let's look at the survival guide.
-        </p>
-
-        <h2><span class="gradient-text">1. The Real Story on Azure Private Endpoints</span></h2>
-
-        <h3>What Private Endpoints Actually Protect</h3>
-        <div
-            style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.05);">
-            <p style="margin-top: 0;">Private Endpoints remove public network exposure and constrain traffic paths. They
-                do <strong>NOT</strong> by themselves stop data exfiltration caused by compromised identities.</p>
-            <p>Exfiltration is primarily controlled by:</p>
-            <ul style="margin-bottom: 0;">
-                <li>Storage permissions (RBAC)</li>
-                <li>Service principals / managed identities</li>
-                <li>Outbound network controls</li>
-                <li>Audit monitoring</li>
+        <!-- Sticky Table of Contents -->
+        <aside class="toc-container">
+            <h4><i class="fas fa-list"></i> Table of Contents</h4>
+            <ul class="toc-nav" id="toc-list">
+                <!-- JavaScript will populate this -->
             </ul>
-        </div>
+        </aside>
 
-        <p>
-            A Private Endpoint (PE) is literally just a virtual network interface (vNIC) injected into your subnet. It
-            grabs a private IP from your address pool. From that point on, reaching
-            <code>mydatalake.blob.core.windows.net</code> resolves to `10.1.x.x` instead of traversing the public
-            Microsoft edge.
-        </p>
-        <p>
-            <strong>Why it matters:</strong>
-        <ul>
-            <li><strong>Public Exposure Drop:</strong> Instantly nullifies public internet scanning and direct internet
-                access threats.</li>
-            <li><strong>Compliance Boundaries:</strong> Satisfies strict data residency controls. Traffic never leaves
-                the Azure backbone.</li>
-            <li><strong>Reduces Attack Surface:</strong> It enables enforceable network boundaries. An attacker with
-                compromised credentials inside your VNet faces strict network isolation restricting data export to
-                <i>their</i> generic external Azure Storage account. PEs enforce a specific resource path, but do not
-                replace identity-based data governance.
-            </li>
-        </ul>
-        </p>
+        <!-- Main Article -->
+        <article class="blog-post-content">
+            <p class="lead" style="font-size: 1.3rem; color: var(--primary-color); font-weight: 600;">
+                The regulator didn't care about our multi-million dollar Databricks demo. They pointed at the open
+                public
+                endpoint. Here is how we locked down the Data Lake without breaking the bank or taking the network down.
+            </p>
 
-        <h2><span class="gradient-text">2. The 3 Private Link Flows in Databricks</span></h2>
-        <p>
-            Many teams slap a Private Endpoint on ADLS and call it a day, but a genuinely secure Databricks environment
-            requires <strong>three separate Private Link flows</strong> to completely eliminate public exposure.
-        </p>
+            <h2><span class="gradient-text">The Level-Set: What Are We Actually Defending?</span></h2>
+            <p>
+                If you're new to Microsoft or just starting in Cloud Architecture, let's step back before we talk about
+                firewalls and DNS. Why does a bank or a hospital even buy Azure Databricks and an Azure Data Lake? What
+                actually <em>are</em> they?
+            </p>
 
-        <div
-            style="background: rgba(255,255,255,0.03); border-left: 4px solid var(--primary-color); padding: 1.5rem; border-radius: 0 8px 8px 0; margin: 2rem 0;">
-            <p style="margin-top: 0; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 0.5rem;"><i
-                    class="fas fa-sitemap" style="color: #60a5fa;"></i> TOGAF: Architectural Pattern</p>
+            <h3>The Simple Analogy: The Warehouse and The Factory</h3>
+            <p>
+                Imagine a massive, empty warehouse where delivery trucks just dump raw materials (wood, metal, plastic)
+                on
+                the floor 24/7. They don't sort it; they just drop it. This is your <strong>Azure Data Lake
+                    (specifically,
+                    ADLS Gen2)</strong>. It is an infinitely massive, incredibly cheap hard drive in the cloud. We don't
+                organize the data exactly like a spreadsheet yet; we just dump raw application logs, millions of daily
+                transaction receipts, and customer audio recordings into the lake.
+            </p>
+            <p>
+                The problem? A warehouse full of unsorted materials is useless on its own. It's just a swamp.
+            </p>
+            <p>
+                This is where <strong>Azure Databricks</strong> comes in. Databricks is the highly advanced, robotic
+                factory
+                built right next to the warehouse.
+            </p>
+            <p>
+                Databricks spins up massive compute clusters (hundreds of virtual machines) essentially acting as
+                factory
+                machines. These machines go into the Data Lake (the warehouse), chew through petabytes of that raw swamp
+                water, assemble the pieces (clean the data), look for patterns (like credit card fraud), and turn it
+                into
+                finished, polished products (actionable Business Intelligence reports).
+            </p>
+            <p>
+                <strong>The Real-World Use Case:</strong> Let's say a retail bank needs to process 50 million credit
+                card
+                swipes from the last 24 hours to flag fraudulent anomalies before the market opens. A standard SQL
+                database
+                would choke entirely under that weight. Databricks instead spins up 50 servers, processes the data in
+                parallel directly from the Data Lake in 15 minutes, and then spins those servers back down so you stop
+                paying for them.
+            </p>
 
-            <figure
-                style="margin: 1.5rem 0; text-align: center; background: #ffffff; padding: 1rem; border-radius: 8px;">
-                <img src="https://learn.microsoft.com/en-us/azure/architecture/databases/architecture/_images/azure-data-factory-hardened-network.svg"
-                    alt="Official Microsoft reference architecture diagram demonstrating a hardened network for PaaS services using Azure Private Link."
-                    style="max-width: 100%; height: auto;">
+            <figure style="margin: 3rem 0; text-align: center;">
+                <img src="../assets/images/warehouse_factory.png"
+                    alt="A conceptual 3D illustration showing a chaotic warehouse representing a Data Lake connected to a highly organized, robotic factory representing Azure Databricks."
+                    style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+                <figcaption style="margin-top: 1rem; color: var(--text-muted); font-size: 0.9rem; font-style: italic;">
+                    The Data Lake (Warehouse) stores the raw materials; Databricks (The Factory) processes them into
+                    value.
+                </figcaption>
             </figure>
 
-            <ol style="margin-bottom: 0; padding-left: 1.5rem;">
-                <li style="margin-bottom: 1.25rem;">
-                    <strong>Front-End Private Link:</strong> The connection from your users (via ExpressRoute/VPN) to
-                    the Databricks Workspace UI.
-                    <div style="color: #94a3b8; font-size: 0.95rem; margin-top: 0.25rem; line-height: 1.4;">
-                        <em>Analogy: The <strong>VIP Employee Entrance</strong>. Instead of staff walking through the
-                            public front doors (the open internet), they badge in through a private, secure underground
-                            tunnel directly from corporate HQ (your VPN).</em>
-                    </div>
+            <h2><span class="gradient-text">The Exfiltration Threat (And Why VNet Injection Isn't Enough)</span></h2>
+            <p>
+                Deploying Azure Databricks isn't just about spinning up Spark clusters. For enterprise architects in
+                regulated industries, deploying Databricks means solving a fundamental <strong>data residency and
+                    exfiltration paradox</strong>.
+            </p>
+            <p>
+                You lock down your ADLS Gen2 storage accounts. You hide them behind a firewall. But if your Databricks
+                clusters (which process this newly protected data) lack a secure perimeter back to the control plane, or
+                fetch secrets from public Key Vault endpoints, your data is still subject to exfiltration by a
+                compromised
+                identity. If you're relying strictly on Service Endpoints or dynamic IP firewalling, you're playing a
+                losing
+                game of whack-a-mole.
+            </p>
+            <p>
+                The fix? <strong>A full-stack Azure Private Endpoint architecture</strong>. But here’s the harsh
+                reality: if
+                you do it wrong, you will break DNS, introduce split-brain routing, and artificially inflate your Azure
+                Firewall costs by tens of thousands of dollars per month. Let's look at the survival guide.
+            </p>
+
+            <h2><span class="gradient-text">1. The Real Story on Azure Private Endpoints</span></h2>
+
+            <h3>What Private Endpoints Actually Protect</h3>
+            <div
+                style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.05);">
+                <p style="margin-top: 0;">Private Endpoints remove public network exposure and constrain traffic paths.
+                    They
+                    do <strong>NOT</strong> by themselves stop data exfiltration caused by compromised identities.</p>
+                <p>Exfiltration is primarily controlled by:</p>
+                <ul style="margin-bottom: 0;">
+                    <li>Storage permissions (RBAC)</li>
+                    <li>Service principals / managed identities</li>
+                    <li>Outbound network controls</li>
+                    <li>Audit monitoring</li>
+                </ul>
+            </div>
+
+            <p>
+                A Private Endpoint (PE) is literally just a virtual network interface (vNIC) injected into your subnet.
+                It
+                grabs a private IP from your address pool. From that point on, reaching
+                <code>mydatalake.blob.core.windows.net</code> resolves to `10.1.x.x` instead of traversing the public
+                Microsoft edge.
+            </p>
+            <p>
+                <strong>Why it matters:</strong>
+            <ul>
+                <li><strong>Public Exposure Drop:</strong> Instantly nullifies public internet scanning and direct
+                    internet
+                    access threats.</li>
+                <li><strong>Compliance Boundaries:</strong> Satisfies strict data residency controls. Traffic never
+                    leaves
+                    the Azure backbone.</li>
+                <li><strong>Reduces Attack Surface:</strong> It enables enforceable network boundaries. An attacker with
+                    compromised credentials inside your VNet faces strict network isolation restricting data export to
+                    <i>their</i> generic external Azure Storage account. PEs enforce a specific resource path, but do
+                    not
+                    replace identity-based data governance.
                 </li>
-                <li style="margin-bottom: 1.25rem;">
-                    <strong>Back-End Private Link:</strong> The Secure Cluster Connectivity (SCC) relay. This is how the
-                    injected VNet clusters securely talk <em>back</em> to the Databricks Control Plane without a public
-                    IP assigned to the nodes.
-                    <div style="color: #94a3b8; font-size: 0.95rem; margin-top: 0.25rem; line-height: 1.4;">
-                        <em>Analogy: The <strong>Secure Walkie-Talkies</strong>. The workers inside the building (your
-                            compute clusters) need to receive instructions from Headquarters (the Control Plane).
-                            Instead of shouting out the window, they use a private, encrypted radio channel that no one
-                            outside can intercept.</em>
-                    </div>
-                </li>
-                <li>
-                    <strong>PaaS Private Endpoints:</strong> How the data plane (compute) privately reads/writes to ADLS
-                    Gen2, pulls images from ACR, and fetches secrets from Azure Key Vault.
-                    <div style="color: #94a3b8; font-size: 0.95rem; margin-top: 0.25rem; line-height: 1.4;">
-                        <em>Analogy: The <strong>Internal Service Elevator</strong>. When workers need raw materials
-                            (Data) or building keys (Key Vaults), they don't walk out to the public loading dock facing
-                            the street. They use a private internal elevator to pull exactly what they need safely
-                            within the building.</em>
-                    </div>
-                </li>
+            </ul>
+            </p>
+
+            <h2><span class="gradient-text">2. The 3 Private Link Flows in Databricks</span></h2>
+            <p>
+                Many teams slap a Private Endpoint on ADLS and call it a day, but a genuinely secure Databricks
+                environment
+                requires <strong>three separate Private Link flows</strong> to completely eliminate public exposure.
+            </p>
+
+            <div
+                style="background: rgba(255,255,255,0.03); border-left: 4px solid var(--primary-color); padding: 1.5rem; border-radius: 0 8px 8px 0; margin: 2rem 0;">
+
+                <figure
+                    style="margin: 1.5rem 0; text-align: center; background: #ffffff; padding: 1rem; border-radius: 8px;">
+                    <img src="https://learn.microsoft.com/en-us/azure/architecture/databases/architecture/_images/azure-data-factory-hardened-network.svg"
+                        alt="Official Microsoft reference architecture diagram demonstrating a hardened network for PaaS services using Azure Private Link."
+                        style="max-width: 100%; height: auto;">
+                </figure>
+
+                <ol style="margin-bottom: 0; padding-left: 1.5rem;">
+                    <li style="margin-bottom: 1.25rem;">
+                        <strong>Front-End Private Link:</strong> The connection from your users (via ExpressRoute/VPN)
+                        to
+                        the Databricks Workspace UI.
+                        <div style="color: #94a3b8; font-size: 0.95rem; margin-top: 0.25rem; line-height: 1.4;">
+                            <em>Analogy: The <strong>VIP Employee Entrance</strong>. Instead of staff walking through
+                                the
+                                public front doors (the open internet), they badge in through a private, secure
+                                underground
+                                tunnel directly from corporate HQ (your VPN).</em>
+                        </div>
+                    </li>
+                    <li style="margin-bottom: 1.25rem;">
+                        <strong>Back-End Private Link:</strong> The Secure Cluster Connectivity (SCC) relay. This is how
+                        the
+                        injected VNet clusters securely talk <em>back</em> to the Databricks Control Plane without a
+                        public
+                        IP assigned to the nodes.
+                        <div style="color: #94a3b8; font-size: 0.95rem; margin-top: 0.25rem; line-height: 1.4;">
+                            <em>Analogy: The <strong>Secure Walkie-Talkies</strong>. The workers inside the building
+                                (your
+                                compute clusters) need to receive instructions from Headquarters (the Control Plane).
+                                Instead of shouting out the window, they use a private, encrypted radio channel that no
+                                one
+                                outside can intercept.</em>
+                        </div>
+                    </li>
+                    <li>
+                        <strong>PaaS Private Endpoints:</strong> How the data plane (compute) privately reads/writes to
+                        ADLS
+                        Gen2, pulls images from ACR, and fetches secrets from Azure Key Vault.
+                        <div style="color: #94a3b8; font-size: 0.95rem; margin-top: 0.25rem; line-height: 1.4;">
+                            <em>Analogy: The <strong>Internal Service Elevator</strong>. When workers need raw materials
+                                (Data) or building keys (Key Vaults), they don't walk out to the public loading dock
+                                facing
+                                the street. They use a private internal elevator to pull exactly what they need safely
+                                within the building.</em>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <h2><span class="gradient-text">3. Mandatory Components for a Fully Private Databricks Workspace</span></h2>
+            <p>To establish a fully locked-down Databricks environment without gaps, the following controls are
+                mandatory:
+            </p>
+            <ol style="margin-bottom: 2rem;">
+                <li><strong>Secure Cluster Connectivity:</strong> No Public IPs assigned to compute nodes.</li>
+                <li><strong>Private Endpoint for Workspace UI/API:</strong> Your Front-End connection.</li>
+                <li><strong>Private Endpoint for Browser Authentication:</strong> Dedicated connection for SSO token
+                    exchange.</li>
+                <li><strong>Backend Private Link:</strong> Secure Cluster Connectivity relay for the Compute Plane.</li>
+                <li><strong>Storage Account Private Endpoint:</strong> For DBFS root and mounted data lakes.</li>
+                <li><strong>Key Vault Private Endpoint:</strong> For fetching secret scopes internally.</li>
+                <li><strong>Public Network Access Disabled:</strong> Strictly enforced on all Storage and Key Vault
+                    resources.</li>
             </ol>
-        </div>
 
-        <h2><span class="gradient-text">3. Mandatory Components for a Fully Private Databricks Workspace</span></h2>
-        <p>To establish a fully locked-down Databricks environment without gaps, the following controls are mandatory:
-        </p>
-        <ol style="margin-bottom: 2rem;">
-            <li><strong>Secure Cluster Connectivity:</strong> No Public IPs assigned to compute nodes.</li>
-            <li><strong>Private Endpoint for Workspace UI/API:</strong> Your Front-End connection.</li>
-            <li><strong>Private Endpoint for Browser Authentication:</strong> Dedicated connection for SSO token
-                exchange.</li>
-            <li><strong>Backend Private Link:</strong> Secure Cluster Connectivity relay for the Compute Plane.</li>
-            <li><strong>Storage Account Private Endpoint:</strong> For DBFS root and mounted data lakes.</li>
-            <li><strong>Key Vault Private Endpoint:</strong> For fetching secret scopes internally.</li>
-            <li><strong>Public Network Access Disabled:</strong> Strictly enforced on all Storage and Key Vault
-                resources.</li>
-        </ol>
+            <div
+                style="background: rgba(234,179,8,0.1); border-left: 4px solid #eab308; padding: 1.5rem; border-radius: 0 8px 8px 0; margin: 2rem 0;">
+                <p style="margin: 0; color: #facc15;"><strong><i class="fas fa-exclamation-triangle"></i> Browser
+                        Authentication Callout:</strong> A dedicated browser authentication workspace is required per
+                    region
+                    and must <em>not</em> be deleted. If it is removed or DNS drops, SSO login will fail globally for
+                    that
+                    region.</p>
+            </div>
 
-        <div
-            style="background: rgba(234,179,8,0.1); border-left: 4px solid #eab308; padding: 1.5rem; border-radius: 0 8px 8px 0; margin: 2rem 0;">
-            <p style="margin: 0; color: #facc15;"><strong><i class="fas fa-exclamation-triangle"></i> Browser
-                    Authentication Callout:</strong> A dedicated browser authentication workspace is required per region
-                and must <em>not</em> be deleted. If it is removed or DNS drops, SSO login will fail globally for that
-                region.</p>
-        </div>
+            <h2><span class="gradient-text">4. The 30% Cost Trap (A Realist's Warning)</span></h2>
+            <p>
+                Here is where textbook architecture completely falls apart in production. Standard Hub-and-Spoke
+                patterns
+                dictate that all inter-spoke and internet-bound traffic routes through an Azure Firewall (NVA) in the
+                Hub.
+            </p>
+            <p>
+                <strong>Do not do this with Big Data Private Endpoints.</strong>
+            </p>
+            <p>
+                Databricks generates massive, bursty throughput. I have seen clients force cluster-to-storage traffic
+                through their highly-available firewall appliances "for visibility." Data processing through Azure
+                Firewall
+                Premium costs roughly <strong>$0.016/GB</strong>. If a Spark job shuffles 100 TBs of data an hour, you
+                are
+                adding thousands of dollars to your monthly Azure burn rate for literally zero security benefit (since
+                the
+                traffic is entirely internal PE traffic anyway).
+            </p>
+            <p>
+                <strong>The Fix:</strong> Use <span class="term-tooltip"
+                    data-tooltip="User Defined Routes: Custom network routes you create in Azure to override system default routing, forcing traffic directly to a destination.">User
+                    Defined Routes (UDRs)</span> to explicitly bypass the NVA for Storage
+                Private
+                IPs. Let the compute talk to the PE locally within the VNet.
+            </p>
 
-        <h2><span class="gradient-text">4. The 30% Cost Trap (A Realist's Warning)</span></h2>
-        <p>
-            Here is where textbook architecture completely falls apart in production. Standard Hub-and-Spoke patterns
-            dictate that all inter-spoke and internet-bound traffic routes through an Azure Firewall (NVA) in the Hub.
-        </p>
-        <p>
-            <strong>Do not do this with Big Data Private Endpoints.</strong>
-        </p>
-        <p>
-            Databricks generates massive, bursty throughput. I have seen clients force cluster-to-storage traffic
-            through their highly-available firewall appliances "for visibility." Data processing through Azure Firewall
-            Premium costs roughly <strong>$0.016/GB</strong>. If a Spark job shuffles 100 TBs of data an hour, you are
-            adding thousands of dollars to your monthly Azure burn rate for literally zero security benefit (since the
-            traffic is entirely internal PE traffic anyway).
-        </p>
-        <p>
-            <strong>The Fix:</strong> Use User Defined Routes (UDRs) to explicitly bypass the NVA for Storage Private
-            IPs. Let the compute talk to the PE locally within the VNet.
-        </p>
+            <h2><span class="gradient-text">4. Taming the DNS Monster</span></h2>
+            <p>
+                The #1 failure mode during a Private Endpoint cutover is <strong>Split-Brain DNS</strong>.
+            </p>
 
-        <h2><span class="gradient-text">4. Taming the DNS Monster</span></h2>
-        <p>
-            The #1 failure mode during a Private Endpoint cutover is <strong>Split-Brain DNS</strong>.
-        </p>
+            <h3>The Simple Analogy: Two Maps to the Same Party</h3>
+            <p>
+                Imagine you are throwing a house party.
+                <br>&bull; You give your external friends (the public internet) the map address: "123 Main Street".
+                <br>&bull; You give your family members (who are already inside the house) a different map address: "Go
+                down
+                the hallway to the Living Room".
+            </p>
+            <p>
+                "Split-Brain DNS" happens when your maps get mixed up. If a family member trying to reach the Living
+                Room
+                asks for directions, and you accidentally hand them the public map ("123 Main Street"), they will walk
+                out
+                the front door, get in their car, drive around the block, and try to re-enter through the front gate
+                (which
+                is locked by the bouncer/firewall). The connection drops.
+            </p>
 
-        <h3>The Simple Analogy: Two Maps to the Same Party</h3>
-        <p>
-            Imagine you are throwing a house party.
-            <br>&bull; You give your external friends (the public internet) the map address: "123 Main Street".
-            <br>&bull; You give your family members (who are already inside the house) a different map address: "Go down
-            the hallway to the Living Room".
-        </p>
-        <p>
-            "Split-Brain DNS" happens when your maps get mixed up. If a family member trying to reach the Living Room
-            asks for directions, and you accidentally hand them the public map ("123 Main Street"), they will walk out
-            the front door, get in their car, drive around the block, and try to re-enter through the front gate (which
-            is locked by the bouncer/firewall). The connection drops.
-        </p>
+            <figure style="margin: 3rem 0; text-align: center;">
+                <div class="mermaid">
+                    graph TD
+                    classDef default fill:#1e293b,stroke:#3b82f6,stroke-width:2px,color:#fff;
+                    classDef bad fill:#7f1d1d,stroke:#ef4444,stroke-width:2px,color:#fff;
+                    classDef good fill:#14532d,stroke:#10b981,stroke-width:2px,color:#fff;
 
-        <figure style="margin: 3rem 0; text-align: center;">
-            <img src="../assets/images/split_brain_dns.png"
-                alt="A conceptual 3D illustration showing a person outside a house with a public map, and a person inside the house with an internal map, illustrating the concept of Split-Brain DNS."
-                style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
-            <figcaption style="margin-top: 1rem; color: var(--text-muted); font-size: 0.9rem; font-style: italic;">
-                Split-Brain DNS occurs when internal and external clients receive conflicting "maps" to the same
-                resource.
-            </figcaption>
-        </figure>
+                    subgraph Internet ["&#12710; The Public Internet"]
+                    User[External User]
+                    end
 
-        <p>
-            In Azure, your on-premise servers and VNet servers must realize the Data Lake is "inside the house" (the
-            Private IP: <code>10.1.2.5</code>). If your internal servers accidentally use public DNS, they will resolve
-            the public IP of the Data Lake, route traffic out to the internet, and drop packets because the PaaS public
-            firewall is set to Deny.
-        </p>
+                    subgraph House ["&#127968; Azure VNet (The House)"]
+                    VM[Internal Server]
+                    FW[PaaS Firewall]
+                    ADLS[("ADLS Gen2 (10.1.2.5)")]
+                    end
 
-        <p>
-            If your application teams are allowed to deploy their own Azure Private DNS zones inside disparate spoke
-            VNets, you are literally giving out conflicting maps. You will experience catastrophic name resolution
-            failures when on-prem clients or interdependent applications try to resolve the endpoints.
-        </p>
-        <figure style="margin: 3rem 0; text-align: center;">
-            <img src="../assets/images/arch diag.png"
-                alt="Detailed Architecture topology map of a Hub and Spoke VNet with Azure Databricks, Private Endpoints, and Private DNS Zones."
-                style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
-            <figcaption style="margin-top: 1rem; color: var(--text-muted); font-size: 0.9rem; font-style: italic;">
-                Fig 3: Architecture Topology demonstrating conditional DNS forwarding and VNet injection for Secure
-                Cluster Connectivity.
-            </figcaption>
-        </figure>
-        <p>
-            <strong>The Rule:</strong> Centralize your Azure Private DNS Zones in your Hub. Use the new <strong>Azure
-                DNS Private Resolver</strong>. Corporate DNS must conditionally forward the following domains to the
-            Azure DNS Private Resolver INBOUND endpoint IP:
-        </p>
+                    User -- "Queries Public DNS" --> PubDNS{"Public DNS"}
+                    PubDNS -- "Returns Public IP" --> FW
+                    FW -- "Denies Traffic" --> Drop("Blocked"):::bad
 
-        <pre><code>*.azuredatabricks.net
+                    VM -- "Queries Public DNS\n(Split-Brain Error!)" --> PubDNS
+
+                    VM -- "Queries Private DNS\n(Correct Setup)" --> PrivDNS{"Private DNS Maps"}
+                    PrivDNS -- "Returns 10.1.2.5" --> ADLS:::good
+                </div>
+                <figcaption style="margin-top: 1rem; color: var(--text-muted); font-size: 0.9rem; font-style: italic;">
+                    Interactive Flow: <span class="term-tooltip"
+                        data-tooltip="Occurs when internal resources accidentally query external DNS zones, routing private traffic out to the public internet where it is blocked.">Split-Brain
+                        DNS</span> occurs when internal clients receive the public "map" instead of the internal one.
+                </figcaption>
+            </figure>
+
+            <p>
+                In Azure, your on-premise servers and VNet servers must realize the Data Lake is "inside the house" (the
+                Private IP: <code>10.1.2.5</code>). If your internal servers accidentally use public DNS, they will
+                resolve
+                the public IP of the Data Lake, route traffic out to the internet, and drop packets because the PaaS
+                public
+                firewall is set to Deny.
+            </p>
+
+            <p>
+                If your application teams are allowed to deploy their own Azure Private DNS zones inside disparate spoke
+                VNets, you are literally giving out conflicting maps. You will experience catastrophic name resolution
+                failures when on-prem clients or interdependent applications try to resolve the endpoints.
+            </p>
+            <figure style="margin: 3rem 0; text-align: center;">
+                <img src="../assets/images/arch diag.png"
+                    alt="Detailed Architecture topology map of a Hub and Spoke VNet with Azure Databricks, Private Endpoints, and Private DNS Zones."
+                    style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+                <figcaption style="margin-top: 1rem; color: var(--text-muted); font-size: 0.9rem; font-style: italic;">
+                    Fig 3: Architecture Topology demonstrating conditional DNS forwarding and VNet injection for Secure
+                    Cluster Connectivity.
+                </figcaption>
+            </figure>
+            <p>
+                <strong>The Rule:</strong> Centralize your Azure Private DNS Zones in your Hub. Use the new
+                <strong>Azure
+                    DNS Private Resolver</strong>. Corporate DNS must conditionally forward the following domains to the
+                Azure DNS Private Resolver INBOUND endpoint IP:
+            </p>
+
+            <pre><code>*.azuredatabricks.net
 *.privatelink.azuredatabricks.net
 *.databricksapps.com</code></pre>
 
-        <div
-            style="background: rgba(220,38,38,0.1); border-left: 4px solid #dc2626; padding: 1.5rem; border-radius: 0 8px 8px 0; margin: 2rem 0;">
-            <p style="margin-top: 0; color: #fca5a5;"><strong><i class="fas fa-radiation"></i> If DNS forwarding is
-                    incorrect:</strong></p>
-            <ul style="margin-bottom: 0;">
-                <li>Workspace login fails</li>
-                <li>SSO loops occur</li>
-                <li>Clusters fail to start</li>
-            </ul>
-        </div>
+            <div
+                style="background: rgba(220,38,38,0.1); border-left: 4px solid #dc2626; padding: 1.5rem; border-radius: 0 8px 8px 0; margin: 2rem 0;">
+                <p style="margin-top: 0; color: #fca5a5;"><strong><i class="fas fa-radiation"></i> If DNS forwarding is
+                        incorrect:</strong></p>
+                <ul style="margin-bottom: 0;">
+                    <li>Workspace login fails</li>
+                    <li>SSO loops occur</li>
+                    <li>Clusters fail to start</li>
+                </ul>
+            </div>
 
-        <h3>DNS Validation Check</h3>
-        <p>Before proceeding with any cluster deployments, you must validate resolution. Run this from a machine inside
-            your VNet or on-premise:</p>
-        <pre><code>nslookup &lt;workspace-url&gt;
+            <h3>DNS Validation Check</h3>
+            <p>Before proceeding with any cluster deployments, you must validate resolution. Run this from a machine
+                inside
+                your VNet or on-premise:</p>
+            <pre><code>nslookup &lt;workspace-url&gt;
 # Expected result: Must return a Private IP address (e.g. 10.x.x.x)</code></pre>
 
-        <h2><span class="gradient-text">5. Where Each Component Must Live</span></h2>
+            <h2><span class="gradient-text">5. Where Each Component Must Live</span></h2>
 
-        <p>Properly segmenting these endpoints is critical. Placing storage private endpoints in the hub causes hairpin
-            routing and higher latency.</p>
+            <p>Properly segmenting these endpoints is critical. Placing storage private endpoints in the hub causes
+                hairpin
+                routing and higher latency.</p>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
-            <div
-                style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 8px; border-top: 4px solid #3b82f6;">
-                <h4 style="margin-top: 0; color: #60a5fa;"><i class="fas fa-network-wired"></i> Hub VNet</h4>
-                <ul style="margin-bottom: 0; font-size: 0.95rem;">
-                    <li>Private DNS Zones</li>
-                    <li>DNS Private Resolver</li>
-                    <li>UI/API Private Endpoint</li>
-                    <li>Browser Authentication Private Endpoint</li>
-                    <li>VPN/ExpressRoute gateway</li>
-                </ul>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
+                <div
+                    style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 8px; border-top: 4px solid #3b82f6;">
+                    <h4 style="margin-top: 0; color: #60a5fa;"><i class="fas fa-network-wired"></i> Hub VNet</h4>
+                    <ul style="margin-bottom: 0; font-size: 0.95rem;">
+                        <li>Private DNS Zones</li>
+                        <li>DNS Private Resolver</li>
+                        <li>UI/API Private Endpoint</li>
+                        <li>Browser Authentication Private Endpoint</li>
+                        <li>VPN/ExpressRoute gateway</li>
+                    </ul>
+                </div>
+                <div
+                    style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 8px; border-top: 4px solid #10b981;">
+                    <h4 style="margin-top: 0; color: #34d399;"><i class="fas fa-project-diagram"></i> Spoke VNet
+                        (Injected)
+                    </h4>
+                    <ul style="margin-bottom: 0; font-size: 0.95rem;">
+                        <li>Databricks compute subnets</li>
+                        <li>Storage private endpoints</li>
+                        <li>Key Vault private endpoints</li>
+                    </ul>
+                </div>
             </div>
-            <div
-                style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 8px; border-top: 4px solid #10b981;">
-                <h4 style="margin-top: 0; color: #34d399;"><i class="fas fa-project-diagram"></i> Spoke VNet (Injected)
-                </h4>
-                <ul style="margin-bottom: 0; font-size: 0.95rem;">
-                    <li>Databricks compute subnets</li>
-                    <li>Storage private endpoints</li>
-                    <li>Key Vault private endpoints</li>
-                </ul>
-            </div>
-        </div>
 
-        <h2><span class="gradient-text">6. Deployment Order (Critical)</span></h2>
-        <p>To avoid race conditions and ensure Secure Cluster Connectivity successfully bootstraps, use this exact
-            deployment sequence:</p>
-        <ol>
-            <li>Create VNets and subnets</li>
-            <li>Configure peering</li>
-            <li>Deploy private DNS zones</li>
-            <li>Deploy DNS private resolver + rulesets</li>
-            <li>Deploy Databricks workspace (with VNet injection and secure cluster connectivity)</li>
-            <li>Create workspace private endpoints</li>
-            <li>Create storage and key vault private endpoints</li>
-            <li>Disable public network access</li>
-            <li>Validate DNS resolution</li>
-            <li>Start clusters</li>
-        </ol>
-        <div
-            style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 8px; border-left: 4px solid #94a3b8; font-style: italic; margin-bottom: 2rem;">
-            <strong>Note:</strong> Databricks compute must be stopped during certain network-tier updates or the update
-            may fail.
-        </div>
-
-        <h2><span class="gradient-text">7. The "Cutover Night" Migration Checklist</span></h2>
-        <p>
-            Migrating from public to private is not an overnight "flip the switch" exercise. It's a progressive
-            lockdown.
-        </p>
-        <ul>
-            <li><strong>Discovery:</strong> Parse Storage Analytics logs. Map every external system reading the public
-                endpoint. You cannot shut off the public firewall without knowing who you are breaking.</li>
-            <li><strong>Parallel Path Phase:</strong> Build the Private Endpoints and link the DNS. Do not disable
-                Public Network Access yet. Let the VNet-injected components fail over to the private IP naturally while
-                legacy systems continue to use the public route.</li>
-            <li><strong>Pilot Cutover:</strong> Update on-prem forwarders. Ask a QA user to access the workspace.</li>
-            <li><strong>Lockdown:</strong> Toggle the PaaS firewall to "Deny all public network access." Use Azure
-                Policy (`DeployIfNotExists`) to ensure nobody turns it back on.</li>
+            <h2><span class="gradient-text">6. Deployment Order (Critical)</span></h2>
+            <p>To avoid race conditions and ensure Secure Cluster Connectivity successfully bootstraps, use this exact
+                deployment sequence:</p>
+            <ol>
+                <li>Create VNets and subnets</li>
+                <li>Configure peering</li>
+                <li>Deploy private DNS zones</li>
+                <li>Deploy DNS private resolver + rulesets</li>
+                <li>Deploy Databricks workspace (with VNet injection and secure cluster connectivity)</li>
+                <li>Create workspace private endpoints</li>
+                <li>Create storage and key vault private endpoints</li>
+                <li>Disable public network access</li>
+                <li>Validate DNS resolution</li>
+                <li>Start clusters</li>
             </ol>
+            <div
+                style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 8px; border-left: 4px solid #94a3b8; font-style: italic; margin-bottom: 2rem;">
+                <strong>Note:</strong> Databricks compute must be stopped during certain network-tier updates or the
+                update
+                may fail.
+            </div>
+
+            <h2><span class="gradient-text">7. The "Cutover Night" Migration Checklist</span></h2>
+            <p>
+                Migrating from public to private is not an overnight "flip the switch" exercise. It's a progressive
+                lockdown.
+            </p>
+            <div class="interactive-checklist">
+                <div class="checklist-item">
+                    <div class="custom-checkbox"></div>
+                    <div class="task-text"><strong>Discovery:</strong> Parse Storage Analytics logs. Map every external
+                        system reading the public endpoint. You cannot shut off the public firewall without knowing who
+                        you are breaking.</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="custom-checkbox"></div>
+                    <div class="task-text"><strong>Parallel Path Phase:</strong> Build the <span class="term-tooltip"
+                            data-tooltip="A network interface that connects you privately and securely to a service powered by Azure Private Link.">Private
+                            Endpoints</span> and link the DNS. Do not disable Public Network Access yet. Let the
+                        VNet-injected components fail over to the private IP naturally while legacy systems continue to
+                        use the public route.</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="custom-checkbox"></div>
+                    <div class="task-text"><strong>Pilot Cutover:</strong> Update on-prem forwarders. Ask a QA user to
+                        access the workspace.</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="custom-checkbox"></div>
+                    <div class="task-text"><strong>Lockdown:</strong> Toggle the PaaS firewall to "Deny all public
+                        network access." Use Azure Policy (`DeployIfNotExists`) to ensure nobody turns it back on.</div>
+                </div>
+            </div>
 
             <h2><span class="gradient-text">8. Outbound Traffic Strategy</span></h2>
             <p>We recommend the following egress pattern for highly segmented environments:</p>
             <ul>
-                <li><strong>Allow:</strong> Private Link traffic and strictly required Azure service dependencies.</li>
+                <li><strong>Allow:</strong> Private Link traffic and strictly required Azure service dependencies.
+                </li>
                 <li><strong>Block:</strong> General internet access.</li>
                 <li><strong>Optional:</strong> Firewall inspection for internet-bound traffic only.</li>
             </ul>
             <div
                 style="background: rgba(220,38,38,0.1); border-left: 4px solid #dc2626; padding: 1rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0;">
-                <p style="margin: 0; color: #fca5a5;"><strong>Important:</strong> Do not route Private Endpoint traffic
+                <p style="margin: 0; color: #fca5a5;"><strong>Important:</strong> Do not route Private Endpoint
+                    traffic
                     through Azure Firewall unless deep packet inspection is specifically required.</p>
             </div>
 
@@ -599,10 +856,13 @@
             <p>A locked-down network perimeter is insufficient. <strong>Network isolation does not equal data
                     governance.</strong> You must pair your private endpoints with data-plane controls:</p>
             <ul>
-                <li><strong>Unity Catalog & Domain-Level Entra Groups:</strong> Use centralized access authorization by
-                    mapping domain-specific Entra ID groups (e.g., `Finance-Data-Readers`) directly into Unity Catalog.
+                <li><strong>Unity Catalog & Domain-Level Entra Groups:</strong> Use centralized access authorization
+                    by
+                    mapping domain-specific Entra ID groups (e.g., `Finance-Data-Readers`) directly into Unity
+                    Catalog.
                     <em>Do not create custom roles or solution-specific groups</em>, as this leads to unmanageable
-                    lifecycle sprawl.</li>
+                    lifecycle sprawl.
+                </li>
                 <li><strong>Secret Scopes:</strong> Backed by Azure Key Vault to remove hardcoded credentials from
                     notebooks.</li>
                 <li><strong>Managed Identities:</strong> Use Azure Managed Identities for authentication and
@@ -615,8 +875,10 @@
             </ul>
 
             <h2><span class="gradient-text">10. Compliance Mapping</span></h2>
-            <p>This architecture is designed to support the strictest regulated environments (e.g., Banking, Financial
-                Services, Healthcare). However, it still requires identity governance and continuous monitoring. Here is
+            <p>This architecture is designed to support the strictest regulated environments (e.g., Banking,
+                Financial
+                Services, Healthcare). However, it still requires identity governance and continuous monitoring.
+                Here is
                 how controls map to compliance requirements:</p>
             <div style="overflow-x: auto; margin: 2rem 0;">
                 <table style="width: 100%; border-collapse: collapse; text-align: left;">
@@ -653,13 +915,16 @@
             </div>
 
             <h2><span class="gradient-text">11. Ingesting Data Securely (The ADF/SHIR Connection)</span></h2>
-            <p>A locked-down Private Data Lake is useless if you can't get data into it. To securely ingest on-premises
+            <p>A locked-down Private Data Lake is useless if you can't get data into it. To securely ingest
+                on-premises
                 or cross-cloud data into your isolated ADLS Gen2 account, you should use <strong>Azure Data Factory
                     (ADF)</strong> paired with a <strong>Self-Hosted Integration Runtime (SHIR)</strong>.</p>
             <p>By deploying the SHIR on a Virtual Machine inside your Azure VNet (specifically within the Spoke or a
                 dedicated integration subnet), the runtime can securely pull data from external sources and write it
-                directly to the Storage Private Endpoint. This keeps the entire end-to-end flow—from data ingestion to
-                Databricks processing—strictly on the private Azure backbone, fully adhering to Zero Trust architecture.
+                directly to the Storage Private Endpoint. This keeps the entire end-to-end flow—from data ingestion
+                to
+                Databricks processing—strictly on the private Azure backbone, fully adhering to Zero Trust
+                architecture.
             </p>
 
             <h2><span class="gradient-text">12. Common Failure Modes</span></h2>
@@ -667,14 +932,18 @@
             <ol>
                 <li><strong>Login redirect loop</strong> &rarr; DNS misconfiguration on the Browser Authentication
                     endpoint.</li>
-                <li><strong>Cluster start failure</strong> &rarr; Backend Private Link missing or misconfigured.</li>
-                <li><strong>Workspace unreachable</strong> &rarr; Wrong Private DNS Zone link to your client VNet.</li>
-                <li><strong>Storage mount fails</strong> &rarr; Storage firewall is still enabled for public access, or
+                <li><strong>Cluster start failure</strong> &rarr; Backend Private Link missing or misconfigured.
+                </li>
+                <li><strong>Workspace unreachable</strong> &rarr; Wrong Private DNS Zone link to your client VNet.
+                </li>
+                <li><strong>Storage mount fails</strong> &rarr; Storage firewall is still enabled for public access,
+                    or
                     RBAC permissions are wrong.</li>
             </ol>
 
             <h2><span class="gradient-text">13. Residual Risks</span></h2>
-            <p>Even with full private networking, risks remain. You are mitigating network-layer threats, but you still
+            <p>Even with full private networking, risks remain. You are mitigating network-layer threats, but you
+                still
                 face:</p>
             <ul>
                 <li>Compromised internal identities</li>
@@ -682,14 +951,16 @@
                 <li>Data copied to internally approved, but unsecured destinations</li>
                 <li>Incorrect RBAC assignments</li>
             </ul>
-            <p><strong>Mitigation:</strong> Continuous anomaly monitoring, strict least-privilege identity access, and
+            <p><strong>Mitigation:</strong> Continuous anomaly monitoring, strict least-privilege identity access,
+                and
                 comprehensive audit logging sent to Sentinel.</p>
 
             <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
 
             <h3>Ready to operationalize your Azure journey?</h3>
             <p>
-                We don't do textbook theories. We build robust, regulated, multi-region cloud architectures designed for
+                We don't do textbook theories. We build robust, regulated, multi-region cloud architectures designed
+                for
                 zero-trust environments.
             </p>
             <div style="margin-top: 2rem; display: flex; gap: 1rem;">
@@ -754,7 +1025,8 @@
                     <i class="fas fa-arrow-left"></i> Back to Insights
                 </a>
             </div>
-    </article>
+        </article>
+    </div> <!-- End blog-layout-container -->
 
     <!-- Footer -->
     <footer class="footer">
@@ -780,6 +1052,85 @@
     </script>
     <script src="../js/particles.js"></script>
     <script src="../js/main.js"></script>
+
+    <!-- Interactive Blog Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Build Sticky Table of Contents
+            const article = document.querySelector('.blog-post-content');
+            const headings = article.querySelectorAll('h2, h3');
+            const tocList = document.getElementById('toc-list');
+
+            if (headings.length > 0 && tocList) {
+                headings.forEach((heading, index) => {
+                    // Ensure heading has an ID
+                    if (!heading.id) {
+                        heading.id = 'heading-' + index;
+                    }
+
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = '#' + heading.id;
+                    a.textContent = heading.innerText.replace(/^[\d\.]+\s*/, ''); // Remove numbering if present
+
+                    // Indent h3s
+                    if (heading.tagName.toLowerCase() === 'h3') {
+                        a.style.paddingLeft = '1.5rem';
+                        a.style.fontSize = '0.85rem';
+                    }
+
+                    li.appendChild(a);
+                    tocList.appendChild(li);
+                });
+
+                // Intersection Observer for highlighting ToC
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '0px 0px -80% 0px',
+                    threshold: 0
+                };
+
+                const observer = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const id = entry.target.id;
+                            document.querySelectorAll('.toc-nav a').forEach(link => {
+                                link.classList.remove('active');
+                                if (link.getAttribute('href') === '#' + id) {
+                                    link.classList.add('active');
+                                }
+                            });
+                        }
+                    });
+                }, observerOptions);
+
+                headings.forEach(heading => observer.observe(heading));
+            }
+
+            // 2. Stateful Checklists
+            const checklists = document.querySelectorAll('.interactive-checklist');
+            checklists.forEach((list, listIndex) => {
+                const items = list.querySelectorAll('.checklist-item');
+                const storageKey = 'blog_checklist_' + window.location.pathname.replace(/[^a-zA-Z0-9]/g, '') + '_' + listIndex;
+
+                // Load state
+                const savedState = JSON.parse(localStorage.getItem(storageKey)) || {};
+
+                items.forEach((item, itemIndex) => {
+                    if (savedState[itemIndex]) {
+                        item.classList.add('checked');
+                    }
+
+                    item.addEventListener('click', () => {
+                        item.classList.toggle('checked');
+                        // Save state
+                        savedState[itemIndex] = item.classList.contains('checked');
+                        localStorage.setItem(storageKey, JSON.stringify(savedState));
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
