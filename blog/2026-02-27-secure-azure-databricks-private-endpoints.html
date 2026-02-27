@@ -308,6 +308,21 @@
         </p>
 
         <h2><span class="gradient-text">1. The Real Story on Azure Private Endpoints</span></h2>
+
+        <h3>What Private Endpoints Actually Protect</h3>
+        <div
+            style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.05);">
+            <p style="margin-top: 0;">Private Endpoints remove public network exposure and constrain traffic paths. They
+                do <strong>NOT</strong> by themselves stop data exfiltration caused by compromised identities.</p>
+            <p>Exfiltration is primarily controlled by:</p>
+            <ul style="margin-bottom: 0;">
+                <li>Storage permissions (RBAC)</li>
+                <li>Service principals / managed identities</li>
+                <li>Outbound network controls</li>
+                <li>Audit monitoring</li>
+            </ul>
+        </div>
+
         <p>
             A Private Endpoint (PE) is literally just a virtual network interface (vNIC) injected into your subnet. It
             grabs a private IP from your address pool. From that point on, reaching
@@ -321,8 +336,10 @@
                 access threats.</li>
             <li><strong>Compliance Boundaries:</strong> Satisfies strict data residency controls. Traffic never leaves
                 the Azure backbone.</li>
-            <li><strong>Exfiltration Mitigation:</strong> An attacker with compromised credentials inside your VNet
-                cannot export data to <i>their</i> generic Azure Storage account. PEs enforce a specific resource path.
+            <li><strong>Reduces Attack Surface:</strong> It enables enforceable network boundaries. An attacker with
+                compromised credentials inside your VNet faces strict network isolation restricting data export to
+                <i>their</i> generic external Azure Storage account. PEs enforce a specific resource path, but do not
+                replace identity-based data governance.
             </li>
         </ul>
         </p>
@@ -378,7 +395,30 @@
             </ol>
         </div>
 
-        <h2><span class="gradient-text">3. The 30% Cost Trap (A Realist's Warning)</span></h2>
+        <h2><span class="gradient-text">3. Mandatory Components for a Fully Private Databricks Workspace</span></h2>
+        <p>To establish a fully locked-down Databricks environment without gaps, the following controls are mandatory:
+        </p>
+        <ol style="margin-bottom: 2rem;">
+            <li><strong>Secure Cluster Connectivity:</strong> No Public IPs assigned to compute nodes.</li>
+            <li><strong>Private Endpoint for Workspace UI/API:</strong> Your Front-End connection.</li>
+            <li><strong>Private Endpoint for Browser Authentication:</strong> Dedicated connection for SSO token
+                exchange.</li>
+            <li><strong>Backend Private Link:</strong> Secure Cluster Connectivity relay for the Compute Plane.</li>
+            <li><strong>Storage Account Private Endpoint:</strong> For DBFS root and mounted data lakes.</li>
+            <li><strong>Key Vault Private Endpoint:</strong> For fetching secret scopes internally.</li>
+            <li><strong>Public Network Access Disabled:</strong> Strictly enforced on all Storage and Key Vault
+                resources.</li>
+        </ol>
+
+        <div
+            style="background: rgba(234,179,8,0.1); border-left: 4px solid #eab308; padding: 1.5rem; border-radius: 0 8px 8px 0; margin: 2rem 0;">
+            <p style="margin: 0; color: #facc15;"><strong><i class="fas fa-exclamation-triangle"></i> Browser
+                    Authentication Callout:</strong> A dedicated browser authentication workspace is required per region
+                and must <em>not</em> be deleted. If it is removed or DNS drops, SSO login will fail globally for that
+                region.</p>
+        </div>
+
+        <h2><span class="gradient-text">4. The 30% Cost Trap (A Realist's Warning)</span></h2>
         <p>
             Here is where textbook architecture completely falls apart in production. Standard Hub-and-Spoke patterns
             dictate that all inter-spoke and internet-bound traffic routes through an Azure Firewall (NVA) in the Hub.
@@ -450,12 +490,82 @@
         </figure>
         <p>
             <strong>The Rule:</strong> Centralize your Azure Private DNS Zones in your Hub. Use the new <strong>Azure
-                DNS Private Resolver</strong>. On-premise DNS servers must conditionally forward
-            <code>core.windows.net</code>, <code>azure.net</code>, and <code>azuredatabricks.net</code> queries directly
-            to your centralized Resolver INBOUND endpoint.
+                DNS Private Resolver</strong>. Corporate DNS must conditionally forward the following domains to the
+            Azure DNS Private Resolver INBOUND endpoint IP:
         </p>
 
-        <h2><span class="gradient-text">5. The "Cutover Night" Migration Checklist</span></h2>
+        <pre><code>*.azuredatabricks.net
+*.privatelink.azuredatabricks.net
+*.databricksapps.com</code></pre>
+
+        <div
+            style="background: rgba(220,38,38,0.1); border-left: 4px solid #dc2626; padding: 1.5rem; border-radius: 0 8px 8px 0; margin: 2rem 0;">
+            <p style="margin-top: 0; color: #fca5a5;"><strong><i class="fas fa-radiation"></i> If DNS forwarding is
+                    incorrect:</strong></p>
+            <ul style="margin-bottom: 0;">
+                <li>Workspace login fails</li>
+                <li>SSO loops occur</li>
+                <li>Clusters fail to start</li>
+            </ul>
+        </div>
+
+        <h3>DNS Validation Check</h3>
+        <p>Before proceeding with any cluster deployments, you must validate resolution. Run this from a machine inside
+            your VNet or on-premise:</p>
+        <pre><code>nslookup &lt;workspace-url&gt;
+# Expected result: Must return a Private IP address (e.g. 10.x.x.x)</code></pre>
+
+        <h2><span class="gradient-text">5. Where Each Component Must Live</span></h2>
+
+        <p>Properly segmenting these endpoints is critical. Placing storage private endpoints in the hub causes hairpin
+            routing and higher latency.</p>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
+            <div
+                style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 8px; border-top: 4px solid #3b82f6;">
+                <h4 style="margin-top: 0; color: #60a5fa;"><i class="fas fa-network-wired"></i> Hub VNet</h4>
+                <ul style="margin-bottom: 0; font-size: 0.95rem;">
+                    <li>Private DNS Zones</li>
+                    <li>DNS Private Resolver</li>
+                    <li>UI/API Private Endpoint</li>
+                    <li>Browser Authentication Private Endpoint</li>
+                    <li>VPN/ExpressRoute gateway</li>
+                </ul>
+            </div>
+            <div
+                style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 8px; border-top: 4px solid #10b981;">
+                <h4 style="margin-top: 0; color: #34d399;"><i class="fas fa-project-diagram"></i> Spoke VNet (Injected)
+                </h4>
+                <ul style="margin-bottom: 0; font-size: 0.95rem;">
+                    <li>Databricks compute subnets</li>
+                    <li>Storage private endpoints</li>
+                    <li>Key Vault private endpoints</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2><span class="gradient-text">6. Deployment Order (Critical)</span></h2>
+        <p>To avoid race conditions and ensure Secure Cluster Connectivity successfully bootstraps, use this exact
+            deployment sequence:</p>
+        <ol>
+            <li>Create VNets and subnets</li>
+            <li>Configure peering</li>
+            <li>Deploy private DNS zones</li>
+            <li>Deploy DNS private resolver + rulesets</li>
+            <li>Deploy Databricks workspace (with VNet injection and secure cluster connectivity)</li>
+            <li>Create workspace private endpoints</li>
+            <li>Create storage and key vault private endpoints</li>
+            <li>Disable public network access</li>
+            <li>Validate DNS resolution</li>
+            <li>Start clusters</li>
+        </ol>
+        <div
+            style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 8px; border-left: 4px solid #94a3b8; font-style: italic; margin-bottom: 2rem;">
+            <strong>Note:</strong> Databricks compute must be stopped during certain network-tier updates or the update
+            may fail.
+        </div>
+
+        <h2><span class="gradient-text">7. The "Cutover Night" Migration Checklist</span></h2>
         <p>
             Migrating from public to private is not an overnight "flip the switch" exercise. It's a progressive
             lockdown.
@@ -470,6 +580,94 @@
             <li><strong>Lockdown:</strong> Toggle the PaaS firewall to "Deny all public network access." Use Azure
                 Policy (`DeployIfNotExists`) to ensure nobody turns it back on.</li>
             </ol>
+
+            <h2><span class="gradient-text">8. Outbound Traffic Strategy</span></h2>
+            <p>We recommend the following egress pattern for highly segmented environments:</p>
+            <ul>
+                <li><strong>Allow:</strong> Private Link traffic and strictly required Azure service dependencies.</li>
+                <li><strong>Block:</strong> General internet access.</li>
+                <li><strong>Optional:</strong> Firewall inspection for internet-bound traffic only.</li>
+            </ul>
+            <div
+                style="background: rgba(220,38,38,0.1); border-left: 4px solid #dc2626; padding: 1rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0;">
+                <p style="margin: 0; color: #fca5a5;"><strong>Important:</strong> Do not route Private Endpoint traffic
+                    through Azure Firewall unless deep packet inspection is specifically required.</p>
+            </div>
+
+            <h2><span class="gradient-text">9. Data Governance Layer</span></h2>
+            <p>A locked-down network perimeter is insufficient. <strong>Network isolation does not equal data
+                    governance.</strong> You must pair your private endpoints with data-plane controls:</p>
+            <ul>
+                <li><strong>Unity Catalog:</strong> For centralized access authorization and auditing.</li>
+                <li><strong>Secret Scopes:</strong> Backed by Azure Key Vault to remove hardcoded credentials from
+                    notebooks.</li>
+                <li><strong>Managed Identities:</strong> Use Azure Managed Identities or Service Principals for ADLS
+                    access instead of Storage Account Keys.</li>
+                <li><strong>Least Privilege RBAC:</strong> Granular permissions at the workspace and cluster levels.
+                </li>
+                <li><strong>Environment Separation:</strong> Distinct Dev/Test/Prod metastores and workspaces.</li>
+            </ul>
+
+            <h2><span class="gradient-text">10. Compliance Mapping</span></h2>
+            <p>This architecture is designed to support the strictest regulated environments (e.g., Banking, Financial
+                Services, Healthcare). However, it still requires identity governance and continuous monitoring. Here is
+                how controls map to compliance requirements:</p>
+            <div style="overflow-x: auto; margin: 2rem 0;">
+                <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02);">
+                            <th style="padding: 1rem;">Requirement</th>
+                            <th style="padding: 1rem;">Control</th>
+                            <th style="padding: 1rem;">Evidence</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 1rem;">No public admin access</td>
+                            <td style="padding: 1rem;">Private Link UI/API</td>
+                            <td style="padding: 1rem;">Private IP resolution</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 1rem;">Private data access</td>
+                            <td style="padding: 1rem;">ADLS Private Endpoint</td>
+                            <td style="padding: 1rem;">Storage firewall disabled public</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 1rem;">Auditability</td>
+                            <td style="padding: 1rem;">Databricks audit logs</td>
+                            <td style="padding: 1rem;">Log Analytics</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 1rem;">Network segmentation</td>
+                            <td style="padding: 1rem;">Hub-spoke</td>
+                            <td style="padding: 1rem;">VNet design</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2><span class="gradient-text">11. Common Failure Modes</span></h2>
+            <p>If you hit a wall during deployment, it's almost certainly one of these four:</p>
+            <ol>
+                <li><strong>Login redirect loop</strong> &rarr; DNS misconfiguration on the Browser Authentication
+                    endpoint.</li>
+                <li><strong>Cluster start failure</strong> &rarr; Backend Private Link missing or misconfigured.</li>
+                <li><strong>Workspace unreachable</strong> &rarr; Wrong Private DNS Zone link to your client VNet.</li>
+                <li><strong>Storage mount fails</strong> &rarr; Storage firewall is still enabled for public access, or
+                    RBAC permissions are wrong.</li>
+            </ol>
+
+            <h2><span class="gradient-text">12. Residual Risks</span></h2>
+            <p>Even with full private networking, risks remain. You are mitigating network-layer threats, but you still
+                face:</p>
+            <ul>
+                <li>Compromised internal identities</li>
+                <li>Malicious notebooks executed by authorized users</li>
+                <li>Data copied to internally approved, but unsecured destinations</li>
+                <li>Incorrect RBAC assignments</li>
+            </ul>
+            <p><strong>Mitigation:</strong> Continuous anomaly monitoring, strict least-privilege identity access, and
+                comprehensive audit logging sent to Sentinel.</p>
 
             <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
 
