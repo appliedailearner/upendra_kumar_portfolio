@@ -403,20 +403,15 @@
             VNets, you are literally giving out conflicting maps. You will experience catastrophic name resolution
             failures when on-prem clients or interdependent applications try to resolve the endpoints.
         </p>
-        <pre class="mermaid" style="background: transparent; border: none; padding: 0;">
-sequenceDiagram
-    participant Client as Client (On-Prem)
-    participant LocalDNS as Local DNS
-    participant AzurePR as Azure DNS Private Resolver (Hub)
-    participant PrivZone as Central Private DNS Zone
-
-    Client->>LocalDNS: Query: datalake.blob.core.windows.net
-    Note over LocalDNS: Conditional Forwarder active
-    LocalDNS->>AzurePR: Forward to Hub VNet Inbound IP
-    AzurePR->>PrivZone: Lookup A-Record
-    PrivZone-->>AzurePR: 10.1.2.5 (Private IP)
-    AzurePR-->>Client: Returns 10.1.2.5
-        </pre>
+        <figure style="margin: 3rem 0; text-align: center;">
+            <img src="../assets/images/arch diag.png"
+                alt="Detailed Architecture topology map of a Hub and Spoke VNet with Azure Databricks, Private Endpoints, and Private DNS Zones."
+                style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+            <figcaption style="margin-top: 1rem; color: var(--text-muted); font-size: 0.9rem; font-style: italic;">
+                Fig 3: Architecture Topology demonstrating conditional DNS forwarding and VNet injection for Secure
+                Cluster Connectivity.
+            </figcaption>
+        </figure>
         <p>
             <strong>The Rule:</strong> Centralize your Azure Private DNS Zones in your Hub. Use the new <strong>Azure
                 DNS Private Resolver</strong>. On-premise DNS servers must conditionally forward
