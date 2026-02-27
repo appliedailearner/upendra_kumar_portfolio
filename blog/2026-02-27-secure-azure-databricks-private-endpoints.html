@@ -599,12 +599,17 @@
             <p>A locked-down network perimeter is insufficient. <strong>Network isolation does not equal data
                     governance.</strong> You must pair your private endpoints with data-plane controls:</p>
             <ul>
-                <li><strong>Unity Catalog:</strong> For centralized access authorization and auditing.</li>
+                <li><strong>Unity Catalog & Domain-Level Entra Groups:</strong> Use centralized access authorization by
+                    mapping domain-specific Entra ID groups (e.g., `Finance-Data-Readers`) directly into Unity Catalog.
+                    <em>Do not create custom roles or solution-specific groups</em>, as this leads to unmanageable
+                    lifecycle sprawl.</li>
                 <li><strong>Secret Scopes:</strong> Backed by Azure Key Vault to remove hardcoded credentials from
                     notebooks.</li>
-                <li><strong>Managed Identities:</strong> Use Azure Managed Identities or Service Principals for ADLS
-                    access instead of Storage Account Keys.</li>
-                <li><strong>Least Privilege RBAC:</strong> Granular permissions at the workspace and cluster levels.
+                <li><strong>Managed Identities:</strong> Use Azure Managed Identities for authentication and
+                    authorization instead of Service Principals or Storage Account Keys, eliminating the overhead of
+                    credential rotation.</li>
+                <li><strong>Least Privilege RBAC:</strong> Granular permissions at the workspace and cluster levels,
+                    favoring built-in roles scoped correctly over custom roles.
                 </li>
                 <li><strong>Environment Separation:</strong> Distinct Dev/Test/Prod metastores and workspaces.</li>
             </ul>
@@ -647,7 +652,17 @@
                 </table>
             </div>
 
-            <h2><span class="gradient-text">11. Common Failure Modes</span></h2>
+            <h2><span class="gradient-text">11. Ingesting Data Securely (The ADF/SHIR Connection)</span></h2>
+            <p>A locked-down Private Data Lake is useless if you can't get data into it. To securely ingest on-premises
+                or cross-cloud data into your isolated ADLS Gen2 account, you should use <strong>Azure Data Factory
+                    (ADF)</strong> paired with a <strong>Self-Hosted Integration Runtime (SHIR)</strong>.</p>
+            <p>By deploying the SHIR on a Virtual Machine inside your Azure VNet (specifically within the Spoke or a
+                dedicated integration subnet), the runtime can securely pull data from external sources and write it
+                directly to the Storage Private Endpoint. This keeps the entire end-to-end flow—from data ingestion to
+                Databricks processing—strictly on the private Azure backbone, fully adhering to Zero Trust architecture.
+            </p>
+
+            <h2><span class="gradient-text">12. Common Failure Modes</span></h2>
             <p>If you hit a wall during deployment, it's almost certainly one of these four:</p>
             <ol>
                 <li><strong>Login redirect loop</strong> &rarr; DNS misconfiguration on the Browser Authentication
@@ -658,7 +673,7 @@
                     RBAC permissions are wrong.</li>
             </ol>
 
-            <h2><span class="gradient-text">12. Residual Risks</span></h2>
+            <h2><span class="gradient-text">13. Residual Risks</span></h2>
             <p>Even with full private networking, risks remain. You are mitigating network-layer threats, but you still
                 face:</p>
             <ul>
