@@ -799,6 +799,27 @@
                 Firewall costs by tens of thousands of dollars per month. Let's look at the survival guide.
             </p>
 
+            <div class="styled-callout strategy" style="margin: 3rem 0; border-left: 4px solid var(--secondary);">
+                <h3 style="margin-top: 0; color: #c084fc;"><i class="fas fa-book-reader"></i> Why I Was Wrong About
+                    Databricks Security</h3>
+                <p>
+                    Early in my career, I assumed network security was a black-and-white checklist. I once deployed a
+                    massive data platform where we "secured" the Data Lake by slapping VNet Service Endpoints on the
+                    storage account and calling it a day.
+                </p>
+                <p>
+                    <strong>I was wrong.</strong> During a penetration test, the red team spun up their <em>own</em>
+                    generic Azure Storage account in the same region, walked right past our Service Endpoints, and
+                    conceptually exfiltrated gigabytes of mock PI data because the egress path remained on the public
+                    Azure backbone.
+                </p>
+                <p style="margin-bottom: 0;">
+                    That failure fundamentally changed how I approach cloud architecture. It's why I am so
+                    uncompromising today regarding <strong>Private Link isolation and explicit egress UDRs</strong>.
+                    Here is the exact blueprint I use to ensure that never happens again.
+                </p>
+            </div>
+
             <h2><span class="gradient-text">1. The Real Story on Azure Private Endpoints</span></h2>
 
             <h3>What Private Endpoints Actually Protect</h3>
@@ -1284,6 +1305,22 @@
                     or
                     RBAC permissions are wrong.</li>
             </ol>
+
+            <div
+                style="background: linear-gradient(135deg, rgba(30, 41, 59, 1), rgba(15, 23, 42, 1)); border: 1px solid rgba(59, 130, 246, 0.4); border-radius: 12px; padding: 2.5rem; margin: 4rem 0; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
+                <i class="fas fa-file-pdf" style="font-size: 3rem; color: #60a5fa; margin-bottom: 1rem;"></i>
+                <h3 style="margin-top: 0; font-family: 'Outfit', sans-serif; font-size: 1.8rem;">Don't let your network
+                    team figure this out by trial and error.</h3>
+                <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 2rem;">
+                    Download the unvarnished <strong>Zero-Trust Reference Blueprint</strong>. It includes the high-res
+                    topology, hard design trade-offs, and critical anti-patterns necessary to accelerate your security
+                    review.
+                </p>
+                <a href="../pages/databricks-zero-trust-blueprint.html" target="_blank" class="btn btn-primary"
+                    style="font-size: 1.1rem; padding: 1rem 2.5rem; background: linear-gradient(135deg, #3b82f6, #8b5cf6); border: none; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);">
+                    <i class="fas fa-download" style="margin-right: 8px;"></i> Access the Blueprint Guide
+                </a>
+            </div>
 
             <h2><span class="gradient-text">13. Residual Risks</span></h2>
             <p>Even with full private networking, risks remain. You are mitigating network-layer threats, but you
