@@ -787,58 +787,81 @@
                         const icon = document.getElementById('audio-icon');
                         const visualizer = document.getElementById('audio-visualizer');
                         let isPlaying = false;
-                        let synth = window.speechSynthesis;
-                        let utterance = null;
 
                         const briefingText = "Executive Summary. Securing Azure Databricks requires more than just network firewalls. A zero-trust approach mandates three fully isolated Private Link flows: Front-End UI access, Back-End Secure Cluster Connectivity, and Storage Private Endpoints. Furthermore, architects must strictly utilize User Defined Routes to localized data platforms, actively avoiding the severe latency and excessive bandwidth costs incurred by forced tunneling through centralized Hub Network Virtual Appliances. By adhering to this blueprint, organizations effectively eliminate public IP exposure while preserving native cloud scalability.";
 
+                        // Helper to reset UI
+                        const resetUI = () => {
+                            icon.classList.remove('fa-stop');
+                            icon.classList.add('fa-play');
+                            icon.style.marginLeft = '3px';
+                            visualizer.style.opacity = '0.3';
+                            Array.from(visualizer.children).forEach(bar => bar.style.animation = 'none');
+                            isPlaying = false;
+                            if (window.speechTimer) clearInterval(window.speechTimer);
+                        };
+
                         playBtn.addEventListener('click', () => {
-                            if (!synth) {
+                            if (!window.speechSynthesis) {
                                 alert("Sorry, your browser doesn't support text-to-speech AI.");
                                 return;
                             }
 
                             if (isPlaying) {
-                                synth.cancel(); // Stop playing
-                                icon.classList.remove('fa-stop');
-                                icon.classList.add('fa-play');
-                                icon.style.marginLeft = '3px';
-                                visualizer.style.opacity = '0.3';
-                                // remove wave animation
-                                Array.from(visualizer.children).forEach(bar => bar.style.animation = 'none');
-                                isPlaying = false;
+                                window.speechSynthesis.cancel(); // Stop playing
+                                resetUI();
                             } else {
-                                utterance = new SpeechSynthesisUtterance(briefingText);
+                                // IMPORTANT: Cancel any stuck synthesis state before starting
+                                window.speechSynthesis.cancel();
+
+                                let utterance = new SpeechSynthesisUtterance(briefingText);
+
+                                // IMPORTANT: Prevent Garbage Collection (Known Chrome Bug)
+                                window.currentUtterance = utterance;
 
                                 // Try to find a good premium English voice
-                                const voices = synth.getVoices();
-                                const preferredVoice = voices.find(v => v.name.includes("Google UK English Male") || v.name.includes("Microsoft Liam") || v.lang.includes("en-GB"));
-                                if (preferredVoice) utterance.voice = preferredVoice;
+                                const voices = window.speechSynthesis.getVoices();
+                                const preferredVoice = voices.find(v => v.name.includes("Google UK English Male") || v.name.includes("Microsoft Liam") || v.lang.includes("en-GB") || v.lang === "en-US");
+                                if (preferredVoice) {
+                                    utterance.voice = preferredVoice;
+                                }
 
                                 utterance.rate = 0.95; // Slightly slower for executive cadence
                                 utterance.pitch = 1;
 
                                 utterance.onend = () => {
-                                    icon.classList.remove('fa-stop');
-                                    icon.classList.add('fa-play');
-                                    icon.style.marginLeft = '3px';
-                                    visualizer.style.opacity = '0.3';
-                                    Array.from(visualizer.children).forEach(bar => bar.style.animation = 'none');
-                                    isPlaying = false;
+                                    resetUI();
                                 };
 
-                                synth.speak(utterance);
+                                utterance.onerror = (e) => {
+                                    console.error("Speech Synthesis Error:", e);
+                                    resetUI();
+                                };
+
+                                window.speechSynthesis.speak(utterance);
+
                                 icon.classList.remove('fa-play');
                                 icon.style.marginLeft = '0px';
                                 icon.classList.add('fa-stop');
                                 visualizer.style.opacity = '1';
 
-                                // Add dummy CSS animation to waves when playing
+                                // Add CSS animation to waves when playing
                                 Array.from(visualizer.children).forEach((bar, i) => {
                                     bar.style.animation = `pulseWave ${0.5 + (i * 0.1)}s infinite alternate ease-in-out`;
                                 });
 
                                 isPlaying = true;
+
+                                // IMPORTANT: Fix for Chrome 15s bug (synthesis silently stops after 15s without pause/resume)
+                                if (window.speechTimer) clearInterval(window.speechTimer);
+                                window.speechTimer = setInterval(() => {
+                                    if (!window.speechSynthesis.speaking) {
+                                        clearInterval(window.speechTimer);
+                                    } else {
+                                        window.speechSynthesis.pause();
+                                        window.speechSynthesis.resume();
+                                    }
+                                }, 14000);
                             }
                         });
 
