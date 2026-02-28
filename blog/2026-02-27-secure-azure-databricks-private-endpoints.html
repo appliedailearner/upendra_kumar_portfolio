@@ -684,6 +684,112 @@
                 <span class="blog-tag"><i class="fas fa-tag"></i> Zero Trust</span>
                 <span class="blog-tag"><i class="fas fa-tag"></i> Azure Security</span>
             </div>
+
+            <!-- Free AI Integration: Executive Audio Briefing -->
+            <div
+                style="margin-top: 3rem; background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 12px; padding: 1.5rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 10px 30px rgba(0,0,0,0.3); backdrop-filter: blur(10px); position: relative; overflow: hidden;">
+                <!-- Subtle animated glow -->
+                <div
+                    style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(180deg, #3b82f6, #8b5cf6); box-shadow: 0 0 10px #3b82f6;">
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                    <button id="audio-play-btn"
+                        style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #8b5cf6); border: none; color: white; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);"
+                        onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';">
+                        <i class="fas fa-play" id="audio-icon" style="margin-left: 3px;"></i>
+                    </button>
+                    <div>
+                        <h4
+                            style="margin: 0; color: #fff; font-family: 'Outfit', sans-serif; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-podcast" style="color: #60a5fa;"></i> Listen: Executive Summary
+                        </h4>
+                        <p style="margin: 0.25rem 0 0 0; color: #94a3b8; font-size: 0.85rem;">AI-Generated Audio
+                            Briefing • 2 min read</p>
+                    </div>
+                </div>
+
+                <div class="audio-waves"
+                    style="display: flex; gap: 4px; height: 20px; align-items: flex-end; opacity: 0.3; transition: opacity 0.3s;"
+                    id="audio-visualizer">
+                    <div style="width: 4px; background: #60a5fa; border-radius: 2px; height: 30%;"></div>
+                    <div style="width: 4px; background: #60a5fa; border-radius: 2px; height: 60%;"></div>
+                    <div style="width: 4px; background: #60a5fa; border-radius: 2px; height: 100%;"></div>
+                    <div style="width: 4px; background: #60a5fa; border-radius: 2px; height: 50%;"></div>
+                    <div style="width: 4px; background: #60a5fa; border-radius: 2px; height: 80%;"></div>
+                </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const playBtn = document.getElementById('audio-play-btn');
+                        const icon = document.getElementById('audio-icon');
+                        const visualizer = document.getElementById('audio-visualizer');
+                        let isPlaying = false;
+                        let synth = window.speechSynthesis;
+                        let utterance = null;
+
+                        const briefingText = "Executive Summary. Securing Azure Databricks requires more than just network firewalls. A zero-trust approach mandates three fully isolated Private Link flows: Front-End UI access, Back-End Secure Cluster Connectivity, and Storage Private Endpoints. Furthermore, architects must strictly utilize User Defined Routes to localized data platforms, actively avoiding the severe latency and excessive bandwidth costs incurred by forced tunneling through centralized Hub Network Virtual Appliances. By adhering to this blueprint, organizations effectively eliminate public IP exposure while preserving native cloud scalability.";
+
+                        playBtn.addEventListener('click', () => {
+                            if (!synth) {
+                                alert("Sorry, your browser doesn't support text-to-speech AI.");
+                                return;
+                            }
+
+                            if (isPlaying) {
+                                synth.cancel(); // Stop playing
+                                icon.classList.remove('fa-stop');
+                                icon.classList.add('fa-play');
+                                icon.style.marginLeft = '3px';
+                                visualizer.style.opacity = '0.3';
+                                // remove wave animation
+                                Array.from(visualizer.children).forEach(bar => bar.style.animation = 'none');
+                                isPlaying = false;
+                            } else {
+                                utterance = new SpeechSynthesisUtterance(briefingText);
+
+                                // Try to find a good premium English voice
+                                const voices = synth.getVoices();
+                                const preferredVoice = voices.find(v => v.name.includes("Google UK English Male") || v.name.includes("Microsoft Liam") || v.lang.includes("en-GB"));
+                                if (preferredVoice) utterance.voice = preferredVoice;
+
+                                utterance.rate = 0.95; // Slightly slower for executive cadence
+                                utterance.pitch = 1;
+
+                                utterance.onend = () => {
+                                    icon.classList.remove('fa-stop');
+                                    icon.classList.add('fa-play');
+                                    icon.style.marginLeft = '3px';
+                                    visualizer.style.opacity = '0.3';
+                                    Array.from(visualizer.children).forEach(bar => bar.style.animation = 'none');
+                                    isPlaying = false;
+                                };
+
+                                synth.speak(utterance);
+                                icon.classList.remove('fa-play');
+                                icon.style.marginLeft = '0px';
+                                icon.classList.add('fa-stop');
+                                visualizer.style.opacity = '1';
+
+                                // Add dummy CSS animation to waves when playing
+                                Array.from(visualizer.children).forEach((bar, i) => {
+                                    bar.style.animation = `pulseWave ${0.5 + (i * 0.1)}s infinite alternate ease-in-out`;
+                                });
+
+                                isPlaying = true;
+                            }
+                        });
+
+                        // Add animation keyframes dynamically
+                        if (!document.getElementById('audio-keyframes')) {
+                            const style = document.createElement('style');
+                            style.id = 'audio-keyframes';
+                            style.innerHTML = `@keyframes pulseWave { 0% { height: 20%; } 100% { height: 100%; } }`;
+                            document.head.appendChild(style);
+                        }
+                    });
+                </script>
+            </div>
         </div>
     </section>
 
@@ -2394,11 +2500,130 @@
                     item.addEventListener('click', () => {
                         item.classList.toggle('checked');
                         // Save state
+                        // Save state
                         savedState[itemIndex] = item.classList.contains('checked');
                         localStorage.setItem(storageKey, JSON.stringify(savedState));
                     });
                 });
             });
+        });
+
+        // Free AI Integration: ELI5 Smart Glossary
+        document.addEventListener('DOMContentLoaded', () => {
+            const glossaryTerms = {
+                "ADLS": "Azure Data Lake Storage. Think of it like a massive digital warehouse where you can securely store infinite files of any type.",
+                "UDR": "User Defined Route. A custom traffic rule you write to tell Azure exactly which path network traffic must follow, overriding default paths.",
+                "SCC": "Secure Cluster Connectivity. Databricks' feature that ensures your compute engines communicate securely without ever needing a public IP address.",
+                "NVA": "Network Virtual Appliance. A virtual firewall or router (like Palo Alto or Azure Firewall) sitting in your hub network to inspect traffic.",
+                "RBAC": "Role-Based Access Control. Using a person's job role (like 'Data Scientist') to strictly grant or deny access to specific data.",
+                "BGP": "Border Gateway Protocol. The routing protocol that automatically tells your on-premises network how to find your cloud networks.",
+                "SHIR": "Self-Hosted Integration Runtime. A secure engine you install inside your network that safely pulls in on-prem data up to the cloud."
+            };
+
+            const contentBlock = document.querySelector('.blog-post-content');
+            if (contentBlock) {
+                // Compile regex to match terms (word boundaries)
+                const termsRegex = new RegExp(`\\b(${Object.keys(glossaryTerms).join('|')})\\b`, 'g');
+
+                // We must be careful not to replace text inside HTML attributes or already processed tags
+                // A safer approach for a blog post is to process specific text nodes
+                function replaceTextNodes(node) {
+                    if (node.nodeType === Node.TEXT_NODE) {
+                        if (node.parentNode && node.parentNode.nodeName !== 'SCRIPT' && node.parentNode.nodeName !== 'STYLE' && node.parentNode.className !== 'eli5-term') {
+                            const newHTML = node.nodeValue.replace(termsRegex, match => {
+                                return `<span class="eli5-term" data-tooltip="${glossaryTerms[match]}">${match}</span>`;
+                            });
+                            if (newHTML !== node.nodeValue) {
+                                const tempDiv = document.createElement('div');
+                                tempDiv.innerHTML = newHTML;
+                                while (tempDiv.firstChild) {
+                                    node.parentNode.insertBefore(tempDiv.firstChild, node);
+                                }
+                                node.parentNode.removeChild(node);
+                            }
+                        }
+                    } else {
+                        // Avoid replacing inside complex elements like pre/code blocks where acronyms might be code
+                        if (node.nodeName !== 'PRE' && node.nodeName !== 'CODE' && node.nodeName !== 'FIGURE') {
+                            const children = Array.from(node.childNodes);
+                            children.forEach(replaceTextNodes);
+                        }
+                    }
+                }
+
+                replaceTextNodes(contentBlock);
+
+                // Inject the premium styles dynamically
+                const style = document.createElement('style');
+                style.textContent = `
+                    .eli5-term {
+                        position: relative;
+                        cursor: help;
+                        border-bottom: 2px dotted #8b5cf6;
+                        color: #c4b5fd;
+                        font-weight: 600;
+                        transition: color 0.2s, border-color 0.2s;
+                    }
+                    .eli5-term:hover {
+                        color: #fff;
+                        border-bottom-color: #3b82f6;
+                    }
+                    .eli5-term::after {
+                        content: attr(data-tooltip);
+                        position: absolute;
+                        bottom: 150%;
+                        left: 50%;
+                        transform: translateX(-50%) translateY(10px);
+                        width: max-content;
+                        max-width: 300px;
+                        padding: 1rem;
+                        background: rgba(15, 23, 42, 0.95);
+                        backdrop-filter: blur(8px);
+                        -webkit-backdrop-filter: blur(8px);
+                        border: 1px solid rgba(139, 92, 246, 0.4);
+                        border-top: 2px solid #3b82f6;
+                        color: #f8fafc;
+                        font-size: 0.9rem;
+                        font-weight: 400;
+                        line-height: 1.5;
+                        border-radius: 8px;
+                        text-align: left;
+                        opacity: 0;
+                        visibility: hidden;
+                        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+                        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+                        z-index: 999;
+                        pointer-events: none;
+                    }
+                    .eli5-term:hover::after {
+                        opacity: 1;
+                        visibility: visible;
+                        transform: translateX(-50%) translateY(0);
+                    }
+                    /* Add a small pointer triangle */
+                    .eli5-term::before {
+                        content: '';
+                        position: absolute;
+                        bottom: 110%;
+                        left: 50%;
+                        transform: translateX(-50%) translateY(10px);
+                        border-width: 6px;
+                        border-style: solid;
+                        border-color: rgba(139, 92, 246, 0.4) transparent transparent transparent;
+                        opacity: 0;
+                        visibility: hidden;
+                        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+                        z-index: 1000;
+                        pointer-events: none;
+                    }
+                    .eli5-term:hover::before {
+                        opacity: 1;
+                        visibility: visible;
+                        transform: translateX(-50%) translateY(0);
+                    }
+                `;
+                document.head.appendChild(style);
+            }
         });
     </script>
 </body>
