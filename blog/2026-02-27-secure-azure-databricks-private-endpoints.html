@@ -950,30 +950,42 @@
             <h2><span class="gradient-text">4. The 30% Cost Trap (A Realist's Warning)</span></h2>
             <p>
                 Here is where textbook architecture completely falls apart in production. Standard Hub-and-Spoke
-                patterns
-                dictate that all inter-spoke and internet-bound traffic routes through an Azure Firewall (NVA) in the
-                Hub.
+                patterns dictate that all inter-spoke and internet-bound traffic routes through a central Azure Firewall
+                (NVA).
             </p>
-            <p>
-                <strong>Do not do this with Big Data Private Endpoints.</strong>
-            </p>
-            <p>
-                Databricks generates massive, bursty throughput. I have seen clients force cluster-to-storage traffic
-                through their highly-available firewall appliances "for visibility." Data processing through Azure
-                Firewall
-                Premium costs roughly <strong>$0.016/GB</strong>. If a Spark job shuffles 100 TBs of data an hour, you
-                are
-                adding thousands of dollars to your monthly Azure burn rate for literally zero security benefit (since
-                the
-                traffic is entirely internal PE traffic anyway).
-            </p>
-            <p>
-                <strong>The Fix:</strong> Use <span class="term-tooltip"
-                    data-tooltip="User Defined Routes: Custom network routes you create in Azure to override system default routing, forcing traffic directly to a destination.">User
-                    Defined Routes (UDRs)</span> to explicitly bypass the NVA for Storage
-                Private
-                IPs. Let the compute talk to the PE locally within the VNet.
-            </p>
+
+            <div class="styled-callout anti-pattern"
+                style="margin: 3rem 0; padding: 2rem; border-left: 6px solid #ef4444; background: linear-gradient(to right, rgba(127, 29, 29, 0.4), rgba(30, 41, 59, 0.2));">
+                <div style="display: flex; align-items: flex-start; gap: 1.5rem;">
+                    <i class="fas fa-radiation" style="font-size: 2.5rem; color: #f87171; margin-top: 0.2rem;"></i>
+                    <div style="flex: 1;">
+                        <h3 style="margin-top: 0; color: #fca5a5; font-size: 1.5rem; letter-spacing: -0.5px;">The
+                            5-Figure Cost Trap</h3>
+                        <p style="font-size: 1.15rem; line-height: 1.6; margin-bottom: 0;">
+                            <strong>Never force Big Data Private Endpoint traffic through an NVA.</strong>
+                        </p>
+                        <p style="margin-top: 1rem; color: #e2e8f0; line-height: 1.7;">
+                            Databricks generates massive, bursty throughput. Forcing internal cluster-to-storage traffic
+                            through an Azure Firewall Premium for "visibility" incurs a data processing charge of
+                            roughly <strong style="color: #fff;">$0.016/GB</strong>. If a standard Spark job shuffles
+                            100 TBs of data, you instantly add thousands of dollars to your monthly Azure burn rate—for
+                            literally zero security benefit.
+                        </p>
+                        <div
+                            style="margin-top: 1.5rem; padding: 1.25rem; background: rgba(0,0,0,0.4); border-radius: 8px; border: 1px solid rgba(59, 130, 246, 0.3);">
+                            <strong style="color: #60a5fa; font-size: 1.1rem;"><i class="fas fa-wrench"
+                                    style="margin-right: 8px;"></i> Architect's Fix:</strong> <br>
+                            <span
+                                style="color: #cbd5e1; display: block; margin-top: 0.5rem; line-height: 1.6;">Implement
+                                <span class="term-tooltip"
+                                    data-tooltip="User Defined Routes: Custom network routes you create in Azure to override system default routing, forcing traffic directly to a destination.">User
+                                    Defined Routes (UDRs)</span> to explicitly bypass the NVA for Storage Private IPs.
+                                Allow the compute cluster to communicate directly with the Private Endpoint internally
+                                within the VNet.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <h2><span class="gradient-text">4. Taming the DNS Monster</span></h2>
             <p>
