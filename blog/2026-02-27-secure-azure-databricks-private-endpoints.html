@@ -1088,8 +1088,11 @@
             <h2><span class="gradient-text">5. Where Each Component Must Live</span></h2>
 
             <p>Properly segmenting these endpoints is critical. Placing storage private endpoints in the hub causes
-                hairpin
-                routing and higher latency.</p>
+                hairpin routing and higher latency. Think of hairpin routing like sending a package to your next-door
+                neighbor by mailing it to a centralized post office in another city, only for the post office to drive
+                it all the way back to your street. It’s inefficient, expensive, and unnecessary. In Azure, this means
+                forcing traffic from your Spoke VNet up to the Hub's firewall, just for it to turn right back around to
+                talk to a storage account in that same Spoke VNet.</p>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
                 <div
