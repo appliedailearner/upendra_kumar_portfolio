@@ -337,6 +337,295 @@
             opacity: 1;
             visibility: visible;
         }
+
+        /* --- Thought Leadership Phase 1 UI --- */
+
+        /* Reading Progress Bar */
+        .scroll-progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            z-index: 9999;
+        }
+
+        .scroll-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #10b981, #3b82f6);
+            background-size: 200% 200%;
+            animation: gradientMove 3s ease infinite;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Premium Lead Paragraph */
+        .thought-leader-lead {
+            font-size: 1.35rem;
+            line-height: 1.8;
+            color: #f8fafc;
+            background: linear-gradient(145deg, rgba(59, 130, 246, 0.08) 0%, rgba(16, 185, 129, 0.05) 100%);
+            padding: 2.5rem;
+            margin: 2rem 0 4rem 0;
+            border-radius: 0 16px 16px 0;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-left: 4px solid var(--primary-color);
+            z-index: 1;
+        }
+
+        .thought-leader-lead::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 15px;
+            font-size: 6rem;
+            color: rgba(59, 130, 246, 0.15);
+            font-family: 'Outfit', sans-serif;
+            line-height: 1;
+            z-index: -1;
+        }
+
+        /* Exec Summary & Rhythm Pull-Quotes */
+        .tldr-box {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-left: 4px solid #8b5cf6;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2.5rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .tldr-box h3 {
+            margin-top: 0;
+            color: #c4b5fd;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .styled-callout {
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+            border: 1px solid transparent;
+        }
+
+        .styled-callout i {
+            font-size: 1.5rem;
+            margin-top: 2px;
+        }
+
+        .styled-callout p {
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .styled-callout.strategy {
+            background: rgba(234, 179, 8, 0.05);
+            border-color: rgba(234, 179, 8, 0.2);
+            border-left: 4px solid #eab308;
+        }
+
+        .styled-callout.strategy i {
+            color: #facc15;
+        }
+
+        .styled-callout.anti-pattern {
+            background: rgba(220, 38, 38, 0.05);
+            border-color: rgba(220, 38, 38, 0.2);
+            border-left: 4px solid #ef4444;
+        }
+
+        .styled-callout.anti-pattern i {
+            color: #f87171;
+        }
+
+        .styled-callout.zero-trust {
+            background: rgba(16, 185, 129, 0.05);
+            border-color: rgba(16, 185, 129, 0.2);
+            border-left: 4px solid #10b981;
+        }
+
+        .styled-callout.zero-trust i {
+            color: #34d399;
+        }
+
+        /* --- Thought Leadership Phase 3 UI --- */
+
+        /* Terminal Code Blocks */
+        .terminal-block {
+            background: #0f172a;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 2rem 0;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .terminal-header {
+            background: #1e293b;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .terminal-buttons {
+            display: flex;
+            gap: 6px;
+        }
+
+        .terminal-buttons span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-btn-r {
+            background: #ef4444;
+        }
+
+        .terminal-btn-y {
+            background: #eab308;
+        }
+
+        .terminal-btn-g {
+            background: #22c55e;
+        }
+
+        .terminal-title {
+            color: #94a3b8;
+            font-family: monospace;
+            font-size: 0.85rem;
+        }
+
+        .terminal-copy {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .terminal-copy:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .terminal-copy.copied {
+            background: #10b981;
+            color: #fff;
+            border-color: #10b981;
+        }
+
+        .terminal-block pre {
+            margin: 0;
+            padding: 1.5rem;
+            background: transparent;
+        }
+
+        .terminal-block code {
+            font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
+            color: #e2e8f0;
+            font-size: 0.95rem;
+        }
+
+        /* Interactive Accordions */
+        details.interactive-accordion {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        details.interactive-accordion summary {
+            padding: 1rem 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        details.interactive-accordion summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details.interactive-accordion summary::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+        }
+
+        details.interactive-accordion[open] summary::after {
+            transform: rotate(180deg);
+            color: var(--primary-color);
+        }
+
+        .accordion-content {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 0.5rem;
+            padding-top: 1rem;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Diagram Glow Effects */
+        .mermaid {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            box-shadow: 0 0 40px rgba(59, 130, 246, 0.1), inset 0 0 20px rgba(59, 130, 246, 0.05);
+            margin-bottom: 1.5rem;
+        }
     </style>
 
     <!-- Performance: Preconnect to Font & Script Servers -->
@@ -354,6 +643,11 @@
 </head>
 
 <body class="dark-theme">
+    <!-- Reading Progress Bar -->
+    <div class="scroll-progress-container">
+        <div class="scroll-progress-bar" id="reading-progress"></div>
+    </div>
+
     <canvas id="particles-canvas"></canvas>
 
     <!-- Navigation -->
@@ -407,11 +701,24 @@
 
         <!-- Main Article -->
         <article class="blog-post-content">
-            <p class="lead" style="font-size: 1.3rem; color: var(--primary-color); font-weight: 600;">
+            <p class="lead thought-leader-lead" style="font-weight: 500;">
                 The regulator didn't care about our multi-million dollar Databricks demo. They pointed at the open
                 public
                 endpoint. Here is how we locked down the Data Lake without breaking the bank or taking the network down.
             </p>
+
+            <div class="tldr-box">
+                <h3><i class="fas fa-bolt"></i> Executive TL;DR</h3>
+                <ul style="margin-bottom: 0;">
+                    <li><strong>The Threat:</strong> Securing the perimeter is useless if compromised internal
+                        identities can exfiltrate data. You must isolate the Azure Databricks compute plane.</li>
+                    <li><strong>The Mechanism:</strong> Inject clusters into private VNets, force all API/UI traffic
+                        through Azure Private Link, and establish Secure Cluster Connectivity (No Public IPs).</li>
+                    <li><strong>The Trap:</strong> Routing bursty Big Data traffic through central Hub Firewalls will
+                        cause latency spikes and catastrophic billing (often +30%). Use User Defined Routes (UDRs) to
+                        bypass the NVA for internal storage traffic.</li>
+                </ul>
+            </div>
 
             <h2><span class="gradient-text">The Level-Set: What Are We Actually Defending?</span></h2>
             <p>
@@ -423,15 +730,19 @@
             <h3>The Simple Analogy: The Warehouse and The Factory</h3>
             <p>
                 Imagine a massive, empty warehouse where delivery trucks just dump raw materials (wood, metal, plastic)
-                on
-                the floor 24/7. They don't sort it; they just drop it. This is your <strong>Azure Data Lake
-                    (specifically,
-                    ADLS Gen2)</strong>. It is an infinitely massive, incredibly cheap hard drive in the cloud. We don't
-                organize the data exactly like a spreadsheet yet; we just dump raw application logs, millions of daily
-                transaction receipts, and customer audio recordings into the lake.
+                on the floor 24/7.
+            </p>
+            <p>
+                They don't sort it; they just drop it. This is your <strong>Azure Data Lake (specifically, ADLS
+                    Gen2)</strong>. It is an infinitely massive, incredibly cheap hard drive in the cloud.
+            </p>
+            <p>
+                We don't organize the data exactly like a spreadsheet yet; we just dump raw application logs, millions
+                of daily transaction receipts, and customer audio recordings into the lake.
             </p>
             <p>
                 The problem? A warehouse full of unsorted materials is useless on its own. It's just a swamp.
+
             </p>
             <p>
                 This is where <strong>Azure Databricks</strong> comes in. Databricks is the highly advanced, robotic
@@ -606,14 +917,13 @@
                     resources.</li>
             </ol>
 
-            <div
-                style="background: rgba(234,179,8,0.1); border-left: 4px solid #eab308; padding: 1.5rem; border-radius: 0 8px 8px 0; margin: 2rem 0;">
-                <p style="margin: 0; color: #facc15;"><strong><i class="fas fa-exclamation-triangle"></i> Browser
-                        Authentication Callout:</strong> A dedicated browser authentication workspace is required per
-                    region
-                    and must <em>not</em> be deleted. If it is removed or DNS drops, SSO login will fail globally for
-                    that
-                    region.</p>
+            <div class="styled-callout zero-trust">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div>
+                    <strong>Browser Authentication Callout:</strong> A dedicated browser authentication workspace is
+                    required per region and must <em>not</em> be deleted. If it is removed or DNS drops, SSO login will
+                    fail globally for that region.
+                </div>
             </div>
 
             <h2><span class="gradient-text">4. The 30% Cost Trap (A Realist's Warning)</span></h2>
@@ -730,27 +1040,50 @@
                 Azure DNS Private Resolver INBOUND endpoint IP:
             </p>
 
-            <pre><code>*.azuredatabricks.net
+            <div class="terminal-block">
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <span class="terminal-btn-r"></span>
+                        <span class="terminal-btn-y"></span>
+                        <span class="terminal-btn-g"></span>
+                    </div>
+                    <span class="terminal-title">DNS Conditional Forwarding Rules</span>
+                    <button class="terminal-copy" onclick="copyCode(this)">Copy</button>
+                </div>
+                <pre><code>*.azuredatabricks.net
 *.privatelink.azuredatabricks.net
 *.databricksapps.com</code></pre>
+            </div>
 
-            <div
-                style="background: rgba(220,38,38,0.1); border-left: 4px solid #dc2626; padding: 1.5rem; border-radius: 0 8px 8px 0; margin: 2rem 0;">
-                <p style="margin-top: 0; color: #fca5a5;"><strong><i class="fas fa-radiation"></i> If DNS forwarding is
-                        incorrect:</strong></p>
-                <ul style="margin-bottom: 0;">
-                    <li>Workspace login fails</li>
-                    <li>SSO loops occur</li>
-                    <li>Clusters fail to start</li>
-                </ul>
+            <div class="styled-callout anti-pattern">
+                <i class="fas fa-radiation"></i>
+                <div>
+                    <strong>If DNS forwarding is incorrect:</strong>
+                    <ul style="margin-bottom: 0; padding-left: 1.25rem;">
+                        <li>Workspace login fails</li>
+                        <li>SSO loops occur</li>
+                        <li>Clusters fail to start</li>
+                    </ul>
+                </div>
             </div>
 
             <h3>DNS Validation Check</h3>
             <p>Before proceeding with any cluster deployments, you must validate resolution. Run this from a machine
                 inside
                 your VNet or on-premise:</p>
-            <pre><code>nslookup &lt;workspace-url&gt;
+            <div class="terminal-block">
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <span class="terminal-btn-r"></span>
+                        <span class="terminal-btn-y"></span>
+                        <span class="terminal-btn-g"></span>
+                    </div>
+                    <span class="terminal-title">bash</span>
+                    <button class="terminal-copy" onclick="copyCode(this)">Copy</button>
+                </div>
+                <pre><code>nslookup &lt;workspace-url&gt;
 # Expected result: Must return a Private IP address (e.g. 10.x.x.x)</code></pre>
+            </div>
 
             <h2><span class="gradient-text">5. Where Each Component Must Live</span></h2>
 
@@ -798,11 +1131,12 @@
                 <li>Validate DNS resolution</li>
                 <li>Start clusters</li>
             </ol>
-            <div
-                style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 8px; border-left: 4px solid #94a3b8; font-style: italic; margin-bottom: 2rem;">
-                <strong>Note:</strong> Databricks compute must be stopped during certain network-tier updates or the
-                update
-                may fail.
+            <div class="styled-callout strategy">
+                <i class="fas fa-lightbulb"></i>
+                <p>
+                    <strong>Note:</strong> Databricks compute must be stopped during certain network-tier updates or the
+                    update may fail.
+                </p>
             </div>
 
             <h2><span class="gradient-text">7. The "Cutover Night" Migration Checklist</span></h2>
@@ -880,39 +1214,46 @@
                 Services, Healthcare). However, it still requires identity governance and continuous monitoring.
                 Here is
                 how controls map to compliance requirements:</p>
-            <div style="overflow-x: auto; margin: 2rem 0;">
-                <table style="width: 100%; border-collapse: collapse; text-align: left;">
-                    <thead>
-                        <tr style="border-bottom: 2px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02);">
-                            <th style="padding: 1rem;">Requirement</th>
-                            <th style="padding: 1rem;">Control</th>
-                            <th style="padding: 1rem;">Evidence</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                            <td style="padding: 1rem;">No public admin access</td>
-                            <td style="padding: 1rem;">Private Link UI/API</td>
-                            <td style="padding: 1rem;">Private IP resolution</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                            <td style="padding: 1rem;">Private data access</td>
-                            <td style="padding: 1rem;">ADLS Private Endpoint</td>
-                            <td style="padding: 1rem;">Storage firewall disabled public</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                            <td style="padding: 1rem;">Auditability</td>
-                            <td style="padding: 1rem;">Databricks audit logs</td>
-                            <td style="padding: 1rem;">Log Analytics</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                            <td style="padding: 1rem;">Network segmentation</td>
-                            <td style="padding: 1rem;">Hub-spoke</td>
-                            <td style="padding: 1rem;">VNet design</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <details class="interactive-accordion">
+                <summary><i class="fas fa-shield-alt" style="margin-right: 10px;"></i> View Compliance Control Mapping
+                </summary>
+                <div class="accordion-content">
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                            <thead>
+                                <tr
+                                    style="border-bottom: 2px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02);">
+                                    <th style="padding: 1rem;">Requirement</th>
+                                    <th style="padding: 1rem;">Control</th>
+                                    <th style="padding: 1rem;">Evidence</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                    <td style="padding: 1rem;">No public admin access</td>
+                                    <td style="padding: 1rem;">Private Link UI/API</td>
+                                    <td style="padding: 1rem;">Private IP resolution</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                    <td style="padding: 1rem;">Private data access</td>
+                                    <td style="padding: 1rem;">ADLS Private Endpoint</td>
+                                    <td style="padding: 1rem;">Storage firewall disabled public</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                    <td style="padding: 1rem;">Auditability</td>
+                                    <td style="padding: 1rem;">Databricks audit logs</td>
+                                    <td style="padding: 1rem;">Log Analytics</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                    <td style="padding: 1rem;">Network segmentation</td>
+                                    <td style="padding: 1rem;">Hub-spoke</td>
+                                    <td style="padding: 1rem;">VNet design</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </details>
 
             <h2><span class="gradient-text">11. Ingesting Data Securely (The ADF/SHIR Connection)</span></h2>
             <p>A locked-down Private Data Lake is useless if you can't get data into it. To securely ingest
@@ -1055,6 +1396,21 @@
 
     <!-- Interactive Blog Script -->
     <script>
+        // Terminal Code Copy Function
+        window.copyCode = function (button) {
+            const block = button.closest('.terminal-block');
+            const code = block.querySelector('code').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                const originalText = button.innerText;
+                button.innerText = 'Copied!';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.innerText = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        };
+
         document.addEventListener('DOMContentLoaded', () => {
             // 1. Build Sticky Table of Contents
             const article = document.querySelector('.blog-post-content');
