@@ -1235,6 +1235,20 @@
             </p>
 
             <div
+                style="background: rgba(30, 41, 59, 0.6); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(148, 163, 184, 0.2); margin-top: 2rem;">
+                <h4 style="margin-top: 0; color: #94a3b8;"><i class="fas fa-map-signs"></i> Decision Guide: Which Model
+                    Do You Need?</h4>
+                <ul style="margin-bottom: 0; padding-left: 1.25rem;">
+                    <li><strong>Goal: Lock down User UI Access</strong> &rarr; You need <span
+                            style="color: #60a5fa;">Front-End Private Link</span> + SSO Token Exchange.</li>
+                    <li><strong>Goal: Secure Compute-to-Control Plane</strong> &rarr; You need VNet Injection + <span
+                            style="color: #c084fc;">Back-End Private Link</span> (SCC).</li>
+                    <li><strong>Goal: Secure Data/Storage Access</strong> &rarr; You need <span
+                            style="color: #38bdf8;">PaaS Private Endpoints</span> (ADLS Gen2, Key Vault).</li>
+                </ul>
+            </div>
+
+            <div
                 style="background: rgba(255,255,255,0.03); border-left: 4px solid var(--primary-color); padding: 1.5rem; border-radius: 0 8px 8px 0; margin: 2rem 0;">
 
                 <figure
@@ -1269,9 +1283,14 @@
                         </div>
                     </li>
                     <li style="margin-bottom: 3rem;">
-                        <strong>Back-End Private Link:</strong> The Secure Cluster Connectivity (SCC) relay. This is how
-                        your <strong>VNet Injected clusters</strong> securely talk <em>back</em> to the Databricks
-                        Control Plane without a public IP assigned to the nodes.
+                        <strong>Back-End Private Link vs. SCC:</strong>
+                        It is critical to not conflate these two. <strong>Secure Cluster Connectivity (SCC)</strong>
+                        ensures your
+                        <strong>VNet Injected clusters</strong> never receive Public IPs, but by itself, SCC routes
+                        control plane traffic over the public Azure backbone.
+                        <strong>Back-End Private Link</strong> steps in to force that SCC relay traffic through a
+                        Private Endpoint, ensuring the connection <em>back</em> to the Databricks Control Plane never
+                        touches public routing.
 
                         <figure
                             style="margin: 1.5rem 0; text-align: center; background: #ffffff; padding: 1rem; border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.4); box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
@@ -1514,16 +1533,17 @@
                     </div>
                 </div>
 
-                <!-- 2. Secure Cluster Connectivity -->
+                <!-- 2. Secure Cluster Connectivity and Back-End Private Link -->
                 <div
                     style="background: rgba(255,255,255,0.03); border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 12px; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
                     <h3 style="color: #c084fc; margin-top: 0; display: flex; align-items: center; gap: 10px;">
-                        <i class="fas fa-network-wired"></i> 2. Secure Cluster Connectivity (Back-End Private Link)
+                        <i class="fas fa-network-wired"></i> 2. Control Plane Routing (SCC + Back-End Private Link)
                     </h3>
                     <p style="color: #e2e8f0; line-height: 1.6;">
                         <strong>What it is:</strong> SCC ensures your compute nodes inside the VNet never receive Public
-                        IP addresses. The Back-End Private Link is a secure relay that allows those locked-down nodes to
-                        call <em>out</em> to the Databricks Control Plane for tasks.
+                        IP addresses. However, SCC alone routes back to the control plane over the public Azure
+                        backbone. <strong>Back-End Private Link</strong> attaches to that SCC relay, forcing the nodes
+                        to call <em>out</em> to the Databricks Control Plane strictly over your private network.
                     </p>
                     <div
                         style="color: #94a3b8; font-size: 0.95rem; font-style: italic; background: rgba(0,0,0,0.4); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border-left: 3px solid #a855f7;">
@@ -1673,8 +1693,8 @@
             <p>
                 Here is where textbook architecture completely falls apart in production. Standard "Hub-and-Spoke"
                 patterns dictate that all inter-spoke and internet-bound traffic routes through a central Azure Firewall
-                (NVA) in the Hub. <strong>When applied blindly to Databricks Private Endpoints, this is a catastrophic
-                    mistake.</strong>
+                (NVA) in the Hub. <strong>When applied blindly to Databricks Private Endpoints, this can become a
+                    massive performance and billing trap unless deep packet inspection is strictly required.</strong>
             </p>
 
             <div
@@ -1706,9 +1726,9 @@
                         <li style="margin-bottom: 0.5rem;"><strong>Performance Bottleneck:</strong> The NVA becomes a
                             choke point, artificially capping your cluster's read/write IOPS and slowing down your ETL
                             pipelines.</li>
-                        <li><strong>Zero Security Benefit:</strong> This traffic is perfectly safe. It is VNet-to-VNet
-                            over the private Azure backbone to a secured Microsoft PaaS service. Inspecting it yields no
-                            value.</li>
+                        <li><strong>Security vs Performance:</strong> Avoid hairpinning PE data-plane traffic through
+                            NVAs unless packet inspection is a strict regulatory requirement. Always validate and model
+                            your expected costs with traffic baselining before routing big data through a firewall.</li>
                     </ul>
                 </div>
 
@@ -1999,9 +2019,20 @@
                     <span class="terminal-title">DNS Conditional Forwarding Rules</span>
                     <button class="terminal-copy" onclick="copyCode(this)">Copy</button>
                 </div>
-                <pre><code>*.azuredatabricks.net
-*.privatelink.azuredatabricks.net
-*.databricksapps.com</code></pre>
+                <pre><code>privatelink.azuredatabricks.net
+privatelink.blob.core.windows.net
+privatelink.dfs.core.windows.net
+privatelink.vaultcore.azure.net</code></pre>
+            </div>
+
+            <div class="styled-callout anti-pattern"
+                style="margin-top: 1.5rem; background: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444; padding: 1rem; border-radius: 8px;">
+                <i class="fas fa-radiation" style="color: #ef4444; margin-right: 10px; font-size: 1.2rem;"></i>
+                <div style="display: inline-block; vertical-align: top; width: calc(100% - 35px);">
+                    <strong style="color: #fca5a5;">Never forward broad public zones:</strong> Do not forward
+                    <code>*.azuredatabricks.net</code> or <code>*.core.windows.net</code>. This will hijack all public
+                    domain resolution across your enterprise and cause global outages for any non-Private Link services.
+                </div>
             </div>
 
             <div class="styled-callout anti-pattern">
@@ -2016,22 +2047,42 @@
                 </div>
             </div>
 
-            <h3>DNS Validation Check</h3>
-            <p>Before proceeding with any cluster deployments, you must validate resolution. Run this from a machine
-                inside
-                your VNet or on-premises:</p>
-            <div class="terminal-block">
-                <div class="terminal-header">
-                    <div class="terminal-buttons">
-                        <span class="terminal-btn-r"></span>
-                        <span class="terminal-btn-y"></span>
-                        <span class="terminal-btn-g"></span>
-                    </div>
-                    <span class="terminal-title">bash</span>
-                    <button class="terminal-copy" onclick="copyCode(this)">Copy</button>
-                </div>
-                <pre><code>nslookup &lt;workspace-url&gt;
-# Expected result: Must return a Private IP address (e.g. 10.x.x.x)</code></pre>
+            <h3>The Pre-Flight Validation Checklist</h3>
+            <p>Before proceeding with any cluster deployments or calling the architecture "done", you must validate the
+                following controls from a machine inside your VNet or on-premises over VPN/ExpressRoute:</p>
+
+            <div
+                style="background: rgba(255,255,255,0.03); border: 1px solid rgba(52, 211, 153, 0.3); border-radius: 8px; padding: 1.5rem; margin-top: 1.5rem;">
+                <ol style="margin-bottom: 0; padding-left: 1.25rem; line-height: 1.6; color: #cbd5e1;">
+                    <li style="margin-bottom: 1.5rem;">
+                        <strong style="color: #fff;">1. Validate DNS Resolution (`nslookup`):</strong>
+                        <br>Verify the Workspace URL and ADLS Gen2 URLs resolve to `10.x.x.x` Private IPs, not Public
+                        IPs.
+                        <div class="terminal-block" style="margin-top: 0.5rem; margin-bottom: 0;">
+                            <div class="terminal-header">
+                                <span class="terminal-title">bash</span>
+                            </div>
+                            <pre
+                                style="margin: 0; padding: 0.5rem;"><code>nslookup adb-123.azuredatabricks.net</code></pre>
+                        </div>
+                    </li>
+                    <li style="margin-bottom: 1rem;">
+                        <strong style="color: #fff;">2. Verify Private Path Flows:</strong>
+                        <br>Ensure there are no asymmetric routing drops. Telnet to the Workspace Private IP on port 443
+                        to confirm the network path is open.
+                    </li>
+                    <li style="margin-bottom: 1rem;">
+                        <strong style="color: #fff;">3. Disable Public Network Access:</strong>
+                        <br>Navigate to the Networking blades of your Workspace, ADLS accounts, and Key Vaults. Ensure
+                        the 'Public Network Access' toggle is explicitly set to <strong>Disabled</strong>.
+                    </li>
+                    <li>
+                        <strong style="color: #fff;">4. Monitor for Split-Brain Cutovers:</strong>
+                        <br>When cutting DNS over, actively monitor Azure Firewall logs (if routing via Hub originally)
+                        and Databricks audit logs to confirm no internal traffic is suddenly dropping or flowing over
+                        public routes.
+                    </li>
+                </ol>
             </div>
 
             <h2><span class="gradient-text">5. Where Each Component Must Live</span></h2>
