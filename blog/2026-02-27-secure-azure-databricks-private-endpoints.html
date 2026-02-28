@@ -626,6 +626,68 @@
             box-shadow: 0 0 40px rgba(59, 130, 246, 0.1), inset 0 0 20px rgba(59, 130, 246, 0.05);
             margin-bottom: 1.5rem;
         }
+
+        /* --- Mobile Responsiveness Enhancements --- */
+        @media (max-width: 992px) {
+
+            /* Hide Sidebar ToC, let main content breathe */
+            .toc-container {
+                display: none !important;
+            }
+
+            .blog-post-content {
+                padding: 2rem 1.5rem;
+                max-width: 100vw;
+            }
+
+            /* Stack Hero Elements */
+            .blog-post-hero h1 {
+                font-size: 2.2rem !important;
+            }
+
+            #audio-briefing-card {
+                flex-direction: column !important;
+                gap: 1.5rem;
+                text-align: center;
+                align-items: center !important;
+            }
+
+            #audio-briefing-card .hero-audio-meta {
+                flex-direction: column !important;
+                gap: 1rem !important;
+            }
+
+            #audio-briefing-card .audio-waves {
+                display: none !important;
+                /* Hide waves on very small screens for cleanliness */
+            }
+
+            /* Code block overflows */
+            pre,
+            .terminal-block {
+                max-width: 92vw;
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            /* Interactive Diagrams Horizontal Scroll */
+            .interactive-sso-diagram,
+            .split-brain-interactive,
+            .mermaid,
+            .styled-callout {
+                max-width: 92vw;
+                overflow-x: auto !important;
+                padding: 1.25rem !important;
+            }
+
+            .sso-connector {
+                display: none !important;
+            }
+
+            .sso-step {
+                padding: 1rem 1rem 1rem 3.5rem !important;
+            }
+        }
     </style>
 
     <!-- Performance: Preconnect to Font & Script Servers -->
@@ -686,14 +748,14 @@
             </div>
 
             <!-- Free AI Integration: Executive Audio Briefing -->
-            <div
+            <div id="audio-briefing-card"
                 style="margin-top: 3rem; background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 12px; padding: 1.5rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 10px 30px rgba(0,0,0,0.3); backdrop-filter: blur(10px); position: relative; overflow: hidden;">
                 <!-- Subtle animated glow -->
                 <div
                     style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(180deg, #3b82f6, #8b5cf6); box-shadow: 0 0 10px #3b82f6;">
                 </div>
 
-                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                <div class="hero-audio-meta" style="display: flex; align-items: center; gap: 1.5rem;">
                     <button id="audio-play-btn"
                         style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #8b5cf6); border: none; color: white; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);"
                         onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';">
