@@ -777,6 +777,119 @@
                 </figcaption>
             </figure>
 
+            <div
+                style="margin: 4rem 0; background: linear-gradient(to bottom right, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95)); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 16px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);">
+                <div
+                    style="background: rgba(56, 189, 248, 0.1); padding: 2rem; border-bottom: 1px solid rgba(56, 189, 248, 0.15);">
+                    <h3 style="margin: 0; color: #38bdf8; font-size: 1.8rem; font-family: 'Outfit', sans-serif;"><i
+                            class="fas fa-layer-group" style="margin-right: 12px;"></i>Architectural Deep Dive: Azure
+                        Databricks</h3>
+                    <p style="margin: 1rem 0 0 0; color: #e2e8f0; font-size: 1.1rem; line-height: 1.6;">
+                        Azure Databricks is a fully managed, auto-scaling Apache Spark™ environment optimized natively
+                        for the Azure cloud. It completely abstracts the operational nightmare of managing massive big
+                        data clusters.
+                    </p>
+                </div>
+
+                <div style="padding: 2.5rem; display: grid; gap: 2.5rem;">
+
+                    <!-- Section 1: Use Cases & Problem solving -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                        <div>
+                            <h4 style="color: #60a5fa; margin-top: 0; font-size: 1.25rem;"><i class="fas fa-bullseye"
+                                    style="margin-right: 8px;"></i> What Problem It Solves</h4>
+                            <p style="color: #cbd5e1; line-height: 1.6;">
+                                Traditional big data environments (like Hadoop) require massive overhead to maintain
+                                compute infrastructure. Databricks separates compute from storage, allowing you to scale
+                                virtual machines dynamically based purely on workload demands, natively reading raw
+                                schemas from ADLS Gen2.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 style="color: #34d399; margin-top: 0; font-size: 1.25rem;"><i class="fas fa-briefcase"
+                                    style="margin-right: 8px;"></i> Core Enterprise Use Cases</h4>
+                            <ul style="color: #cbd5e1; padding-left: 1.25rem; line-height: 1.6;">
+                                <li><strong>Medallion ETL Pipelines:</strong> Cleansing raw bronze data into gold-tier
+                                    Analytics schemas.</li>
+                                <li><strong>Real-Time Streaming:</strong> Processing IoT telemetry natively via
+                                    Structured Streaming.</li>
+                                <li><strong>Machine Learning:</strong> Training predictive models seamlessly on massive
+                                    datasets.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Cost Analysis -->
+                    <div
+                        style="background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 12px; border: 1px dashed rgba(156, 163, 175, 0.3);">
+                        <h4 style="color: #fca5a5; margin-top: 0; font-size: 1.25rem;"><i class="fas fa-dollar-sign"
+                                style="margin-right: 8px;"></i> Cost Baseline (East US Region)</h4>
+                        <p style="color: #cbd5e1; margin-bottom: 1rem;">Costs are segmented into underlying Azure
+                            Infrastructure (VMs) + Databricks Units (DBUs) which cover the software licensing and
+                            management layer.</p>
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                            <div style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 8px;">
+                                <strong style="color: #fff; display: block; margin-bottom: 0.25rem;">Compute (Data
+                                    Engineering)</strong>
+                                <span style="color: #9ca3af;">~$0.40 / DBU per hour</span>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 8px;">
+                                <strong style="color: #fff; display: block; margin-bottom: 0.25rem;">Serverless
+                                    SQL</strong>
+                                <span style="color: #9ca3af;">~$0.70 / DBU per hour</span>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 8px;">
+                                <strong style="color: #fff; display: block; margin-bottom: 0.25rem;">Premium Tier
+                                    Surcharge</strong>
+                                <span style="color: #9ca3af;">Required for Unity/RBAC.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Architecture Checklist -->
+                    <div>
+                        <h4 style="color: #c084fc; margin-top: 0; font-size: 1.25rem;"><i class="fas fa-tasks"
+                                style="margin-right: 8px;"></i> Architect's Design Checklist</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem;">
+
+                            <!-- Left Col -->
+                            <div>
+                                <h5 style="color: #e2e8f0; font-size: 1.05rem; margin-top: 0;"><i
+                                        class="fas fa-check-circle" style="color: #34d399; margin-right: 6px;"></i>
+                                    Prerequisites & Assumptions</h5>
+                                <ul style="color: #94a3b8; padding-left: 1.25rem; line-height: 1.6;">
+                                    <li>Deploy strictly via <strong>VNet Injection</strong> (Secure Cluster
+                                        Connectivity).</li>
+                                    <li>Identities are managed entirely via <strong>Entra ID (SSO)</strong>.</li>
+                                    <li>Attach an Azure Key Vault-backed <strong>Secret Scope</strong> automatically.
+                                    </li>
+                                    <li>Ensure Workspace Diagnostic Settings stream to <strong>Log Analytics</strong>.
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Right Col -->
+                            <div style="border-left: 1px solid rgba(255,255,255,0.1); padding-left: 1.5rem;">
+                                <h5 style="color: #e2e8f0; font-size: 1.05rem; margin-top: 0;"><i
+                                        class="fas fa-radiation" style="color: #f87171; margin-right: 6px;"></i>
+                                    High-Risk Anti-Patterns</h5>
+                                <ul style="color: #94a3b8; padding-left: 1.25rem; line-height: 1.6;">
+                                    <li><strong style="color: #fca5a5;">Never</strong> store sensitive data in local
+                                        cluster DBFS.</li>
+                                    <li><strong style="color: #fca5a5;">Never</strong> use long-lived clusters. Always
+                                        enforce auto-termination (e.g., 30 mins).</li>
+                                    <li><strong style="color: #fca5a5;">Avoid</strong> workspace-level Admin Sprawl. Use
+                                        Unity Catalog.</li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
             <h2><span class="gradient-text">The Exfiltration Threat (And Why VNet Injection Isn't Enough)</span></h2>
             <p>
                 Deploying Azure Databricks isn't just about spinning up Spark clusters. For enterprise architects in
@@ -799,25 +912,47 @@
                 Firewall costs by tens of thousands of dollars per month. Let's look at the survival guide.
             </p>
 
-            <div class="styled-callout strategy" style="margin: 3rem 0; border-left: 4px solid var(--secondary);">
-                <h3 style="margin-top: 0; color: #c084fc;"><i class="fas fa-book-reader"></i> Why I Was Wrong About
-                    Databricks Security</h3>
-                <p>
-                    Early in my career, I assumed network security was a black-and-white checklist. I once deployed a
-                    massive data platform where we "secured" the Data Lake by slapping VNet Service Endpoints on the
-                    storage account and calling it a day.
-                </p>
-                <p>
-                    <strong>I was wrong.</strong> During a penetration test, the red team spun up their <em>own</em>
-                    generic Azure Storage account in the same region, walked right past our Service Endpoints, and
-                    conceptually exfiltrated gigabytes of mock PI data because the egress path remained on the public
-                    Azure backbone.
-                </p>
-                <p style="margin-bottom: 0;">
-                    That failure fundamentally changed how I approach cloud architecture. It's why I am so
-                    uncompromising today regarding <strong>Private Link isolation and explicit egress UDRs</strong>.
-                    Here is the exact blueprint I use to ensure that never happens again.
-                </p>
+            <div
+                style="margin: 4rem 0; padding: 2.5rem; background: linear-gradient(135deg, rgba(20, 15, 30, 0.4), rgba(15, 23, 42, 0.6)); border: 1px solid rgba(192, 132, 252, 0.15); border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.4);">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2.5rem;">
+                    <!-- Column 1: Title -->
+                    <div>
+                        <h3
+                            style="margin: 0; color: #c084fc; font-size: 1.8rem; line-height: 1.3; font-family: 'Outfit', sans-serif;">
+                            <i class="fas fa-book-reader" style="color: #fde047; margin-right: 8px;"></i>
+                            Why I Was Wrong About Databricks Security
+                        </h3>
+                    </div>
+
+                    <!-- Column 2: The Trap -->
+                    <div>
+                        <p style="margin: 0; color: #e2e8f0; font-size: 1.1rem; line-height: 1.7;">
+                            Early in my career, I assumed network security was a black-and-white checklist. I once
+                            deployed a massive data platform where we "secured" the Data Lake by slapping VNet Service
+                            Endpoints on the storage account and calling it a day.
+                        </p>
+                    </div>
+
+                    <!-- Column 3: The Failure -->
+                    <div>
+                        <p style="margin: 0; color: #e2e8f0; font-size: 1.1rem; line-height: 1.7;">
+                            <strong style="color: #fff; font-size: 1.15rem;">I was wrong.</strong> During a penetration
+                            test, the red team spun up their <em>own</em> generic Azure Storage account in the same
+                            region, walked right past our Service Endpoints, and conceptually exfiltrated gigabytes of
+                            mock PI data because the egress path remained on the public Azure backbone.
+                        </p>
+                    </div>
+
+                    <!-- Column 4: The Resolution -->
+                    <div>
+                        <p style="margin: 0; color: #e2e8f0; font-size: 1.1rem; line-height: 1.7;">
+                            That failure fundamentally changed how I approach cloud architecture. It's why I am so
+                            uncompromising today regarding <strong style="color: #fff;">Private Link isolation and
+                                explicit egress UDRs</strong>. Here is the exact blueprint I use to ensure that never
+                            happens again.
+                        </p>
+                    </div>
+                </div>
             </div>
 
             <h2><span class="gradient-text">1. The Real Story on Azure Private Endpoints</span></h2>
@@ -894,11 +1029,35 @@
                     </li>
                     <li style="margin-bottom: 1.25rem;">
                         <strong>Back-End Private Link:</strong> The Secure Cluster Connectivity (SCC) relay. This is how
-                        the
-                        injected VNet clusters securely talk <em>back</em> to the Databricks Control Plane without a
-                        public
-                        IP assigned to the nodes.
-                        <div style="color: #94a3b8; font-size: 0.95rem; margin-top: 0.25rem; line-height: 1.4;">
+                        your <strong>VNet Injected clusters</strong> securely talk <em>back</em> to the Databricks
+                        Control Plane without a public IP assigned to the nodes.
+                        <div
+                            style="margin-top: 1rem; padding: 1.25rem; background: rgba(0,0,0,0.3); border-radius: 8px; border-left: 3px solid #60a5fa;">
+                            <h5 style="color: #93c5fd; margin: 0 0 0.5rem 0; font-size: 1rem;">What is VNet Injection?
+                            </h5>
+                            <p style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 0.75rem; line-height: 1.5;">
+                                By default, Databricks spins up worker nodes in a Microsoft-managed virtual network that
+                                you cannot see or control. <strong>VNet Injection</strong> solves this by deploying the
+                                data plane (your compute clusters) directly into <em>your own</em> customer-managed
+                                Azure VNet.
+                            </p>
+                            <h5 style="color: #93c5fd; margin: 0 0 0.5rem 0; font-size: 1rem;">Why is it necessary?</h5>
+                            <p style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 0.75rem; line-height: 1.5;">
+                                It allows your clusters to securely access other internal resources (like on-prem
+                                databases via VPN, or storage via Private Endpoints) using your own established routing
+                                rules (UDRs) and Network Security Groups (NSGs). It is a hard prerequisite for
+                                zero-trust architectures.
+                            </p>
+                            <h5 style="color: #93c5fd; margin: 0 0 0.5rem 0; font-size: 1rem;">How is it configured?
+                            </h5>
+                            <p style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 0; line-height: 1.5;">
+                                During workspace deployment, you must provide two dedicated, empty subnets from your
+                                VNet (a "public" subnet and a "private" subnet—though with SCC enabled, both are
+                                actually private). Databricks then orchestrates the underlying VMs directly into these
+                                subnets.
+                            </p>
+                        </div>
+                        <div style="color: #94a3b8; font-size: 0.95rem; margin-top: 1rem; line-height: 1.4;">
                             <em>Analogy: The <strong>Secure Walkie-Talkies</strong>. The workers inside the building
                                 (your
                                 compute clusters) need to receive instructions from Headquarters (the Control Plane).
@@ -922,68 +1081,416 @@
                 </ol>
             </div>
 
-            <h2><span class="gradient-text">3. Mandatory Components for a Fully Private Databricks Workspace</span></h2>
-            <p>To establish a fully locked-down Databricks environment without gaps, the following controls are
-                mandatory:
-            </p>
-            <ol style="margin-bottom: 2rem;">
-                <li><strong>Secure Cluster Connectivity:</strong> No Public IPs assigned to compute nodes.</li>
-                <li><strong>Private Endpoint for Workspace UI/API:</strong> Your Front-End connection.</li>
-                <li><strong>Private Endpoint for Browser Authentication:</strong> Dedicated connection for SSO token
-                    exchange.</li>
-                <li><strong>Backend Private Link:</strong> Secure Cluster Connectivity relay for the Compute Plane.</li>
-                <li><strong>Storage Account Private Endpoint:</strong> For DBFS root and mounted data lakes.</li>
-                <li><strong>Key Vault Private Endpoint:</strong> For fetching secret scopes internally.</li>
-                <li><strong>Public Network Access Disabled:</strong> Strictly enforced on all Storage and Key Vault
-                    resources.</li>
-            </ol>
+            <h2><span class="gradient-text">3. Mandatory Components: The Deep Dive</span></h2>
+            <p>To establish a fully locked-down Databricks environment without gaps, you must implement these controls.
+                Let's break down exactly <em>what</em> they are and <em>why</em> they matter.</p>
 
-            <div class="styled-callout zero-trust">
-                <i class="fas fa-exclamation-triangle"></i>
-                <div>
-                    <strong>Browser Authentication Callout:</strong> A dedicated browser authentication workspace is
-                    required per region and must <em>not</em> be deleted. If it is removed or DNS drops, SSO login will
-                    fail globally for that region.
+            <div style="display: flex; flex-direction: column; gap: 2.5rem; margin-bottom: 3rem;">
+
+                <!-- 1. SSO Token Exchange -->
+                <div
+                    style="background: rgba(255,255,255,0.03); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 12px; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                    <h3 style="color: #60a5fa; margin-top: 0; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-id-badge"></i> 1. Browser Authentication (SSO Token Exchange)
+                    </h3>
+                    <p style="color: #e2e8f0; line-height: 1.6;">
+                        <strong>What it is:</strong> A dedicated Private Endpoint used exclusively to handle OAuth/SAML
+                        token exchanges between your browser, Microsoft Entra ID (formerly Azure AD), and the Databricks
+                        Control Plane.
+                    </p>
+                    <div
+                        style="color: #94a3b8; font-size: 0.95rem; font-style: italic; background: rgba(0,0,0,0.4); padding: 1rem; border-radius: 8px; margin-bottom: 2rem; border-left: 3px solid #3b82f6;">
+                        <strong>Analogy: The Bouncer's VIP Wristband Station.</strong> Imagine an exclusive club where
+                        the bouncer doesn't just check your ID at the main door. Instead, you go to a secure, separate
+                        tent (the Browser Auth Workspace) to show your ID (Entra ID credentials). The bouncer verifies
+                        it and gives you a special VIP wristband (the SSO Token). Once you have that wristband, you can
+                        walk through the VIP tunnel (Front-End Private Link) into the club. If the wristband station is
+                        closed, nobody gets into the club, even if the tunnel is open.
+                    </div>
+
+                    <h4 style="color: #93c5fd; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">Interactive SSO
+                        Flow Diagram</h4>
+                    <p style="color: #64748b; font-size: 0.9rem; margin-top: -0.5rem; margin-bottom: 1.5rem;">Hover over
+                        the steps below to trace the secure authentication path.</p>
+                    <!-- CSS Interactive Diagram -->
+                    <div class="interactive-sso-diagram"
+                        style="background: rgba(15, 23, 42, 0.6); border-radius: 12px; padding: 2rem; position: relative; box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);">
+                        <style>
+                            .interactive-sso-diagram {
+                                isolation: isolate;
+                            }
+
+                            .sso-connector {
+                                position: absolute;
+                                left: 3.2rem;
+                                top: 4rem;
+                                bottom: 4rem;
+                                width: 2px;
+                                background: linear-gradient(to bottom, #3b82f6 50%, transparent 50%);
+                                background-size: 100% 20px;
+                                z-index: 1;
+                                opacity: 0.2;
+                                animation: dash 20s linear infinite;
+                            }
+
+                            @keyframes dash {
+                                to {
+                                    background-position: 0 -400px;
+                                }
+                            }
+
+                            .sso-step {
+                                padding: 1.25rem 1.25rem 1.25rem 4rem;
+                                border-radius: 8px;
+                                background: rgba(30, 41, 59, 0.7);
+                                border: 1px solid rgba(255, 255, 255, 0.05);
+                                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                                cursor: crosshair;
+                                position: relative;
+                                z-index: 2;
+                                margin-bottom: 1rem;
+                            }
+
+                            .sso-step::before {
+                                content: '';
+                                position: absolute;
+                                left: 0.95rem;
+                                top: 50%;
+                                transform: translateY(-50%);
+                                width: 16px;
+                                height: 16px;
+                                border-radius: 50%;
+                                background: #1e293b;
+                                border: 3px solid #3b82f6;
+                                z-index: 3;
+                                transition: all 0.3s ease;
+                            }
+
+                            .sso-step:hover {
+                                background: rgba(59, 130, 246, 0.15);
+                                border-color: rgba(59, 130, 246, 0.5);
+                                transform: translateX(10px);
+                                box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.3);
+                            }
+
+                            .sso-step:hover::before {
+                                background: #3b82f6;
+                                box-shadow: 0 0 15px #3b82f6;
+                            }
+
+                            .sso-step:hover h5 {
+                                color: #93c5fd;
+                            }
+
+                            .sso-step:last-child {
+                                margin-bottom: 0;
+                            }
+
+                            .sso-step:last-child::before {
+                                border-color: #10b981;
+                            }
+
+                            .sso-step:last-child:hover::before {
+                                background: #10b981;
+                                box-shadow: 0 0 15px #10b981;
+                            }
+
+                            .sso-step:last-child:hover {
+                                background: rgba(16, 185, 129, 0.15);
+                                border-color: rgba(16, 185, 129, 0.5);
+                            }
+                        </style>
+                        <div class="sso-connector"></div>
+
+                        <div class="sso-step">
+                            <h5
+                                style="margin: 0 0 0.5rem 0; color: #fff; font-size: 1.1rem; transition: color 0.3s ease;">
+                                <i class="fas fa-desktop" style="margin-right: 8px;"></i> 1. User Requests Access
+                            </h5>
+                            <p style="margin: 0; color: #cbd5e1; font-size: 0.95rem;">User queries
+                                <code>adb-123.azuredatabricks.net</code>. The request hits the standard workspace
+                                Front-End Private Endpoint.
+                            </p>
+                        </div>
+                        <div class="sso-step">
+                            <h5
+                                style="margin: 0 0 0.5rem 0; color: #fff; font-size: 1.1rem; transition: color 0.3s ease;">
+                                <i class="fas fa-random" style="margin-right: 8px;"></i> 2. Redirect to Auth Workspace
+                            </h5>
+                            <p style="margin: 0; color: #cbd5e1; font-size: 0.95rem;">The Control Plane realizes the
+                                user lacks a session token. It redirects the browser through the dedicated
+                                <strong>Browser Auth Private Endpoint</strong>.
+                            </p>
+                        </div>
+                        <div class="sso-step">
+                            <h5
+                                style="margin: 0 0 0.5rem 0; color: #fff; font-size: 1.1rem; transition: color 0.3s ease;">
+                                <i class="fab fa-microsoft" style="margin-right: 8px;"></i> 3. Entra ID Login Triggered
+                            </h5>
+                            <p style="margin: 0; color: #cbd5e1; font-size: 0.95rem;">The browser communicates with
+                                Microsoft Entra ID (via public internet) to prompt for MFA and prove identity. Entra ID
+                                returns an authorization payload.</p>
+                        </div>
+                        <div class="sso-step">
+                            <h5
+                                style="margin: 0 0 0.5rem 0; color: #fff; font-size: 1.1rem; transition: color 0.3s ease;">
+                                <i class="fas fa-exchange-alt" style="margin-right: 8px;"></i> 4. Secure Flow Token
+                                Exchange
+                            </h5>
+                            <p style="margin: 0; color: #cbd5e1; font-size: 0.95rem;">The browser brings the auth
+                                payload back via the <strong>Browser Auth Private Endpoint</strong>. Databricks
+                                validates it and issues a signed Session Token (SSO Token).</p>
+                        </div>
+                        <div class="sso-step">
+                            <h5
+                                style="margin: 0 0 0.5rem 0; color: #fff; font-size: 1.1rem; transition: color 0.3s ease;">
+                                <i class="fas fa-check-circle" style="margin-right: 8px;"></i> 5. VIP Access Granted
+                            </h5>
+                            <p style="margin: 0; color: #a7f3d0; font-size: 0.95rem;">User is redirected back to the
+                                main workspace UI, carrying the new SSO token in their browser cookies. They are now
+                                fully authenticated.</p>
+                        </div>
+                    </div>
+
+                    <div
+                        style="margin-top: 2rem; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #f87171; background: linear-gradient(to right, rgba(248, 113, 113, 0.15), rgba(0,0,0,0));">
+                        <strong style="color: #fca5a5; font-size: 1.1rem; display: block; margin-bottom: 0.5rem;"><i
+                                class="fas fa-exclamation-triangle"></i> Global Failure Warning</strong>
+                        <span style="color: #e2e8f0; line-height: 1.5;">A dedicated browser authentication workspace is
+                            required per region and must <em>not</em> be deleted. If this "wristband station" is deleted
+                            or its DNS record drops, <strong>SSO login will fail globally for every Databricks workspace
+                                in that Azure region</strong>, effectively locking out your entire company.</span>
+                    </div>
+                </div>
+
+                <!-- 2. Secure Cluster Connectivity -->
+                <div
+                    style="background: rgba(255,255,255,0.03); border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 12px; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                    <h3 style="color: #c084fc; margin-top: 0; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-network-wired"></i> 2. Secure Cluster Connectivity (Back-End Private Link)
+                    </h3>
+                    <p style="color: #e2e8f0; line-height: 1.6;">
+                        <strong>What it is:</strong> SCC ensures your compute nodes inside the VNet never receive Public
+                        IP addresses. The Back-End Private Link is a secure relay that allows those locked-down nodes to
+                        call <em>out</em> to the Databricks Control Plane for tasks.
+                    </p>
+                    <div
+                        style="color: #94a3b8; font-size: 0.95rem; font-style: italic; background: rgba(0,0,0,0.4); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border-left: 3px solid #a855f7;">
+                        <strong>Analogy: The Secure Walkie-Talkies.</strong> The workers inside your building (the
+                        compute clusters) need instructions from Headquarters (the Control Plane). Instead of stepping
+                        outside and shouting (using a Public IP), they use an encrypted, private radio channel (SCC
+                        Relay) to ask for their tasks. Headquarters can reply on that channel, but can never initiate
+                        contact.
+                    </div>
+                    <ul style="color: #cbd5e1; line-height: 1.6; padding-left: 1.5rem;">
+                        <li style="margin-bottom: 0.5rem;"><strong>Zero Inbound Access:</strong> Because the cluster
+                            initiates the outbound traffic via the relay, there are no open inbound ports. Attackers
+                            cannot port-scan or reach into your clusters.</li>
+                        <li style="margin-bottom: 0.5rem;"><strong>Simplified Route Tables:</strong> Eliminates the need
+                            for complex Network Security Group (NSG) rules allowing inbound Control Plane IPs.</li>
+                        <li><strong>Strict Boundary:</strong> You cannot mix SCC and non-SCC clusters in the same
+                            workspace. Once enabled, it's total lockdown.</li>
+                    </ul>
+                </div>
+
+                <!-- 3. Storage Account Private Endpoint (ADLS vs DBFS) -->
+                <div
+                    style="background: rgba(255,255,255,0.03); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 12px; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                    <h3 style="color: #38bdf8; margin-top: 0; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-database"></i> 3. Storage Account Private Endpoints (PaaS)
+                    </h3>
+                    <p style="color: #e2e8f0; line-height: 1.6;">
+                        <strong>What it is:</strong> Private Endpoints enabling your compute clusters to read and write
+                        data to Azure storage services over the private Azure backbone network. Traffic never touches
+                        the public internet. Let's break down exactly what storage we are securing.
+                    </p>
+
+                    <h4
+                        style="color: #7dd3fc; margin-top: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem;">
+                        <i class="fas fa-hdd" style="margin-right: 8px;"></i> DBFS Root vs. Mounted Data Lakes
+                    </h4>
+                    <div
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1rem; margin-bottom: 2rem;">
+                        <div
+                            style="background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 8px; border-top: 3px solid #64748b;">
+                            <h5 style="color: #fff; margin-top: 0; font-size: 1.1rem;">DBFS Root Storage</h5>
+                            <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5;">The Databricks File System
+                                (DBFS) Root is a default storage account automatically provisioned in your managed
+                                resource group when the workspace is created. It acts as the "C: Drive" for the
+                                workspace, storing system files, library installations (whls/jars), init scripts, and UI
+                                uploads.</p>
+                            <p
+                                style="color: #fca5a5; font-size: 0.9rem; margin-bottom: 0; padding: 0.5rem; background: rgba(248, 113, 113, 0.1); border-radius: 4px;">
+                                <strong><i class="fas fa-exclamation-circle"></i> Security Rule:</strong> <em>Never</em>
+                                store sensitive enterprise data here. It lacks fine-grained ACLs and is accessible to
+                                anyone in the workspace.
+                            </p>
+                        </div>
+                        <div
+                            style="background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 8px; border-top: 3px solid #10b981;">
+                            <h5 style="color: #fff; margin-top: 0; font-size: 1.1rem;">Mounted Data Lakes (ADLS Gen2)
+                            </h5>
+                            <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5;">These are your enterprise,
+                                customer-managed external storage accounts containing your actual Bronze, Silver, and
+                                Gold delta tables. They are connected ("mounted" or accessed securely via Unity Catalog
+                                external locations) for big data processing.</p>
+                            <p
+                                style="color: #6ee7b7; font-size: 0.9rem; margin-bottom: 0; padding: 0.5rem; background: rgba(16, 185, 129, 0.1); border-radius: 4px;">
+                                <strong><i class="fas fa-shield-alt"></i> Security Rule:</strong> This is where your
+                                customer data lives. Strict Private Endpoints + Firewall "Deny All" rules are
+                                non-negotiable.
+                            </p>
+                        </div>
+                    </div>
+
+                    <h4
+                        style="color: #7dd3fc; margin-top: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem;">
+                        <i class="fas fa-layer-group" style="margin-right: 8px;"></i> Storage Taxonomy: Why ADLS Gen2?
+                    </h4>
+                    <p style="color: #94a3b8; font-size: 0.95rem; margin-bottom: 1rem;">When configuring PaaS Private
+                        Endpoints, Databricks relies heavily on ADLS Gen2. Here is why it is strictly preferred over
+                        other Azure storage methods for Big Data:</p>
+                    <div style="overflow-x: auto;">
+                        <table
+                            style="width: 100%; border-collapse: collapse; text-align: left; background: rgba(0,0,0,0.3); border-radius: 8px; overflow: hidden; font-size: 0.9rem;">
+                            <thead>
+                                <tr
+                                    style="background: rgba(56, 189, 248, 0.15); border-bottom: 1px solid rgba(56, 189, 248, 0.3);">
+                                    <th style="padding: 1rem; color: #fff; font-weight: 600;">Azure Service</th>
+                                    <th style="padding: 1rem; color: #fff; font-weight: 600;">Architecture Level</th>
+                                    <th style="padding: 1rem; color: #fff; font-weight: 600;">Best Use Case</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    style="border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(16, 185, 129, 0.05);">
+                                    <td style="padding: 1rem; color: #10b981;"><strong>ADLS Gen2</strong></td>
+                                    <td style="padding: 1rem; color: #cbd5e1;">True Hierarchical Namespace (HNS). Native
+                                        POSIX ACLs. O(1) atomic directory renames.</td>
+                                    <td style="padding: 1rem; color: #cbd5e1;"><strong>The ultimate Databricks
+                                            companion.</strong> Required for optimal Delta Lake performance and Unity
+                                        Catalog governance.</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                    <td style="padding: 1rem; color: #38bdf8;"><strong>Azure Blob Storage</strong></td>
+                                    <td style="padding: 1rem; color: #cbd5e1;">Flat namespace (virtual directories).
+                                        Renaming a folder requires copying every contained file.</td>
+                                    <td style="padding: 1rem; color: #94a3b8;">General purpose imagery, cold archiving,
+                                        or legacy log dumps. Performance degradation for big data engines.</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                    <td style="padding: 1rem; color: #f59e0b;"><strong>Azure Files (SMB/NFS)</strong>
+                                    </td>
+                                    <td style="padding: 1rem; color: #cbd5e1;">Managed distributed file shares mounted
+                                        directly to OS native file systems.</td>
+                                    <td style="padding: 1rem; color: #94a3b8;">Legacy app lift-and-shift, corporate file
+                                        servers. Do not use for Databricks execution layers.</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 1rem; color: #a855f7;"><strong>Azure SFTP Server</strong></td>
+                                    <td style="padding: 1rem; color: #cbd5e1;">An SFTP protocol endpoint layered
+                                        directly over Azure Blob or ADLS Gen2.</td>
+                                    <td style="padding: 1rem; color: #94a3b8;">Secure, legacy B2B (Business-to-Business)
+                                        data ingestion into the landing zone before Databricks processes it.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 4. Key Vault & Remaining Controls -->
+                <div
+                    style="background: rgba(255,255,255,0.03); border: 1px solid rgba(251, 146, 60, 0.3); border-radius: 12px; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                    <h3 style="color: #fb923c; margin-top: 0; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-lock"></i> 4. Finalizing the Perimeter
+                    </h3>
+                    <ul style="color: #cbd5e1; line-height: 1.6; padding-left: 1.5rem; margin-bottom: 0;">
+                        <li style="margin-bottom: 0.5rem;"><strong>Key Vault Private Endpoint:</strong> Required for the
+                            compute plane to fetch <a
+                                href="https://learn.microsoft.com/en-us/azure/databricks/security/secrets/"
+                                target="_blank" style="color: #fb923c;">Secret Scopes</a> (passwords, connection
+                            strings) internally without traversing the internet.</li>
+                        <li><strong>Public Network Access Disabled:</strong> Once all Private Endpoints are mapped, you
+                            must go to the "Networking" blades of your Storage Accounts, Key Vaults, and Databricks
+                            workspaces and set "Public Network Access" to <strong>Disabled</strong>. This ensures the
+                            Private Endpoints are strictly the <em>only</em> way in.</li>
+                    </ul>
                 </div>
             </div>
 
-            <h2><span class="gradient-text">4. The 30% Cost Trap (A Realist's Warning)</span></h2>
+            <h2><span class="gradient-text">4. Topology Wars: Hub-and-Spoke vs. Local Mesh Routing</span></h2>
             <p>
-                Here is where textbook architecture completely falls apart in production. Standard Hub-and-Spoke
+                Here is where textbook architecture completely falls apart in production. Standard "Hub-and-Spoke"
                 patterns dictate that all inter-spoke and internet-bound traffic routes through a central Azure Firewall
-                (NVA).
+                (NVA) in the Hub. <strong>When applied blindly to Databricks Private Endpoints, this is a catastrophic
+                    mistake.</strong>
             </p>
 
-            <div class="styled-callout anti-pattern"
-                style="margin: 3rem 0; padding: 2rem; border-left: 6px solid #ef4444; background: linear-gradient(to right, rgba(127, 29, 29, 0.4), rgba(30, 41, 59, 0.2));">
-                <div style="display: flex; align-items: flex-start; gap: 1.5rem;">
-                    <i class="fas fa-radiation" style="font-size: 2.5rem; color: #f87171; margin-top: 0.2rem;"></i>
-                    <div style="flex: 1;">
-                        <h3 style="margin-top: 0; color: #fca5a5; font-size: 1.5rem; letter-spacing: -0.5px;">The
-                            5-Figure Cost Trap</h3>
-                        <p style="font-size: 1.15rem; line-height: 1.6; margin-bottom: 0;">
-                            <strong>Never force Big Data Private Endpoint traffic through an NVA.</strong>
-                        </p>
-                        <p style="margin-top: 1rem; color: #e2e8f0; line-height: 1.7;">
-                            Databricks generates massive, bursty throughput. Forcing internal cluster-to-storage traffic
-                            through an Azure Firewall Premium for "visibility" incurs a data processing charge of
-                            roughly <strong style="color: #fff;">$0.016/GB</strong>. If a standard Spark job shuffles
-                            100 TBs of data, you instantly add thousands of dollars to your monthly Azure burn rate—for
-                            literally zero security benefit.
-                        </p>
-                        <div
-                            style="margin-top: 1.5rem; padding: 1.25rem; background: rgba(0,0,0,0.4); border-radius: 8px; border: 1px solid rgba(59, 130, 246, 0.3);">
-                            <strong style="color: #60a5fa; font-size: 1.1rem;"><i class="fas fa-wrench"
-                                    style="margin-right: 8px;"></i> Architect's Fix:</strong> <br>
-                            <span
-                                style="color: #cbd5e1; display: block; margin-top: 0.5rem; line-height: 1.6;">Implement
-                                <span class="term-tooltip"
-                                    data-tooltip="User Defined Routes: Custom network routes you create in Azure to override system default routing, forcing traffic directly to a destination.">User
-                                    Defined Routes (UDRs)</span> to explicitly bypass the NVA for Storage Private IPs.
-                                Allow the compute cluster to communicate directly with the Private Endpoint internally
-                                within the VNet.</span>
-                        </div>
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin: 2.5rem 0;">
+
+                <!-- Hub and Spoke (The Bad Way) -->
+                <div
+                    style="background: rgba(255,255,255,0.02); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 12px; padding: 1.5rem; position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #ef4444;">
                     </div>
+                    <h3 style="color: #fca5a5; margin-top: 0; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-sitemap"></i> Hub-and-Spoke (NVA Hairpinning)
+                    </h3>
+                    <div
+                        style="background: rgba(239, 68, 68, 0.1); color: #f87171; padding: 0.5rem 1rem; border-radius: 4px; font-weight: bold; margin-bottom: 1rem; font-size: 0.9rem; display: inline-block;">
+                        <i class="fas fa-times-circle"></i> The Anti-Pattern
+                    </div>
+                    <p style="color: #e2e8f0; font-size: 0.95rem; line-height: 1.6;">
+                        In this flow, a Databricks worker in Spoke A needs to read from ADLS Gen2 in Spoke B. Default
+                        routing forces the traffic out of the spoke, up to the central Hub, through the Azure Firewall
+                        (which inspects the packets), and back down to the storage endpoint.
+                    </p>
+                    <ul style="color: #94a3b8; font-size: 0.9rem; padding-left: 1.25rem;">
+                        <li style="margin-bottom: 0.5rem;"><strong>The 5-Figure Cost Trap:</strong> Databricks generates
+                            massive, bursty throughput. Azure Firewall Premium charges roughly
+                            <strong>$0.016/GB</strong> for data processing. If a Spark job shuffles 100 TBs, you burn
+                            through thousands of dollars instantly.
+                        </li>
+                        <li style="margin-bottom: 0.5rem;"><strong>Performance Bottleneck:</strong> The NVA becomes a
+                            choke point, artificially capping your cluster's read/write IOPS and slowing down your ETL
+                            pipelines.</li>
+                        <li><strong>Zero Security Benefit:</strong> This traffic is perfectly safe. It is VNet-to-VNet
+                            over the private Azure backbone to a secured Microsoft PaaS service. Inspecting it yields no
+                            value.</li>
+                    </ul>
+                </div>
+
+                <!-- Local Mesh (The Good Way) -->
+                <div
+                    style="background: rgba(255,255,255,0.02); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 1.5rem; position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #10b981;">
+                    </div>
+                    <h3 style="color: #6ee7b7; margin-top: 0; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-project-diagram"></i> Localized Mesh Routing
+                    </h3>
+                    <div
+                        style="background: rgba(16, 185, 129, 0.1); color: #34d399; padding: 0.5rem 1rem; border-radius: 4px; font-weight: bold; margin-bottom: 1rem; font-size: 0.9rem; display: inline-block;">
+                        <i class="fas fa-check-circle"></i> The Architect's Fix
+                    </div>
+                    <p style="color: #e2e8f0; font-size: 0.95rem; line-height: 1.6;">
+                        Instead of forcing all internal traffic up to the Hub, we break the rigid Hub-and-Spoke mold by
+                        implementing a localized "Mesh" bypass specifically for Databricks storage. We tell the spoke to
+                        route Storage IPs directly to the destination.
+                    </p>
+                    <ul style="color: #94a3b8; font-size: 0.9rem; padding-left: 1.25rem;">
+                        <li style="margin-bottom: 0.5rem;"><strong>How It Works:</strong> We apply <span
+                                class="term-tooltip"
+                                data-tooltip="User Defined Routes (UDRs): Custom network routes you create in Azure to override system default routing, forcing traffic directly to a destination.">UDRs
+                                (User Defined Routes)</span> to the Databricks subnets. These routes state: <em>"If the
+                                destination is the `/32` IP address of the Storage Private Endpoint, bypass the Virtual
+                                Appliance and go directly."</em></li>
+                        <li style="margin-bottom: 0.5rem;"><strong>Cost Elimination:</strong> Traffic flows directly
+                            from compute to storage over Private Link. Azure Firewall data processing charges drop to
+                            zero.</li>
+                        <li><strong>Maximum Velocity:</strong> You achieve wire-speed throughput limited only by the VM
+                            SKU's network bandwidth and the storage account's IOPS limits.</li>
+                    </ul>
                 </div>
             </div>
 
@@ -992,62 +1499,213 @@
                 The #1 failure mode during a Private Endpoint cutover is <strong>Split-Brain DNS</strong>.
             </p>
 
-            <h3>The Simple Analogy: Two Maps to the Same Party</h3>
+            <h3>The Interactive Analogy: Two Maps to the Same Party</h3>
             <p>
-                Imagine you are throwing a house party.
-                <br>&bull; You give your external friends (the public internet) the map address: "123 Main Street".
-                <br>&bull; You give your family members (who are already inside the house) a different map address: "Go
-                down
-                the hallway to the Living Room".
+                Imagine you are throwing a secretive house party. You give external friends (the internet) the public
+                map address: <em>"123 Main Street"</em>. You give family members (who are already inside the house) an
+                internal map address: <em>"Walk down the hallway to the Living Room"</em>.
             </p>
             <p>
-                "Split-Brain DNS" happens when your maps get mixed up. If a family member trying to reach the Living
-                Room
-                asks for directions, and you accidentally hand them the public map ("123 Main Street"), they will walk
-                out
-                the front door, get in their car, drive around the block, and try to re-enter through the front gate
-                (which
-                is locked by the bouncer/firewall). The connection drops.
+                "Split-Brain DNS" happens when your maps get crossed. If a family server asks for directions, and you
+                hand them the public map ("123 Main Street"), they walk out the front door, drive around the block, and
+                try to re-enter the house through the front gate—which your security bouncer (Azure Firewall)
+                immediately blocks.
             </p>
 
-            <figure style="margin: 3rem 0; text-align: center;">
-                <img src="../assets/images/split_brain_dns.webp"
-                    alt="A conceptual illustration showing internal servers taking a public route (the front door) instead of the private route (the hallway) and getting blocked by the firewall."
-                    style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
-            </figure>
+            <div class="split-brain-interactive"
+                style="margin: 3rem 0; padding: 2.5rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.9)); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); overflow: hidden; position: relative;">
+                <style>
+                    .dns-scenario {
+                        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                        border-radius: 12px;
+                        padding: 1.5rem;
+                        background: rgba(0, 0, 0, 0.4);
+                        border: 1px solid rgba(255, 255, 255, 0.05);
+                        cursor: pointer;
+                        position: relative;
+                        overflow: hidden;
+                    }
 
-            <figure style="margin: 3rem 0; text-align: center;">
-                <div class="mermaid">
-                    graph TD
-                    classDef default fill:#1e293b,stroke:#3b82f6,stroke-width:2px,color:#fff;
-                    classDef bad fill:#7f1d1d,stroke:#ef4444,stroke-width:2px,color:#fff;
-                    classDef good fill:#14532d,stroke:#10b981,stroke-width:2px,color:#fff;
+                    .dns-scenario:hover {
+                        transform: translateY(-5px);
+                    }
 
-                    subgraph Internet ["&#12710; The Public Internet"]
-                    User[External User]
-                    end
+                    .dns-working:hover {
+                        border-color: rgba(16, 185, 129, 0.5);
+                        box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2);
+                    }
 
-                    subgraph House ["&#127968; Azure VNet (The House)"]
-                    VM[Internal Server]
-                    FW[PaaS Firewall]
-                    ADLS[("ADLS Gen2 (10.1.2.5)")]
-                    end
+                    .dns-broken:hover {
+                        border-color: rgba(239, 68, 68, 0.5);
+                        box-shadow: 0 10px 30px rgba(239, 68, 68, 0.2);
+                    }
 
-                    User -- "Queries Public DNS" --> PubDNS{"Public DNS"}
-                    PubDNS -- "Returns Public IP" --> FW
-                    FW -- "Denies Traffic" --> Drop("Blocked"):::bad
+                    .path-line {
+                        height: 4px;
+                        background: rgba(255, 255, 255, 0.1);
+                        width: 100%;
+                        margin: 1.5rem 0;
+                        border-radius: 4px;
+                        position: relative;
+                        overflow: hidden;
+                    }
 
-                    VM -- "Queries Public DNS\n(Split-Brain Error!)" --> PubDNS
+                    .packet-good {
+                        position: absolute;
+                        top: 0;
+                        left: -20px;
+                        width: 20px;
+                        height: 100%;
+                        background: #10b981;
+                        box-shadow: 0 0 10px #10b981, 0 0 20px #10b981;
+                        border-radius: 4px;
+                    }
 
-                    VM -- "Queries Private DNS\n(Correct Setup)" --> PrivDNS{"Private DNS Maps"}
-                    PrivDNS -- "Returns 10.1.2.5" --> ADLS:::good
+                    .packet-bad {
+                        position: absolute;
+                        top: 0;
+                        left: -20px;
+                        width: 20px;
+                        height: 100%;
+                        background: #ef4444;
+                        box-shadow: 0 0 10px #ef4444, 0 0 20px #ef4444;
+                        border-radius: 4px;
+                    }
+
+                    .dns-working:hover .packet-good {
+                        animation: travel-good 1.5s ease-in-out infinite;
+                    }
+
+                    .dns-broken:hover .packet-bad {
+                        animation: travel-bad 1.5s ease-in-out forwards;
+                    }
+
+                    @keyframes travel-good {
+                        0% {
+                            left: 0;
+                        }
+
+                        50% {
+                            left: 50%;
+                            width: 40px;
+                        }
+
+                        100% {
+                            left: 100%;
+                            width: 20px;
+                        }
+                    }
+
+                    @keyframes travel-bad {
+                        0% {
+                            left: 0;
+                        }
+
+                        70% {
+                            left: 70%;
+                            width: 30px;
+                            opacity: 1;
+                        }
+
+                        75% {
+                            left: 70%;
+                            width: 50px;
+                            opacity: 0;
+                            transform: scale(3);
+                        }
+
+                        100% {
+                            left: 70%;
+                            opacity: 0;
+                        }
+                    }
+
+                    .explosion {
+                        position: absolute;
+                        right: 25%;
+                        top: 50%;
+                        transform: translateY(-50%) scale(0);
+                        color: #ef4444;
+                        font-size: 2rem;
+                        transition: transform 0.2s ease-out;
+                        opacity: 0;
+                    }
+
+                    .dns-broken:hover .explosion {
+                        animation: explode 1.5s ease-in-out forwards;
+                    }
+
+                    @keyframes explode {
+
+                        0%,
+                        70% {
+                            transform: translateY(-50%) scale(0);
+                            opacity: 0;
+                        }
+
+                        75% {
+                            transform: translateY(-50%) scale(1.5) rotate(15deg);
+                            opacity: 1;
+                            text-shadow: 0 0 20px #ef4444;
+                        }
+
+                        100% {
+                            transform: translateY(-50%) scale(1);
+                            opacity: 0.8;
+                        }
+                    }
+                </style>
+
+                <h4
+                    style="color: #fff; margin-top: 0; text-align: center; margin-bottom: 2rem; font-family: 'Outfit', sans-serif;">
+                    Hover Over Scenarios to Simulate Traffic Flows</h4>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+
+                    <!-- Working Scenario -->
+                    <div class="dns-scenario dns-working group">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; color: #94a3b8; font-size: 0.9rem; font-weight: bold;">
+                            <span><i class="fas fa-server" style="color: #3b82f6;"></i> Internal VNode</span>
+                            <span><i class="fas fa-database" style="color: #10b981;"></i> ADLS PE (10.x)</span>
+                        </div>
+
+                        <div class="path-line">
+                            <div class="packet-good"></div>
+                        </div>
+
+                        <h4 style="color: #10b981; margin: 0 0 0.5rem 0;"><i class="fas fa-check-circle"></i> Correct:
+                            Private DNS</h4>
+                        <p style="color: #cbd5e1; font-size: 0.85rem; margin: 0; line-height: 1.5;">
+                            The VNode asks the <strong>Private DNS Map</strong>. It receives the internal IP
+                            <code>10.1.2.5</code>. Traffic flows safely within the isolated VNet hallway.
+                        </p>
+                    </div>
+
+                    <!-- Broken Scenario -->
+                    <div class="dns-scenario dns-broken group">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; color: #94a3b8; font-size: 0.9rem; font-weight: bold;">
+                            <span><i class="fas fa-server" style="color: #3b82f6;"></i> Internal VNode</span>
+                            <span style="display: flex; align-items: center; gap: 5px;">
+                                <i class="fas fa-shield-alt" style="color: #ef4444;"></i> Public Firewall
+                            </span>
+                        </div>
+
+                        <div class="path-line">
+                            <div class="packet-bad"></div>
+                            <i class="fas fa-times-circle explosion"></i>
+                        </div>
+
+                        <h4 style="color: #ef4444; margin: 0 0 0.5rem 0;"><i class="fas fa-exclamation-triangle"></i>
+                            Broken: Split-Brain Error</h4>
+                        <p style="color: #cbd5e1; font-size: 0.85rem; margin: 0; line-height: 1.5;">
+                            The VNode accidentally queries <strong>Public DNS</strong>. It gets the public IP. Traffic
+                            routes out to the internet, hits the PaaS Deny firewall, and gets annihilated.
+                        </p>
+                    </div>
                 </div>
-                <figcaption style="margin-top: 1rem; color: var(--text-muted); font-size: 0.9rem; font-style: italic;">
-                    Interactive Flow: <span class="term-tooltip"
-                        data-tooltip="Occurs when internal resources accidentally query external DNS zones, routing private traffic out to the public internet where it is blocked.">Split-Brain
-                        DNS</span> occurs when internal clients receive the public "map" instead of the internal one.
-                </figcaption>
-            </figure>
+            </div>
 
             <p>
                 In Azure, your on-premise servers and VNet servers must realize the Data Lake is "inside the house" (the
@@ -1229,16 +1887,71 @@
             </div>
 
             <h2><span class="gradient-text">9. Data Governance Layer</span></h2>
-            <p>A locked-down network perimeter is insufficient. <strong>Network isolation does not equal data
-                    governance.</strong> You must pair your private endpoints with data-plane controls:</p>
+            <div class="styled-callout strategy"
+                style="margin: 3rem 0; padding: 2rem; border-left: 6px solid #10b981; background: linear-gradient(to right, rgba(16, 185, 129, 0.15), rgba(15, 23, 42, 0.4));">
+                <div style="display: flex; align-items: flex-start; gap: 1.5rem;">
+                    <i class="fas fa-shield-alt" style="font-size: 2.5rem; color: #34d399; margin-top: 0.2rem;"></i>
+                    <div style="flex: 1;">
+                        <h3 style="margin-top: 0; color: #6ee7b7; font-size: 1.5rem; letter-spacing: -0.5px;">The Core
+                            of Data Governance: Unity Catalog & Domain-Level Entra Groups</h3>
+                        <p style="font-size: 1.15rem; line-height: 1.6; margin-bottom: 0;">
+                            <strong>Network isolation does not equal data governance.</strong> You must pair your
+                            private endpoints with automated, centralized data-plane controls.
+                        </p>
+
+                        <h4 style="color: #fff; margin: 1.5rem 0 0.5rem 0; font-family: 'Outfit', sans-serif;">What Is
+                            This Strategy?</h4>
+                        <p style="color: #cbd5e1; line-height: 1.6; margin-top: 0;">
+                            <strong>Unity Catalog</strong> is the centralized governance layer for all data assets
+                            across your Databricks workspaces. Instead of managing permissions per-workspace, you manage
+                            them once. <strong>Domain-Level Entra Groups</strong> means strictly mapping your Azure AD
+                            (Entra) groups directly to business domains (e.g., <code>Finance-Data-Readers</code>) and
+                            syncing those directly into Unity Catalog. <em>Do not create custom Databricks roles or
+                                solution-specific groups.</em>
+                        </p>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem;">
+                            <div
+                                style="background: rgba(0,0,0,0.4); padding: 1.25rem; border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.3);">
+                                <h5
+                                    style="color: #34d399; margin: 0 0 0.75rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">
+                                    <i class="fas fa-check-circle" style="margin-right: 6px;"></i> Architectural
+                                    Benefits
+                                </h5>
+                                <ul
+                                    style="color: #cbd5e1; margin: 0; padding-left: 1.25rem; font-size: 0.95rem; line-height: 1.5;">
+                                    <li style="margin-bottom: 0.5rem;"><strong>Zero Role Sprawl:</strong> Active
+                                        Directory handles the entire lifecycle; Databricks merely enforces it.</li>
+                                    <li style="margin-bottom: 0.5rem;"><strong>Single Pane of Glass:</strong> Instant,
+                                        globally auditable visibility into who has access to which tables.</li>
+                                    <li><strong>Automated Offboarding:</strong> When an employee leaves, disabling their
+                                        Entra identity revokes all data access instantly.</li>
+                                </ul>
+                            </div>
+                            <div
+                                style="background: rgba(0,0,0,0.4); padding: 1.25rem; border-radius: 8px; border: 1px solid rgba(59, 130, 246, 0.3);">
+                                <h5
+                                    style="color: #60a5fa; margin: 0 0 0.75rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">
+                                    <i class="fas fa-briefcase" style="margin-right: 6px;"></i> Enterprise Use Cases
+                                </h5>
+                                <ul
+                                    style="color: #cbd5e1; margin: 0; padding-left: 1.25rem; font-size: 0.95rem; line-height: 1.5;">
+                                    <li style="margin-bottom: 0.5rem;"><strong>Rapid Onboarding:</strong> Add a new Data
+                                        Scientist to the <code>Marketing-Data-Scientists</code> Entra group, and they
+                                        instantly get read access to all relevant marketing schemas.</li>
+                                    <li><strong>Isolated Sandboxes:</strong> Create a temporary
+                                        <code>Project-X-Contributors</code> group for a secure cross-department project
+                                        without touching Databricks ACLs.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p>Beyond centralized identity mapping, you must also enforce these secondary data-plane controls:</p>
             <ul>
-                <li><strong>Unity Catalog & Domain-Level Entra Groups:</strong> Use centralized access authorization
-                    by
-                    mapping domain-specific Entra ID groups (e.g., `Finance-Data-Readers`) directly into Unity
-                    Catalog.
-                    <em>Do not create custom roles or solution-specific groups</em>, as this leads to unmanageable
-                    lifecycle sprawl.
-                </li>
                 <li><strong>Secret Scopes:</strong> Backed by Azure Key Vault to remove hardcoded credentials from
                     notebooks.</li>
                 <li><strong>Managed Identities:</strong> Use Azure Managed Identities for authentication and
