@@ -1076,7 +1076,7 @@
                         <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 0;">
                             <strong style="color: #fff;">I was wrong.</strong> During a penetration test, the red team
                             spun up their <em>own</em> generic Azure Storage account in the same region, walked right
-                            past our Service Endpoints, and conceptually exfiltrated gigabytes of mock PI data.
+                            past our Service Endpoints, and conceptually exfiltrated gigabytes of mock PII data.
                         </p>
                     </div>
 
@@ -1874,7 +1874,8 @@
             </div>
 
             <p>
-                In Azure, your on-premise servers and VNet servers must realize the Data Lake is "inside the house" (the
+                In Azure, your on-premises servers and VNet servers must realize the Data Lake is "inside the house"
+                (the
                 Private IP: <code>10.1.2.5</code>). If your internal servers accidentally use public DNS, they will
                 resolve
                 the public IP of the Data Lake, route traffic out to the internet, and drop packets because the PaaS
@@ -1933,7 +1934,7 @@
             <h3>DNS Validation Check</h3>
             <p>Before proceeding with any cluster deployments, you must validate resolution. Run this from a machine
                 inside
-                your VNet or on-premise:</p>
+                your VNet or on-premises:</p>
             <div class="terminal-block">
                 <div class="terminal-header">
                     <div class="terminal-buttons">
