@@ -909,51 +909,76 @@
             </div>
 
             <h2><span class="gradient-text">The Level-Set: What Are We Actually Defending?</span></h2>
-            <p>
-                If you're new to Microsoft or just starting in Cloud Architecture, let's step back before we talk about
-                firewalls and DNS. Why does a bank or a hospital even buy Azure Databricks and an Azure Data Lake? What
-                actually <em>are</em> they?
+            <p style="font-size: 1.15rem; color: #cbd5e1; margin-bottom: 2.5rem;">
+                If you're new to Cloud Architecture, let's step back before we talk about firewalls and DNS. Why does a
+                bank or a hospital even buy Azure Databricks and an Azure Data Lake? <strong>What actually <em>are</em>
+                    they?</strong>
             </p>
 
-            <h3>The Simple Analogy: The Warehouse and The Factory</h3>
-            <p>
-                Imagine a massive, empty warehouse where delivery trucks just dump raw materials (wood, metal, plastic)
-                on the floor 24/7.
-            </p>
-            <p>
-                They don't sort it; they just drop it. This is your <strong>Azure Data Lake (specifically, ADLS
-                    Gen2)</strong>. It is an infinitely massive, incredibly cheap hard drive in the cloud.
-            </p>
-            <p>
-                We don't organize the data exactly like a spreadsheet yet; we just dump raw application logs, millions
-                of daily transaction receipts, and customer audio recordings into the lake.
-            </p>
-            <p>
-                The problem? A warehouse full of unsorted materials is useless on its own. It's just a swamp.
+            <!-- Analogy Grid Layout -->
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+                <!-- Card 1: The Data Lake -->
+                <div
+                    style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: transform 0.3s ease;">
+                    <div
+                        style="position: absolute; top: -30px; right: -30px; opacity: 0.05; font-size: 10rem; color: #38bdf8;">
+                        <i class="fas fa-warehouse"></i>
+                    </div>
+                    <div
+                        style="width: 50px; height: 50px; background: rgba(56, 189, 248, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(56, 189, 248, 0.3);">
+                        <i class="fas fa-water" style="color: #38bdf8; font-size: 1.5rem;"></i>
+                    </div>
+                    <h3
+                        style="color: #38bdf8; margin: 0 0 0.5rem 0; font-family: 'Outfit', sans-serif; font-size: 1.5rem;">
+                        Azure Data Lake (ADLS Gen2)</h3>
+                    <h4
+                        style="color: #94a3b8; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem;">
+                        The Infinite Warehouse</h4>
+                    <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin: 0;">
+                        Imagine a massive warehouse where trucks dump raw, unsorted materials 24/7. This is your Data
+                        Lake—an incredibly cheap, infinitely scalable hard drive. We dump raw app logs, transaction
+                        receipts, and audio recordings here. But on its own, an unsorted warehouse is just a swamp.
+                    </p>
+                </div>
 
-            </p>
-            <p>
-                This is where <strong>Azure Databricks</strong> comes in. Databricks is the highly advanced, robotic
-                factory
-                built right next to the warehouse.
-            </p>
-            <p>
-                Databricks spins up massive compute clusters (hundreds of virtual machines) essentially acting as
-                factory
-                machines. These machines go into the Data Lake (the warehouse), chew through petabytes of that raw swamp
-                water, assemble the pieces (clean the data), look for patterns (like credit card fraud), and turn it
-                into
-                finished, polished products (actionable Business Intelligence reports).
-            </p>
-            <p>
-                <strong>The Real-World Use Case:</strong> Let's say a retail bank needs to process 50 million credit
-                card
-                swipes from the last 24 hours to flag fraudulent anomalies before the market opens. A standard SQL
-                database
-                would choke entirely under that weight. Databricks instead spins up 50 servers, processes the data in
-                parallel directly from the Data Lake in 15 minutes, and then spins those servers back down so you stop
-                paying for them.
-            </p>
+                <!-- Card 2: Databricks -->
+                <div
+                    style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: transform 0.3s ease;">
+                    <div
+                        style="position: absolute; top: -30px; right: -30px; opacity: 0.05; font-size: 10rem; color: #a855f7;">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <div
+                        style="width: 50px; height: 50px; background: rgba(168, 85, 247, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(168, 85, 247, 0.3);">
+                        <i class="fas fa-robot" style="color: #a855f7; font-size: 1.5rem;"></i>
+                    </div>
+                    <h3
+                        style="color: #a855f7; margin: 0 0 0.5rem 0; font-family: 'Outfit', sans-serif; font-size: 1.5rem;">
+                        Azure Databricks</h3>
+                    <h4
+                        style="color: #94a3b8; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem;">
+                        The Robotic Factory</h4>
+                    <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin: 0;">
+                        Built right next door to the warehouse, Databricks spins up massive compute clusters (factory
+                        machines). These machines chew through petabytes of raw swamp water, detect patterns (like
+                        fraud), and assemble it into polished Business Intelligence reports.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Real World Use Case Callout -->
+            <div
+                style="background: linear-gradient(90deg, rgba(16, 185, 129, 0.1), transparent); border-left: 4px solid #10b981; padding: 1.5rem; border-radius: 0 8px 8px 0; margin-bottom: 3rem;">
+                <h4 style="color: #10b981; margin: 0 0 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;"><i
+                        class="fas fa-bolt"></i> The Real-World Impact</h4>
+                <p style="color: #e2e8f0; margin: 0; font-size: 1rem; line-height: 1.6;">
+                    A retail bank needs to process <strong>50 million credit card swipes</strong> from the last 24 hours
+                    to flag fraudulent anomalies before the market opens. A standard SQL database would choke entirely.
+                    Databricks instead spins up 50 servers, processes the data in parallel directly from the Data Lake
+                    in 15 minutes, and instantly spins down so you stop paying for them.
+                </p>
+            </div>
 
             <figure style="margin: 3rem 0; text-align: center;">
                 <img src="../assets/images/warehouse_factory.webp"
