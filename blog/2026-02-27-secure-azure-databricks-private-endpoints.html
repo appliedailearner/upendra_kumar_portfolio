@@ -788,7 +788,14 @@
                         const visualizer = document.getElementById('audio-visualizer');
                         let isPlaying = false;
 
-                        const audio = new Audio('https://pub-2d01be0306284df386da6dae9d2014d0.r2.dev/Locking_Down_Azure_Databricks_With_Private_Endpoints.m4a');
+                        // Cancel any stuck OS-level text-to-speech from the previous version of the site
+                        if (window.speechSynthesis) {
+                            window.speechSynthesis.cancel();
+                        }
+
+                        // Append a cache-buster to force the browser to fetch the newest version of the audio file
+                        const audioUrl = 'https://pub-2d01be0306284df386da6dae9d2014d0.r2.dev/Locking_Down_Azure_Databricks_With_Private_Endpoints.m4a?v=' + new Date().getTime();
+                        const audio = new Audio(audioUrl);
 
                         // Helper to reset UI
                         const resetUI = () => {
