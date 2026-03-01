@@ -19,8 +19,16 @@
     </noscript>
 
     <link rel="stylesheet" href="../css/style.min.css?v=48">
-    <link rel="stylesheet" href="../css/premium.min.css?v=48">
-    <link rel="stylesheet" href="../css/dropdown.min.css">
+    <!-- Defer Non-Critical CSS -->
+    <link rel="preload" href="../css/premium.min.css?v=48" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="../css/premium.min.css?v=48">
+    </noscript>
+
+    <link rel="preload" href="../css/dropdown.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="../css/dropdown.min.css">
+    </noscript>
 
     <!-- Performance: Critical Asset Preloading -->
     <link rel="preload" href="../css/style.min.css?v=48" as="style">
@@ -705,13 +713,24 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 
-    <!-- Typography: Inter (Body) & Outfit (Headings) with Swap for Performance -->
-    <link
+    <!-- Typography: Inter (Body) & Outfit (Headings) with Swap for Performance (Async) -->
+    <link rel="preload" as="style"
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap">
+    </noscript>
+
+    <!-- FontAwesome Icons (Async) -->
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
+        crossorigin="anonymous" referrerpolicy="no-referrer" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer">
+    </noscript>
 </head>
 
 <body class="dark-theme">
