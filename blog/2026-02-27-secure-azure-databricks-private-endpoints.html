@@ -2685,286 +2685,302 @@ privatelink.vaultcore.azure.net</code></pre>
                         </table>
                     </div>
                 </div>
-            </details>
-
-            <h2><span class="gradient-text">11. Ingesting Data Securely (The ADF / SHIR Connection)</span></h2>
-
-            <div
-                style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 16px; padding: 2rem; margin: 2.5rem 0; box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative; overflow: hidden;">
-                <!-- Decorative BG Element -->
-                <div
-                    style="position: absolute; right: -5%; top: -10%; opacity: 0.03; font-size: 15rem; color: #38bdf8;">
-                    <i class="fas fa-server"></i>
-                </div>
-
-                <p style="font-size: 1.15rem; color: #e2e8f0; margin-top: 0; position: relative; z-index: 1;">
-                    A locked-down Private Data Lake is useless if you can't get data into it. To securely ingest
-                    on-premises or cross-cloud data into your isolated ADLS Gen2 account, you should use <strong>Azure
-                        Data Factory (ADF)</strong> paired with a <strong>Self-Hosted Integration Runtime
-                        (SHIR)</strong>.
-                </p>
+                <h2><span class="gradient-text">11. Ingesting Data Securely (The ADF / SH&#8203;IR Connection)</span>
+                </h2>
 
                 <div
-                    style="display: flex; gap: 1rem; margin-top: 1.5rem; position: relative; z-index: 1; background: rgba(0,0,0,0.4); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #38bdf8;">
-                    <i class="fas fa-route" style="font-size: 2rem; color: #38bdf8; margin-top: 0.2rem;"></i>
-                    <p style="margin: 0; color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">
-                        By deploying the SHIR on a Virtual Machine inside your Azure VNet (specifically within the Spoke
-                        or a dedicated integration subnet), the runtime can securely pull data from external sources and
-                        write it directly to the Storage Private Endpoint. This keeps the entire end-to-end flow—from
-                        data ingestion to Databricks processing—strictly on the private Azure backbone, fully adhering
-                        to Zero Trust architecture.
+                    style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 16px; padding: 2rem; margin: 2.5rem 0; box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative; overflow: hidden;">
+                    <!-- Decorative BG Element -->
+                    <div
+                        style="position: absolute; right: -5%; top: -10%; opacity: 0.03; font-size: 15rem; color: #38bdf8;">
+                        <i class="fas fa-server"></i>
+                    </div>
+
+                    <p style="font-size: 1.15rem; color: #e2e8f0; margin-top: 0; position: relative; z-index: 1;">
+                        A locked-down Private Data Lake is useless if you can't get data into it. To securely ingest
+                        on-premises or cross-cloud data into your isolated ADLS Gen2 account, you should use
+                        <strong>Azure
+                            Data Factory (ADF)</strong> paired with a <strong>Self-Hosted Integration Runtime
+                            (SHIR)</strong>.
                     </p>
+
+                    <div
+                        style="display: flex; gap: 1rem; margin-top: 1.5rem; position: relative; z-index: 1; background: rgba(0,0,0,0.4); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #38bdf8;">
+                        <i class="fas fa-route" style="font-size: 2rem; color: #38bdf8; margin-top: 0.2rem;"></i>
+                        <p style="margin: 0; color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">
+                            By deploying the SHIR on a Virtual Machine inside your Azure VNet (specifically within the
+                            Spoke
+                            or a dedicated integration subnet), the runtime can securely pull data from external sources
+                            and
+                            write it directly to the Storage Private Endpoint. This keeps the entire end-to-end
+                            flow—from
+                            data ingestion to Databricks processing—strictly on the private Azure backbone, fully
+                            adhering
+                            to Zero Trust architecture.
+                        </p>
+                    </div>
                 </div>
-            </div>
 
-            <h2><span class="gradient-text">12. Common Failure Modes</span></h2>
-            <p style="font-size: 1.15rem; color: #cbd5e1; margin-bottom: 2.5rem;">If you hit a wall during deployment,
-                it's almost certainly one of these four:</p>
+                <h2><span class="gradient-text">12. Common Failure Modes</span></h2>
+                <p style="font-size: 1.15rem; color: #cbd5e1; margin-bottom: 2.5rem;">If you hit a wall during
+                    deployment,
+                    it's almost certainly one of these four:</p>
 
-            <div
-                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
-
-                <!-- Failure 1 -->
                 <div
-                    style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(248, 113, 113, 0.2); border-left: 4px solid #ef4444; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s ease;">
-                    <h4
-                        style="margin: 0 0 0.5rem 0; color: #fca5a5; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
-                        <i class="fas fa-redo-alt" style="color: #ef4444;"></i> Login Redirect Loop
-                    </h4>
-                    <p style="margin: 0; color: #94a3b8; font-size: 0.95rem; line-height: 1.5;">
-                        <strong style="color: #cbd5e1;">Root Cause:</strong> DNS misconfiguration or missing Private
-                        Endpoint specifically on the <em>Browser Authentication</em> target sub-resource.
-                    </p>
-                </div>
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
 
-                <!-- Failure 2 -->
-                <div
-                    style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(245, 158, 11, 0.2); border-left: 4px solid #f59e0b; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s ease;">
-                    <h4
-                        style="margin: 0 0 0.5rem 0; color: #fcd34d; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
-                        <i class="fas fa-server" style="color: #f59e0b;"></i> Cluster Start Failure
-                    </h4>
-                    <p style="margin: 0; color: #94a3b8; font-size: 0.95rem; line-height: 1.5;">
-                        <strong style="color: #cbd5e1;">Root Cause:</strong> Secure Cluster Connectivity (SCC) relay
-                        endpoint is missing, or the Databricks Workspace (databricks_ui_api) backend Private Link is
-                        misconfigured.
-                    </p>
-                </div>
-
-                <!-- Failure 3 -->
-                <div
-                    style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(239, 68, 68, 0.2); border-left: 4px solid #dc2626; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s ease;">
-                    <h4
-                        style="margin: 0 0 0.5rem 0; color: #fca5a5; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
-                        <i class="fas fa-network-wired" style="color: #dc2626;"></i> Workspace Unreachable
-                    </h4>
-                    <p style="margin: 0; color: #94a3b8; font-size: 0.95rem; line-height: 1.5;">
-                        <strong style="color: #cbd5e1;">Root Cause:</strong> Wrong Private DNS Zone virtual network link
-                        targeting your client VNet, or corporate DNS conditional forwarders are failing to reach Azure
-                        resolution.
-                    </p>
-                </div>
-
-                <!-- Failure 4 -->
-                <div
-                    style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(168, 85, 247, 0.2); border-left: 4px solid #a855f7; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s ease;">
-                    <h4
-                        style="margin: 0 0 0.5rem 0; color: #c084fc; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
-                        <i class="fas fa-database" style="color: #a855f7;"></i> Storage Mount Fails
-                    </h4>
-                    <p style="margin: 0; color: #94a3b8; font-size: 0.95rem; line-height: 1.5;">
-                        <strong style="color: #cbd5e1;">Root Cause:</strong> Storage firewall is still allowing selected
-                        VNet traffic but the compute isn't linked, or Unity Catalog / RBAC data plane permissions are
-                        insufficient for the identity.
-                    </p>
-                </div>
-
-            </div>
-
-            <div
-                style="background: linear-gradient(135deg, rgba(30, 41, 59, 1), rgba(15, 23, 42, 1)); border: 1px solid rgba(59, 130, 246, 0.4); border-radius: 12px; padding: 2.5rem; margin: 4rem 0; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
-                <i class="fas fa-file-pdf" style="font-size: 3rem; color: #60a5fa; margin-bottom: 1rem;"></i>
-                <h3 style="margin-top: 0; font-family: 'Outfit', sans-serif; font-size: 1.8rem;">Don't let your network
-                    team figure this out by trial and error.</h3>
-                <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 2rem;">
-                    Download the unvarnished <strong>Zero-Trust Reference Blueprint</strong>. It includes the high-res
-                    topology, hard design trade-offs, and critical anti-patterns necessary to accelerate your security
-                    review.
-                </p>
-                <a href="../assets/databricks-zero-trust-blueprint.pdf"
-                    download="Azure-Databricks-Zero-Trust-Blueprint.pdf" target="_blank" class="btn btn-primary"
-                    style="font-size: 1.1rem; padding: 1rem 2.5rem; background: linear-gradient(135deg, #3b82f6, #8b5cf6); border: none; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);">
-                    <i class="fas fa-download" style="margin-right: 8px;"></i> Access the Blueprint Guide
-                </a>
-            </div>
-
-            <h2><span class="gradient-text">13. Residual Risks</span></h2>
-            <p>Even with full private networking, risks remain. You are mitigating network-layer threats, but you
-                still
-                face:</p>
-            <ul>
-                <li>Compromised internal identities</li>
-                <li>Malicious notebooks executed by authorized users</li>
-                <li>Data copied to internally approved, but unsecured destinations</li>
-                <li>Incorrect RBAC assignments</li>
-            </ul>
-            <p><strong>Mitigation:</strong> Continuous anomaly monitoring, strict least-privilege identity access,
-                and
-                comprehensive audit logging sent to Sentinel.</p>
-
-            <div
-                style="margin: 4rem 0; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 12px; padding: 2.5rem;">
-                <h3
-                    style="margin-top: 0; color: #60a5fa; font-family: 'Outfit', sans-serif; display: flex; align-items: center; gap: 10px;">
-                    <i class="fas fa-bookmark"></i> Essential References & Further Reading
-                </h3>
-                <p style="color: #cbd5e1; font-size: 0.95rem; margin-bottom: 2rem;">
-                    For deeper technical dives, visual walkthroughs, and official documentation regarding Azure
-                    Databricks security, consult the following curated resources:
-                </p>
-
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
-
-                    <!-- Video 1 -->
-                    <a href="https://www.youtube.com/watch?v=VbK0KYgpE0U" target="_blank"
-                        style="text-decoration: none; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; transition: all 0.3s ease; display: flex; flex-direction: column; gap: 0.5rem;"
-                        onmouseover="this.style.transform='translateY(-3px)'; this.style.borderColor='rgba(239, 68, 68, 0.5)';"
-                        onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255,255,255,0.05)';">
-                        <div
-                            style="display: flex; align-items: center; gap: 8px; color: #ef4444; font-weight: bold; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">
-                            <i class="fab fa-youtube" style="font-size: 1.2rem;"></i> Technical Deep Dive
-                        </div>
-                        <h4 style="color: #fff; margin: 0; font-size: 1.05rem;">Azure Databricks Networking Security
-                            (Part 1)</h4>
-                        <div style="color: #94a3b8; font-size: 0.85rem; margin-top: auto;">
-                            <strong>Speaker:</strong> Arthur Dooner (Senior Specialist Solutions Architect at
-                            Databricks)
-                        </div>
-                    </a>
-
-                    <!-- Video 2 -->
-                    <a href="https://www.youtube.com/watch?v=2AaHtD19koo" target="_blank"
-                        style="text-decoration: none; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; transition: all 0.3s ease; display: flex; flex-direction: column; gap: 0.5rem;"
-                        onmouseover="this.style.transform='translateY(-3px)'; this.style.borderColor='rgba(239, 68, 68, 0.5)';"
-                        onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255,255,255,0.05)';">
-                        <div
-                            style="display: flex; align-items: center; gap: 8px; color: #ef4444; font-weight: bold; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">
-                            <i class="fab fa-youtube" style="font-size: 1.2rem;"></i> End-to-End Walkthrough
-                        </div>
-                        <h4 style="color: #fff; margin: 0; font-size: 1.05rem;">Secure Data Engineering with Azure
-                            Private Databricks</h4>
-                        <div style="color: #94a3b8; font-size: 0.85rem; margin-top: auto;">
-                            <strong>Channel:</strong> Cloud Quick Labs
-                        </div>
-                    </a>
-
-                    <!-- Doc 1 -->
-                    <a href="https://learn.microsoft.com/en-us/azure/databricks/security/network/concepts/private-link"
-                        target="_blank"
-                        style="text-decoration: none; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; transition: all 0.3s ease; display: flex; flex-direction: column; gap: 0.5rem;"
-                        onmouseover="this.style.transform='translateY(-3px)'; this.style.borderColor='rgba(59, 130, 246, 0.5)';"
-                        onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255,255,255,0.05)';">
-                        <div
-                            style="display: flex; align-items: center; gap: 8px; color: #60a5fa; font-weight: bold; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">
-                            <i class="fab fa-microsoft" style="font-size: 1.2rem;"></i> Official Reference
-                        </div>
-                        <h4 style="color: #fff; margin: 0; font-size: 1.05rem;">Azure Private Link Concepts for Azure
-                            Databricks</h4>
-                        <div style="color: #94a3b8; font-size: 0.85rem; margin-top: auto;">
-                            <strong>Platform:</strong> Microsoft Learn documentation
-                        </div>
-                    </a>
-
-                    <!-- Doc 2 -->
-                    <a href="https://learn.microsoft.com/en-us/azure/databricks/getting-started/best-practices"
-                        target="_blank"
-                        style="text-decoration: none; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; transition: all 0.3s ease; display: flex; flex-direction: column; gap: 0.5rem;"
-                        onmouseover="this.style.transform='translateY(-3px)'; this.style.borderColor='rgba(249, 115, 22, 0.5)';"
-                        onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255,255,255,0.05)';">
-                        <div
-                            style="display: flex; align-items: center; gap: 8px; color: #fb923c; font-weight: bold; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">
-                            <i class="fab fa-microsoft" style="font-size: 1.2rem;"></i> Official Best Practices
-                        </div>
-                        <h4 style="color: #fff; margin: 0; font-size: 1.05rem;">Azure Databricks Best Practices
+                    <!-- Failure 1 -->
+                    <div
+                        style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(248, 113, 113, 0.2); border-left: 4px solid #ef4444; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s ease;">
+                        <h4
+                            style="margin: 0 0 0.5rem 0; color: #fca5a5; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-redo-alt" style="color: #ef4444;"></i> Login Redirect Loop
                         </h4>
-                        <div style="color: #94a3b8; font-size: 0.85rem; margin-top: auto;">
-                            <strong>Platform:</strong> Microsoft Learn documentation
-                        </div>
-                    </a>
+                        <p style="margin: 0; color: #94a3b8; font-size: 0.95rem; line-height: 1.5;">
+                            <strong style="color: #cbd5e1;">Root Cause:</strong> DNS misconfiguration or missing Private
+                            Endpoint specifically on the <em>Browser Authentication</em> target sub-resource.
+                        </p>
+                    </div>
+
+                    <!-- Failure 2 -->
+                    <div
+                        style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(245, 158, 11, 0.2); border-left: 4px solid #f59e0b; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s ease;">
+                        <h4
+                            style="margin: 0 0 0.5rem 0; color: #fcd34d; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-server" style="color: #f59e0b;"></i> Cluster Start Failure
+                        </h4>
+                        <p style="margin: 0; color: #94a3b8; font-size: 0.95rem; line-height: 1.5;">
+                            <strong style="color: #cbd5e1;">Root Cause:</strong> Secure Cluster Connectivity (SCC) relay
+                            endpoint is missing, or the Databricks Workspace (databricks_ui_api) backend Private Link is
+                            misconfigured.
+                        </p>
+                    </div>
+
+                    <!-- Failure 3 -->
+                    <div
+                        style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(239, 68, 68, 0.2); border-left: 4px solid #dc2626; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s ease;">
+                        <h4
+                            style="margin: 0 0 0.5rem 0; color: #fca5a5; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-network-wired" style="color: #dc2626;"></i> Workspace Unreachable
+                        </h4>
+                        <p style="margin: 0; color: #94a3b8; font-size: 0.95rem; line-height: 1.5;">
+                            <strong style="color: #cbd5e1;">Root Cause:</strong> Wrong Private DNS Zone virtual network
+                            link
+                            targeting your client VNet, or corporate DNS conditional forwarders are failing to reach
+                            Azure
+                            resolution.
+                        </p>
+                    </div>
+
+                    <!-- Failure 4 -->
+                    <div
+                        style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(168, 85, 247, 0.2); border-left: 4px solid #a855f7; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s ease;">
+                        <h4
+                            style="margin: 0 0 0.5rem 0; color: #c084fc; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-database" style="color: #a855f7;"></i> Storage Mount Fails
+                        </h4>
+                        <p style="margin: 0; color: #94a3b8; font-size: 0.95rem; line-height: 1.5;">
+                            <strong style="color: #cbd5e1;">Root Cause:</strong> Storage firewall is still allowing
+                            selected
+                            VNet traffic but the compute isn't linked, or Unity Catalog / RBAC data plane permissions
+                            are
+                            insufficient for the identity.
+                        </p>
+                    </div>
 
                 </div>
-            </div>
 
-            <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
-
-            <h3>Ready to operationalize your Azure journey?</h3>
-            <p>
-                We don't do textbook theories. We build robust, regulated, multi-region cloud architectures designed
-                for
-                zero-trust environments.
-            </p>
-            <div style="margin-top: 2rem; display: flex; gap: 1rem;">
-                <a href="../pages/contact.html" class="btn btn-primary">Contact Me</a>
-                <a href="../pages/azure-migration-toolkit.html" class="btn btn-outline">View the Toolkit</a>
-            </div>
-
-            <!-- Social Share Section -->
-            <div class=" সামাজিক-share-container" style="margin-top: 3rem;">
-                <p
-                    style="color: #94a3b8; font-size: 0.8rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700;">
-                    Spread the Insight</p>
-                <div class="social-share-buttons" style="display: flex; gap: 1rem;">
-                    <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn(event)" title="Share on LinkedIn"
-                        aria-label="Share on LinkedIn" style="color: #0077b5; text-decoration: none;">
-                        <i class="fab fa-linkedin" style="margin-right: 5px;"></i> LinkedIn
+                <div
+                    style="background: linear-gradient(135deg, rgba(30, 41, 59, 1), rgba(15, 23, 42, 1)); border: 1px solid rgba(59, 130, 246, 0.4); border-radius: 12px; padding: 2.5rem; margin: 4rem 0; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
+                    <i class="fas fa-file-pdf" style="font-size: 3rem; color: #60a5fa; margin-bottom: 1rem;"></i>
+                    <h3 style="margin-top: 0; font-family: 'Outfit', sans-serif; font-size: 1.8rem;">Don't let your
+                        network
+                        team figure this out by trial and error.</h3>
+                    <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 2rem;">
+                        Download the unvarnished <strong>Zero-Trust Reference Blueprint</strong>. It includes the
+                        high-res
+                        topology, hard design trade-offs, and critical anti-patterns necessary to accelerate your
+                        security
+                        review.
+                    </p>
+                    <a href="../assets/databricks-zero-trust-blueprint.pdf"
+                        download="Azure-Databricks-Zero-Trust-Blueprint.pdf" target="_blank" class="btn btn-primary"
+                        style="font-size: 1.1rem; padding: 1rem 2.5rem; background: linear-gradient(135deg, #3b82f6, #8b5cf6); border: none; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);">
+                        <i class="fas fa-download" style="margin-right: 8px;"></i> Access the Blueprint Guide
                     </a>
-                    <a href="#" class="share-btn twitter" onclick="shareOnTwitter(event)" title="Share on X (Twitter)"
-                        aria-label="Share on Twitter" style="color: #1da1f2; text-decoration: none;">
-                        <i class="fab fa-x-twitter" style="margin-right: 5px;"></i> Twitter
-                    </a>
-                    <button class="share-btn copy-link btn btn-outline" onclick="copyPageLink(this)" title="Copy Link"
-                        aria-label="Copy Page Link"
-                        style="background: transparent; border: 1px solid #3b82f6; padding: 0.25rem 0.75rem; color: #3b82f6; border-radius: 4px; cursor: pointer;">
-                        <i class="fas fa-link"></i> <span class="btn-text">Copy Link</span>
-                    </button>
                 </div>
-            </div>
 
-            <script>
-                function shareOnLinkedIn(e) {
-                    e.preventDefault();
-                    const url = encodeURIComponent(window.location.href);
-                    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=600');
-                }
+                <h2><span class="gradient-text">13. Residual Risks</span></h2>
+                <p>Even with full private networking, risks remain. You are mitigating network-layer threats, but you
+                    still
+                    face:</p>
+                <ul>
+                    <li>Compromised internal identities</li>
+                    <li>Malicious notebooks executed by authorized users</li>
+                    <li>Data copied to internally approved, but unsecured destinations</li>
+                    <li>Incorrect RBAC assignments</li>
+                </ul>
+                <p><strong>Mitigation:</strong> Continuous anomaly monitoring, strict least-privilege identity access,
+                    and
+                    comprehensive audit logging sent to Sentinel.</p>
 
-                function shareOnTwitter(e) {
-                    e.preventDefault();
-                    const url = encodeURIComponent(window.location.href);
-                    const text = encodeURIComponent(document.title);
-                    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
-                }
+                <div
+                    style="margin: 4rem 0; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 12px; padding: 2.5rem;">
+                    <h3
+                        style="margin-top: 0; color: #60a5fa; font-family: 'Outfit', sans-serif; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-bookmark"></i> Essential References & Further Reading
+                    </h3>
+                    <p style="color: #cbd5e1; font-size: 0.95rem; margin-bottom: 2rem;">
+                        For deeper technical dives, visual walkthroughs, and official documentation regarding Azure
+                        Databricks security, consult the following curated resources:
+                    </p>
 
-                function copyPageLink(btn) {
-                    const url = window.location.href;
-                    navigator.clipboard.writeText(url).then(() => {
-                        const btnText = btn.querySelector('.btn-text');
-                        const originalText = btnText.innerText;
-                        btnText.innerText = 'Copied!';
-                        btn.classList.add('copied');
-                        setTimeout(() => {
-                            btnText.innerText = originalText;
-                            btn.classList.remove('copied');
-                        }, 2000);
-                    });
-                }
-            </script>
+                    <div
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
 
-            <!-- Back to Blog Button -->
-            <div style="text-align: center; margin: 4rem 0;">
-                <a href="../blog.html" class="btn btn-primary" style="display: inline-block; padding: 1rem 2rem;">
-                    <i class="fas fa-arrow-left"></i> Back to Insights
-                </a>
-            </div>
+                        <!-- Video 1 -->
+                        <a href="https://www.youtube.com/watch?v=VbK0KYgpE0U" target="_blank"
+                            style="text-decoration: none; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; transition: all 0.3s ease; display: flex; flex-direction: column; gap: 0.5rem;"
+                            onmouseover="this.style.transform='translateY(-3px)'; this.style.borderColor='rgba(239, 68, 68, 0.5)';"
+                            onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255,255,255,0.05)';">
+                            <div
+                                style="display: flex; align-items: center; gap: 8px; color: #ef4444; font-weight: bold; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">
+                                <i class="fab fa-youtube" style="font-size: 1.2rem;"></i> Technical Deep Dive
+                            </div>
+                            <h4 style="color: #fff; margin: 0; font-size: 1.05rem;">Azure Databricks Networking Security
+                                (Part 1)</h4>
+                            <div style="color: #94a3b8; font-size: 0.85rem; margin-top: auto;">
+                                <strong>Speaker:</strong> Arthur Dooner (Senior Specialist Solutions Architect at
+                                Databricks)
+                            </div>
+                        </a>
+
+                        <!-- Video 2 -->
+                        <a href="https://www.youtube.com/watch?v=2AaHtD19koo" target="_blank"
+                            style="text-decoration: none; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; transition: all 0.3s ease; display: flex; flex-direction: column; gap: 0.5rem;"
+                            onmouseover="this.style.transform='translateY(-3px)'; this.style.borderColor='rgba(239, 68, 68, 0.5)';"
+                            onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255,255,255,0.05)';">
+                            <div
+                                style="display: flex; align-items: center; gap: 8px; color: #ef4444; font-weight: bold; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">
+                                <i class="fab fa-youtube" style="font-size: 1.2rem;"></i> End-to-End Walkthrough
+                            </div>
+                            <h4 style="color: #fff; margin: 0; font-size: 1.05rem;">Secure Data Engineering with Azure
+                                Private Databricks</h4>
+                            <div style="color: #94a3b8; font-size: 0.85rem; margin-top: auto;">
+                                <strong>Channel:</strong> Cloud Quick Labs
+                            </div>
+                        </a>
+
+                        <!-- Doc 1 -->
+                        <a href="https://learn.microsoft.com/en-us/azure/databricks/security/network/concepts/private-link"
+                            target="_blank"
+                            style="text-decoration: none; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; transition: all 0.3s ease; display: flex; flex-direction: column; gap: 0.5rem;"
+                            onmouseover="this.style.transform='translateY(-3px)'; this.style.borderColor='rgba(59, 130, 246, 0.5)';"
+                            onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255,255,255,0.05)';">
+                            <div
+                                style="display: flex; align-items: center; gap: 8px; color: #60a5fa; font-weight: bold; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">
+                                <i class="fab fa-microsoft" style="font-size: 1.2rem;"></i> Official Reference
+                            </div>
+                            <h4 style="color: #fff; margin: 0; font-size: 1.05rem;">Azure Private Link Concepts for
+                                Azure
+                                Databricks</h4>
+                            <div style="color: #94a3b8; font-size: 0.85rem; margin-top: auto;">
+                                <strong>Platform:</strong> Microsoft Learn documentation
+                            </div>
+                        </a>
+
+                        <!-- Doc 2 -->
+                        <a href="https://learn.microsoft.com/en-us/azure/databricks/getting-started/best-practices"
+                            target="_blank"
+                            style="text-decoration: none; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; transition: all 0.3s ease; display: flex; flex-direction: column; gap: 0.5rem;"
+                            onmouseover="this.style.transform='translateY(-3px)'; this.style.borderColor='rgba(249, 115, 22, 0.5)';"
+                            onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255,255,255,0.05)';">
+                            <div
+                                style="display: flex; align-items: center; gap: 8px; color: #fb923c; font-weight: bold; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">
+                                <i class="fab fa-microsoft" style="font-size: 1.2rem;"></i> Official Best Practices
+                            </div>
+                            <h4 style="color: #fff; margin: 0; font-size: 1.05rem;">Azure Databricks Best Practices
+                            </h4>
+                            <div style="color: #94a3b8; font-size: 0.85rem; margin-top: auto;">
+                                <strong>Platform:</strong> Microsoft Learn documentation
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+
+                <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+                <h3>Ready to operationalize your Azure journey?</h3>
+                <p>
+                    We don't do textbook theories. We build robust, regulated, multi-region cloud architectures designed
+                    for
+                    zero-trust environments.
+                </p>
+                <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+                    <a href="../pages/contact.html" class="btn btn-primary">Contact Me</a>
+                    <a href="../pages/azure-migration-toolkit.html" class="btn btn-outline">View the Toolkit</a>
+                </div>
+
+                <!-- Social Share Section -->
+                <div class=" সামাজিক-share-container" style="margin-top: 3rem;">
+                    <p
+                        style="color: #94a3b8; font-size: 0.8rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700;">
+                        Spread the Insight</p>
+                    <div class="social-share-buttons" style="display: flex; gap: 1rem;">
+                        <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn(event)"
+                            title="Share on LinkedIn" aria-label="Share on LinkedIn"
+                            style="color: #0077b5; text-decoration: none;">
+                            <i class="fab fa-linkedin" style="margin-right: 5px;"></i> LinkedIn
+                        </a>
+                        <a href="#" class="share-btn twitter" onclick="shareOnTwitter(event)"
+                            title="Share on X (Twitter)" aria-label="Share on Twitter"
+                            style="color: #1da1f2; text-decoration: none;">
+                            <i class="fab fa-x-twitter" style="margin-right: 5px;"></i> Twitter
+                        </a>
+                        <button class="share-btn copy-link btn btn-outline" onclick="copyPageLink(this)"
+                            title="Copy Link" aria-label="Copy Page Link"
+                            style="background: transparent; border: 1px solid #3b82f6; padding: 0.25rem 0.75rem; color: #3b82f6; border-radius: 4px; cursor: pointer;">
+                            <i class="fas fa-link"></i> <span class="btn-text">Copy Link</span>
+                        </button>
+                    </div>
+                </div>
+
+                <script>
+                    function shareOnLinkedIn(e) {
+                        e.preventDefault();
+                        const url = encodeURIComponent(window.location.href);
+                        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=600');
+                    }
+
+                    function shareOnTwitter(e) {
+                        e.preventDefault();
+                        const url = encodeURIComponent(window.location.href);
+                        const text = encodeURIComponent(document.title);
+                        window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
+                    }
+
+                    function copyPageLink(btn) {
+                        const url = window.location.href;
+                        navigator.clipboard.writeText(url).then(() => {
+                            const btnText = btn.querySelector('.btn-text');
+                            const originalText = btnText.innerText;
+                            btnText.innerText = 'Copied!';
+                            btn.classList.add('copied');
+                            setTimeout(() => {
+                                btnText.innerText = originalText;
+                                btn.classList.remove('copied');
+                            }, 2000);
+                        });
+                    }
+                </script>
+
+                <!-- Back to Blog Button -->
+                <div style="text-align: center; margin: 4rem 0;">
+                    <a href="../blog.html" class="btn btn-primary" style="display: inline-block; padding: 1rem 2rem;">
+                        <i class="fas fa-arrow-left"></i> Back to Insights
+                    </a>
+                </div>
         </article>
     </div> <!-- End blog-layout-container -->
 
