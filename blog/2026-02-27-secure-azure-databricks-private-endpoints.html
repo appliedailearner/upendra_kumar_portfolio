@@ -943,26 +943,52 @@
                 </div>
 
                 <!-- Card 2: Databricks -->
-                <div
-                    style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: transform 0.3s ease;">
+                <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: transform 0.3s ease; cursor: default;"
+                    onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='rgba(168, 85, 247, 0.5)';"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(168, 85, 247, 0.2)';">
                     <div
                         style="position: absolute; top: -30px; right: -30px; opacity: 0.05; font-size: 10rem; color: #a855f7;">
                         <i class="fas fa-industry"></i>
                     </div>
                     <div
                         style="width: 50px; height: 50px; background: rgba(168, 85, 247, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(168, 85, 247, 0.3);">
-                        <i class="fas fa-robot" style="color: #a855f7; font-size: 1.5rem;"></i>
+                        <i class="fas fa-industry" style="color: #a855f7; font-size: 1.5rem;"></i>
                     </div>
                     <h3
                         style="color: #a855f7; margin: 0 0 0.5rem 0; font-family: 'Outfit', sans-serif; font-size: 1.5rem;">
                         Azure Databricks</h3>
                     <h4
                         style="color: #94a3b8; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem;">
-                        The Robotic Factory</h4>
+                        The High-Tech Factory</h4>
                     <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin: 0;">
-                        Built right next door to the warehouse, Databricks spins up massive compute clusters (factory
-                        machines). These machines chew through petabytes of raw swamp water, detect patterns (like
-                        fraud), and assemble it into polished Business Intelligence reports.
+                        Built right next door to the warehouse, Databricks is the secure perimeter of a highly advanced
+                        factory. It manages security badges (IAM), schedules the workloads, and orchestrates the massive
+                        machinery inside without you ever having to manage the building itself.
+                    </p>
+                </div>
+
+                <!-- Card 3: Spark Clusters -->
+                <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: transform 0.3s ease; cursor: default;"
+                    onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='rgba(245, 158, 11, 0.5)';"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(245, 158, 11, 0.2)';">
+                    <div
+                        style="position: absolute; top: -30px; right: -30px; opacity: 0.05; font-size: 10rem; color: #f59e0b;">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div
+                        style="width: 50px; height: 50px; background: rgba(245, 158, 11, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(245, 158, 11, 0.3);">
+                        <i class="fas fa-microchip" style="color: #f59e0b; font-size: 1.5rem;"></i>
+                    </div>
+                    <h3
+                        style="color: #f59e0b; margin: 0 0 0.5rem 0; font-family: 'Outfit', sans-serif; font-size: 1.5rem;">
+                        Apache Spark™ Clusters</h3>
+                    <h4
+                        style="color: #94a3b8; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem;">
+                        The Factory Machines</h4>
+                    <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin: 0;">
+                        These are the actual robotic assembly lines inside the Databricks factory. They dynamically spin
+                        up when work arrives, chew through petabytes of raw swamp water entirely in RAM (Memory),
+                        assemble it into polished objects, and instantly shut down to save electricity.
                     </p>
                 </div>
             </div>
@@ -997,38 +1023,138 @@
                     <h3 style="margin: 0; color: #38bdf8; font-size: 1.8rem; font-family: 'Outfit', sans-serif;"><i
                             class="fas fa-layer-group" style="margin-right: 12px;"></i>Architectural Deep Dive: Azure
                         Databricks</h3>
-                    <p style="margin: 1rem 0 0 0; color: #e2e8f0; font-size: 1.1rem; line-height: 1.6;">
-                        Azure Databricks is a fully managed, auto-scaling Apache Spark™ environment optimized natively
-                        for the Azure cloud. It completely abstracts the operational nightmare of managing massive big
-                        data clusters.
-                    </p>
+
+                    <!-- Interactive Spark vs Hadoop Explainer -->
+                    <div style="margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem;">
+                        <p style="color: #cbd5e1; font-size: 1.1rem; line-height: 1.6; margin-bottom: 0.5rem;">
+                            To understand Databricks, you must understand the engine it runs on: <strong
+                                style="color: #f59e0b;">Apache Spark™</strong>, and the predecessor it replaced: <strong
+                                style="color: #60a5fa;">Hadoop</strong>.
+                        </p>
+
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                            <!-- Hadoop Card -->
+                            <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(148, 163, 184, 0.2); border-left: 4px solid #60a5fa; border-radius: 8px; padding: 1.5rem; transition: transform 0.3s ease, border-color 0.3s ease; cursor: default;"
+                                onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='rgba(96, 165, 250, 0.5)';"
+                                onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(148, 163, 184, 0.2)';">
+                                <h4
+                                    style="margin: 0 0 0.5rem 0; color: #60a5fa; font-size: 1.15rem; display: flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-server"></i> The Old Way: Hadoop
+                                </h4>
+                                <p style="margin: 0; color: #94a3b8; font-size: 0.95rem; line-height: 1.5;">
+                                    <strong style="color: #cbd5e1;">The Problem:</strong> Hadoop was revolutionary, but
+                                    it wrote intermediate results to physical hard drives (disk) between every step. It
+                                    also permanently locked compute power to specific storage racks. This made it slow,
+                                    incredibly expensive to scale, and an operational nightmare to maintain.
+                                </p>
+                            </div>
+
+                            <!-- Spark Card -->
+                            <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(245, 158, 11, 0.2); border-left: 4px solid #f59e0b; border-radius: 8px; padding: 1.5rem; transition: transform 0.3s ease, border-color 0.3s ease; cursor: default;"
+                                onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='rgba(245, 158, 11, 0.5)';"
+                                onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(245, 158, 11, 0.2)';">
+                                <h4
+                                    style="margin: 0 0 0.5rem 0; color: #fcd34d; font-size: 1.15rem; display: flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-bolt" style="color: #f59e0b;"></i> The Revolution: Apache Spark™
+                                </h4>
+                                <p style="margin: 0; color: #94a3b8; font-size: 0.95rem; line-height: 1.5;">
+                                    <strong style="color: #cbd5e1;">The Fix:</strong> Spark shifted data processing
+                                    completely into <em>RAM (Memory)</em>, making it 100x faster than Hadoop. It also
+                                    decoupled compute from storage, meaning you could spin up 10,000 servers to process
+                                    data, and instantly delete them when finished.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div
+                            style="background: rgba(56, 189, 248, 0.1); border-left: 4px solid #38bdf8; padding: 1.25rem; border-radius: 0 8px 8px 0; margin-top: 1rem;">
+                            <p style="margin: 0; color: #e2e8f0; font-size: 1rem; line-height: 1.6;">
+                                <strong style="color: #38bdf8;">So what is Databricks?</strong> Think of Apache Spark
+                                like an incredibly powerful, but very complicated race car engine. <strong>Azure
+                                    Databricks</strong> is the luxury car built around that engine—a fully managed,
+                                auto-scaling SaaS platform that abstracts away the operational nightmare of managing the
+                                raw Spark clusters yourself, natively optimized for the Azure cloud.
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
                 <div style="padding: 2.5rem; display: grid; gap: 2.5rem;">
 
                     <!-- Section 1: Use Cases & Problem solving -->
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-                        <div>
-                            <h4 style="color: #60a5fa; margin-top: 0; font-size: 1.25rem;"><i class="fas fa-bullseye"
-                                    style="margin-right: 8px;"></i> What Problem It Solves</h4>
-                            <p style="color: #cbd5e1; line-height: 1.6;">
-                                Traditional big data environments (like Hadoop) require massive overhead to maintain
-                                compute infrastructure. Databricks separates compute from storage, allowing you to scale
-                                virtual machines dynamically based purely on workload demands, natively reading raw
-                                schemas from ADLS Gen2.
-                            </p>
-                        </div>
-                        <div>
-                            <h4 style="color: #34d399; margin-top: 0; font-size: 1.25rem;"><i class="fas fa-briefcase"
-                                    style="margin-right: 8px;"></i> Core Enterprise Use Cases</h4>
-                            <ul style="color: #cbd5e1; padding-left: 1.25rem; line-height: 1.6;">
-                                <li><strong>Medallion ETL Pipelines:</strong> Cleansing raw bronze data into gold-tier
-                                    Analytics schemas.</li>
-                                <li><strong>Real-Time Streaming:</strong> Processing IoT telemetry natively via
-                                    Structured Streaming.</li>
-                                <li><strong>Machine Learning:</strong> Training predictive models seamlessly on massive
-                                    datasets.</li>
-                            </ul>
+                        <div style="grid-column: 1 / -1; margin-top: 1rem;">
+                            <h4
+                                style="color: #34d399; margin-top: 0; font-size: 1.25rem; display: flex; align-items: center; gap: 8px;">
+                                <i class="fas fa-project-diagram"></i> Core Use Case: The Medallion Architecture
+                            </h4>
+                            <p style="color: #cbd5e1; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">
+                                Databricks popularized the <strong>Medallion Architecture</strong>, a data design
+                                pattern that logically organizes data passing through the system into three distinct
+                                layers, progressively improving in quality and structure.</p>
+
+                            <!-- Interactive Medallion Grid -->
+                            <div
+                                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+
+                                <!-- Bronze Card -->
+                                <div style="background: linear-gradient(135deg, rgba(140, 82, 45, 0.2), rgba(15, 23, 42, 0.8)); border: 1px solid rgba(217, 119, 6, 0.4); border-radius: 8px; padding: 1.25rem; position: relative; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.3s ease; cursor: default;"
+                                    onmouseover="this.style.transform='translateY(-4px)';"
+                                    onmouseout="this.style.transform='translateY(0)';">
+                                    <div
+                                        style="position: absolute; top: -15px; right: -15px; opacity: 0.1; font-size: 6rem; color: #d97706;">
+                                        <i class="fas fa-medal"></i>
+                                    </div>
+                                    <h5
+                                        style="margin: 0 0 0.5rem 0; color: #f59e0b; font-size: 1.1rem; display: flex; align-items: center; gap: 6px;">
+                                        <i class="fas fa-box" style="font-size: 0.9rem;"></i> Bronze Layer
+                                    </h5>
+                                    <p style="margin: 0; color: #cbd5e1; font-size: 0.85rem; line-height: 1.5;">
+                                        <strong>The Swamp:</strong> Raw data ingested directly from source systems
+                                        (APIs, logs, SQL databases) with no schema enforcement. It is an exact, messy
+                                        replica of the source.
+                                    </p>
+                                </div>
+
+                                <!-- Silver Card -->
+                                <div style="background: linear-gradient(135deg, rgba(148, 163, 184, 0.2), rgba(15, 23, 42, 0.8)); border: 1px solid rgba(148, 163, 184, 0.4); border-radius: 8px; padding: 1.25rem; position: relative; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.3s ease; cursor: default;"
+                                    onmouseover="this.style.transform='translateY(-4px)';"
+                                    onmouseout="this.style.transform='translateY(0)';">
+                                    <div
+                                        style="position: absolute; top: -15px; right: -15px; opacity: 0.1; font-size: 6rem; color: #cbd5e1;">
+                                        <i class="fas fa-medal"></i>
+                                    </div>
+                                    <h5
+                                        style="margin: 0 0 0.5rem 0; color: #e2e8f0; font-size: 1.1rem; display: flex; align-items: center; gap: 6px;">
+                                        <i class="fas fa-filter" style="font-size: 0.9rem;"></i> Silver Layer
+                                    </h5>
+                                    <p style="margin: 0; color: #cbd5e1; font-size: 0.85rem; line-height: 1.5;">
+                                        <strong>The Filter:</strong> Data is cleansed, filtered, and standardized. Nulls
+                                        are dropped. Dates are parsed. This layer provides a consolidated, "enterprise
+                                        view" of all key entities.
+                                    </p>
+                                </div>
+
+                                <!-- Gold Card -->
+                                <div style="background: linear-gradient(135deg, rgba(234, 179, 8, 0.2), rgba(15, 23, 42, 0.8)); border: 1px solid rgba(234, 179, 8, 0.4); border-radius: 8px; padding: 1.25rem; position: relative; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.3s ease; cursor: default;"
+                                    onmouseover="this.style.transform='translateY(-4px)';"
+                                    onmouseout="this.style.transform='translateY(0)';">
+                                    <div
+                                        style="position: absolute; top: -15px; right: -15px; opacity: 0.15; font-size: 6rem; color: #facc15;">
+                                        <i class="fas fa-medal"></i>
+                                    </div>
+                                    <h5
+                                        style="margin: 0 0 0.5rem 0; color: #fde047; font-size: 1.1rem; display: flex; align-items: center; gap: 6px;">
+                                        <i class="fas fa-chart-pie" style="font-size: 0.9rem;"></i> Gold Layer
+                                    </h5>
+                                    <p style="margin: 0; color: #cbd5e1; font-size: 0.85rem; line-height: 1.5;">
+                                        <strong>The Product:</strong> Highly refined, aggregated data built for
+                                        consumption. This is the data that powers dashboards, Machine Learning models,
+                                        and C-Suite reporting.
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -1104,26 +1230,63 @@
             </div>
 
             <h2><span class="gradient-text">The Exfiltration Threat (And Why VNet Injection Isn't Enough)</span></h2>
-            <p>
+            <p style="font-size: 1.15rem; color: #cbd5e1; margin-bottom: 2.5rem;">
                 Deploying Azure Databricks isn't just about spinning up Spark clusters. For enterprise architects in
                 regulated industries, deploying Databricks means solving a fundamental <strong>data residency and
                     exfiltration paradox</strong>.
             </p>
-            <p>
-                You lock down your ADLS Gen2 storage accounts. You hide them behind a firewall. But if your Databricks
-                clusters (which process this newly protected data) lack a secure perimeter back to the control plane, or
-                fetch secrets from public Key Vault endpoints, your data is still subject to exfiltration by a
-                compromised
-                identity. If you're relying strictly on Service Endpoints or dynamic IP firewalling, you're playing a
-                losing
-                game of whack-a-mole.
-            </p>
-            <p>
-                The fix? <strong>A full-stack Azure Private Endpoint architecture</strong>. But here’s the harsh
-                reality: if
-                you do it wrong, you will break DNS, introduce split-brain routing, and artificially inflate your Azure
-                Firewall costs by tens of thousands of dollars per month. Let's look at the survival guide.
-            </p>
+
+            <!-- Exfiltration Threat Grid Layout -->
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+                <!-- The Threat Card (Red/Warning variant) -->
+                <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(248, 113, 113, 0.3); border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.3s ease; cursor: default;"
+                    onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='rgba(248, 113, 113, 0.6)';"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(248, 113, 113, 0.3)';">
+                    <div
+                        style="position: absolute; top: -30px; right: -30px; opacity: 0.05; font-size: 10rem; color: #f87171;">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <div
+                        style="width: 50px; height: 50px; background: rgba(248, 113, 113, 0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(248, 113, 113, 0.4);">
+                        <i class="fas fa-mask" style="color: #fca5a5; font-size: 1.5rem;"></i>
+                    </div>
+                    <h3
+                        style="color: #fca5a5; margin: 0 0 0.5rem 0; font-family: 'Outfit', sans-serif; font-size: 1.5rem;">
+                        Data Exfiltration: The Inside Job</h3>
+                    <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin: 0;">
+                        <strong style="color: #e2e8f0;">The Perimeter Trap:</strong> You locked down the Data Warehouse
+                        (ADLS) behind a firewall. But if your Databricks Factory machines (Spark Clusters) have internet
+                        access, an authorized rogue employee can simply write a notebook instructing the machines to
+                        quietly mail terabytes of sensitive data out the back door to their own personal cloud bucket.
+                        <strong>The firewall won't stop them because the machines are 'authorized' to read the
+                            data.</strong>
+                    </p>
+                </div>
+
+                <!-- The Solution Card (Green/Success variant) -->
+                <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(52, 211, 153, 0.3); border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.3s ease; cursor: default;"
+                    onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='rgba(52, 211, 153, 0.6)';"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(52, 211, 153, 0.3)';">
+                    <div
+                        style="position: absolute; top: -30px; right: -30px; opacity: 0.05; font-size: 10rem; color: #34d399;">
+                        <i class="fas fa-door-closed"></i>
+                    </div>
+                    <div
+                        style="width: 50px; height: 50px; background: rgba(52, 211, 153, 0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(52, 211, 153, 0.4);">
+                        <i class="fas fa-check-shield" style="color: #6ee7b7; font-size: 1.5rem;"></i>
+                    </div>
+                    <h3
+                        style="color: #6ee7b7; margin: 0 0 0.5rem 0; font-family: 'Outfit', sans-serif; font-size: 1.5rem;">
+                        The Architecture Fix: The Deadbolt</h3>
+                    <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin: 0;">
+                        A full-stack <strong>Azure Private Endpoint architecture</strong> entirely kills the
+                        exfiltration path by completely removing the internet "back door" from the factory. The Spark
+                        Clusters can <em>only</em> talk to approved, private subnets. But the harsh reality: if you
+                        deploy it wrong, you will break native DNS and dramatically inflate your Azure Firewall costs.
+                    </p>
+                </div>
+            </div>
 
             <div
                 style="margin: 4rem 0; background: linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95)); border: 1px solid rgba(192, 132, 252, 0.3); border-radius: 16px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); position: relative;">
@@ -2073,38 +2236,73 @@ privatelink.vaultcore.azure.net</code></pre>
             <p>Before proceeding with any cluster deployments or calling the architecture "done", you must validate the
                 following controls from a machine inside your VNet or on-premises over VPN/ExpressRoute:</p>
 
-            <div
-                style="background: rgba(255,255,255,0.03); border: 1px solid rgba(52, 211, 153, 0.3); border-radius: 8px; padding: 1.5rem; margin-top: 1.5rem;">
-                <ol style="margin-bottom: 0; padding-left: 1.25rem; line-height: 1.6; color: #cbd5e1;">
-                    <li style="margin-bottom: 1.5rem;">
-                        <strong style="color: #fff;">1. Validate DNS Resolution (`nslookup`):</strong>
-                        <br>Verify the Workspace URL and ADLS Gen2 URLs resolve to `10.x.x.x` Private IPs, not Public
-                        IPs.
-                        <div class="terminal-block" style="margin-top: 0.5rem; margin-bottom: 0;">
+            <!-- Premium Pre-Flight Validation Checklist -->
+            <div style="margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem;">
+                <!-- Step 1 -->
+                <div
+                    style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 12px; padding: 1.5rem; display: flex; gap: 1.5rem; align-items: flex-start; box-shadow: 0 4px 20px rgba(0,0,0,0.2);">
+                    <div
+                        style="width: 40px; height: 40px; background: linear-gradient(135deg, #38bdf8, #818cf8); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; flex-shrink: 0; box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);">
+                        1</div>
+                    <div style="flex-grow: 1;">
+                        <h4 style="margin: 0 0 0.5rem 0; color: #fff; font-size: 1.15rem;">Validate DNS Resolution
+                            (`nslookup`)</h4>
+                        <p style="margin: 0 0 1rem 0; color: #94a3b8; font-size: 0.95rem;">Verify the Workspace URL and
+                            ADLS Gen2 URLs resolve to `10.x.x.x` Private IPs, not Public IPs.</p>
+                        <div class="terminal-block" style="margin: 0;">
                             <div class="terminal-header">
                                 <span class="terminal-title">bash</span>
                             </div>
                             <pre
-                                style="margin: 0; padding: 0.5rem;"><code>nslookup adb-123.azuredatabricks.net</code></pre>
+                                style="margin: 0; padding: 0.75rem;"><code>nslookup adb-123.azuredatabricks.net</code></pre>
                         </div>
-                    </li>
-                    <li style="margin-bottom: 1rem;">
-                        <strong style="color: #fff;">2. Verify Private Path Flows:</strong>
-                        <br>Ensure there are no asymmetric routing drops. Telnet to the Workspace Private IP on port 443
-                        to confirm the network path is open.
-                    </li>
-                    <li style="margin-bottom: 1rem;">
-                        <strong style="color: #fff;">3. Disable Public Network Access:</strong>
-                        <br>Navigate to the Networking blades of your Workspace, ADLS accounts, and Key Vaults. Ensure
-                        the 'Public Network Access' toggle is explicitly set to <strong>Disabled</strong>.
-                    </li>
-                    <li>
-                        <strong style="color: #fff;">4. Monitor for Split-Brain Cutovers:</strong>
-                        <br>When cutting DNS over, actively monitor Azure Firewall logs (if routing via Hub originally)
-                        and Databricks audit logs to confirm no internal traffic is suddenly dropping or flowing over
-                        public routes.
-                    </li>
-                </ol>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div
+                    style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 12px; padding: 1.5rem; display: flex; gap: 1.5rem; align-items: flex-start; box-shadow: 0 4px 20px rgba(0,0,0,0.2);">
+                    <div
+                        style="width: 40px; height: 40px; background: linear-gradient(135deg, #38bdf8, #818cf8); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; flex-shrink: 0; box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);">
+                        2</div>
+                    <div>
+                        <h4 style="margin: 0 0 0.5rem 0; color: #fff; font-size: 1.15rem;">Verify Private Path Flows
+                        </h4>
+                        <p style="margin: 0; color: #94a3b8; font-size: 0.95rem;">Ensure there are no asymmetric routing
+                            drops. Telnet to the Workspace Private IP on port 443 to confirm the network path is open
+                            end-to-end.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div
+                    style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 12px; padding: 1.5rem; display: flex; gap: 1.5rem; align-items: flex-start; box-shadow: 0 4px 20px rgba(0,0,0,0.2);">
+                    <div
+                        style="width: 40px; height: 40px; background: linear-gradient(135deg, #38bdf8, #818cf8); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; flex-shrink: 0; box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);">
+                        3</div>
+                    <div>
+                        <h4 style="margin: 0 0 0.5rem 0; color: #fff; font-size: 1.15rem;">Disable Public Network Access
+                        </h4>
+                        <p style="margin: 0; color: #94a3b8; font-size: 0.95rem;">Navigate to the Networking blades of
+                            your Workspace, ADLS accounts, and Key Vaults. Ensure the 'Public Network Access' toggle is
+                            explicitly set to <strong style="color: #ef4444;">Disabled</strong>.</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div
+                    style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 12px; padding: 1.5rem; display: flex; gap: 1.5rem; align-items: flex-start; box-shadow: 0 4px 20px rgba(0,0,0,0.2);">
+                    <div
+                        style="width: 40px; height: 40px; background: linear-gradient(135deg, #38bdf8, #818cf8); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; flex-shrink: 0; box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);">
+                        4</div>
+                    <div>
+                        <h4 style="margin: 0 0 0.5rem 0; color: #fff; font-size: 1.15rem;">Monitor for Split-Brain Drops
+                        </h4>
+                        <p style="margin: 0; color: #94a3b8; font-size: 0.95rem;">When cutting DNS over, actively
+                            monitor Azure Firewall logs (if routing via Hub originally) and Databricks audit logs to
+                            confirm no internal traffic is suddenly dropping or flowing over public routes.</p>
+                    </div>
+                </div>
             </div>
 
             <h2><span class="gradient-text">5. Where Each Component Must Live</span></h2>
@@ -2142,57 +2340,134 @@ privatelink.vaultcore.azure.net</code></pre>
             </div>
 
             <h2><span class="gradient-text">6. Deployment Order (Critical)</span></h2>
-            <p>To avoid race conditions and ensure Secure Cluster Connectivity successfully bootstraps, use this exact
-                deployment sequence:</p>
-            <ol>
-                <li>Create VNets and subnets</li>
-                <li>Configure peering</li>
-                <li>Deploy private DNS zones</li>
-                <li>Deploy DNS private resolver + rulesets</li>
-                <li>Deploy Databricks workspace (with VNet injection and secure cluster connectivity)</li>
-                <li>Create workspace private endpoints</li>
-                <li>Create storage and key vault private endpoints</li>
-                <li>Disable public network access</li>
-                <li>Validate DNS resolution</li>
-                <li>Start clusters</li>
-            </ol>
-            <div class="styled-callout strategy">
-                <i class="fas fa-lightbulb"></i>
-                <p>
-                    <strong>Note:</strong> Databricks compute must be stopped during certain network-tier updates or the
-                    update may fail.
+            <p style="font-size: 1.15rem; color: #cbd5e1; margin-bottom: 2.5rem;">To avoid race conditions and ensure
+                Secure Cluster Connectivity successfully bootstraps, use this exact deployment sequence:</p>
+
+            <!-- Premium Vertical Timeline -->
+            <div style="position: relative; padding-left: 2rem; margin-bottom: 3rem;">
+                <!-- Vertical Line -->
+                <div
+                    style="position: absolute; left: 0; top: 10px; bottom: 10px; width: 2px; background: linear-gradient(to bottom, #3b82f6, #a855f7, #10b981); opacity: 0.3;">
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+                    <!-- Phase 1 -->
+                    <div
+                        style="position: relative; background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(59, 130, 246, 0.2); border-left: 4px solid #3b82f6; border-radius: 8px; padding: 1.25rem; transition: transform 0.2s;">
+                        <div
+                            style="position: absolute; left: -2.35rem; top: 1.25rem; width: 14px; height: 14px; border-radius: 50%; background: #3b82f6; box-shadow: 0 0 10px #3b82f6; z-index: 2;">
+                        </div>
+                        <h4 style="margin: 0; color: #60a5fa; font-family: 'Outfit', sans-serif; font-size: 1.1rem;">
+                            Phase 1: Foundation</h4>
+                        <ol
+                            style="margin: 0.5rem 0 0 0; padding-left: 1.25rem; color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">
+                            <li>Create VNets and subnets</li>
+                            <li>Configure peering</li>
+                            <li>Deploy private DNS zones</li>
+                            <li>Deploy DNS private resolver + rulesets</li>
+                        </ol>
+                    </div>
+
+                    <!-- Phase 2 -->
+                    <div
+                        style="position: relative; background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(168, 85, 247, 0.2); border-left: 4px solid #a855f7; border-radius: 8px; padding: 1.25rem; transition: transform 0.2s;">
+                        <div
+                            style="position: absolute; left: -2.35rem; top: 1.25rem; width: 14px; height: 14px; border-radius: 50%; background: #a855f7; box-shadow: 0 0 10px #a855f7; z-index: 2;">
+                        </div>
+                        <h4 style="margin: 0; color: #c084fc; font-family: 'Outfit', sans-serif; font-size: 1.1rem;">
+                            Phase 2: Injection & Linkage</h4>
+                        <ol start="5"
+                            style="margin: 0.5rem 0 0 0; padding-left: 1.25rem; color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">
+                            <li>Deploy Databricks workspace (with VNet injection and secure cluster connectivity)</li>
+                            <li>Create workspace private endpoints (UI & API)</li>
+                            <li>Create storage and key vault private endpoints</li>
+                        </ol>
+                    </div>
+
+                    <!-- Phase 3 -->
+                    <div
+                        style="position: relative; background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(16, 185, 129, 0.2); border-left: 4px solid #10b981; border-radius: 8px; padding: 1.25rem; transition: transform 0.2s;">
+                        <div
+                            style="position: absolute; left: -2.35rem; top: 1.25rem; width: 14px; height: 14px; border-radius: 50%; background: #10b981; box-shadow: 0 0 10px #10b981; z-index: 2;">
+                        </div>
+                        <h4 style="margin: 0; color: #34d399; font-family: 'Outfit', sans-serif; font-size: 1.1rem;">
+                            Phase 3: Lockdown & Validation</h4>
+                        <ol start="8"
+                            style="margin: 0.5rem 0 0 0; padding-left: 1.25rem; color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">
+                            <li><strong>Disable public network access</strong> across all resources</li>
+                            <li>Validate end-to-end DNS resolution</li>
+                            <li>Start clusters to verify Databricks Control Plane connectivity</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                style="background: linear-gradient(90deg, rgba(245, 158, 11, 0.1), transparent); border-left: 4px solid #f59e0b; padding: 1.5rem; border-radius: 0 8px 8px 0; margin-bottom: 3rem;">
+                <h4 style="color: #f59e0b; margin: 0 0 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;"><i
+                        class="fas fa-lightbulb"></i> Architectural Warning</h4>
+                <p style="color: #e2e8f0; margin: 0; font-size: 0.95rem; line-height: 1.6;">
+                    Databricks compute clusters <strong>must be actively stopped</strong> during network-tier updates
+                    (like flipping the public network access toggle). Leaving clusters running during network isolation
+                    updates will result in a wedged state requiring a hard restart.
                 </p>
             </div>
 
             <h2><span class="gradient-text">7. The "Cutover Night" Migration Checklist</span></h2>
-            <p>
+            <p style="font-size: 1.15rem; color: #cbd5e1; margin-bottom: 2.5rem;">
                 Migrating from public to private is not an overnight "flip the switch" exercise. It's a progressive
                 lockdown.
             </p>
-            <div class="interactive-checklist">
-                <div class="checklist-item">
-                    <div class="custom-checkbox"></div>
-                    <div class="task-text"><strong>Discovery:</strong> Parse Storage Analytics logs. Map every external
-                        system reading the public endpoint. You cannot shut off the public firewall without knowing who
-                        you are breaking.</div>
+
+            <div class="interactive-checklist" style="display: flex; flex-direction: column; gap: 1rem;">
+                <!-- Checklist Item 1 -->
+                <div class="checklist-item"
+                    style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 12px; padding: 1.5rem; display: flex; align-items: center; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                    <div class="custom-checkbox" style="flex-shrink: 0; margin-right: 1.5rem;"></div>
+                    <div class="task-text" style="font-size: 1.05rem; color: #e2e8f0; line-height: 1.6;">
+                        <strong style="color: #38bdf8;">Phase 1: Discovery</strong><br>
+                        <span style="color: #94a3b8; font-size: 0.95rem;">Parse Storage Analytics logs. Map every
+                            external system reading the public endpoint. You cannot shut off the public firewall without
+                            knowing who you are breaking.</span>
+                    </div>
                 </div>
-                <div class="checklist-item">
-                    <div class="custom-checkbox"></div>
-                    <div class="task-text"><strong>Parallel Path Phase:</strong> Build the <span class="term-tooltip"
-                            data-tooltip="A network interface that connects you privately and securely to a service powered by Azure Private Link.">Private
-                            Endpoints</span> and link the DNS. Do not disable Public Network Access yet. Let the
-                        VNet-injected components fail over to the private IP naturally while legacy systems continue to
-                        use the public route.</div>
+
+                <!-- Checklist Item 2 -->
+                <div class="checklist-item"
+                    style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 12px; padding: 1.5rem; display: flex; align-items: center; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                    <div class="custom-checkbox" style="flex-shrink: 0; margin-right: 1.5rem;"></div>
+                    <div class="task-text" style="font-size: 1.05rem; color: #e2e8f0; line-height: 1.6;">
+                        <strong style="color: #a855f7;">Phase 2: Parallel Path</strong><br>
+                        <span style="color: #94a3b8; font-size: 0.95rem;">Build the <span class="term-tooltip"
+                                data-tooltip="A network interface that connects you privately and securely to a service powered by Azure Private Link.">Private
+                                Endpoints</span> and link the DNS. Do not disable Public Network Access yet. Let the
+                            VNet-injected components fail over to the private IP naturally while legacy systems continue
+                            to use the public route.</span>
+                    </div>
                 </div>
-                <div class="checklist-item">
-                    <div class="custom-checkbox"></div>
-                    <div class="task-text"><strong>Pilot Cutover:</strong> Update on-prem forwarders. Ask a QA user to
-                        access the workspace.</div>
+
+                <!-- Checklist Item 3 -->
+                <div class="checklist-item"
+                    style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: 12px; padding: 1.5rem; display: flex; align-items: center; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                    <div class="custom-checkbox" style="flex-shrink: 0; margin-right: 1.5rem;"></div>
+                    <div class="task-text" style="font-size: 1.05rem; color: #e2e8f0; line-height: 1.6;">
+                        <strong style="color: #f59e0b;">Phase 3: Pilot Cutover</strong><br>
+                        <span style="color: #94a3b8; font-size: 0.95rem;">Update on-prem DNS forwarders for a select
+                            group of pilot users. Ask a QA team to access the workspace and validate end-to-end
+                            functionality.</span>
+                    </div>
                 </div>
-                <div class="checklist-item">
-                    <div class="custom-checkbox"></div>
-                    <div class="task-text"><strong>Lockdown:</strong> Toggle the PaaS firewall to "Deny all public
-                        network access." Use Azure Policy (`DeployIfNotExists`) to ensure nobody turns it back on.</div>
+
+                <!-- Checklist Item 4 -->
+                <div class="checklist-item"
+                    style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 12px; padding: 1.5rem; display: flex; align-items: center; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                    <div class="custom-checkbox" style="flex-shrink: 0; margin-right: 1.5rem;"></div>
+                    <div class="task-text" style="font-size: 1.05rem; color: #e2e8f0; line-height: 1.6;">
+                        <strong style="color: #10b981;">Phase 4: Lockdown</strong><br>
+                        <span style="color: #94a3b8; font-size: 0.95rem;">Toggle the PaaS firewall to limit access to
+                            selected virtual networks, effectively dropping all public inbound connections. Follow up by
+                            deploying Azure Policy (`DeployIfNotExists`) to ensure drift doesn't occur.</span>
+                    </div>
                 </div>
             </div>
 
@@ -2219,21 +2494,62 @@ privatelink.vaultcore.azure.net</code></pre>
                     <div style="flex: 1;">
                         <h3 style="margin-top: 0; color: #6ee7b7; font-size: 1.5rem; letter-spacing: -0.5px;">The Core
                             of Data Governance: Unity Catalog & Domain-Level Entra Groups</h3>
-                        <p style="font-size: 1.15rem; line-height: 1.6; margin-bottom: 0;">
+                        <p style="font-size: 1.15rem; line-height: 1.6; margin-bottom: 2rem;">
                             <strong>Network isolation does not equal data governance.</strong> You must pair your
                             private endpoints with automated, centralized data-plane controls.
                         </p>
 
-                        <h4 style="color: #fff; margin: 1.5rem 0 0.5rem 0; font-family: 'Outfit', sans-serif;">What Is
-                            This Strategy?</h4>
-                        <p style="color: #cbd5e1; line-height: 1.6; margin-top: 0;">
-                            <strong>Unity Catalog</strong> is the centralized governance layer for all data assets
-                            across your Databricks workspaces. Instead of managing permissions per-workspace, you manage
-                            them once. <strong>Domain-Level Entra Groups</strong> means strictly mapping your Azure AD
-                            (Entra) groups directly to business domains (e.g., <code>Finance-Data-Readers</code>) and
-                            syncing those directly into Unity Catalog. <em>Do not create custom Databricks roles or
-                                solution-specific groups.</em>
-                        </p>
+                        <!-- Interactive Unity Catalog Explainer -->
+                        <div
+                            style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(52, 211, 153, 0.3); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                            <div
+                                style="padding: 1.5rem; background: rgba(52, 211, 153, 0.1); border-bottom: 1px solid rgba(52, 211, 153, 0.2); display: flex; align-items: center; gap: 1rem;">
+                                <div
+                                    style="width: 40px; height: 40px; background: rgba(52, 211, 153, 0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-id-badge" style="color: #34d399; font-size: 1.25rem;"></i>
+                                </div>
+                                <h4
+                                    style="color: #6ee7b7; margin: 0; font-size: 1.25rem; font-family: 'Outfit', sans-serif;">
+                                    Unity Catalog: The Security Kiosk</h4>
+                            </div>
+
+                            <div
+                                style="padding: 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                                <!-- The Analogy -->
+                                <div style="background: rgba(0,0,0,0.3); padding: 1.25rem; border-radius: 8px; border: 1px solid rgba(148, 163, 184, 0.2); transition: transform 0.2s ease, border-color 0.2s ease; cursor: default;"
+                                    onmouseover="this.style.transform='translateY(-3px)'; this.style.borderColor='rgba(148, 163, 184, 0.5)';"
+                                    onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(148, 163, 184, 0.2)';">
+                                    <h5
+                                        style="color: #94a3b8; margin: 0 0 0.5rem 0; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px;">
+                                        <i class="fas fa-building" style="margin-right: 6px;"></i> The Analogy
+                                    </h5>
+                                    <p style="color: #e2e8f0; margin: 0; font-size: 0.95rem; line-height: 1.6;">
+                                        If ADLS is the Warehouse and Databricks is the Factory, <strong>Unity
+                                            Catalog</strong> is the centralized security kiosk at the front door.
+                                        Instead of issuing separate keys for every single room in the factory (which
+                                        gets messy), you issue one Smart Badge (Entra ID Group) that the kiosk reads to
+                                        instantly know exactly which rooms you are allowed to enter.
+                                    </p>
+                                </div>
+
+                                <!-- The Reality -->
+                                <div style="background: rgba(0,0,0,0.3); padding: 1.25rem; border-radius: 8px; border: 1px solid rgba(52, 211, 153, 0.2); transition: transform 0.2s ease, border-color 0.2s ease; cursor: default;"
+                                    onmouseover="this.style.transform='translateY(-3px)'; this.style.borderColor='rgba(52, 211, 153, 0.5)';"
+                                    onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(52, 211, 153, 0.2)';">
+                                    <h5
+                                        style="color: #34d399; margin: 0 0 0.5rem 0; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px;">
+                                        <i class="fas fa-microchip" style="margin-right: 6px;"></i> The Reality
+                                    </h5>
+                                    <p style="color: #cbd5e1; margin: 0; font-size: 0.95rem; line-height: 1.6;">
+                                        It is the centralized governance layer for all data assets across your
+                                        Databricks workspaces. Instead of managing permissions per-workspace, you manage
+                                        them once using <strong>Domain-Level Entra Groups</strong> directly mapped to
+                                        business domains (e.g., <code>Finance-Data-Readers</code>) and synced into Unity
+                                        Catalog.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
 
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem;">
                             <div
@@ -2294,40 +2610,76 @@ privatelink.vaultcore.azure.net</code></pre>
                 Services, Healthcare). However, it still requires identity governance and continuous monitoring.
                 Here is
                 how controls map to compliance requirements:</p>
-            <details class="interactive-accordion">
-                <summary><i class="fas fa-shield-alt" style="margin-right: 10px;"></i> View Compliance Control Mapping
+            <h2><span class="gradient-text">10. Compliance Mapping</span></h2>
+            <p style="font-size: 1.15rem; color: #cbd5e1; margin-bottom: 2rem;">This architecture is designed to support
+                the strictest regulated environments (e.g., Banking, Financial Services, Healthcare). However, it still
+                requires identity governance and continuous monitoring. Here is how controls map to compliance
+                requirements:</p>
+
+            <details class="interactive-accordion" open>
+                <summary
+                    style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); color: #60a5fa;">
+                    <i class="fas fa-shield-alt" style="margin-right: 10px;"></i> View Compliance Control Mapping
                 </summary>
-                <div class="accordion-content">
-                    <div style="overflow-x: auto;">
+                <div class="accordion-content" style="padding: 0; background: transparent;">
+                    <div
+                        style="overflow-x: auto; border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 12px; background: rgba(15, 23, 42, 0.6); margin-top: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
                         <table style="width: 100%; border-collapse: collapse; text-align: left;">
                             <thead>
                                 <tr
-                                    style="border-bottom: 2px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02);">
-                                    <th style="padding: 1rem;">Requirement</th>
-                                    <th style="padding: 1rem;">Control</th>
-                                    <th style="padding: 1rem;">Evidence</th>
+                                    style="background: rgba(56, 189, 248, 0.1); border-bottom: 2px solid rgba(56, 189, 248, 0.3);">
+                                    <th style="padding: 1.25rem; color: #38bdf8; font-family: 'Outfit', sans-serif;">
+                                        Requirement</th>
+                                    <th style="padding: 1.25rem; color: #38bdf8; font-family: 'Outfit', sans-serif;">
+                                        Control Mechanism</th>
+                                    <th style="padding: 1.25rem; color: #38bdf8; font-family: 'Outfit', sans-serif;">
+                                        Audit Evidence</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                                    <td style="padding: 1rem;">No public admin access</td>
-                                    <td style="padding: 1rem;">Private Link UI/API</td>
-                                    <td style="padding: 1rem;">Private IP resolution</td>
+                                <tr
+                                    style="border-bottom: 1px solid rgba(56, 189, 248, 0.1); transition: background 0.2s;">
+                                    <td style="padding: 1.25rem; color: #e2e8f0; font-weight: 500;"><i
+                                            class="fas fa-user-shield" style="color: #94a3b8; width: 24px;"></i> No
+                                        public admin access</td>
+                                    <td style="padding: 1.25rem; color: #cbd5e1;"><span
+                                            style="background: rgba(59, 130, 246, 0.2); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(59, 130, 246, 0.3);">Private
+                                            Link UI/API</span></td>
+                                    <td style="padding: 1.25rem; color: #cbd5e1;"><i class="fas fa-network-wired"
+                                            style="color: #60a5fa; margin-right: 6px;"></i> Private IP resolution</td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                                    <td style="padding: 1rem;">Private data access</td>
-                                    <td style="padding: 1rem;">ADLS Private Endpoint</td>
-                                    <td style="padding: 1rem;">Storage firewall disabled public</td>
+                                <tr
+                                    style="border-bottom: 1px solid rgba(56, 189, 248, 0.1); transition: background 0.2s;">
+                                    <td style="padding: 1.25rem; color: #e2e8f0; font-weight: 500;"><i
+                                            class="fas fa-database" style="color: #94a3b8; width: 24px;"></i> Private
+                                        data access</td>
+                                    <td style="padding: 1.25rem; color: #cbd5e1;"><span
+                                            style="background: rgba(59, 130, 246, 0.2); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(59, 130, 246, 0.3);">ADLS
+                                            Private Endpoint</span></td>
+                                    <td style="padding: 1.25rem; color: #cbd5e1;"><i class="fas fa-fire-extinguisher"
+                                            style="color: #fca5a5; margin-right: 6px;"></i> Storage firewall blocked
+                                    </td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                                    <td style="padding: 1rem;">Auditability</td>
-                                    <td style="padding: 1rem;">Databricks audit logs</td>
-                                    <td style="padding: 1rem;">Log Analytics</td>
+                                <tr
+                                    style="border-bottom: 1px solid rgba(56, 189, 248, 0.1); transition: background 0.2s;">
+                                    <td style="padding: 1.25rem; color: #e2e8f0; font-weight: 500;"><i
+                                            class="fas fa-search" style="color: #94a3b8; width: 24px;"></i> Auditability
+                                    </td>
+                                    <td style="padding: 1.25rem; color: #cbd5e1;"><span
+                                            style="background: rgba(59, 130, 246, 0.2); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(59, 130, 246, 0.3);">Databricks
+                                            Audit Logs</span></td>
+                                    <td style="padding: 1.25rem; color: #cbd5e1;"><i class="fas fa-chart-line"
+                                            style="color: #34d399; margin-right: 6px;"></i> Log Analytics Queries</td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                                    <td style="padding: 1rem;">Network segmentation</td>
-                                    <td style="padding: 1rem;">Hub-spoke</td>
-                                    <td style="padding: 1rem;">VNet design</td>
+                                <tr style="transition: background 0.2s;">
+                                    <td style="padding: 1.25rem; color: #e2e8f0; font-weight: 500;"><i
+                                            class="fas fa-project-diagram" style="color: #94a3b8; width: 24px;"></i>
+                                        Network segmentation</td>
+                                    <td style="padding: 1.25rem; color: #cbd5e1;"><span
+                                            style="background: rgba(59, 130, 246, 0.2); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(59, 130, 246, 0.3);">Hub-Spoke
+                                            Topo</span></td>
+                                    <td style="padding: 1.25rem; color: #cbd5e1;"><i class="fas fa-code-branch"
+                                            style="color: #c084fc; margin-right: 6px;"></i> VNet Peering Rules</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -2335,32 +2687,99 @@ privatelink.vaultcore.azure.net</code></pre>
                 </div>
             </details>
 
-            <h2><span class="gradient-text">11. Ingesting Data Securely (The ADF/SHIR Connection)</span></h2>
-            <p>A locked-down Private Data Lake is useless if you can't get data into it. To securely ingest
-                on-premises
-                or cross-cloud data into your isolated ADLS Gen2 account, you should use <strong>Azure Data Factory
-                    (ADF)</strong> paired with a <strong>Self-Hosted Integration Runtime (SHIR)</strong>.</p>
-            <p>By deploying the SHIR on a Virtual Machine inside your Azure VNet (specifically within the Spoke or a
-                dedicated integration subnet), the runtime can securely pull data from external sources and write it
-                directly to the Storage Private Endpoint. This keeps the entire end-to-end flow—from data ingestion
-                to
-                Databricks processing—strictly on the private Azure backbone, fully adhering to Zero Trust
-                architecture.
-            </p>
+            <h2><span class="gradient-text">11. Ingesting Data Securely (The ADF / SHIR Connection)</span></h2>
+
+            <div
+                style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 16px; padding: 2rem; margin: 2.5rem 0; box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative; overflow: hidden;">
+                <!-- Decorative BG Element -->
+                <div
+                    style="position: absolute; right: -5%; top: -10%; opacity: 0.03; font-size: 15rem; color: #38bdf8;">
+                    <i class="fas fa-server"></i>
+                </div>
+
+                <p style="font-size: 1.15rem; color: #e2e8f0; margin-top: 0; position: relative; z-index: 1;">
+                    A locked-down Private Data Lake is useless if you can't get data into it. To securely ingest
+                    on-premises or cross-cloud data into your isolated ADLS Gen2 account, you should use <strong>Azure
+                        Data Factory (ADF)</strong> paired with a <strong>Self-Hosted Integration Runtime
+                        (SHIR)</strong>.
+                </p>
+
+                <div
+                    style="display: flex; gap: 1rem; margin-top: 1.5rem; position: relative; z-index: 1; background: rgba(0,0,0,0.4); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #38bdf8;">
+                    <i class="fas fa-route" style="font-size: 2rem; color: #38bdf8; margin-top: 0.2rem;"></i>
+                    <p style="margin: 0; color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">
+                        By deploying the SHIR on a Virtual Machine inside your Azure VNet (specifically within the Spoke
+                        or a dedicated integration subnet), the runtime can securely pull data from external sources and
+                        write it directly to the Storage Private Endpoint. This keeps the entire end-to-end flow—from
+                        data ingestion to Databricks processing—strictly on the private Azure backbone, fully adhering
+                        to Zero Trust architecture.
+                    </p>
+                </div>
+            </div>
 
             <h2><span class="gradient-text">12. Common Failure Modes</span></h2>
-            <p>If you hit a wall during deployment, it's almost certainly one of these four:</p>
-            <ol>
-                <li><strong>Login redirect loop</strong> &rarr; DNS misconfiguration on the Browser Authentication
-                    endpoint.</li>
-                <li><strong>Cluster start failure</strong> &rarr; Backend Private Link missing or misconfigured.
-                </li>
-                <li><strong>Workspace unreachable</strong> &rarr; Wrong Private DNS Zone link to your client VNet.
-                </li>
-                <li><strong>Storage mount fails</strong> &rarr; Storage firewall is still enabled for public access,
-                    or
-                    RBAC permissions are wrong.</li>
-            </ol>
+            <p style="font-size: 1.15rem; color: #cbd5e1; margin-bottom: 2.5rem;">If you hit a wall during deployment,
+                it's almost certainly one of these four:</p>
+
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+
+                <!-- Failure 1 -->
+                <div
+                    style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(248, 113, 113, 0.2); border-left: 4px solid #ef4444; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s ease;">
+                    <h4
+                        style="margin: 0 0 0.5rem 0; color: #fca5a5; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-redo-alt" style="color: #ef4444;"></i> Login Redirect Loop
+                    </h4>
+                    <p style="margin: 0; color: #94a3b8; font-size: 0.95rem; line-height: 1.5;">
+                        <strong style="color: #cbd5e1;">Root Cause:</strong> DNS misconfiguration or missing Private
+                        Endpoint specifically on the <em>Browser Authentication</em> target sub-resource.
+                    </p>
+                </div>
+
+                <!-- Failure 2 -->
+                <div
+                    style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(245, 158, 11, 0.2); border-left: 4px solid #f59e0b; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s ease;">
+                    <h4
+                        style="margin: 0 0 0.5rem 0; color: #fcd34d; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-server" style="color: #f59e0b;"></i> Cluster Start Failure
+                    </h4>
+                    <p style="margin: 0; color: #94a3b8; font-size: 0.95rem; line-height: 1.5;">
+                        <strong style="color: #cbd5e1;">Root Cause:</strong> Secure Cluster Connectivity (SCC) relay
+                        endpoint is missing, or the Databricks Workspace (databricks_ui_api) backend Private Link is
+                        misconfigured.
+                    </p>
+                </div>
+
+                <!-- Failure 3 -->
+                <div
+                    style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(239, 68, 68, 0.2); border-left: 4px solid #dc2626; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s ease;">
+                    <h4
+                        style="margin: 0 0 0.5rem 0; color: #fca5a5; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-network-wired" style="color: #dc2626;"></i> Workspace Unreachable
+                    </h4>
+                    <p style="margin: 0; color: #94a3b8; font-size: 0.95rem; line-height: 1.5;">
+                        <strong style="color: #cbd5e1;">Root Cause:</strong> Wrong Private DNS Zone virtual network link
+                        targeting your client VNet, or corporate DNS conditional forwarders are failing to reach Azure
+                        resolution.
+                    </p>
+                </div>
+
+                <!-- Failure 4 -->
+                <div
+                    style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(168, 85, 247, 0.2); border-left: 4px solid #a855f7; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s ease;">
+                    <h4
+                        style="margin: 0 0 0.5rem 0; color: #c084fc; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-database" style="color: #a855f7;"></i> Storage Mount Fails
+                    </h4>
+                    <p style="margin: 0; color: #94a3b8; font-size: 0.95rem; line-height: 1.5;">
+                        <strong style="color: #cbd5e1;">Root Cause:</strong> Storage firewall is still allowing selected
+                        VNet traffic but the compute isn't linked, or Unity Catalog / RBAC data plane permissions are
+                        insufficient for the identity.
+                    </p>
+                </div>
+
+            </div>
 
             <div
                 style="background: linear-gradient(135deg, rgba(30, 41, 59, 1), rgba(15, 23, 42, 1)); border: 1px solid rgba(59, 130, 246, 0.4); border-radius: 12px; padding: 2.5rem; margin: 4rem 0; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
@@ -2372,7 +2791,8 @@ privatelink.vaultcore.azure.net</code></pre>
                     topology, hard design trade-offs, and critical anti-patterns necessary to accelerate your security
                     review.
                 </p>
-                <a href="../pages/databricks-zero-trust-blueprint.html" target="_blank" class="btn btn-primary"
+                <a href="../assets/databricks-zero-trust-blueprint.pdf"
+                    download="Azure-Databricks-Zero-Trust-Blueprint.pdf" target="_blank" class="btn btn-primary"
                     style="font-size: 1.1rem; padding: 1rem 2.5rem; background: linear-gradient(135deg, #3b82f6, #8b5cf6); border: none; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);">
                     <i class="fas fa-download" style="margin-right: 8px;"></i> Access the Blueprint Guide
                 </a>
@@ -2688,7 +3108,12 @@ privatelink.vaultcore.azure.net</code></pre>
                 // A safer approach for a blog post is to process specific text nodes
                 function replaceTextNodes(node) {
                     if (node.nodeType === Node.TEXT_NODE) {
-                        if (node.parentNode && node.parentNode.nodeName !== 'SCRIPT' && node.parentNode.nodeName !== 'STYLE' && node.parentNode.className !== 'eli5-term') {
+                        const parent = node.parentNode;
+                        // Use closest() to fully exclude text that is nested anywhere inside headers, links, or code blocks
+                        if (parent && parent.nodeName !== 'SCRIPT' && parent.nodeName !== 'STYLE' && parent.className !== 'eli5-term') {
+                            if (parent.closest && parent.closest('h1, h2, h3, h4, h5, h6, a, pre, code, figure')) {
+                                return; // Skip if inside an ignored container
+                            }
                             const newHTML = node.nodeValue.replace(termsRegex, match => {
                                 return `<span class="eli5-term" data-tooltip="${glossaryTerms[match]}">${match}</span>`;
                             });
@@ -2696,17 +3121,14 @@ privatelink.vaultcore.azure.net</code></pre>
                                 const tempDiv = document.createElement('div');
                                 tempDiv.innerHTML = newHTML;
                                 while (tempDiv.firstChild) {
-                                    node.parentNode.insertBefore(tempDiv.firstChild, node);
+                                    parent.insertBefore(tempDiv.firstChild, node);
                                 }
-                                node.parentNode.removeChild(node);
+                                parent.removeChild(node);
                             }
                         }
                     } else {
-                        // Avoid replacing inside complex elements like pre/code blocks where acronyms might be code
-                        if (node.nodeName !== 'PRE' && node.nodeName !== 'CODE' && node.nodeName !== 'FIGURE') {
-                            const children = Array.from(node.childNodes);
-                            children.forEach(replaceTextNodes);
-                        }
+                        const children = Array.from(node.childNodes);
+                        children.forEach(replaceTextNodes);
                     }
                 }
 
@@ -2722,6 +3144,7 @@ privatelink.vaultcore.azure.net</code></pre>
                         color: #c4b5fd;
                         font-weight: 600;
                         transition: color 0.2s, border-color 0.2s;
+                        -webkit-text-fill-color: initial;
                     }
                     .eli5-term:hover {
                         color: #fff;
@@ -2742,6 +3165,7 @@ privatelink.vaultcore.azure.net</code></pre>
                         border: 1px solid rgba(139, 92, 246, 0.4);
                         border-top: 2px solid #3b82f6;
                         color: #f8fafc;
+                        -webkit-text-fill-color: initial;
                         font-size: 0.9rem;
                         font-weight: 400;
                         line-height: 1.5;
