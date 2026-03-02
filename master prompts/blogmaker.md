@@ -207,6 +207,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{{DESCRIPTION}}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://portfolio.upendrakumar.com/blog/{{FILENAME}}">
+    <meta property="og:title" content="{{TITLE}}">
+    <meta property="og:description" content="{{DESCRIPTION}}">
+    <meta property="og:image" content="https://portfolio.upendrakumar.com/images/profile.webp">
+    <meta property="og:site_name" content="Upendra Kumar | Cloud Strategy & Architecture">
+    <meta property="article:author" content="Upendra Kumar">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://portfolio.upendrakumar.com/blog/{{FILENAME}}">
+    <meta property="twitter:title" content="{{TITLE}}">
+    <meta property="twitter:description" content="{{DESCRIPTION}}">
+    <meta property="twitter:image" content="https://portfolio.upendrakumar.com/images/profile.webp">
+
     <title>{{TITLE}} | Upendra Kumar</title>
 
     <link rel="stylesheet" href="../css/style.css?v=48">
