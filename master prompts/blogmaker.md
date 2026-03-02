@@ -179,6 +179,7 @@
 7.  **Content:** The body of the blog post. (Accept Markdown or plain text).
 8.  **Glossary JSON:** The generated dictionary of acronyms/terms.
 9.  **ToC HTML:** An optional sticky Table of Contents `<nav>` HTML block utilizing the `.toc-link` classes.
+10. **FILENAME:** The generated filename (e.g., `2026-02-27-title.html`).
 
 ---
 
