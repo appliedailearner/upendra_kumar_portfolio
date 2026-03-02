@@ -35,6 +35,10 @@ az storage blob upload-batch --account-name $StorageAccount --destination $Conta
 Write-Host "Uploading HTML files..."
 az storage blob upload-batch --account-name $StorageAccount --destination $Container --source $tempDir --pattern "*.html" --content-cache-control "public, max-age=3600" --overwrite
 
+# Upload PDFs (Correct Content-Type)
+Write-Host "Uploading PDF files with correct headers..."
+az storage blob upload-batch --account-name $StorageAccount --destination $Container --source $tempDir --pattern "*.pdf" --content-type "application/pdf" --content-cache-control "public, max-age=31536000" --overwrite
+
 if ($LASTEXITCODE -eq 0) { 
     Write-Host "Success!" -ForegroundColor Green 
     Write-Host "URL: https://$StorageAccount.z29.web.core.windows.net/"
