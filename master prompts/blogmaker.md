@@ -95,7 +95,71 @@
 *   *Remove:* 'In the rapidly evolving landscape...', 'Unlock the power of...', usage of 'delve'.
 *   *Replace with:* Direct, active verbs. 'We stopped guessing.' 'He closed the laptop.'"
 
-### Step 11: Create a Reusable System
+### Step 11: The Executive Impact Grid (VP Lens Formatting)
+**Concept:** Use the premium 3-column Glassmorphism grid for the VP-level summary.
+**PROMPT:** "Format the 'Executive Impact Summary' using the exact HTML template provided below. Do not change the classes, inline styles, or grid structure. Only replace the FontAwesome icons, headings, and paragraph text with the generated content. 
+
+```html
+<!-- Premium Executive Impact Summary -->
+<div style="margin-bottom: 4rem; position: relative;">
+    <!-- Background ambient glow -->
+    <div style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 80%; height: 100px; background: radial-gradient(ellipse, rgba(168, 85, 247, 0.15) 0%, transparent 70%); filter: blur(30px); z-index: -1;"></div>
+
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <span style="display: inline-block; padding: 0.4rem 1rem; background: rgba(168, 85, 247, 0.1); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 20px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 1rem;">
+            <i class="fas fa-chart-line" style="margin-right: 6px;"></i> Strategic Alignment & ROI
+        </span>
+        <h2 style="margin: 0; font-family: 'Outfit', sans-serif; font-size: 2.2rem; color: #f8fafc;">Executive Impact <span style="color: transparent; background: linear-gradient(90deg, #c084fc, #3b82f6); -webkit-background-clip: text; background-clip: text;">Summary</span></h2>
+    </div>
+
+    <style>
+    .executive-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+    @media (max-width: 900px) {
+        .executive-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+<div class="executive-grid">
+        
+        <!-- Card 1: Business Problem -->
+        <div class="glass-card" style="padding: 2rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)); border: 1px solid rgba(248, 113, 113, 0.2); border-top: 3px solid #f87171; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: -15px; right: -15px; opacity: 0.03; font-size: 8rem; color: #f87171;"><i class="fas fa-exclamation-triangle"></i></div>
+            <div style="width: 45px; height: 45px; background: rgba(248, 113, 113, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(248, 113, 113, 0.2);">
+                <i class="fas fa-fire" style="color: #f87171; font-size: 1.2rem;"></i>
+            </div>
+            <h4 style="color: #fca5a5; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">The Business Problem</h4>
+            <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">AI_GENERATED_PROBLEM_TEXT_HERE</p>
+        </div>
+
+        <!-- Card 2: Strategic Play -->
+        <div class="glass-card" style="padding: 2rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)); border: 1px solid rgba(96, 165, 250, 0.2); border-top: 3px solid #60a5fa; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: -15px; right: -15px; opacity: 0.03; font-size: 8rem; color: #60a5fa;"><i class="fas fa-chess-knight"></i></div>
+            <div style="width: 45px; height: 45px; background: rgba(96, 165, 250, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(96, 165, 250, 0.2);">
+                <i class="fas fa-network-wired" style="color: #60a5fa; font-size: 1.2rem;"></i>
+            </div>
+            <h4 style="color: #93c5fd; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">The Strategic Play</h4>
+            <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">AI_GENERATED_STRATEGY_TEXT_HERE</p>
+        </div>
+
+        <!-- Card 3: Executive ROI -->
+        <div class="glass-card" style="padding: 2rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)); border: 1px solid rgba(52, 211, 153, 0.2); border-top: 3px solid #34d399; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: -15px; right: -15px; opacity: 0.03; font-size: 8rem; color: #34d399;"><i class="fas fa-award"></i></div>
+            <div style="width: 45px; height: 45px; background: rgba(52, 211, 153, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(52, 211, 153, 0.2);">
+                <i class="fas fa-chart-pie" style="color: #34d399; font-size: 1.2rem;"></i>
+            </div>
+            <h4 style="color: #6ee7b7; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">The Executive ROI</h4>
+            <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">AI_GENERATED_ROI_TEXT_HERE</p>
+        </div>
+    </div>
+</div>
+```"
+
+### Step 12: Create a Reusable System
 **Concept:** Repeatable framework.
 **Action:** Ensure this generated content fits the `{{CONTENT_BODY_HTML}}` placeholder in Phase 2.
 

@@ -895,40 +895,104 @@
                 endpoint. Here is how we locked down the Data Lake without breaking the bank or taking the network down.
             </p>
 
-            <div class="glass-card"
-                style="margin-bottom: 3rem; background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(168, 85, 247, 0.4); border-left: 4px solid #a855f7;">
-                <h3 style="color: #c084fc; margin-top: 0; font-family: 'Outfit', sans-serif;"><i
-                        class="fas fa-chess-king"></i> Executive Impact Summary</h3>
-                <p
-                    style="color: #94a3b8; font-size: 0.95rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 1px;">
-                    Strategic Alignment & Business ROI</p>
+            <!-- Premium Executive Impact Summary -->
+            <div style="margin-bottom: 4rem; position: relative;">
 
-                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-                    <div>
-                        <h4 style="color: #cbd5e1; margin: 0 0 0.5rem 0; font-size: 1.1rem;"><i
-                                class="fas fa-exclamation-triangle" style="color: #f87171;"></i> The Business Problem
-                        </h4>
-                        <p style="margin: 0; font-size: 1rem; color: #94a3b8;">A Fortune 500 Financial Services client
-                            faced a stalled $50M analytics modernization program. InfoSec blocked the deployment of
-                            Azure Databricks due to severe data exfiltration risks, noting that a compromised internal
-                            identity could siphon terabytes of PII to a rogue public Azure Storage account.</p>
+                <!-- Background ambient glow -->
+                <div
+                    style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 80%; height: 100px; background: radial-gradient(ellipse, rgba(168, 85, 247, 0.15) 0%, transparent 70%); filter: blur(30px); z-index: -1;">
+                </div>
+
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <span
+                        style="display: inline-block; padding: 0.4rem 1rem; background: rgba(168, 85, 247, 0.1); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 20px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 1rem;">
+                        <i class="fas fa-chart-line" style="margin-right: 6px;"></i> Strategic Alignment & ROI
+                    </span>
+                    <h2 style="margin: 0; font-family: 'Outfit', sans-serif; font-size: 2.2rem; color: #f8fafc;">
+                        Executive Impact <span
+                            style="color: transparent; background: linear-gradient(90deg, #c084fc, #3b82f6); -webkit-background-clip: text; background-clip: text;">Summary</span>
+                    </h2>
+                </div>
+
+                <style>
+                    .executive-grid {
+                        display: grid;
+                        grid-template-columns: repeat(3, 1fr);
+                        gap: 1.5rem;
+                    }
+
+                    @media (max-width: 900px) {
+                        .executive-grid {
+                            grid-template-columns: 1fr;
+                        }
+                    }
+                </style>
+                <div class="executive-grid">
+
+                    <!-- Card 1: Business Problem -->
+                    <div class="glass-card"
+                        style="padding: 2rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)); border: 1px solid rgba(248, 113, 113, 0.2); border-top: 3px solid #f87171; position: relative; overflow: hidden;">
+                        <div
+                            style="position: absolute; top: -15px; right: -15px; opacity: 0.03; font-size: 8rem; color: #f87171;">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div
+                            style="width: 45px; height: 45px; background: rgba(248, 113, 113, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(248, 113, 113, 0.2);">
+                            <i class="fas fa-fire" style="color: #f87171; font-size: 1.2rem;"></i>
+                        </div>
+                        <h4
+                            style="color: #fca5a5; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">
+                            The Business Problem</h4>
+                        <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">A Fortune 500
+                            Financial Services client faced a stalled <strong>$50M analytics modernization
+                                program</strong>. InfoSec blocked the deployment of Azure Databricks due to severe data
+                            exfiltration risks, noting that a compromised internal identity could siphon terabytes of
+                            PII to a rogue public Azure Storage account.</p>
                     </div>
-                    <div>
-                        <h4 style="color: #cbd5e1; margin: 0 0 0.5rem 0; font-size: 1.1rem;"><i
-                                class="fas fa-chess-knight" style="color: #60a5fa;"></i> The Strategic Play</h4>
-                        <p style="margin: 0; font-size: 1rem; color: #94a3b8;">We engineered a Zero-Trust Hub-and-Spoke
-                            Landing Zone. By leveraging Front-End/Back-End Private Link, Secure Cluster Connectivity (No
-                            Public IPs), and explicit User Defined Routes (UDRs), we completely eliminated the public
-                            internet "back door" while keeping data strictly on the Azure backbone.</p>
+
+                    <!-- Card 2: Strategic Play -->
+                    <div class="glass-card"
+                        style="padding: 2rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)); border: 1px solid rgba(96, 165, 250, 0.2); border-top: 3px solid #60a5fa; position: relative; overflow: hidden;">
+                        <div
+                            style="position: absolute; top: -15px; right: -15px; opacity: 0.03; font-size: 8rem; color: #60a5fa;">
+                            <i class="fas fa-chess-knight"></i>
+                        </div>
+                        <div
+                            style="width: 45px; height: 45px; background: rgba(96, 165, 250, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(96, 165, 250, 0.2);">
+                            <i class="fas fa-network-wired" style="color: #60a5fa; font-size: 1.2rem;"></i>
+                        </div>
+                        <h4
+                            style="color: #93c5fd; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">
+                            The Strategic Play</h4>
+                        <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">Engineered a
+                            <strong>Zero-Trust Hub-and-Spoke Landing Zone</strong>. By leveraging Front-End/Back-End
+                            Private Link, Secure Cluster Connectivity (No Public IPs), and explicit User Defined Routes
+                            (UDRs), we completely eliminated the public internet "back door" while keeping all data
+                            strictly on the Azure backbone.
+                        </p>
                     </div>
-                    <div>
-                        <h4 style="color: #cbd5e1; margin: 0 0 0.5rem 0; font-size: 1.1rem;"><i
-                                class="fas fa-chart-line" style="color: #34d399;"></i> The Executive ROI</h4>
-                        <p style="margin: 0; font-size: 1rem; color: #94a3b8;">Succeeded in passing the rigorous InfoSec
-                            audit in under 3 weeks, unblocking the $50M platform rollout. Furthermore, by strategically
-                            bypassing the central NVA (Firewall) for bursty internal storage traffic, we avoided a
-                            projected <strong>$120,000/year (30%) surcharge</strong> in firewall processing fees.</p>
+
+                    <!-- Card 3: Executive ROI -->
+                    <div class="glass-card"
+                        style="padding: 2rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)); border: 1px solid rgba(52, 211, 153, 0.2); border-top: 3px solid #34d399; position: relative; overflow: hidden;">
+                        <div
+                            style="position: absolute; top: -15px; right: -15px; opacity: 0.03; font-size: 8rem; color: #34d399;">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <div
+                            style="width: 45px; height: 45px; background: rgba(52, 211, 153, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(52, 211, 153, 0.2);">
+                            <i class="fas fa-chart-pie" style="color: #34d399; font-size: 1.2rem;"></i>
+                        </div>
+                        <h4
+                            style="color: #6ee7b7; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">
+                            The Executive ROI</h4>
+                        <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">Passed the rigorous
+                            InfoSec audit in under 3 weeks, unblocking the massive rollout. Furthermore, by
+                            strategically routing bursty internal storage traffic to bypass the central NVA (Firewall),
+                            we avoided a projected <strong>$120,000/year (30%) surcharge</strong> in firewall processing
+                            fees.</p>
                     </div>
+
                 </div>
             </div>
 
