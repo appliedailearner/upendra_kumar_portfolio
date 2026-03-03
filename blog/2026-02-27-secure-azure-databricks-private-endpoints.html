@@ -1041,6 +1041,19 @@
                         automated Pull Requests to the Networking team's repository. This allowed the Data team to
                         deploy their spokes autonomously without compromising the central Hub's strict security posture.
                     </p>
+                    <div class="styled-callout note"
+                        style="margin-top: 1.25rem; background: rgba(59, 130, 246, 0.05); border-left: 4px solid #3b82f6; padding: 1.25rem; border-radius: 8px;">
+                        <i class="fas fa-microchip" style="color: #3b82f6; margin-right: 10px; font-size: 1.2rem;"></i>
+                        <div style="display: inline-block; vertical-align: top; width: calc(100% - 35px);">
+                            <strong style="color: #60a5fa;">Bicep Alternative:</strong> If you are in a
+                            "Microsoft-First" shop,
+                            use Bicep to automate these A-record updates. Use the <code>existing</code> keyword to
+                            reference
+                            the Hub's Private DNS Zone and create <code>Microsoft.Network/privateDnsZones/A</code>
+                            records
+                            dynamically during the spoke deployment.
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -2741,12 +2754,6 @@ privatelink.vaultcore.azure.net</code></pre>
             </ul>
 
             <h2><span class="gradient-text">10. Compliance Mapping</span></h2>
-            <p>This architecture is designed to support the strictest regulated environments (e.g., Banking,
-                Financial
-                Services, Healthcare). However, it still requires identity governance and continuous monitoring.
-                Here is
-                how controls map to compliance requirements:</p>
-            <h2><span class="gradient-text">10. Compliance Mapping</span></h2>
             <p style="font-size: 1.15rem; color: #cbd5e1; margin-bottom: 2rem;">This architecture is designed to support
                 the strictest regulated environments (e.g., Banking, Financial Services, Healthcare). However, it still
                 requires identity governance and continuous monitoring. Here is how controls map to compliance
@@ -2821,7 +2828,47 @@ privatelink.vaultcore.azure.net</code></pre>
                         </table>
                     </div>
                 </div>
-                <h2><span class="gradient-text">11. Ingesting Data Securely (The ADF / SH&#8203;IR Connection)</span>
+
+                <h2><span class="gradient-text">11. Enterprise Governance & Scaling (The A+ Strategy)</span></h2>
+                <p style="font-size: 1.15rem; color: #cbd5e1; margin-bottom: 2rem;">A single workspace is easy; an
+                    enterprise fleet is hard. To achieve "A+" maturity, you must transition from manual configuration to
+                    automated guardrails and global-scale networking.</p>
+
+                <div
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
+                    <!-- Azure Policy -->
+                    <div
+                        style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 1.5rem;">
+                        <h4 style="color: #10b981; margin-top: 0;"><i class="fas fa-gavel"
+                                style="margin-right: 10px;"></i>
+                            Automated Policy</h4>
+                        <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">Don't trust; verify. Use
+                            <strong>Azure Policy</strong> to prevent the creation of workspaces with public access
+                            enabled.
+                        </p>
+                        <pre
+                            style="background: rgba(0,0,0,0.3); padding: 0.75rem; border-radius: 6px; font-size: 0.85rem; color: #a78bfa; border: 1px solid rgba(167, 139, 250, 0.2); overflow-x: auto;">
+"if": {
+  "field": "Microsoft.Databricks/workspaces/properties.publicNetworkAccess",
+  "notEquals": "Disabled"
+},
+"then": { "effect": "deny" }</pre>
+                    </div>
+
+                    <!-- vWAN Scaling -->
+                    <div
+                        style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 12px; padding: 1.5rem;">
+                        <h4 style="color: #60a5fa; margin-top: 0;"><i class="fas fa-network-wired"
+                                style="margin-right: 10px;"></i> Virtual WAN Scaling</h4>
+                        <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">For global organizations, the
+                            <strong>Azure Virtual WAN</strong> Hub becomes your DNS anchor. By associating the
+                            <strong>DNS Private Resolver</strong> with the vWAN Hub, you maintain a unified name
+                            resolution
+                            strategy across 100+ spokes without split-brain conflicts.
+                        </p>
+                    </div>
+                </div>
+                <h2><span class="gradient-text">12. Ingesting Data Securely (The ADF / SH&#8203;IR Connection)</span>
                 </h2>
 
                 <div
@@ -2857,7 +2904,7 @@ privatelink.vaultcore.azure.net</code></pre>
                     </div>
                 </div>
 
-                <h2><span class="gradient-text">12. Common Failure Modes</span></h2>
+                <h2><span class="gradient-text">13. Common Failure Modes</span></h2>
                 <p style="font-size: 1.15rem; color: #cbd5e1; margin-bottom: 2.5rem;">If you hit a wall during
                     deployment,
                     it's almost certainly one of these four:</p>
@@ -2946,7 +2993,43 @@ privatelink.vaultcore.azure.net</code></pre>
                     </a>
                 </div>
 
-                <h2><span class="gradient-text">13. Residual Risks</span></h2>
+                <h2><span class="gradient-text">14. The Private Link Survival Toolkit</span></h2>
+                <div
+                    style="background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 16px; padding: 2rem; margin: 2.5rem 0;">
+                    <p style="color: #fca5a5; font-size: 1.1rem; margin-top: 0;"><strong>Is your cluster stuck in
+                            "Pending"?</strong> Run these three validation tests from a VM in the Databricks Spoke VNet:
+                    </p>
+
+                    <div
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+                        <div
+                            style="background: rgba(0,0,0,0.4); padding: 1.25rem; border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.1);">
+                            <code
+                                style="color: #38bdf8; display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">nslookup adb-xxxxx.azuredatabricks.net</code>
+                            <p style="color: #94a3b8; font-size: 0.85rem; margin: 0; line-height: 1.5;">Must return a
+                                <strong>Private IP</strong>
+                                (10.x.x.x). If it returns a public IP, your DNS Private Resolver isn't answering.</p>
+                        </div>
+                        <div
+                            style="background: rgba(0,0,0,0.4); padding: 1.25rem; border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.1);">
+                            <code
+                                style="color: #38bdf8; display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">nc -vz storage.dfs.core.windows.net 443</code>
+                            <p style="color: #94a3b8; font-size: 0.85rem; margin: 0; line-height: 1.5;">Must succeed.
+                                Failures here usually point to
+                                missing <strong>UDRs</strong> or a misconfigured <strong>NSG</strong>.</p>
+                        </div>
+                        <div
+                            style="background: rgba(0,0,0,0.4); padding: 1.25rem; border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.1);">
+                            <code
+                                style="color: #38bdf8; display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">Resolve-DnsName privatelink.blob.core.windows.net</code>
+                            <p style="color: #94a3b8; font-size: 0.85rem; margin: 0; line-height: 1.5;">Verify that the
+                                CNAME chain points to your Hub's
+                                private endpoint, not the public internet.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><span class="gradient-text">15. Residual Risks</span></h2>
                 <p>Even with full private networking, risks remain. You are mitigating network-layer threats, but you
                     still
                     face:</p>
