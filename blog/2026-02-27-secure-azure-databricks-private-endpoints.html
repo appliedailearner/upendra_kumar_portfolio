@@ -1041,18 +1041,16 @@
                         automated Pull Requests to the Networking team's repository. This allowed the Data team to
                         deploy their spokes autonomously without compromising the central Hub's strict security posture.
                     </p>
-                    <div class="styled-callout note"
-                        style="margin-top: 1.25rem; background: rgba(59, 130, 246, 0.05); border-left: 4px solid #3b82f6; padding: 1.25rem; border-radius: 8px;">
-                        <i class="fas fa-microchip" style="color: #3b82f6; margin-right: 10px; font-size: 1.2rem;"></i>
-                        <div style="display: inline-block; vertical-align: top; width: calc(100% - 35px);">
-                            <strong style="color: #60a5fa;">Bicep Alternative:</strong> If you are in a
-                            "Microsoft-First" shop,
-                            use Bicep to automate these A-record updates. Use the <code>existing</code> keyword to
-                            reference
-                            the Hub's Private DNS Zone and create <code>Microsoft.Network/privateDnsZones/A</code>
-                            records
-                            dynamically during the spoke deployment.
-                        </div>
+                    <div class="styled-callout choice"
+                        style="margin-top: 1.5rem; background: rgba(96, 165, 250, 0.1); border: 1px solid rgba(96, 165, 250, 0.3); padding: 1.5rem; border-radius: 12px;">
+                        <h4 style="color: #60a5fa; margin-top: 0;"><i class="fas fa-terminal"
+                                style="margin-right: 10px;"></i> Architect's Choice: The Bicep Standard</h4>
+                        <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 0;">
+                            For native Azure shops, <strong>Bicep</strong> is the superior choice for managing Private
+                            Link resolution. By using the experimental <code>existing</code> keyword, your spoke
+                            deployments can safely inject A-records into the central Hub's Private DNS Zones without
+                            requiring full Contributor permissions on the Hub VNet.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -2066,6 +2064,20 @@
                     </ul>
                 </div>
 
+                <!-- Virtual WAN Integration (vWAN) -->
+                <div
+                    style="grid-column: 1 / -1; background: rgba(59, 130, 246, 0.05); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 12px; padding: 1.5rem; margin-top: 1rem;">
+                    <h4 style="color: #60a5fa; margin-top: 0; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-network-wired"></i> The vWAN Upgrade: Simplifying the Hub
+                    </h4>
+                    <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin: 0;">
+                        In A++ architectures, the <strong>Azure Virtual WAN (vWAN)</strong> Hub replaces the manual NVA.
+                        When combined with the <strong>DNS Private Resolver</strong>, vWAN handles the spoke-to-spoke
+                        routing automatically, eliminating the need for manual UDR management while maintaining strict
+                        security boundaries.
+                    </p>
+                </div>
+
                 <!-- Local Mesh (The Good Way) -->
                 <div
                     style="background: rgba(255,255,255,0.02); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 1.5rem; position: relative; overflow: hidden;">
@@ -2829,7 +2841,7 @@ privatelink.vaultcore.azure.net</code></pre>
                     </div>
                 </div>
 
-                <h2><span class="gradient-text">11. Enterprise Governance & Scaling (The A+ Strategy)</span></h2>
+                <h2><span class="gradient-text">11. Enterprise Governance & Scaling</span></h2>
                 <p style="font-size: 1.15rem; color: #cbd5e1; margin-bottom: 2rem;">A single workspace is easy; an
                     enterprise fleet is hard. To achieve "A+" maturity, you must transition from manual configuration to
                     automated guardrails and global-scale networking.</p>
@@ -2866,6 +2878,36 @@ privatelink.vaultcore.azure.net</code></pre>
                             resolution
                             strategy across 100+ spokes without split-brain conflicts.
                         </p>
+                    </div>
+                </div>
+
+                <div class="governance-guardrails"
+                    style="margin-top: 2rem; background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 12px; padding: 1.5rem;">
+                    <h3 style="color: #10b981; margin-top: 0; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-shield-check"></i> Azure Policy Guardrails (Enterprise Baseline)
+                    </h3>
+                    <p style="color: #cbd5e1; font-size: 1rem; margin-bottom: 1.25rem;">To reach A++ maturity, security
+                        must be <em>unskippable</em>. We recommend these three mandatory guardrails:</p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <div
+                            style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 8px; border-left: 3px solid #10b981;">
+                            <strong style="color: #fff; display: block; font-size: 0.9rem;">No Public Inbound</strong>
+                            <span style="color: #94a3b8; font-size: 0.85rem;">`Deny` creation if `publicNetworkAccess`
+                                != `Disabled`</span>
+                        </div>
+                        <div
+                            style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 8px; border-left: 3px solid #10b981;">
+                            <strong style="color: #fff; display: block; font-size: 0.9rem;">Enforce VNet
+                                Injection</strong>
+                            <span style="color: #94a3b8; font-size: 0.85rem;">Audit workspaces without
+                                `enableNoPublicIp`</span>
+                        </div>
+                        <div
+                            style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 8px; border-left: 3px solid #10b981;">
+                            <strong style="color: #fff; display: block; font-size: 0.9rem;">Private Link Only</strong>
+                            <span style="color: #94a3b8; font-size: 0.85rem;">Block all storage accounts missing Private
+                                Endpoints</span>
+                        </div>
                     </div>
                 </div>
                 <h2><span class="gradient-text">12. Ingesting Data Securely (The ADF / SH&#8203;IR Connection)</span>
@@ -3008,7 +3050,8 @@ privatelink.vaultcore.azure.net</code></pre>
                                 style="color: #38bdf8; display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">nslookup adb-xxxxx.azuredatabricks.net</code>
                             <p style="color: #94a3b8; font-size: 0.85rem; margin: 0; line-height: 1.5;">Must return a
                                 <strong>Private IP</strong>
-                                (10.x.x.x). If it returns a public IP, your DNS Private Resolver isn't answering.</p>
+                                (10.x.x.x). If it returns a public IP, your DNS Private Resolver isn't answering.
+                            </p>
                         </div>
                         <div
                             style="background: rgba(0,0,0,0.4); padding: 1.25rem; border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.1);">

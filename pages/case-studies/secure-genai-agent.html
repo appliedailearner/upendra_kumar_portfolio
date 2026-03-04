@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study: Secure GenAI Knowledge Agent | Upendra Kumar</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/premium.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="dark-theme">
+    <nav class="navbar" id="dynamic-nav"></nav>
+    <script src="../../js/navbar-component.js" defer></script>
+
+    <section class="blog-post-hero">
+        <div class="container">
+            <h1 class="hero-headline"><span class="gradient-text">Secure GenAI</span> Knowledge Agent</h1>
+            <p class="hero-subtext">Enterprise RAG Architecture for Regulated BFSI Workloads.</p>
+        </div>
+    </section>
+
+    <main class="blog-post-content">
+        <div class="analogy-card">
+            <div class="analogy-header">
+                <i class="fas fa-brain analogy-icon"></i>
+                <span class="analogy-label">Executive TL;DR</span>
+            </div>
+            <p class="analogy-text">How we built a production-grade AI Agent that handles sensitive financial data
+                without ever letting it leave the private network, using Azure OpenAI, Vector Search, and Semantic
+                Kernel.</p>
+        </div>
+
+        <h2>The Challenge: The Paradox of AI & Privacy</h2>
+        <p>A global financial institution wanted to empower 5,000+ relationship managers with a GenAI "Knowledge
+            Assistant." The goal was to query thousands of complex policy documents and internal reports.</p>
+        <p><strong>The Blocker:</strong> Data Residency and Zero-Trust requirements. Public LLM endpoints were a
+            non-starter.</p>
+
+        <div class="spotlight-card my-8 p-6" style="--accent-color: #fbbf24;">
+            <h3 class="bento-title">Critical Requirements</h3>
+            <ul class="metric-list">
+                <li><i class="fas fa-shield-alt text-sky-400"></i> **Zero Data Leakage:** All traffic via Private Link.
+                </li>
+                <li><i class="fas fa-user-lock text-sky-400"></i> **RBAC Enforcement:** LLM can only "see" documents the
+                    user has access to.</li>
+                <li><i class="fas fa-bolt text-sky-400"></i> **Low Latency:** &lt; 2s responses for real-time client
+                    meetings.</li>
+            </ul>
+        </div>
+
+        <h2>The Solution: The "Secure RAG" Architecture</h2>
+        <p>We designed a Retrieval-Augmented Generation (RAG) pattern anchored on **Azure OpenAI Service** and **Azure
+            AI Search**.</p>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dot" style="background: #ff5f56;"></div>
+                <div class="terminal-dot" style="background: #ffbd2e;"></div>
+                <div class="terminal-dot" style="background: #27c93f;"></div>
+                <span style="margin-left: 10px; font-size: 0.8rem; color: #94a3b8;">sys-architect@genai:~$
+                    check-security-policy</span>
+            </div>
+            <div class="terminal-body">
+                <div class="terminal-input-line">
+                    <span class="terminal-prompt">></span>
+                    <span class="terminal-input">verify-data-residency --region "switzerland-north"</span>
+                </div>
+                <div class="terminal-response">
+                    <span class="status-allowed">[OK]</span> Model: GPT-4o-0513<br>
+                    <span class="status-allowed">[OK]</span> Storage: Private Endpoint Active<br>
+                    <span class="status-allowed">[OK]</span> Search Index: Encrypted with CMK<br>
+                    <span class="typing-cursor"></span>
+                </div>
+            </div>
+        </div>
+
+        <h3>1. The Data Ingestion Pipeline</h3>
+        <p>Using Azure Data Factory, we orchestrated an automated pipeline that ingest PDFs from SharePoint, chunks them
+            into semantic fragments, and generates embeddings using `text-embedding-3-large`.</p>
+
+        <h3>2. Identity-First Retrieval</h3>
+        <p>The core innovation was the **Security Filter Integration**. During the vector search phase, we pass the
+            user's OIDC token. The search index applies a filter based on the document's ACL (Access Control List),
+            ensuring the LLM never sees unauthorized context.</p>
+
+        <h2>Impact & Business Value</h2>
+        <div class="flex flex-wrap gap-8 my-8 text-center justify-center">
+            <div class="p-6 bg-white/5 rounded-xl border border-white/10 w-48">
+                <div class="text-3xl font-bold text-sky-400">90%</div>
+                <p class="text-xs text-gray-400 uppercase mt-2">Reduction in Document Search Time</p>
+            </div>
+            <div class="p-6 bg-white/5 rounded-xl border border-white/10 w-48">
+                <div class="text-3xl font-bold text-green-400">100%</div>
+                <p class="text-xs text-gray-400 uppercase mt-2">Data Residency Compliance</p>
+            </div>
+            <div class="p-6 bg-white/5 rounded-xl border border-white/10 w-48">
+                <div class="text-3xl font-bold text-purple-400">Zero</div>
+                <p class="text-xs text-gray-400 uppercase mt-2">Prompt Injection Incidents</p>
+            </div>
+        </div>
+
+        <div class="mt-12 text-center">
+            <a href="../../presentations/04-presentation-genai-rag.html" class="btn-premium">
+                View Technical Deck <i class="fas fa-external-link-alt ml-2"></i>
+            </a>
+        </div>
+    </main>
+
+    <footer class="py-12 border-t border-white/10 mt-20">
+        <div class="container text-center text-gray-400">
+            <p>&copy; 2026 Upendra Kumar. Principal Architect Perspective.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
