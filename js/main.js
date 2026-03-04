@@ -626,7 +626,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     const latencyEl = document.getElementById('azure-latency');
     const uptimeEl = document.getElementById('api-uptime');
-    const statusEl = document.getElementById('ai-status');
+    const statusEl = document.getElementById('platform-status');
 
     if (latencyEl && uptimeEl && statusEl) {
         // Randomize Latency (80ms - 120ms)

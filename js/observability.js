@@ -95,8 +95,11 @@
         const platformStatus = document.getElementById('platform-status');
 
         try {
+            const isSubfolder = window.location.pathname.includes('/blog/') || window.location.pathname.includes('/pages/');
+            const statusPath = isSubfolder ? '../status.json' : 'status.json';
+
             const start = performance.now();
-            const response = await fetch('/status.json', { cache: 'no-store' });
+            const response = await fetch(statusPath, { cache: 'no-store' });
             const end = performance.now();
             const latency = Math.round(end - start);
 
