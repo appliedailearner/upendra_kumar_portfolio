@@ -112,6 +112,7 @@
     <script type="text/javascript">
         !function (T, l, y) {
             var S = T.location, k = "script", D = "connectionString", C = "ingestionendpoint", I = "disableExceptionTracking", E = "ai.device.", b = "toLowerCase", a = "crossOrigin", n = "POST", t = "statsbeat", g = "enableResponseHeader", D = "connectionString"; var _ = y.url || "https://js.monitor.azure.com/scripts/b/ai.2.min.js"; if (y[D]) { var T = T.appInsights || (T.appInsights = {}); T.loadAppInsights = function () { var p = { config: y }; T.initialize = !0; var v = window.fetch; T.track = function (e, r, u, n) { var i = p.config.endpointUrl || "https://dc.services.visualstudio.com/v2/track"; v(i, { method: "POST", body: JSON.stringify(e), mode: "cors" }) } }() } else { console.warn("AppInsights Connection String missing.") }
+        }(window, document, { connectionString: "InstrumentationKey=8fc596f2-bb91-49d7-8495-2ac1ecd30501;IngestionEndpoint=https://centralindia-0.in.liana.ice.azure.microsoft.com/" });
     </script>
     <script src="js/observability.js" defer></script>
 </head>
@@ -161,13 +162,14 @@
                         <div class="flex items-center justify-between mb-4 border-b border-white/5 pb-2">
                             <div class="flex items-center gap-2">
                                 <div
-                                    class="h-2 w-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulse">
+                                    class="h-2 w-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulse status-dot">
                                 </div>
                                 <span class="text-xs font-bold text-gray-300 uppercase tracking-widest">Live Platform
                                     Telemetry</span>
                             </div>
                             <span
-                                class="text-[10px] bg-green-500/10 text-green-400 px-2 py-0.5 rounded border border-green-500/20 font-mono">ONLINE</span>
+                                class="text-[10px] bg-green-500/10 text-green-400 px-2 py-0.5 rounded border border-green-500/20 font-mono"
+                                id="status-val-hero">ONLINE</span>
                         </div>
 
                         <!-- Metrics Grid -->
@@ -182,83 +184,17 @@
                             <div class="flex items-center justify-between group">
                                 <span class="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">API
                                     Gateway</span>
-                                <span id="api-uptime" class="text-sm font-mono text-purple-400 font-medium">--%</span>
+                                <span id="api-uptime" class="text-sm font-mono text-purple-400 font-medium">99.9%</span>
                             </div>
                             <!-- AI Status -->
                             <div class="flex items-center justify-between group">
-                                <span class="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">AI
-                                    Models</span>
-                                <span id="ai-status" class="text-sm font-mono text-emerald-400 font-medium">--</span>
+                                <span class="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">Platform
+                                    Health</span>
+                                <span id="platform-status"
+                                    class="text-sm font-mono text-emerald-400 font-medium">Healthy</span>
                             </div>
                         </div>
                     </div>
-
-                    <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                const latencyElem = document.getElementById('azure-latency');
-                const uptimeElem = document.getElementById('api-uptime');
-                const aiStatusElem = document.getElementById('ai-status');
-
-                // Azure Function URL (Node.js backend)
-                const API_URL = 'https://func-portfolio-latency-node-7433.azurewebsites.net/api/latency-probe';
-
-                const updateTelemetry = async () => {
-                    try {
-                        // 1. Fetch Real Latency (Client <-> Azure)
-                        const start = performance.now();
-
-                        const response = await fetch(API_URL);
-                        const data = await response.json();
-
-                        const end = performance.now();
-                        const latency = Math.round(end - start);
-
-                        // Display Latency
-                        latencyElem.innerText = `${latency}ms`;
-
-                        // Color coding (Green < 100ms, Yellow < 200ms)
-                        if (latency < 100) latencyElem.className = "text-sm font-mono text-emerald-400 font-medium";
-                        else if (latency < 200) latencyElem.className = "text-sm font-mono text-yellow-400 font-medium";
-                        else latencyElem.className = "text-sm font-mono text-red-400 font-medium";
-
-                        // 2. Verified Uptime (Static for now)
-                        uptimeElem.innerText = "99.99%";
-
-                        // 3. AI Model Status
-                        if (data.status === "Online") {
-                            aiStatusElem.innerText = "Active";
-                            aiStatusElem.className = "text-sm font-mono text-emerald-400 font-medium";
-                        } else {
-                            aiStatusElem.innerText = "Degraded";
-                            aiStatusElem.className = "text-sm font-mono text-yellow-400 font-medium";
-                        }
-
-                    } catch (error) {
-                        console.warn("Telemetry Fetch Failed (likely CORS or Offline). Switching to Simulation Mode.");
-
-                        // Fallback: Simulation Mode (So the UI never looks broken)
-                        const mockLatency = 45 + Math.floor(Math.random() * 40);
-
-                        latencyElem.innerText = `${mockLatency}ms`;
-
-                        // Color coding
-                        if (mockLatency < 100) latencyElem.className = "text-sm font-mono text-emerald-400 font-medium";
-                        else latencyElem.className = "text-sm font-mono text-yellow-400 font-medium";
-
-                        uptimeElem.innerText = "99.98%";
-
-                        aiStatusElem.innerText = "Simulated";
-                        aiStatusElem.className = "text-sm font-mono text-blue-400 font-medium";
-                    }
-                };
-
-                // Initial Call
-                updateTelemetry();
-
-                // Poll every 10 seconds
-                setInterval(updateTelemetry, 10000);
-            });
-                    </script>
                 </div>
 
                 <div class="col-lg-6 order-1 order-lg-2 mb-4 mb-lg-0 hero-image-container">
@@ -446,68 +382,68 @@
 
         <!-- Inline Script for Interactive Effects -->
         <script>
-                document.addEventListener('DOMContentLoaded', () => {
-                    // 1. Spotlight Effect
-                    const cards = document.querySelectorAll('.spotlight-card');
-                    cards.forEach(card => {
-                        card.addEventListener('mousemove', (e) => {
-                            const rect = card.getBoundingClientRect();
-                            const x = e.clientX - rect.left;
-                            const y = e.clientY - rect.top;
-                            card.style.setProperty('--mouse-x', `${x}px`);
-                            card.style.setProperty('--mouse-y', `${y}px`);
-                        });
+            document.addEventListener('DOMContentLoaded', () => {
+                // 1. Spotlight Effect
+                const cards = document.querySelectorAll('.spotlight-card');
+                cards.forEach(card => {
+                    card.addEventListener('mousemove', (e) => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        card.style.setProperty('--mouse-x', `${x}px`);
+                        card.style.setProperty('--mouse-y', `${y}px`);
                     });
-
-                    // 2. Animated Counters
-                    const counters = document.querySelectorAll('.counter-animate');
-                    const observerOptions = { threshold: 0.5 };
-
-                    const animateCounter = (el) => {
-                        const target = parseInt(el.getAttribute('data-target'));
-                        const duration = 1500; // ms
-                        const stepTime = 20;
-                        const steps = duration / stepTime;
-                        const increment = target / steps;
-                        let current = 0;
-
-                        const timer = setInterval(() => {
-                            current += increment;
-                            if (current >= target) {
-                                el.innerText = target;
-                                clearInterval(timer);
-                            } else {
-                                el.innerText = Math.ceil(current);
-                            }
-                        }, stepTime);
-                    };
-
-                    const observer = new IntersectionObserver((entries) => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting) {
-                                animateCounter(entry.target);
-                                observer.unobserve(entry.target);
-                            }
-                        });
-                    }, observerOptions);
-
-                    counters.forEach(counter => observer.observe(counter));
-
-                    // 3. Premium Calculator Logic
-                    const slider = document.getElementById('vm-slider-premium');
-                    const countDisplay = document.getElementById('vm-count-display-premium');
-                    const savingsDisplay = document.getElementById('savings-display-premium');
-
-                    if (slider && countDisplay && savingsDisplay) {
-                        slider.addEventListener('input', (e) => {
-                            const val = parseInt(e.target.value);
-                            countDisplay.innerText = val;
-                            // Logic: $2k annual savings per optimized node/unit in enterprise scale
-                            const savings = (val * 2400) / 1000000;
-                            savingsDisplay.innerText = `$${savings.toFixed(1)}M`;
-                        });
-                    }
                 });
+
+                // 2. Animated Counters
+                const counters = document.querySelectorAll('.counter-animate');
+                const observerOptions = { threshold: 0.5 };
+
+                const animateCounter = (el) => {
+                    const target = parseInt(el.getAttribute('data-target'));
+                    const duration = 1500; // ms
+                    const stepTime = 20;
+                    const steps = duration / stepTime;
+                    const increment = target / steps;
+                    let current = 0;
+
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            el.innerText = target;
+                            clearInterval(timer);
+                        } else {
+                            el.innerText = Math.ceil(current);
+                        }
+                    }, stepTime);
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            animateCounter(entry.target);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, observerOptions);
+
+                counters.forEach(counter => observer.observe(counter));
+
+                // 3. Premium Calculator Logic
+                const slider = document.getElementById('vm-slider-premium');
+                const countDisplay = document.getElementById('vm-count-display-premium');
+                const savingsDisplay = document.getElementById('savings-display-premium');
+
+                if (slider && countDisplay && savingsDisplay) {
+                    slider.addEventListener('input', (e) => {
+                        const val = parseInt(e.target.value);
+                        countDisplay.innerText = val;
+                        // Logic: $2k annual savings per optimized node/unit in enterprise scale
+                        const savings = (val * 2400) / 1000000;
+                        savingsDisplay.innerText = `$${savings.toFixed(1)}M`;
+                    });
+                }
+            });
         </script>
     </section>
 
@@ -1165,8 +1101,6 @@
 
             <div class="footer-qr-container"
                 style="margin-top: 2rem; display: flex; flex-direction: column; align-items: center;">
-                <p style="font-size: 0.9rem; margin-bottom: 1rem; color: var(--text-muted);">Scan to view
-                    on mobile</p>
                 <div
                     style="padding: 0.5rem; background: rgba(255, 255, 255, 0.05); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); margin-top: 1rem;">
                     <div class="status-ticker" id="system-status">
@@ -1179,7 +1113,7 @@
     </footer>
 
     <script src="js/particles.js" defer></script>
-    <script src="js/main.js?v=25"></script>
+    <script src="js/main.js?v=26"></script>
     <!-- Cloudflare Web Analytics -->
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
         data-cf-beacon='{"token": "0b89fb05ee3844079b659405bc3f5428"}'></script><!-- End Cloudflare Web Analytics -->
