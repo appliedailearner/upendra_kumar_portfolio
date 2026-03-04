@@ -241,6 +241,14 @@
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Azure App Insights SDK (RUM) -->
+    <script type="text/javascript">
+        !function (T, l, y) {
+            var S = T.location, k = "script", D = "connectionString", C = "ingestionendpoint", I = "disableExceptionTracking", E = "ai.device.", b = "toLowerCase", a = "crossOrigin", n = "POST", t = "statsbeat", g = "enableResponseHeader", D = "connectionString"; var _ = y.url || "https://js.monitor.azure.com/scripts/b/ai.2.min.js"; if (y[D]) { var T = T.appInsights || (T.appInsights = {}); T.loadAppInsights = function () { var p = { config: y }; T.initialize = !0; var v = window.fetch; T.track = function (e, r, u, n) { var i = p.config.endpointUrl || "https://dc.services.visualstudio.com/v2/track"; v(i, { method: "POST", body: JSON.stringify(e), mode: "cors" }) } } } else { console.warn("AppInsights Connection String missing.") }
+        }(window, document, { connectionString: "InstrumentationKey=8fc596f2-bb91-49d7-8495-2ac1ecd30501;IngestionEndpoint=https://centralindia-0.in.liana.ice.azure.microsoft.com/" });
+    </script>
+    <script src="../js/observability.js?v=2" defer></script>
 </head>
 
 <body class="dark-theme">

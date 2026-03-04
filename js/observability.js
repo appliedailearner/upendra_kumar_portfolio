@@ -24,8 +24,14 @@
     // 3. Initialize SDK
     // Snippet in index.html initializes 'appInsights'
     if (window.appInsights) {
-        window.appInsights.loadAppInsights();
-        console.log("[Observability] SDK Loaded.");
+        if (typeof window.appInsights.loadAppInsights === 'function') {
+            window.appInsights.loadAppInsights();
+            console.log("[Observability] SDK Loaded via standard loader.");
+        } else if (window.appInsights.initialize === true) {
+            console.log("[Observability] SDK already initialized (Lite Loader).");
+        } else {
+            console.warn("[Observability] AppInsights SDK found but loader is missing or broken.");
+        }
     }
 
     // 4. Custom Sanitization & Governance

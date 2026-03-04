@@ -336,11 +336,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
-    <!-- Azure App Insights -->
+        <!-- Azure App Insights SDK (RUM) -->
     <script type="text/javascript">
-        !function (T, l, y) { var S = T.location, k = "script", D = "instrumentationKey", C = "ingestionendpoint", I = "disableExceptionTracking", E = "ai.device.", b = "toLowerCase", nc = "crossOrigin", n = "POST", t = "statsig", A, g; function sx(o) { I[D] = o } function v(o, t) { var n = l.createElement(k); n.src = o, t && (n[nc] = t), y.parentNode.insertBefore(n, y) } var f = function (o, t) { return function () { var n = arguments; o.queue.push(function () { o[t].apply(o, n) }) } }; var m = function (o) { var t = l.createElement(k); t.src = o, t.async = !0, y.parentNode.insertBefore(t, y) }; var h = { config: {}, queue: [], callback: function (o) { var t = o.payload; if (t) { var n = t.instrumentationKey; n && (h.config[D] = n); var i = t.ingestionendpoint; i && (h.config[C] = i) } h.queue.forEach((function (o) { o() })), h.queue = [] }, send: function (o) { var t = new XMLHttpRequest; t.open(n, o), t.send() } }; h.queue = [], v("https://js.monitor.azure.com/scripts/b/ai.2.min.js"); var j = function (o, t) { var n = f(h, o); return h[o] = n, n }; j("trackEvent"), j("trackPageView"), j("trackException"), j("trackTrace"), j("trackDependencyRecord"), j("trackMetric"), j("setAuthenticatedUserContext"), j("clearAuthenticatedUserContext"), j("startTrackPage"), j("stopTrackPage"), j("startTrackEvent"), j("stopTrackEvent"), j("flush"), h.config = { instrumentationKey: "8fc596f2-bb91-49d7-8495-2ac1ecd30501", ingestionendpoint: "https://centralindia-0.in.liana.ice.azure.microsoft.com/" }, T.appInsights = h }(window, document, document.getElementsByTagName("head")[0]);
+        !function (T, l, y) {
+            var S = T.location, k = "script", D = "connectionString", C = "ingestionendpoint", I = "disableExceptionTracking", E = "ai.device.", b = "toLowerCase", a = "crossOrigin", n = "POST", t = "statsbeat", g = "enableResponseHeader", D = "connectionString"; var _ = y.url || "https://js.monitor.azure.com/scripts/b/ai.2.min.js"; if (y[D]) { var T = T.appInsights || (T.appInsights = {}); T.loadAppInsights = function () { var p = { config: y }; T.initialize = !0; var v = window.fetch; T.track = function (e, r, u, n) { var i = p.config.endpointUrl || "https://dc.services.visualstudio.com/v2/track"; v(i, { method: "POST", body: JSON.stringify(e), mode: "cors" }) } } } else { console.warn("AppInsights Connection String missing.") }
+        }(window, document, { connectionString: "InstrumentationKey=8fc596f2-bb91-49d7-8495-2ac1ecd30501;IngestionEndpoint=https://centralindia-0.in.liana.ice.azure.microsoft.com/" });
     </script>
-    <script src="../js/observability.js" defer></script>
+    <script src="../js/observability.js?v=2" defer></script>
 </head>
 
 <body class="dark-theme">
