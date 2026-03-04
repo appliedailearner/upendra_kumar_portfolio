@@ -107,6 +107,13 @@
             y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
         })(window, document, "clarity", "script", "v5iynlmgo7");
     </script>
+
+    <!-- Azure App Insights SDK (RUM) -->
+    <script type="text/javascript">
+        !function (T, l, y) {
+            var S = T.location, k = "script", D = "connectionString", C = "ingestionendpoint", I = "disableExceptionTracking", E = "ai.device.", b = "toLowerCase", a = "crossOrigin", n = "POST", t = "statsbeat", g = "enableResponseHeader", D = "connectionString"; var _ = y.url || "https://js.monitor.azure.com/scripts/b/ai.2.min.js"; if (y[D]) { var T = T.appInsights || (T.appInsights = {}); T.loadAppInsights = function () { var p = { config: y }; T.initialize = !0; var v = window.fetch; T.track = function (e, r, u, n) { var i = p.config.endpointUrl || "https://dc.services.visualstudio.com/v2/track"; v(i, { method: "POST", body: JSON.stringify(e), mode: "cors" }) } }() } else { console.warn("AppInsights Connection String missing.") }
+    </script>
+    <script src="js/observability.js" defer></script>
 </head>
 
 <body class="dark-theme">
@@ -187,70 +194,70 @@
                     </div>
 
                     <script>
-                        document.addEventListener('DOMContentLoaded', () => {
-                            const latencyElem = document.getElementById('azure-latency');
-                            const uptimeElem = document.getElementById('api-uptime');
-                            const aiStatusElem = document.getElementById('ai-status');
+            document.addEventListener('DOMContentLoaded', () => {
+                const latencyElem = document.getElementById('azure-latency');
+                const uptimeElem = document.getElementById('api-uptime');
+                const aiStatusElem = document.getElementById('ai-status');
 
-                            // Azure Function URL (Node.js backend)
-                            const API_URL = 'https://func-portfolio-latency-node-7433.azurewebsites.net/api/latency-probe';
+                // Azure Function URL (Node.js backend)
+                const API_URL = 'https://func-portfolio-latency-node-7433.azurewebsites.net/api/latency-probe';
 
-                            const updateTelemetry = async () => {
-                                try {
-                                    // 1. Fetch Real Latency (Client <-> Azure)
-                                    const start = performance.now();
+                const updateTelemetry = async () => {
+                    try {
+                        // 1. Fetch Real Latency (Client <-> Azure)
+                        const start = performance.now();
 
-                                    const response = await fetch(API_URL);
-                                    const data = await response.json();
+                        const response = await fetch(API_URL);
+                        const data = await response.json();
 
-                                    const end = performance.now();
-                                    const latency = Math.round(end - start);
+                        const end = performance.now();
+                        const latency = Math.round(end - start);
 
-                                    // Display Latency
-                                    latencyElem.innerText = `${latency}ms`;
+                        // Display Latency
+                        latencyElem.innerText = `${latency}ms`;
 
-                                    // Color coding (Green < 100ms, Yellow < 200ms)
-                                    if (latency < 100) latencyElem.className = "text-sm font-mono text-emerald-400 font-medium";
-                                    else if (latency < 200) latencyElem.className = "text-sm font-mono text-yellow-400 font-medium";
-                                    else latencyElem.className = "text-sm font-mono text-red-400 font-medium";
+                        // Color coding (Green < 100ms, Yellow < 200ms)
+                        if (latency < 100) latencyElem.className = "text-sm font-mono text-emerald-400 font-medium";
+                        else if (latency < 200) latencyElem.className = "text-sm font-mono text-yellow-400 font-medium";
+                        else latencyElem.className = "text-sm font-mono text-red-400 font-medium";
 
-                                    // 2. Verified Uptime (Static for now)
-                                    uptimeElem.innerText = "99.99%";
+                        // 2. Verified Uptime (Static for now)
+                        uptimeElem.innerText = "99.99%";
 
-                                    // 3. AI Model Status
-                                    if (data.status === "Online") {
-                                        aiStatusElem.innerText = "Active";
-                                        aiStatusElem.className = "text-sm font-mono text-emerald-400 font-medium";
-                                    } else {
-                                        aiStatusElem.innerText = "Degraded";
-                                        aiStatusElem.className = "text-sm font-mono text-yellow-400 font-medium";
-                                    }
+                        // 3. AI Model Status
+                        if (data.status === "Online") {
+                            aiStatusElem.innerText = "Active";
+                            aiStatusElem.className = "text-sm font-mono text-emerald-400 font-medium";
+                        } else {
+                            aiStatusElem.innerText = "Degraded";
+                            aiStatusElem.className = "text-sm font-mono text-yellow-400 font-medium";
+                        }
 
-                                } catch (error) {
-                                    console.warn("Telemetry Fetch Failed (likely CORS or Offline). Switching to Simulation Mode.");
+                    } catch (error) {
+                        console.warn("Telemetry Fetch Failed (likely CORS or Offline). Switching to Simulation Mode.");
 
-                                    // Fallback: Simulation Mode (So the UI never looks broken)
-                                    const mockLatency = 45 + Math.floor(Math.random() * 40);
+                        // Fallback: Simulation Mode (So the UI never looks broken)
+                        const mockLatency = 45 + Math.floor(Math.random() * 40);
 
-                                    latencyElem.innerText = `${mockLatency}ms`;
+                        latencyElem.innerText = `${mockLatency}ms`;
 
-                                    // Color coding
-                                    if (mockLatency < 100) latencyElem.className = "text-sm font-mono text-emerald-400 font-medium";
-                                    else latencyElem.className = "text-sm font-mono text-yellow-400 font-medium";
+                        // Color coding
+                        if (mockLatency < 100) latencyElem.className = "text-sm font-mono text-emerald-400 font-medium";
+                        else latencyElem.className = "text-sm font-mono text-yellow-400 font-medium";
 
-                                    uptimeElem.innerText = "99.98%";
+                        uptimeElem.innerText = "99.98%";
 
-                                    aiStatusElem.innerText = "Simulated";
-                                    aiStatusElem.className = "text-sm font-mono text-blue-400 font-medium";
-                                }
-                            };
+                        aiStatusElem.innerText = "Simulated";
+                        aiStatusElem.className = "text-sm font-mono text-blue-400 font-medium";
+                    }
+                };
 
-                            // Initial Call
-                            updateTelemetry();
+                // Initial Call
+                updateTelemetry();
 
-                            // Poll every 10 seconds
-                            setInterval(updateTelemetry, 10000);
-                        });
+                // Poll every 10 seconds
+                setInterval(updateTelemetry, 10000);
+            });
                     </script>
                 </div>
 
@@ -439,68 +446,68 @@
 
         <!-- Inline Script for Interactive Effects -->
         <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                // 1. Spotlight Effect
-                const cards = document.querySelectorAll('.spotlight-card');
-                cards.forEach(card => {
-                    card.addEventListener('mousemove', (e) => {
-                        const rect = card.getBoundingClientRect();
-                        const x = e.clientX - rect.left;
-                        const y = e.clientY - rect.top;
-                        card.style.setProperty('--mouse-x', `${x}px`);
-                        card.style.setProperty('--mouse-y', `${y}px`);
+                document.addEventListener('DOMContentLoaded', () => {
+                    // 1. Spotlight Effect
+                    const cards = document.querySelectorAll('.spotlight-card');
+                    cards.forEach(card => {
+                        card.addEventListener('mousemove', (e) => {
+                            const rect = card.getBoundingClientRect();
+                            const x = e.clientX - rect.left;
+                            const y = e.clientY - rect.top;
+                            card.style.setProperty('--mouse-x', `${x}px`);
+                            card.style.setProperty('--mouse-y', `${y}px`);
+                        });
                     });
+
+                    // 2. Animated Counters
+                    const counters = document.querySelectorAll('.counter-animate');
+                    const observerOptions = { threshold: 0.5 };
+
+                    const animateCounter = (el) => {
+                        const target = parseInt(el.getAttribute('data-target'));
+                        const duration = 1500; // ms
+                        const stepTime = 20;
+                        const steps = duration / stepTime;
+                        const increment = target / steps;
+                        let current = 0;
+
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                el.innerText = target;
+                                clearInterval(timer);
+                            } else {
+                                el.innerText = Math.ceil(current);
+                            }
+                        }, stepTime);
+                    };
+
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                animateCounter(entry.target);
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, observerOptions);
+
+                    counters.forEach(counter => observer.observe(counter));
+
+                    // 3. Premium Calculator Logic
+                    const slider = document.getElementById('vm-slider-premium');
+                    const countDisplay = document.getElementById('vm-count-display-premium');
+                    const savingsDisplay = document.getElementById('savings-display-premium');
+
+                    if (slider && countDisplay && savingsDisplay) {
+                        slider.addEventListener('input', (e) => {
+                            const val = parseInt(e.target.value);
+                            countDisplay.innerText = val;
+                            // Logic: $2k annual savings per optimized node/unit in enterprise scale
+                            const savings = (val * 2400) / 1000000;
+                            savingsDisplay.innerText = `$${savings.toFixed(1)}M`;
+                        });
+                    }
                 });
-
-                // 2. Animated Counters
-                const counters = document.querySelectorAll('.counter-animate');
-                const observerOptions = { threshold: 0.5 };
-
-                const animateCounter = (el) => {
-                    const target = parseInt(el.getAttribute('data-target'));
-                    const duration = 1500; // ms
-                    const stepTime = 20;
-                    const steps = duration / stepTime;
-                    const increment = target / steps;
-                    let current = 0;
-
-                    const timer = setInterval(() => {
-                        current += increment;
-                        if (current >= target) {
-                            el.innerText = target;
-                            clearInterval(timer);
-                        } else {
-                            el.innerText = Math.ceil(current);
-                        }
-                    }, stepTime);
-                };
-
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            animateCounter(entry.target);
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, observerOptions);
-
-                counters.forEach(counter => observer.observe(counter));
-
-                // 3. Premium Calculator Logic
-                const slider = document.getElementById('vm-slider-premium');
-                const countDisplay = document.getElementById('vm-count-display-premium');
-                const savingsDisplay = document.getElementById('savings-display-premium');
-
-                if (slider && countDisplay && savingsDisplay) {
-                    slider.addEventListener('input', (e) => {
-                        const val = parseInt(e.target.value);
-                        countDisplay.innerText = val;
-                        // Logic: $2k annual savings per optimized node/unit in enterprise scale
-                        const savings = (val * 2400) / 1000000;
-                        savingsDisplay.innerText = `$${savings.toFixed(1)}M`;
-                    });
-                }
-            });
         </script>
     </section>
 
@@ -1161,9 +1168,11 @@
                 <p style="font-size: 0.9rem; margin-bottom: 1rem; color: var(--text-muted);">Scan to view
                     on mobile</p>
                 <div
-                    style="padding: 0.5rem; background: rgba(255, 255, 255, 0.05); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);">
-                    <img src="assets/images/qr-code.webp" alt="Portfolio QR Code"
-                        style="width: 120px; height: 120px; border-radius: 8px; display: block;">
+                    style="padding: 0.5rem; background: rgba(255, 255, 255, 0.05); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); margin-top: 1rem;">
+                    <div class="status-ticker" id="system-status">
+                        <span class="status-dot pulse"></span>
+                        <span class="status-text">System Status: <span id="status-val">Online</span></span>
+                    </div>
                 </div>
             </div>
         </div>
