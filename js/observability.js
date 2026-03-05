@@ -157,18 +157,24 @@
         checkSystemHealth();
         setInterval(checkSystemHealth, 30000); // 30s heartbeat
 
-        // Sync UX Speed (Performance API)
-        setTimeout(() => {
-            const perf = window.performance.timing;
-            if (perf) {
-                const navTime = perf.loadEventEnd - perf.navigationStart;
+        // Global UX Speed Tracker (Modern Navigation Timing API)
+        const updateUXSpeed = () => {
+            const [entry] = performance.getEntriesByType('navigation');
+            if (entry && entry.loadEventEnd > 0) {
+                const navTime = Math.round(entry.loadEventEnd);
                 const speedElem = document.getElementById('ux-speed');
-                if (speedElem && navTime > 0) {
+                if (speedElem) {
                     speedElem.textContent = `${navTime}ms`;
                     speedElem.style.color = navTime < 1500 ? "#34d399" : "#fbbf24";
                 }
             }
-        }, 1000); // Wait for load event to finalize
+        };
+
+        if (document.readyState === 'complete') {
+            updateUXSpeed();
+        } else {
+            window.addEventListener('load', () => setTimeout(updateUXSpeed, 100));
+        }
     });
 
     console.log("[Observability] Governance Protocol Active.");
