@@ -21,7 +21,7 @@ $gitStatus = git status --porcelain
 if ($gitStatus) {
     Write-Host "Changes detected. Committing..." -ForegroundColor Yellow
     git add .
-    git commit -m $CommitMessage
+    git commit -m "$CommitMessage"
     if ($LASTEXITCODE -eq 0) {
         Write-Host "✓ Changes committed" -ForegroundColor Green
     }
