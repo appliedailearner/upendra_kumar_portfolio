@@ -298,8 +298,10 @@
                             </div>
                             <div class="text-right">
                                 <div class="stat-highlight">
-                                    <span class="stat-value counter-animate" data-target="99.9">0</span><span
-                                        class="stat-value">%</span>
+                                    <div class="flex items-baseline justify-end">
+                                        <span class="stat-value counter-animate" data-target="99.9">0</span>
+                                        <span class="stat-value">%</span>
+                                    </div>
                                     <span class="stat-label">Platform Core Reliability</span>
                                 </div>
                             </div>
@@ -420,8 +422,10 @@
                 const observerOptions = { threshold: 0.5 };
 
                 const animateCounter = (el) => {
-                    const target = parseInt(el.getAttribute('data-target'));
-                    const duration = 1500; // ms
+                    const targetStr = el.getAttribute('data-target');
+                    const target = parseFloat(targetStr);
+                    const isDecimal = targetStr.includes('.');
+                    const duration = 1500;
                     const stepTime = 20;
                     const steps = duration / stepTime;
                     const increment = target / steps;
@@ -430,10 +434,10 @@
                     const timer = setInterval(() => {
                         current += increment;
                         if (current >= target) {
-                            el.innerText = target;
+                            el.innerText = isDecimal ? target.toFixed(1) : target;
                             clearInterval(timer);
                         } else {
-                            el.innerText = Math.ceil(current);
+                            el.innerText = isDecimal ? current.toFixed(1) : Math.ceil(current);
                         }
                     }, stepTime);
                 };
