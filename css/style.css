@@ -58,7 +58,8 @@
     --navy-bg: #020617;
     --navy-card: #1e293b;
     --accent-blue: #38bdf8;
-    --accent-purple-light: #a855f7; /* Renamed to avoid overlap */
+    --accent-purple-light: #a855f7;
+    /* Renamed to avoid overlap */
     --glow-primary: rgba(124, 58, 237, 0.15);
 }
 
@@ -1197,8 +1198,10 @@ body::before {
         /* Remove gap for better control */
         transform: translateY(-100%);
         transition: all 0.3s ease-in-out;
-        z-index: 1001;
-        padding: 0;
+        z-index: 10001;
+        /* Boosted to be on top of everything */
+        padding: 5rem 0 0;
+        /* Padding for top branding */
     }
 
     .nav-menu.active {
@@ -1208,17 +1211,27 @@ body::before {
     .nav-menu li {
         width: 100%;
         text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        /* Clean separation */
     }
 
     .nav-menu a {
-        font-size: 1.5rem;
-        padding: 15px 0;
-        /* Touch-friendly padding */
+        font-size: 1.35rem;
+        /* Slightly smaller for better fit */
+        padding: 20px 0;
         display: block;
         text-align: center;
         opacity: 0;
         transform: translateY(20px);
         transition: opacity 0.3s, transform 0.3s;
+        border: none !important;
+        /* Fix: remove any borders */
+        text-decoration: none !important;
+    }
+
+    /* Suppress blue after lines on mobile */
+    .nav-menu a::after {
+        display: none !important;
     }
 
     .nav-menu.active a {
