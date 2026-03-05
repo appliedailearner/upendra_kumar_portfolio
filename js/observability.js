@@ -35,31 +35,43 @@
     }
 
     // 4. Custom Sanitization & Governance (Privacy PII Scrubbing)
+    let privacyHits = 0;
     if (window.appInsights && typeof window.appInsights.addTelemetryInitializer === 'function') {
         window.appInsights.addTelemetryInitializer((envelope) => {
+            let scrubbed = false;
             if (envelope.data && envelope.data.baseData) {
                 const data = envelope.data.baseData;
 
                 // Scrub PII from URL
                 if (data.url) {
+                    const originalUrl = data.url;
                     try {
                         const url = new URL(data.url);
-                        // Remove all search params for maximum privacy governance
                         data.url = url.origin + url.pathname;
+                        if (originalUrl !== data.url) scrubbed = true;
                     } catch (e) {
                         data.url = "scrubbed-url";
+                        scrubbed = true;
                     }
                 }
 
                 // Scrub Referrer
                 if (data.referrerInfo && data.referrerInfo.referrer) {
+                    const originalRef = data.referrerInfo.referrer;
                     try {
                         const ref = new URL(data.referrerInfo.referrer);
                         data.referrerInfo.referrer = ref.origin + ref.pathname;
+                        if (originalRef !== data.referrerInfo.referrer) scrubbed = true;
                     } catch (e) {
                         data.referrerInfo.referrer = "external";
+                        scrubbed = true;
                     }
                 }
+            }
+            if (scrubbed) {
+                privacyHits++;
+                const hitElem = document.getElementById('privacy-hits');
+                if (hitElem) hitElem.textContent = privacyHits;
             }
         });
     }
@@ -144,6 +156,19 @@
     document.addEventListener('DOMContentLoaded', () => {
         checkSystemHealth();
         setInterval(checkSystemHealth, 30000); // 30s heartbeat
+
+        // Sync UX Speed (Performance API)
+        setTimeout(() => {
+            const perf = window.performance.timing;
+            if (perf) {
+                const navTime = perf.loadEventEnd - perf.navigationStart;
+                const speedElem = document.getElementById('ux-speed');
+                if (speedElem && navTime > 0) {
+                    speedElem.textContent = `${navTime}ms`;
+                    speedElem.style.color = navTime < 1500 ? "#34d399" : "#fbbf24";
+                }
+            }
+        }, 1000); // Wait for load event to finalize
     });
 
     console.log("[Observability] Governance Protocol Active.");
