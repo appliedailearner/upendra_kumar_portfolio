@@ -569,21 +569,13 @@ function toggleProjectView(projectId, viewType) {
         if (viewType === 'business') {
             businessContent.classList.remove('hidden');
             technicalContent.classList.add('hidden');
-
-            businessBtn.classList.remove('text-gray-400', 'hover:text-white');
-            businessBtn.classList.add('bg-blue-600', 'text-white');
-
-            technicalBtn.classList.remove('bg-blue-600', 'text-white');
-            technicalBtn.classList.add('text-gray-400', 'hover:text-white');
+            businessBtn.classList.add('active');
+            technicalBtn.classList.remove('active');
         } else {
             businessContent.classList.add('hidden');
             technicalContent.classList.remove('hidden');
-
-            technicalBtn.classList.remove('text-gray-400', 'hover:text-white');
-            technicalBtn.classList.add('bg-blue-600', 'text-white');
-
-            businessBtn.classList.remove('bg-blue-600', 'text-white');
-            businessBtn.classList.add('text-gray-400', 'hover:text-white');
+            technicalBtn.classList.add('active');
+            businessBtn.classList.remove('active');
         }
     }
 }
