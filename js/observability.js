@@ -34,8 +34,8 @@
         }
     }
 
-    // 4. Custom Sanitization & Governance
-    if (window.appInsights) {
+    // 4. Custom Sanitization & Governance (Privacy PII Scrubbing)
+    if (window.appInsights && typeof window.appInsights.addTelemetryInitializer === 'function') {
         window.appInsights.addTelemetryInitializer((envelope) => {
             if (envelope.data && envelope.data.baseData) {
                 const data = envelope.data.baseData;
