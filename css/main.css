@@ -1229,19 +1229,20 @@ body::before {
         transition-delay: 0.6s;
     }
 
-    /* Mobile dropdown behavior */
+    /* Handled by dropdown.css (display logic and backgrounds) */
     .nav-menu .dropdown-menu {
-        position: static;
-        opacity: 1;
-        visibility: visible;
-        transform: none;
-        background: rgba(15, 23, 42, 0.98);
-        /* Solid opaque background */
-        margin: 0.5rem 1rem;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
-        border-radius: 8px;
+        position: static !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        border: none !important;
+        /* Fixes stray blue/purple line on mobile */
+        padding: 0 !important;
+        margin: 0 !important;
+        max-height: none !important;
+        overflow: visible !important;
+        box-shadow: none !important;
+        background: transparent !important;
     }
 
     .nav-menu .dropdown.active .dropdown-menu {
