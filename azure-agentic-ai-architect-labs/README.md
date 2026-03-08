@@ -1,48 +1,44 @@
-# Azure Agentic AI Reference Architecture (L67 Standard)
+# Azure Agentic AI Architect Labs
 
-Welcome to the Azure Agentic AI repository. This repository represents a fully functional, enterprise-scale reference architecture designed to demonstrate how to build, secure, and deploy autonomous, multi-agent AI systems on Microsoft Azure following the **Zero-Trust** and **FinOps** priorities demanded by Tier-1 enterprise customers.
+This repository is being reset into a credible Azure-first learning and reference repo for agentic AI. As of March 8, 2026, the repo is in a **week-one stabilization state**:
 
-This is not just a tutorial; it is a **production-ready Golden Path** implementing the advanced capabilities of the native Azure AI Foundry SDK.
+- the folder structure is now documented explicitly
+- module maturity is tracked in [MODULE-STATUS.md](./MODULE-STATUS.md)
+- the recommended starting point is the module 09 golden path
+- broad production-ready claims have been removed until the evidence exists
 
-## 🚀 Key Architectural Highlights
+## What This Repo Is
 
-This repository explicitly implements Microsoft Principal Architect (Level 67) design patterns:
+This repo is intended to become:
 
-### 1. Keyless Authentication (Entra ID RBAC)
-Historically, AI labs relied on statically managed API keys. This architecture forces the use of **Managed Identities (System-Assigned & User-Assigned)**. The entire deployment relies explicitly on Azure Role-Based Access Control:
-- `Cognitive Services OpenAI User`
-- `Search Index Data Reader`
-- `Key Vault Secrets User`
+- a structured learning path for Azure agentic AI labs
+- a reference implementation for a secure, Azure-native agent workflow
+- a delivery accelerator for architecture, security, and operations discussions
 
-### 2. The API Mediation Layer (Zero-Trust Automations)
-Connecting an autonomous agent directly to a production ERP or CRM system is a severe security violation. This architecture deploys an **Azure API Management (APIM)** layer combined with an **Azure Function App** acting as the sole intermediary for all `tool` execution, guaranteeing that agentic mutations are rate-limited, scoped, and auditable.
+## Current Maturity
 
-### 3. Coordinator/Worker Agent Orchestration
-This app uses the native **Azure AI Projects SDK** to implement an orchestrated multi-agent workflow:
-- **Coordinator Agent:** Uses a heavyweight model (`gpt-4o`) to reason over intent and plan tasks.
-- **Worker Agent(s):** Uses lightweight, cost-optmized models (`gpt-4o-mini`) to execute narrow context lookups (e.g., querying external CRM tools).
-This drastically reduced token consumption and prevents the "mega-prompt" hallucination issue.
+The repo is **not yet a full enterprise-grade reference implementation**. It currently has:
 
-### 4. RBAC-Secured Enterprise RAG
-The included Knowledge Base tool connects to an Azure AI Search hybrid index utilizing `DefaultAzureCredential`. It demonstrates the requirement to map the requesting user's `principal_id` to document-level ACLs, guaranteeing data security.
+- one prioritized golden path in [09-end-to-end-reference-implementation](./09-end-to-end-reference-implementation/README.md)
+- draft modules for the broader curriculum
+- partial Bicep assets and sample app code
+- baseline GitHub hygiene and validation workflows
 
-## 📂 Module Status & Repository Structure
+See [MODULE-STATUS.md](./MODULE-STATUS.md) for the current truth.
 
-To demonstrate comprehensive L67 enterprise capabilities, this repository is structured into 9 specific, deployable learning tracks.
+## Start Here
 
-| Module | Status | Runnable | Code | IaC |
-| :--- | :---: | :---: | :---: | :---: |
-| **01 - Foundry Foundations** | 🟢 Complete | ✅ | ✅ | ✅ |
-| **02 - Foundry Agent Service** | 🟢 Complete | ✅ | ✅ | ✅ |
-| **03 - Semantic Kernel Track** | 🟢 Complete | ✅ | ✅ | ✅ |
-| **04 - Agent Framework & Multi-Agent** | 🟢 Complete | ✅ | ✅ | ✅ |
-| **05 - RAG with Azure AI Search** | 🟢 Complete | ✅ | ✅ | ✅ |
-| **06 - MCP & Enterprise Tooling** | 🟢 Complete | ✅ | ✅ | ✅ |
-| **07 - Secure Reference Architecture** | 🟢 Complete | ✅ | ✅ | ✅ |
-| **08 - Observability & Evaluation** | 🟢 Complete | ✅ | ✅ | ✅ |
-| **09 - End-to-End Reference (Golden Path)** | 🟢 Complete | ✅ | ✅ | ✅ |
+Use this order:
+
+1. Read [QUICK-START.md](./QUICK-START.md)
+2. Review [REFERENCE-ARCHITECTURE.md](./REFERENCE-ARCHITECTURE.md)
+3. Run the module 09 validation path in [09-end-to-end-reference-implementation](./09-end-to-end-reference-implementation/README.md)
+4. Use [docs/repo-map.md](./docs/repo-map.md) to navigate the rest of the repo
+
+## Repository Layout
 
 ```text
+.
 ├── 01-foundry-foundations/
 ├── 02-foundry-agent-service/
 ├── 03-semantic-kernel-track/
@@ -52,32 +48,68 @@ To demonstrate comprehensive L67 enterprise capabilities, this repository is str
 ├── 07-secure-reference-architecture/
 ├── 08-observability-and-evaluation/
 ├── 09-end-to-end-reference-implementation/
-│   ├── app/                      # FastAPI Python Application
-│   │   ├── agent-service.py      # Main Agentic Engine
-│   │   ├── tools/                # CRM, Knowledge Base, Sales
-│   ├── deployment/               # deploy.sh
-│   ├── infra/                    # Implements APIM, Functions, Search, Key Vault, OpenAI, RBAC
+├── .github/
+├── docs/
+├── MODULE-STATUS.md
+├── QUICK-START.md
+├── REFERENCE-ARCHITECTURE.md
+└── ARCHITECTURE.md
 ```
 
-## 🛠️ Deployment Instructions
+## Recommended Learning Path
 
-*(Note: Ensure you are logged into Azure CLI with `az login` and possess Owner or User Access Administrator rights on your subscription to assign RBAC roles).*
+The intended learning sequence is:
 
-1. Steer into the deployment directory:
-   ```bash
-   cd 09-end-to-end-reference-implementation/deployment
-   ```
-2. Run validation (Dry-Run):
-   ```bash
-   VALIDATE_ONLY=true ./deploy.sh dev eastus
-   ```
-3. Execute deployment:
-   ```bash
-   ./deploy.sh dev eastus
-   ```
+1. Foundry foundations
+2. Foundry agent service
+3. Semantic Kernel patterns
+4. Multi-agent orchestration
+5. RAG with Azure AI Search
+6. MCP and enterprise tooling
+7. Secure reference architecture
+8. Observability and evaluation
+9. End-to-end reference implementation
 
-## 📚 Recommended Microsoft Deep Dives
-To deeply understand the design choices made in this repository, study:
-* [Azure/azure-openai-landing-zone](https://github.com/Azure/azure-openai-landing-zone)
-* [Azure-Samples/AI-Gateway](https://github.com/Azure-Samples/AI-Gateway)
-* [azure-search-openai-demo](https://github.com/Azure-Samples/azure-search-openai-demo)
+Only module 09 is currently positioned as the recommended execution path.
+
+## What Works Today
+
+Current week-one baseline:
+
+- a truthful top-level README and quick start
+- a documented module maturity view
+- a single reference architecture for the current golden path
+- a PowerShell validation script for module 09
+- basic GitHub workflow, CODEOWNERS, issue templates, and PR template
+
+## What Is Still In Progress
+
+- standardizing each module README to the same template
+- expanding infrastructure as code beyond the current baseline
+- adding security, governance, observability, and evaluation artifacts at enterprise depth
+- separating learning labs from the future enterprise reference track more cleanly
+
+## Support Boundary
+
+This repository should currently be treated as:
+
+- safe for learning and repo modernization work
+- useful for architecture discussion and pattern exploration
+- **not yet sufficient as a production deployment standard without further hardening**
+
+## Key Documents
+
+- [QUICK-START.md](./QUICK-START.md)
+- [MODULE-STATUS.md](./MODULE-STATUS.md)
+- [REFERENCE-ARCHITECTURE.md](./REFERENCE-ARCHITECTURE.md)
+- [ARCHITECTURE.md](./ARCHITECTURE.md)
+- [09-end-to-end-reference-implementation/README.md](./09-end-to-end-reference-implementation/README.md)
+- [docs/repo-map.md](./docs/repo-map.md)
+- [docs/terminology.md](./docs/terminology.md)
+
+## Immediate Next Steps
+
+- make module 09 the fully validated golden path
+- standardize the remaining modules to the same setup/run/validate/teardown template
+- add Bicep environment overlays and a non-prod deployment workflow
+- add security and governance artifacts before restoring stronger readiness claims

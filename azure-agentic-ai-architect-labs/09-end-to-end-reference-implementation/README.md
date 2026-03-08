@@ -1,60 +1,70 @@
 # Module 09: End-to-End Reference Implementation
 
-## Overview
+This module is the **current golden path** for the repository. It is the only module that should currently be used as the recommended execution path.
 
-This module provides a complete, production-ready reference implementation of Azure Agentic AI using Semantic Kernel, Copilot Studio, and OpenAI. It demonstrates best practices for building enterprise-grade AI agents on Azure.
+## Current Scope
 
-## Key Features
+This module provides:
 
-- **Semantic Kernel Agent Framework**: Extensible agent implementation using SK
-- **Multi-agent Orchestration**: Coordinate multiple specialized agents
-- **Azure Integration**: Seamless integration with Azure services
-- **Configuration Management**: Dynamic agent configuration and settings
-- **Testing Infrastructure**: Comprehensive unit and integration tests
-- **Async/Await Support**: High-performance concurrent operations
-- **FastAPI Web Service**: RESTful API for agent interactions
+- a Python agent baseline
+- supporting tests
+- a Bicep deployment baseline
+- a local validation script
 
-## Project Structure
+It does **not** yet prove full enterprise readiness. It is the week-one implementation baseline that the rest of the repo will be hardened around.
 
-```
+## Module Layout
+
+```text
 09-end-to-end-reference-implementation/
 ├── app/
+│   ├── agent.py
+│   ├── config.py
 │   ├── agents/
-│   │   ├── __init__.py
-│   │   ├── semantic_kernel_agent.py
-│   │   ├── config_agent.py
-│   │   └── orchestrator.py
-│   ├── tests/
-│   │   ├── __init__.py
-│   │   ├── conftest.py
-│   │   ├── test_agent.py
-│   │   └── test_integration.py
-│   └── agent.py
+│   ├── tools/
+│   └── tests/
 ├── deployment/
 ├── infra/
-├── requirements.txt
 ├── .env.example
+├── requirements.txt
+├── validate.ps1
 └── DEPLOYMENT-GUIDE.md
 ```
 
-## Quick Start
+## Local Validation Path
 
-1. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+### 1. Install dependencies
 
-2. Configure environment:
-   ```bash
-   cp .env.example .env
-   # Edit .env with your Azure credentials
-   ```
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+pip install -r .\requirements.txt
+```
 
-3. Run tests:
-   ```bash
-   pytest app/tests/ -v
-   ```
+### 2. Run tests
 
-## Documentation
+```powershell
+$env:PYTHONPATH = (Resolve-Path .).Path
+pytest .\app\tests -q
+```
 
-See [DEPLOYMENT-GUIDE.md](./DEPLOYMENT-GUIDE.md) for detailed deployment instructions.
+### 3. Run the validation script
+
+```powershell
+.\validate.ps1
+```
+
+## Expected Outcome
+
+The current local baseline is considered healthy when:
+
+- tests pass locally
+- the validation script confirms required files exist
+- the support boundary is understood before any Azure deployment attempt
+
+## Deployment Note
+
+The deployment scripts and Bicep are still part of the repo evolution. Treat Azure deployment here as a baseline for iteration, not as a finished production landing zone.
+
+Use [DEPLOYMENT-GUIDE.md](./DEPLOYMENT-GUIDE.md) only after reading the repo-level architecture docs.
