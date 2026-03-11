@@ -1,0 +1,47 @@
+<mxfile host="Electron" modified="2026-03-07T12:00:00.000Z" agent="Mozilla/5.0" etag="12345" version="21.1.2" type="device">
+  <diagram id="multi_agent" name="Semantic Kernel Multi-Agent">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="user" value="User Prompt" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="50" y="250" width="30" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="coordinator" value="Coordinator Agent&#10;(GPT-4o)&#10;Semantic Kernel Route/Plan" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DEECF9;strokeColor=#0078D4;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="230" width="180" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="researcher" value="Researcher Agent&#10;(GPT-4o-mini)&#10;RAG / Search Tooling" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF4CE;strokeColor=#D1A300;" vertex="1" parent="1">
+          <mxGeometry x="500" y="100" width="180" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="analyst" value="Analysis Agent&#10;(GPT-4o-mini)&#10;Python Code Interpreter" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF4CE;strokeColor=#D1A300;" vertex="1" parent="1">
+          <mxGeometry x="500" y="240" width="180" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="writer" value="Writer Agent&#10;(GPT-4o-mini)&#10;Doc Generation API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF4CE;strokeColor=#D1A300;" vertex="1" parent="1">
+          <mxGeometry x="500" y="380" width="180" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="user" target="coordinator">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e2" value="Subtask: Find Data" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.25;entryX=0;entryY=0.5;" edge="1" parent="1" source="coordinator" target="researcher">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e3" value="Subtask: Calc Metrics" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="coordinator" target="analyst">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e4" value="Subtask: Draft Report" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.75;entryX=0;entryY=0.5;" edge="1" parent="1" source="coordinator" target="writer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

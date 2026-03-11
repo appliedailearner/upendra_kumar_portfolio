@@ -1,0 +1,47 @@
+<mxfile host="Electron" modified="2026-03-07T12:00:00.000Z" agent="Mozilla/5.0" etag="12345" version="21.1.2" type="device">
+  <diagram id="enterprise_rag" name="Enterprise RAG">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="user" value="End User" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="50" y="250" width="30" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="app" value="App Service&#10;(Chat Frontend)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DEECF9;strokeColor=#0078D4;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="240" width="120" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="search" value="Azure AI Search&#10;(Vector Store&#10;+ Semantic Ranker)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF4CE;strokeColor=#D1A300;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="400" y="100" width="160" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="aoai" value="Azure OpenAI&#10;(GPT-4 &amp;&#10;Embeddings)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DFF6DD;strokeColor=#107C10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="400" y="380" width="160" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="blob" value="Blob Storage&#10;(Source PDF/Docs)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#F2F2F2;" vertex="1" parent="1">
+          <mxGeometry x="650" y="100" width="100" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="user" target="app">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e2" value="1. Retrieve Chunks" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.25;entryX=0;entryY=0.5;" edge="1" parent="1" source="app" target="search">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e3" value="2. Generate Answer" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.75;entryX=0;entryY=0.5;" edge="1" parent="1" source="app" target="aoai">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e4" value="Data Indexing" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;dashed=1;" edge="1" parent="1" source="blob" target="search">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

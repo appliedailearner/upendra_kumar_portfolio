@@ -1,0 +1,54 @@
+<mxfile host="Electron" modified="2026-03-07T12:00:00.000Z" agent="Mozilla/5.0" etag="12345" version="21.1.2" type="device">
+  <diagram id="apim_ai" name="Azure AI Gateway (APIM)">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <mxCell id="vnet" value="Azure Virtual Network (VNET)" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;align=left;verticalAlign=top;fillColor=none;strokeColor=#0078D4;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="100" width="500" height="400" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="client" value="Client App / User" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="50" y="250" width="30" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="apim" value="Azure API Management&#10;(AI Gateway)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E1DFDD;strokeColor=#0078D4;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="250" y="240" width="160" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="aoai_primary" value="Azure OpenAI Service&#10;(Primary Region)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DFF6DD;strokeColor=#107C10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="500" y="180" width="160" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="aoai_secondary" value="Azure OpenAI Service&#10;(Failover Region)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFD8D8;strokeColor=#A80000;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="500" y="300" width="160" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="log_analytics" value="Log Analytics&#10;(Token Auditing)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#F2F2F2;" vertex="1" parent="1">
+          <mxGeometry x="290" y="400" width="80" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge1" value="HTTPS / OAuth 2.0" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="client" target="apim">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="edge2" value="Managed Identity" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="apim" target="aoai_primary">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge3" value="Circuit Breaker" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="1" source="apim" target="aoai_secondary">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge4" value="Metrics" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="apim" target="log_analytics">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="note1" value="APIM Policies Enforced:&#10;1. azure-openai-emit-token-metric&#10;2. rate-limit-by-key (RPM/TPM)&#10;3. validate-jwt" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF4CE;" vertex="1" parent="1">
+          <mxGeometry x="230" y="120" width="200" height="90" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
