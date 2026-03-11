@@ -9,7 +9,7 @@ $sourceDir = Get-Location
 $tempDir = Join-Path $env:TEMP "portfolio-deploy-$(Get-Date -Format 'yyyyMMddHHmmss')"
 New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
 
-$exclude = @('.git', '.github', '.venv', 'node_modules', 'site_backups', '*.md', '*.py', '*.ps1', 'appliedailearner.github.io', 'azure-landing-zones-project', 'azure-projects', 'portfolio-deploy', 'portfolio-template', 'master prompts')
+$exclude = @('.git', '.github', '.venv', 'node_modules', 'site_backups', '*.md', '*.py', '*.ps1', 'appliedailearner.github.io', 'azure-landing-zones-project', 'azure-projects', 'portfolio-deploy', 'portfolio-template', 'master prompts', 'azure-agentic-ai-architect-labs')
 
 Get-ChildItem -Path $sourceDir -Recurse -ErrorAction SilentlyContinue | ForEach-Object {
     $rel = $_.FullName.Substring($sourceDir.Path.Length + 1)

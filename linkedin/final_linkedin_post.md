@@ -1,36 +1,17 @@
-# Final LinkedIn Post: The "War Story"
+I am seeing a dangerous new trend in Enterprise AI: **The "Pinning Trap."** 🚨
 
-**Selected Strategy**: Option 1 (High Engagement / Engineering Credibility)
+Developers are building incredibly powerful Agentic AI workflows using Semantic Kernel and LangChain, but to make them work quickly, they are bypassing enterprise security and hardcoding raw API keys—"pinning" them directly into their applications.
 
-**Visual Asset**: `linkedin_engineering_truths_dark.png` (The "3 Realities" Infographic)
+Why is this an enterprise disaster?
+1. 🛑 **Zero Auditability:** Security has no visibility into the actual prompts being sent or what data is being retrieved.
+2. 🛑 **Rotation Nightmares:** The moment you rotate the Azure OpenAI keys, you break the agent in production.
+3. 🛑 **Regulatory Violations:** Without mTLS or granular Managed Identity access controls, you are failing compliance checks right out of the gate.
 
----
+In my latest architecture deep-dive, I break down why the **API Mediation Layer** (using Azure API Management + Defender for APIs) is the only regulator-ready fix for enterprise Agentic workflows. 
 
-**Headline**:
-**Paper Architects draw lines. Real Engineers fight DNS.**
+There must be a gatekeeper between the Agent and the Foundation Model. Period.
 
-**Body**:
-Most "Enterprise AI" diagrams are lies. They show a clean line from "User" to "AI Model."
-They forget the firewall. They forget the latency. And they definitely forget that `privatelink.openai.azure.com` refuses to resolve correctly when you're 3 hops deep in a Hub-Spoke VNet.
+Read the full architecture breakdown here:
+👉 https://portfolio.upendrakumar.com/blog/2026-03-11-agentic-ai-pinning-trap-api-mediation.html
 
-I just deployed a **Regulator-Ready AI Platform** (UK South).
-It wasn't easy. Here are the 3 ugly truths I documented in my latest breakdown:
-
-🛑 **1. The "Premium" Tax**
-If you want IDPS and WAF, your baseline cost is ~$3k/month before the first token is generated. Security is an investment, not a feature.
-
-⏱️ **2. Physics is Real**
-Front Door -> Hub -> Spoke -> APIM adds ~20ms. If you don't have a semantic cache (Redis) sidecar, your users *will* hate you.
-
-🔗 **3. DNS is the Final Boss**
-Hybrid identity + Private Resolver is the only way to survive.
-
-I’ve shared the full **Blueprint (v5)**, the **Terraform code**, and the **"Junior Engineer's Glossary"** to help you build this yourself.
-
-Read the "Engineering Reality Check" here:
-👉 **[Link in Comments]**
-
-#Azure #CloudSecurity #AIArchitecture #RealWorldEngineering #DevOps #MicrosoftAzure
-
----
-*Note: Post the link `https://portfolio.upendrakumar.com/blog/2026-01-28-regulator-ready-ai-fortress.html` in the first comment to boost reach.*
+#Azure #AgenticAI #Cybersecurity #EnterpriseArchitecture #ZeroTrust #CloudSecurity #CloudArchitect
