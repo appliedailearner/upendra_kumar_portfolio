@@ -1172,15 +1172,17 @@ kernel.ImportPluginFromOpenApi(
                 style="color: #94a3b8; font-size: 0.8rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700;">
                 Spread the Insight</p>
             <div class="social-share-buttons">
-                <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn(event)" title="Share on LinkedIn"
-                    aria-label="Share on LinkedIn">
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fportfolio.upendrakumar.com%2Fblog%2F2026-03-11-agentic-ai-pinning-trap-api-mediation.html"
+                    target="_blank" class="share-btn linkedin" title="Share on LinkedIn" aria-label="Share on LinkedIn">
                     <i class="fab fa-linkedin"></i> LinkedIn
                 </a>
-                <a href="#" class="share-btn twitter" onclick="shareOnTwitter(event)" title="Share on X (Twitter)"
+                <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fportfolio.upendrakumar.com%2Fblog%2F2026-03-11-agentic-ai-pinning-trap-api-mediation.html&text=The%20New%20%22Pinning%20Trap%22%3A%20Why%20Hardcoded%20API%20Keys%20in%20Agentic%20AI%20Are%20a%20Security%20Disaster"
+                    target="_blank" class="share-btn twitter" title="Share on X (Twitter)"
                     aria-label="Share on Twitter">
                     <i class="fab fa-x-twitter"></i> Twitter
                 </a>
-                <a href="#" class="share-btn facebook" onclick="shareOnFacebook(event)" title="Share on Facebook">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fportfolio.upendrakumar.com%2Fblog%2F2026-03-11-agentic-ai-pinning-trap-api-mediation.html"
+                    target="_blank" class="share-btn facebook" title="Share on Facebook">
                     <i class="fab fa-facebook-f"></i> Facebook
                 </a>
                 <button class="share-btn copy-link" onclick="copyPageLink(this)" title="Copy Link"
@@ -1191,25 +1193,6 @@ kernel.ImportPluginFromOpenApi(
         </div>
 
         <script>
-            function shareOnLinkedIn(e) {
-                e.preventDefault();
-                const url = encodeURIComponent(window.location.href);
-                window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=600');
-            }
-
-            function shareOnTwitter(e) {
-                e.preventDefault();
-                const url = encodeURIComponent(window.location.href);
-                const text = encodeURIComponent(document.title);
-                window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
-            }
-
-            function shareOnFacebook(e) {
-                e.preventDefault();
-                const url = encodeURIComponent(window.location.href);
-                window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
-            }
-
             function copyPageLink(btn) {
                 const url = window.location.href;
                 navigator.clipboard.writeText(url).then(() => {
