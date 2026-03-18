@@ -1182,21 +1182,85 @@
             to an engineering-first workflow.
         </p>
 
-        <!-- Analogy Grid -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 3rem 0;">
-            <div class="glass-card" style="border-top: 3px solid #94a3b8;">
-                <h4 style="color: #f8fafc; margin-bottom: 1rem;"><i class="fas fa-map"
-                        style="margin-right: 10px; color: #94a3b8;"></i> The Static Artifact (The Map)</h4>
-                <p style="font-size: 0.95rem; color: #94a3b8;">Like a paper map printed in 1990. It was accurate the day
-                    it was made, but doesn't show the new highway or the bridge that collapsed. It's a snapshot of the
-                    past, destined to gathering dust and causing confusion.</p>
+        <!-- Analogy: Before vs After -->
+        <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; margin: 3rem 0; align-items: stretch;">
+            <!-- BEFORE: The Map -->
+            <div class="glass-card"
+                style="border: 1px solid rgba(248, 113, 113, 0.2); border-top: 3px solid #f87171; margin: 0; position: relative; overflow: hidden;">
+                <div
+                    style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: radial-gradient(circle, rgba(248, 113, 113, 0.08) 0%, transparent 70%); pointer-events: none;">
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem;">
+                    <div
+                        style="width: 50px; height: 50px; background: rgba(248, 113, 113, 0.1); border: 1px solid rgba(248, 113, 113, 0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">
+                        🗺️</div>
+                    <div>
+                        <span
+                            style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: #f87171; font-weight: 700;">The
+                            Old Way</span>
+                        <h4 style="color: #f8fafc; margin: 0; font-family: 'Outfit', sans-serif; font-size: 1.1rem;">
+                            Static Artifact</h4>
+                    </div>
+                </div>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li
+                        style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); color: #94a3b8; font-size: 0.9rem;">
+                        <i class="fas fa-times-circle" style="color: #f87171; margin-right: 8px; width: 16px;"></i>
+                        Stale the day after it's drawn</li>
+                    <li
+                        style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); color: #94a3b8; font-size: 0.9rem;">
+                        <i class="fas fa-times-circle" style="color: #f87171; margin-right: 8px; width: 16px;"></i>
+                        Manual pixel-pushing in Visio</li>
+                    <li
+                        style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); color: #94a3b8; font-size: 0.9rem;">
+                        <i class="fas fa-times-circle" style="color: #f87171; margin-right: 8px; width: 16px;"></i>
+                        Lives in SharePoint, not Git</li>
+                    <li style="padding: 0.5rem 0; color: #94a3b8; font-size: 0.9rem;"><i class="fas fa-times-circle"
+                            style="color: #f87171; margin-right: 8px; width: 16px;"></i> Nobody trusts it after Sprint 2
+                    </li>
+                </ul>
             </div>
-            <div class="glass-card" style="border-top: 3px solid #3b82f6;">
-                <h4 style="color: #f8fafc; margin-bottom: 1rem;"><i class="fas fa-location-arrow"
-                        style="margin-right: 10px; color: #3b82f6;"></i> The Programmable Asset (The GPS)</h4>
-                <p style="font-size: 0.95rem; color: #94a3b8;">Like a modern GPS with live traffic updates. It reflects
-                    reality in real-time, adjusts when the route changes (code changes), and ensures the Architect is
-                    always on the right path with zero documentation drift.</p>
+            <!-- VS divider -->
+            <div style="display: flex; align-items: center; justify-content: center; padding: 0 0.75rem;">
+                <div
+                    style="width: 44px; height: 44px; background: linear-gradient(135deg, rgba(248,113,113,0.2), rgba(52,211,153,0.2)); border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; color: #f8fafc; font-family: 'Outfit', sans-serif; letter-spacing: 1px;">
+                    VS</div>
+            </div>
+            <!-- AFTER: The GPS -->
+            <div class="glass-card"
+                style="border: 1px solid rgba(52, 211, 153, 0.2); border-top: 3px solid #34d399; margin: 0; position: relative; overflow: hidden;">
+                <div
+                    style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: radial-gradient(circle, rgba(52, 211, 153, 0.08) 0%, transparent 70%); pointer-events: none;">
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem;">
+                    <div
+                        style="width: 50px; height: 50px; background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">
+                        🛰️</div>
+                    <div>
+                        <span
+                            style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: #34d399; font-weight: 700;">The
+                            New Way</span>
+                        <h4 style="color: #f8fafc; margin: 0; font-family: 'Outfit', sans-serif; font-size: 1.1rem;">
+                            Programmable Asset</h4>
+                    </div>
+                </div>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li
+                        style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); color: #cbd5e1; font-size: 0.9rem;">
+                        <i class="fas fa-check-circle" style="color: #34d399; margin-right: 8px; width: 16px;"></i>
+                        Auto-updates when IaC changes</li>
+                    <li
+                        style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); color: #cbd5e1; font-size: 0.9rem;">
+                        <i class="fas fa-check-circle" style="color: #34d399; margin-right: 8px; width: 16px;"></i> AI
+                        generates pixel-perfect layouts</li>
+                    <li
+                        style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); color: #cbd5e1; font-size: 0.9rem;">
+                        <i class="fas fa-check-circle" style="color: #34d399; margin-right: 8px; width: 16px;"></i>
+                        Version-controlled in Git alongside code</li>
+                    <li style="padding: 0.5rem 0; color: #cbd5e1; font-size: 0.9rem;"><i class="fas fa-check-circle"
+                            style="color: #34d399; margin-right: 8px; width: 16px;"></i> Zero drift. Zero egress. Zero
+                        trust.</li>
+                </ul>
             </div>
         </div>
 
@@ -1205,46 +1269,103 @@
         </div>
         <h2 id="usb-c-moment"><span class="gradient-text">The "USB-C for AI" Moment</span></h2>
         <p>
-            The MCP is effectively the "USB-C for AI," providing a universal interface between LLMs and our engineering
-            tools. By leveraging an MCP server like <code>drawio-mcp</code>, we move away from manual labor and into
-            agentic workflows where AI can programmatically inspect, modify, and even "self-heal" our documentation.
+            The <a href="https://github.com/jgraph/drawio-mcp" target="_blank" rel="noopener"
+                style="color: #60a5fa; text-decoration: none; border-bottom: 1px dashed rgba(96,165,250,0.4);">drawio-mcp</a>
+            server from <strong>JGraph</strong> (the team behind Draw.io) is effectively the "USB-C for AI" — a
+            universal interface between LLMs and our engineering tools. It supports XML, CSV, and Mermaid.js formats
+            with export to <code>.drawio</code>, <code>.png</code>, <code>.svg</code>, and <code>.pdf</code>.
         </p>
-        <p>For those of us leading teams, there are <strong>four primary integration modes</strong> available today:</p>
+        <p>For those of us leading teams, there are <strong>four integration modes</strong> — pick the one that fits
+            your setup:</p>
 
         <div class="integration-grid">
+            <!-- Card 1: MCP App Server -->
             <div class="integration-card" style="--card-accent: #a855f7;">
                 <div class="card-icon"
                     style="background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.2);">
                     <i class="fas fa-window-restore" style="color: #a855f7;"></i>
                 </div>
                 <h4>MCP App Server</h4>
-                <p>Renders interactive iframes directly in your chat interface for instant visual feedback.</p>
+                <p>Renders diagrams <strong>inline in chat</strong> as interactive iframes via the <a
+                        href="https://modelcontextprotocol.io/docs/extensions/apps" target="_blank" rel="noopener"
+                        style="color: #c084fc;">MCP Apps</a> protocol. No browser tab required.</p>
+                <div style="margin-top: auto; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05);">
+                    <code
+                        style="font-size: 0.72rem; color: #c084fc; background: rgba(168,85,247,0.08); padding: 0.25rem 0.5rem; border-radius: 4px; display: block; text-align: center;">https://mcp.draw.io/mcp</code>
+                    <span
+                        style="display: block; text-align: center; font-size: 0.65rem; color: #64748b; margin-top: 0.35rem;">Hosted
+                        endpoint — zero install</span>
+                </div>
             </div>
+            <!-- Card 2: MCP Tool Server -->
             <div class="integration-card" style="--card-accent: #3b82f6;">
                 <div class="card-icon"
                     style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2);">
                     <i class="fas fa-terminal" style="color: #3b82f6;"></i>
                 </div>
                 <h4>MCP Tool Server</h4>
-                <p>Best for desktop workflows, using stdio to trigger your browser and open diagrams in a new tab.</p>
+                <p>The original server. Opens diagrams in the <strong>Draw.io editor</strong> via stdio. Supports XML,
+                    CSV, and Mermaid with dark mode and lightbox options.</p>
+                <div style="margin-top: auto; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05);">
+                    <code
+                        style="font-size: 0.72rem; color: #60a5fa; background: rgba(59,130,246,0.08); padding: 0.25rem 0.5rem; border-radius: 4px; display: block; text-align: center;">npx @drawio/mcp</code>
+                    <span
+                        style="display: block; text-align: center; font-size: 0.65rem; color: #64748b; margin-top: 0.35rem;">Published
+                        on <a href="https://www.npmjs.com/package/@drawio/mcp" target="_blank" rel="noopener"
+                            style="color: #60a5fa;">npm</a></span>
+                </div>
             </div>
+            <!-- Card 3: Skill + CLI -->
             <div class="integration-card" style="--card-accent: #34d399;">
                 <div class="card-icon"
                     style="background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.2);">
                     <i class="fas fa-code-branch" style="color: #34d399;"></i>
                 </div>
                 <h4>Skill + CLI</h4>
-                <p>For the "docs-as-code" purists, generating native .drawio files directly in your repository.</p>
+                <p>A Claude Code skill that writes native <code>.drawio</code> files with optional export to PNG, SVG,
+                    or PDF using <code>--embed-diagram</code>.</p>
+                <div style="margin-top: auto; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05);">
+                    <div style="display: flex; gap: 0.35rem; justify-content: center; flex-wrap: wrap;">
+                        <span
+                            style="padding: 0.15rem 0.4rem; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.2); border-radius: 4px; font-size: 0.65rem; color: #34d399;">.drawio</span>
+                        <span
+                            style="padding: 0.15rem 0.4rem; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.2); border-radius: 4px; font-size: 0.65rem; color: #34d399;">.png</span>
+                        <span
+                            style="padding: 0.15rem 0.4rem; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.2); border-radius: 4px; font-size: 0.65rem; color: #34d399;">.svg</span>
+                        <span
+                            style="padding: 0.15rem 0.4rem; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.2); border-radius: 4px; font-size: 0.65rem; color: #34d399;">.pdf</span>
+                    </div>
+                    <span
+                        style="display: block; text-align: center; font-size: 0.65rem; color: #64748b; margin-top: 0.35rem;">No
+                        MCP setup required</span>
+                </div>
             </div>
+            <!-- Card 4: Project Instructions -->
             <div class="integration-card" style="--card-accent: #fbbf24;">
                 <div class="card-icon"
                     style="background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.2);">
                     <i class="fas fa-link" style="color: #fbbf24;"></i>
                 </div>
                 <h4>Project Instructions</h4>
-                <p>A zero-infrastructure approach where the AI generates clickable Draw.io URLs via Python.</p>
+                <p>Zero infrastructure. Add instructions to a Claude Project — it generates clickable Draw.io URLs via
+                    <strong>Python code execution</strong>.</p>
+                <div style="margin-top: auto; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05);">
+                    <span
+                        style="display: block; text-align: center; font-size: 0.7rem; color: #fbbf24; font-weight: 600;"><i
+                            class="fas fa-magic" style="margin-right: 4px;"></i> Paste and go</span>
+                    <span
+                        style="display: block; text-align: center; font-size: 0.65rem; color: #64748b; margin-top: 0.35rem;">No
+                        server, no desktop app</span>
+                </div>
             </div>
         </div>
+        <!-- GitHub Source Link -->
+        <p style="text-align: center; margin-top: 1rem;">
+            <a href="https://github.com/jgraph/drawio-mcp" target="_blank" rel="noopener noreferrer"
+                style="color: #94a3b8; font-size: 0.85rem; text-decoration: none; transition: color 0.2s;"
+                onmouseover="this.style.color='#f8fafc'" onmouseout="this.style.color='#94a3b8'"><i
+                    class="fab fa-github" style="margin-right: 6px;"></i>Source: jgraph/drawio-mcp</a>
+        </p>
 
         <div class="section-divider">
             <div class="divider-icon"><i class="fas fa-coins"></i></div>
