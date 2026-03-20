@@ -165,6 +165,18 @@
 
 ---
 
+## Phase 1.5: Engineering & Deployment Guardrails (Lessons Learned from Production)
+**CRITICAL:** Before generating HTML arrays or finalizing assets, ensure the following hard-learned production rules are strictly followed:
+
+1. **Asset URL Encoding:** When linking to local images (e.g., `<img src="...">`), **ALWAYS URL-encode spaces** (replace spaces with `%20`). Unencoded spaces will render fine locally but will break instantly (404) when deployed to GitHub Pages or Azure Blob Storage.
+2. **Transparent Image Profiles:** If converting transparent images (e.g., Draw.io PNGs) to modern formats like WebP computationally, verify that transparency isn't destroying readability against the target CSS dark background (e.g., black text on an `#0f172a` container). If in doubt, use high-fidelity original PNGs.
+3. **Git Asset Tracking:** Any newly generated media assets (WebP, PNG) MUST be explicitly tracked (`git add`) and committed. Simply referencing them in the HTML is not enough; they will not deploy to the live server otherwise.
+4. **Mobile CSS Grids:** **NEVER** use inline grid styles for multi-column layouts (e.g., `style="display: grid; grid-template-columns: 1fr auto 1fr;"`). They will severely break responsive design on mobile devices. **Always** extract these to CSS classes with a proper `@media (max-width: 768px)` query to stack them vertically.
+5. **Mobile HTML Tables:** HTML tables do not natively wrap. Any `<table>` elements used for comparisons or matrices MUST be wrapped in a container div with `overflow-x: auto; overflow-y: hidden;` (NOT `overflow: hidden`) and given a safe minimum width (e.g., `min-width: 600px`) so mobile users can horizontally scroll without cropping the content or breaking the page margin.
+6. **CDN Caching Awareness:** Azure Blob Storage and Cloudflare caches HTML files heavily (e.g., 1-hour `max-age`). Assume that users/testers will see aggressively cached versions during testing. Suggest cache-busting URLs (e.g., appended with `?v=2`) when validating live CSS/HTML deployment fixes.
+
+---
+
 ## Phase 2: Technical Assembly & Formatting
 **Objective:** Take the content generated in Phase 1 and wrap it in the production-grade HTML template.
 
