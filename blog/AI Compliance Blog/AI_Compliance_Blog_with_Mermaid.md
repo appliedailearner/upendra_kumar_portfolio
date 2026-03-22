@@ -4,18 +4,19 @@ title: "The Compliance Gap in AI Platforms Is Not Security. It Is Proof."
 
 # The Compliance Gap in AI Platforms Is Not Security. It Is Proof.
 
-The architecture looked secure.
+Many AI platforms look secure in a diagram and still fail the audit question that matters:
 
-Cloudflare at the edge.  
-Palo Alto inspecting traffic.  
-Azure API Management in place.  
-Private endpoints everywhere.  
+**Can you prove the exact request path and show which control owns each step?**
 
-Then the audit question landed:
+That is the compliance gap.
 
-**Can you prove the exact path every request takes, and show which control owns each step?**
+## Executive summary
 
-That is where many AI platform designs start to wobble.
+- The gap is not usually missing perimeter tooling. It is missing evidence.
+- APIM should be treated as the AI control plane, not just a reverse proxy.
+- Private Endpoint does not change routing by itself. DNS determines the path.
+- Standard v2 can be enough for private backend access. Premium v2 is the fit when the gateway itself must sit inside the private boundary.
+- Compliance evidence has to be designed up front: policy state, RBAC, DNS resolution, telemetry, and retained logs.
 
 ## The architectural shift
 
@@ -23,63 +24,97 @@ A lot of teams still treat this as a gateway selection exercise.
 
 It is not.
 
-For regulated AI workloads, the real unit of architecture is the **landing zone**.
+For regulated AI workloads, the real unit of architecture is the **landing zone**: ingress, identity, private connectivity, DNS, policy enforcement, monitoring, and evidence designed as one control system.
 
 ```mermaid
 flowchart TD
-    A[Users and Apps] --> B[Ingress and Edge Controls]
-    B --> C[API and AI Gateway]
+    A[Clients and Apps] --> B[Ingress and Edge Controls]
+    B --> C[APIM as AI Control Plane]
     C --> D[Private Connectivity]
     D --> E[AI and Data Services]
-    E --> F[Logging and Evidence]
+    E --> F[Logs and Evidence]
 ```
 
-## APIM is now an AI Gateway
+## The Foundry agent gateway
 
-In an AI platform, APIM becomes the control point for:
-- model and service access
-- token validation
-- throttling and quotas
-- policy enforcement
+As teams move from chat interfaces to agents and tool use, the gateway role expands.
+
+It is no longer only about authentication and routing. It becomes the place to:
+
+- govern model access
+- enforce quotas
+- standardize backend connections
+- produce telemetry for operations and audit
 
 ```mermaid
 flowchart LR
-    U[Client App] --> G[APIM as AI Gateway]
+    U[Client App] --> G[APIM Gateway]
+    G --> O[Azure OpenAI or Foundry Models]
     G --> S[Azure AI Search]
-    G --> D[Document Intelligence]
-    G --> O[Azure OpenAI / Foundry]
-    G --> K[Key Vault]
-    G --> ST[Storage]
+    G --> T[Tool or API Backend]
+    G --> L[Logs and Metrics]
 ```
+
+## Five takeaways
+
+1. The AI gateway is a capability set inside APIM, not a separate product category.
+2. Token-based limits matter more than request counts for LLM workloads.
+3. Managed identity is the right default for backend authentication where supported.
+4. Gateway policy belongs in the compliance story because it is the active enforcement layer.
+5. Evidence quality matters as much as network isolation quality.
+
+## Policy enforcement
+
+Network routing is passive.
+
+APIM policy is active enforcement.
+
+That is where you validate client identity, apply rate and token controls, and authenticate to AI backends with managed identity.
+
+```xml
+<policies>
+  <inbound>
+    <base />
+    <validate-jwt header-name="Authorization">
+      <openid-config url="https://login.microsoftonline.com/{{tenant-id}}/v2.0/.well-known/openid-configuration" />
+      <audiences>
+        <audience>{{apim-app-registration-client-id}}</audience>
+      </audiences>
+    </validate-jwt>
+
+    <llm-token-limit
+      counter-key="@(context.Subscription.Id)"
+      tokens-per-minute="50000"
+      estimate-prompt-tokens="true" />
+
+    <authentication-managed-identity
+      resource="https://cognitiveservices.azure.com"
+      output-token-variable-name="msi-access-token" />
+  </inbound>
+</policies>
+```
+
+Be precise about what each control proves.
+
+- Token policy helps with quota governance.
+- Managed identity reduces secret sprawl.
+- Harm-content controls are not the same as PII-specific controls.
 
 ## The mistake most teams make
 
-They confuse **private connectivity** with **network control**.
+Teams often collapse three different questions into one:
 
-### VNet integration vs VNet injection
+- Can APIM reach private backends?
+- Is the gateway itself inside the private boundary?
+- Can the team prove there is no unmanaged bypass path?
 
-- **VNet integration** means APIM can reach private backends.
-- **VNet injection** means APIM itself becomes part of the private network boundary.
+Those are related, but not identical.
 
-```mermaid
-flowchart TB
-    subgraph Standard_v2["Standard v2 with VNet integration"]
-        C1[Client] --> A1[APIM]
-        A1 --> V1[Outbound VNet integration]
-        V1 --> P1[Private Backend]
-    end
+## DNS and network
 
-    subgraph Premium_v2["Premium v2 with VNet injection"]
-        C2[Client] --> W1[Ingress/WAF]
-        W1 --> A2[APIM inside VNet]
-        A2 --> P2[Private Backend]
-    end
-```
+**Private Endpoint does not change routing by itself. DNS changes routing.**
 
-## The most important line in the architecture
-
-**Private Endpoint does not change routing by itself.  
-DNS changes routing.**
+If name resolution is wrong, the architecture is wrong even if the private endpoint exists.
 
 ```mermaid
 sequenceDiagram
@@ -90,53 +125,69 @@ sequenceDiagram
 
     APIM->>DNS: Resolve backend FQDN
     DNS-->>APIM: Return private IP
-    APIM->>PE: Send HTTPS request
+    APIM->>PE: Send request
     PE->>BE: Forward privately
     BE-->>APIM: Response
 ```
 
-## Hybrid DNS pattern
+Use Private DNS Zones when Azure resources resolve private names inside Azure.
 
-If on-premises needs to resolve Azure private names, Private DNS Zones alone are not enough.
+Use Azure DNS Private Resolver when name resolution must cross boundaries, especially between on-premises and Azure.
 
 ```mermaid
 flowchart LR
     OP[On-prem App] --> OD[On-prem DNS]
     OD --> R[Azure DNS Private Resolver]
     R --> Z[Azure Private DNS Zones]
-    Z --> PE[Private Endpoint IP]
+    Z --> PE[Private Endpoint]
     PE --> SVC[Azure Service]
 ```
 
-## Decision guide
+## Defensible AI architecture
 
-```mermaid
-flowchart TD
-    Q1{Need private backend access?}
-    Q2{Need APIM itself inside network boundary?}
-    Q3{Need on-prem to resolve private names?}
+| Control objective | Engineering mechanism | Evidence |
+|---|---|---|
+| Prevent direct public access | Disable public network access where supported and enforce private endpoints | Policy state, network config, denied-path test results |
+| Centralize identity enforcement | Require JWT validation and APIM managed identity for backend calls | Role assignments, policy config, failed direct-access logs |
+| Prove request lineage | Centralized telemetry in App Insights or Log Analytics | Correlated KQL showing client -> APIM -> backend |
+| Control AI consumption | Token-based limits and backend segmentation | Policy definitions, token metrics, exception records |
 
-    Q1 -->|Yes| I[VNet integration is enough]
-    Q1 -->|No| P[No private networking needed]
+## Threat model
 
-    I --> Q2
-    Q2 -->|Yes| J[Use Premium v2 with VNet injection]
-    Q2 -->|No| S[Use Standard v2]
+| Threat | Failure mode | Mitigation |
+|---|---|---|
+| Network bypass | Clients reach AI services outside the governed path | Private endpoints, restricted ingress, denied-path validation |
+| Identity bypass | A caller reaches the backend outside gateway-owned identity flow | JWT validation, RBAC hardening, managed-identity-only access |
+| Evidence gaps | The platform works but cannot prove who called what and when | Correlated logs, retention, documented control ownership |
+| Unsafe model output | Harmful or sensitive content passes without review | Use the right moderation and PII-specific controls where required |
 
-    S --> Q3
-    J --> Q3
-    Q3 -->|Yes| R2[Add Azure DNS Private Resolver]
-    Q3 -->|No| Z2[Use Private DNS Zones only]
-```
+## Decision matrix
+
+| Option | Use when | Tradeoff |
+|---|---|---|
+| APIM Standard v2 + private backends | You need governed private access to backends | Lower cost, but not gateway-side isolation |
+| APIM Premium v2 injected | The gateway itself must sit inside the private boundary | Stronger boundary narrative, more cost and complexity |
+| Private DNS Resolver | You need private name resolution across Azure and on-premises | Useful for hybrid, unnecessary for many Azure-only designs |
+
+## Recommendations
+
+- Start the design review by naming the control objective, not the SKU.
+- Document the ingress path, identity path, DNS path, and telemetry path for each request class.
+- Use Standard v2 when private backend access is enough.
+- Move to Premium v2 when gateway-boundary isolation is explicitly required.
+- Write down the evidence package before go-live.
 
 ## Final thought
 
-Security protects.  
-Compliance proves.  
-Identity authorizes.  
-DNS directs.  
+Security protects.
+
+Compliance proves.
+
+Identity authorizes.
+
+DNS directs.
 
 Private endpoints hide the door.  
 DNS tells traffic where to go.  
 Identity decides who gets in.  
-Compliance starts when you can prove all three.
+A regulated AI platform is credible only when you can prove all three.

@@ -1074,988 +1074,263 @@
 <div class="toc-container">
     <h4><i class="fas fa-list-ul" style="margin-right: 8px;"></i> Inside this Post</h4>
     <ul class="toc-list">
-        <li><a href="#the-cast" class="toc-link">The Cast</a></li>
-        <li><a href="#a-safe-home-for-innovation" class="toc-link">AI Landing Zone Intro</a></li>
-        <li><a href="#foundry-landing-zone" class="toc-link">Azure AI Foundry LZ</a></li>
+        <li><a href="#executive-summary" class="toc-link">Executive Summary</a></li>
+        <li><a href="#the-architectural-shift" class="toc-link">Architectural Shift</a></li>
         <li><a href="#foundry-agent-gateway" class="toc-link">Foundry Agent Gateway</a></li>
         <li><a href="#five-impactful-takeaways" class="toc-link">5 Impactful Takeaways</a></li>
         <li><a href="#policy-enforcement" class="toc-link">Policy Enforcement</a></li>
-        <li><a href="#multi-backend-resiliency" class="toc-link">Multi-Backend Resiliency</a></li>
-        <li><a href="#the-architectural-shift" class="toc-link">Architectural Shift</a></li>
-        <li><a href="#defensible-ai-architecture" class="toc-link">Engineering Specification</a></li>
-        <li><a href="#full-control-toolkit" class="toc-link">Full Control & Toolkit</a></li>
-        <li><a href="#operationalizing-the-landing-zone" class="toc-link">Launch Checklist</a></li>
-        <li><a href="#threat-model" class="toc-link">Threat Model</a></li>
-        <li><a href="#enterprise-case-studies" class="toc-link">Enterprise Evidence</a></li>
         <li><a href="#the-mistake-most-teams-make" class="toc-link">The Mistake Most Teams Make</a></li>
         <li><a href="#dns-and-network" class="toc-link">DNS and Network</a></li>
+        <li><a href="#defensible-ai-architecture" class="toc-link">Engineering Specification</a></li>
+        <li><a href="#threat-model" class="toc-link">Threat Model</a></li>
         <li><a href="#decision-matrix" class="toc-link">Decision Matrix</a></li>
         <li><a href="#recommendations" class="toc-link">Recommendations</a></li>
+        <li><a href="#final-thought" class="toc-link">Final Thought</a></li>
     </ul>
 </div>
 
-        
         <div class="glass-card stunning-hero" style="margin: 3rem 0; padding: 3rem; position: relative; border: 1px solid rgba(56, 189, 248, 0.3); background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%); overflow: hidden;">
-    <!-- Visual background element -->
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.25; pointer-events: none; overflow: hidden;">
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.2; pointer-events: none; overflow: hidden;">
         <img src="../images/hero_chaos.webp" alt="" class="ken-burns" style="width: 100%; height: 100%; object-fit: cover; filter: blur(4px);">
     </div>
-    
     <div style="position: relative; z-index: 1;">
-        <p class="lead" style="font-size: 1.5rem; color: #f8fafc; font-weight: 700; line-height: 1.4; margin-bottom: 2rem; border-left: 4px solid #38bdf8; padding-left: 1.5rem;">
-            The initial wave of Generative AI experimentation has left many enterprises facing <span class="gradient-text">"GenAI Chaos."</span><br>
-            <span style="font-size: 1.1rem; color: #94a3b8; font-weight: 400; display: block; margin-top: 0.5rem;">
-                Applications break as they hit unmanaged rate limits, and security is a patchwork of hardcoded keys.
-            </span>
+        <p class="lead" style="font-size: 1.45rem; color: #f8fafc; font-weight: 700; line-height: 1.45; margin-bottom: 1.5rem; border-left: 4px solid #38bdf8; padding-left: 1.5rem;">
+            Many AI platforms look secure in a diagram and still fail the audit question that matters:
+            <span style="display: block; margin-top: 0.8rem; color: #cbd5e1; font-weight: 500;">Can you prove the exact request path and show which control owns each step?</span>
         </p>
-        
-        <div style="background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 12px; padding: 2rem; margin-top: 1rem;">
-            <p style="font-size: 1.1rem; color: #cbd5e1; margin: 0; line-height: 1.6;">
-                Developers are finding that while building a prompt is easy, running a <strong>Principal-grade production AI service</strong> requires a shift from "God Prompts" to structured <strong>Multi-Agent Orchestration</strong>. The solution is to implement an <strong>API Mediation Layer</strong> that acts as the central brain:
+        <div style="background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 12px; padding: 1.75rem; margin-top: 1rem;">
+            <p style="font-size: 1.05rem; color: #cbd5e1; margin: 0; line-height: 1.7;">
+                This is not primarily a gateway-selection problem. For regulated AI, the unit of design is the <strong>landing zone</strong>: ingress, identity, private connectivity, DNS, policy enforcement, logging, and evidence designed as one control system.
             </p>
-            <h3 style="margin-top: 1.5rem; color: #38bdf8; font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;">
-                <i class="fas fa-brain" style="margin-right: 15px;"></i> The API Mediation Layer
-            </h3>
         </div>
     </div>
 </div>
 
-        <h2 id="a-safe-home-for-innovation"><span class="gradient-text">A Safe Home for Innovation</span></h2>
-        
-        <div class="persona-take">
-            <div class="take-avatar"><div class="profile-ring ring-cyan"><img src="../images/profile.webp" alt="Lead Architect"></div></div>
-            <div class="take-content">
-                <span class="take-author">Lead Architect (Upendra)</span>
-                <p>"This is the <strong>Gold Standard for Day 2 Operations</strong>. By placing Azure OpenAI inside a Spoke VNET, we guarantee that <strong>your prompts never leave your private address space</strong>. This is how we win the trust of the CISO and the Regulator."</p>
-            </div>
-        </div>
-
-        <p>By integrating services like Azure OpenAI and Microsoft Foundry with built-in governance and networking, the AI ALZ ensures that your innovation isn't just fast, but also sustainable and safe.</p>
-
-                <div class="duo-grid">
-            <div class="duo-card bad" style="background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2); border-top: 4px solid #ef4444;">
-                <div class="duo-header" style="color: #fca5a5;"><i class="fas fa-biohazard" style="margin-right: 10px;"></i> <span>The "Messy" DIY Chaos</span></div>
-                <ul style="list-style: none; padding: 0; font-size: 0.95rem; color: #fecaca;">
-                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-key" style="color: #ef4444; margin-right: 12px;"></i> Scattered, hardcoded API keys.</li>
-                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-network-wired" style="color: #ef4444; margin-right: 12px;"></i> Traffic over the public internet.</li>
-                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-vault" style="color: #ef4444; margin-right: 12px;"></i> No verifiable audit trail of requests.</li>
-                    <li><i class="fas fa-exclamation-triangle" style="color: #ef4444; margin-right: 12px;"></i> Unmanaged rate limits affecting users.</li>
-                </ul>
-            </div>
-            <div class="duo-card good" style="background: rgba(52, 211, 153, 0.05); border: 1px solid rgba(52, 211, 153, 0.2); border-top: 4px solid #34d399;">
-                <div class="duo-header" style="color: #6ee7b7;"><i class="fas fa-shield-halved" style="margin-right: 10px;"></i> <span>The AI Landing Zone Order</span></div>
-                <ul style="list-style: none; padding: 0; font-size: 0.95rem; color: #d1fae5;">
-                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-id-card-clip" style="color: #34d399; margin-right: 12px;"></i> Managed Identities (Secret-less).</li>
-                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-dna" style="color: #34d399; margin-right: 12px;"></i> Hybrid Search + Semantic Ranker.</li>
-                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-microscope" style="color: #34d399; margin-right: 12px;"></i> AI Evaluation (Groundedness).</li>
-                    <li><i class="fas fa-gauge-high" style="color: #34d399; margin-right: 12px;"></i> Centrally managed scale guardrails.</li>
-                </ul>
-            </div>
-        </div>
-
-        <h2 id="foundry-landing-zone"><span class="gradient-text">Azure AI Foundry: Apps & Agents</span></h2>
-        <div class="cinematic-container reveal">
-            <div class="shine-overlay"></div>
-            <img src="../images/diagram_foundry_gateway.png" alt="Foundry Agent Service Gateway Architecture" class="cinematic-img">
-            <div style="padding: 1rem; text-align: center; background: rgba(15, 23, 42, 0.6); border-top: 1px solid rgba(255,255,255,0.05);">
-                <p style="font-size: 0.85rem; color: #94a3b8; margin: 0;">Figure 2: The Agentic Gateway Pattern (Premium Architectural Visual)</p>
-            </div>
-        </div>
-        
-        <div class="neon-box">
-            client = AIProjectClient.from_connection_string(conn_str)<br>
-            agent = client.agents.create_agent(model="gpt-4o", ...)
-        </div>
-
-        <div class="persona-take">
-            <div class="take-avatar"><div class="profile-ring ring-green"><img src="../images/avatar_trinity.png" alt="Cloud Engineer"></div></div>
-            <div class="take-content">
-                <span class="take-author">Cloud Engineer (Trinity)</span>
-                <p>"While the Gateway manages traffic, the **Foundry Landing Zone** is where we solve Groundedness. We use **Hybrid Search** (Semantic + Keyword) and the **Semantic Ranker** to reduce hallucination mathematically before the payload hits the LLM. That is the true engine of quality."</p>
-            </div>
-        </div>
-
-        <!-- Content Body -->
-        <!-- Use <h2><span class="gradient-text">Section Title</span></h2> for main sections -->
-        
-<!-- Premium Executive Impact Summary -->
-<div style="margin-bottom: 4rem; position: relative;">
-    <!-- Background ambient glow -->
-    <div style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 80%; height: 100px; background: radial-gradient(ellipse, rgba(168, 85, 247, 0.15) 0%, transparent 70%); filter: blur(30px); z-index: -1;"></div>
-
-    <div style="text-align: center; margin-bottom: 2rem;">
-        <span style="display: inline-block; padding: 0.4rem 1rem; background: rgba(168, 85, 247, 0.1); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 20px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 1rem;">
-            <i class="fas fa-chart-line" style="margin-right: 6px;"></i> Strategic Alignment & ROI
-        </span>
-        <h2 id="executive-impact" style="margin: 0; font-family: 'Outfit', sans-serif; font-size: 2.2rem; color: #f8fafc;">Executive Impact <span style="color: transparent; background: linear-gradient(90deg, #c084fc, #3b82f6); -webkit-background-clip: text; background-clip: text;">Summary</span></h2>
-    </div>
-
-    <style>
-    .executive-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.5rem;
-    }
-    @media (max-width: 900px) {
-        .executive-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-</style>
-<div class="executive-grid">
-        
-        <!-- Card 1: Business Problem -->
-        <div class="glass-card" style="padding: 2rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)); border: 1px solid rgba(248, 113, 113, 0.2); border-top: 3px solid #f87171; position: relative; overflow: hidden;">
-            <div style="position: absolute; top: -15px; right: -15px; opacity: 0.03; font-size: 8rem; color: #f87171;"><i class="fas fa-exclamation-triangle"></i></div>
-            <div style="width: 45px; height: 45px; background: rgba(248, 113, 113, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(248, 113, 113, 0.2);">
-                <i class="fas fa-fire" style="color: #f87171; font-size: 1.2rem;"></i>
-            </div>
-            <h4 style="color: #fca5a5; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">The Business Problem</h4>
-            <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">The architecture looked secure with gateways and private endpoints, but during an audit, we couldn't definitively prove the exact path of every request or which control owned each step. This lack of observability threatened a major compliance failure.</p>
-        </div>
-
-        <!-- Card 2: Strategic Play -->
-        <div class="glass-card" style="padding: 2rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)); border: 1px solid rgba(96, 165, 250, 0.2); border-top: 3px solid #60a5fa; position: relative; overflow: hidden;">
-            <div style="position: absolute; top: -15px; right: -15px; opacity: 0.03; font-size: 8rem; color: #60a5fa;"><i class="fas fa-chess-knight"></i></div>
-            <div style="width: 45px; height: 45px; background: rgba(96, 165, 250, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(96, 165, 250, 0.2);">
-                <i class="fas fa-network-wired" style="color: #60a5fa; font-size: 1.2rem;"></i>
-            </div>
-            <h4 style="color: #93c5fd; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">The Strategic Play</h4>
-            <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">We shifted from treating APIM as a mere gateway to positioning it as the core AI control plane within a secure landing zone, utilizing VNet injection and Hybrid DNS to enforce strict network boundaries and routing logic.</p>
-        </div>
-
-        <!-- Card 3: Executive ROI -->
-        <div class="glass-card" style="padding: 2rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)); border: 1px solid rgba(52, 211, 153, 0.2); border-top: 3px solid #34d399; position: relative; overflow: hidden;">
-            <div style="position: absolute; top: -15px; right: -15px; opacity: 0.03; font-size: 8rem; color: #34d399;"><i class="fas fa-award"></i></div>
-            <div style="width: 45px; height: 45px; background: rgba(52, 211, 153, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(52, 211, 153, 0.2);">
-                <i class="fas fa-chart-pie" style="color: #34d399; font-size: 1.2rem;"></i>
-            </div>
-            <h4 style="color: #6ee7b7; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">The Executive ROI</h4>
-            <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">Reduced AI prototype deployment cycle from 4 weeks to 3 business days, saving ~$45k per project in engineering overhead, and passing audits with zero network compliance findings.</p>
-        </div>
-    </div>
+<h2 id="executive-summary"><span class="gradient-text">Executive Summary</span></h2>
+<div class="glass-card" style="margin-bottom: 3rem;">
+    <ul style="margin: 0; padding-left: 1.25rem;">
+        <li>The gap in many AI platforms is not perimeter tooling. It is the inability to prove path, policy, and control ownership end to end.</li>
+        <li>APIM should be treated as the AI control plane, not just a reverse proxy.</li>
+        <li>Private Endpoint does not change routing by itself. DNS determines whether traffic actually takes the private path.</li>
+        <li>Standard v2 can be sufficient when you need private backend access. Premium v2 is the fit when the gateway itself must sit inside the private boundary.</li>
+        <li>Compliance evidence should be designed up front: policy state, RBAC, DNS resolution, flow telemetry, and logs tied to each control objective.</li>
+    </ul>
 </div>
 
-<h2 id="the-cast"><span class="gradient-text">The Cast</span></h2>
-<div class="cast-section">
-    <!-- Upendra (Lead Architect) -->
-    <div class="cast-card">
-        <div class="profile-ring ring-cyan">
-            <img src="../images/profile.webp" alt="Lead Architect">
-        </div>
-        <div class="cast-info">
-            <strong>Lead Architect (Upendra)</strong>
-            <p>Architecture, standards, trade-offs.</p>
-        </div>
-    </div>
-    <!-- Trinity (Cloud Engineer) -->
-    <div class="cast-card">
-        <div class="profile-ring ring-green">
-            <img src="../images/avatar_trinity.png" alt="Cloud Engineer">
-        </div>
-        <div class="cast-info">
-            <strong>Cloud Engineer (Trinity)</strong>
-            <p>Build, automation, operations.</p>
-        </div>
-    </div>
-    <!-- Morpheus (Security Architect) -->
-    <div class="cast-card">
-        <div class="profile-ring ring-purple">
-            <img src="../images/avatar_morpheus.png" alt="Security Architect">
-        </div>
-        <div class="cast-info">
-            <strong>Security Architect (Morpheus)</strong>
-            <p>Identity, data controls, audit.</p>
-        </div>
-    </div>
-
-    <!-- Customer Leadership -->
-    <div class="cast-card">
-        <div class="profile-ring ring-orange">
-            <img src="../images/avatar_leadership.png" alt="Customer Leadership">
-        </div>
-        <div class="cast-info">
-            <strong>Customer Leadership</strong>
-            <p>Risk acceptance & operating model.</p>
-        </div>
-    </div>
-    <!-- Project Manager -->
-    <div class="cast-card">
-        <div class="profile-ring ring-slate">
-            <img src="../images/avatar_pm.png" alt="Project Manager">
-        </div>
-        <div class="cast-info">
-            <strong>Project Manager</strong>
-            <p>Decisions, RACI, milestones.</p>
-        </div>
-    </div>
-</div>
-
-<h2 id="the-architectural-shift"><span class="gradient-text">The architectural shift</span></h2>
-<p>A lot of teams still treat this as a gateway selection exercise. It is not.</p>
-<p>For regulated AI workloads, the real unit of architecture is the **landing zone**. That means ingress, identity, private connectivity, DNS, API policy, AI governance, and monitoring have to be designed as one control system, not as separate product choices. That is exactly why <a href="https://github.com/Azure/AI-Landing-Zones" target="_blank">Microsoft’s AI Landing Zone</a> framing matters. It shifts the question from “Which gateway do I use?” to “Which control plane owns the AI platform?”</p>
+<h2 id="the-architectural-shift"><span class="gradient-text">The Architectural Shift</span></h2>
+<p>A lot of teams still treat this as a gateway selection exercise. That is too narrow.</p>
+<p>For regulated AI workloads, the real unit of architecture is the landing zone. Ingress, identity, private connectivity, DNS, API policy, model governance, and monitoring have to work together as one control system. That is why the <a href="https://github.com/Azure/AI-Landing-Zones" target="_blank" rel="noopener noreferrer">Azure AI Landing Zones</a> framing is useful: it moves the conversation from product comparison to control ownership.</p>
 
 <div class="cinematic-container reveal">
     <div class="shine-overlay"></div>
     <img src="../images/diagram_lz.png" alt="Azure AI Landing Zone Architecture" class="cinematic-img">
     <div style="padding: 1rem; text-align: center; background: rgba(15, 23, 42, 0.6); border-top: 1px solid rgba(255,255,255,0.05);">
-        <p style="font-size: 0.9rem; color: #94a3b8; margin: 0;">Architecture: Full Azure AI Landing Zone Pattern</p>
-    </div>
-</div>
-
-<div class="cinematic-container reveal" style="background: white;">
-    <div class="shine-overlay" style="background: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0) 100%);"></div>
-    <img src="https://raw.githubusercontent.com/Azure/AI-Landing-Zones/main/media/AI-Landing-Zones-APIM.png" alt="Azure AI Landing Zone for APIM" class="cinematic-img" style="filter: none;">
-    <div style="padding: 1rem; text-align: center; background: #f8fafc; border-top: 1px solid #e2e8f0;">
-        <p style="font-size: 0.9rem; color: #64748b; margin: 0;">Official Reference Architecture: AI Landing Zone for APIM Gateway</p>
-    </div>
-</div>
-
-<div class="persona-take">
-    <div class="take-avatar"><div class="profile-ring ring-cyan"><img src="../images/profile.webp" alt="Lead Architect"></div></div>
-    <div class="take-content">
-        <span class="take-author">Lead Architect (Upendra)</span>
-        <p>"Look at the centralized management hub. This is the **API Mediation Layer** in action. By placing it at the core, we unblock multi-year compliance delays and move from 'experimental' to 'enterprise-grade'. This is the Director-level play."</p>
+        <p style="font-size: 0.9rem; color: #94a3b8; margin: 0;">Architecture: AI Landing Zone Pattern</p>
     </div>
 </div>
 
 <h2 id="foundry-agent-gateway"><span class="gradient-text">The Foundry Agent Gateway</span></h2>
-<p>While the initial "GenAI Chaos" focused on simple chat interfaces, the next wave is about <strong>Foundry Agent Service</strong>. This requires a gateway that isn't just a pass-through, but a secure connection manager for agentic workflows. </p>
+<p>As teams move from simple chat experiences to agents and tool use, the gateway role expands. It is no longer only about authentication and routing. It becomes the place to govern model access, enforce quotas, standardize backend connections, and produce telemetry that operations and audit teams can use.</p>
 
 <div class="glass-card" style="margin: 2rem 0; padding: 1.5rem; text-align: center;">
     <img src="../images/diagram_foundry_gateway.png" alt="Foundry Agent Service Gateway Architecture" style="max-width: 100%; border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2);">
-    <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 1rem;">Architecture: Connecting Foundry Agent Service to models via APIM Gateway</p>
+    <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 1rem;">Architecture: Connecting Foundry Agent Service to governed model endpoints</p>
 </div>
 
-<p>The <code>azure-ai-projects</code> SDK introduces a unified connection pattern. We are moving away from the monolithic 'God Prompt'. Instead, we decompose tasks into a **Coordinator/Worker pattern**: a Coordinator evaluates intent, while specialized Workers (Researcher, Validator) execute tools. This reduces latency and token cost by over 40%.</p>
+<p>The key design point is not a specific orchestration pattern. It is that agent access to models and tools should be mediated through explicit gateway configuration and platform controls rather than ad hoc direct connections.</p>
 
-<div class="cinematic-container reveal">
-    <div class="shine-overlay"></div>
-    <img src="../images/diagram_naming_pattern.png" alt="Foundry Model Connection Naming Pattern" class="cinematic-img">
-    <div style="padding: 1rem; text-align: center; background: rgba(15, 23, 42, 0.6); border-top: 1px solid rgba(255,255,255,0.05);">
-        <p style="font-size: 0.9rem; color: #94a3b8; margin: 0;">Naming Pattern: Connection & Model Pathing for Agentic Workflows</p>
-    </div>
+<h2 id="five-impactful-takeaways"><span class="gradient-text">5 Impactful Takeaways</span></h2>
+<div class="glass-card" style="margin-bottom: 3rem;">
+    <ol style="margin: 0; padding-left: 1.25rem;">
+        <li>The AI gateway is a capability set inside APIM, not a separate product category.</li>
+        <li>Token-based limits matter more than request counts for LLM workloads.</li>
+        <li>Managed identity is the right default for backend authentication where supported.</li>
+        <li>Gateway policy belongs in the compliance story because it is the active enforcement layer.</li>
+        <li>Evidence quality matters as much as network isolation quality in regulated environments.</li>
+    </ol>
 </div>
 
-<div class="persona-take">
-    <div class="take-avatar"><div class="profile-ring ring-green"><img src="../images/avatar_trinity.png" alt="Cloud Engineer"></div></div>
-    <div class="take-content">
-        <span class="take-author">Cloud Engineer (Trinity)</span>
-        <p>"This SDK shift is a game-changer. By using the gated connection pattern, we eliminate 'orphan' AI services. If it's not in the gateway connection list, the Agent Service simply cannot reach it. That is baked-in governance."</p>
-    </div>
-</div>
+<h2 id="policy-enforcement"><span class="gradient-text">Policy Enforcement</span></h2>
+<p>Network routing is passive. APIM policy is active enforcement. This is where you validate client identity, apply rate and token controls, and authenticate to AI backends with managed identity.</p>
 
-<h2 id="five-impactful-takeaways"><span class="gradient-text">5 Impactful Takeaways for Architects</span></h2>
+<pre><code>&lt;policies&gt;
+    &lt;inbound&gt;
+        &lt;base /&gt;
+        &lt;validate-jwt header-name="Authorization"&gt;
+            &lt;openid-config url="https://login.microsoftonline.com/{{tenant-id}}/v2.0/.well-known/openid-configuration" /&gt;
+            &lt;audiences&gt;
+                &lt;audience&gt;{{apim-app-registration-client-id}}&lt;/audience&gt;
+            &lt;/audiences&gt;
+        &lt;/validate-jwt&gt;
 
-<div class="persona-take">
-    <div class="take-avatar"><div class="profile-ring ring-cyan"><img src="../images/profile.webp" alt="Lead Architect"></div></div>
-    <div class="take-content">
-        <span class="take-author">Lead Architect (Upendra)</span>
-        <strong>Takeaway 1: It’s Not a New Service—It’s an Evolution.</strong>
-        <p>"The AI gateway is not a separate product or SKU. It’s a set of capabilities within APIM (all tiers). This means your team leverages existing expertise without new toolchain friction."</p>
-    </div>
-</div>
+        &lt;llm-token-limit counter-key="@(context.Subscription.Id)"
+                         tokens-per-minute="50000"
+                         estimate-prompt-tokens="true" /&gt;
 
-<div class="persona-take">
-    <div class="take-avatar"><div class="profile-ring ring-green"><img src="../images/avatar_trinity.png" alt="Cloud Engineer"></div></div>
-    <div class="take-content">
-        <span class="take-author">Cloud Engineer (Trinity)</span>
-        <strong>Takeaway 2: Semantic Caching is the 'Cheat Code'.</strong>
-        <p>"Traditional caching relies on exact matches. Semantic caching uses 'vector proximity' to compare meaning. We check the 'meaning' of a prompt against prior requests before hitting the expensive model. This is a strategic cheat code for latency and cost."</p>
-    </div>
-</div>
+        &lt;authentication-managed-identity resource="https://cognitiveservices.azure.com"
+                                          output-token-variable-name="msi-access-token" /&gt;
+        &lt;set-header name="Authorization" exists-action="override"&gt;
+            &lt;value&gt;@("Bearer " + (string)context.Variables["msi-access-token"])&lt;/value&gt;
+        &lt;/set-header&gt;
+    &lt;/inbound&gt;
+&lt;/policies&gt;</code></pre>
 
-<div class="persona-take">
-    <div class="take-avatar"><div class="profile-ring ring-green"><img src="../images/avatar_trinity.png" alt="Cloud Engineer"></div></div>
-    <div class="take-content">
-        <span class="take-author">Cloud Engineer (Trinity)</span>
-        <strong>Takeaway 3: TPM-Based Rate Limiting.</strong>
-        <p>"In GenAI, RPM is insufficient because one request can cost 10 tokens or 10,000. We shift to 'Tokens per Minute' (TPM) limits. The gateway precalculates tokens at the edge, so we don't pay the latency penalty of a round-trip just to get a 429 error."</p>
-    </div>
-</div>
+<p>Be precise about what each control proves. Token policy helps with quota governance. Managed identity reduces secret sprawl. Harm-content filters help moderate unsafe content. If you need PII-specific controls, state those separately rather than implying that one safety control covers everything.</p>
 
-<div class="persona-take">
-    <div class="take-avatar"><div class="profile-ring ring-cyan"><img src="../images/profile.webp" alt="Lead Architect"></div></div>
-    <div class="take-content">
-        <span class="take-author">Lead Architect (Upendra)</span>
-        <strong>Takeaway 4: The Agent Orchestrator (MCP).</strong>
-        <p>"The gateway now supports Model Context Protocol (MCP). This transforms it from a passive controller into an orchestrator that enables agents to discover and use external tools. We turn legacy business logic into 'tools' an AI agent can 'do'."</p>
-    </div>
-</div>
-
-<div class="persona-take reveal">
-    <div class="take-avatar"><div class="profile-ring ring-purple"><img src="../images/avatar_morpheus.png" alt="Security Architect"></div></div>
-    <div class="take-content">
-        <span class="take-author">Security Architect (Morpheus)</span>
-        <strong>Takeaway 5: Secret-less Hybrid Security.</strong>
-        <p>"Static API keys in code are a disaster. We move to a secret-less architecture using Entra ID and Managed Identities. The gateway’s identity itself authenticates with backends like OpenAI. No keys to rotate. No secrets to leak."</p>
-    </div>
-</div>
-
-<div style="margin: 6rem 0; padding: 4rem 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); text-align: center;">
-    <h2 id="governed-ai-workflow" style="font-size: 2.8rem; margin-bottom: 1.5rem; color: #f8fafc; font-family: 'Outfit', sans-serif; font-weight: 700;">Governed AI Workflow Architecture</h2>
-    <p style="font-size: 1.2rem; color: #94a3b8; max-width: 800px; margin: 0 auto 4rem auto; line-height: 1.6;">Azure API Management acts as the mediation layer, governing access and policy while backend AI services remain specialized and isolated.</p>
-
-    <!-- Native Architecture Component (V7 - Standard Azure Layered Model) -->
-    <div class="azure-architecture-v7" style="max-width: 1000px; margin: 0 auto; background: #ffffff; border-radius: 16px; padding: 3rem; box-shadow: 0 40px 80px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); color: #1e293b; text-align: left; position: relative;">
-        
-        <!-- Cross-Cutting: Identity Band -->
-        <div style="position: absolute; left: -40px; top: 20%; bottom: 20%; width: 30px; background: rgba(139, 92, 246, 0.1); border: 1px dashed #8b5cf6; border-radius: 8px; writing-mode: vertical-rl; text-orientation: mixed; display: flex; align-items: center; justify-content: center; color: #8b5cf6; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">Identity & Access</div>
-
-        <!-- Layer 1: Application -->
-        <div style="margin-bottom: 3rem; border: 2px solid #cbd5e1; border-radius: 12px; padding: 1.5rem; background: #f8fafc; text-align: center;">
-            <div style="font-weight: 800; color: #64748b; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 1rem; letter-spacing: 1px;">Application Layer</div>
-            <div style="display: inline-block; padding: 1rem 2rem; background: #ffffff; border: 1px solid #0078d4; border-radius: 8px; font-weight: 700;">
-                <i class="fas fa-desktop" style="color: #0078d4; margin-right: 10px;"></i> User Interface / Agent App
-            </div>
-        </div>
-
-        <div style="text-align: center; margin: -1.5rem 0; color: #0078d4;"><i class="fas fa-arrow-down"></i></div>
-
-        <!-- Layer 2: API Mediation -->
-        <div style="margin: 3rem 0; border: 2px solid #005a9e; border-radius: 12px; padding: 2rem; background: #0078d4; color: #ffffff; text-align: center; box-shadow: 0 10px 30px rgba(0,120,212,0.3);">
-            <div style="font-weight: 800; color: rgba(255,255,255,0.7); font-size: 0.8rem; text-transform: uppercase; margin-bottom: 1rem; letter-spacing: 1px;">API Control Layer (Mediation)</div>
-            <div style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.5rem;">Azure API Management</div>
-            <div style="font-size: 0.9rem; opacity: 0.9; font-family: 'JetBrains Mono', monospace;">Policy • Authentication • Routing • Observability</div>
-        </div>
-
-        <div style="display: flex; justify-content: space-around; margin: -1.5rem 0; color: #0078d4;">
-            <i class="fas fa-arrow-down"></i>
-            <i class="fas fa-arrow-down"></i>
-            <i class="fas fa-arrow-down"></i>
-        </div>
-
-        <!-- Layer 3: AI Services -->
-        <div style="margin-top: 3rem; border: 2px solid #cbd5e1; border-radius: 12px; padding: 2rem; background: #f0f9ff;">
-            <div style="font-weight: 800; color: #64748b; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 1.5rem; letter-spacing: 1px; text-align: center;">AI Backend Services Layer</div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem;">
-                <div style="padding: 1.2rem; background: #ffffff; border: 1px solid #0078d4; border-radius: 8px; text-align: center;">
-                    <i class="fas fa-microchip" style="color: #8b5cf6; font-size: 1.5rem; margin-bottom: 0.8rem;"></i>
-                    <div style="font-weight: 700; font-size: 0.95rem;">Azure OpenAI</div>
-                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 0.4rem;">Inference & Generation</div>
-                </div>
-                <div style="padding: 1.2rem; background: #ffffff; border: 1px solid #0078d4; border-radius: 8px; text-align: center;">
-                    <i class="fas fa-magnifying-glass" style="color: #14b8a6; font-size: 1.5rem; margin-bottom: 0.8rem;"></i>
-                    <div style="font-weight: 700; font-size: 0.95rem;">Azure AI Search</div>
-                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 0.4rem;">Retrieval & Vector Search</div>
-                </div>
-                <div style="padding: 1.2rem; background: #ffffff; border: 1px solid #0078d4; border-radius: 8px; text-align: center;">
-                    <i class="fas fa-file-invoice" style="color: #0ea5e9; font-size: 1.5rem; margin-bottom: 0.8rem;"></i>
-                    <div style="font-weight: 700; font-size: 0.95rem;">Doc Intelligence</div>
-                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 0.4rem;">Extraction & Preprocessing</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Cross-Cutting: Observability Band -->
-        <div style="margin-top: 2rem; border: 1px dashed #14b8a6; border-radius: 8px; padding: 1rem; background: rgba(20, 184, 166, 0.05); display: flex; align-items: center; justify-content: center; gap: 2rem;">
-            <div style="color: #14b8a6; font-size: 0.75rem; font-weight: 800; text-transform: uppercase;">Observability & Audit</div>
-            <div style="font-size: 0.85rem; color: #475569;"><i class="fas fa-chart-line" style="margin-right: 6px;"></i> Azure Monitor</div>
-            <div style="font-size: 0.85rem; color: #475569;"><i class="fas fa-database" style="margin-right: 6px;"></i> Log Analytics</div>
-            <div style="font-size: 0.85rem; color: #475569;"><i class="fas fa-microscope" style="margin-right: 6px;"></i> APIM Diagnostics</div>
-        </div>
-    </div>
-
-    <div style="margin-top: 3rem; padding: 2rem; background: rgba(30, 41, 59, 0.4); border-radius: 12px; text-align: center; max-width: 800px; margin-left: auto; margin-right: auto;">
-        <p style="color: #f8fafc; font-size: 1.1rem; line-height: 1.6; margin-bottom: 1rem;"><strong>L67 Principle:</strong> Keep gateway control, backend capabilities, identity, and telemetry visually separate. This architectural hygiene is what makes the enterprise AI story defensible.</p>
-        <p style="color: #94a3b8; font-size: 0.9rem; font-family: 'JetBrains Mono', monospace;">[Standardized Layered Microsoft Azure Architecture - V7]</p>
-    </div>
-</div>
-
-<div class="glass-card roi-calculator reveal">
-    <h3 style="color: #38bdf8; font-family: 'Outfit', sans-serif; text-align: center; margin-bottom: 2rem;">L67 Strategy: Innovation ROI Calculator</h3>
-    <p style="text-align: center; color: #94a3b8; margin-bottom: 2.5rem;">Estimate the "Speed of Trust" gains by switching from manual silos to the AI Landing Zone.</p>
-    
-    <div class="roi-controls">
-        <div class="roi-slider-group">
-            <label>Current Manual Audit Days: <span id="days-val" style="color: #38bdf8;">15</span></label>
-            <input type="range" min="5" max="60" value="15" class="roi-slider" id="audit-days">
-        </div>
-        <div class="roi-slider-group">
-            <label>Workload Complexity: <span id="complex-val" style="color: #38bdf8;">Moderate</span></label>
-            <input type="range" min="1" max="3" value="2" class="roi-slider" id="complexity">
-        </div>
-    </div>
-
-    <div class="roi-results">
-        <div class="roi-stat">
-            <span class="roi-stat-val" id="time-reduction">75%</span>
-            <span class="roi-stat-label">Time-to-Market Gain</span>
-        </div>
-        <div class="roi-stat">
-            <span class="roi-stat-val" id="risk-mitigation">High</span>
-            <span class="roi-stat-label">Regulatory Confidence</span>
-        </div>
-        <div class="roi-stat">
-            <span class="roi-stat-val" id="cost-efficiency">4.2x</span>
-            <span class="roi-stat-label">Spend Efficiency</span>
-        </div>
-    </div>
-    
-    <div style="margin-top: 2rem; text-align: center;">
-        <p style="font-size: 0.85rem; color: #64748b; font-style: italic;">*Calculated based on average L67 benchmarks for Azure AI Foundry adoption.</p>
-    </div>
-</div>
-        <div class="explanation-item" id="exp-msi">
-            <strong>3. Secret-less Identity</strong>
-            <p>The gateway uses its own Managed Identity to talk to OpenAI. No API keys are stored in code or environment variables.</p>
-        </div>
-        <div class="explanation-item" id="exp-metrics">
-            <strong>4. ROI Attribution</strong>
-            <p>Every token used is emitted to App Insights with a Subscription ID. We can prove exactly which business unit is driving AI value.</p>
-        </div>
-        <div class="explanation-item" id="exp-safety">
-            <strong>5. Content Firewall</strong>
-            <p>We intercept responses to ensure the model isn't leaking PII or generating unsafe content before it reaches the user.</p>
-        </div>
-    </div>
-</div>
-
-<div class="persona-take reveal">
-    <div class="take-avatar"><div class="profile-ring ring-purple"><img src="../images/avatar_morpheus.png" alt="Security Architect"></div></div>
-    <div class="take-content">
-        <span class="take-author">Security Architect (Morpheus)</span>
-        <p>"Don't just log that a request happened. Log the *cost*. By using <code>llm-emit-token-metric</code>, we turn technical telemetry into financial intelligence. This is how we prove to the board that the AI spend is aligned with business value."</p>
-    </div>
-</div>
-<h2 id="the-mistake-most-teams-make"><span class="gradient-text">The mistake most teams make</span></h2>
-<p>Microsoft’s current APIM documentation makes that distinction clearer than older guidance did. Standard v2 and Premium v2 both support outbound virtual network integration so APIM can reach private backends. Premium v2 alone supports virtual network injection, where the gateway itself is deployed inside the VNet. (<a href="https://learn.microsoft.com/en-us/azure/api-management/v2-service-tiers-overview" target="_blank">Microsoft Learn</a>)</p>
-
-<p>So the real question is no longer: <strong>Do I need Premium to go private?</strong> It is: <strong>Do I only need private paths, or do I need APIM itself inside the private network boundary?</strong></p>
-
-<div class="glass-card reveal" style="margin: 2rem 0; padding: 1.5rem; text-align: center;">
-    <img src="../images/diagram_vnet.png" alt="Standard v2 vs Premium v2 Network Patterns" style="max-width: 100%; border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2);">
-    <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 1rem;">Architecture: VNet Integration vs VNet Injection Comparison</p>
-</div>
-
-<h2 id="a-real-design-review-moment"><span class="gradient-text">A real design review moment</span></h2>
-<p>A version of this happens in almost every regulated program. We recently had a case with APIM Standard v2, private endpoints on backend services, and strong edge controls. Then someone said: **“No Premium v2 means no UDR. No UDR means no compliance.”**</p>
-<p>That sounds reasonable. It is also incomplete. Compliance frameworks do not require a specific APIM tier; they require controlled flows, no unmanaged bypass path, policy enforcement, and evidence.</p>
-
-<h2 id="this-pattern-can-be-valid-pattern"><span class="gradient-text">this pattern can be valid pattern</span></h2>
-<p>A pattern like this can be entirely reasonable:</p>
-<div class="cinematic-container reveal">
-    <div class="shine-overlay"></div>
-    <img src="../images/diagram_ingress_chain.png" alt="Secure AI Ingress Chain Pattern" class="cinematic-img">
-    <div style="padding: 1rem; text-align: center; background: rgba(15, 23, 42, 0.6); border-top: 1px solid rgba(255,255,255,0.05);">
-        <p style="font-size: 0.9rem; color: #94a3b8; margin: 0;">Control Path: Defensive Ingress Chain (Front Door + APIM + Content Safety)</p>
-    </div>
-</div>
-<p>If the design ensures forced ingress, private backends, and centralized logging, it can satisfy many compliance objectives even without Premium v2. The control objective is not “Use UDR”; it is **“No bypass path, and prove it.”**</p>
-
-<h2 id="what-apim-standard-v2-is-doing"><span class="gradient-text">What APIM Standard v2 is actually doing</span></h2>
-<p>APIM Standard v2 uses **outbound virtual network integration** to reach private backends. Microsoft documents this explicitly: the gateway, management plane, and developer portal remain publicly accessible, but the outbound traffic stays on the Azure backbone. (<a href="https://learn.microsoft.com/en-us/azure/api-management/v2-service-tiers-overview" target="_blank">Microsoft Learn</a>)</p>
-
-<h2 id="the-most-important-line"><span class="gradient-text">The most important line in the architecture</span></h2>
-<p><strong>Private Endpoint does not change routing by itself. DNS changes routing.</strong> If DNS is wrong, the architecture is wrong.</p>
-
-<div class="cinematic-container reveal">
-    <div class="shine-overlay"></div>
-    <img src="../images/diagram_dns_sequence.png" alt="Backend DNS Connectivity Sequence" class="cinematic-img">
-    <div style="padding: 1rem; text-align: center; background: rgba(15, 23, 42, 0.6); border-top: 1px solid rgba(255,255,255,0.05);">
-        <p style="font-size: 0.9rem; color: #94a3b8; margin: 0;">Sequence: Private Link Connectivity Flow & DNS Resolution</p>
-    </div>
-</div>
-
-<h2 id="the-dns-backbone"><span class="gradient-text">The DNS backbone</span></h2>
-<p>For this kind of backend stack, the important zones usually include `privatelink.search.windows.net`, `privatelink.cognitiveservices.azure.com`, and `privatelink.blob.core.windows.net`. These zones preserve hostname-based TLS and avoid brittle IP-based configuration. (<a href="https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns" target="_blank">Microsoft Learn</a>)</p>
-
-<h2 id="dns-and-network"><span class="gradient-text">DNS and network both matter</span></h2>
-<p>DNS gives the address; the network gives the path. A design can still fail if DNS resolves correctly but routing is missing, or if NSG rules block the path. DNS alone does not solve connectivity; it solves name resolution.</p>
-
-<h2 id="vnet-integration-vs-vnet-injection"><span class="gradient-text">VNet integration vs VNet injection</span></h2>
-<p><strong>VNet integration</strong> means APIM can reach your private resources (Best for: simpler operations, lower cost). <strong>VNet injection</strong> means APIM itself becomes part of the private boundary (Best for: stronger isolation, stricter network control). (<a href="https://learn.microsoft.com/en-us/azure/api-management/integrate-vnet-outbound" target="_blank">Microsoft Learn</a>)</p>
-
-<h2 id="decision-guide"><span class="gradient-text">Standard v2 vs Premium v2, stated precisely</span></h2>
-<p>Standard v2 enables private connectivity and strong API policy control. Premium v2 is the stronger fit when the gateway itself must be part of the private boundary. That is better than saying “Premium is more secure.”</p>
-
-<h2 id="dns-resolving"><span class="gradient-text">Private DNS Zones vs Private DNS Resolver</span></h2>
-<p><strong>Use Private DNS Zones</strong> when Azure resources need to resolve private names inside Azure. <strong>Use Azure DNS Private Resolver</strong> when DNS needs to cross boundaries, especially between on-premises and Azure. (<a href="https://learn.microsoft.com/en-us/azure/dns/dns-private-resolver-overview" target="_blank">Microsoft Learn</a>)</p>
-
-<div style="margin: 4rem 0; padding: 3rem 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); text-align: center;">
-    <h2 id="hybrid-dns-final" style="font-size: 2rem; margin-bottom: 1rem; color: #f8fafc; font-family: 'Outfit', sans-serif;">Standardized Hybrid DNS Resolution</h2>
-    <p style="font-size: 1.1rem; color: #94a3b8; max-width: 800px; margin: 0 auto 3rem auto; line-height: 1.6;">A production-grade Azure hybrid DNS design must clearly separate the resolution path from the application traffic path.</p>
-
-    <!-- Master Architecture Visual (V4 - Standard Azure Style) -->
-    <div style="margin: 3rem auto; max-width: 1000px; border-radius: 12px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); background: #ffffff;">
-        <img src="../images/azure_hybrid_dns_v4.png" alt="Standard Hybrid DNS Resolution Architecture - Microsoft Azure" style="width: 100%; display: block;">
-    </div>
-</div>
-
-<h2 id="defensible-ai-architecture"><span class="gradient-text">Defensible AI Architecture: Engineering Spec</span></h2>
-
-<table class="spec-table">
-    <thead>
-        <tr>
-            <th>Executive Requirement</th>
-            <th>Engineering Implementation</th>
-            <th>The "Proof" (Audit Artifact)</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><strong>Prevent Network Bypass</strong></td>
-            <td>Disable Public Network Access; Enforce Private Endpoints.</td>
-            <td>Azure Policy: <code>Deny public network access</code>.</td>
-        </tr>
-        <tr>
-            <td><strong>Prevent Identity Bypass</strong></td>
-            <td>Grant RBAC only to APIM Managed Identity.</td>
-            <td>Entra ID Role Assignments; 401 logs for direct access.</td>
-        </tr>
-        <tr>
-            <td><strong>Prove Data Lineage</strong></td>
-            <td>Centralized Logging (Log Analytics).</td>
-            <td>KQL queries showing <code>Frontend -> APIM -> Backend</code>.</td>
-        </tr>
-    </tbody>
-</table>
-
-<div class="glass-card reveal" style="margin: 2rem 0; padding: 1.5rem; text-align: center;">
-    <img src="https://camo.githubusercontent.com/672f756db9f9bdbf65f2201e504265cb27229d66347d686400626bf815e33269/68747470733a2f2f6c6561726e2e6d6963726f736f66742e636f6d2f656e2d75732f617a7572652f77656c6c2d61726368697465637465642f61692f696d616765732f61692d6172636869746563747572652d7061747465726e2e706e67" alt="Azure Well-Architected AI Pattern" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(56, 189, 248, 0.2);">
-    <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 1rem;">Microsoft Well-Architected Framework: AI Architecture Pattern</p>
-</div>
-
-<div class="persona-take reveal">
-    <div class="take-avatar"><div class="profile-ring ring-purple"><img src="../images/avatar_morpheus.png" alt="Security Architect"></div></div>
-    <div class="take-content">
-        <span class="take-author">Security Architect (Morpheus)</span>
-        <p>"This WAF pattern isn't just a suggestion; it's our blueprint for defense-in-depth. Notice the explicit layers of protection—from the client-side authentication to the private backend isolation."</p>
-    </div>
-</div>
-
-<h2 id="threat-model"><span class="gradient-text">Threat Model & Mitigation Matrix</span></h2>
-<p>Aligning with the <strong>Microsoft Cloud Security Benchmark v2</strong>, here is how the design mitigates high-risk vectors:</p>
-
-<table class="spec-table">
-    <thead>
-        <tr>
-            <th>Threat Vector</th>
-            <th>Scenario</th>
-            <th>Architectural Mitigation</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><strong>Insider Access</strong></td>
-            <td>Developer VMs into VNet to prompt legacy AI directly.</td>
-            <td><strong>Identity Lock.</strong> Service rejects call (401) without APIM Managed Identity.</td>
-        </tr>
-        <tr>
-            <td><strong>Stolen Token</strong></td>
-            <td>Attacker steals valid JWT from client app.</td>
-            <td><strong>Network Lock.</strong> Traffic dropped (403) from public internet path.</td>
-        </tr>
-        <tr>
-            <td><strong>Data Exfiltration</strong></td>
-            <td>Prompt designed to leak system instructions.</td>
-            <td><strong>Content Safety.</strong> APIM intercepts/drops malicious payloads via Content Safety APIs.</td>
-        </tr>
-    </tbody>
-</table>
-
-<h2 id="enterprise-case-studies"><span class="gradient-text">Enterprise Evidence: Proven Differentiators</span></h2>
-
-<div class="glass-card" style="margin-bottom: 2rem; border-left: 4px solid #60a5fa; background: linear-gradient(90deg, rgba(96, 165, 250, 0.05) 0%, transparent 100%);">
-    <h4 style="color: #60a5fa; font-family: 'Outfit', sans-serif;"><i class="fas fa-building" style="margin-right: 12px;"></i> AT&T: "Ask AT&T" Platform</h4>
-    <p style="font-size: 0.95rem; color: #cbd5e1; line-height: 1.6;">To support millions of customers, AT&T built a Hub-and-Spoke AI Landing Zone. APIM served as the central governance layer, providing the <strong>Network & Identity Proof</strong> required to protect sensitive telco data. <a href="https://www.microsoft.com/en-customers/story/25679-at-and-t-azure" target="_blank" style="color: #60a5fa; text-decoration: none; font-weight: 600;">Full Case Study &rarr;</a></p>
-</div>
-
-<div class="glass-card" style="margin-bottom: 2rem; border-left: 4px solid #34d399; background: linear-gradient(90deg, rgba(52, 211, 153, 0.05) 0%, transparent 100%);">
-    <h4 style="color: #34d399; font-family: 'Outfit', sans-serif;"><i class="fas fa-university" style="margin-right: 12px;"></i> Discovery Bank: Hyper-Personalized Finance</h4>
-    <p style="font-size: 0.95rem; color: #cbd5e1; line-height: 1.6;">Utilized Azure OpenAI behind an APIM gateway to achieved financial-grade security. By isolating data in Databricks and controlling access through APIM, they achieved hyper-personalization without compromising data sovereignty. <a href="https://www.microsoft.com/en-customers/story/26157-discovery-bank-azure-openai-in-foundry-models" target="_blank" style="color: #34d399; text-decoration: none; font-weight: 600;">Full Case Study &rarr;</a></p>
-</div>
-
-<div class="persona-take">
-    <div class="take-avatar"><div class="profile-ring ring-slate"><img src="../images/avatar_pm.png" alt="Project Manager"></div></div>
-    <div class="take-content">
-        <span class="take-author">Project Manager</span>
-        <p>"These aren't just technical wins; they are delivery milestones. Standardizing on the AI Landing Zone creates a repeatable environment where teams can innovate without starting from zero on security every time."</p>
-    </div>
-</div>
-<!-- PROOF Framework: Senior Enterprise V3 -->
-<div class="proof-framework-v3" style="margin: 6rem 0; padding: 3rem 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); clear: both;">
-    
-    <div style="text-align: center; margin-bottom: 4rem;">
-        <h1 id="the-proof-model" style="font-size: 2.8rem; margin-bottom: 1.5rem; color: #f8fafc; font-family: 'Outfit', sans-serif; font-weight: 700;">AI Compliance Requires Proof, Not Just Controls</h1>
-        <p style="font-size: 1.3rem; color: #94a3b8; max-width: 850px; margin: 0 auto; line-height: 1.6; margin-bottom: 4rem;">A governed Azure AI platform must show the approved path, identity, policy, and telemetry for critical interactions.</p>
-        
-        <!-- Official Master Architecture Visual (V4 - Azure AI Foundry Style) -->
-        <div style="margin: 4rem auto; max-width: 1000px; border-radius: 12px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); background: #ffffff;">
-            <img src="../images/azure_ai_compliance_v4.png" alt="AI Compliance Requires Proof, Not Just Controls - Microsoft Azure Architecture" style="width: 100%; display: block;">
-        </div>
-    </div>
-
-    <div style="max-width: 800px; margin: 0 auto 5rem auto; padding: 2rem; background: rgba(30, 41, 59, 0.4); border-radius: 16px; border: 1px solid rgba(56, 189, 248, 0.2); text-align: center;">
-        <p style="color: #38bdf8; font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; margin-bottom: 0.5rem;">The Core Archetype</p>
-        <p style="color: #f8fafc; font-size: 1.15rem; line-height: 1.7;">A compliant AI platform is not defined only by security controls. It is defined by the **ability to prove** the approved path, approved identity, approved policy, and approved telemetry for AI interactions.</p>
-    </div>
-                <div style="font-size: 0.8rem; color: #64748b; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px;">Backend</div>
-                <div style="color: #f8fafc; font-weight: 600;">AI Service</div>
-            </div>
-            <i class="fas fa-chevron-right" style="color: #475569; padding: 0 1rem;"></i>
-            <div style="text-align: center; flex: 1.5; background: rgba(52, 211, 153, 0.05); padding: 1rem; border-radius: 8px; border: 1px solid rgba(52, 211, 153, 0.2);">
-                <div style="font-size: 0.8rem; color: #34d399; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px;">Artifacts</div>
-                <div style="color: #f8fafc; font-weight: 600;">Logs & Evidence</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- PROOF Grid (2x2) -->
-    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-bottom: 4rem;" class="proof-grid-desktop">
-        
-        <!-- P: Policy -->
-        <div class="glass-card" style="padding: 2.5rem; border-left: 4px solid #38bdf8; position: relative;">
-            <div style="margin-bottom: 1.5rem; color: #38bdf8; font-size: 1.8rem;"><i class="fas fa-shield-halved"></i></div>
-            <h4 style="margin-bottom: 1rem; color: #f8fafc; font-family: 'Outfit', sans-serif;">POLICY PROOF (P)</h4>
-            <p style="color: #94a3b8; font-size: 1.05rem; line-height: 1.6; margin: 0;">Approved network and policy controls restrict AI access to the intended path.</p>
-        </div>
-
-        <!-- R: Runtime -->
-        <div class="glass-card" style="padding: 2.5rem; border-left: 4px solid #a855f7; position: relative;">
-            <div style="margin-bottom: 1.5rem; color: #a855f7; font-size: 1.8rem;"><i class="fas fa-key"></i></div>
-            <h4 style="margin-bottom: 1rem; color: #f8fafc; font-family: 'Outfit', sans-serif;">RUNTIME PROOF (R)</h4>
-            <p style="color: #94a3b8; font-size: 1.05rem; line-height: 1.6; margin: 0;">Requests use approved identities at runtime, reducing reliance on shared secrets.</p>
-        </div>
-
-        <!-- O: Oversight -->
-        <div class="glass-card" style="padding: 2.5rem; border-left: 4px solid #34d399; position: relative;">
-            <div style="margin-bottom: 1.5rem; color: #34d399; font-size: 1.8rem;"><i class="fas fa-chart-line"></i></div>
-            <h4 style="margin-bottom: 1rem; color: #f8fafc; font-family: 'Outfit', sans-serif;">OVERSIGHT PROOF (O)</h4>
-            <p style="color: #94a3b8; font-size: 1.05rem; line-height: 1.6; margin: 0;">Centralized logging, policy checks, and governance controls improve operational visibility.</p>
-        </div>
-
-        <!-- F: Forensics -->
-        <div class="glass-card" style="padding: 2.5rem; border-left: 4px solid #fbbf24; position: relative;">
-            <div style="margin-bottom: 1.5rem; color: #fbbf24; font-size: 1.8rem;"><i class="fas fa-fingerprint"></i></div>
-            <h4 style="margin-bottom: 1rem; color: #f8fafc; font-family: 'Outfit', sans-serif;">FORENSICS PROOF (F)</h4>
-            <p style="color: #94a3b8; font-size: 1.05rem; line-height: 1.6; margin: 0;">Telemetry and logs support investigation of request path, identity, and policy outcomes.</p>
-        </div>
-    </div>
-
-    <!-- Azure Control Mapping (Compact Row) -->
-    <div style="background: rgba(15, 23, 42, 0.4); border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); padding: 2rem;">
-        <h5 style="color: #f8fafc; text-align: center; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem;">Azure Component Mapping</h5>
-        <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
-            <span style="padding: 0.5rem 1rem; background: rgba(71, 85, 105, 0.2); border: 1px solid rgba(148, 163, 184, 0.2); border-radius: 20px; color: #cbd5e1; font-size: 0.85rem;"><i class="fas fa-shield-halved" style="margin-right: 8px;"></i> Azure Policy</span>
-            <span style="padding: 0.5rem 1rem; background: rgba(71, 85, 105, 0.2); border: 1px solid rgba(148, 163, 184, 0.2); border-radius: 20px; color: #cbd5e1; font-size: 0.85rem;"><i class="fas fa-network-wired" style="margin-right: 8px;"></i> Private Endpoints</span>
-            <span style="padding: 0.5rem 1rem; background: rgba(71, 85, 105, 0.2); border: 1px solid rgba(148, 163, 184, 0.2); border-radius: 20px; color: #cbd5e1; font-size: 0.85rem;"><i class="fas fa-user-check" style="margin-right: 8px;"></i> Managed Identity</span>
-            <span style="padding: 0.5rem 1rem; background: rgba(71, 85, 105, 0.2); border: 1px solid rgba(148, 163, 184, 0.2); border-radius: 20px; color: #cbd5e1; font-size: 0.85rem;"><i class="fas fa-list-check" style="margin-right: 8px;"></i> Log Analytics</span>
-            <span style="padding: 0.5rem 1rem; background: rgba(71, 85, 105, 0.2); border: 1px solid rgba(148, 163, 184, 0.2); border-radius: 20px; color: #cbd5e1; font-size: 0.85rem;"><i class="fas fa-microchip" style="margin-right: 8px;"></i> AI Foundry</span>
-        </div>
-    </div>
-
-    <style>
-        @media (max-width: 768px) {
-            .proof-grid-desktop {
-                grid-template-columns: 1fr !important;
-            }
-            .proof-framework-v3 {
-                padding: 2rem 1rem !important;
-            }
-        }
-    </style>
-</div>
-
-<h2 id="leadership-decisions" style="text-align: center; margin-top: 5rem;"><span class="gradient-text">The Strategic Leadership Decision Matrix</span></h2>
-    </div>
-</div>
-
-<div class="glass-card reveal" style="margin-bottom: 4rem;">
-    <h3 style="color: #38bdf8; font-family: 'Outfit', sans-serif; text-align: center; margin-bottom: 2rem;">Quiz: Which AI Gateway Architecture is Yours?</h3>
-    <div id="architecture-quiz" class="quiz-container">
-        <!-- Step 1 -->
-        <div id="step-1" class="quiz-step active">
-            <h4 style="color: #f8fafc; margin-bottom: 1.5rem;">What is your primary isolation requirement?</h4>
-            <div class="quiz-options">
-                <div class="quiz-opt" onclick="quizStep(1, 'private')">
-                    <i class="fas fa-network-wired"></i>
-                    <div>
-                        <strong>Private Connectivity</strong>
-                        <p style="font-size: 0.8rem; margin: 0; color: #94a3b8;">I need to reach private backends, but the gateway doesn't need to be invisible.</p>
-                    </div>
-                </div>
-                <div class="quiz-opt" onclick="quizStep(1, 'isolation')">
-                    <i class="fas fa-shield-halved"></i>
-                    <div>
-                        <strong>Full Network Isolation</strong>
-                        <p style="font-size: 0.8rem; margin: 0; color: #94a3b8;">The gateway itself MUST live inside my private VNet boundary.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Step 2 (Conditional) -->
-        <div id="step-2" class="quiz-step">
-            <h4 style="color: #f8fafc; margin-bottom: 1.5rem;">Do you require Regional WAF protection?</h4>
-            <div class="quiz-options">
-                <div class="quiz-opt" onclick="quizStep(2, 'yes')">
-                    <i class="fas fa-lock"></i>
-                    <div>
-                        <strong>Yes, Native WAF Needed</strong>
-                        <p style="font-size: 0.8rem; margin: 0; color: #94a3b8;">I need managed Layer 7 protection at the ingress point.</p>
-                    </div>
-                </div>
-                <div class="quiz-opt" onclick="quizStep(2, 'no')">
-                    <i class="fas fa-bolt"></i>
-                    <div>
-                        <strong>No, Direct Access</strong>
-                        <p style="font-size: 0.8rem; margin: 0; color: #94a3b8;">Simple, direct private paths are sufficient for my risk profile.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Result -->
-        <div id="quiz-result" class="quiz-result">
-            <i id="result-icon" class="fas fa-microchip" style="font-size: 3rem; color: #38bdf8; margin-bottom: 1.5rem;"></i>
-            <h4 id="result-title" style="color: #f8fafc; margin-bottom: 1rem;">Recommended: APIM Standard v2</h4>
-            <p id="result-desc" style="color: #94a3b8; line-height: 1.6; margin-bottom: 2rem;">Standard v2 with VNet Integration provides the best balance of cost and compliance for your needs.</p>
-            <button class="btn btn-outline" onclick="resetQuiz()">Start Over</button>
-        </div>
-    </div>
-</div>
-
-<h2 id="compute-and-cost"><span class="gradient-text">Design Area: Compute & Cost</span></h2>
-
-<p>For an AI Landing Zone, we prioritize <strong>Platform as a Service (PaaS)</strong>. Standardizing on PaaS removing the "server maintenance headache," allowing your team to focus on code rather than patching operating systems.</p>
-
-<div class="glass-card" style="margin: 2rem 0; border: 1px solid rgba(56, 189, 248, 0.2); background: linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(30, 41, 59, 0.4) 100%);">
-    <h3 style="color: #38bdf8; font-family: 'Outfit', sans-serif; margin-bottom: 1.5rem;"><i class="fas fa-server" style="margin-right: 12px;"></i> Standardizing the Compute Layer</h3>
-    <table class="spec-table" style="width: 100%; border-collapse: separate; border-spacing: 0 8px;">
-        <thead>
-            <tr style="background: rgba(56, 189, 248, 0.1);">
-                <th style="padding: 1rem; border-radius: 8px 0 0 8px;">Compute Option</th>
-                <th style="padding: 1rem;">Non-Technical Translation</th>
-                <th style="padding: 1rem; border-radius: 0 8px 8px 0;">Why it’s used</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 8px 0 0 8px;"><strong>Azure Container Apps</strong></td>
-                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03);">"The Modern Apartment"</td>
-                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 0 8px 8px 0;">Best for serverless AI tools that scale rapidly.</td>
-            </tr>
-            <tr>
-                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 8px 0 0 8px;"><strong>Azure App Service</strong></td>
-                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03);">"The Traditional Townhome"</td>
-                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 0 8px 8px 0;">Ideal for hosting the web front-ends and APIs.</td>
-            </tr>
-            <tr>
-                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 8px 0 0 8px;"><strong>Azure Kubernetes Service</strong></td>
-                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03);">"The Industrial Factory"</td>
-                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 0 8px 8px 0;">Used for massive, high-scale AI systems.</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-<div class="persona-take">
-    <div class="take-avatar"><div class="profile-ring ring-green"><img src="../images/avatar_trinity.png" alt="Cloud Engineer"></div></div>
-    <div class="take-content">
-        <span class="take-author">Cloud Engineer (Trinity)</span>
-        <strong>Pro-Tip: The "Spillover" Strategy</strong>
-        <p>"To optimize cost, we use PTUs for predictable, everyday traffic to keep costs steady. Then, we set up a Pay-as-you-go account as a secondary endpoint. If traffic spikes, the extra load 'spills over' to PAYGO, ensuring zero downtime without over-committing to expensive reserved capacity."</p>
-    </div>
-</div>
-
-<h2 id="multi-backend-resiliency"><span class="gradient-text">Global Resiliency: Multi-Backend Multi-Region</span></h2>
-<p>In a regulated environment, "Down" is the same as "Non-Compliant" for critical services. <div class="cinematic-container reveal">
-    <div class="shine-overlay"></div>
-    <img src="../images/diagram_resiliency.png" alt="Multi-Backend Global Resiliency Pattern" class="cinematic-img">
-    <div style="padding: 1rem; text-align: center; background: rgba(15, 23, 42, 0.6); border-top: 1px solid rgba(255,255,255,0.05);">
-        <p style="font-size: 0.9rem; color: #94a3b8; margin: 0;">Architecture: Multi-Backend Global Resiliency with Circuit Breaker</p>
-    </div>
-</div>
-<p>This isn't just round-robin load balancing. APIM uses <strong>Circuit Breakers</strong> to monitor backend health. If a region returns a 429 (Too Many Requests) or 5xx error, the gateway automatically trips the breaker and routes the next user to a healthy regional endpoint. Clients stay online; users never see the error.</p>
-
-<div class="persona-take">
-    <div class="take-avatar"><div class="profile-ring ring-cyan"><img src="../images/profile.webp" alt="Lead Architect"></div></div>
-    <div class="take-content">
-        <p class="take-author">Lead Architect (Upendra)</span>
-        <p>"The Multi-Backend pattern, anchored by **Azure Front Door (Anycast)** at the edge, is the difference between an 'AI project' and an 'AI platform'. We move the failover logic out of the app code and into the infrastructure. This is how we support business-critical workloads that simply cannot go offline."</p>
-    </div>
-</div>
-<div class="glass-card" style="margin: 3rem 0; border: 1px solid rgba(56, 189, 248, 0.2); background: rgba(15, 23, 42, 0.6);">
-    <h3 style="color: #38bdf8; font-family: 'Outfit', sans-serif; margin-bottom: 1.5rem; text-align: center;"><i class="fas fa-diagram-project" style="margin-right: 12px;"></i> Gateway Architecture Selection Matrix</h3>
-    <table class="spec-table" style="width: 100%; border-collapse: separate; border-spacing: 0 8px;">
-        <thead>
-            <tr style="background: rgba(56, 189, 248, 0.1);">
-                <th style="padding: 1rem; border-radius: 8px 0 0 8px;">Architecture Choice</th>
-                <th style="padding: 1rem;">Primary Use Case</th>
-                <th style="padding: 1rem; border-radius: 0 8px 8px 0;">Strategic Benefit</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 8px 0 0 8px;"><strong>Standard v2 + Edge</strong></td>
-                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03);">Private connectivity focus</td>
-                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 0 8px 8px 0;">Leanest cost with strong auditability</td>
-            </tr>
-            <tr>
-                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 8px 0 0 8px;"><strong>Standard v2 + AppGW</strong></td>
-                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03);">Azure-native WAF/Ingress</td>
-                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 0 8px 8px 0;">Highest regional security narrative</td>
-            </tr>
-            <tr>
-                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 8px 0 0 8px;"><strong>Premium v2 Injected</strong></td>
-                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03);">Physical network isolation</td>
-                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 0 8px 8px 0;">Maximum boundary separation</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-<h2 id="recommendations"><span class="gradient-text">Principals recommendations (UAE North)</span></h2>
-<p>For most UAE North regulated AI platforms, start with: APIM as the AI Gateway, private endpoints for backends, and Standard v2 for connectivity. Move to Premium v2 only when the control objective becomes stronger gateway-boundary isolation.</p>
-
-<h3>What I would not do</h3>
+<h2 id="the-mistake-most-teams-make"><span class="gradient-text">The Mistake Most Teams Make</span></h2>
+<p>The common mistake is to collapse three different questions into one:</p>
 <ul>
-    <li>I would not add Application Gateway unless it closes a named control gap.</li>
-    <li>I would not buy Premium v2 just because “private” sounds safer.</li>
-    <li>I would not deploy Private DNS Resolver for an Azure-only design.</li>
+    <li>Can APIM reach private backends?</li>
+    <li>Is the APIM gateway itself inside the private boundary?</li>
+    <li>Can the team prove there is no unmanaged bypass path?</li>
+</ul>
+<p>Those are related, but not identical. Microsoft’s current documentation is clear that Standard v2 and Premium v2 support outbound virtual network integration for private backends, while Premium v2 alone supports virtual network injection. That is the right distinction to explain to security and audit stakeholders. <a href="https://learn.microsoft.com/en-us/azure/api-management/v2-service-tiers-overview" target="_blank" rel="noopener noreferrer">Microsoft Learn</a></p>
+
+<div class="glass-card" style="margin: 2rem 0; padding: 1.5rem; text-align: center;">
+    <img src="../images/diagram_vnet_compare.png" alt="Standard v2 vs Premium v2 Network Patterns" style="max-width: 100%; border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2);">
+    <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 1rem;">Comparison: outbound VNet integration versus VNet injection</p>
+</div>
+
+<p>The practical framing is simple: if you need private backend connectivity, Standard v2 may be enough. If the control objective requires the gateway itself to live inside the private boundary, Premium v2 is the fit. That is stronger and more defensible than saying one tier is simply "more secure."</p>
+
+<h2 id="dns-and-network"><span class="gradient-text">DNS and Network</span></h2>
+<p><strong>Private Endpoint does not change routing by itself. DNS changes routing.</strong> If name resolution is wrong, the architecture is wrong even if the private endpoint exists.</p>
+
+<div class="glass-card" style="margin: 2rem 0; padding: 1.5rem; text-align: center;">
+    <img src="../images/diagram_dns_flow.png" alt="Backend DNS Connectivity Sequence" style="max-width: 100%; border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2);">
+    <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 1rem;">Sequence: DNS resolution and Private Link connectivity</p>
+</div>
+
+<p>For common AI backend stacks, the relevant private DNS zones often include <code>privatelink.search.windows.net</code>, <code>privatelink.cognitiveservices.azure.com</code>, and <code>privatelink.blob.core.windows.net</code>. DNS gives the address. The network gives the path. You need both for a defensible private design. <a href="https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns" target="_blank" rel="noopener noreferrer">Microsoft Learn</a></p>
+
+<p>Use Private DNS Zones when Azure resources need to resolve private names within Azure. Use Azure DNS Private Resolver when name resolution needs to cross boundaries, especially between on-premises and Azure. <a href="https://learn.microsoft.com/en-us/azure/dns/dns-private-resolver-overview" target="_blank" rel="noopener noreferrer">Microsoft Learn</a></p>
+
+<div class="glass-card" style="margin: 2rem 0; padding: 1.5rem; text-align: center;">
+    <img src="../images/diagram_hybrid_dns.png" alt="Hybrid DNS Resolution Flow" style="max-width: 100%; border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2);">
+    <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 1rem;">Pattern: hybrid name resolution with Azure DNS Private Resolver</p>
+</div>
+
+<h2 id="defensible-ai-architecture"><span class="gradient-text">Defensible AI Architecture: Engineering Specification</span></h2>
+<div class="glass-card" style="margin: 2rem 0; overflow-x: auto;">
+    <table class="spec-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr style="background: rgba(56, 189, 248, 0.08);">
+                <th style="padding: 1rem; text-align: left;">Control Objective</th>
+                <th style="padding: 1rem; text-align: left;">Engineering Mechanism</th>
+                <th style="padding: 1rem; text-align: left;">Evidence</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="padding: 1rem;"><strong>Prevent direct public access</strong></td>
+                <td style="padding: 1rem;">Disable public network access on supported backends and enforce private endpoints.</td>
+                <td style="padding: 1rem;">Azure Policy state, networking configuration, and denied-path test results.</td>
+            </tr>
+            <tr>
+                <td style="padding: 1rem;"><strong>Centralize identity enforcement</strong></td>
+                <td style="padding: 1rem;">Require client JWT validation and APIM managed identity for backend calls.</td>
+                <td style="padding: 1rem;">Role assignments, policy configuration, and failed direct-access logs.</td>
+            </tr>
+            <tr>
+                <td style="padding: 1rem;"><strong>Prove request lineage</strong></td>
+                <td style="padding: 1rem;">Centralized telemetry in Application Insights or Log Analytics.</td>
+                <td style="padding: 1rem;">KQL showing <code>client -&gt; APIM -&gt; backend</code> correlation.</td>
+            </tr>
+            <tr>
+                <td style="padding: 1rem;"><strong>Control AI consumption</strong></td>
+                <td style="padding: 1rem;">Token-based rate limits, quotas, and backend segmentation.</td>
+                <td style="padding: 1rem;">Policy definitions, token metrics, and exception records.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2 id="threat-model"><span class="gradient-text">Threat Model</span></h2>
+<div class="glass-card" style="margin: 2rem 0; overflow-x: auto;">
+    <table class="spec-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr style="background: rgba(56, 189, 248, 0.08);">
+                <th style="padding: 1rem; text-align: left;">Threat</th>
+                <th style="padding: 1rem; text-align: left;">Failure Mode</th>
+                <th style="padding: 1rem; text-align: left;">Mitigation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="padding: 1rem;"><strong>Network bypass</strong></td>
+                <td style="padding: 1rem;">Clients or workloads reach AI services outside the governed path.</td>
+                <td style="padding: 1rem;">Private endpoints, restricted ingress, and explicit denied-path validation.</td>
+            </tr>
+            <tr>
+                <td style="padding: 1rem;"><strong>Identity bypass</strong></td>
+                <td style="padding: 1rem;">A caller reaches the backend without the gateway-owned identity flow.</td>
+                <td style="padding: 1rem;">JWT validation, RBAC hardening, and managed-identity-only backend access.</td>
+            </tr>
+            <tr>
+                <td style="padding: 1rem;"><strong>Evidence gaps</strong></td>
+                <td style="padding: 1rem;">The platform works but cannot prove who called what, through which control, and when.</td>
+                <td style="padding: 1rem;">Correlated logs, policy telemetry, retention, and documented control ownership.</td>
+            </tr>
+            <tr>
+                <td style="padding: 1rem;"><strong>Unsafe model output</strong></td>
+                <td style="padding: 1rem;">Harmful or sensitive content passes through without review or enforcement.</td>
+                <td style="padding: 1rem;">Use the appropriate moderation, content safety, and, where needed, PII-specific controls.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2 id="decision-matrix"><span class="gradient-text">Decision Matrix</span></h2>
+<div class="glass-card" style="margin: 3rem 0; border: 1px solid rgba(56, 189, 248, 0.2); background: rgba(15, 23, 42, 0.6);">
+    <table class="spec-table" style="width: 100%; border-collapse: separate; border-spacing: 0 8px;">
+        <thead>
+            <tr style="background: rgba(56, 189, 248, 0.1);">
+                <th style="padding: 1rem; border-radius: 8px 0 0 8px;">Option</th>
+                <th style="padding: 1rem;">Use When</th>
+                <th style="padding: 1rem; border-radius: 0 8px 8px 0;">Tradeoff</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 8px 0 0 8px;"><strong>APIM Standard v2 + private backends</strong></td>
+                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03);">You need governed private access to backends, but the gateway itself does not have to be fully injected into the private boundary.</td>
+                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 0 8px 8px 0;">Simpler and lower cost, but not the same as gateway-side network isolation.</td>
+            </tr>
+            <tr>
+                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 8px 0 0 8px;"><strong>APIM Premium v2 injected</strong></td>
+                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03);">The gateway itself must sit inside the private boundary for the control objective.</td>
+                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 0 8px 8px 0;">Stronger boundary narrative with more cost and platform complexity.</td>
+            </tr>
+            <tr>
+                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 8px 0 0 8px;"><strong>Private DNS Resolver</strong></td>
+                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03);">You need private name resolution across Azure and on-premises.</td>
+                <td style="padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 0 8px 8px 0;">Useful for hybrid, unnecessary for many Azure-only designs.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2 id="recommendations"><span class="gradient-text">Recommendations</span></h2>
+<ul>
+    <li>Start the design review by naming the control objective, not the SKU.</li>
+    <li>Document the exact ingress path, identity path, DNS path, and telemetry path for every AI request class.</li>
+    <li>Use Standard v2 when private backend access is enough; move to Premium v2 when gateway-boundary isolation is explicitly required.</li>
+    <li>Do not treat Private Endpoint creation as the end of the networking story. Validate DNS and routing behavior.</li>
+    <li>Write down the evidence package before go-live: policy state, RBAC, DNS validation, denied-path tests, and correlated logs.</li>
 </ul>
 
 <div class="glass-card stunning-conclusion" style="margin: 5rem 0; padding: 4rem; text-align: center; position: relative; border: 2px solid rgba(56, 189, 248, 0.4); background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.9) 100%); overflow: hidden; border-radius: 24px;">
-    <!-- Visual background element -->
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.2; pointer-events: none; overflow: hidden;">
         <img src="../images/conclusion_proof.png" alt="" class="ken-burns" style="width: 100%; height: 100%; object-fit: cover; filter: blur(2px);">
     </div>
-
     <div style="position: relative; z-index: 1;">
-        <h2 id="final-thought" style="margin-bottom: 3rem; font-family: 'Outfit', sans-serif; font-size: 2.8rem; font-weight: 900; letter-spacing: 4px; text-transform: uppercase;"><span class="gradient-text">Final Thought</span></h2>
-        
-        <div style="display: flex; flex-direction: column; gap: 1.5rem; max-width: 600px; margin: 0 auto;">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-                <div style="background: rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2);">
-                    <p style="font-size: 1.2rem; font-weight: 700; color: #38bdf8; margin: 0;">Security <span style="font-weight: 400; color: #94a3b8; margin-left: 5px;">protects.</span></p>
-                </div>
-                <div style="background: rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(52, 211, 153, 0.2);">
-                    <p style="font-size: 1.2rem; font-weight: 700; color: #34d399; margin: 0;">Compliance <span style="font-weight: 400; color: #94a3b8; margin-left: 5px;">proves.</span></p>
-                </div>
-                <div style="background: rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(168, 85, 247, 0.2);">
-                    <p style="font-size: 1.2rem; font-weight: 700; color: #a855f7; margin: 0;">Identity <span style="font-weight: 400; color: #94a3b8; margin-left: 5px;">authorizes.</span></p>
-                </div>
-                <div style="background: rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(251, 191, 36, 0.2);">
-                    <p style="font-size: 1.2rem; font-weight: 700; color: #fbbf24; margin: 0;">DNS <span style="font-weight: 400; color: #94a3b8; margin-left: 5px;">directs.</span></p>
-                </div>
-            </div>
-            
-            <div style="margin-top: 2rem; padding: 2rem; border: 1px dashed rgba(56, 189, 248, 0.3); border-radius: 16px; background: rgba(56, 189, 248, 0.05);">
-                <p style="font-size: 1.1rem; color: #cbd5e1; line-height: 1.8; margin-bottom: 0;">
-                    Private endpoints hide the door. <br>
-                    DNS tells traffic where to go. <br>
-                    Identity decides who gets in. <br>
-                    <span style="display: block; margin-top: 1rem; font-size: 1.5rem; font-weight: 800; color: #f8fafc; text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);">
-                        The goal of compliance isn't to say NO—it's to say YES, at the Speed of Trust.
-                    </span>
-                </p>
-            </div>
-        </div>
+        <h2 id="final-thought" style="margin-bottom: 2.5rem; font-family: 'Outfit', sans-serif; font-size: 2.4rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;"><span class="gradient-text">Final Thought</span></h2>
+        <p style="font-size: 1.15rem; color: #cbd5e1; line-height: 1.9; max-width: 700px; margin: 0 auto;">
+            Security protects. Compliance proves. Identity authorizes. DNS directs.
+            <span style="display: block; margin-top: 1rem;">Private endpoints hide the door. DNS tells traffic where to go. Identity decides who gets in. A regulated AI platform is credible only when you can prove all three.</span>
+        </p>
     </div>
 </div>
-
-<p style="font-weight: 800; color: #38bdf8; margin-top: 3rem; font-size: 1.4rem; text-align: center; font-style: italic; border-top: 1px solid rgba(56, 189, 248, 0.2); border-bottom: 1px solid rgba(56, 189, 248, 0.2); padding: 2rem 0;">
-    <i class="fas fa-quote-left" style="opacity: 0.4; font-size: 2rem; display: block; margin-bottom: 1rem;"></i>
-    "By using an API Mediation Layer, we unblocked a HIPAA compliance delay and unlocked Azure consumption."
-    <i class="fas fa-quote-right" style="opacity: 0.4; font-size: 2rem; display: block; margin-top: 1rem; float: right;"></i>
-</p>
-
-<!-- Interactive Microsoft AI Readiness Audit -->
-<div class="glass-card" style="margin: 4rem 0; padding: 3rem; background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.8) 100%); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 20px; position: relative; overflow: hidden;">
-    <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(180deg, #38bdf8, #a855f7);"></div>
-    
-    <div style="display: flex; align-items: flex-start; gap: 2rem; flex-wrap: wrap;">
-        <!-- Left: Checklist -->
-        <div style="flex: 1; min-width: 300px;">
-            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-                <div style="width: 48px; height: 48px; background: rgba(56, 189, 248, 0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                    <i class="fas fa-microchip" style="color: #38bdf8; font-size: 1.4rem;"></i>
-                </div>
-                <div>
-                    <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #38bdf8; margin: 0; font-family: 'JetBrains Mono', monospace;">Self-Audit</p>
-                    <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.4rem; color: #f1f5f9; margin: 0; line-height: 1.3;">Readiness Pulse Check</h3>
-                </div>
-            </div>
-            
-            <p style="color: #94a3b8; font-size: 0.95rem; margin-bottom: 1.5rem;">Select the pillars where your organization currently has formalized controls and auditable proof:</p>
-            
-            <form id="readiness-form" style="display: flex; flex-direction: column; gap: 0.8rem;">
-                <label style="display: flex; align-items: center; gap: 0.8rem; color: #cbd5e1; cursor: pointer; padding: 0.5rem; border-radius: 8px; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
-                    <input type="checkbox" class="readiness-check" style="width: 18px; height: 18px; accent-color: #38bdf8;"> AI Governance &amp; Security
-                </label>
-                <label style="display: flex; align-items: center; gap: 0.8rem; color: #cbd5e1; cursor: pointer; padding: 0.5rem; border-radius: 8px; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
-                    <input type="checkbox" class="readiness-check" style="width: 18px; height: 18px; accent-color: #38bdf8;"> Infrastructure for AI
-                </label>
-                <label style="display: flex; align-items: center; gap: 0.8rem; color: #cbd5e1; cursor: pointer; padding: 0.5rem; border-radius: 8px; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
-                    <input type="checkbox" class="readiness-check" style="width: 18px; height: 18px; accent-color: #38bdf8;"> Data Foundations
-                </label>
-                <label style="display: flex; align-items: center; gap: 0.8rem; color: #cbd5e1; cursor: pointer; padding: 0.5rem; border-radius: 8px; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
-                    <input type="checkbox" class="readiness-check" style="width: 18px; height: 18px; accent-color: #38bdf8;"> Model Management
-                </label>
-                <label style="display: flex; align-items: center; gap: 0.8rem; color: #cbd5e1; cursor: pointer; padding: 0.5rem; border-radius: 8px; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
-                    <input type="checkbox" class="readiness-check" style="width: 18px; height: 18px; accent-color: #38bdf8;"> Business Strategy
-                </label>
-                <label style="display: flex; align-items: center; gap: 0.8rem; color: #cbd5e1; cursor: pointer; padding: 0.5rem; border-radius: 8px; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
-                    <input type="checkbox" class="readiness-check" style="width: 18px; height: 18px; accent-color: #38bdf8;"> AI Strategy &amp; Experience
-                </label>
-                <label style="display: flex; align-items: center; gap: 0.8rem; color: #cbd5e1; cursor: pointer; padding: 0.5rem; border-radius: 8px; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
-                    <input type="checkbox" class="readiness-check" style="width: 18px; height: 18px; accent-color: #38bdf8;"> Organization &amp; Culture
-                </label>
-            </form>
-        </div>
-
-        <!-- Right: Results & Assessment CTA -->
-        <div style="flex: 1; min-width: 300px; background: rgba(0,0,0,0.3); padding: 2rem; border-radius: 16px; border: 1px dashed rgba(56, 189, 248, 0.2); display: flex; flex-direction: column; justify-content: center; text-align: center;">
-            <div id="readiness-status-icon" style="font-size: 3rem; color: #64748b; margin-bottom: 1rem;"><i class="fas fa-shield-alt"></i></div>
-            <h4 id="readiness-status-title" style="font-family: 'Outfit', sans-serif; font-size: 1.5rem; color: #f8fafc; margin-bottom: 0.5rem;">Audit Status Pending</h4>
-            <p id="readiness-status-desc" style="color: #94a3b8; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">Select your current controls above to calculate your baseline readiness risk.</p>
-            
-            <a href="https://learn.microsoft.com/en-us/assessments/94f1c697-9ba7-4d47-ad83-7c6bd94b1505/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; background: linear-gradient(135deg, #38bdf8, #3b82f6); color: #0f172a; font-weight: 800; padding: 1rem 1.5rem; border-radius: 12px; text-decoration: none; font-size: 1rem; font-family: 'Outfit', sans-serif; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(56, 189, 248, 0.5)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 15px rgba(56, 189, 248, 0.3)';">
-                <i class="fab fa-microsoft" style="font-size: 1rem;"></i> Start Official Assessment
-            </a>
-            <p style="font-size: 0.75rem; color: #64748b; margin-top: 1rem;"><i class="fas fa-stopwatch" style="margin-right: 5px;"></i> Microsoft Learn &bull; 45 Questions</p>
-        </div>
-    </div>
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const checks = document.querySelectorAll('.readiness-check');
-    const icon = document.getElementById('readiness-status-icon');
-    const title = document.getElementById('readiness-status-title');
-    const desc = document.getElementById('readiness-status-desc');
-
-    checks.forEach(check => {
-        check.addEventListener('change', () => {
-            const score = Array.from(checks).filter(c => c.checked).length;
-            
-            if (score === 0) {
-                icon.innerHTML = '<i class="fas fa-shield-alt" style="color: #64748b;"></i>';
-                title.innerText = 'Audit Status Pending';
-                title.style.color = '#f8fafc';
-                desc.innerText = 'Select your current controls above to calculate your baseline readiness risk.';
-            } else if (score <= 3) {
-                icon.innerHTML = '<i class="fas fa-exclamation-triangle" style="color: #ef4444; filter: drop-shadow(0 0 10px rgba(239,68,68,0.5));"></i>';
-                title.innerText = 'High Compliance Risk';
-                title.style.color = '#ef4444';
-                desc.innerText = 'Your architecture lacks formalized controls in major pillars. Take the official Microsoft assessment to identify critical gaps immediately.';
-            } else if (score <= 6) {
-                icon.innerHTML = '<i class="fas fa-balance-scale" style="color: #fbbf24; filter: drop-shadow(0 0 10px rgba(251,191,36,0.5));"></i>';
-                title.innerText = 'Partial Coverage';
-                title.style.color = '#fbbf24';
-                desc.innerText = 'You have foundational controls, but blind spots remain. Complete the Microsoft assessment to get personalized remediation steps.';
-            } else {
-                icon.innerHTML = '<i class="fas fa-check-circle" style="color: #34d399; filter: drop-shadow(0 0 10px rgba(52,211,153,0.5));"></i>';
-                title.innerText = 'High Maturity Indicated';
-                title.style.color = '#34d399';
-                desc.innerText = 'Excellent adherence to the 7 pillars. Use the official Microsoft assessment to officially baseline and document your readiness.';
-            }
-        });
-    });
-});
-</script>
-
 <h2 id="full-control-toolkit"><span class="gradient-text">The "Full Control" Toolkit</span></h2>
 <p>To move from a design review to a production-ready environment, you need the right accelerators. We leverage established frameworks to ensure we aren't reinventing the wheel on security.</p>
 
