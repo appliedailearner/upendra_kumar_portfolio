@@ -1,6 +1,6 @@
 # Deploy to Both GitHub Pages and Azure Storage
 param(
-    [string]$CommitMessage = "Mobile UX Remediation: Fixed transparency and z-index collisions",
+    [string]$CommitMessage = "Principal Overhaul: Implemented Architect's Split UI, Cinematic Animations, and L67 Refinement",
     [switch]$Force
 )
 

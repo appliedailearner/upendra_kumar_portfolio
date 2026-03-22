@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="1280" viewBox="0 0 1900 1280" role="img" aria-labelledby="t d">
+  <title id="t">Azure AI Platform Engineering Topology</title>
+  <desc id="d">Engineering topology for a multi-region Azure AI platform showing management groups, subscriptions, VNets, subnets, shared services, hub-spoke connectivity, and DR patterns.</desc>
+  <defs>
+    <style>
+      text{font-family:"Segoe UI",Arial,sans-serif;fill:#1b1b1b}
+      .bg{fill:#f8fafc}.lane{fill:#fff;stroke:#d2dae5;stroke-width:1.4;rx:16}.sub{fill:#fff;stroke:#7ea7cf;stroke-width:1.4;rx:12}.head{fill:#0f6cbd;rx:12}
+      .pri{fill:#f3fbff;stroke:#74b3dd;stroke-width:1.2;rx:12}.dr{fill:#f7fcf3;stroke:#90b987;stroke-width:1.2;rx:12}.hub{fill:#f6f8fb;stroke:#7e8da3;stroke-width:1.2;rx:12}.gov{fill:#f5f6fb;stroke:#959db0;stroke-width:1.2;rx:12}
+      .card{fill:#fff;stroke:#8ea7c1;stroke-width:1.05;rx:8}.carddr{fill:#fff;stroke:#94b88b;stroke-width:1.05;rx:8}.pill{fill:#eef6ff;stroke:#8cb5e1;stroke-width:1;rx:8}.pilldr{fill:#f1faec;stroke:#8fbc7f;stroke-width:1;rx:8}
+      .title{font-size:29px;font-weight:700}.subt{font-size:15px;fill:#4d4d4d}.sec{font-size:19px;font-weight:700;fill:#0f3b68}.subsec{font-size:15px;font-weight:700}.ct{font-size:12px;font-weight:700}.cs{font-size:11px;fill:#4f4f4f}.tiny{font-size:10px;fill:#5b5b5b}.hw{font-size:14px;font-weight:700;fill:#fff}
+      .flow{stroke:#2b579a;stroke-width:2.5;fill:none;marker-end:url(#b)}.flowdr{stroke:#5e9732;stroke-width:2.5;fill:none;marker-end:url(#g)}.mg{stroke:#7b7b7b;stroke-width:2;fill:none;stroke-dasharray:8 6;marker-end:url(#n)}.peer{stroke:#7a7a7a;stroke-width:1.7;fill:none;stroke-dasharray:6 5}
+    </style>
+    <marker id="b" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2b579a"/></marker>
+    <marker id="g" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5e9732"/></marker>
+    <marker id="n" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#7b7b7b"/></marker>
+  </defs>
+  <rect class="bg" x="0" y="0" width="1900" height="1280"/>
+  <text class="title" x="28" y="42">Azure AI Platform Engineering Topology</text>
+  <text class="subt" x="28" y="66">Deployment view with management groups, subscriptions, VNets, subnets, hub-spoke controls, and DR service placement</text>
+
+  <rect class="lane" x="20" y="86" width="1860" height="100"/>
+  <text class="sec" x="38" y="116">1. Management groups and subscriptions</text>
+  <rect class="card" x="86" y="132" width="126" height="30"/><text class="ct" x="108" y="151">mg-platform</text>
+  <rect class="card" x="230" y="132" width="152" height="30"/><text class="ct" x="254" y="151">mg-landingzones</text>
+  <rect class="card" x="400" y="132" width="98" height="30"/><text class="ct" x="426" y="151">mg-prod</text>
+  <rect class="card" x="516" y="132" width="114" height="30"/><text class="ct" x="540" y="151">mg-nonprod</text>
+  <rect class="card" x="742" y="124" width="152" height="40"/><text class="ct" x="762" y="146">sub-connectivity-01</text><text class="cs" x="762" y="158">hub routing and shared network</text>
+  <rect class="card" x="910" y="124" width="146" height="40"/><text class="ct" x="930" y="146">sub-security-01</text><text class="cs" x="930" y="158">central policy and SOC</text>
+  <rect class="card" x="1072" y="124" width="176" height="40"/><text class="ct" x="1092" y="146">sub-sharedservices-01</text><text class="cs" x="1092" y="158">dns, kv, logs, insights</text>
+  <rect class="card" x="1264" y="124" width="144" height="40"/><text class="ct" x="1284" y="146">sub-prod-ai-01</text><text class="cs" x="1284" y="158">production AI workload</text>
+  <rect class="card" x="1424" y="124" width="162" height="40"/><text class="ct" x="1444" y="146">sub-nonprod-ai-01</text><text class="cs" x="1444" y="158">dev and test landing zone</text>
+
+  <rect class="lane" x="20" y="202" width="1860" height="320"/>
+  <text class="sec" x="38" y="232">2. Production AI landing zone</text>
+  <rect class="sub" x="44" y="248" width="1360" height="252"/><rect class="head" x="44" y="248" width="1360" height="32"/><text class="hw" x="60" y="268">sub-prod-ai-01 | Regional workload spokes</text>
+  <rect class="pri" x="66" y="294" width="654" height="184"/><text class="subsec" x="84" y="320">UAE North | rg-ai-prod-uaen-01 | vnet-ai-prod-uaen-01 | 10.10.0.0/16</text>
+  <rect class="pill" x="84" y="340" width="142" height="22"/><text class="tiny" x="96" y="355">snet-appgw-uaen-01 | 10.10.1.0/24</text>
+  <rect class="pill" x="236" y="340" width="142" height="22"/><text class="tiny" x="248" y="355">snet-apim-uaen-01 | 10.10.2.0/24</text>
+  <rect class="pill" x="388" y="340" width="134" height="22"/><text class="tiny" x="400" y="355">snet-app-uaen-01 | 10.10.3.0/24</text>
+  <rect class="pill" x="532" y="340" width="142" height="22"/><text class="tiny" x="544" y="355">snet-pe-uaen-01 | 10.10.4.0/24</text>
+  <rect class="card" x="84" y="380" width="164" height="42"/><text class="ct" x="100" y="404">agw-ai-prod-uaen-01</text><text class="cs" x="100" y="416">Application Gateway + WAF</text>
+  <rect class="card" x="262" y="380" width="148" height="42"/><text class="ct" x="278" y="404">apim-ai-prod-uaen-01</text><text class="cs" x="278" y="416">API Management</text>
+  <rect class="card" x="424" y="380" width="250" height="42"/><text class="ct" x="440" y="404">app-ai-orch-prod-uaen-01</text><text class="cs" x="440" y="416">App Service / AI orchestrator</text>
+  <rect class="card" x="84" y="438" width="138" height="24"/><text class="ct" x="100" y="454">srch-ai-prod-uaen-01</text>
+  <rect class="card" x="232" y="438" width="170" height="24"/><text class="ct" x="248" y="454">oai-gpt4o-prod-uaen-01</text>
+  <rect class="card" x="412" y="438" width="138" height="24"/><text class="ct" x="428" y="454">di-ai-prod-uaen-01</text>
+  <rect class="card" x="560" y="438" width="114" height="24"/><text class="ct" x="586" y="454">stai-prod-uaen-01</text>
+
+  <rect class="dr" x="746" y="294" width="636" height="184"/><text class="subsec" x="764" y="320">UK Central | rg-ai-prod-ukc-01 | vnet-ai-prod-ukc-01 | 10.20.0.0/16</text>
+  <rect class="pilldr" x="764" y="340" width="138" height="22"/><text class="tiny" x="776" y="355">snet-appgw-ukc-01 | 10.20.1.0/24</text>
+  <rect class="pilldr" x="912" y="340" width="138" height="22"/><text class="tiny" x="924" y="355">snet-apim-ukc-01 | 10.20.2.0/24</text>
+  <rect class="pilldr" x="1060" y="340" width="130" height="22"/><text class="tiny" x="1072" y="355">snet-app-ukc-01 | 10.20.3.0/24</text>
+  <rect class="pilldr" x="1200" y="340" width="138" height="22"/><text class="tiny" x="1212" y="355">snet-pe-ukc-01 | 10.20.4.0/24</text>
+  <rect class="carddr" x="764" y="380" width="164" height="42"/><text class="ct" x="780" y="404">agw-ai-prod-ukc-01</text><text class="cs" x="780" y="416">Application Gateway + WAF</text>
+  <rect class="carddr" x="942" y="380" width="148" height="42"/><text class="ct" x="958" y="404">apim-ai-prod-ukc-01</text><text class="cs" x="958" y="416">API Management</text>
+  <rect class="carddr" x="1104" y="380" width="250" height="42"/><text class="ct" x="1120" y="404">app-ai-orch-prod-ukc-01</text><text class="cs" x="1120" y="416">App Service / AI orchestrator</text>
+  <rect class="carddr" x="764" y="438" width="130" height="24"/><text class="ct" x="780" y="454">srch-ai-dr-ukc-01</text>
+  <rect class="carddr" x="904" y="438" width="170" height="24"/><text class="ct" x="920" y="454">oai-gpt4o-dr-ukc-01</text>
+  <rect class="carddr" x="1084" y="438" width="130" height="24"/><text class="ct" x="1100" y="454">di-ai-dr-ukc-01</text>
+  <rect class="carddr" x="1224" y="438" width="114" height="24"/><text class="ct" x="1250" y="454">stai-dr-ukc-01</text>
+
+  <rect class="sub" x="1428" y="248" width="430" height="252"/><rect class="head" x="1428" y="248" width="430" height="32"/><text class="hw" x="1444" y="268">sub-nonprod-ai-01</text>
+  <rect class="card" x="1450" y="316" width="386" height="50"/><text class="ct" x="1468" y="340">rg-ai-nonprod-uaen-01 | vnet-ai-nonprod-uaen-01</text><text class="cs" x="1468" y="354">Separate lower-cost stack and distinct policy boundary</text>
+  <rect class="card" x="1450" y="384" width="386" height="50"/><text class="ct" x="1468" y="408">Dev / test API mediation, prompt iteration, search validation</text><text class="cs" x="1468" y="422">No production data path</text>
+
+  <rect class="lane" x="20" y="538" width="1860" height="176"/>
+  <text class="sec" x="38" y="568">3. Shared services and security control plane</text>
+  <rect class="sub" x="44" y="584" width="938" height="106"/><rect class="head" x="44" y="584" width="938" height="30"/><text class="hw" x="60" y="603">sub-sharedservices-01</text>
+  <rect class="card" x="66" y="628" width="192" height="32"/><text class="ct" x="82" y="649">kv-shared-uaen-01 / kv-shared-ukc-01</text>
+  <rect class="card" x="272" y="628" width="160" height="32"/><text class="ct" x="288" y="649">Private DNS zones</text>
+  <rect class="card" x="446" y="628" width="118" height="32"/><text class="ct" x="462" y="649">law-shared-01</text>
+  <rect class="card" x="578" y="628" width="136" height="32"/><text class="ct" x="594" y="649">appi-ai-prod-01</text>
+  <rect class="card" x="728" y="628" width="230" height="32"/><text class="ct" x="744" y="649">Recovery orchestration and backup notes</text>
+  <rect class="gov" x="1006" y="584" width="852" height="106"/>
+  <text class="subsec" x="1024" y="610">sub-security-01 | rg-security-platform-01</text>
+  <rect class="card" x="1024" y="628" width="170" height="32"/><text class="ct" x="1040" y="649">Defender for Cloud</text>
+  <rect class="card" x="1208" y="628" width="132" height="32"/><text class="ct" x="1224" y="649">Microsoft Sentinel</text>
+  <rect class="card" x="1354" y="628" width="110" height="32"/><text class="ct" x="1386" y="649">RBAC</text>
+  <rect class="card" x="1478" y="628" width="144" height="32"/><text class="ct" x="1494" y="649">Policy assignments</text>
+  <rect class="card" x="1636" y="628" width="110" height="32"/><text class="ct" x="1652" y="649">DDoS Network</text>
+
+  <rect class="lane" x="20" y="730" width="1860" height="222"/>
+  <text class="sec" x="38" y="760">4. Connectivity hubs and private resolution path</text>
+  <rect class="sub" x="44" y="776" width="1814" height="154"/><rect class="head" x="44" y="776" width="1814" height="32"/><text class="hw" x="60" y="796">sub-connectivity-01 | Hub-spoke networking and private endpoint resolution</text>
+  <rect class="hub" x="66" y="826" width="852" height="86"/><text class="subsec" x="84" y="850">UAE North hub | vnet-hub-uaen-01 | 10.0.0.0/16</text>
+  <rect class="card" x="84" y="866" width="160" height="24"/><text class="ct" x="100" y="882">AzureFirewallSubnet | 10.0.1.0/24</text>
+  <rect class="card" x="256" y="866" width="160" height="24"/><text class="ct" x="272" y="882">AzureBastionSubnet | 10.0.2.0/24</text>
+  <rect class="card" x="428" y="866" width="144" height="24"/><text class="ct" x="444" y="882">GatewaySubnet | 10.0.3.0/24</text>
+  <rect class="card" x="584" y="866" width="170" height="24"/><text class="ct" x="600" y="882">snet-dnspr-uaen-01 | 10.0.4.0/24</text>
+  <rect class="card" x="766" y="866" width="132" height="24"/><text class="ct" x="782" y="882">afw / ergw / dnspr</text>
+  <rect class="hub" x="940" y="826" width="896" height="86"/><text class="subsec" x="958" y="850">UK Central hub | vnet-hub-ukc-01 | 10.100.0.0/16</text>
+  <rect class="carddr" x="958" y="866" width="170" height="24"/><text class="ct" x="974" y="882">AzureFirewallSubnet | 10.100.1.0/24</text>
+  <rect class="carddr" x="1140" y="866" width="170" height="24"/><text class="ct" x="1156" y="882">AzureBastionSubnet | 10.100.2.0/24</text>
+  <rect class="carddr" x="1322" y="866" width="154" height="24"/><text class="ct" x="1338" y="882">GatewaySubnet | 10.100.3.0/24</text>
+  <rect class="carddr" x="1488" y="866" width="170" height="24"/><text class="ct" x="1504" y="882">snet-dnspr-ukc-01 | 10.100.4.0/24</text>
+  <rect class="carddr" x="1670" y="866" width="146" height="24"/><text class="ct" x="1686" y="882">afw / ergw / dnspr</text>
+
+  <rect class="lane" x="20" y="968" width="1860" height="176"/>
+  <text class="sec" x="38" y="998">5. Required flows and DR pattern</text>
+  <rect class="card" x="66" y="1030" width="420" height="82"/><text class="ct" x="82" y="1056">Request path</text><text class="cs" x="82" y="1078">Users → Traffic Manager → App Gateway → APIM → Orchestrator</text><text class="cs" x="82" y="1096">Regional failover to UK Central through Traffic Manager</text>
+  <rect class="card" x="508" y="1030" width="438" height="82"/><text class="ct" x="524" y="1056">RAG and ingestion</text><text class="cs" x="524" y="1078">Orchestrator → AI Search → GPT-4o → response</text><text class="cs" x="524" y="1096">Storage → Document Intelligence → chunking / indexing → Search</text>
+  <rect class="card" x="968" y="1030" width="420" height="82"/><text class="ct" x="984" y="1056">Private networking path</text><text class="cs" x="984" y="1078">Spoke → Hub → Firewall / DNS Private Resolver → private endpoints</text><text class="cs" x="984" y="1096">Managed identity → Key Vault</text>
+  <rect class="carddr" x="1410" y="1030" width="426" height="82"/><text class="ct" x="1426" y="1056">DR operating options</text><text class="cs" x="1426" y="1078">Option A: warm DR model deployment in UK Central</text><text class="cs" x="1426" y="1096">Option B: degraded DR without GPT inference</text>
+
+  <path class="flow" d="M166 422 L262 422"/><path class="flow" d="M410 422 L424 401"/><path class="flow" d="M549 422 C549 438 153 438 153 438"/><path class="flow" d="M549 422 C549 438 317 438 317 438"/>
+  <path class="flowdr" d="M846 422 L942 422"/><path class="flowdr" d="M1090 422 L1104 401"/><path class="flowdr" d="M1229 422 C1229 438 829 438 829 438"/><path class="flowdr" d="M1229 422 C1229 438 989 438 989 438"/>
+  <path class="mg" d="M549 422 C549 640 670 640 670 866"/><path class="mg" d="M1229 422 C1229 640 1570 640 1570 866"/><path class="mg" d="M549 422 C549 610 162 610 162 628"/>
+  <path class="peer" d="M720 401 L746 401"/><path class="peer" d="M918 878 L940 878"/>
+
+  <rect class="gov" x="20" y="1160" width="1860" height="96"/>
+  <text class="sec" x="38" y="1190">6. Implementation notes</text>
+  <text class="cs" x="60" y="1218">1. Traffic Manager is current-state only; Front Door remains future-state.</text>
+  <text class="cs" x="60" y="1236">2. APIM multi-region behavior must be validated against the intended Premium deployment model.</text>
+  <text class="cs" x="960" y="1218">3. GPT-4o PTU is anchored in UAE North; UK Central must be explicitly warm DR or degraded DR.</text>
+  <text class="cs" x="960" y="1236">4. AI Search, storage replication, custom DI models, private DNS, and secrets resolution require DR runbooks.</text>
+</svg>
