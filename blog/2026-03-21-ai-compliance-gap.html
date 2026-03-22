@@ -1440,63 +1440,6 @@
         <p style="font-size: 0.85rem; color: #64748b; font-style: italic;">*Calculated based on average L67 benchmarks for Azure AI Foundry adoption.</p>
     </div>
 </div>
-
-<h2 id="policy-enforcement" class="reveal"><span class="gradient-text">The Enforcement Engine: APIM Policy</span></h2>
-<p class="reveal">Network routing is passive; APIM policies are active enforcement. Use this XML snippet to validate the client JWT and inject the Managed Identity token required by the AI backend.</p>
-
-<div class="policy-lab reveal">
-    <div class="policy-code-container">
-        <pre><code id="policy-code">
-&lt;policies&gt;
-    &lt;inbound&gt;
-        &lt;base /&gt;
-        <span class="code-line" data-node="jwt">&lt;validate-jwt header-name="Authorization" failed-validation-httpcode="401"&gt;
-            &lt;openid-config url="https://login.microsoftonline.com/{{tenant-id}}/v2.0/.well-known/openid-configuration" /&gt;
-            &lt;audiences&gt;
-                &lt;audience&gt;{{apim-app-registration-client-id}}&lt;/audience&gt;
-            &lt;/audiences&gt;
-        &lt;/validate-jwt&gt;</span>
-
-        &lt;set-header name="Authorization" exists-action="delete" /&gt;
-        
-        <span class="code-line" data-node="tpm">&lt;!-- Enforce Tokens Per Minute (TPM) quota per consumer --&gt;
-        &lt;llm-token-limit counter-key="@(context.Subscription.Id)"
-                         tokens-per-minute="50000"
-                         estimate-prompt-tokens="true"
-                         remaining-tokens-variable-name="remainingTokens" /&gt;</span>
-
-        <span class="code-line" data-node="msi">&lt;authentication-managed-identity resource="https://cognitiveservices.azure.com" output-token-variable-name="msi-access-token" /&gt;</span>
-        
-        &lt;set-header name="Authorization" exists-action="override"&gt;
-            &lt;value&gt;@("Bearer " + (string)context.Variables["msi-access-token"])&lt;/value&gt;
-        &lt;/set-header&gt;
-    &lt;/inbound&gt;
-    &lt;outbound&gt;
-        &lt;base /&gt;
-        <span class="code-line" data-node="metrics">&lt;!-- Emit token metrics to App Insights for cost attribution --&gt;
-        &lt;llm-emit-token-metric&gt;
-            &lt;dimension name="Subscription ID" value="@(context.Subscription.Id)" /&gt;
-            &lt;dimension name="Client IP" value="@(context.Request.IpAddress)" /&gt;
-        &lt;/llm-emit-token-metric&gt;</span>
-
-        <span class="code-line" data-node="safety">&lt;!-- Responsible AI: Integrated Content Safety --&gt;
-        &lt;azure-ai-content-safety
-            service-url="https://{{safety-service-name}}.cognitiveservices.azure.com"
-            failed-content-safety-httpcode="400"
-            failed-content-safety-error-message="Unsafe content detected." /&gt;</span>
-    &lt;/outbound&gt;
-&lt;/policies&gt;</code></pre>
-    </div>
-    <div class="policy-explanation">
-        <h4 style="color: #38bdf8; margin: 0; font-size: 0.9rem; text-transform: uppercase;">Logic Explorer</h4>
-        <div class="explanation-item" id="exp-jwt">
-            <strong>1. Perimeter Trust</strong>
-            <p>We reject any request that doesn't carry a valid Entra ID token from the approved App Registration. Public internet bypass is physically impossible.</p>
-        </div>
-        <div class="explanation-item" id="exp-tpm">
-            <strong>2. Consumption Guardrails</strong>
-            <p>Unlike standard APIs, AI cost is measured in tokens. We enforce TPM limits at the gateway to prevent "Toxic Prompt" cost spikes.</p>
-        </div>
         <div class="explanation-item" id="exp-msi">
             <strong>3. Secret-less Identity</strong>
             <p>The gateway uses its own Managed Identity to talk to OpenAI. No API keys are stored in code or environment variables.</p>
