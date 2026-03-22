@@ -831,7 +831,10 @@
             filter: brightness(0.8) grayscale(0.2);
         }
 
-        .pillars-sticky-visual.active-n img { filter: brightness(1.2) grayscale(0); transform: scale(1.05); }
+        .pillars-sticky-visual.active-p img { filter: brightness(1.2) grayscale(0); transform: scale(1.05); }
+        .pillars-sticky-visual.active-r img { filter: brightness(1.2) grayscale(0); transform: scale(1.05); }
+        .pillars-sticky-visual.active-o img { filter: brightness(1.2) grayscale(0); transform: scale(1.05); }
+        .pillars-sticky-visual.active-f img { filter: brightness(1.2) grayscale(0); transform: scale(1.05); }
 
         .pillars-scroll-stack {
             display: flex;
@@ -844,10 +847,10 @@
             background: rgba(30, 41, 59, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 20px;
-            backdrop-filter: blur(10px);
-            transition: all 0.4s ease;
-            opacity: 0.4;
-            transform: scale(0.95);
+            backdrop-filter: blur(4px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0.7;
+            transform: scale(0.98);
         }
 
         .pillar-feature-card.active {
@@ -1583,25 +1586,25 @@
     </div>
 
     <div class="pillars-scroll-stack">
-        <div class="pillar-feature-card" data-pillar="n">
+        <div class="pillar-feature-card" data-pillar="p">
             <i class="fas fa-network-wired" style="color: #38bdf8;"></i>
-            <h3 style="color: #38bdf8;">Network Proof (P)</h3>
-            <p>We solve the "Public Bypass" problem. Access to AI services is physically restricted to the VNet backbone, verified by Azure Policy artifacts.</p>
+            <h3 style="color: #38bdf8;">Policy Proof (P)</h3>
+            <p>Execution of "Public Bypass" prevention. Access to AI services is physically restricted to the VNet backbone, verified by immutable Azure Policy guardrails.</p>
         </div>
         <div class="pillar-feature-card" data-pillar="r">
             <i class="fas fa-user-shield" style="color: #a855f7;"></i>
-            <h3 style="color: #a855f7;">Identity Proof (R)</h3>
-            <p>Identity is the new perimeter. No shared keys; only Entra ID Managed Identities can traverse the gateway to talk to models.</p>
+            <h3 style="color: #a855f7;">Runtime Proof (R)</h3>
+            <p>Real-time identity verification. No shared keys; only Entra ID Managed Identities can traverse the gateway at runtime to authorize model consumption.</p>
         </div>
         <div class="pillar-feature-card" data-pillar="o">
-            <i class="fas fa-code-branch" style="color: #34d399;"></i>
-            <h3 style="color: #34d399;">API Proof (O)</h3>
-            <p>Every token is governed. We enforce compliance at the request level, proving that no PII leaks and no unmanaged models are used.</p>
+            <i class="fas fa-magnifying-glass-chart" style="color: #34d399;"></i>
+            <h3 style="color: #34d399;">Oversight Proof (O)</h3>
+            <p>Continuous audit of every token. We enforce compliance at the request level, proving that no PII leaks and only regulated models are invoked.</p>
         </div>
         <div class="pillar-feature-card" data-pillar="f">
-            <i class="fas fa-clipboard-check" style="color: #fbbf24;"></i>
-            <h3 style="color: #fbbf24;">Operations Proof (F)</h3>
-            <p>The "Audit Trail." Real-time telemetry in Log Analytics proves that we are meeting the control objectives at 100% uptime.</p>
+            <i class="fas fa-fingerprint" style="color: #fbbf24;"></i>
+            <h3 style="color: #fbbf24;">Forensics Proof (F)</h3>
+            <p>Immutable lineage evidence. Real-time telemetry in Log Analytics proves the exact path and policy-decision for every single AI interaction.</p>
         </div>
         
         <div class="architect-pulse">
