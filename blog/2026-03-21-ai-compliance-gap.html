@@ -1853,37 +1853,100 @@
     <i class="fas fa-quote-right" style="opacity: 0.4; font-size: 2rem; display: block; margin-top: 1rem; float: right;"></i>
 </p>
 
-<!-- Microsoft AI Readiness Assessment CTA -->
-<div style="margin: 4rem 0; padding: 2.5rem; background: linear-gradient(135deg, rgba(56, 189, 248, 0.08) 0%, rgba(168, 85, 247, 0.08) 100%); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 20px; position: relative; overflow: hidden;">
+<!-- Interactive Microsoft AI Readiness Audit -->
+<div class="glass-card" style="margin: 4rem 0; padding: 3rem; background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.8) 100%); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 20px; position: relative; overflow: hidden;">
     <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(180deg, #38bdf8, #a855f7);"></div>
-    <div style="padding-left: 1rem;">
-        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-            <div style="width: 48px; height: 48px; background: rgba(56, 189, 248, 0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                <i class="fas fa-clipboard-check" style="color: #38bdf8; font-size: 1.4rem;"></i>
+    
+    <div style="display: flex; align-items: flex-start; gap: 2rem; flex-wrap: wrap;">
+        <!-- Left: Checklist -->
+        <div style="flex: 1; min-width: 300px;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                <div style="width: 48px; height: 48px; background: rgba(56, 189, 248, 0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <i class="fas fa-microchip" style="color: #38bdf8; font-size: 1.4rem;"></i>
+                </div>
+                <div>
+                    <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #38bdf8; margin: 0; font-family: 'JetBrains Mono', monospace;">Self-Audit</p>
+                    <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.4rem; color: #f1f5f9; margin: 0; line-height: 1.3;">Readiness Pulse Check</h3>
+                </div>
             </div>
-            <div>
-                <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #38bdf8; margin: 0; font-family: 'JetBrains Mono', monospace;">Microsoft Learn</p>
-                <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.3rem; color: #f1f5f9; margin: 0; line-height: 1.3;">AI Readiness Assessment</h3>
-            </div>
+            
+            <p style="color: #94a3b8; font-size: 0.95rem; margin-bottom: 1.5rem;">Select the pillars where your organization currently has formalized controls and auditable proof:</p>
+            
+            <form id="readiness-form" style="display: flex; flex-direction: column; gap: 0.8rem;">
+                <label style="display: flex; align-items: center; gap: 0.8rem; color: #cbd5e1; cursor: pointer; padding: 0.5rem; border-radius: 8px; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
+                    <input type="checkbox" class="readiness-check" style="width: 18px; height: 18px; accent-color: #38bdf8;"> AI Governance &amp; Security
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.8rem; color: #cbd5e1; cursor: pointer; padding: 0.5rem; border-radius: 8px; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
+                    <input type="checkbox" class="readiness-check" style="width: 18px; height: 18px; accent-color: #38bdf8;"> Infrastructure for AI
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.8rem; color: #cbd5e1; cursor: pointer; padding: 0.5rem; border-radius: 8px; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
+                    <input type="checkbox" class="readiness-check" style="width: 18px; height: 18px; accent-color: #38bdf8;"> Data Foundations
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.8rem; color: #cbd5e1; cursor: pointer; padding: 0.5rem; border-radius: 8px; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
+                    <input type="checkbox" class="readiness-check" style="width: 18px; height: 18px; accent-color: #38bdf8;"> Model Management
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.8rem; color: #cbd5e1; cursor: pointer; padding: 0.5rem; border-radius: 8px; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
+                    <input type="checkbox" class="readiness-check" style="width: 18px; height: 18px; accent-color: #38bdf8;"> Business Strategy
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.8rem; color: #cbd5e1; cursor: pointer; padding: 0.5rem; border-radius: 8px; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
+                    <input type="checkbox" class="readiness-check" style="width: 18px; height: 18px; accent-color: #38bdf8;"> AI Strategy &amp; Experience
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.8rem; color: #cbd5e1; cursor: pointer; padding: 0.5rem; border-radius: 8px; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
+                    <input type="checkbox" class="readiness-check" style="width: 18px; height: 18px; accent-color: #38bdf8;"> Organization &amp; Culture
+                </label>
+            </form>
         </div>
-        <p style="color: #94a3b8; line-height: 1.7; margin-bottom: 1rem; font-size: 0.95rem;">Compliance requires evidence, not just intent. Microsoft's official AI Readiness Assessment is a practical tool to evaluate where your organization stands across the seven dimensions that determine whether an AI platform is genuinely governable:</p>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; margin-bottom: 1.5rem;">
-            <div style="display: flex; align-items: center; gap: 0.5rem; color: #cbd5e1; font-size: 0.875rem;"><i class="fas fa-check" style="color: #38bdf8; font-size: 0.75rem;"></i> Business Strategy</div>
-            <div style="display: flex; align-items: center; gap: 0.5rem; color: #cbd5e1; font-size: 0.875rem;"><i class="fas fa-check" style="color: #38bdf8; font-size: 0.75rem;"></i> AI Governance &amp; Security</div>
-            <div style="display: flex; align-items: center; gap: 0.5rem; color: #cbd5e1; font-size: 0.875rem;"><i class="fas fa-check" style="color: #38bdf8; font-size: 0.75rem;"></i> Data Foundations</div>
-            <div style="display: flex; align-items: center; gap: 0.5rem; color: #cbd5e1; font-size: 0.875rem;"><i class="fas fa-check" style="color: #38bdf8; font-size: 0.75rem;"></i> AI Strategy &amp; Experience</div>
-            <div style="display: flex; align-items: center; gap: 0.5rem; color: #cbd5e1; font-size: 0.875rem;"><i class="fas fa-check" style="color: #38bdf8; font-size: 0.75rem;"></i> Infrastructure for AI</div>
-            <div style="display: flex; align-items: center; gap: 0.5rem; color: #cbd5e1; font-size: 0.875rem;"><i class="fas fa-check" style="color: #38bdf8; font-size: 0.75rem;"></i> Model Management</div>
-            <div style="display: flex; align-items: center; gap: 0.5rem; color: #cbd5e1; font-size: 0.875rem;"><i class="fas fa-check" style="color: #38bdf8; font-size: 0.75rem;"></i> Organization &amp; Culture</div>
-        </div>
-        <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
-            <a href="https://learn.microsoft.com/en-us/assessments/94f1c697-9ba7-4d47-ad83-7c6bd94b1505/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.6rem; background: linear-gradient(135deg, #38bdf8, #a855f7); color: #0f172a; font-weight: 700; padding: 0.875rem 1.75rem; border-radius: 10px; text-decoration: none; font-size: 0.95rem; font-family: 'Outfit', sans-serif; transition: opacity 0.2s ease;">
-                <i class="fas fa-external-link-alt" style="font-size: 0.85rem;"></i> Take the Assessment
+
+        <!-- Right: Results & Assessment CTA -->
+        <div style="flex: 1; min-width: 300px; background: rgba(0,0,0,0.3); padding: 2rem; border-radius: 16px; border: 1px dashed rgba(56, 189, 248, 0.2); display: flex; flex-direction: column; justify-content: center; text-align: center;">
+            <div id="readiness-status-icon" style="font-size: 3rem; color: #64748b; margin-bottom: 1rem;"><i class="fas fa-shield-alt"></i></div>
+            <h4 id="readiness-status-title" style="font-family: 'Outfit', sans-serif; font-size: 1.5rem; color: #f8fafc; margin-bottom: 0.5rem;">Audit Status Pending</h4>
+            <p id="readiness-status-desc" style="color: #94a3b8; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">Select your current controls above to calculate your baseline readiness risk.</p>
+            
+            <a href="https://learn.microsoft.com/en-us/assessments/94f1c697-9ba7-4d47-ad83-7c6bd94b1505/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; background: linear-gradient(135deg, #38bdf8, #3b82f6); color: #0f172a; font-weight: 800; padding: 1rem 1.5rem; border-radius: 12px; text-decoration: none; font-size: 1rem; font-family: 'Outfit', sans-serif; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(56, 189, 248, 0.5)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 15px rgba(56, 189, 248, 0.3)';">
+                <i class="fab fa-microsoft" style="font-size: 1rem;"></i> Start Official Assessment
             </a>
-            <span style="color: #64748b; font-size: 0.85rem;"><i class="fas fa-clock" style="margin-right: 0.4rem;"></i>45 questions &mdash; Personalized recommendations upon completion</span>
+            <p style="font-size: 0.75rem; color: #64748b; margin-top: 1rem;"><i class="fas fa-stopwatch" style="margin-right: 5px;"></i> Microsoft Learn &bull; 45 Questions</p>
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const checks = document.querySelectorAll('.readiness-check');
+    const icon = document.getElementById('readiness-status-icon');
+    const title = document.getElementById('readiness-status-title');
+    const desc = document.getElementById('readiness-status-desc');
+
+    checks.forEach(check => {
+        check.addEventListener('change', () => {
+            const score = Array.from(checks).filter(c => c.checked).length;
+            
+            if (score === 0) {
+                icon.innerHTML = '<i class="fas fa-shield-alt" style="color: #64748b;"></i>';
+                title.innerText = 'Audit Status Pending';
+                title.style.color = '#f8fafc';
+                desc.innerText = 'Select your current controls above to calculate your baseline readiness risk.';
+            } else if (score <= 3) {
+                icon.innerHTML = '<i class="fas fa-exclamation-triangle" style="color: #ef4444; filter: drop-shadow(0 0 10px rgba(239,68,68,0.5));"></i>';
+                title.innerText = 'High Compliance Risk';
+                title.style.color = '#ef4444';
+                desc.innerText = 'Your architecture lacks formalized controls in major pillars. Take the official Microsoft assessment to identify critical gaps immediately.';
+            } else if (score <= 6) {
+                icon.innerHTML = '<i class="fas fa-balance-scale" style="color: #fbbf24; filter: drop-shadow(0 0 10px rgba(251,191,36,0.5));"></i>';
+                title.innerText = 'Partial Coverage';
+                title.style.color = '#fbbf24';
+                desc.innerText = 'You have foundational controls, but blind spots remain. Complete the Microsoft assessment to get personalized remediation steps.';
+            } else {
+                icon.innerHTML = '<i class="fas fa-check-circle" style="color: #34d399; filter: drop-shadow(0 0 10px rgba(52,211,153,0.5));"></i>';
+                title.innerText = 'High Maturity Indicated';
+                title.style.color = '#34d399';
+                desc.innerText = 'Excellent adherence to the 7 pillars. Use the official Microsoft assessment to officially baseline and document your readiness.';
+            }
+        });
+    });
+});
+</script>
 
 <h2 id="full-control-toolkit"><span class="gradient-text">The "Full Control" Toolkit</span></h2>
 <p>To move from a design review to a production-ready environment, you need the right accelerators. We leverage established frameworks to ensure we aren't reinventing the wheel on security.</p>
