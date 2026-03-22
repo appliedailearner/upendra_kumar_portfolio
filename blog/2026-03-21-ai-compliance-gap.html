@@ -528,7 +528,7 @@
         /* Comparison Duo */
         .duo-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 0.8fr 1.2fr;
             gap: 2rem;
             margin: 3rem 0;
         }
@@ -843,7 +843,7 @@
         }
 
         .pillar-feature-card {
-            padding: 3rem 2rem;
+            padding: 2rem 2.5rem;
             background: rgba(30, 41, 59, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 20px;
@@ -856,10 +856,12 @@
         .pillar-feature-card.active {
             opacity: 1;
             transform: scale(1);
-            border-color: rgba(56, 189, 248, 0.4);
             background: rgba(30, 41, 59, 0.6);
-            box-shadow: 0 0 30px rgba(56, 189, 248, 0.1);
         }
+        .pillar-feature-card[data-pillar="p"].active { border-color: rgba(56, 189, 248, 0.5); box-shadow: 0 0 30px rgba(56, 189, 248, 0.15); }
+        .pillar-feature-card[data-pillar="r"].active { border-color: rgba(168, 85, 247, 0.5); box-shadow: 0 0 30px rgba(168, 85, 247, 0.15); }
+        .pillar-feature-card[data-pillar="o"].active { border-color: rgba(52, 211, 153, 0.5); box-shadow: 0 0 30px rgba(52, 211, 153, 0.15); }
+        .pillar-feature-card[data-pillar="f"].active { border-color: rgba(251, 191, 36, 0.5); box-shadow: 0 0 30px rgba(251, 191, 36, 0.15); }
 
         .pillar-feature-card i {
             font-size: 3rem;
@@ -897,6 +899,31 @@
             .policy-lab { grid-template-columns: 1fr; }
             .policy-explanation { order: -1; }
         }
+
+        /* Architect Pulse Premium Alert */
+        .architect-pulse {
+            background: linear-gradient(90deg, rgba(239, 68, 68, 0.1) 0%, rgba(30, 41, 59, 0) 100%);
+            border-left: 4px solid #ef4444;
+            padding: 1.5rem;
+            border-radius: 0 12px 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            opacity: 0.9;
+            margin-top: 2rem;
+        }
+        .architect-pulse .pulse-icon {
+            font-size: 2rem;
+            color: #ef4444;
+        }
+        .architect-pulse p {
+            margin: 0;
+            font-size: 1.05rem;
+            font-style: italic;
+            color: #f8fafc;
+            line-height: 1.6;
+        }
+
     </style>
 
     <!-- Performance: Preconnect to Font & Script Servers -->
@@ -1608,10 +1635,8 @@
         </div>
         
         <div class="architect-pulse">
-            <p>
-                <i class="fas fa-exclamation-triangle pulse-icon"></i>
-                "A private path without strong identity is still weak. Proof requires both working in sync."
-            </p>
+            <i class="fas fa-exclamation-triangle pulse-icon"></i>
+            <p>"A private path without strong identity is still weak. Proof requires both working in sync."</p>
         </div>
     </div>
 </div>
