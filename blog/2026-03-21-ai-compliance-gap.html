@@ -1667,38 +1667,78 @@
         <p>"These aren't just technical wins; they are delivery milestones. Standardizing on the AI Landing Zone creates a repeatable environment where teams can innovate without starting from zero on security every time."</p>
     </div>
 </div>
-<div class="pillars-split-container">
-    <div class="pillars-sticky-visual" id="pillar-visual-hub">
-        <img src="../images/pillars_of_proof.png" alt="Four Pillars of AI Compliance Proof">
-    </div>
-
-    <div class="pillars-scroll-stack">
-        <div class="pillar-feature-card" data-pillar="p">
-            <i class="fas fa-network-wired" style="color: #38bdf8;"></i>
-            <h3 style="color: #38bdf8;">Policy Proof (P)</h3>
-            <p>Execution of "Public Bypass" prevention. Access to AI services is physically restricted to the VNet backbone, verified by immutable Azure Policy guardrails.</p>
-        </div>
-        <div class="pillar-feature-card" data-pillar="r">
-            <i class="fas fa-user-shield" style="color: #a855f7;"></i>
-            <h3 style="color: #a855f7;">Runtime Proof (R)</h3>
-            <p>Real-time identity verification. No shared keys; only Entra ID Managed Identities can traverse the gateway at runtime to authorize model consumption.</p>
-        </div>
-        <div class="pillar-feature-card" data-pillar="o">
-            <i class="fas fa-magnifying-glass-chart" style="color: #34d399;"></i>
-            <h3 style="color: #34d399;">Oversight Proof (O)</h3>
-            <p>Continuous audit of every token. We enforce compliance at the request level, proving that no PII leaks and only regulated models are invoked.</p>
-        </div>
-        <div class="pillar-feature-card" data-pillar="f">
-            <i class="fas fa-fingerprint" style="color: #fbbf24;"></i>
-            <h3 style="color: #fbbf24;">Forensics Proof (F)</h3>
-            <p>Immutable lineage evidence. Real-time telemetry in Log Analytics proves the exact path and policy-decision for every single AI interaction.</p>
-        </div>
+<div class="full-bleed-showcase" style="width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; background: linear-gradient(180deg, rgba(8, 11, 18, 1) 0%, rgba(15, 23, 42, 1) 50%, rgba(8, 11, 18, 1) 100%); padding: 6rem 5vw; border-top: 1px solid rgba(56, 189, 248, 0.1); border-bottom: 1px solid rgba(56, 189, 248, 0.1); margin-top: 5rem; margin-bottom: 5rem; clear: both;">
+    <div style="max-width: 1200px; margin: 0 auto; clear: both;">
+        <h2 style="text-align: center; color: #f8fafc; font-size: 2.5rem; margin-bottom: 4rem; font-family: 'Outfit', sans-serif;"><span class="gradient-text">The 4 Pillars of Prove-It</span></h2>
         
-        <div class="architect-pulse">
-            <i class="fas fa-exclamation-triangle pulse-icon"></i>
-            <p>"A private path without strong identity is still weak. Proof requires both working in sync."</p>
+        <div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: start;" class="redesigned-pillars-grid">
+            <!-- Left: Sticky Hero Image -->
+            <div style="position: sticky; top: 120px;">
+                <img src="../images/pillars_of_proof.png" alt="Four Pillars of AI Compliance Proof" style="width: 100%; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 40px rgba(56, 189, 248, 0.3); border: 1px solid rgba(56, 189, 248, 0.3);">
+            </div>
+            
+            <!-- Right: Premium Cards -->
+            <div style="display: flex; flex-direction: column; gap: 2rem;">
+                
+                <!-- Card 1: P -->
+                <div class="premium-pillar-card" style="padding: 2.5rem; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px); border-radius: 20px; border: 1px solid rgba(56, 189, 248, 0.3); border-left: 5px solid #38bdf8; transition: all 0.4s ease;" onmouseover="this.style.transform='translateX(10px) translateY(-5px)'; this.style.background='rgba(15, 23, 42, 0.9)'; this.style.boxShadow='0 15px 30px rgba(0,0,0,0.6), 0 0 20px rgba(56, 189, 248, 0.2)';" onmouseout="this.style.transform='none'; this.style.background='rgba(15, 23, 42, 0.6)'; this.style.boxShadow='none';">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="width: 54px; height: 54px; border-radius: 12px; background: rgba(56, 189, 248, 0.1); display: flex; justify-content: center; align-items: center; font-size: 1.5rem; color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3);">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h3 style="color: #38bdf8; margin: 0; font-size: 1.6rem; font-family: 'Outfit', sans-serif; letter-spacing: -0.02em;">Policy Proof (P)</h3>
+                    </div>
+                    <p style="color: #cbd5e1; line-height: 1.7; margin: 0; font-size: 1.05rem;">Execution of "Public Bypass" prevention. Access to AI services is physically restricted to the VNet backbone, directly verified by immutable Azure Policy guardrails.</p>
+                </div>
+                
+                <!-- Card 2: R -->
+                <div class="premium-pillar-card" style="padding: 2.5rem; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px); border-radius: 20px; border: 1px solid rgba(168, 85, 247, 0.3); border-left: 5px solid #a855f7; transition: all 0.4s ease;" onmouseover="this.style.transform='translateX(10px) translateY(-5px)'; this.style.background='rgba(15, 23, 42, 0.9)'; this.style.boxShadow='0 15px 30px rgba(0,0,0,0.6), 0 0 20px rgba(168, 85, 247, 0.2)';" onmouseout="this.style.transform='none'; this.style.background='rgba(15, 23, 42, 0.6)'; this.style.boxShadow='none';">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="width: 54px; height: 54px; border-radius: 12px; background: rgba(168, 85, 247, 0.1); display: flex; justify-content: center; align-items: center; font-size: 1.5rem; color: #a855f7; border: 1px solid rgba(168, 85, 247, 0.3);">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h3 style="color: #a855f7; margin: 0; font-size: 1.6rem; font-family: 'Outfit', sans-serif; letter-spacing: -0.02em;">Runtime Proof (R)</h3>
+                    </div>
+                    <p style="color: #cbd5e1; line-height: 1.7; margin: 0; font-size: 1.05rem;">Real-time identity verification. No shared keys allowed; only Entra ID Managed Identities can traverse the gateway at runtime to authorize model consumption.</p>
+                </div>
+                
+                <!-- Card 3: O -->
+                <div class="premium-pillar-card" style="padding: 2.5rem; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px); border-radius: 20px; border: 1px solid rgba(52, 211, 153, 0.3); border-left: 5px solid #34d399; transition: all 0.4s ease;" onmouseover="this.style.transform='translateX(10px) translateY(-5px)'; this.style.background='rgba(15, 23, 42, 0.9)'; this.style.boxShadow='0 15px 30px rgba(0,0,0,0.6), 0 0 20px rgba(52, 211, 153, 0.2)';" onmouseout="this.style.transform='none'; this.style.background='rgba(15, 23, 42, 0.6)'; this.style.boxShadow='none';">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="width: 54px; height: 54px; border-radius: 12px; background: rgba(52, 211, 153, 0.1); display: flex; justify-content: center; align-items: center; font-size: 1.5rem; color: #34d399; border: 1px solid rgba(52, 211, 153, 0.3);">
+                            <i class="fas fa-magnifying-glass-chart"></i>
+                        </div>
+                        <h3 style="color: #34d399; margin: 0; font-size: 1.6rem; font-family: 'Outfit', sans-serif; letter-spacing: -0.02em;">Oversight Proof (O)</h3>
+                    </div>
+                    <p style="color: #cbd5e1; line-height: 1.7; margin: 0; font-size: 1.05rem;">Continuous audit of every token. We explicitly enforce compliance at the request level, definitively proving that no PII leaks and only regulated models are invoked.</p>
+                </div>
+                
+                <!-- Card 4: F -->
+                <div class="premium-pillar-card" style="padding: 2.5rem; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px); border-radius: 20px; border: 1px solid rgba(251, 191, 36, 0.3); border-left: 5px solid #fbbf24; transition: all 0.4s ease;" onmouseover="this.style.transform='translateX(10px) translateY(-5px)'; this.style.background='rgba(15, 23, 42, 0.9)'; this.style.boxShadow='0 15px 30px rgba(0,0,0,0.6), 0 0 20px rgba(251, 191, 36, 0.2)';" onmouseout="this.style.transform='none'; this.style.background='rgba(15, 23, 42, 0.6)'; this.style.boxShadow='none';">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="width: 54px; height: 54px; border-radius: 12px; background: rgba(251, 191, 36, 0.1); display: flex; justify-content: center; align-items: center; font-size: 1.5rem; color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3);">
+                            <i class="fas fa-fingerprint"></i>
+                        </div>
+                        <h3 style="color: #fbbf24; margin: 0; font-size: 1.6rem; font-family: 'Outfit', sans-serif; letter-spacing: -0.02em;">Forensics Proof (F)</h3>
+                    </div>
+                    <p style="color: #cbd5e1; line-height: 1.7; margin: 0; font-size: 1.05rem;">Immutable lineage evidence. Real-time telemetry routed to Log Analytics proves the exact path and policy-decision for every single AI interaction.</p>
+                </div>
+                
+                <!-- Pulse Banner -->
+                <div style="margin-top: 1rem; padding: 2rem; background: rgba(248, 113, 113, 0.05); border-radius: 16px; border: 1px dashed rgba(248, 113, 113, 0.4); display: flex; align-items: center; gap: 1.5rem;">
+                    <i class="fas fa-exclamation-triangle" style="color: #f87171; font-size: 2.5rem; filter: drop-shadow(0 0 10px rgba(248, 113, 113, 0.6));"></i>
+                    <p style="color: #fca5a5; font-size: 1.05rem; margin: 0; line-height: 1.6; font-style: italic;">"A private path without strong identity is still completely weak. <strong style="color:#f87171;">Proof</strong> requires both network isolation and cryptographic identity working in perfect sync."</p>
+                </div>
+            </div>
         </div>
     </div>
+    <style>
+        @media (max-width: 900px) {
+            .redesigned-pillars-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
 </div>
 
 <h2 id="leadership-decisions" style="text-align: center; margin-top: 5rem;"><span class="gradient-text">The Strategic Leadership Decision Matrix</span></h2>
