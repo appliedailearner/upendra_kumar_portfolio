@@ -71,17 +71,17 @@
         
         /* Glassmorphism Engine & Analyst Cards */
         .glass-card {
-            background: rgba(15, 23, 42, 0.4);
+            background: rgba(15, 23, 42, 0.7); /* Slightly more opaque to compensate for less blur */
             border: 1px solid rgba(56, 189, 248, 0.1);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(4px); /* Reduced from 12px for scroll performance */
+            -webkit-backdrop-filter: blur(4px);
             border-radius: 16px;
             padding: 2.5rem;
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.4s ease, box-shadow 0.4s ease;
             position: relative;
             overflow: hidden;
-            scroll-snap-align: start;
-            scroll-margin-top: 2rem;
+            will-change: transform;
         }
         .glass-card::before {
             content: '';
@@ -144,8 +144,8 @@
             bottom: 100%;
             left: 50%;
             transform: translateX(-50%) translateY(-10px);
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(4px);
             color: #f8fafc;
             padding: 0.75rem 1rem;
             border-radius: 8px;
@@ -189,10 +189,14 @@
 
         /* Official Reference Component */
         .architect-pulse {
+            display: flex !important;
+            flex-direction: column !important;
             border-left: 5px solid #0078D4 !important;
             animation: pulse-border 5s infinite;
-            background: linear-gradient(135deg, rgba(0, 120, 212, 0.05) 0%, rgba(15, 23, 42, 0.4) 100%) !important;
+            background: linear-gradient(135deg, rgba(0, 120, 212, 0.1) 0%, rgba(15, 23, 42, 0.6) 100%) !important;
             padding: 2.5rem !important;
+            will-change: border-left-color;
+            align-items: stretch !important;
         }
         @keyframes pulse-border {
             0% { border-left-color: #0078D4; }
@@ -201,11 +205,14 @@
         }
         .official-diagram-wrapper {
             background: #ffffff;
-            padding: 12px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            margin: 2rem 0;
-            border: 1px solid rgba(0, 120, 212, 0.2);
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.4);
+            margin: 2.5rem auto;
+            border: 1px solid rgba(0, 120, 212, 0.3);
+            width: 100%;
+            max-width: 1000px;
+            overflow: hidden;
         }
         .verified-badge {
             background: rgba(0, 120, 212, 0.15);
@@ -222,6 +229,68 @@
             letter-spacing: 1px;
         }
 
+        /* Stunning Conclusion Pillars */
+        .pillar-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        .pillar-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 2rem 1rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        .pillar-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        .pillar-card i {
+            font-size: 2.5rem;
+            margin-bottom: 1.2rem;
+            display: block;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .pillar-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #94a3b8;
+            margin-bottom: 0.5rem;
+        }
+        .pillar-action {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #f8fafc;
+            letter-spacing: -0.02em;
+        }
+        .conclusion-footer-box {
+            background: rgba(56, 189, 248, 0.05);
+            border-top: 1px solid rgba(56, 189, 248, 0.2);
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin-top: 2rem;
+        }
+        @media (max-width: 992px) {
+            .pillar-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 576px) {
+            .pillar-grid { grid-template-columns: 1fr; }
+        }
+
         /* Sticky Table of Contents */
         .toc-container {
             position: sticky;
@@ -230,11 +299,12 @@
             float: left;
             margin-left: -280px;
             padding: 1.5rem;
-            background: rgba(15, 23, 42, 0.4);
+            background: rgba(15, 23, 42, 0.8);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 12px;
             margin-bottom: 2rem;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(4px);
+            will-change: transform;
         }
         .toc-container h4 {
             font-family: 'Outfit', sans-serif;
@@ -268,7 +338,7 @@
         .toc-link.active {
             color: #60a5fa;
             font-weight: 600;
-            border-left: 3px solid #60a5fa;
+            box-shadow: inset 3px 0 0 #60a5fa; /* Repaint only vs Border Layout trigger */
         }
         @media (max-width: 1200px) {
             .toc-container {
@@ -520,13 +590,14 @@
             transform: scale(1.05);
         }
         
-        /* Ken Burns Effect for Hero */
+        /* Ken Burns Effect Optimization */
         .ken-burns {
-            animation: ken-burns-slow 40s ease-in-out infinite alternate;
+            animation: ken-burns-smooth 60s linear infinite alternate;
+            will-change: transform;
         }
-        @keyframes ken-burns-slow {
+        @keyframes ken-burns-smooth {
             0% { transform: scale(1) translate(0, 0); }
-            100% { transform: scale(1.1) translate(-2%, -1%); }
+            100% { transform: scale(1.05) translate(-1%, -0.5%); }
         }
 
         /* Glass Shine Sweep */
@@ -1055,8 +1126,8 @@
 <p>A lot of teams still treat this as a gateway selection exercise. That is too narrow.</p>
 <p>For regulated AI workloads, the real unit of architecture is the landing zone. Ingress, identity, private connectivity, DNS, API policy, model governance, and monitoring have to work together as one control system. That is why the <a href="https://github.com/Azure/AI-Landing-Zones" target="_blank" rel="noopener noreferrer">Azure AI Landing Zones</a> framing is useful: it moves the conversation from product comparison to control ownership.</p>
 
-<div class="glass-card architect-pulse" style="margin: 3.5rem 0;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+<div class="glass-card architect-pulse" style="margin: 3.5rem 0; text-align: center;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; text-align: left;">
         <div style="display: flex; align-items: center; gap: 15px;">
             <i class="fas fa-certificate" style="color: #0078D4; font-size: 1.8rem; filter: drop-shadow(0 0 8px rgba(0, 120, 212, 0.4));"></i>
             <div>
@@ -1069,11 +1140,11 @@
         </div>
     </div>
     
-    <div class="official-diagram-wrapper">
+    <div class="official-diagram-wrapper" style="margin: 2.5rem 0;">
         <img src="https://raw.githubusercontent.com/Azure/AI-Landing-Zones/main/media/AI-Landing-Zone-Foundry.png" alt="Official Azure AI Landing Zone Foundry Pattern" style="width: 100%; height: auto; display: block; cursor: zoom-in; transition: transform 0.5s ease;" onclick="window.open(this.src, '_blank')" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
     </div>
 
-    <div style="background: rgba(255, 255, 255, 0.03); padding: 1.75rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05);">
+    <div style="background: rgba(255, 255, 255, 0.03); padding: 1.75rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); text-align: left;">
         <p style="font-size: 1rem; color: #cbd5e1; line-height: 1.8; margin: 0;">The officially sanctioned target-state for deploying AI Foundry workloads within an enterprise VNet boundary. Note the strict requirement for private backend connectivity and centralized identity governance.</p>
         <div style="margin-top: 1.5rem;">
             <a href="https://github.com/Azure/AI-Landing-Zones" target="_blank" style="font-size: 0.85rem; color: #64b5f6; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 10px;">
@@ -1136,8 +1207,8 @@
 </ul>
 <p>Those are related, but not identical. Microsoft’s current documentation is clear that Standard v2 and Premium v2 support outbound virtual network integration for private backends, while Premium v2 alone supports virtual network injection. That is the right distinction to explain to security and audit stakeholders. <a href="https://learn.microsoft.com/en-us/azure/api-management/v2-service-tiers-overview" target="_blank" rel="noopener noreferrer">Microsoft Learn</a></p>
 
-<div class="glass-card architect-pulse" style="margin: 3.5rem 0;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+<div class="glass-card architect-pulse" style="margin: 3.5rem 0; text-align: center;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; text-align: left;">
         <div style="display: flex; align-items: center; gap: 15px;">
             <i class="fas fa-network-wired" style="color: #0078D4; font-size: 1.8rem; filter: drop-shadow(0 0 8px rgba(0, 120, 212, 0.4));"></i>
             <div>
@@ -1150,11 +1221,11 @@
         </div>
     </div>
     
-    <div class="official-diagram-wrapper">
+    <div class="official-diagram-wrapper" style="margin: 2.5rem 0;">
         <img src="https://raw.githubusercontent.com/Azure/AI-Landing-Zones/main/media/AI-Landing-Zones-APIM.png" alt="Official Azure AI Landing Zone APIM Pattern" style="width: 100%; height: auto; display: block; cursor: zoom-in; transition: transform 0.5s ease;" onclick="window.open(this.src, '_blank')" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
     </div>
 
-    <div style="background: rgba(255, 255, 255, 0.03); padding: 1.75rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05);">
+    <div style="background: rgba(255, 255, 255, 0.03); padding: 1.75rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); text-align: left;">
         <p style="font-size: 1rem; color: #cbd5e1; line-height: 1.8; margin: 0;">Prescriptive guidance for centralizing AI API traffic via Azure API Management. Enforces a single secure ingress door for audit-ready token limits, PII scrubbing, and model backend authorization.</p>
         <div style="margin-top: 1.5rem;">
             <a href="https://github.com/Azure/AI-Landing-Zones" target="_blank" style="font-size: 0.85rem; color: #64b5f6; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 10px;">
@@ -1284,23 +1355,50 @@
 </ul>
 
 
-<div class="glass-card stunning-conclusion" style="margin: 5rem 0; padding: 4rem; text-align: center; position: relative; border: 2px solid rgba(56, 189, 248, 0.4); background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.9) 100%); overflow: hidden; border-radius: 24px;">
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.2; pointer-events: none; overflow: hidden;">
-        <img src="../images/conclusion_proof.png" alt="" class="ken-burns" style="width: 100%; height: 100%; object-fit: cover; filter: blur(2px);">
+<div class="glass-card stunning-conclusion" style="margin: 5rem 0; padding: 4rem 2rem; text-align: center; position: relative; border: 2px solid rgba(56, 189, 248, 0.4); background: linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 41, 59, 0.95) 100%); overflow: hidden; border-radius: 24px;">
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.15; pointer-events: none; overflow: hidden;">
+        <img src="../images/conclusion_proof.png" alt="" class="ken-burns" style="width: 100%; height: 100%; object-fit: cover; filter: blur(3px);">
     </div>
     <div style="position: relative; z-index: 1;">
-        <h2 id="final-thought" style="margin-bottom: 2.5rem; font-family: 'Outfit', sans-serif; font-size: 2.4rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;"><span class="gradient-text">Final Thought</span></h2>
-        <p style="font-size: 1.15rem; color: #cbd5e1; line-height: 1.9; max-width: 700px; margin: 0 auto;">
-            Security protects. Compliance proves. Identity authorizes. DNS directs.
-            <span style="display: block; margin-top: 1rem;">Private endpoints hide the door. DNS tells traffic where to go. Identity decides who gets in. A regulated AI platform is credible only when you can prove all three.</span>
-        </p>
+        <h2 id="final-thought" style="margin-bottom: 0.5rem; font-family: 'Outfit', sans-serif; font-size: 2.8rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;"><span class="gradient-text">The Architecture of Proof</span></h2>
+        <p style="color: #94a3b8; font-size: 1.1rem; margin-bottom: 3rem; font-weight: 500;">Moving from security intuition to compliance authority.</p>
+
+        <div class="pillar-grid">
+            <div class="pillar-card reveal">
+                <i class="fas fa-shield-alt"></i>
+                <div class="pillar-title">Security</div>
+                <div class="pillar-action">Protects</div>
+            </div>
+            <div class="pillar-card reveal" style="transition-delay: 0.1s;">
+                <i class="fas fa-file-signature"></i>
+                <div class="pillar-title">Compliance</div>
+                <div class="pillar-action">Proves</div>
+            </div>
+            <div class="pillar-card reveal" style="transition-delay: 0.2s;">
+                <i class="fas fa-user-shield"></i>
+                <div class="pillar-title">Identity</div>
+                <div class="pillar-action">Authorizes</div>
+            </div>
+            <div class="pillar-card reveal" style="transition-delay: 0.3s;">
+                <i class="fas fa-network-wired"></i>
+                <div class="pillar-title">DNS</div>
+                <div class="pillar-action">Directs</div>
+            </div>
+        </div>
+
+        <div class="conclusion-footer-box">
+            <p style="font-size: 1.25rem; color: #f8fafc; line-height: 1.7; max-width: 800px; margin: 0 auto; font-family: 'Outfit', sans-serif; font-weight: 500;">
+                Private endpoints hide the door. DNS tells traffic where to go. Identity decides who gets in.
+                <span style="display: block; margin-top: 1rem; color: #38bdf8; font-weight: 800; font-size: 1.4rem;">A regulated AI platform is credible only when you can prove all three.</span>
+            </p>
+        </div>
     </div>
 </div>
 <h2 id="full-control-toolkit"><span class="gradient-text">The "Full Control" Toolkit</span></h2>
 <p>To move from a design review to a production-ready environment, you need the right accelerators. We leverage established frameworks to ensure we aren't reinventing the wheel on security.</p>
 
-<div class="glass-card architect-pulse" style="margin: 3.5rem 0; border-left: 5px solid #a855f7 !important;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+<div class="glass-card architect-pulse" style="margin: 3.5rem 0; border-left: 5px solid #a855f7 !important; text-align: center;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; text-align: left;">
         <div style="display: flex; align-items: center; gap: 15px;">
             <i class="fas fa-clipboard-check" style="color: #a855f7; font-size: 1.8rem; filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.4));"></i>
             <div>
@@ -1313,7 +1411,7 @@
         </div>
     </div>
     
-    <div style="background: rgba(255, 255, 255, 0.03); padding: 1.75rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05);">
+    <div style="background: rgba(255, 255, 255, 0.03); padding: 1.75rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); text-align: left;">
         <p style="font-size: 1rem; color: #cbd5e1; line-height: 1.8; margin-bottom: 1.5rem;">The prescriptive engineering roadmap for move-to-production governance. Essential for architects preparing for regulatory technical audits and enterprise-scale deployments.</p>
         <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
             <a href="https://github.com/Azure/AI-Landing-Zones/blob/main/docs/AI-Landing-Zones-Design-Checklist.md" target="_blank" class="btn btn-primary" style="background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%); border: none; padding: 10px 24px; font-weight: 700; border-radius: 8px; color: white; text-decoration: none; display: inline-flex; align-items: center; gap: 10px;">
@@ -1535,7 +1633,7 @@
                             });
                         }
                     });
-                }, { rootMargin: '0px 0px -80% 0px', threshold: 0.1 });
+                }, { rootMargin: '-10% 0px -40% 0px', threshold: 0 }); // Generous margin for better tracking
                 headers.forEach(header => observer.observe(header));
             }
         });
