@@ -70,8 +70,6 @@
             }
             if (scrubbed) {
                 privacyHits++;
-                const hitElem = document.getElementById('privacy-hits');
-                if (hitElem) hitElem.textContent = privacyHits;
             }
         });
     }

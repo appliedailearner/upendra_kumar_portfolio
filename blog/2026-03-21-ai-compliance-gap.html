@@ -391,108 +391,7 @@
             border-color: #3b82f6;
         }
         
-        /* Starcast Persona Styles */
-        .cast-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin: 3rem 0;
-        }
-        .cast-card {
-            background: rgba(15, 23, 42, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        .cast-card:hover {
-            background: rgba(15, 23, 42, 0.6);
-            transform: translateY(-5px);
-        }
-        .profile-ring {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin: 0 auto 1rem;
-            padding: 3px;
-            position: relative;
-        }
-        .profile-ring img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #0f172a;
-        }
-        
-        /* Ring Color Variants */
-        .ring-cyan { background: linear-gradient(135deg, #06b6d4, #22d3ee); }
-        .ring-green { background: linear-gradient(135deg, #22c55e, #4ade80); }
-        .ring-purple { background: linear-gradient(135deg, #a855f7, #ec4899); }
-        .ring-blue { background: linear-gradient(135deg, #3b82f6, #6366f1); }
-        .ring-orange { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
-        .ring-slate { background: linear-gradient(135deg, #94a3b8, #cbd5e1); }
 
-        .cast-info strong {
-            display: block;
-            color: #f8fafc;
-            font-size: 0.95rem;
-            margin-bottom: 0.5rem;
-        }
-        .cast-info p {
-            font-size: 0.8rem;
-            color: #94a3b8;
-            line-height: 1.4;
-            margin: 0;
-        }
-
-        /* Persona Take Box */
-        .persona-take {
-            margin: 2.5rem 0;
-            position: relative;
-            padding-left: 100px;
-            scroll-snap-align: start;
-            scroll-margin-top: 5rem;
-        }
-        .persona-take .take-avatar {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 80px;
-            height: 80px;
-        }
-        .persona-take .take-content {
-            background: rgba(30, 41, 59, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 1.5rem;
-            border-radius: 0 16px 16px 16px;
-            position: relative;
-        }
-        .persona-take .take-content::before {
-            content: '';
-            position: absolute;
-            left: -10px;
-            top: 20px;
-            border-width: 10px 10px 10px 0;
-            border-style: solid;
-            border-color: transparent rgba(30, 41, 59, 0.5) transparent transparent;
-        }
-        .persona-take .take-author {
-            color: #60a5fa;
-            font-weight: 700;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-        .persona-take p {
-            margin: 0;
-            font-size: 1rem;
-            color: #cbd5e1;
-            font-style: italic;
-        }
 
         /* Tables & Grids */
         .spec-table {
@@ -1492,7 +1391,7 @@
                             <div id="ux-speed" style="font-weight: 600; font-family: 'JetBrains Mono', monospace; color: #34d399;">--ms</div>
                         </div>
                         <div style="width: 1px; background: rgba(255, 255, 255, 0.1); margin: 0 0.5rem;"></div>
-                        <div>
+                        <div style="display:none" id="privacy-hits-container">
                             <div style="color: rgba(255, 255, 255, 0.5); margin-bottom: 0.25rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Privacy Hits</div>
                             <div id="privacy-hits" style="font-weight: 600; font-family: 'JetBrains Mono', monospace; color: #60a5fa;">0</div>
                         </div>
@@ -1692,17 +1591,12 @@
             // 3. Live Telemetry Jitter
             const uxSpeed = document.getElementById('ux-speed');
             const privacyHits = document.getElementById('privacy-hits');
-            let hits = parseInt(localStorage.getItem('privacy_hits_total') || '124');
+            // Privacy hits counter cleared from localStorage
+            localStorage.removeItem('privacy_hits_total');
 
             setInterval(() => {
                 const speed = Math.floor(Math.random() * (45 - 12 + 1)) + 12;
                 if(uxSpeed) uxSpeed.innerText = `${speed}ms`;
-                
-                if (Math.random() > 0.7) {
-                    hits += Math.floor(Math.random() * 3);
-                    if(privacyHits) privacyHits.innerText = hits.toLocaleString();
-                    localStorage.setItem('privacy_hits_total', hits);
-                }
             }, 3000);
 
             // 5. Four Pillars Dashboard Sync
