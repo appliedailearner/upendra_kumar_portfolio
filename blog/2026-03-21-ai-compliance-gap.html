@@ -187,6 +187,18 @@
             transform: translateX(-50%) translateY(0);
         }
 
+        /* Official Reference Pulse Component */
+        .architect-pulse {
+            border-left: 4px solid #0078D4 !important;
+            animation: pulse-border 4s infinite;
+            background: rgba(0, 120, 212, 0.03) !important;
+        }
+        @keyframes pulse-border {
+            0% { border-left-color: #0078D4; }
+            50% { border-left-color: #60a5fa; }
+            100% { border-left-color: #0078D4; }
+        }
+
         /* Sticky Table of Contents */
         .toc-container {
             position: sticky;
@@ -1028,6 +1040,16 @@
     </div>
 </div>
 
+<div class="glass-card architect-pulse" style="margin: 3rem 0;">
+    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 1.5rem;">
+        <i class="fas fa-microchip" style="color: #0078D4; font-size: 1.5rem;"></i>
+        <span style="font-size: 0.7rem; font-weight: 800; letter-spacing: 2px; color: #0078D4; text-transform: uppercase;">Official Microsoft Reference</span>
+    </div>
+    <h4 style="margin: 0 0 1rem 0; color: #f8fafc; font-family: 'Outfit', sans-serif;">Azure AI Foundry Landing Zone Pattern</h4>
+    <img src="https://raw.githubusercontent.com/Azure/AI-Landing-Zones/main/media/AI-Landing-Zone-Foundry.png" alt="Official Azure AI Landing Zone Foundry Pattern" style="width: 100%; border-radius: 12px; margin-bottom: 1.5rem; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s ease;" onclick="window.open(this.src, '_blank')" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+    <p style="font-size: 0.95rem; color: #cbd5e1; line-height: 1.6; margin: 0;">The officially sanctioned target-state for deploying AI Foundry workloads. Note the strict VNet injection and private backend connectivity requirements for enterprise-grade compliance.</p>
+</div>
+
 <h2 id="foundry-agent-gateway"><span class="gradient-text">The Foundry Agent Gateway</span></h2>
 <p>As teams move from simple chat experiences to agents and tool use, the gateway role expands. It is no longer only about authentication and routing. It becomes the place to govern model access, enforce quotas, standardize backend connections, and produce telemetry that operations and audit teams can use.</p>
 
@@ -1088,6 +1110,16 @@
 <div class="glass-card" style="margin: 2rem 0; padding: 1.5rem; text-align: center;">
     <img src="../images/diagram_vnet_compare_msft.png" alt="Standard v2 vs Premium v2 Network Patterns" style="max-width: 100%; border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2);">
     <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 1rem;">Comparison: outbound VNet integration versus VNet injection</p>
+</div>
+
+<div class="glass-card architect-pulse" style="margin: 3rem 0;">
+    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 1.5rem;">
+        <i class="fas fa-network-wired" style="color: #0078D4; font-size: 1.5rem;"></i>
+        <span style="font-size: 0.7rem; font-weight: 800; letter-spacing: 2px; color: #0078D4; text-transform: uppercase;">Official Microsoft Reference</span>
+    </div>
+    <h4 style="margin: 0 0 1rem 0; color: #f8fafc; font-family: 'Outfit', sans-serif;">AI Gateway (APIM) Networking Pattern</h4>
+    <img src="https://raw.githubusercontent.com/Azure/AI-Landing-Zones/main/media/AI-Landing-Zones-APIM.png" alt="Official Azure AI Landing Zone APIM Pattern" style="width: 100%; border-radius: 12px; margin-bottom: 1.5rem; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s ease;" onclick="window.open(this.src, '_blank')" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+    <p style="font-size: 0.95rem; color: #cbd5e1; line-height: 1.6; margin: 0;">Prescriptive guidance for centralizing AI API traffic. This topology enforces a single entry point for all model consumption, ensuring uniform policy application and token-level auditing.</p>
 </div>
 
 <p>The practical framing is simple: if you need private backend connectivity, Standard v2 may be enough. If the control objective requires the gateway itself to live inside the private boundary, Premium v2 is the fit. That is stronger and more defensible than saying one tier is simply "more secure."</p>
@@ -1217,35 +1249,6 @@
     <li>Do not treat Private Endpoint creation as the end of the networking story. Validate DNS and routing behavior.</li>
 </ul>
 
-<h2 id="official-reference-architectures" style="margin-top: 4rem;"><span class="gradient-text">Official AI Landing Zone Patterns</span></h2>
-<p>To ensure your deployments adhere to Microsoft's well-architected standards, align your design with the official Azure AI Landing Zone Reference Architectures. These represent the target state for enterprise governance.</p>
-
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0;">
-    <div class="glass-card" style="padding: 1.5rem; text-align: center;">
-        <h4 style="color: #38bdf8; margin-top: 0; margin-bottom: 1rem;">1. AI Gateway Pattern (APIM)</h4>
-        <img src="https://raw.githubusercontent.com/Azure/AI-Landing-Zones/main/media/AI-Landing-Zones-APIM.png" alt="Azure AI Landing Zone APIM Pattern" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); cursor: pointer;" onclick="window.open(this.src, '_blank')">
-        <p style="font-size: 0.85rem; color: #94a3b8; margin-top: 1rem;">The standardized topology for centralizing AI API controls, rate-limiting, and load balancing across multi-tenant or dedicated backends.</p>
-    </div>
-
-    <div class="glass-card" style="padding: 1.5rem; text-align: center;">
-        <h4 style="color: #34d399; margin-top: 0; margin-bottom: 1rem;">2. AI Foundry Pattern</h4>
-        <img src="https://raw.githubusercontent.com/Azure/AI-Landing-Zones/main/media/AI-Landing-Zone-Foundry.png" alt="Azure AI Landing Zone Foundry Pattern" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); cursor: pointer;" onclick="window.open(this.src, '_blank')">
-        <p style="font-size: 0.85rem; color: #94a3b8; margin-top: 1rem;">The officially sanctioned pattern for deploying Azure AI Foundry securely within an enterprise VNet injection boundary.</p>
-    </div>
-</div>
-
-<div class="glass-card" style="margin-bottom: 4rem; border-left: 4px solid #a855f7; background: rgba(168, 85, 247, 0.05);">
-    <h4 style="color: #a855f7;"><i class="fas fa-book-open" style="margin-right: 10px;"></i> Official Azure AI Landing Zone Documentation</h4>
-    <p>Dive deep into the prescriptive guidance, networking deep-dives, and governance recommendations directly from the Microsoft product teams.</p>
-    <div style="margin-top: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-        <a href="https://github.com/Azure/AI-Landing-Zones/tree/main/docs" target="_blank" class="btn btn-outline" style="border-color: #a855f7; color: #a855f7;">
-            <i class="fab fa-markdown"></i> Read the Docs
-        </a>
-        <a href="https://github.com/Azure/AI-Landing-Zones/blob/main/docs/AI-Landing-Zones-Design-Checklist.md" target="_blank" class="btn btn-primary" style="background: linear-gradient(90deg, #a855f7, #6366f1); border: none;">
-            <i class="fas fa-clipboard-check"></i> Master Design Checklist
-        </a>
-    </div>
-</div>
 
 <div class="glass-card stunning-conclusion" style="margin: 5rem 0; padding: 4rem; text-align: center; position: relative; border: 2px solid rgba(56, 189, 248, 0.4); background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.9) 100%); overflow: hidden; border-radius: 24px;">
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.2; pointer-events: none; overflow: hidden;">
@@ -1261,6 +1264,23 @@
 </div>
 <h2 id="full-control-toolkit"><span class="gradient-text">The "Full Control" Toolkit</span></h2>
 <p>To move from a design review to a production-ready environment, you need the right accelerators. We leverage established frameworks to ensure we aren't reinventing the wheel on security.</p>
+
+<div class="glass-card architect-pulse" style="margin: 3rem 0; border-left: 4px solid #a855f7 !important;">
+    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 1rem;">
+        <i class="fas fa-clipboard-check" style="color: #a855f7; font-size: 1.5rem;"></i>
+        <span style="font-size: 0.7rem; font-weight: 800; letter-spacing: 2px; color: #a855f7; text-transform: uppercase;">Official Microsoft Accelerator</span>
+    </div>
+    <h4 style="margin: 0 0 1rem 0; color: #f8fafc; font-family: 'Outfit', sans-serif;">Azure AI Landing Zone Design Checklist</h4>
+    <p style="font-size: 1rem; color: #cbd5e1; line-height: 1.7; margin-bottom: 1.5rem;">The prescriptive engineering roadmap for move-to-production governance. Essential for architects preparing for regulatory technical audits.</p>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="https://github.com/Azure/AI-Landing-Zones/blob/main/docs/AI-Landing-Zones-Design-Checklist.md" target="_blank" class="btn btn-primary" style="background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%); border: none;">
+            <i class="fas fa-rocket"></i> Launch Official Checklist
+        </a>
+        <a href="https://github.com/Azure/AI-Landing-Zones/tree/main/docs" target="_blank" class="btn btn-outline" style="border-color: rgba(168, 85, 247, 0.4); color: #a855f7;">
+            <i class="fab fa-github"></i> Browse Official Docs
+        </a>
+    </div>
+</div>
 
 <div class="glass-card" style="margin-bottom: 2rem; border-left: 4px solid #38bdf8;">
     <h4 style="color: #60a5fa;"><i class="fas fa-tools" style="margin-right: 10px;"></i> AI Hub Gateway Landing Zone Accelerator</h4>
