@@ -1,0 +1,40 @@
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor': '#ffffff', 'primaryBorderColor': '#0078D4', 'lineColor': '#0078D4', 'fontFamily': 'Segoe UI, Arial'}}}%%
+graph TD
+    classDef default fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc,rx:8px,ry:8px
+    classDef azure fill:#0078D4,stroke:#005A9E,stroke-width:2px,color:#fff,rx:8px,ry:8px
+    classDef user fill:#EBEBEB,stroke:#CCC,stroke-width:2px,color:#333,rx:8px,ry:8px
+
+    subgraph ConsumptionLayer [Consumption Layer]
+        Users[fa:fa-users Application Users]:::user
+        Endpoints[fa:fa-mobile Mobile / Desktop]:::user
+    end
+
+    subgraph LandingZone [The AI Landing Zone]
+        direction LR
+        subgraph Ingress [Ingress / WAF]
+            AppGW[fa:fa-shield-alt Application Gateway]:::azure
+            FW[fa:fa-firewall Azure Firewall]:::azure
+            AppGW --- FW
+        end
+        subgraph VNet [Management VNet]
+            APIM[fa:fa-cloud API Management]:::azure
+            KV[fa:fa-key Key Vault]:::azure
+            subgraph PE [Private Connectivity]
+                Endpoints2[fa:fa-link Private Endpoints]:::azure
+            end
+        end
+        Ingress --> APIM
+        APIM --> PE
+        APIM -.-> KV
+    end
+
+    subgraph IntelligenceLayer [Intelligence & Data Layer]
+        direction LR
+        OAI[fa:fa-brain Azure OpenAI]:::azure
+        Search[fa:fa-search AI Search]:::azure
+        DB[fa:fa-database Cosmos DB / SQL]:::azure
+        Mon[fa:fa-chart-line Azure Monitor / Sentinel]:::azure
+    end
+
+    ConsumptionLayer ==> Ingress
+    PE ==> IntelligenceLayer

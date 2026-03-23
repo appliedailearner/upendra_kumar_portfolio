@@ -1,0 +1,17 @@
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor': '#ffffff', 'primaryBorderColor': '#0078D4', 'lineColor': '#0078D4', 'fontFamily': 'Segoe UI, Arial'}}}%%
+graph TD
+    classDef azure fill:#0078D4,stroke:#005A9E,stroke-width:2px,color:#fff,rx:5px,ry:5px
+    classDef unmanaged fill:#EBEBEB,stroke:#CCC,stroke-width:2px,color:#333,rx:5px,ry:5px
+
+    subgraph Standard v2 [Standard v2: VNet Integration]
+        direction TB
+        C1[Client Traffic] --> GW1[fa:fa-cloud APIM Gateway<br>Standard Multi-Tenant]:::unmanaged
+        GW1 --> |VNet Integration| PE1[Private Endpoints]:::azure
+        PE1 --> BE1[fa:fa-server Backend Services]:::azure
+    end
+
+    subgraph Premium v2 [Premium v2: VNet Injection]
+        direction TB
+        C2[Public/Private Client Traffic] --> GW2[fa:fa-shield-alt APIM Gateway<br>Dedicated inside VNet]:::azure
+        GW2 --> |Direct Access inside VNet| BE2[fa:fa-server Private Backend Services]:::azure
+    end

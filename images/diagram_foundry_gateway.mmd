@@ -1,0 +1,30 @@
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor': '#ffffff', 'primaryBorderColor': '#0078D4', 'lineColor': '#0078D4', 'fontFamily': 'Segoe UI, Arial'}}}%%
+graph LR
+    classDef azure fill:#0078D4,stroke:#005A9E,stroke-width:2px,color:#fff,rx:5px,ry:5px
+    classDef unmanaged fill:#EBEBEB,stroke:#CCC,stroke-width:2px,color:#333,rx:5px,ry:5px
+
+    subgraph Service [Azure Foundry Agent Service]
+        direction TB
+        L[Agent Logic Python/C#]:::unmanaged
+        SK[Semantic Kernel]:::unmanaged
+        Mem[Memory & Tools]:::unmanaged
+    end
+
+    subgraph Gateway [AI Gateway Layer]
+        direction TB
+        GW[fa:fa-cloud Azure API Management]:::azure
+        RL[Rate Limiting & Throttling]:::unmanaged
+        Cache[Redis Caching]:::unmanaged
+        Sec[Auth / Entra ID]:::azure
+        Mon[Usage Monitoring]:::azure
+    end
+
+    subgraph Backends [Model Deployments]
+        direction TB
+        OAI[fa:fa-brain Azure OpenAI GPT-4]:::azure
+        L3[Llama 3]:::unmanaged
+        D3[DALL-E 3]:::azure
+    end
+
+    Service --> |Service Endpoint| Gateway
+    Gateway ==> |Secure Connections| Backends

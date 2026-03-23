@@ -1,134 +1,52 @@
+import requests
+import base64
+import zlib
 import os
-from diagrams import Diagram, Cluster, Edge
-from diagrams.azure.network import Firewall, VirtualNetworks, NetworkSecurityGroupsClassic
-from diagrams.azure.database import SQLDatabases
-from diagrams.azure.compute import VMWindows
-from diagrams.onprem.client import Users, Client
-from diagrams.onprem.network import Internet
 
-graph_attr = {
-    "pad": "0.5",
-    "nodesep": "0.8",
-    "ranksep": "1.2",
-    "margin": "0.2",
-    "bgcolor": "white",
-    "fontname": "Segoe UI",
-    "fontsize": "16",
-    "dpi": "300"
-}
-
-node_attr = {
-    "fontname": "Segoe UI",
-    "fontsize": "12",
-    "fontcolor": "#333333"
-}
-
-edge_attr = {
-    "fontname": "Segoe UI",
-    "fontsize": "10",
-    "color": "#555555"
-}
-
-os.environ["PATH"] += os.pathsep + r"C:\Program Files\Graphviz\bin"
-dir_path = r"C:\Users\upend\.gemini\antigravity\brain\f8cf40ca-8d39-4eae-a103-d569d17b22d2"
-
-with Diagram("1. Access Control (VIP Pass)", show=False, filename=os.path.join(dir_path, "access_control_pro"), direction="LR", graph_attr=graph_attr, node_attr=node_attr, edge_attr=edge_attr):
-    with Cluster("Ingress Sources"):
-        devs = Users("Remote Developers")
-        partners = Users("Partner Vendors")
-        qa = Users("QA Team")
-
-    with Cluster("Azure Security Perimeter"):
-        fw = Firewall("Azure Firewall")
-        
-        with Cluster("Azure IP Groups"):
-            ig1 = NetworkSecurityGroupsClassic("IP Group:\nVIP-Devs")
-            ig2 = NetworkSecurityGroupsClassic("IP Group:\nTrusted-Vendors")
-            ig3 = NetworkSecurityGroupsClassic("IP Group:\nUAT-Testers")
-        
-        devs >> Edge(label="Matches") >> ig1 >> Edge(color="darkgreen", label="Allow") >> fw
-        partners >> Edge(label="Matches") >> ig2 >> Edge(color="darkgreen", label="Allow") >> fw
-        qa >> Edge(label="Matches") >> ig3 >> Edge(color="darkgreen", label="Allow") >> fw
-
-    with Cluster("Internal Assets"):
-        prod = SQLDatabases("Production DB")
-        api = VMWindows("Partner API")
-        test = VirtualNetworks("Staging Env")
-
-    fw >> prod
-    fw >> api
-    fw >> test
-
-with Diagram("2. Security & Quarantine", show=False, filename=os.path.join(dir_path, "security_quarantine_pro"), direction="LR", graph_attr=graph_attr, node_attr=node_attr, edge_attr=edge_attr):
-    with Cluster("Threat Landscape & Updates"):
-        hackers = Internet("Malicious Botnets")
-        sick = VMWindows("Quarantined VMs")
-        updates = VMWindows("Approved Patch Server")
-
-    with Cluster("Azure Firewall Policies"):
-        fw = Firewall("Azure Firewall")
-        
-        with Cluster("IP Groups Config"):
-            ig_bad = NetworkSecurityGroupsClassic("IP Group: Threat-Intel")
-            ig_sick = NetworkSecurityGroupsClassic("IP Group: Containment")
-            ig_update = NetworkSecurityGroupsClassic("IP Group: Patch-Servers")
-            
-        hackers >> ig_bad >> Edge(color="darkred", label="100: DROP") >> fw
-        sick >> ig_sick >> Edge(color="darkred", label="101: BLOCK OUTBOUND") >> fw
-        fw >> Edge(color="darkgreen", label="200: ALLOW TO") >> ig_update
-        ig_update >> updates
-        
-    with Cluster("Secure Zones"):
-        internal = VirtualNetworks("Internal Network")
-        internet = Internet("The Public Internet")
-        
-    fw >> Edge(color="darkred", style="dashed", label="Dropped") >> internal
-    fw >> Edge(color="darkred", style="dashed", label="Blocked") >> internet
-
-with Diagram("3. Routing & Migration Sync", show=False, filename=os.path.join(dir_path, "routing_migration_pro"), direction="TB", graph_attr=graph_attr, node_attr=node_attr, edge_attr=edge_attr):
-    with Cluster("Azure Resource Manager (Hub)"):
-        with Cluster("Central IP Groups"):
-            ig_merge = NetworkSecurityGroupsClassic("IP Group:\nNew-Subsidiary")
-            ig_migrate = NetworkSecurityGroupsClassic("IP Group:\nCloud-Migrated")
-            ig_hq = NetworkSecurityGroupsClassic("IP Group:\nGlobal-Branches")
-
-    with Cluster("Global Azure Firewalls"):
-        fw_east = Firewall("East US")
-        fw_west = Firewall("West Europe")
-        fw_asia = Firewall("Japan East")
-        
-    sync_edge = Edge(color="purple", style="dotted")
-    fws = [fw_east, fw_west, fw_asia]
+def generate_kroki_mermaid(mermaid_text, filename):
+    compressed = zlib.compress(mermaid_text.encode('utf-8'), 9)
+    encoded = base64.urlsafe_b64encode(compressed).decode('utf-8')
+    url = f"https://kroki.io/mermaid/svg/{encoded}"
     
-    ig_merge >> sync_edge >> fws
-    ig_migrate >> sync_edge >> fws
-    ig_hq >> sync_edge >> fws
-    
-    with Cluster("Regional Workloads"):
-        vnet1 = VirtualNetworks("App VNet America")
-        vnet2 = VirtualNetworks("App VNet Europe")
-        
-    fw_east >> vnet1
-    fw_west >> vnet2
-    fw_asia >> Edge(style="dashed", label="Backup Path") >> vnet1
+    response = requests.get(url)
+    if response.status_code == 200:
+        filepath = os.path.join(r"C:\MyResumePortfolio\images", filename)
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write(response.text)
+        print(f"Successfully generated {filename}")
+    else:
+        print(f"Failed to generate {filename}: {response.text}")
 
-with Diagram("Core Routing Architecture", show=False, filename=os.path.join(dir_path, "core_routing_pro"), direction="TB", graph_attr=graph_attr, node_attr=node_attr, edge_attr=edge_attr):
-    with Cluster("Azure Virtual Network"):
-        app_subnet = VirtualNetworks("App Subnet\n(RT-Performance-Bypass)")
+diagram_1 = """
+graph LR
+    classDef default fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc,rx:8px,ry:8px
+    classDef onprem fill:#1e1e1e,stroke:#a855f7,stroke-width:2px,color:#f8fafc,rx:8px,ry:8px
+    classDef azure fill:#0078D4,stroke:#38bdf8,stroke-width:2px,color:#ffffff,rx:8px,ry:8px
+    classDef endpoint fill:#10b981,stroke:#059669,stroke-width:2px,color:#ffffff,rx:8px,ry:8px
 
-        with Cluster("Forced Tunnel Path (Latency)"):
-            er_vpn = Firewall("ExpressRoute / VPN Gateway")
-            on_prem_fw = Firewall("On-Premises DMZ Firewall")
-            
-        with Cluster("Microsoft Backbone (Speed)"):
-            azure_cloud = VirtualNetworks("AzureCloud\n(Service Tag)")
-            azure_sql = SQLDatabases("Azure SQL\n(Service Tag)")
+    subgraph OnPrem[On-Premises Network]
+        App[fa:fa-server On-Prem App]:::onprem
+        DNS[fa:fa-sitemap On-Prem DNS Server]:::onprem
+    end
 
-    # Force the two bottom clusters to render side-by-side with plenty of space
-    er_vpn - Edge(style="invis") - azure_cloud
+    subgraph AzureCloud[Azure Private Network]
+        subgraph VNet[Hub Virtual Network]
+            Resolver[fa:fa-cloud Azure DNS Private Resolver]:::azure
+            PrivZone[fa:fa-globe Private DNS Zone]:::azure
+        end
+        PE[fa:fa-network-wired Private Endpoint IP]:::endpoint
+        Service[fa:fa-database Azure AI Service]:::azure
+    end
 
-    app_subnet >> Edge(color="darkred", style="dashed", label=" 0.0.0.0/0 All Other Traffic\n(Backhauled / High Latency) ") >> er_vpn
-    er_vpn >> Edge(color="darkred", style="dashed", label=" BGP Route ") >> on_prem_fw
+    App -->|1. Resolves| DNS
+    DNS -->|2. Forwards| Resolver
+    Resolver -->|3. Queries| PrivZone
+    PrivZone -.->|4. Returns IP| Resolver
+    Resolver -.-> DNS
+    DNS -.->|5. 10.1.1.5| App
 
-    app_subnet >> Edge(color="darkgreen", label=" UDR Bypass\n(Direct / Low Latency) ") >> azure_cloud
-    app_subnet >> Edge(color="darkgreen", label=" UDR Bypass\n(Direct / Low Latency) ") >> azure_sql
+    App ==>|6. Traffic Routes| PE
+    PE ==>|7. Private Link| Service
+"""
+
+generate_kroki_mermaid(diagram_1, "diagram_hybrid_dns_msft.svg")

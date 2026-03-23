@@ -1,0 +1,15 @@
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor': '#ffffff', 'primaryBorderColor': '#0078D4', 'lineColor': '#0078D4', 'fontFamily': 'Segoe UI, Arial'}}}%%
+graph LR
+    classDef azure fill:#0078D4,stroke:#005A9E,stroke-width:2px,color:#fff,rx:5px,ry:5px
+    classDef onprem fill:#5C2D91,stroke:#3B1D5C,stroke-width:2px,color:#fff,rx:5px,ry:5px
+    classDef endpoint fill:#107C41,stroke:#0B552A,stroke-width:2px,color:#fff,rx:5px,ry:5px
+
+    A[fa:fa-building On-Prem App]:::onprem --> |1. Queries| B[fa:fa-server On-Prem DNS]:::onprem
+    B --> |2. Forwards| C[fa:fa-cloud Azure DNS<br>Private Resolver]:::azure
+    C --> |3. Resolves| D[fa:fa-globe Private DNS Zones]:::azure
+    D -.-> |4. Returns IP| C
+    C -.-> |5. Returns IP| B
+    B -.-> |6. Returns IP| A
+
+    A ==> |7. Routes Traffic| E[fa:fa-network-wired Private<br>Endpoint IP]:::endpoint
+    E ==> |8. Connects| F[fa:fa-database Azure Service]:::azure
