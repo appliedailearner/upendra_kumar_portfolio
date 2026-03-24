@@ -80,10 +80,19 @@
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.4s ease, box-shadow 0.4s ease;
             position: relative;
-            overflow: hidden;
+            overflow: visible; /* Required for glossary tooltips to pop out of the card */
             will-change: transform;
         }
-        .glass-card::before {
+        /* Shine wrap to keep the sweep effect contained while allowing tooltips to overflow the main card */
+        .glass-shine-wrap {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            border-radius: inherit;
+            z-index: -1;
+        }
+        .glass-shine-wrap::before {
             content: '';
             position: absolute;
             top: 0;
@@ -93,7 +102,7 @@
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
             transition: 0.5s;
         }
-        .glass-card:hover::before {
+        .glass-card:hover .glass-shine-wrap::before {
             left: 100%;
         }
         .glass-card:hover {
@@ -1113,6 +1122,7 @@
 
 <h2 id="executive-summary"><span class="gradient-text">Executive Summary</span></h2>
 <div class="glass-card" style="margin-bottom: 3rem;">
+    <div class="glass-shine-wrap"></div>
     <ul style="margin: 0; padding-left: 1.25rem;">
         <li>The gap in many AI platforms is not perimeter tooling. It is the inability to prove path, policy, and control ownership end to end.</li>
         <li>APIM should be treated as the AI control plane, not just a reverse proxy.</li>
@@ -1127,6 +1137,7 @@
 <p>For regulated AI workloads, the real unit of architecture is the landing zone. Ingress, identity, private connectivity, DNS, API policy, model governance, and monitoring have to work together as one control system. That is why the <a href="https://github.com/Azure/AI-Landing-Zones" target="_blank" rel="noopener noreferrer">Azure AI Landing Zones</a> framing is useful: it moves the conversation from product comparison to control ownership.</p>
 
 <div class="glass-card architect-pulse" style="margin: 3.5rem 0; text-align: center;">
+    <div class="glass-shine-wrap"></div>
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; text-align: left;">
         <div style="display: flex; align-items: center; gap: 15px;">
             <i class="fas fa-certificate" style="color: #0078D4; font-size: 1.8rem; filter: drop-shadow(0 0 8px rgba(0, 120, 212, 0.4));"></i>
@@ -1171,6 +1182,27 @@
     </ol>
 </div>
 
+<h3 style="color: #38bdf8; font-family: 'Outfit', sans-serif; margin-bottom: 1.5rem;"><i class="fas fa-microchip" style="margin-right: 12px;"></i> APIM: The Federated Execution Layer</h3>
+<div class="glass-card" style="margin-bottom: 3rem; background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%); border-left: 4px solid #38bdf8;">
+    <div class="glass-shine-wrap"></div>
+    <p style="color: #cbd5e1; line-height: 1.7; margin-bottom: 2rem;">Modern AI governance requires a shift from monolithic Gateways to federated control planes. Based on official Azure technical blueprints, the gateway isn't just a proxy—it's the runtime for your compliance policy.</p>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;">
+        <div style="background: rgba(255, 255, 255, 0.03); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05);">
+            <h5 style="color: #f8fafc; margin-bottom: 0.8rem; font-family: 'Outfit', sans-serif;"><i class="fas fa-sitemap" style="color: #38bdf8; margin-right: 8px;"></i> Federated Workspaces</h5>
+            <p style="font-size: 0.9rem; color: #94a3b8; margin: 0;">Enables decentralized AI teams to productize their own APIs while a central platform team maintaining the core infrastructure. Access is strictly controlled through Azure RBAC, ensuring specific teams only see their designated models and tokens.</p>
+        </div>
+        <div style="background: rgba(255, 255, 255, 0.03); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05);">
+            <h5 style="color: #f8fafc; margin-bottom: 0.8rem; font-family: 'Outfit', sans-serif;"><i class="fas fa-layers-group" style="color: #38bdf8; margin-right: 8px;"></i> Policy Scoping</h5>
+            <p style="font-size: 0.9rem; color: #94a3b8; margin: 0;">Policies are executed sequentially across multiple scopes: <strong>Global</strong> (Enterprise Guardrails), <strong>Workspace</strong> (Departmental Rules), <strong>Product</strong> (Tiered Access), and <strong>API</strong> (Specific Model Controls). This layered approach is the bedrock of verifiable AI compliance.</p>
+        </div>
+    </div>
+    
+    <div style="margin-top: 2rem; padding: 1rem; background: rgba(56, 189, 248, 0.1); border-radius: 8px; border: 1px dashed rgba(56, 189, 248, 0.3);">
+        <p style="font-size: 0.95rem; color: #f8fafc; margin: 0;"><i class="fas fa-info-circle" style="color: #38bdf8; margin-right: 10px;"></i> <strong>Technical Insight:</strong> The Management Plane handles configuration, while the Gateway (Data Plane) enforces routing, security, and throttling. This separation ensures that even if the control plane is offline, your AI runtime remains secure and operational.</p>
+    </div>
+</div>
+
 <h2 id="policy-enforcement"><span class="gradient-text">Policy Enforcement</span></h2>
 <p>Network routing is passive. APIM policy is active enforcement. This is where you validate client identity, apply rate and token controls, and authenticate to AI backends with managed identity.</p>
 
@@ -1208,6 +1240,7 @@
 <p>Those are related, but not identical. Microsoft’s current documentation is clear that Standard v2 and Premium v2 support outbound virtual network integration for private backends, while Premium v2 alone supports virtual network injection. That is the right distinction to explain to security and audit stakeholders. <a href="https://learn.microsoft.com/en-us/azure/api-management/v2-service-tiers-overview" target="_blank" rel="noopener noreferrer">Microsoft Learn</a></p>
 
 <div class="glass-card architect-pulse" style="margin: 3.5rem 0; text-align: center;">
+    <div class="glass-shine-wrap"></div>
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; text-align: left;">
         <div style="display: flex; align-items: center; gap: 15px;">
             <i class="fas fa-network-wired" style="color: #0078D4; font-size: 1.8rem; filter: drop-shadow(0 0 8px rgba(0, 120, 212, 0.4));"></i>
@@ -1398,6 +1431,7 @@
 <p>To move from a design review to a production-ready environment, you need the right accelerators. We leverage established frameworks to ensure we aren't reinventing the wheel on security.</p>
 
 <div class="glass-card architect-pulse" style="margin: 3.5rem 0; border-left: 5px solid #a855f7 !important; text-align: center;">
+    <div class="glass-shine-wrap"></div>
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; text-align: left;">
         <div style="display: flex; align-items: center; gap: 15px;">
             <i class="fas fa-clipboard-check" style="color: #a855f7; font-size: 1.8rem; filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.4));"></i>
@@ -1441,10 +1475,11 @@
 
 <h2 id="operationalizing-the-landing-zone" style="margin-top: 5rem; text-align: center;"><span class="gradient-text">🚀 The Regulator-Ready Launch Checklist</span></h2>
 <div class="glass-card" style="border: 2px solid rgba(56, 189, 248, 0.4); box-shadow: 0 0 30px rgba(56, 189, 248, 0.1); background: rgba(15, 23, 42, 0.8);">
+    <div class="glass-shine-wrap"></div>
     <p style="font-size: 1.1rem; color: #cbd5e1; margin-bottom: 2rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 1rem;">Execute these critical design milestones to move your AI workload from experimentation to production-ready governance.</p>
     
     <div class="checklist-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
-        <label class="checklist-item" style="display: flex; align-items: flex-start; gap: 12px; background: rgba(255, 255, 255, 0.03); padding: 1.2rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); cursor: pointer; transition: all 0.3s ease;">
+        <label class="checklist-item" style="display: flex; align-items: flex-start; gap: 12px; background: rgba(255, 255, 255, 0.03); padding: 1.2rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); cursor: pointer; transition: all 0.3s ease; overflow: visible;">
             <input type="checkbox" style="width: 20px; height: 20px; margin-top: 3px;">
             <span><strong style="color: #38bdf8; display: block; margin-bottom: 0.3rem;">Standardize Compute</strong> PaaS-first approach using Container Apps for modern AI workloads.</span>
         </label>
@@ -1452,19 +1487,19 @@
             <input type="checkbox" style="width: 20px; height: 20px; margin-top: 3px;">
             <span><strong style="color: #38bdf8; display: block; margin-bottom: 0.3rem;">Lock the Door</strong> Disable static API keys and enforce Entra ID Managed Identities.</span>
         </label>
-        <label class="checklist-item" style="display: flex; align-items: flex-start; gap: 12px; background: rgba(255, 255, 255, 0.03); padding: 1.2rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); cursor: pointer; transition: all 0.3s ease;">
+        <label class="checklist-item" style="display: flex; align-items: flex-start; gap: 12px; background: rgba(255, 255, 255, 0.03); padding: 1.2rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); cursor: pointer; transition: all 0.3s ease; overflow: visible;">
             <input type="checkbox" style="width: 20px; height: 20px; margin-top: 3px;">
             <span><strong style="color: #38bdf8; display: block; margin-bottom: 0.3rem;">Pave Private Roads</strong> Implement Private Links and centralized DNS Private Resolvers.</span>
         </label>
-        <label class="checklist-item" style="display: flex; align-items: flex-start; gap: 12px; background: rgba(255, 255, 255, 0.03); padding: 1.2rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); cursor: pointer; transition: all 0.3s ease;">
+        <label class="checklist-item" style="display: flex; align-items: flex-start; gap: 12px; background: rgba(255, 255, 255, 0.03); padding: 1.2rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); cursor: pointer; transition: all 0.3s ease; overflow: visible;">
             <input type="checkbox" style="width: 20px; height: 20px; margin-top: 3px;">
             <span><strong style="color: #38bdf8; display: block; margin-bottom: 0.3rem;">Set the Alarm</strong> Route Diagnostic Logs to a centralized Log Analytics workspace for audit.</span>
         </label>
-        <label class="checklist-item" style="display: flex; align-items: flex-start; gap: 12px; background: rgba(255, 255, 255, 0.03); padding: 1.2rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); cursor: pointer; transition: all 0.3s ease;">
+        <label class="checklist-item" style="display: flex; align-items: flex-start; gap: 12px; background: rgba(255, 255, 255, 0.03); padding: 1.2rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); cursor: pointer; transition: all 0.3s ease; overflow: visible;">
             <input type="checkbox" style="width: 20px; height: 20px; margin-top: 3px;">
             <span><strong style="color: #38bdf8; display: block; margin-bottom: 0.3rem;">Watch the Budget</strong> Implement the PTU/PAYGO 'Spillover' strategy for cost-resiliency.</span>
         </label>
-        <label class="checklist-item" style="display: flex; align-items: flex-start; gap: 12px; background: rgba(255, 255, 255, 0.03); padding: 1.2rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); cursor: pointer; transition: all 0.3s ease;">
+        <label class="checklist-item" style="display: flex; align-items: flex-start; gap: 12px; background: rgba(255, 255, 255, 0.03); padding: 1.2rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); cursor: pointer; transition: all 0.3s ease; overflow: visible;">
             <input type="checkbox" style="width: 20px; height: 20px; margin-top: 3px;">
             <span><strong style="color: #38bdf8; display: block; margin-bottom: 0.3rem;">Verify Quality</strong> Implement automated AI Evaluation Pipelines for Groundedness & Relevance.</span>
         </label>
