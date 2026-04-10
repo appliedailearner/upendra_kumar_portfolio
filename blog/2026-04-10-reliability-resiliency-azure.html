@@ -399,8 +399,9 @@
                 <li><a href="#shifting-paradigm" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">1. The Shifting Paradigm</a></li>
                 <li><a href="#az-first" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">2. AZ-First Strategy</a></li>
                 <li><a href="#selection-matrix" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">3. Resiliency Selection Matrix</a></li>
-                <li><a href="#maturity-model" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">4. Maturity Roadmap</a></li>
-                <li><a href="#next-gen-ops" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">5. Next-Gen Operations</a></li>
+                <li><a href="#enterprise-playbook" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">4. Enterprise Resilience Playbook (CAF & WAF)</a></li>
+                <li><a href="#maturity-model" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">5. Maturity Roadmap</a></li>
+                <li><a href="#next-gen-ops" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">6. Next-Gen Operations</a></li>
             </ul>
         </nav>
 
@@ -459,7 +460,35 @@
         <p>Why? Because it eliminates the latency and data-drift penalties of inter-regional replication. With Azure's 165,000-mile fiber backbone and <strong>Software Defined Networking (SDN)</strong>, we can route around fiber cuts in milliseconds—but only if the application is "Zone-Aware."</p>
 
         <h2 id="selection-matrix"><span class="gradient-text">3. The Resiliency Selection Matrix</span></h2>
-        <p>Choosing the right pattern is a trade-off between <strong>Availability</strong>, <strong>Complexity</strong>, and <strong>Cost</strong>. Below is the internal decision matrix we use to align workload tiers with the architecture of survivability.</p>
+        
+        <div style="display: flex; flex-wrap: wrap; gap: 3rem; margin: 3rem 0; background: rgba(15, 23, 42, 0.6); padding: 2.5rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);">
+            <div style="flex: 1 1 400px;">
+                <h3 style="font-family: 'Outfit', sans-serif; color: #f8fafc; margin-bottom: 1.5rem; font-size: 1.5rem;">Business Impact Qualification</h3>
+                <p style="margin-bottom: 2rem; color: #cbd5e1; line-height: 1.6;">Before selecting an architectural pattern, we must force the business to quantify the actual value of their data and uptime. Use these interrogation points to define your targets.</p>
+                
+                <h4 style="color: #60a5fa; margin-bottom: 1rem; font-weight: 600;"><i class="fas fa-stopwatch" style="margin-right: 0.5rem;"></i>RTO (Recovery Time Objective) Drivers</h4>
+                <ul style="list-style-type: none; padding-left: 0; margin-bottom: 2rem; color: #94a3b8; font-size: 0.95rem;">
+                    <li style="margin-bottom: 0.75rem; display: flex;"><i class="fas fa-arrow-right" style="color: #3b82f6; margin-right: 0.75rem; margin-top: 0.3rem; font-size: 0.8rem;"></i> What is the impact if this application is unavailable, and does it compound?</li>
+                    <li style="margin-bottom: 0.75rem; display: flex;"><i class="fas fa-arrow-right" style="color: #3b82f6; margin-right: 0.75rem; margin-top: 0.3rem; font-size: 0.8rem;"></i> Is there a financial cost? How much per hour?</li>
+                    <li style="margin-bottom: 0.75rem; display: flex;"><i class="fas fa-arrow-right" style="color: #3b82f6; margin-right: 0.75rem; margin-top: 0.3rem; font-size: 0.8rem;"></i> Is there a reputational cost (e.g. public facing portals)?</li>
+                    <li style="margin-bottom: 0.75rem; display: flex;"><i class="fas fa-arrow-right" style="color: #3b82f6; margin-right: 0.75rem; margin-top: 0.3rem; font-size: 0.8rem;"></i> Are there strict SLAs or external compliance/regulatory requirements?</li>
+                    <li style="margin-bottom: 0.75rem; display: flex;"><i class="fas fa-arrow-right" style="color: #3b82f6; margin-right: 0.75rem; margin-top: 0.3rem; font-size: 0.8rem;"></i> Does this application have upstream or downstream dependencies?</li>
+                </ul>
+
+                <h4 style="color: #c084fc; margin-bottom: 1rem; font-weight: 600;"><i class="fas fa-database" style="margin-right: 0.5rem;"></i>RPO (Recovery Point Objective) Drivers</h4>
+                <ul style="list-style-type: none; padding-left: 0; color: #94a3b8; font-size: 0.95rem;">
+                    <li style="margin-bottom: 0.75rem; display: flex;"><i class="fas fa-arrow-right" style="color: #a855f7; margin-right: 0.75rem; margin-top: 0.3rem; font-size: 0.8rem;"></i> What is the exact impact of data loss for this application?</li>
+                    <li style="margin-bottom: 0.75rem; display: flex;"><i class="fas fa-arrow-right" style="color: #a855f7; margin-right: 0.75rem; margin-top: 0.3rem; font-size: 0.8rem;"></i> Do dependent applications have stricter RPO constraints?</li>
+                    <li style="margin-bottom: 0.75rem; display: flex;"><i class="fas fa-arrow-right" style="color: #a855f7; margin-right: 0.75rem; margin-top: 0.3rem; font-size: 0.8rem;"></i> Can lost data be recreated? How long would it take, and is it acceptable?</li>
+                    <li style="margin-bottom: 0.75rem; display: flex;"><i class="fas fa-arrow-right" style="color: #a855f7; margin-right: 0.75rem; margin-top: 0.3rem; font-size: 0.8rem;"></i> How dynamically and frequently does the workload data change?</li>
+                </ul>
+            </div>
+            <div style="flex: 1 1 400px; display: flex; align-items: center; justify-content: center; background: #ffffff; padding: 1.5rem; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
+                <img src="../images/rto_rpo_timeline.png" alt="RTO and RPO Timeline Integration Diagram" style="max-width: 100%; height: auto; border-radius: 4px;">
+            </div>
+        </div>
+
+        <p>Once the business has qualified the workload using the metrics above, we align it to one of six architectural tiers, balancing the trade-off between <strong>Availability</strong>, <strong>Complexity</strong>, and <strong>Cost</strong>. Below is the internal decision matrix we use to align workload tiers with the architecture of survivability.</p>
 
         <div class="pattern-matrix-grid">
             <!-- Pattern 1 -->
@@ -535,7 +564,53 @@
             </div>
         </div>
 
-        <h2 id="maturity-model"><span class="gradient-text">4. The 5-Level Maturity Roadmap</span></h2>
+        <h2 id="enterprise-playbook"><span class="gradient-text">4. Enterprise Resilience Playbook (CAF & WAF)</span></h2>
+        <p>A resilient architecture requires both structural integrity and operational maturity. Drawing from the <strong>Cloud Adoption Framework (CAF)</strong> and the <strong>Well-Architected Framework (WAF)</strong>, we merge landing zone design with operational execution.</p>
+        
+        <h3 style="font-family: 'Outfit', sans-serif; color: #f8fafc; margin-top: 2rem; margin-bottom: 1rem;">Part A: CAF Landing Zone Architecture</h3>
+        <p>The structural foundation must be designed for isolation and automated failover before workloads are ever deployed. Below are the key design considerations for resilient landing zones.</p>
+        
+        <div class="responsive-grid" style="margin-bottom: 3rem;">
+            <div class="glass-card" style="border-top: 3px solid #60a5fa;">
+                <i class="fas fa-network-wired" style="color: #60a5fa; font-size: 1.5rem; margin-bottom: 1rem;"></i>
+                <h4 style="color: #93c5fd; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">Network Continuity</h4>
+                <p style="font-size: 0.95rem;">Guarantee <strong>ExpressRoute</strong> multi-region peering and strictly prohibit overlapping IP address ranges between Production and DR environments.</p>
+            </div>
+            <div class="glass-card" style="border-top: 3px solid #c084fc;">
+                <i class="fas fa-cloud-arrow-up" style="color: #c084fc; font-size: 1.5rem; margin-bottom: 1rem;"></i>
+                <h4 style="color: #d8b4fe; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">Platform Native DR</h4>
+                <p style="font-size: 0.95rem;">Mandate native PaaS geo-replication. For IaaS workloads, utilize <strong>Azure Site Recovery (ASR)</strong> enforced via Azure Policy deployments.</p>
+            </div>
+            <div class="glass-card" style="border-top: 3px solid #34d399;">
+                <i class="fas fa-shield-halved" style="color: #34d399; font-size: 1.5rem; margin-bottom: 1rem;"></i>
+                <h4 style="color: #6ee7b7; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">Data Residency & Secrets</h4>
+                <p style="font-size: 0.95rem;">Align cross-region storage with in-country legal boundaries. Implement resilient <strong>Key Vault DR</strong> to guarantee secret availability during failover.</p>
+            </div>
+        </div>
+
+        <h3 style="font-family: 'Outfit', sans-serif; color: #f8fafc; margin-bottom: 1rem;">Part B: WAF Reliability Design Checklist</h3>
+        <p>Operationalizing resilience requires rigorous standards. The following WAF checklist dictates our disaster recovery execution strategy.</p>
+
+        <div class="checklist-group" style="margin-bottom: 3rem;">
+            <div class="checklist-item">
+                <input type="checkbox" id="waf1" checked disabled>
+                <label for="waf1"><strong>Define Disaster Thresholds (Health Modeling)</strong> - Implement telemetry that differentiates between isolated component degradation and full catastrophic disaster.</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="waf2" checked disabled>
+                <label for="waf2"><strong>Isolate Failback from Failover</strong> - Treat failback as a distinctly modeled and documented process. Do not risk secondary outages by treating restoration casually.</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="waf3" checked disabled>
+                <label for="waf3"><strong>Ensure Offline Accessibility</strong> - Maintain DR documentation in isolated environments and pre-deploy CI/CD pipelines across all target regions.</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="waf4" checked disabled>
+                <label for="waf4"><strong>Execute Surprise Game Days</strong> - Evolve beyond scheduled tabletop exercises; implement unannounced production drills to validate true RTO/RPO targets.</label>
+            </div>
+        </div>
+
+        <h2 id="maturity-model"><span class="gradient-text">5. The 5-Level Maturity Roadmap</span></h2>
         <p>Resilience isn't a project; it's a practice. I use the <span class="eli5-term" data-tooltip="The Azure Well-Architected Framework: a set of five pillars (Cost, Security, Reliability, Perf, Ops) used to build high-quality cloud solutions.">Well-Architected Framework (WAF)</span> Maturity Model to benchmark our progress:</p>
 
         <div class="checklist-group">
@@ -561,7 +636,7 @@
             </div>
         </div>
 
-        <h2 id="next-gen-ops"><span class="gradient-text">5. Next-Gen Ops: Flash & Drasi</span></h2>
+        <h2 id="next-gen-ops"><span class="gradient-text">6. Next-Gen Ops: Flash & Drasi</span></h2>
         <p>How do we operationalize this at scale? We stop guessing and start measuring. <strong>Project Flash</strong>—Azure's internal "VM Health Monitor"—provides us with deep telemetry that standard CPU/RAM metrics miss. It allows us to detect "gray failures" (e.g., a disk slowing down) before it triggers a red event.</p>
 
         <p>Finally, we are looking at <strong>Drasi</strong>. In deep-system architecture, we often struggle with "Management Plane Drift." Drasi allows us to build <strong>Reactive Reliability</strong>. Imagine a world where a change in a Bastion Host's RBAC policy automatically triggers an audit and a failover to a secure enclave—without a single manual ticket. That is the future of the Cloud Center of Excellence (CCoE).</p>
