@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="container">
         <div class="nav-brand" style="display: flex; align-items: center; gap: 1rem;">
             <a href="${base}index.html" style="text-decoration: none;">
-                <video autoplay loop muted playsinline class="nav-logo-video">
+                <video autoplay loop muted playsinline preload="metadata" class="nav-logo-video">
                     <source src="${base}images/logo-animated.mp4" type="video/mp4">
                 </video>
             </a>

@@ -104,7 +104,11 @@
     });
 
     // 6. System Health Heartbeat & UI Sync
+    let isFetchingHealth = false;
     async function checkSystemHealth() {
+        if (isFetchingHealth) return;
+        isFetchingHealth = true;
+
         // Targets both Hero Widget and Potential Footer elements
         const statusVals = document.querySelectorAll('#status-val, #status-val-hero, .health-status-text');
         const statusDots = document.querySelectorAll('.status-dot, .health-indicator');
@@ -147,6 +151,8 @@
                 dot.classList.remove('pulse');
             });
             console.error("[Observability] Health Check Failed:", e.message);
+        } finally {
+            isFetchingHealth = false;
         }
     }
 

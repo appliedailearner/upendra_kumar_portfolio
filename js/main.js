@@ -121,6 +121,20 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+// ===== Throttle Function for Performance =====
+function throttle(func, limit) {
+    let inThrottle;
+    return function () {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    }
+}
+
 // ===== Active Navigation on Scroll =====
 const sections = document.querySelectorAll('section[id]');
 const navItems = document.querySelectorAll('.nav-menu a');
@@ -152,18 +166,18 @@ function highlightNav() {
     });
 }
 
-window.addEventListener('scroll', highlightNav);
+window.addEventListener('scroll', throttle(highlightNav, 100));
 
 // ===== Scroll Indicator in Hero =====
 const scrollIndicator = document.querySelector('.scroll-indicator');
 if (scrollIndicator) {
-    window.addEventListener('scroll', () => {
+    window.addEventListener('scroll', throttle(() => {
         if (window.scrollY > 100) {
             scrollIndicator.style.opacity = '0';
         } else {
             scrollIndicator.style.opacity = '1';
         }
-    });
+    }, 150));
 }
 
 // ===== Intersection Observer for Fade-in/Reveal Animations =====

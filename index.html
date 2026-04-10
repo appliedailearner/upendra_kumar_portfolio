@@ -31,7 +31,7 @@
     <!-- Canonical Redirect Script Removed (Caused infinite loop on local/file protocol) -->
 
     <!-- Performance: Critical Asset Preloading -->
-    <link rel="preload" href="css/main.css?v=51" as="style">
+    <link rel="preload" href="css/main.css?v=55" as="style">
     <link rel="preload" href="images/profile.webp" as="image" fetchpriority="high">
     <link rel="preload" href="js/navbar-component.js" as="script">
 
@@ -192,11 +192,25 @@
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
-    <!-- Tailwind CSS (Local Build) -->
     <link rel="preload" href="css/tailwind-output.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
         <link rel="stylesheet" href="css/tailwind-output.css">
     </noscript>
+
+    <style>
+        /* Performance optimization: promote scroll-reveal sections to compositor layers */
+        .reveal-on-scroll, 
+        .project-card-premium, 
+        .spotlight-card,
+        .hero-premium-layout {
+            will-change: transform, opacity;
+        }
+
+        #particles-canvas {
+            will-change: transform;
+            contain: strict;
+        }
+    </style>
     <!-- Microsoft Clarity (Deferred to improve LCP) -->
     <script type="text/javascript">
         window.addEventListener('load', function () {

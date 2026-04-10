@@ -31,6 +31,15 @@
 
 ---
 
+## Phase 0.5: Leveraging Agent Skills (Specialized Expertise)
+**Objective:** Enhance your domain knowledge with structured expertise from the local skills repository.
+
+1.  **Skill Discovery:** Before beginning Phase 1, check the `c:\MyResumePortfolio\.agent\skills\` directory for relevant `SKILL.md` files.
+2.  **Azure Context:** If the blog post involves Azure (e.g., Azure Functions, Container Apps, Landing Zones), prioritize patterns and troubleshooting steps found in the matching skill folder.
+3.  **Standardization:** Use the architecture patterns and "Expertise" nodes defined in these skills to ensure the post aligns with official Microsoft/Azure best practices.
+
+---
+
 ## Phase 1: Content Strategy & Generation (The "Stop Asking AI to Write" Framework)
 **Objective:** Before generating any HTML, use this 8-step framework to structure the high-value content.
 

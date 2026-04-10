@@ -174,6 +174,35 @@
         .checklist-item input {
             margin-top: 0.4rem;
         }
+
+        /* Responsive Grid System */
+        .responsive-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(3, 1fr);
+        }
+        .comparison-grid {
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: 1fr 1fr;
+            margin: 3rem 0;
+        }
+
+        @media (max-width: 850px) {
+            .responsive-grid, .comparison-grid {
+                grid-template-columns: 1fr !important;
+            }
+            .blog-post-hero h1 {
+                font-size: 2.2rem !important;
+            }
+            .blog-post-content {
+                padding: 2rem 1rem !important;
+            }
+            .blog-post-meta {
+                flex-direction: column;
+                gap: 0.5rem !important;
+            }
+        }
     </style>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -254,7 +283,7 @@
                 <h2 style="margin: 1rem 0 0; font-family: 'Outfit', sans-serif; font-size: 2.2rem; color: #f8fafc;">Executive Impact Summary</h2>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+            <div class="responsive-grid">
                 <div class="glass-card" style="border-top: 3px solid #f87171;">
                     <i class="fas fa-fire" style="color: #f87171; font-size: 1.5rem; margin-bottom: 1rem;"></i>
                     <h4 style="color: #fca5a5; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">The Business Problem</h4>
@@ -279,7 +308,7 @@
         <p>The "No-BS" truth? Regional pairing is a relic. If your failover relies on a manual VPC cutover that takes 4 hours, you don't have a resilience strategy—you have a documented catastrophe.</p>
 
         <!-- Glass Comparison Grid -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 3rem 0;">
+        <div class="comparison-grid">
             <div class="glass-card">
                 <h5 style="color: #fca5a5; margin-bottom: 1rem; font-size: 1.2rem;">The Legacy Safehouse</h5>
                 <p style="font-size: 0.95rem;">You have a backup office 500 miles away. If yours burns down, you drive 8 hours to get back to work. Safe? Yes. Resilient? Not for a global trading platform.</p>
