@@ -224,6 +224,119 @@
                 margin: 0 auto 1.5rem !important;
             }
         }
+        /* Resiliency Matrix Pattern Cards */
+        .pattern-matrix-grid {
+            display: grid;
+            gap: 2rem;
+            margin: 3rem 0;
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 768px) {
+            .pattern-matrix-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .pattern-matrix-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .pattern-card {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .pattern-card:hover {
+            transform: translateY(-8px);
+            background: rgba(30, 41, 59, 0.6);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .pattern-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .pattern-card:hover::before {
+            opacity: 1;
+        }
+
+        .tier-badge {
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            width: fit-content;
+            margin-bottom: 1.5rem;
+        }
+
+        .tier-0 { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); }
+        .tier-1 { background: rgba(245, 158, 11, 0.1); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.2); }
+        .tier-2 { background: rgba(59, 130, 246, 0.1); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.2); }
+        .tier-3 { background: rgba(148, 163, 184, 0.1); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.2); }
+
+        .pattern-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #60a5fa, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.9;
+        }
+
+        .pattern-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            color: #f8fafc;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .pattern-use-case {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .pattern-tradeoff {
+            font-size: 0.85rem;
+            padding: 1rem;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 8px;
+            border-left: 3px solid #f87171;
+            color: #cbd5e1;
+        }
+
+        .pattern-tradeoff strong {
+            color: #fca5a5;
+            display: block;
+            margin-bottom: 0.25rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
     </style>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -283,11 +396,11 @@
         <nav class="toc-container">
             <h4 style="color: #60a5fa; font-family: 'Outfit', sans-serif; margin-bottom: 1rem;">Navigation</h4>
             <ul style="list-style: none; padding: 0; font-size: 0.9rem;">
-                <li><a href="#executive-impact" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">Executive Summary</a></li>
-                <li><a href="#shifting-paradigm" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">The Shifting Paradigm</a></li>
-                <li><a href="#az-first" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">AZ-First Strategy</a></li>
-                <li><a href="#maturity-model" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">Maturity Roadmap</a></li>
-                <li><a href="#next-gen-ops" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">Next-Gen Operations</a></li>
+                <li><a href="#shifting-paradigm" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">1. The Shifting Paradigm</a></li>
+                <li><a href="#az-first" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">2. AZ-First Strategy</a></li>
+                <li><a href="#selection-matrix" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">3. Resiliency Selection Matrix</a></li>
+                <li><a href="#maturity-model" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">4. Maturity Roadmap</a></li>
+                <li><a href="#next-gen-ops" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">5. Next-Gen Operations</a></li>
             </ul>
         </nav>
 
@@ -345,7 +458,84 @@
 
         <p>Why? Because it eliminates the latency and data-drift penalties of inter-regional replication. With Azure's 165,000-mile fiber backbone and <strong>Software Defined Networking (SDN)</strong>, we can route around fiber cuts in milliseconds—but only if the application is "Zone-Aware."</p>
 
-        <h2 id="maturity-model"><span class="gradient-text">3. The 5-Level Maturity Roadmap</span></h2>
+        <h2 id="selection-matrix"><span class="gradient-text">3. The Resiliency Selection Matrix</span></h2>
+        <p>Choosing the right pattern is a trade-off between <strong>Availability</strong>, <strong>Complexity</strong>, and <strong>Cost</strong>. Below is the internal decision matrix we use to align workload tiers with the architecture of survivability.</p>
+
+        <div class="pattern-matrix-grid">
+            <!-- Pattern 1 -->
+            <div class="pattern-card">
+                <div class="tier-badge tier-3">Tier 3: Low Impact</div>
+                <i class="fas fa-server pattern-icon"></i>
+                <h4 class="pattern-title">Locally Redundant, Single Region</h4>
+                <p class="pattern-use-case">Ideal for internal tools and dev/test environments where downtime is acceptable and cost is the primary driver.</p>
+                <div class="pattern-tradeoff">
+                    <strong>Avoid when</strong>
+                    Workload has meaningful uptime targets or strict recovery expectations.
+                </div>
+            </div>
+
+            <!-- Pattern 2 -->
+            <div class="pattern-card">
+                <div class="tier-badge tier-2">Tier 2: Production</div>
+                <i class="fas fa-cubes pattern-icon"></i>
+                <h4 class="pattern-title">Single Region, Multi-Zone</h4>
+                <p class="pattern-use-case">Our standard for production workloads needing strong in-region resilience with simpler Azure-managed operations.</p>
+                <div class="pattern-tradeoff">
+                    <strong>Avoid when</strong>
+                    You need protection from a full regional outage or service doesn't support ZRS.
+                </div>
+            </div>
+
+            <!-- Pattern 3 -->
+            <div class="pattern-card">
+                <div class="tier-badge tier-2">Tier 2: Custom VM</div>
+                <i class="fas fa-location-arrow pattern-icon"></i>
+                <h4 class="pattern-title">Zonal Deployment (Manual)</h4>
+                <p class="pattern-use-case">Used for VM-heavy or latency-sensitive workloads where we need tighter control over placement and failover.</p>
+                <div class="pattern-tradeoff">
+                    <strong>Avoid when</strong>
+                    You want Microsoft-managed failover. In most cases, Zone-Redundant is cleaner.
+                </div>
+            </div>
+
+            <!-- Pattern 4 -->
+            <div class="pattern-card">
+                <div class="tier-badge tier-1">Tier 1: Business-Critical</div>
+                <i class="fas fa-exchange-alt pattern-icon"></i>
+                <h4 class="pattern-title">Primary + Secondary (Active-Passive)</h4>
+                <p class="pattern-use-case">Required for regional disaster recovery. Common for apps that can tolerate some recovery time and lag.</p>
+                <div class="pattern-tradeoff">
+                    <strong>Avoid when</strong>
+                    You need near-zero RPO/RTO. Continuous availability requires Active-Active.
+                </div>
+            </div>
+
+            <!-- Pattern 5 -->
+            <div class="pattern-card">
+                <div class="tier-badge tier-0">Tier 0: Mission-Critical</div>
+                <i class="fas fa-globe pattern-icon"></i>
+                <h4 class="pattern-title">Multi-Zone + Multi-Region (Active-Active)</h4>
+                <p class="pattern-use-case">The gold standard for always-on digital services. Zero-downtime during major regional incidents.</p>
+                <div class="pattern-tradeoff">
+                    <strong>Avoid when</strong>
+                    The business case doesn't justify the extreme cost and operational maturity required.
+                </div>
+            </div>
+
+            <!-- Pattern 6 -->
+            <div class="pattern-card">
+                <div class="tier-badge tier-1">Tier 1: Regulated</div>
+                <i class="fas fa-map-marked-alt pattern-icon"></i>
+                <h4 class="pattern-title">Multi-Region (Nonpaired)</h4>
+                <p class="pattern-use-case">Selected for geography-specific DR requirements or service mixes that don't fit Microsoft's default pairs.</p>
+                <div class="pattern-tradeoff">
+                    <strong>Avoid when</strong>
+                    Assuming nonpaired is better. It must be checked service-by-service for support.
+                </div>
+            </div>
+        </div>
+
+        <h2 id="maturity-model"><span class="gradient-text">4. The 5-Level Maturity Roadmap</span></h2>
         <p>Resilience isn't a project; it's a practice. I use the <span class="eli5-term" data-tooltip="The Azure Well-Architected Framework: a set of five pillars (Cost, Security, Reliability, Perf, Ops) used to build high-quality cloud solutions.">Well-Architected Framework (WAF)</span> Maturity Model to benchmark our progress:</p>
 
         <div class="checklist-group">
@@ -371,7 +561,7 @@
             </div>
         </div>
 
-        <h2 id="next-gen-ops"><span class="gradient-text">4. Next-Gen Ops: Flash & Drasi</span></h2>
+        <h2 id="next-gen-ops"><span class="gradient-text">5. Next-Gen Ops: Flash & Drasi</span></h2>
         <p>How do we operationalize this at scale? We stop guessing and start measuring. <strong>Project Flash</strong>—Azure's internal "VM Health Monitor"—provides us with deep telemetry that standard CPU/RAM metrics miss. It allows us to detect "gray failures" (e.g., a disk slowing down) before it triggers a red event.</p>
 
         <p>Finally, we are looking at <strong>Drasi</strong>. In deep-system architecture, we often struggle with "Management Plane Drift." Drasi allows us to build <strong>Reactive Reliability</strong>. Imagine a world where a change in a Bastion Host's RBAC policy automatically triggers an audit and a failover to a secure enclave—without a single manual ticket. That is the future of the Cloud Center of Excellence (CCoE).</p>
