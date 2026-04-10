@@ -175,21 +175,23 @@
             margin-top: 0.4rem;
         }
 
-        /* Responsive Grid System */
-        .responsive-grid {
-            display: grid;
-            gap: 1.5rem;
-            grid-template-columns: repeat(3, 1fr);
+        /* Responsive Grid System - Strategic Specificity */
+        .blog-post-content .responsive-grid {
+            display: grid !important;
+            gap: 1.5rem !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            margin-bottom: 2rem;
         }
-        .comparison-grid {
-            display: grid;
-            gap: 2rem;
-            grid-template-columns: 1fr 1fr;
-            margin: 3rem 0;
+        .blog-post-content .comparison-grid {
+            display: grid !important;
+            gap: 2rem !important;
+            grid-template-columns: 1fr 1fr !important;
+            margin: 3rem 0 !important;
         }
 
-        @media (max-width: 850px) {
-            .responsive-grid, .comparison-grid {
+        @media (max-width: 992px) {
+            .blog-post-content .responsive-grid, 
+            .blog-post-content .comparison-grid {
                 grid-template-columns: 1fr !important;
             }
             .blog-post-hero h1 {
