@@ -175,34 +175,53 @@
             margin-top: 0.4rem;
         }
 
-        /* Responsive Grid System - Strategic Specificity */
-        .blog-post-content .responsive-grid {
-            display: grid !important;
-            gap: 1.5rem !important;
-            grid-template-columns: repeat(3, 1fr) !important;
+        /* Mobile First: Grids stack by default */
+        .responsive-grid, 
+        .comparison-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: 1fr;
             margin-bottom: 2rem;
         }
-        .blog-post-content .comparison-grid {
-            display: grid !important;
-            gap: 2rem !important;
-            grid-template-columns: 1fr 1fr !important;
-            margin: 3rem 0 !important;
+
+        .comparison-grid {
+            margin: 2rem 0;
         }
 
-        @media (max-width: 992px) {
-            .blog-post-content .responsive-grid, 
+        /* Desktop: Larger screens layout overrides */
+        @media (min-width: 992px) {
+            .blog-post-content .responsive-grid {
+                grid-template-columns: repeat(3, 1fr) !important;
+            }
             .blog-post-content .comparison-grid {
-                grid-template-columns: 1fr !important;
+                grid-template-columns: 1fr 1fr !important;
+            }
+        }
+
+        /* Mobile Specific Overrides (Mobile-First Polish) */
+        @media (max-width: 991px) {
+            .blog-post-hero {
+                text-align: center !important;
+                padding: 100px 1.5rem 40px !important;
             }
             .blog-post-hero h1 {
                 font-size: 2.2rem !important;
-            }
-            .blog-post-content {
-                padding: 2rem 1rem !important;
+                line-height: 1.2;
             }
             .blog-post-meta {
+                justify-content: center !important;
                 flex-direction: column;
                 gap: 0.5rem !important;
+                align-items: center;
+            }
+            .blog-post-content {
+                padding: 2rem 1.25rem !important;
+            }
+            .tag-container {
+                justify-content: center !important;
+            }
+            .hero-badge {
+                margin: 0 auto 1.5rem !important;
             }
         }
     </style>
@@ -220,7 +239,7 @@
 
     <section class="blog-post-hero">
         <div class="container" style="max-width: 1000px;">
-            <div style="margin-bottom: 2rem;">
+            <div class="hero-badge" style="margin-bottom: 2rem; width: fit-content;">
                 <a href="../blog.html" style="color: #60a5fa; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; font-weight: 600;">
                     <i class="fas fa-arrow-left"></i> Back to Insights
                 </a>
@@ -240,7 +259,7 @@
                 <div><i class="fas fa-clock"></i> 10 min read</div>
             </div>
 
-            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 3rem;">
+            <div class="tag-container" style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 3rem;">
                 <span style="background: rgba(168, 85, 247, 0.1); color: #a855f7; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; border: 1px solid rgba(168, 85, 247, 0.2); font-weight: 600;"><i class="fas fa-tag" style="margin-right: 5px;"></i> Azure</span>
                 <span style="background: rgba(168, 85, 247, 0.1); color: #a855f7; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; border: 1px solid rgba(168, 85, 247, 0.2); font-weight: 600;"><i class="fas fa-tag" style="margin-right: 5px;"></i> Reliability</span>
                 <span style="background: rgba(168, 85, 247, 0.1); color: #a855f7; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; border: 1px solid rgba(168, 85, 247, 0.2); font-weight: 600;"><i class="fas fa-tag" style="margin-right: 5px;"></i> Architecture</span>
