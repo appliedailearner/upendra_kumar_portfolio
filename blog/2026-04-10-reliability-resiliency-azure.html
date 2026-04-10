@@ -381,10 +381,10 @@
 
             <div style="text-align: center; position: relative; margin-top: 2rem;">
                 <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, transparent 70%); filter: blur(50px); z-index: -1;"></div>
-                <img src="assets/2026-04-10-reliability-resiliency-azure/hero.png" 
-                     alt="Modern Azure Resilience Visualization" 
-                     style="width: 100%; max-width: 900px; border-radius: 16px; box-shadow: 0 30px 60px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer;"
-                     onmouseover="this.style.transform='scale(1.03)'"
+                <img src="../images/azure_resilience_infographic.png" 
+                     alt="Modern Azure Resilience: Semantic Triad and 4 Patterns Infographic" 
+                     style="width: 100%; max-width: 1000px; border-radius: 16px; box-shadow: 0 30px 60px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer;"
+                     onmouseover="this.style.transform='scale(1.02)'"
                      onmouseout="this.style.transform='scale(1)'"
                      fetchpriority="high">
             </div>
@@ -421,18 +421,18 @@
             <div class="responsive-grid">
                 <div class="glass-card" style="border-top: 3px solid #f87171;">
                     <i class="fas fa-fire" style="color: #f87171; font-size: 1.5rem; margin-bottom: 1rem;"></i>
-                    <h4 style="color: #fca5a5; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">The Business Problem</h4>
-                    <p style="font-size: 0.95rem;">Legacy <span class="eli5-term" data-tooltip="The older method of syncing two regions hundreds of miles apart, which often fails to handle local zone-level disruptions or micro-failures.">Regional Pairing</span> models are built for 1990s disasters, not 2020s cloud micro-failures. This creates a false sense of security while leaving RTOs exposed to management plane drift.</p>
+                    <h4 style="color: #fca5a5; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">The Semantic Disconnect</h4>
+                    <p style="font-size: 0.95rem;">Legacy architectures conflate High Availability with true continuity. Without properly aligning the "Semantic Triad"—<strong style="color: #cbd5e1;">Reliability</strong>, <strong style="color: #cbd5e1;">Resiliency</strong>, and <strong style="color: #cbd5e1;">Recoverability</strong>—RTO objectives are often exposed to systemic regional failures.</p>
                 </div>
                 <div class="glass-card" style="border-top: 3px solid #60a5fa;">
                     <i class="fas fa-network-wired" style="color: #60a5fa; font-size: 1.5rem; margin-bottom: 1rem;"></i>
-                    <h4 style="color: #93c5fd; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">The Strategic Play</h4>
-                    <p style="font-size: 0.95rem;">Operationalizing the 5-Level <span class="eli5-term" data-tooltip="A structured 1-to-5 guide by Microsoft that helps you progress from 'fixing things when they break' to 'systems that automatically adapt to failure'.">Reliability Maturity Model</span>. We shift from passive DR to active, AZ-first awareness, utilizing sub-second telemetry like Project Flash.</p>
+                    <h4 style="color: #93c5fd; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">The 4-Pattern Architecture</h4>
+                    <p style="font-size: 0.95rem;">By evolving beyond static paired-regions, we deploy dynamic topologies (Active/Active, In-Region HA) and strictly enforce the 5-Level <strong style="color: #cbd5e1;">WAF Reliability Maturity Roadmap</strong>. We shift from passive DR to active, automated survival.</p>
                 </div>
                 <div class="glass-card" style="border-top: 3px solid #34d399;">
                     <i class="fas fa-award" style="color: #34d399; font-size: 1.5rem; margin-bottom: 1rem;"></i>
                     <h4 style="color: #6ee7b7; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">The Executive ROI</h4>
-                    <p style="font-size: 0.95rem;">Reduced potential <span class="eli5-term" data-tooltip="The maximum time a system can be down before the business suffers unacceptable consequences.">RTO</span> by 75% and mitigated 100% of regional blast-radius risks during recent infrastructure disruptions. We stopped paying for 'maybe' and started engineering for 'always'.</p>
+                    <p style="font-size: 0.95rem;">Achieved near-zero <span class="eli5-term" data-tooltip="The maximum time a system can be down before the business suffers unacceptable consequences.">RTO/RPO</span> via multi-region balancing, cutting mitigation costs by 75%. We stopped paying for 'maybe' and engineered a self-healing fabric designed for 'always'.</p>
                 </div>
             </div>
         </div>
@@ -610,29 +610,96 @@
             </div>
         </div>
 
-        <h2 id="maturity-model"><span class="gradient-text">5. The 5-Level Maturity Roadmap</span></h2>
-        <p>Resilience isn't a project; it's a practice. I use the <span class="eli5-term" data-tooltip="The Azure Well-Architected Framework: a set of five pillars (Cost, Security, Reliability, Perf, Ops) used to build high-quality cloud solutions.">Well-Architected Framework (WAF)</span> Maturity Model to benchmark our progress:</p>
+        <h2 id="maturity-model"><span class="gradient-text">5. Official WAF Reliability Maturity Model</span></h2>
+        <p>Resilience isn't a project; it's a practice. I use the official <span class="eli5-term" data-tooltip="The Azure Well-Architected Framework: a set of five pillars (Cost, Security, Reliability, Perf, Ops) used to build high-quality cloud solutions.">Well-Architected Framework (WAF)</span> Reliability Maturity Model to benchmark our progress. It moves teams from reacting to outages to embracing and automating around them.</p>
 
-        <div style="margin-bottom: 3rem; display: flex; flex-direction: column; gap: 1rem;">
-            <div style="display: flex; align-items: flex-start; gap: 1rem; padding: 1.5rem; background: rgba(30, 41, 59, 0.5); border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                <input type="checkbox" id="level1" checked disabled style="margin-top: 0.3rem; width: 20px; height: 20px; accent-color: #38bdf8;">
-                <label for="level1" style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5;"><strong style="color: #f8fafc; display: block; margin-bottom: 0.25rem; font-size: 1.05rem;">Level 1: Foundation (Get Resilient)</strong> Standardized zone-redundancy and foundational ASR/Backup setup.</label>
+        <div style="margin-bottom: 3rem; margin-top: 2rem; display: flex; flex-direction: column; gap: 0; position: relative; padding-left: 1rem;">
+            <!-- Timeline Line -->
+            <div style="position: absolute; left: 24px; top: 20px; bottom: 20px; width: 4px; background: linear-gradient(to bottom, #38bdf8 0%, rgba(168, 85, 247, 0.8) 50%, rgba(239, 68, 68, 0.8) 100%); border-radius: 4px;"></div>
+            
+            <!-- Step 1 -->
+            <div style="display: flex; align-items: flex-start; position: relative; padding-bottom: 2rem;">
+                <div style="z-index: 2; width: 20px; height: 20px; border-radius: 50%; background: #0f172a; border: 4px solid #38bdf8; margin-top: 4px; box-shadow: 0 0 10px rgba(56,189,248,0.6); flex-shrink: 0;"></div>
+                <div style="margin-left: 1.5rem; flex-grow: 1; padding: 1.5rem; background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(8px); border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.3); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap;">
+                        <h3 style="color: #f8fafc; font-size: 1.25rem; font-weight: 700; margin: 0;">Level 1: Get Resilient</h3>
+                        <span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase;">Foundation</span>
+                    </div>
+                    <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5; margin: 0 0 1rem 0;">Establish a solid groundwork without significant optimization overhead by bootstrapping built-in Azure reliability capabilities.</p>
+                    <ul style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1.2rem;">
+                        <li style="margin-bottom: 0.25rem;">Offload operational responsibility using PaaS and Managed Services.</li>
+                        <li style="margin-bottom: 0.25rem;">Identify critical flows and design boundaries (e.g. Zone Redundancy).</li>
+                        <li>Enable base telemetry (Azure Monitor, Service Health) and simple transient fault handling.</li>
+                    </ul>
+                </div>
             </div>
-            <div style="display: flex; align-items: flex-start; gap: 1rem; padding: 1.5rem; background: rgba(30, 41, 59, 0.5); border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                <input type="checkbox" id="level2" checked disabled style="margin-top: 0.3rem; width: 20px; height: 20px; accent-color: #38bdf8;">
-                <label for="level2" style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5;"><strong style="color: #f8fafc; display: block; margin-bottom: 0.25rem; font-size: 1.05rem;">Level 2: Operational (Stay Resilient)</strong> Adopting SRE principles and error-budgeting. No more 'best effort'.</label>
+
+            <!-- Step 2 -->
+            <div style="display: flex; align-items: flex-start; position: relative; padding-bottom: 2rem;">
+                <div style="z-index: 2; width: 20px; height: 20px; border-radius: 50%; background: #0f172a; border: 4px solid #38bdf8; margin-top: 4px; box-shadow: 0 0 10px rgba(56,189,248,0.6); flex-shrink: 0;"></div>
+                <div style="margin-left: 1.5rem; flex-grow: 1; padding: 1.5rem; background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(8px); border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.3); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap;">
+                        <h3 style="color: #f8fafc; font-size: 1.25rem; font-weight: 700; margin: 0;">Level 2: Self-Preservation</h3>
+                        <span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase;">Protection</span>
+                    </div>
+                    <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5; margin: 0 0 1rem 0;">Incorporate isolation strategies and graceful degradation to prevent, detect, and recover from failures automatically.</p>
+                    <ul style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1.2rem;">
+                        <li style="margin-bottom: 0.25rem;">Implement fault isolation (e.g., Bulkhead pattern, Asynchronous messaging).</li>
+                        <li style="margin-bottom: 0.25rem;">Evolve monitoring with structured logging, distributed tracing, and health probing.</li>
+                        <li>Develop a basic recovery plan prioritizing graceful degradation for critical flows.</li>
+                    </ul>
+                </div>
             </div>
-            <div style="display: flex; align-items: flex-start; gap: 1rem; padding: 1.5rem; background: rgba(30, 41, 59, 0.5); border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                <input type="checkbox" id="level3" style="margin-top: 0.3rem; width: 20px; height: 20px; accent-color: #38bdf8; opacity: 0.5;">
-                <label for="level3" style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5;"><strong style="color: #f8fafc; display: block; margin-bottom: 0.25rem; font-size: 1.05rem;">Level 3: Strategic (Recover Resilient)</strong> Fully automated cross-region recovery with workload-level isolation.</label>
+
+            <!-- Step 3 -->
+            <div style="display: flex; align-items: flex-start; position: relative; padding-bottom: 2rem;">
+                <div style="z-index: 2; width: 20px; height: 20px; border-radius: 50%; background: #0f172a; border: 4px solid #fcd34d; margin-top: 4px; box-shadow: 0 0 10px rgba(252,211,77,0.4); flex-shrink: 0;"></div>
+                <div style="margin-left: 1.5rem; flex-grow: 1; padding: 1.5rem; background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(8px); border-radius: 12px; border: 1px solid rgba(252, 211, 77, 0.3); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap;">
+                        <h3 style="color: #f8fafc; font-size: 1.25rem; font-weight: 700; margin: 0;">Level 3: Recovery Readiness</h3>
+                        <span style="background: rgba(252, 211, 77, 0.15); color: #fcd34d; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase;">Alignment</span>
+                    </div>
+                    <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5; margin: 0 0 1rem 0;">Integrate business objectives with technical controls (RTO, RPO constraints) and implement formal disaster plans.</p>
+                    <ul style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1.2rem;">
+                        <li style="margin-bottom: 0.25rem;">Formalize SLOs, RPOs, and RTOs via stakeholder workshops.</li>
+                        <li style="margin-bottom: 0.25rem;">Adopt state-based Health Modeling (Healthy, Degraded, Unhealthy) for proactive alerting.</li>
+                        <li>Conduct Failure Mode Analysis (FMA) and script explicit Disaster Recovery workflows.</li>
+                    </ul>
+                </div>
             </div>
-            <div style="display: flex; align-items: flex-start; gap: 1rem; padding: 1.5rem; background: rgba(30, 41, 59, 0.5); border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                <input type="checkbox" id="level4" style="margin-top: 0.3rem; width: 20px; height: 20px; accent-color: #38bdf8; opacity: 0.5;">
-                <label for="level4" style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5;"><strong style="color: #f8fafc; display: block; margin-bottom: 0.25rem; font-size: 1.05rem;">Level 4: Optimized (Predictable Failover)</strong> Chaos engineering tests prove failover happens without human intervention.</label>
+
+            <!-- Step 4 -->
+            <div style="display: flex; align-items: flex-start; position: relative; padding-bottom: 2rem;">
+                 <div style="z-index: 2; width: 20px; height: 20px; border-radius: 50%; background: #0f172a; border: 4px solid #a855f7; margin-top: 4px; box-shadow: 0 0 10px rgba(168,85,247,0.4); flex-shrink: 0;"></div>
+                <div style="margin-left: 1.5rem; flex-grow: 1; padding: 1.5rem; background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(8px); border-radius: 12px; border: 1px solid rgba(168, 85, 247, 0.3); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap;">
+                        <h3 style="color: #f8fafc; font-size: 1.25rem; font-weight: 700; margin: 0;">Level 4: Maintain Stability</h3>
+                        <span style="background: rgba(168, 85, 247, 0.15); color: #a855f7; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase;">Operations</span>
+                    </div>
+                    <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5; margin: 0 0 1rem 0;">Production-grade incident management, automated self-healing, and continuous background task refinement.</p>
+                    <ul style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1.2rem;">
+                        <li style="margin-bottom: 0.25rem;">Deploy utilizing Safe Deployment Practices (SDP) such as Canary and Dark Launches.</li>
+                        <li style="margin-bottom: 0.25rem;">Commit to a dedicated Site Reliability Engineering (SRE) capability for incident handling.</li>
+                        <li>Automate robust self-healing and idempotent background task recovery mechanics.</li>
+                    </ul>
+                </div>
             </div>
-            <div style="display: flex; align-items: flex-start; gap: 1rem; padding: 1.5rem; background: rgba(30, 41, 59, 0.5); border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                <input type="checkbox" id="level5" style="margin-top: 0.3rem; width: 20px; height: 20px; accent-color: #38bdf8; opacity: 0.5;">
-                <label for="level5" style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5;"><strong style="color: #f8fafc; display: block; margin-bottom: 0.25rem; font-size: 1.05rem;">Level 5: Evolutionary (Adaptive Resilience)</strong> Reactive automation using Drasi to respond to management plane shifts in real-time.</label>
+
+            <!-- Step 5 -->
+            <div style="display: flex; align-items: flex-start; position: relative;">
+                <div style="z-index: 2; width: 20px; height: 20px; border-radius: 50%; background: #0f172a; border: 4px solid #ef4444; margin-top: 4px; box-shadow: 0 0 10px rgba(239,68,68,0.4); flex-shrink: 0;"></div>
+                <div style="margin-left: 1.5rem; flex-grow: 1; padding: 1.5rem; background: linear-gradient(145deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.95) 100%); backdrop-filter: blur(8px); border-radius: 12px; border: 1px solid rgba(239, 68, 68, 0.4); box-shadow: 0 4px 20px rgba(239, 68, 68, 0.1);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap;">
+                        <h3 style="color: #f8fafc; font-size: 1.25rem; font-weight: 700; margin: 0;">Level 5: Stay Resilient</h3>
+                        <span style="background: rgba(239, 68, 68, 0.15); color: #ef4444; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase;">Evolution</span>
+                    </div>
+                    <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5; margin: 0 0 1rem 0;">Operate in a perpetual state of readiness. Go beyond technical controls to pure architectural adaptability using Chaos Engineering and Reactive Data triggers.</p>
+                    <ul style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1.2rem;">
+                        <li style="margin-bottom: 0.25rem;"><strong>Chaos Engineering:</strong> Prove predictable failover via deliberate anomaly injection in Production.</li>
+                        <li style="margin-bottom: 0.25rem;"><strong>Continuous DR Drills:</strong> Evolve beyond whiteboard simulations into real-time, non-disruptive production verification.</li>
+                        <li><strong>Next-Gen Automation (Drasi/Flash):</strong> React to localized gray-failures and management plane events automatically without human intervention.</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
