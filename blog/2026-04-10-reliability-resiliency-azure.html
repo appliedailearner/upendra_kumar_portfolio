@@ -556,12 +556,52 @@
         .calc-result-box {
             display: none;
             margin-top: 2rem;
-            padding: 2rem;
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid #10b981;
-            border-radius: 12px;
+            padding: 2.5rem;
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 16px;
             text-align: center;
             animation: fadeIn 0.5s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+        .calc-result-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: #10b981;
+        }
+        
+        .expert-recommendation-box {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(252, 211, 77, 0.05);
+            border: 1px solid rgba(252, 211, 77, 0.2);
+            border-radius: 12px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .rto-rpo-container {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .rto-rpo-container:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .rto-rpo-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
         }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
@@ -882,39 +922,52 @@
                     <li style="margin-bottom: 0.75rem; display: flex;"><i class="fas fa-arrow-right" style="color: #a855f7; margin-right: 0.75rem; margin-top: 0.3rem; font-size: 0.8rem;"></i> How dynamically and frequently does the workload data change?</li>
                 </ul>
             </div>
-            <div style="flex: 1 1 400px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #ffffff; padding: 1.5rem; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
-                <img src="../images/rto_rpo_timeline.webp" alt="RTO and RPO Timeline Integration Diagram" style="max-width: 100%; height: auto; border-radius: 4px; margin-bottom: 1.5rem;">
-                <!-- Calculator Placeholder -->
-                <div id="calculator-anchor" style="width: 100%; background: #0f172a; padding: 1.5rem; border-radius: 8px; color: white;">
-                    <h5 style="margin-top: 0; color: #60a5fa;"><i class="fas fa-calculator"></i> Interactive Tier Finder</h5>
-                    <p style="font-size: 0.85rem; color: #94a3b8; line-height: 1.6; margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
-                        <strong style="color: #fcd34d;">Recommendation:</strong> Move from regional pairs to Availability Zone-redundant architectures to maintain low-latency Performance SLAs while ensuring survivability.
-                    </p>
-                    <p style="font-size: 0.85rem; color: #94a3b8;">Discover your architectural pattern by selecting your constraints:</p>
-                    
-                    <div id="tier-calc" style="text-align: left;">
-                        <div class="calc-question">
-                            <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">Acceptable Data Loss (RPO):</p>
-                            <div class="calc-options" style="grid-template-columns: 1fr 1fr;">
-                                <button class="calc-btn" onclick="setCalcValue('rpo', 0, this)">Zero (Active/Active)</button>
-                                <button class="calc-btn" onclick="setCalcValue('rpo', 1, this)">Seconds/Minutes</button>
-                                <button class="calc-btn" onclick="setCalcValue('rpo', 2, this)">Hours</button>
-                                <button class="calc-btn" onclick="setCalcValue('rpo', 3, this)">Next Day</button>
-                            </div>
+            <div style="flex: 1 1 400px;">
+                <div class="glass-card" style="height: 100%; padding: 3rem; display: flex; flex-direction: column;">
+                    <div class="rto-rpo-container">
+                        <img src="../images/rto_rpo_timeline.webp" alt="RTO and RPO Timeline Integration Diagram">
+                    </div>
+
+                    <div id="calculator-anchor" style="width: 100%;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                            <i class="fas fa-calculator" style="color: #60a5fa; font-size: 1.25rem;"></i>
+                            <h3 style="margin: 0; font-family: 'Outfit', sans-serif; font-size: 1.5rem; color: #f8fafc;">Interactive Tier Finder</h3>
                         </div>
-                        <div class="calc-question">
-                            <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">Recovery Target (RTO):</p>
-                            <div class="calc-options" style="grid-template-columns: 1fr 1fr;">
-                                <button class="calc-btn" onclick="setCalcValue('rto', 0, this)">Instantaneous</button>
-                                <button class="calc-btn" onclick="setCalcValue('rto', 1, this)">Sub-Minute</button>
-                                <button class="calc-btn" onclick="setCalcValue('rto', 2, this)">1-4 Hours</button>
-                                <button class="calc-btn" onclick="setCalcValue('rto', 3, this)">Best Effort</button>
-                            </div>
+
+                        <div class="expert-recommendation-box">
+                            <i class="fas fa-lightbulb" style="color: #fcd34d; margin-right: 8px;"></i>
+                            <strong style="color: #fcd34d; font-weight: 700;">Expert Insight:</strong> 
+                            <span style="color: #cbd5e1;">Avoid legacy regional pair designs. Prioritize Availability Zone-redundant architectures to maintain performance SLAs during partial failures.</span>
                         </div>
-                        <div id="calc-result" class="calc-result-box">
-                            <span id="result-tier" style="display: block; font-weight: 800; font-size: 1.2rem; color: #10b981; margin-bottom: 0.5rem;">TIER 0: MISSION CRITICAL</span>
-                            <p id="result-desc" style="font-size: 0.85rem; color: #cbd5e1; margin: 0;">Multi-Zone + Multi-Region Active-Active is your standard.</p>
-                            <a href="../pages/contact.html" style="display: inline-block; margin-top: 1rem; color: #60a5fa; font-size: 0.8rem; text-decoration: none; border-bottom: 1px solid #60a5fa;">Book a Resilience Audit →</a>
+                        
+                        <p style="font-size: 0.95rem; color: #94a3b8; margin: 2rem 0 1.5rem;">Configure your business constraints to identify the optimal architectural pattern:</p>
+                        
+                        <div id="tier-calc" style="text-align: left;">
+                            <div class="calc-question" style="margin-bottom: 2rem;">
+                                <p style="font-size: 1rem; color: #f8fafc; margin-bottom: 1rem; font-weight: 600;">Acceptable Data Loss (RPO):</p>
+                                <div class="calc-options" style="grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                    <button class="calc-btn" onclick="setCalcValue('rpo', 0, this)">Zero (Active/Active)</button>
+                                    <button class="calc-btn" onclick="setCalcValue('rpo', 1, this)">Seconds/Minutes</button>
+                                    <button class="calc-btn" onclick="setCalcValue('rpo', 2, this)">Hours</button>
+                                    <button class="calc-btn" onclick="setCalcValue('rpo', 3, this)">Next Day</button>
+                                </div>
+                            </div>
+                            <div class="calc-question" style="margin-bottom: 0;">
+                                <p style="font-size: 1rem; color: #f8fafc; margin-bottom: 1rem; font-weight: 600;">Recovery Target (RTO):</p>
+                                <div class="calc-options" style="grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                    <button class="calc-btn" onclick="setCalcValue('rto', 0, this)">Instantaneous</button>
+                                    <button class="calc-btn" onclick="setCalcValue('rto', 1, this)">Sub-Minute</button>
+                                    <button class="calc-btn" onclick="setCalcValue('rto', 2, this)">1-4 Hours</button>
+                                    <button class="calc-btn" onclick="setCalcValue('rto', 3, this)">Best Effort</button>
+                                </div>
+                            </div>
+                            <div id="calc-result" class="calc-result-box">
+                                <span id="result-tier" style="display: block; font-weight: 800; font-size: 1.25rem; color: #10b981; margin-bottom: 0.5rem; font-family: 'Outfit', sans-serif;">TIER 0: MISSION CRITICAL</span>
+                                <p id="result-desc" style="font-size: 0.95rem; color: #cbd5e1; margin: 0; line-height: 1.6;">Multi-Zone + Multi-Region Active-Active is your required architectural standard.</p>
+                                <a href="../pages/contact.html" class="masterclass-cta" style="margin-top: 1.5rem; background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.2); color: #10b981;">
+                                    Book a Resilience Audit <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
