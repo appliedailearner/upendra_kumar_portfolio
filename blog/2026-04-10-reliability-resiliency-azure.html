@@ -723,6 +723,39 @@
             to { transform: rotate(360deg); }
         }
 
+        /* Strict Masterclass 2-Column Grid */
+        .sv-masterclass-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: stretch;
+            margin: 4rem 0;
+            position: relative;
+            z-index: 5;
+            width: 100%;
+        }
+
+        /* Break out of 850px parent containment for premium wide view */
+        @media (min-width: 1250px) {
+            .sv-masterclass-grid {
+                width: calc(100% + 150px);
+                margin-left: -75px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .sv-masterclass-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sv-masterclass-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* High-Fidelity Bento Card */
         .sv-bento-card {
             position: relative;
@@ -1555,7 +1588,7 @@
         <h2 id="next-gen-ops"><span class="gradient-text">6. Next-Gen Ops Masterclass: Flash & Drasi</span></h2>
         <p>Operationalizing resilience at cloud-scale requires moving beyond standard metrics. How do you handle a system that isn't broken, but isn't working? This is the "Gray Failure" challenge, and Microsoft is solving it with <strong>Project Flash</strong> and <strong>Drasi</strong>.</p>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 3rem; margin: 4rem 0;">
+        <div class="sv-masterclass-grid">
             <!-- Project Flash: Silicon Valley Bento -->
             <div class="sv-card-container">
                 <div class="sv-bento-card">
@@ -1603,7 +1636,7 @@
                         The engine for self-healing systems. Drasi uses continuous event-processing to react instantly to system state changes. It bridges the gap between detecting a failure and automating the mitigation without any manual overhead.
                     </p>
 
-                    <ul class="sv-insight-list">
+                    <ul class="sv-insight-list" style="margin-bottom: 2.5rem;">
                         <li><i class="fas fa-circle-nodes"></i> <span>Reactive event-processing via continuous queries on live system logs.</span></li>
                         <li><i class="fas fa-robot"></i> <span>Automates regional failover triggered by Bastion Policy drift or node health.</span></li>
                         <li><i class="fas fa-link-slash"></i> <span>Eliminate manual intervention from your recovery and resilience workflows.</span></li>
