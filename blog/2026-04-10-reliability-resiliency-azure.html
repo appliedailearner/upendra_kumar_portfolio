@@ -337,6 +337,55 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
+
+        /* Video Section Styles */
+        .video-insight-card {
+            margin: 3.5rem 0;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .video-insight-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(56, 189, 248, 0.5);
+        }
+        .video-insight-header {
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+            background: rgba(56, 189, 248, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .video-icon-box {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        .video-content video {
+            width: 100%;
+            display: block;
+            aspect-ratio: 16/9;
+            background: #000;
+        }
+        .video-footer {
+            padding: 1.2rem 2rem;
+            background: rgba(15, 23, 42, 0.6);
+            font-size: 1rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
     </style>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -457,6 +506,28 @@
 
         <h2 id="az-first"><span class="gradient-text">2. The AZ-First Internal Standard</span></h2>
         <p>At the strategic enterprise level, we are moving the goalposts. High Availability (HA) used to be an "add-on." Now, Multi-AZ is the baseline requirement. <span class="eli5-term" data-tooltip="Physically separate datacenters within a single Azure region, each with independent power, cooling, and networking.">Availability Zones (AZs)</span> are now treated as the primary region. We hedge against catastrophic, cross-zone failure with regional BCDR, but we run the business <em>within</em> the zones.</p>
+
+        <!-- Expert Video Deep Dive -->
+        <div class="video-insight-card">
+            <div class="video-insight-header">
+                <div class="video-icon-box">
+                    <i class="fas fa-video"></i>
+                </div>
+                <div>
+                    <h4 style="margin: 0; color: #f8fafc; font-family: 'Outfit', sans-serif; font-size: 1.15rem;">Expert Deep Dive</h4>
+                    <p style="margin: 0; font-size: 0.85rem; color: #94a3b8; font-weight: 500;">Ensuring Resiliency & HA with Azure Availability Zones</p>
+                </div>
+            </div>
+            <div class="video-content">
+                <video controls preload="metadata" poster="../images/azure_resilience_infographic.png">
+                    <source src="https://pub-2d01be0306284df386da6dae9d2014d0.r2.dev/Ensure-resiliency-and-high-availability-with-Azure-Availability-Zones_en-us-0x720-3266k.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="video-footer">
+                <p style="margin: 0;"><i class="fas fa-info-circle" style="color: #60a5fa; margin-right: 8px;"></i> This technical breakdown illustrates how Azure's zone-aware infrastructure provides the physical isolation required for high-fidelity business continuity.</p>
+            </div>
+        </div>
 
         <p>Why? Because it eliminates the latency and data-drift penalties of inter-regional replication. With Azure's 165,000-mile fiber backbone and <strong>Software Defined Networking (SDN)</strong>, we can route around fiber cuts in milliseconds—but only if the application is "Zone-Aware."</p>
 
