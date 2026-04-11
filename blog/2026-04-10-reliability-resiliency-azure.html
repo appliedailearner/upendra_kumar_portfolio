@@ -701,7 +701,7 @@
         <div id="executive-impact" class="reveal" style="margin-bottom: 4rem; position: relative;">
             <div style="text-align: center; margin-bottom: 2rem;">
                 <span style="display: inline-block; padding: 0.4rem 1rem; background: rgba(168, 85, 247, 0.1); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 20px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;">
-                    <i class="fas fa-chart-line" style="margin-right: 6px;"></i> Strategic Alignment & ROI
+                    <i class="fas fa-chart-line" style="margin-right: 6px;"></i> Strategic Alignment and ROI
                 </span>
                 <h2 style="margin: 1rem 0 0; font-family: 'Outfit', sans-serif; font-size: 2.2rem; color: #f8fafc;">Executive Impact Summary</h2>
             </div>
@@ -710,12 +710,12 @@
                 <div class="glass-card" style="border-top: 3px solid #f87171;">
                     <i class="fas fa-fire" style="color: #f87171; font-size: 1.5rem; margin-bottom: 1rem;"></i>
                     <h4 style="color: #fca5a5; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">The Semantic Disconnect</h4>
-                    <p style="font-size: 0.95rem;">Legacy architectures conflate High Availability with true continuity. Without properly aligning the "Semantic Triad"—<strong style="color: #cbd5e1;">Reliability</strong>, <strong style="color: #cbd5e1;">Resiliency</strong>, and <strong style="color: #cbd5e1;">Recoverability</strong>—RTO objectives are often exposed to systemic regional failures.</p>
+                    <p style="font-size: 0.95rem;">Legacy architectures conflate High Availability with true continuity. Without properly aligning the "resiliency triad"—<strong style="color: #cbd5e1;">reliability</strong>, <strong style="color: #cbd5e1;">resiliency</strong>, and <strong style="color: #cbd5e1;">recoverability</strong>—RTO objectives are often exposed to systemic regional failures.</p>
                 </div>
                 <div class="glass-card" style="border-top: 3px solid #60a5fa;">
                     <i class="fas fa-network-wired" style="color: #60a5fa; font-size: 1.5rem; margin-bottom: 1rem;"></i>
                     <h4 style="color: #93c5fd; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">The 4-Pattern Architecture</h4>
-                    <p style="font-size: 0.95rem;">By evolving beyond static paired-regions, we deploy dynamic topologies (Active/Active, In-Region HA) and strictly enforce the 5-Level <strong style="color: #cbd5e1;">WAF Reliability Maturity Roadmap</strong>. We shift from passive DR to active, automated survival.</p>
+                    <p style="font-size: 0.95rem;">By evolving beyond static region pairs, we deploy dynamic topologies (Active/Active, in-region high availability) and strictly enforce the five-level <strong style="color: #cbd5e1;">WAF Reliability Maturity Roadmap</strong>. We shift from passive DR to active, automated survival.</p>
                 </div>
                 <div class="glass-card" style="border-top: 3px solid #34d399;">
                     <i class="fas fa-award" style="color: #34d399; font-size: 1.5rem; margin-bottom: 1rem;"></i>
@@ -728,7 +728,7 @@
         <h2 id="shifting-paradigm"><span class="gradient-text">1. The Shifting Paradigm</span></h2>
         <p>For decades, the standard playbook for cloud resilience was simple: <strong>Region A + Region B = Safe.</strong> We assumed that distance was the ultimate shield. But the reality of modern cloud architecture is more nuanced. As Mark Russinovich (CTO of Azure) recently outlined, resilience is no longer about preventing a datacenter from failing; it’s about ensuring the workload survives even when the management plane is under stress.</p>
         
-        <p>The "No-BS" truth? Regional pairing is a relic. If your failover relies on a manual VPC cutover that takes 4 hours, you don't have a resilience strategy—you have a documented catastrophe.</p>
+        <p>The "No-BS" truth? Regional pairing is a relic. If your failover relies on a manual VNet cutover that takes 4 hours, you don't have a resilience strategy—you have a documented catastrophe.</p>
 
         <!-- The Regional Pairing Analogy: Architect's Corner -->
         <div class="analogy-block reveal" style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 24px; padding: 3rem; margin: 3rem 0; position: relative; overflow: hidden;">
@@ -763,7 +763,7 @@
             </div>
         </div>
 
-        <h2 id="az-first"><span class="gradient-text">2. The AZ-First Internal Standard</span></h2>
+        <h2 id="az-first"><span class="gradient-text">2. Strategic Alignment and ROI (The Business Case)</span></h2>
         <p>At the strategic enterprise level, we are moving the goalposts. High Availability (HA) used to be an "add-on." Now, Multi-AZ is the baseline requirement. <span class="eli5-term" data-tooltip="Physically separate datacenters within a single Azure region, each with independent power, cooling, and networking.">Availability Zones (AZs)</span> are now treated as the primary region. We hedge against catastrophic, cross-zone failure with regional BCDR, but we run the business <em>within</em> the zones.</p>
 
         <!-- Architecture Diagram 1: Regions & AZs -->
@@ -803,7 +803,7 @@
         <!-- Zone Failure Simulator: Practical Proof -->
         <div class="sim-container reveal">
             <h4 style="color: #f8fafc; font-family: 'Outfit', sans-serif; margin-bottom: 1rem;">Live Simulation: Automated Zone Healing</h4>
-            <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 2rem;">Click the button to simulate a localized failure in Zone A and see how the traffic automatically shifts to maintain 100% availability.</p>
+            <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 2rem;">Simulate a localized failure in Zone A to observe the automated traffic shift and maintenance of high availability across the remaining infrastructure.</p>
             
             <div class="sim-grid">
                 <div class="sim-node" id="zone-1">
@@ -861,6 +861,9 @@
                 <!-- Calculator Placeholder -->
                 <div id="calculator-anchor" style="width: 100%; background: #0f172a; padding: 1.5rem; border-radius: 8px; color: white;">
                     <h5 style="margin-top: 0; color: #60a5fa;"><i class="fas fa-calculator"></i> Interactive Tier Finder</h5>
+                    <p style="font-size: 0.85rem; color: #94a3b8; line-height: 1.6; margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+                        <strong style="color: #fcd34d;">Recommendation:</strong> Move from regional pairs to Availability Zone-redundant architectures to maintain low-latency Performance SLAs while ensuring survivability.
+                    </p>
                     <p style="font-size: 0.85rem; color: #94a3b8;">Discover your architectural pattern by selecting your constraints:</p>
                     
                     <div id="tier-calc" style="text-align: left;">
@@ -980,7 +983,7 @@
 
         <!-- Section 3.1: The Modern Backup & Restore Blueprint -->
         <div class="reveal" style="margin: 3rem 0; padding: 2.5rem; background: rgba(30, 41, 59, 0.4); border-radius: 20px; border-left: 6px solid #fcd34d;">
-            <h3 style="font-family: 'Outfit', sans-serif; color: #fcd34d; margin-bottom: 1.5rem;"><i class="fas fa-microchip"></i> 3.1 The Modern Backup & Restore Blueprint</h3>
+            <h3 style="font-family: 'Outfit', sans-serif; color: #fcd34d; margin-bottom: 1.5rem;"><i class="fas fa-microchip"></i> 3.1 The Modern Backup and Restore Blueprint</h3>
             <p style="color: #cbd5e1; margin-bottom: 2rem;">While we prioritize high-fidelity data plane resilience, <strong>Backup & Restore</strong> is your ultimate "Time Machine" against logical corruption and ransomware. In a modern architecture, we evolve from simple daily copies to <strong>Immutable, Air-Gapped Vaults</strong>.</p>
             
             <div class="responsive-grid">
@@ -1069,7 +1072,7 @@
                     <i class="fas fa-code" style="margin-right: 6px;"></i> Technical Implementation
                 </span>
                 <h2 style="margin: 1rem 0 0; font-family: 'Outfit', sans-serif; font-size: 2.2rem; color: #f8fafc;">Reliability Blueprint Gallery</h2>
-                <p style="color: #94a3b8; margin-top: 1rem;">Actionable Bicep templates for production-grade resilience.</p>
+                <p style="color: #94a3b8; margin-top: 1rem;">Actionable Terraform templates for production-grade resilience.</p>
             </div>
 
             <div class="sim-container" style="background: rgba(15, 23, 42, 0.4);">
@@ -1134,7 +1137,7 @@
         </div>
 
         <h2 id="maturity-model"><span class="gradient-text">5. Official WAF Reliability Maturity Model</span></h2>
-        <p>Resilience isn't a project; it's a practice. I use the official <span class="eli5-term" data-tooltip="The Azure Well-Architected Framework: a set of five pillars (Cost, Security, Reliability, Perf, Ops) used to build high-quality cloud solutions.">Well-Architected Framework (WAF)</span> Reliability Maturity Model to benchmark our progress. It moves teams from reacting to outages to embracing and automating around them.</p>
+        <p>Resilience is a continuous practice. This architecture uses the official <span class="eli5-term" data-tooltip="The Azure Well-Architected Framework: a set of five pillars (Cost Optimization, Security, Reliability, Performance Efficiency, and Operational Excellence) used to build high-quality cloud solutions.">Well-Architected Framework (WAF)</span> Reliability Maturity Model to benchmark progress, moving teams from reactive recovery to architectural adaptability.</p>
 
         <div style="margin-bottom: 3rem; margin-top: 2rem; display: flex; flex-direction: column; gap: 0; position: relative; padding-left: 1rem;">
             <!-- Timeline Line -->
@@ -1220,7 +1223,7 @@
                     <ul style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1.2rem;">
                         <li style="margin-bottom: 0.25rem;"><strong>Chaos Engineering (Azure Chaos Studio):</strong> Prove predictable failover via deliberate anomaly injection in Production.</li>
                         <li style="margin-bottom: 0.25rem;"><strong>Continuous DR Drills:</strong> Evolve beyond whiteboard simulations into real-time, non-disruptive production verification.</li>
-                        <li><strong>Next-Gen Automation (Drasi/Flash):</strong> React to localized gray-failures and management plane events automatically without human intervention.</li>
+                        <li><strong>Next-Gen Automation (Drasi/Flash):</strong> React to localized gray failures and management plane events automatically without human intervention.</li>
                     </ul>
                 </div>
             </div>
@@ -1271,7 +1274,7 @@
                     <i class="fas fa-bolt" style="color: #60a5fa; font-size: 1.5rem;"></i>
                     <h3 style="color: #f8fafc; margin: 0; font-family: 'Outfit', sans-serif;">Project Flash</h3>
                 </div>
-                <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">The "Silent Killer" in data centers isn't a power outage; it's <strong>Differential Observability</strong>. This occurs when Azure’s monitoring says a node is "Healthy," but your application sees a 90% disk latency spike. Project Flash surfaces deep-substrate telemetry (NIC blips, I/O hangs) directly to your SRE team.</p>
+                <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">The "silent killer" in data centers isn't a power outage; it's <strong>differential observability</strong>. This occurs when Azure monitoring identifies a node as "Healthy," but the application experiences a 90% disk latency spike. Project Flash surfaces deep substrate telemetry (NIC blips, I/O hangs) directly to the operational layer.</p>
                 <a href="https://www.youtube.com/results?search_query=Mark+Russinovich+Azure+reliability" target="_blank" style="display: flex; align-items: center; gap: 0.5rem; color: #60a5fa; text-decoration: none; font-weight: 700; font-size: 0.85rem;">
                     <i class="fab fa-youtube" style="color: #ef4444;"></i> Watch: Mark Russinovich on Reliability
                 </a>
@@ -1283,14 +1286,14 @@
                     <i class="fas fa-microchip" style="color: #a855f7; font-size: 1.5rem;"></i>
                     <h3 style="color: #f8fafc; margin: 0; font-family: 'Outfit', sans-serif;">Microsoft Drasi</h3>
                 </div>
-                <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">Drasi is an open-source <strong>Reactive Reliability</strong> engine. Instead of polling your database for state changes, Drasi uses Continuous Queries to react instantly. If a Bastion Host's security policy drifts or a node becomes "Degraded," Drasi triggers a failover automatedly without manual intervention.</p>
+                <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">Drasi is an open-source <strong>reactive reliability</strong> engine. Instead of polling databases for state changes, Drasi uses continuous queries to react instantly. If a Bastion Host security policy drifts or a node becomes degraded, Drasi triggers a failover automatically without manual intervention.</p>
                 <a href="https://www.youtube.com/watch?v=J30l7nF9J_c" target="_blank" style="display: flex; align-items: center; gap: 0.5rem; color: #a855f7; text-decoration: none; font-weight: 700; font-size: 0.85rem;">
                     <i class="fab fa-youtube" style="color: #ef4444;"></i> Watch: Drasi Deep Dive
                 </a>
             </div>
         </div>
 
-        <p>By combining Project Flash (Detection) and Drasi (Reaction), we move from <strong>Manual DR</strong> to <strong>Autonomous Resilience</strong>. This is the future of the Cloud Center of Excellence (CCoE).</p>
+        <p>By combining Project Flash (Detection) and Drasi (Reaction), we move from <strong>manual Disaster Recovery (DR)</strong> to <strong>autonomous resilience</strong>. This is the future of the Cloud Center of Excellence (CCoE).</p>
 
         <!-- SRE Dashboard: Project Flash visualization -->
         <div class="sre-dashboard">
