@@ -352,6 +352,32 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
+        
+        /* Masterclass Action Strips */
+        .masterclass-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.8rem 1.25rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: auto;
+            width: fit-content;
+        }
+        .masterclass-cta:hover {
+            background: rgba(30, 41, 59, 0.8);
+            border-color: rgba(59, 130, 246, 0.5);
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .masterclass-cta.drasi:hover {
+            border-color: rgba(168, 85, 247, 0.5);
+        }
 
         /* Video Section Styles */
         .video-insight-card {
@@ -1274,10 +1300,13 @@
                     <i class="fas fa-bolt" style="color: #60a5fa; font-size: 1.5rem;"></i>
                     <h3 style="color: #f8fafc; margin: 0; font-family: 'Outfit', sans-serif;">Project Flash</h3>
                 </div>
-                <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">The "silent killer" in data centers isn't a power outage; it's <strong>differential observability</strong>. This occurs when Azure monitoring identifies a node as "Healthy," but the application experiences a 90% disk latency spike. Project Flash surfaces deep substrate telemetry (NIC blips, I/O hangs) directly to the operational layer.</p>
-                <a href="https://www.youtube.com/results?search_query=Mark+Russinovich+Azure+reliability" target="_blank" style="display: flex; align-items: center; gap: 0.5rem; color: #60a5fa; text-decoration: none; font-weight: 700; font-size: 0.85rem;">
-                    <i class="fab fa-youtube" style="color: #ef4444;"></i> Watch: Mark Russinovich on Reliability
-                </a>
+                <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem;">The "silent killer" in data centers isn't a power outage; it's <strong>differential observability</strong>. This occurs when Azure monitoring identifies a node as "Healthy," but the application experiences a 90% disk latency spike. Project Flash surfaces deep substrate telemetry (NIC blips, I/O hangs) directly to the operational layer.</p>
+                <div style="margin-top: auto;">
+                    <a href="https://www.youtube.com/results?search_query=Mark+Russinovich+Azure+reliability" target="_blank" class="masterclass-cta">
+                        <i class="fab fa-youtube" style="color: #ef4444; font-size: 1.1rem;"></i> 
+                        <span style="color: #60a5fa;">Watch: Mark Russinovich on Reliability</span>
+                    </a>
+                </div>
             </div>
 
             <!-- Drasi Detail -->
@@ -1286,10 +1315,13 @@
                     <i class="fas fa-microchip" style="color: #a855f7; font-size: 1.5rem;"></i>
                     <h3 style="color: #f8fafc; margin: 0; font-family: 'Outfit', sans-serif;">Microsoft Drasi</h3>
                 </div>
-                <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">Drasi is an open-source <strong>reactive reliability</strong> engine. Instead of polling databases for state changes, Drasi uses continuous queries to react instantly. If a Bastion Host security policy drifts or a node becomes degraded, Drasi triggers a failover automatically without manual intervention.</p>
-                <a href="https://www.youtube.com/watch?v=J30l7nF9J_c" target="_blank" style="display: flex; align-items: center; gap: 0.5rem; color: #a855f7; text-decoration: none; font-weight: 700; font-size: 0.85rem;">
-                    <i class="fab fa-youtube" style="color: #ef4444;"></i> Watch: Drasi Deep Dive
-                </a>
+                <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem;">Drasi is an open-source <strong>reactive reliability</strong> engine. Instead of polling databases for state changes, Drasi uses continuous queries to react instantly. If a Bastion Host security policy drifts or a node becomes degraded, Drasi triggers a failover automatically without manual intervention.</p>
+                <div style="margin-top: auto;">
+                    <a href="https://www.youtube.com/watch?v=J30l7nF9J_c" target="_blank" class="masterclass-cta drasi">
+                        <i class="fab fa-youtube" style="color: #ef4444; font-size: 1.1rem;"></i> 
+                        <span style="color: #a855f7;">Watch: Drasi Deep Dive</span>
+                    </a>
+                </div>
             </div>
         </div>
 
