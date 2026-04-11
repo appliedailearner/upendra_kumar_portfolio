@@ -682,7 +682,216 @@
         }
         .tab-content { display: none; background: #011627; border-radius: 8px; padding: 1.5rem; overflow-x: auto; }
         .tab-content.active { display: block; }
-        .code-snippet { color: #d6deeb; font-family: 'Fira Code', monospace; font-size: 0.85rem; white-space: pre; }
+        /* --- Silicon Valley Executive UI Components --- */
+        
+        :root {
+            --beam-size: 150px;
+            --beam-speed: 8s;
+            --spotlight-opacity: 0.15;
+        }
+
+        .sv-card-container {
+            position: relative;
+            padding: 2px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.03);
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Border Beam Animation */
+        .sv-card-container::before {
+            content: "";
+            position: absolute;
+            inset: -100%;
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg,
+                transparent 300deg,
+                rgba(59, 130, 246, 0.4) 330deg,
+                rgba(168, 85, 247, 0.4) 360deg
+            );
+            animation: beam-spin var(--beam-speed) linear infinite;
+            z-index: 0;
+            opacity: 0.6;
+        }
+
+        @keyframes beam-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* High-Fidelity Bento Card */
+        .sv-bento-card {
+            position: relative;
+            z-index: 1;
+            background: rgba(10, 15, 30, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 22px;
+            padding: 2.5rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: transform 0.3s cubic-bezier(0.2, 0, 0.1, 1);
+        }
+
+        .sv-bento-card:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Spotlight Hover Effect */
+        .sv-spotlight {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(
+                circle 250px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                rgba(96, 165, 250, var(--spotlight-opacity)),
+                transparent 80%
+            );
+            pointer-events: none;
+            z-index: 2;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Grid / Texture Backgrounds */
+        .sv-texture-grid {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 24px 24px;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        .sv-texture-dots {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+            background-size: 12px 12px;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.2;
+        }
+
+        /* Refined Component Badges */
+        .sv-badge-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 3;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .sv-badge-icon i {
+            font-size: 1.6rem;
+            filter: drop-shadow(0 0 8px currentColor);
+        }
+
+        /* Premium Typography Layout */
+        .sv-bento-title {
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            font-size: 1.75rem;
+            letter-spacing: -0.02em;
+            color: #f8fafc;
+            margin: 0 0 1rem 0;
+            position: relative;
+            z-index: 3;
+        }
+
+        .sv-bento-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 1.05rem;
+            color: #60a5fa;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 3;
+        }
+
+        .sv-bento-text {
+            color: #94a3b8;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 3;
+        }
+
+        .sv-insight-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 2.5rem 0;
+            position: relative;
+            z-index: 3;
+        }
+
+        .sv-insight-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.85rem;
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+
+        .sv-insight-list li i {
+            margin-top: 0.35rem;
+            font-size: 0.8rem;
+            color: #60a5fa;
+        }
+
+        /* Action Strips / Buttons */
+        .sv-action-strip {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            color: #f8fafc;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 4;
+            width: 100%;
+        }
+
+        .sv-action-strip:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+            transform: scale(1.02);
+        }
+
+        .sv-action-strip ::after {
+            content: " →";
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .sv-action-strip:hover ::after {
+            opacity: 1;
+            transform: translateX(5px);
+        }
     </style>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1346,33 +1555,61 @@
         <h2 id="next-gen-ops"><span class="gradient-text">6. Next-Gen Ops Masterclass: Flash & Drasi</span></h2>
         <p>Operationalizing resilience at cloud-scale requires moving beyond standard metrics. How do you handle a system that isn't broken, but isn't working? This is the "Gray Failure" challenge, and Microsoft is solving it with <strong>Project Flash</strong> and <strong>Drasi</strong>.</p>
 
-        <div class="responsive-grid" style="margin: 3rem 0; gap: 2rem;">
-            <!-- Project Flash Detail -->
-            <div style="background: rgba(30, 41, 59, 0.5); padding: 2rem; border-radius: 16px; border: 1px solid rgba(56, 189, 248, 0.2);">
-                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-                    <i class="fas fa-bolt" style="color: #60a5fa; font-size: 1.5rem;"></i>
-                    <h3 style="color: #f8fafc; margin: 0; font-family: 'Outfit', sans-serif;">Project Flash</h3>
-                </div>
-                <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem;">The "silent killer" in data centers isn't a power outage; it's <strong>differential observability</strong>. This occurs when Azure monitoring identifies a node as "Healthy," but the application experiences a 90% disk latency spike. Project Flash surfaces deep substrate telemetry (NIC blips, I/O hangs) directly to the operational layer.</p>
-                <div style="margin-top: auto;">
-                    <a href="https://www.youtube.com/results?search_query=Mark+Russinovich+Azure+reliability" target="_blank" class="masterclass-cta">
-                        <i class="fab fa-youtube" style="color: #ef4444; font-size: 1.1rem;"></i> 
-                        <span style="color: #60a5fa;">Watch: Mark Russinovich on Reliability</span>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 2.5rem; margin: 4rem 0;">
+            <!-- Project Flash: Silicon Valley Bento -->
+            <div class="sv-card-container">
+                <div class="sv-bento-card">
+                    <div class="sv-spotlight"></div>
+                    <div class="sv-texture-grid"></div>
+                    
+                    <div class="sv-badge-icon">
+                        <i class="fas fa-bolt" style="color: #60a5fa;"></i>
+                    </div>
+
+                    <h3 class="sv-bento-title">Project Flash</h3>
+                    <p class="sv-bento-subtitle">Differential Observability Engine</p>
+                    
+                    <p class="sv-bento-text">
+                        Solving the "Silent Killer" of cloud availability by surfacing deep substrate telemetry (NIC blips, I/O hangs) that standard VM checks miss.
+                    </p>
+
+                    <ul class="sv-insight-list">
+                        <li><i class="fas fa-microscope"></i> <span>Detects <strong>Gray Failures</strong> in hardware clusters.</span></li>
+                        <li><i class="fas fa-broadcast-tower"></i> <span>Direct integration with Azure Monitor substrate logs.</span></li>
+                        <li><i class="fas fa-shield-halved"></i> <span>Predictive failure detection at the host layer.</span></li>
+                    </ul>
+
+                    <a href="https://www.youtube.com/results?search_query=Mark+Russinovich+Azure+reliability" target="_blank" class="sv-action-strip">
+                        <i class="fab fa-youtube" style="color: #ef4444;"></i> Watch: Russinovich on Flash
                     </a>
                 </div>
             </div>
 
-            <!-- Drasi Detail -->
-            <div style="background: rgba(30, 41, 59, 0.5); padding: 2rem; border-radius: 16px; border: 1px solid rgba(168, 85, 247, 0.2);">
-                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-                    <i class="fas fa-microchip" style="color: #a855f7; font-size: 1.5rem;"></i>
-                    <h3 style="color: #f8fafc; margin: 0; font-family: 'Outfit', sans-serif;">Microsoft Drasi</h3>
-                </div>
-                <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem;">Drasi is an open-source <strong>reactive reliability</strong> engine. Instead of polling databases for state changes, Drasi uses continuous queries to react instantly. If a Bastion Host security policy drifts or a node becomes degraded, Drasi triggers a failover automatically without manual intervention.</p>
-                <div style="margin-top: auto;">
-                    <a href="https://www.youtube.com/watch?v=J30l7nF9J_c" target="_blank" class="masterclass-cta drasi">
-                        <i class="fab fa-youtube" style="color: #ef4444; font-size: 1.1rem;"></i> 
-                        <span style="color: #a855f7;">Watch: Drasi Deep Dive</span>
+            <!-- Drasi: Silicon Valley Bento -->
+            <div class="sv-card-container" style="--beam-speed: 12s;">
+                <div class="sv-bento-card">
+                    <div class="sv-spotlight"></div>
+                    <div class="sv-texture-dots"></div>
+                    
+                    <div class="sv-badge-icon">
+                        <i class="fas fa-microchip" style="color: #a855f7;"></i>
+                    </div>
+
+                    <h3 class="sv-bento-title">Microsoft Drasi</h3>
+                    <p class="sv-bento-subtitle">Autonomous Reaction Runtime</p>
+                    
+                    <p class="sv-bento-text">
+                        The engine for self-healing systems. Drasi uses continuous event-processing to react instantly to system state changes and automate failover.
+                    </p>
+
+                    <ul class="sv-insight-list">
+                        <li><i class="fas fa-circle-nodes"></i> <span>Reactive event-processing via continuous queries.</span></li>
+                        <li><i class="fas fa-robot"></i> <span>Automates recovery triggered by Policy drift.</span></li>
+                        <li><i class="fas fa-link-slash"></i> <span>Eliminate manual intervention in DR workflows.</span></li>
+                    </ul>
+
+                    <a href="https://www.youtube.com/watch?v=J30l7nF9J_c" target="_blank" class="sv-action-strip" style="hover: border-color: #a855f7;">
+                        <i class="fab fa-youtube" style="color: #ef4444;"></i> Watch: Drasi Architecture
                     </a>
                 </div>
             </div>
@@ -1552,7 +1789,23 @@
             }, 4000);
         }
 
-        // Tab Switcher Logic
+        // Silicon Valley Spotlight Tracking
+        const spotlightCards = document.querySelectorAll('.sv-bento-card');
+        
+        const updateSpotlight = (e) => {
+            const card = e.currentTarget;
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+        };
+
+        spotlightCards.forEach(card => {
+            card.addEventListener('mousemove', updateSpotlight);
+        });
+
         function switchTab(evt, tabId) {
             const tabContents = document.querySelectorAll('.tab-content');
             const tabBtns = document.querySelectorAll('.tab-btn');
