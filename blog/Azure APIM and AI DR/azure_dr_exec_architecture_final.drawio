@@ -1,0 +1,127 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.1 Chrome/142.0.7444.265 Electron/39.8.0 Safari/537.36" version="29.6.1">
+  <diagram id="Exec_Diagram" name="Architecture">
+    <mxGraphModel dx="933" dy="681" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="clients" parent="1" style="rounded=1;fillColor=#F3F2F1;fontColor=#000000;strokeColor=#C8C6C4;html=1;whiteSpace=wrap;" value="&lt;b&gt;Clients / Apps&lt;/b&gt;" vertex="1">
+          <mxGeometry height="60" width="140" x="100" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="afd" parent="1" style="rounded=1;fillColor=#0078D4;fontColor=#FFFFFF;strokeColor=none;html=1;whiteSpace=wrap;" value="&lt;b&gt;Azure Front Door&lt;/b&gt;&lt;br&gt;Global Access" vertex="1">
+          <mxGeometry height="60" width="180" x="400" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_c_afd" edge="1" parent="1" source="clients" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2;" target="afd">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uae" parent="1" style="swimlane;horizontal=1;startSize=40;fillColor=#F3F2F1;strokeColor=#C8C6C4;fontColor=#333333;fontStyle=1;html=1;" value="Primary Region: UAE North" vertex="1">
+          <mxGeometry height="500" width="560" x="40" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="uae_appgw" parent="uae" style="rounded=1;fillColor=#0078D4;fontColor=#FFFFFF;strokeColor=none;html=1;whiteSpace=wrap;" value="&lt;b&gt;App Gateway (WAF)&lt;/b&gt;&lt;br&gt;Regional Ingress" vertex="1">
+          <mxGeometry height="60" width="160" x="40" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="uae_apim" parent="uae" style="rounded=1;fillColor=#0078D4;fontColor=#FFFFFF;strokeColor=none;html=1;whiteSpace=wrap;" value="&lt;b&gt;Azure API Management&lt;/b&gt;&lt;br&gt;Standard v2" vertex="1">
+          <mxGeometry height="60" width="180" x="260" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="uae_ai" parent="uae" style="swimlane;startSize=30;fillColor=#FFFFFF;strokeColor=#C8C6C4;html=1;" value="Predeployed Regional AI Services" vertex="1">
+          <mxGeometry height="280" width="400" x="40" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="vJl82WccZ961eKkVofQb-10" edge="1" parent="uae_ai" source="uae_search" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="uae_openai">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uae_search" parent="uae_ai" style="rounded=1;fillColor=#E1F0F9;fontColor=#000000;strokeColor=#0078D4;html=1;whiteSpace=wrap;" value="&lt;b&gt;Azure AI Search&lt;/b&gt;" vertex="1">
+          <mxGeometry height="60" width="140" x="20" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="uae_openai" parent="uae_ai" style="rounded=1;fillColor=#E1F0F9;fontColor=#000000;strokeColor=#0078D4;html=1;whiteSpace=wrap;" value="&lt;span&gt;&lt;b&gt;Azure OpenAI&lt;/b&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="150" x="210" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="uae_doc" parent="uae_ai" style="rounded=1;fillColor=#E1F0F9;fontColor=#000000;strokeColor=#0078D4;html=1;whiteSpace=wrap;" value="&lt;b&gt;Document Intellegence&lt;/b&gt;" vertex="1">
+          <mxGeometry height="60" width="150" x="20" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="uae_foundry" parent="uae_ai" style="rounded=1;fillColor=#E1F0F9;fontColor=#000000;strokeColor=#0078D4;html=1;whiteSpace=wrap;" value="&lt;b&gt;AI Foundry&lt;/b&gt;" vertex="1">
+          <mxGeometry height="60" width="150" x="210" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="e_uag_apim" edge="1" parent="uae" source="uae_appgw" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2;" target="uae_apim">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_apim_uai2" edge="1" parent="uae" source="uae_apim" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2;" target="uae_openai">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="350" y="190" />
+              <mxPoint x="350" y="190" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vJl82WccZ961eKkVofQb-9" parent="uae" style="text;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: nowrap; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;&quot;&gt;Index &amp;amp; Content Sync&lt;/span&gt;" vertex="1">
+          <mxGeometry height="40" width="140" x="420" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="vJl82WccZ961eKkVofQb-13" edge="1" parent="uae" source="uae_appgw" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.429;entryY=0.05;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=2;strokeColor=#2478FF;" target="uae_search">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="swe" parent="1" style="swimlane;horizontal=1;startSize=40;fillColor=#E8F4F8;strokeColor=#B1D6E8;fontColor=#333333;fontStyle=1;html=1;" value="DR Region: Sweden Central (Standby)" vertex="1">
+          <mxGeometry height="500" width="480" x="580" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="swe_appgw" parent="swe" style="rounded=1;fillColor=#0078D4;fontColor=#FFFFFF;strokeColor=none;html=1;whiteSpace=wrap;" value="&lt;b&gt;App Gateway (WAF)&lt;/b&gt;&lt;br&gt;Standby Ingress" vertex="1">
+          <mxGeometry height="60" width="160" x="40" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="swe_apim" parent="swe" style="rounded=1;fillColor=#0078D4;fontColor=#FFFFFF;strokeColor=none;html=1;whiteSpace=wrap;" value="&lt;b&gt;Azure API Management&lt;/b&gt;&lt;br&gt;Standard v2 (Twin)" vertex="1">
+          <mxGeometry height="60" width="180" x="260" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="swe_ai" parent="swe" style="swimlane;startSize=30;fillColor=#FFFFFF;strokeColor=#B1D6E8;html=1;" value="Predeployed Regional AI Services" vertex="1">
+          <mxGeometry height="280" width="400" x="40" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="swe_search" parent="swe_ai" style="rounded=1;fillColor=#E1F0F9;fontColor=#000000;strokeColor=#0078D4;html=1;whiteSpace=wrap;" value="&lt;b&gt;Azure AI Search&lt;/b&gt;" vertex="1">
+          <mxGeometry height="60" width="150" x="20" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="swe_openai" parent="swe_ai" style="rounded=1;fillColor=#E1F0F9;fontColor=#000000;strokeColor=#0078D4;html=1;whiteSpace=wrap;" value="&lt;b&gt;Azure OpenAI&lt;/b&gt;" vertex="1">
+          <mxGeometry height="60" width="150" x="210" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="swe_doc" parent="swe_ai" style="rounded=1;fillColor=#E1F0F9;fontColor=#000000;strokeColor=#0078D4;html=1;whiteSpace=wrap;" value="&lt;b&gt;Document Intellegence&lt;/b&gt;" vertex="1">
+          <mxGeometry height="60" width="150" x="20" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="swe_foundry" parent="swe_ai" style="rounded=1;fillColor=#E1F0F9;fontColor=#000000;strokeColor=#0078D4;html=1;whiteSpace=wrap;" value="&lt;b&gt;AI Foundry&lt;/b&gt;" vertex="1">
+          <mxGeometry height="60" width="150" x="210" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="e_swe_apim" edge="1" parent="swe" source="swe_appgw" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2;" target="swe_apim">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_apim_sai2" edge="1" parent="swe" source="swe_apim" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2;" target="swe_openai">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="350" y="180" />
+              <mxPoint x="350" y="180" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vJl82WccZ961eKkVofQb-16" edge="1" parent="swe" source="swe_appgw" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.397;entryY=0.033;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#2478FF;strokeWidth=2;" target="swe_search">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_afd_swe" edge="1" parent="1" source="afd" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#2478FF;strokeWidth=2;dashed=1;dashPattern=1 2;" target="swe_appgw" value="Priority 2 (Health Probe Only in Steady)">
+          <mxGeometry relative="1" x="-0.3103" y="10" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_sync1" edge="1" parent="1" source="uae_apim" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#717171;strokeWidth=2;dashed=1;dashPattern=1 2;" target="swe_apim" value="APIOps / IaC Sync">
+          <mxGeometry relative="1" x="-0.6111" y="10" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vJl82WccZ961eKkVofQb-7" edge="1" parent="1" source="afd" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;strokeColor=#2478FF;strokeWidth=2;dashed=1;dashPattern=1 1;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="490" y="130" />
+              <mxPoint x="171" y="130" />
+            </Array>
+            <mxPoint x="490" y="120" as="sourcePoint" />
+            <mxPoint x="171" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vJl82WccZ961eKkVofQb-11" edge="1" parent="1" source="uae_openai" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="swe_search">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vJl82WccZ961eKkVofQb-14" parent="1" style="text;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: nowrap; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;&quot;&gt;Priority 1 (Health Probe Only in Steady)&lt;/span&gt;" vertex="1">
+          <mxGeometry height="40" width="230" x="190" y="110" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

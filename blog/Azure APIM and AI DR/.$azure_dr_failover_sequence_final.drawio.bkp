@@ -1,0 +1,23 @@
+<mxfile host="Electron" modified="2026-04-18T00:00:00.000Z" agent="Mozilla/5.0" version="24.4.0" type="device">
+  <diagram id="Exec_Diagram" name="Architecture">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+<mxCell id="s0" value="&lt;div style=&quot;text-align:left;padding:10px;&quot;&gt;1. Detect Failure\nFront Door health probes fail on UAE North. Regional ingress is marked unhealthy.&lt;/div&gt;" style="rounded=1;fillColor=#F3F2F1;fontColor=#000000;strokeColor=#C8C6C4;html=1;whiteSpace=wrap;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="260" height="100" as="geometry"/></mxCell>
+<mxCell id="s1" value="&lt;div style=&quot;text-align:left;padding:10px;&quot;&gt;2. Stop Primary Routing\nFront Door stops sending requests to UAE North. Public DNS stays same.&lt;/div&gt;" style="rounded=1;fillColor=#F3F2F1;fontColor=#000000;strokeColor=#C8C6C4;html=1;whiteSpace=wrap;" vertex="1" parent="1"><mxGeometry x="340" y="40" width="260" height="100" as="geometry"/></mxCell>
+<mxCell id="e_s0_s1" edge="1" parent="1" source="s0" target="s1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2;"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="s2" value="&lt;div style=&quot;text-align:left;padding:10px;&quot;&gt;3. Promote DR Ingress\nTraffic routed to Sweden Central App Gateway organically. No client change.&lt;/div&gt;" style="rounded=1;fillColor=#F3F2F1;fontColor=#000000;strokeColor=#C8C6C4;html=1;whiteSpace=wrap;" vertex="1" parent="1"><mxGeometry x="640" y="40" width="260" height="100" as="geometry"/></mxCell>
+<mxCell id="e_s1_s2" edge="1" parent="1" source="s1" target="s2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2;"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="s3" value="&lt;div style=&quot;text-align:left;padding:10px;&quot;&gt;4. Use DR APIM\nSweden Central APIM takes traffic using aligned APIOps/IaC policies.&lt;/div&gt;" style="rounded=1;fillColor=#F3F2F1;fontColor=#000000;strokeColor=#C8C6C4;html=1;whiteSpace=wrap;" vertex="1" parent="1"><mxGeometry x="40" y="200" width="260" height="100" as="geometry"/></mxCell>
+<mxCell id="e_s2_s3" edge="1" parent="1" source="s2" target="s3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2;"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="s4" value="&lt;div style=&quot;text-align:left;padding:10px;&quot;&gt;5. Call Regional AI\nDR APIM routes to pre-deployed Sweden Central OpenAI and Search via Private Endpoints.&lt;/div&gt;" style="rounded=1;fillColor=#F3F2F1;fontColor=#000000;strokeColor=#C8C6C4;html=1;whiteSpace=wrap;" vertex="1" parent="1"><mxGeometry x="340" y="200" width="260" height="100" as="geometry"/></mxCell>
+<mxCell id="e_s3_s4" edge="1" parent="1" source="s3" target="s4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2;"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="s5" value="&lt;div style=&quot;text-align:left;padding:10px;&quot;&gt;6. Validate Business Readiness\nOperations validates Search index freshness and model reachability.&lt;/div&gt;" style="rounded=1;fillColor=#F3F2F1;fontColor=#000000;strokeColor=#C8C6C4;html=1;whiteSpace=wrap;" vertex="1" parent="1"><mxGeometry x="640" y="200" width="260" height="100" as="geometry"/></mxCell>
+<mxCell id="e_s4_s5" edge="1" parent="1" source="s4" target="s5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2;"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="s6" value="&lt;div style=&quot;text-align:left;padding:10px;&quot;&gt;7. Controlled Failback\nManual fallback to UAE North only after resolution and sync.&lt;/div&gt;" style="rounded=1;fillColor=#F3F2F1;fontColor=#000000;strokeColor=#C8C6C4;html=1;whiteSpace=wrap;" vertex="1" parent="1"><mxGeometry x="40" y="360" width="260" height="100" as="geometry"/></mxCell>
+<mxCell id="e_s5_s6" edge="1" parent="1" source="s5" target="s6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2;"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
