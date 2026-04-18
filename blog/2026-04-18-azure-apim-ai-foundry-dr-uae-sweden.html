@@ -533,7 +533,7 @@
         <p>We do not dump these systems into disparate resource groups. We design them into an aligned Azure Landing Zone utilizing a strict hub-and-spoke pattern:</p>
         
         <figure style="margin: 3rem 0; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1);">
-            <img src="Azure%20APIM%20and%20AI%20DR/azure_ai_dr_landing_zone.png" alt="Azure Landing Zone Technical View" style="width: 100%; height: auto; display: block;" loading="lazy">
+            <img src="Azure%20APIM%20and%20AI%20DR/azure_ai_dr_landing_zone.png" alt="Azure Landing Zone Technical View" style="width: 100%; height: auto; display: block; filter: invert(0.93) hue-rotate(180deg) brightness(1.1);" loading="lazy">
         </figure>
         
         <div class="checklist-group" style="background: rgba(255, 255, 255, 0.03); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #38bdf8; margin-bottom: 2rem;">
@@ -636,12 +636,8 @@ resource swedenOrigin 'Microsoft.Cdn/profiles/originGroups/origins@2023-05-01' =
             <li>Configure APIM networking to explicitly point its custom DNS setting to the local regional subset (or local Azure Firewall IP acting as DNS proxy) so that the exact same AI Search <code>privatelink</code> URL resolves to the local Sweden Central endpoint instead of crossing the global peering back into UAE.</li>
         </ul>
 
-        <h3>4. Operator Cut-over Checklist</h3>
-
-        <figure style="margin: 2rem 0 3rem 0; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1);">
-            <img src="Azure%20APIM%20and%20AI%20DR/azure_dr_failover_runbook.png" alt="Azure DR Failover Sequence" style="width: 100%; height: auto; display: block;" loading="lazy">
-        </figure>
-
+        <h3 id="operator-checklist"><span class="gradient-text">4. Operator Cut-over Checklist</span></h3>
+        <img src="Azure APIM and AI DR/azure_dr_failover_runbook.png" alt="Azure DR Sequence Runbook" style="width: 100%; height: auto; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); filter: invert(0.93) hue-rotate(180deg) brightness(1.1);" loading="lazy">
         <p>Automated DR failovers for AI systems are structurally dangerous. Instead, document a precise operator trigger:</p>
         <ol>
             <li><strong>Confirm Priority Shift:</strong> Validate Front Door has automatically evicted Priority 1 and traffic is flowing to Priority 2 matching the telemetry dashboards.</li>
