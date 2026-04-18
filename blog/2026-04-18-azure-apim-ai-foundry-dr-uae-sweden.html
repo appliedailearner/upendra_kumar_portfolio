@@ -999,6 +999,8 @@
                 <span class="blog-tag tag-blue"><i class="fas fa-tag"></i> Architecture</span>
                 <span class="blog-tag tag-purple"><i class="fas fa-tag"></i> Disaster Recovery</span>
                 <span class="blog-tag tag-red"><i class="fas fa-tag"></i> Risk Mitigation</span>
+                <span class="blog-tag tag-blue"><i class="fas fa-tag"></i> Azure Front Door</span>
+                <span class="blog-tag tag-purple"><i class="fas fa-tag"></i> NSG Lockdown</span>
             </div>
         </div>
     </section>
@@ -1014,6 +1016,7 @@
                 <li><a href="#landing-zone" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">Enterprise Landing Zone Controls</a></li>
                 <li><a href="#comparison" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">APIM DR Alternatives</a></li>
                 <li><a href="#deployment" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">Engineer's Deployment Runbook</a></li>
+                <li><a href="#fd-lockdown" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">Front Door Origin Lockdown</a></li>
                 <li><a href="#mistakes" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">Common Mistakes</a></li>
             </ul>
         </nav>
@@ -1979,6 +1982,150 @@
             <li><strong>Premium v2</strong> supports <strong>availability zones</strong>, but it entirely lacks multi-region deployments. Worse yet, as of current mappings, it is not even available in UAE North. Designing around a non-supported tier is an amateur mistake.</li>
             <li><strong>Standard v2</strong> supports neither out-of-the-box.</li>
         </ul>
+
+        <!-- APIM Tier Comparison Matrix -->
+        <div style="margin: 3rem 0;">
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                <div style="width: 42px; height: 42px; background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);">
+                    <i class="fas fa-table" style="color: white; font-size: 1.1rem;"></i>
+                </div>
+                <div>
+                    <h3 style="margin: 0; font-family: 'Outfit', sans-serif; color: #f8fafc; font-size: 1.3rem;">APIM Tier Comparison: DR Feature Matrix</h3>
+                    <p style="margin: 0; font-size: 0.85rem; color: #64748b;">Source: <a href="https://learn.microsoft.com/en-us/azure/api-management/api-management-features" target="_blank" style="color: #60a5fa; text-decoration: none;">Azure APIM Feature Comparison <i class="fas fa-external-link-alt" style="font-size: 0.7em;"></i></a></p>
+                </div>
+            </div>
+
+            <div style="overflow-x: auto; border-radius: 16px; border: 1px solid rgba(56, 189, 248, 0.15); box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 900px;">
+                    <thead>
+                        <tr style="background: rgba(15, 23, 42, 0.9); border-bottom: 2px solid rgba(56, 189, 248, 0.2);">
+                            <th style="padding: 1rem 1.25rem; text-align: left; color: #94a3b8; font-weight: 700; font-family: 'Outfit', sans-serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; min-width: 160px;">Feature</th>
+                            <th style="padding: 1rem; text-align: center; color: #64748b; font-weight: 600; font-size: 0.8rem;">Consumption</th>
+                            <th style="padding: 1rem; text-align: center; color: #64748b; font-weight: 600; font-size: 0.8rem;">Developer</th>
+                            <th style="padding: 1rem; text-align: center; color: #64748b; font-weight: 600; font-size: 0.8rem;">Basic v2</th>
+                            <th style="padding: 1rem; text-align: center; color: #64748b; font-weight: 600; font-size: 0.8rem;">Standard</th>
+                            <th style="padding: 1rem; text-align: center; background: rgba(59, 130, 246, 0.08); border-left: 2px solid rgba(59, 130, 246, 0.3); border-right: 2px solid rgba(59, 130, 246, 0.3); color: #60a5fa; font-weight: 800; font-size: 0.8rem;">Standard v2 ★</th>
+                            <th style="padding: 1rem; text-align: center; color: #34d399; font-weight: 800; font-size: 0.8rem;">Premium</th>
+                            <th style="padding: 1rem; text-align: center; color: #f87171; font-weight: 700; font-size: 0.8rem;">Premium V2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- SLA -->
+                        <tr style="background: rgba(30, 41, 59, 0.3); border-bottom: 1px solid rgba(255,255,255,0.03);">
+                            <td style="padding: 0.85rem 1.25rem; color: #cbd5e1; font-weight: 600;"><i class="fas fa-shield-check" style="color: #60a5fa; margin-right: 6px; font-size: 0.8rem;"></i>SLA</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #94a3b8;">99.95%</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #94a3b8;">99.95%</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #94a3b8;">99.95%</td>
+                            <td style="padding: 0.85rem; text-align: center; background: rgba(59, 130, 246, 0.05); border-left: 2px solid rgba(59, 130, 246, 0.15); border-right: 2px solid rgba(59, 130, 246, 0.15); color: #cbd5e1; font-weight: 600;">99.95%</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399; font-weight: 700;">99.99%</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399; font-weight: 700;">99.99%</td>
+                        </tr>
+                        <!-- Scale-out Units -->
+                        <tr style="background: rgba(15, 23, 42, 0.3); border-bottom: 1px solid rgba(255,255,255,0.03);">
+                            <td style="padding: 0.85rem 1.25rem; color: #cbd5e1; font-weight: 600;"><i class="fas fa-expand-arrows-alt" style="color: #a855f7; margin-right: 6px; font-size: 0.8rem;"></i>Max Scale-out</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #64748b;">N/A</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #94a3b8;">1</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #94a3b8;">10</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #94a3b8;">4</td>
+                            <td style="padding: 0.85rem; text-align: center; background: rgba(59, 130, 246, 0.05); border-left: 2px solid rgba(59, 130, 246, 0.15); border-right: 2px solid rgba(59, 130, 246, 0.15); color: #60a5fa; font-weight: 700;">10</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #94a3b8;">10/region</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #94a3b8;">30</td>
+                        </tr>
+                        <!-- VNet Support -->
+                        <tr style="background: rgba(30, 41, 59, 0.3); border-bottom: 1px solid rgba(255,255,255,0.03);">
+                            <td style="padding: 0.85rem 1.25rem; color: #cbd5e1; font-weight: 600;"><i class="fas fa-network-wired" style="color: #f59e0b; margin-right: 6px; font-size: 0.8rem;"></i>VNet Support</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i> ⓘ</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; background: rgba(59, 130, 246, 0.05); border-left: 2px solid rgba(59, 130, 246, 0.15); border-right: 2px solid rgba(59, 130, 246, 0.15); color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i> ⓘ</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i> ⓘ</td>
+                        </tr>
+                        <!-- Multi-Region -->
+                        <tr style="background: rgba(15, 23, 42, 0.3); border-bottom: 1px solid rgba(255,255,255,0.03);">
+                            <td style="padding: 0.85rem 1.25rem; color: #f8fafc; font-weight: 700;"><i class="fas fa-globe-americas" style="color: #ef4444; margin-right: 6px; font-size: 0.8rem;"></i>Multi-Region Deploy</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; background: rgba(239, 68, 68, 0.08); border-left: 2px solid rgba(59, 130, 246, 0.15); border-right: 2px solid rgba(59, 130, 246, 0.15); color: #fca5a5; font-weight: 700;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399; font-weight: 700;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171; font-weight: 700;"><i class="fas fa-times"></i></td>
+                        </tr>
+                        <!-- Self-hosted Gateway -->
+                        <tr style="background: rgba(30, 41, 59, 0.3); border-bottom: 1px solid rgba(255,255,255,0.03);">
+                            <td style="padding: 0.85rem 1.25rem; color: #cbd5e1; font-weight: 600;"><i class="fas fa-server" style="color: #38bdf8; margin-right: 6px; font-size: 0.8rem;"></i>Self-hosted Gateway</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i> ⓘ</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; background: rgba(59, 130, 246, 0.05); border-left: 2px solid rgba(59, 130, 246, 0.15); border-right: 2px solid rgba(59, 130, 246, 0.15); color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i> ⓘ</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                        </tr>
+                        <!-- Multiple Custom Domains -->
+                        <tr style="background: rgba(15, 23, 42, 0.3); border-bottom: 1px solid rgba(255,255,255,0.03);">
+                            <td style="padding: 0.85rem 1.25rem; color: #cbd5e1; font-weight: 600;"><i class="fas fa-globe" style="color: #8b5cf6; margin-right: 6px; font-size: 0.8rem;"></i>Custom Domain Names</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; background: rgba(59, 130, 246, 0.05); border-left: 2px solid rgba(59, 130, 246, 0.15); border-right: 2px solid rgba(59, 130, 246, 0.15); color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                        </tr>
+                        <!-- Developer Portal -->
+                        <tr style="background: rgba(30, 41, 59, 0.3); border-bottom: 1px solid rgba(255,255,255,0.03);">
+                            <td style="padding: 0.85rem 1.25rem; color: #cbd5e1; font-weight: 600;"><i class="fas fa-laptop-code" style="color: #06b6d4; margin-right: 6px; font-size: 0.8rem;"></i>Developer Portal</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; background: rgba(59, 130, 246, 0.05); border-left: 2px solid rgba(59, 130, 246, 0.15); border-right: 2px solid rgba(59, 130, 246, 0.15); color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i></td>
+                        </tr>
+                        <!-- Cache -->
+                        <tr style="background: rgba(15, 23, 42, 0.3); border-bottom: 1px solid rgba(255,255,255,0.03);">
+                            <td style="padding: 0.85rem 1.25rem; color: #cbd5e1; font-weight: 600;"><i class="fas fa-database" style="color: #f472b6; margin-right: 6px; font-size: 0.8rem;"></i>Cache</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #64748b; font-size: 0.8rem;">External</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #94a3b8; font-size: 0.8rem;">10 MB</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #94a3b8; font-size: 0.8rem;">250 MB/region</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #94a3b8; font-size: 0.8rem;">1 GB/unit</td>
+                            <td style="padding: 0.85rem; text-align: center; background: rgba(59, 130, 246, 0.05); border-left: 2px solid rgba(59, 130, 246, 0.15); border-right: 2px solid rgba(59, 130, 246, 0.15); color: #cbd5e1; font-size: 0.8rem;">1 GB/unit</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #94a3b8; font-size: 0.8rem;">5 GB/unit</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #94a3b8; font-size: 0.8rem;">5 GB/unit</td>
+                        </tr>
+                        <!-- Entra ID Integration -->
+                        <tr style="background: rgba(30, 41, 59, 0.3); border-bottom: 2px solid rgba(56, 189, 248, 0.15);">
+                            <td style="padding: 0.85rem 1.25rem; color: #cbd5e1; font-weight: 600;"><i class="fas fa-id-badge" style="color: #fbbf24; margin-right: 6px; font-size: 0.8rem;"></i>Entra ID in Portal</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; background: rgba(59, 130, 246, 0.05); border-left: 2px solid rgba(59, 130, 246, 0.15); border-right: 2px solid rgba(59, 130, 246, 0.15); color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                        </tr>
+                        <!-- DR Verdict Row -->
+                        <tr style="background: linear-gradient(90deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));">
+                            <td style="padding: 1rem 1.25rem; color: #f8fafc; font-weight: 800; font-family: 'Outfit', sans-serif; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;"><i class="fas fa-gavel" style="color: #c084fc; margin-right: 6px;"></i>DR Verdict</td>
+                            <td style="padding: 1rem; text-align: center; color: #f87171; font-size: 0.75rem; font-weight: 700;">NOT VIABLE</td>
+                            <td style="padding: 1rem; text-align: center; color: #f87171; font-size: 0.75rem; font-weight: 700;">DEV ONLY</td>
+                            <td style="padding: 1rem; text-align: center; color: #f87171; font-size: 0.75rem; font-weight: 700;">NO VNET</td>
+                            <td style="padding: 1rem; text-align: center; color: #f59e0b; font-size: 0.75rem; font-weight: 700;">LEGACY</td>
+                            <td style="padding: 1rem; text-align: center; background: rgba(59, 130, 246, 0.12); border-left: 2px solid rgba(59, 130, 246, 0.3); border-right: 2px solid rgba(59, 130, 246, 0.3); font-size: 0.75rem;"><span style="background: linear-gradient(90deg, #60a5fa, #a855f7); -webkit-background-clip: text; color: transparent; font-weight: 800;">RECOMMENDED</span></td>
+                            <td style="padding: 1rem; text-align: center; color: #34d399; font-size: 0.75rem; font-weight: 700;">NATIVE DR</td>
+                            <td style="padding: 1rem; text-align: center; color: #f87171; font-size: 0.75rem; font-weight: 700;">NO UAE ⚠️</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="font-size: 0.8rem; color: #64748b; margin-top: 0.75rem; text-align: right;"><i class="fas fa-info-circle" style="margin-right: 4px;"></i>Scroll horizontally on mobile to view all tiers. ★ = Recommended for this DR scenario.</p>
+        </div>
+
         <p>If UAE North must remain the primary region and you demand the updated platform, <span class="eli5-term" data-tooltip="An APIM pricing and capability tier offering better networking and scale-to-zero capabilities, but requires customer-engineered DR mechanisms across multiple regions.">Standard v2</span> is your baseline. However, this means two explicitly standalone instances—aligned purely via <span class="eli5-term" data-tooltip="The practice of using GitOps and Infrastructure as Code to manage APIs, policies, and deployments programmatically rather than manually tweaking UI configurations.">APIOps</span> and IaC. You are engineering the recovery, not toggling a magic platform feature.</p>
 
         <h2 id="ai-dr"><span class="gradient-text">Designing DR for AI Services</span></h2>
@@ -2099,6 +2246,100 @@ resource swedenOrigin 'Microsoft.Cdn/profiles/originGroups/origins@2023-05-01' =
   }
 }</code></pre>
 
+        <h2 id="fd-lockdown"><span class="gradient-text">Front Door + APIM Origin Lockdown Pattern</span></h2>
+        <p>A critical hardening step most architects skip: ensuring that your APIM instances <strong>only accept traffic routed through Azure Front Door</strong>, not direct public internet hits. The <a href="https://learn.microsoft.com/en-us/samples/azure/azure-quickstart-templates/front-door-standard-premium-api-management-external/" target="_blank" style="color: #c084fc; font-weight: 600; text-decoration: none;">Azure Quickstart Template: Front Door Standard/Premium with API Management <i class="fas fa-external-link-alt" style="font-size: 0.8em;"></i></a> provides the canonical reference for this pattern. Here is how you engineer it into each regional APIM instance:</p>
+
+        <div class="analogy-block">
+            <div class="analogy-header">
+                <i class="fas fa-shield-halved analogy-icon"></i>
+                <h3 style="color: #f8fafc; margin: 0; font-family: 'Outfit', sans-serif;">The Nightclub Bouncer Analogy</h3>
+            </div>
+            <p style="color: #cbd5e1; margin-bottom: 0;">Think of Azure Front Door as the only legitimate entrance to your nightclub (APIM). The NSG is the velvet rope that blocks anyone who tries to sneak in through the kitchen door. The global APIM policy is the bouncer inside who checks every guest's VIP wristband (<code>X-Azure-FDID</code> header) to make sure they actually came through the front entrance—and didn't just forge a ticket.</p>
+        </div>
+
+        <h3>Step 1: NSG — Block All Non-Front-Door Ingress</h3>
+        <p>Deploy a Network Security Group on the APIM subnet that <strong>only allows inbound HTTPS from the <code>AzureFrontDoor.Backend</code> service tag</strong>. This physically prevents any internet user from hitting APIM's public IP directly, even if they discover it.</p>
+        <pre><code class="language-bicep">// NSG Rule: Allow ONLY Azure Front Door backend traffic
+resource nsg 'Microsoft.Network/networkSecurityGroups@2023-05-01' = {
+  name: 'nsg-apim-${regionSuffix}'
+  location: location
+  properties: {
+    securityRules: [
+      {
+        name: 'AllowFrontDoorInbound'
+        properties: {
+          priority: 100
+          direction: 'Inbound'
+          access: 'Allow'
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          destinationPortRange: '443'
+          sourceAddressPrefix: 'AzureFrontDoor.Backend'
+          destinationAddressPrefix: 'VirtualNetwork'
+        }
+      }
+      {
+        name: 'AllowAPIMManagement'
+        properties: {
+          priority: 110
+          direction: 'Inbound'
+          access: 'Allow'
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          destinationPortRange: '3443'
+          sourceAddressPrefix: 'ApiManagement'
+          destinationAddressPrefix: 'VirtualNetwork'
+        }
+      }
+      {
+        name: 'DenyAllOtherInbound'
+        properties: {
+          priority: 4096
+          direction: 'Inbound'
+          access: 'Deny'
+          protocol: '*'
+          sourcePortRange: '*'
+          destinationPortRange: '*'
+          sourceAddressPrefix: '*'
+          destinationAddressPrefix: '*'
+        }
+      }
+    ]
+  }
+}</code></pre>
+
+        <h3>Step 2: Global APIM Policy — Validate the <code>X-Azure-FDID</code> Header</h3>
+        <p>NSG rules alone are necessary but <strong>not sufficient</strong>. The <code>AzureFrontDoor.Backend</code> service tag permits traffic from <em>any</em> Front Door instance globally. To ensure requests originate from <em>your specific</em> Front Door profile, you must inject a global inbound policy that validates the <code>X-Azure-FDID</code> header against your Front Door's unique ID:</p>
+        <pre><code class="language-xml">&lt;!-- Global APIM Policy: Validate Front Door ID --&gt;
+&lt;policies&gt;
+  &lt;inbound&gt;
+    &lt;base /&gt;
+    &lt;check-header name="X-Azure-FDID" 
+                  failed-check-httpcode="403" 
+                  failed-check-error-message="Invalid Front Door ID" 
+                  ignore-case="false"&gt;
+      &lt;value&gt;{{front-door-id}}&lt;/value&gt;
+    &lt;/check-header&gt;
+  &lt;/inbound&gt;
+&lt;/policies&gt;</code></pre>
+        <div style="background: rgba(15, 23, 42, 0.4); border-left: 4px solid #f59e0b; padding: 1rem 1.5rem; border-radius: 4px; margin: 1.5rem 0 2rem;">
+            <p style="margin: 0; color: #fcd34d;"><strong><i class="fas fa-exclamation-triangle" style="margin-right: 6px;"></i>DR-Critical Note:</strong></p>
+            <p style="margin: 0.5rem 0 0 0;">Store the Front Door ID as a <strong>Named Value</strong> in each regional APIM instance (e.g., <code>front-door-id</code>). Your APIOps pipeline must propagate this value identically to <em>both</em> UAE North and Sweden Central instances. If the Sweden Central APIM has a stale or missing Front Door ID, <strong>every request will return 403 during failover</strong> — defeating the entire DR exercise.</p>
+        </div>
+
+        <h3>Step 3: Apply to Both Regions via APIOps</h3>
+        <p>This lockdown must be <strong>identical in both regions</strong>. The APIOps extractor/publisher pipeline you built in Step 1 of the deployment runbook must include:</p>
+        <ul>
+            <li><strong>Named Values:</strong> Specifically <code>front-door-id</code> — extracted from UAE North and published to Sweden Central.</li>
+            <li><strong>Global Policy XML:</strong> The <code>check-header</code> policy above must live in the all-APIs policy scope, not per-API. This is non-negotiable.</li>
+            <li><strong>NSG Terraform/Bicep modules:</strong> Parameterized per region (<code>var.uae</code>, <code>var.sweden</code>) so NSG rules deploy alongside each APIM subnet.</li>
+        </ul>
+
+        <div style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 12px; padding: 1.5rem; margin: 2rem 0;">
+            <h4 style="color: #34d399; margin-top: 0; font-family: 'Outfit', sans-serif;"><i class="fas fa-check-circle" style="margin-right: 6px;"></i>Why This Matters for DR</h4>
+            <p style="margin-bottom: 0;">Without this pattern, a direct-to-APIM attack during a region failover can bypass Front Door's WAF, DDoS protection, and health-probe routing entirely — eliminating every layer of your DR investment. The NSG + header validation combination creates <strong>defense-in-depth that survives region cutovers</strong> because it's baked into each standalone APIM instance's infrastructure and policy layer.</p>
+        </div>
+
         <h3>3. Private Endpoint & Hub DNS Wiring</h3>
         <p>A fatal multi-region mistake is failing to isolate DNS resolution. If APIM in Sweden Central attempts to resolve <code>my-ai-search.privatelink.search.windows.net</code> and it resolves to the dead UAE North private IP, the failover collapses.</p>
         <ul>
@@ -2129,6 +2370,14 @@ resource swedenOrigin 'Microsoft.Cdn/profiles/originGroups/origins@2023-05-01' =
         <h3>Final Stance</h3>
         <p>A cross-geography DR pattern for AI and API workloads is inherently a <strong>customer-engineered resilience pattern, not a product feature bundle</strong>. If you are going this route, commit to Standard v2 with twin regional instances, separate regional AI model commitments, and a DNS governance strategy that actually survives cutover night.</p>
         <p>That is not the lowest effort design, but it is the one you can confidently stand behind when the dashboard turns red.</p>
+
+        <h3><span class="gradient-text">References &amp; Further Reading</span></h3>
+        <ul>
+            <li><a href="https://learn.microsoft.com/en-us/samples/azure/azure-quickstart-templates/front-door-standard-premium-api-management-external/" target="_blank" style="color: #60a5fa;">Azure Quickstart Template: Front Door Standard/Premium with API Management Origin <i class="fas fa-external-link-alt" style="font-size: 0.7em;"></i></a> — NSG lockdown + <code>X-Azure-FDID</code> header validation pattern.</li>
+            <li><a href="https://learn.microsoft.com/en-us/azure/api-management/api-management-using-with-vnet" target="_blank" style="color: #60a5fa;">APIM with VNet — External Mode <i class="fas fa-external-link-alt" style="font-size: 0.7em;"></i></a> — Required NSG rules for APIM management traffic.</li>
+            <li><a href="https://github.com/Azure/apiops" target="_blank" style="color: #60a5fa;">Azure APIOps Toolkit (GitHub) <i class="fas fa-external-link-alt" style="font-size: 0.7em;"></i></a> — Extractor/Publisher pipeline for multi-region APIM config parity.</li>
+            <li><a href="https://github.com/azure/azure-quickstart-templates/tree/master/quickstarts/microsoft.cdn/front-door-standard-premium-api-management-external" target="_blank" style="color: #60a5fa;">Full Bicep/ARM Source Code (GitHub) <i class="fas fa-external-link-alt" style="font-size: 0.7em;"></i></a> — Deploy the Front Door + APIM lockdown template directly.</li>
+        </ul>
 
         <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
 
