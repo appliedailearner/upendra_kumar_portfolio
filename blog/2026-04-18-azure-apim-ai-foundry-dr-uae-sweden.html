@@ -2622,6 +2622,30 @@ az search service create \
             <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: #34d399; margin-right: 6px;"></i><strong>Private Endpoint Note:</strong> In a private-endpoint deployment, the Front Door health probe cannot reach AI Search directly. Use a lightweight Azure Function Health Checker in each region that probes the Search service over private link and exposes a public <code>/health</code> endpoint — Front Door probes the function, not Search directly.</p>
         </div>
 
+        <!-- AI Search Reference Labs -->
+        <div style="background: rgba(15,23,42,0.6); border: 1px solid rgba(96,165,250,0.25); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 2.5rem;">
+            <h5 style="margin: 0 0 1rem 0; color: #60a5fa; font-family: 'Outfit', sans-serif; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                <i class="fas fa-flask" style="margin-right: 6px;"></i>Hands-On Labs &amp; Official References — Azure AI Search DR
+            </h5>
+            <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+                <a href="https://learn.microsoft.com/en-us/azure/search/search-multi-region" target="_blank" rel="noopener" style="display: flex; align-items: flex-start; gap: 0.75rem; text-decoration: none; padding: 0.6rem 0.75rem; background: rgba(96,165,250,0.06); border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(96,165,250,0.12)'" onmouseout="this.style.background='rgba(96,165,250,0.06)'">
+                    <i class="fas fa-book" style="color: #60a5fa; margin-top: 3px; flex-shrink: 0;"></i>
+                    <div><div style="color: #e2e8f0; font-weight: 600; font-size: 0.88rem;">Multi-Region Solutions — Azure AI Search (MS Learn)</div><div style="color: #64748b; font-size: 0.78rem; margin-top: 2px;">Official DR guide: index sync with push/pull models, Cosmos DB change feed, Front Door failover patterns</div></div>
+                    <i class="fas fa-external-link-alt" style="color: #475569; font-size: 0.7rem; margin-left: auto; flex-shrink: 0; margin-top: 5px;"></i>
+                </a>
+                <a href="https://learn.microsoft.com/en-us/samples/azure-samples/azure-search-dotnet-utilities/azure-search-backup-restore-index/" target="_blank" rel="noopener" style="display: flex; align-items: flex-start; gap: 0.75rem; text-decoration: none; padding: 0.6rem 0.75rem; background: rgba(96,165,250,0.06); border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(96,165,250,0.12)'" onmouseout="this.style.background='rgba(96,165,250,0.06)'">
+                    <i class="fab fa-github" style="color: #60a5fa; margin-top: 3px; flex-shrink: 0;"></i>
+                    <div><div style="color: #e2e8f0; font-weight: 600; font-size: 0.88rem;">Azure Search Backup &amp; Restore Index (Azure-Samples)</div><div style="color: #64748b; font-size: 0.78rem; margin-top: 2px;">.NET/Python code sample: serialize index to JSON, restore across services — the closest to a native backup tool for AI Search</div></div>
+                    <i class="fas fa-external-link-alt" style="color: #475569; font-size: 0.7rem; margin-left: auto; flex-shrink: 0; margin-top: 5px;"></i>
+                </a>
+                <a href="https://github.com/Azure-Samples/azure-search-multiple-regions" target="_blank" rel="noopener" style="display: flex; align-items: flex-start; gap: 0.75rem; text-decoration: none; padding: 0.6rem 0.75rem; background: rgba(96,165,250,0.06); border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(96,165,250,0.12)'" onmouseout="this.style.background='rgba(96,165,250,0.06)'">
+                    <i class="fab fa-github" style="color: #60a5fa; margin-top: 3px; flex-shrink: 0;"></i>
+                    <div><div style="color: #e2e8f0; font-weight: 600; font-size: 0.88rem;">azure-search-multiple-regions (GitHub)</div><div style="color: #64748b; font-size: 0.78rem; margin-top: 2px;">Complete BCDR reference: multi-region deployment with Front Door + Cosmos DB change feed for live data sync</div></div>
+                    <i class="fas fa-external-link-alt" style="color: #475569; font-size: 0.7rem; margin-left: auto; flex-shrink: 0; margin-top: 5px;"></i>
+                </a>
+            </div>
+        </div>
+
         <!-- ═══════════════════════════════════════════════════════════════
              AZURE DOCUMENT INTELLIGENCE — DR & BACKUP DEEP DIVE
              ═══════════════════════════════════════════════════════════════ -->
@@ -2696,6 +2720,25 @@ done</code></pre>
 
         <div style="background: rgba(245, 158, 11, 0.08); border-left: 4px solid #f59e0b; padding: 1rem 1.5rem; border-radius: 4px; margin-bottom: 2rem;">
             <p style="margin: 0;"><i class="fas fa-exclamation-triangle" style="color: #f59e0b; margin-right: 6px;"></i><strong>Zero-Trust Secret Management:</strong> Each regional Document Intelligence resource must have its own <strong>separate Key Vault</strong> in the same region. Cross-region Key Vault lookups during a DR event create a latency and availability dependency chain. Store both API keys in UAE North KV and Sweden Central KV independently. APIM Named Values must point to the local regional KV reference — not a shared cross-region KV.</p>
+        </div>
+
+        <!-- Doc Intelligence Reference Labs -->
+        <div style="background: rgba(15,23,42,0.6); border: 1px solid rgba(96,165,250,0.25); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 2.5rem;">
+            <h5 style="margin: 0 0 1rem 0; color: #60a5fa; font-family: 'Outfit', sans-serif; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                <i class="fas fa-flask" style="margin-right: 6px;"></i>Hands-On Labs &amp; Official References — Azure Document Intelligence DR
+            </h5>
+            <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+                <a href="https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/how-to-guides/disaster-recovery?view=doc-intel-4.0.0" target="_blank" rel="noopener" style="display: flex; align-items: flex-start; gap: 0.75rem; text-decoration: none; padding: 0.6rem 0.75rem; background: rgba(96,165,250,0.06); border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(96,165,250,0.12)'" onmouseout="this.style.background='rgba(96,165,250,0.06)'">
+                    <i class="fas fa-book" style="color: #60a5fa; margin-top: 3px; flex-shrink: 0;"></i>
+                    <div><div style="color: #e2e8f0; font-weight: 600; font-size: 0.88rem;">Disaster Recovery Guidance — Document Intelligence (MS Learn)</div><div style="color: #64748b; font-size: 0.78rem; margin-top: 2px;">Official Copy API walkthrough: authorize → copy → poll. Covers regional outage patterns and multi-region failover strategies</div></div>
+                    <i class="fas fa-external-link-alt" style="color: #475569; font-size: 0.7rem; margin-left: auto; flex-shrink: 0; margin-top: 5px;"></i>
+                </a>
+                <a href="https://github.com/Azure-Samples/document-intelligence-code-samples" target="_blank" rel="noopener" style="display: flex; align-items: flex-start; gap: 0.75rem; text-decoration: none; padding: 0.6rem 0.75rem; background: rgba(96,165,250,0.06); border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(96,165,250,0.12)'" onmouseout="this.style.background='rgba(96,165,250,0.06)'">
+                    <i class="fab fa-github" style="color: #60a5fa; margin-top: 3px; flex-shrink: 0;"></i>
+                    <div><div style="color: #e2e8f0; font-weight: 600; font-size: 0.88rem;">document-intelligence-code-samples (Azure-Samples)</div><div style="color: #64748b; font-size: 0.78rem; margin-top: 2px;">Runnable SDK samples covering Copy API for model replication across regions in Python, C#, Java, and JavaScript</div></div>
+                    <i class="fas fa-external-link-alt" style="color: #475569; font-size: 0.7rem; margin-left: auto; flex-shrink: 0; margin-top: 5px;"></i>
+                </a>
+            </div>
         </div>
 
         <!-- ═══════════════════════════════════════════════════════════════
@@ -2831,6 +2874,30 @@ resource gpt4oDeployment ‘Microsoft.CognitiveServices/accounts/deployments@202
             </ol>
         </div>
 
+        <!-- AI Foundry Reference Labs -->
+        <div style="background: rgba(15,23,42,0.6); border: 1px solid rgba(96,165,250,0.25); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 2.5rem;">
+            <h5 style="margin: 0 0 1rem 0; color: #60a5fa; font-family: 'Outfit', sans-serif; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                <i class="fas fa-flask" style="margin-right: 6px;"></i>Hands-On Labs &amp; Official References — Azure AI Foundry DR
+            </h5>
+            <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+                <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/disaster-recovery" target="_blank" rel="noopener" style="display: flex; align-items: flex-start; gap: 0.75rem; text-decoration: none; padding: 0.6rem 0.75rem; background: rgba(96,165,250,0.06); border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(96,165,250,0.12)'" onmouseout="this.style.background='rgba(96,165,250,0.06)'">
+                    <i class="fas fa-book" style="color: #60a5fa; margin-top: 3px; flex-shrink: 0;"></i>
+                    <div><div style="color: #e2e8f0; font-weight: 600; font-size: 0.88rem;">Customer-Enabled DR for AI Hub Projects (MS Learn)</div><div style="color: #64748b; font-size: 0.78rem; margin-top: 2px;">Official BCDR guide: regional failure handling, storage redundancy, multi-region hub deployment patterns</div></div>
+                    <i class="fas fa-external-link-alt" style="color: #475569; font-size: 0.7rem; margin-left: auto; flex-shrink: 0; margin-top: 5px;"></i>
+                </a>
+                <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/business-continuity-disaster-recovery" target="_blank" rel="noopener" style="display: flex; align-items: flex-start; gap: 0.75rem; text-decoration: none; padding: 0.6rem 0.75rem; background: rgba(96,165,250,0.06); border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(96,165,250,0.12)'" onmouseout="this.style.background='rgba(96,165,250,0.06)'">
+                    <i class="fas fa-book" style="color: #60a5fa; margin-top: 3px; flex-shrink: 0;"></i>
+                    <div><div style="color: #e2e8f0; font-weight: 600; font-size: 0.88rem;">BCDR for Azure OpenAI in AI Foundry (MS Learn)</div><div style="color: #64748b; font-size: 0.78rem; margin-top: 2px;">Multi-region failover and resource redundancy strategies specifically for Azure OpenAI model deployments in Foundry</div></div>
+                    <i class="fas fa-external-link-alt" style="color: #475569; font-size: 0.7rem; margin-left: auto; flex-shrink: 0; margin-top: 5px;"></i>
+                </a>
+                <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/agent-service-disaster-recovery?view=foundry-classic" target="_blank" rel="noopener" style="display: flex; align-items: flex-start; gap: 0.75rem; text-decoration: none; padding: 0.6rem 0.75rem; background: rgba(96,165,250,0.06); border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(96,165,250,0.12)'" onmouseout="this.style.background='rgba(96,165,250,0.06)'">
+                    <i class="fas fa-book" style="color: #60a5fa; margin-top: 3px; flex-shrink: 0;"></i>
+                    <div><div style="color: #e2e8f0; font-weight: 600; font-size: 0.88rem;">Agent Service Disaster Recovery (MS Learn)</div><div style="color: #64748b; font-size: 0.78rem; margin-top: 2px;">Agent Service-specific DR: Cosmos DB for agent state persistence, regional recovery procedures for conversation threads</div></div>
+                    <i class="fas fa-external-link-alt" style="color: #475569; font-size: 0.7rem; margin-left: auto; flex-shrink: 0; margin-top: 5px;"></i>
+                </a>
+            </div>
+        </div>
+
         <!-- ═══════════════════════════════════════════════════════════════
              APIM — DR & BACKUP DEEP DIVE
              ═══════════════════════════════════════════════════════════════ -->
@@ -2963,6 +3030,30 @@ stages:
 
         <div style="background: rgba(52, 211, 153, 0.08); border-left: 4px solid #34d399; padding: 1rem 1.5rem; border-radius: 4px; margin-bottom: 2rem;">
             <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: #34d399; margin-right: 6px;"></i><strong>Key insight on Named Value overrides:</strong> The <code>--overrideNamedValues</code> flag in the publisher is what allows the same extracted APIM configuration to deploy to two different regions pointing to region-specific backend endpoints. This is the mechanism that eliminates manual post-restore reconfiguration. Without this, the Sweden DR APIM will point all its policies to UAE North backends — a silent failure that only reveals itself during an actual DR event.</p>
+        </div>
+
+        <!-- APIM Reference Labs -->
+        <div style="background: rgba(15,23,42,0.6); border: 1px solid rgba(96,165,250,0.25); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 2.5rem;">
+            <h5 style="margin: 0 0 1rem 0; color: #60a5fa; font-family: 'Outfit', sans-serif; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                <i class="fas fa-flask" style="margin-right: 6px;"></i>Hands-On Labs &amp; Official References — Azure APIM Backup &amp; DR
+            </h5>
+            <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+                <a href="https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-disaster-recovery-backup-restore" target="_blank" rel="noopener" style="display: flex; align-items: flex-start; gap: 0.75rem; text-decoration: none; padding: 0.6rem 0.75rem; background: rgba(96,165,250,0.06); border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(96,165,250,0.12)'" onmouseout="this.style.background='rgba(96,165,250,0.06)'">
+                    <i class="fas fa-book" style="color: #60a5fa; margin-top: 3px; flex-shrink: 0;"></i>
+                    <div><div style="color: #e2e8f0; font-weight: 600; font-size: 0.88rem;">APIM Backup &amp; Restore for DR (MS Learn)</div><div style="color: #64748b; font-size: 0.78rem; margin-top: 2px;">Official backup/restore REST API reference: PowerShell and ARM examples, supported tiers, storage account requirements</div></div>
+                    <i class="fas fa-external-link-alt" style="color: #475569; font-size: 0.7rem; margin-left: auto; flex-shrink: 0; margin-top: 5px;"></i>
+                </a>
+                <a href="https://github.com/Azure/apiops" target="_blank" rel="noopener" style="display: flex; align-items: flex-start; gap: 0.75rem; text-decoration: none; padding: 0.6rem 0.75rem; background: rgba(96,165,250,0.06); border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(96,165,250,0.12)'" onmouseout="this.style.background='rgba(96,165,250,0.06)'">
+                    <i class="fab fa-github" style="color: #60a5fa; margin-top: 3px; flex-shrink: 0;"></i>
+                    <div><div style="color: #e2e8f0; font-weight: 600; font-size: 0.88rem;">Azure APIOps Toolkit (GitHub — Azure/apiops)</div><div style="color: #64748b; font-size: 0.78rem; margin-top: 2px;">Official APIOps extractor + publisher toolkit — the CI/CD engine for multi-region APIM config parity in this DR architecture</div></div>
+                    <i class="fas fa-external-link-alt" style="color: #475569; font-size: 0.7rem; margin-left: auto; flex-shrink: 0; margin-top: 5px;"></i>
+                </a>
+                <a href="https://learn.microsoft.com/en-us/azure/architecture/example-scenario/devops/automated-api-deployments-apiops" target="_blank" rel="noopener" style="display: flex; align-items: flex-start; gap: 0.75rem; text-decoration: none; padding: 0.6rem 0.75rem; background: rgba(96,165,250,0.06); border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(96,165,250,0.12)'" onmouseout="this.style.background='rgba(96,165,250,0.06)'">
+                    <i class="fas fa-sitemap" style="color: #60a5fa; margin-top: 3px; flex-shrink: 0;"></i>
+                    <div><div style="color: #e2e8f0; font-weight: 600; font-size: 0.88rem;">Automated API Deployments via APIOps (Azure Architecture Center)</div><div style="color: #64748b; font-size: 0.78rem; margin-top: 2px;">Architecture pattern: APIOps CI/CD pipeline from Dev → QA → Prod across multiple APIM instances with environment-specific Named Value overrides</div></div>
+                    <i class="fas fa-external-link-alt" style="color: #475569; font-size: 0.7rem; margin-left: auto; flex-shrink: 0; margin-top: 5px;"></i>
+                </a>
+            </div>
         </div>
 
         <h2 id="landing-zone"><span class="gradient-text">Enterprise Landing Zone Engineering</span></h2>
