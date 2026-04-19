@@ -1094,9 +1094,16 @@
             .checklist-item { flex-direction: column; gap: 0.5rem; }
         }
 
-        /* ── SV masterclass grid single column on small tablet ── */
+        /* ── SV masterclass grid ─────────────────────────────── */
+        /* 3-col variant (Executive Impact Summary) */
+        .sv-3col { gap: 2rem !important; }
+        @media (min-width: 1025px)                          { .sv-3col { grid-template-columns: repeat(3,1fr) !important; } }
+        @media (min-width: 701px) and (max-width: 1024px)  { .sv-3col { grid-template-columns: 1fr 1fr !important; } }
+        @media (max-width: 700px)                           { .sv-3col { grid-template-columns: 1fr !important; gap: 1.25rem !important; } }
+
+        /* Standard 2-col → 1-col on mobile */
         @media (max-width: 700px) {
-            .sv-masterclass-grid { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
+            .sv-masterclass-grid { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
         }
 
         /* ── Pattern matrix grid: 1 col on small phones ─────── */
@@ -2273,7 +2280,7 @@
         }
     </style>
             
-            <div class="sv-masterclass-grid" style="grid-template-columns: repeat(3, 1fr); gap: 2rem;">
+            <div class="sv-masterclass-grid sv-3col">
                 <!-- Card 1: Business Problem -->
                 <div class="sv-card-container">
                     <div class="sv-bento-card">
