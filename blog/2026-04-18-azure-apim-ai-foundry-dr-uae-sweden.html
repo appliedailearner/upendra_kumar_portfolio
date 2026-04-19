@@ -927,6 +927,130 @@
         }
     </style>
 
+    <!-- UX & Performance Enhancement Styles -->
+    <style>
+        html { scroll-behavior: smooth; }
+
+        #reading-progress {
+            position: fixed; top: 0; left: 0;
+            width: 0%; height: 3px;
+            background: linear-gradient(90deg, #a855f7, #3b82f6, #38bdf8);
+            z-index: 9999;
+            transition: width 0.08s linear;
+            box-shadow: 0 0 8px rgba(168,85,247,0.6);
+        }
+
+        #back-to-top {
+            position: fixed; bottom: 2rem; right: 2rem;
+            width: 48px; height: 48px;
+            background: linear-gradient(135deg, #a855f7, #3b82f6);
+            border: none; border-radius: 50%;
+            color: white; font-size: 1.1rem; cursor: pointer;
+            opacity: 0; transform: translateY(20px);
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(168,85,247,0.4);
+            display: flex; align-items: center; justify-content: center;
+        }
+        #back-to-top.visible { opacity: 1; transform: translateY(0); }
+        #back-to-top:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(168,85,247,0.6); }
+
+        #mobile-toc-toggle {
+            display: none;
+            position: sticky; top: 70px; z-index: 50;
+            margin-bottom: 2rem;
+            background: rgba(15,23,42,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(56,189,248,0.2);
+            border-radius: 12px;
+        }
+        @media (max-width: 1200px) { #mobile-toc-toggle { display: block; } }
+        .mobile-toc-btn {
+            width: 100%; padding: 0.9rem 1.25rem;
+            background: transparent; border: none;
+            color: #60a5fa; font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem; font-weight: 700;
+            cursor: pointer; display: flex;
+            align-items: center; justify-content: space-between;
+            letter-spacing: 0.5px;
+        }
+        .mobile-toc-btn i.chevron { transition: transform 0.3s ease; }
+        .mobile-toc-btn.open i.chevron { transform: rotate(180deg); }
+        #mobile-toc-body {
+            display: none; padding: 0.5rem 1.25rem 1rem;
+            border-top: 1px solid rgba(56,189,248,0.1);
+        }
+        #mobile-toc-body.open { display: block; }
+        #mobile-toc-body a {
+            display: block; padding: 0.5rem 0;
+            color: #94a3b8; text-decoration: none;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            transition: color 0.2s;
+        }
+        #mobile-toc-body a:hover, #mobile-toc-body a.active { color: #60a5fa; }
+
+        #img-lightbox {
+            display: none; position: fixed; inset: 0;
+            background: rgba(3,7,18,0.93);
+            backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+            z-index: 10000; align-items: center; justify-content: center;
+            padding: 1rem; cursor: zoom-out;
+        }
+        #img-lightbox.open { display: flex; animation: lb-fade 0.25s ease; }
+        @keyframes lb-fade { from { opacity: 0; } to { opacity: 1; } }
+        #lb-img {
+            max-width: min(95vw, 1400px); max-height: 90vh;
+            border-radius: 12px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.9);
+            object-fit: contain; cursor: default;
+            animation: lb-zoom 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
+        }
+        @keyframes lb-zoom { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        #lb-close {
+            position: absolute; top: 1rem; right: 1rem;
+            width: 44px; height: 44px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50%; color: white; font-size: 1.2rem;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s;
+        }
+        #lb-close:hover { background: rgba(239,68,68,0.5); }
+        #lb-caption {
+            position: absolute; bottom: 1.5rem; left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15,23,42,0.9); color: #cbd5e1;
+            padding: 0.5rem 1.5rem; border-radius: 30px;
+            font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.08);
+            text-align: center; max-width: 80vw; white-space: nowrap;
+            overflow: hidden; text-overflow: ellipsis;
+        }
+
+        .architecture-card a { cursor: zoom-in; }
+        .architecture-card a:hover img {
+            box-shadow: 0 0 30px rgba(56,189,248,0.25);
+        }
+
+        /* Image load shimmer */
+        .arch-img-wrap {
+            position: relative; overflow: hidden;
+            background: rgba(30,41,59,0.5); border-radius: 8px;
+        }
+        .arch-img-wrap::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.04) 50%, transparent 100%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            transition: opacity 0.4s;
+        }
+        .arch-img-wrap.loaded::after { opacity: 0; pointer-events: none; }
+        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+        .arch-img-wrap img { opacity: 0; transition: opacity 0.5s ease; display: block; width: 100%; }
+        .arch-img-wrap img.loaded { opacity: 1; }
+    </style>
+
     <!-- Performance: Preconnect to Font & Script Servers -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -967,6 +1091,21 @@
 </head>
 
     <body class="dark-theme">
+    <!-- Reading Progress Bar -->
+    <div id="reading-progress" role="progressbar" aria-label="Reading progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+
+    <!-- Lightbox Overlay -->
+    <div id="img-lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" onclick="closeLightbox(event)">
+        <button id="lb-close" onclick="closeLightbox()" aria-label="Close image viewer"><i class="fas fa-times"></i></button>
+        <img id="lb-img" src="" alt="" onclick="event.stopPropagation()">
+        <div id="lb-caption"></div>
+    </div>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top" title="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <canvas id="particles-canvas"></canvas>
     
     <!-- Navigation -->
@@ -1007,6 +1146,24 @@
 
     <!-- Blog Post Content -->
     <article class="blog-post-content">
+        <!-- Mobile Table of Contents (hidden on desktop via CSS) -->
+        <div id="mobile-toc-toggle">
+            <button class="mobile-toc-btn" onclick="toggleMobileToc(this)" aria-expanded="false" aria-controls="mobile-toc-body">
+                <span><i class="fas fa-list" style="margin-right:0.5rem; opacity:0.7;"></i> Table of Contents</span>
+                <i class="fas fa-chevron-down chevron"></i>
+            </button>
+            <div id="mobile-toc-body" role="navigation" aria-label="Article sections">
+                <a href="#scenario">The Scenario</a>
+                <a href="#hard-truth">The Hard Truth on APIM Tiers</a>
+                <a href="#ai-dr">AI Services Recovery Pattern</a>
+                <a href="#landing-zone">Enterprise Landing Zone Controls</a>
+                <a href="#comparison">APIM DR Alternatives</a>
+                <a href="#deployment">Engineer's Deployment Runbook</a>
+                <a href="#fd-lockdown">Front Door Origin Lockdown</a>
+                <a href="#mistakes">Common Mistakes</a>
+            </div>
+        </div>
+
         <nav class="toc-container">
             <h4 style="color: #60a5fa; font-family: 'Outfit', sans-serif; margin-bottom: 1rem;">Table of Contents</h4>
             <ul style="list-style: none; padding: 0; font-size: 0.9rem;">
@@ -2144,8 +2301,13 @@
         <p>We do not dump these systems into disparate resource groups. We design them into an aligned Azure Landing Zone utilizing a strict hub-and-spoke pattern:</p>
         
         <div class="architecture-card reveal" style="opacity: 1; transform: none;">
-            <a href="Azure%20APIM%20and%20AI%20DR/azure_ai_dr_landing_zone.png" target="_blank" style="display: block; cursor: zoom-in;" title="Click to view full-scale architectural diagram">
-                <img src="Azure%20APIM%20and%20AI%20DR/azure_ai_dr_landing_zone.png" alt="Azure Landing Zone Technical View" style="width: 100%; height: auto; display: block; filter: invert(0.93) hue-rotate(180deg) brightness(1.1); transition: transform 0.3s ease;" loading="lazy">
+            <a href="Azure%20APIM%20and%20AI%20DR/azure_ai_dr_landing_zone.webp" data-lightbox="true" data-caption="Figure 1: Complete Zero-Trust DR Architecture across UAE North and Sweden Central" style="display: block;" onclick="openLightbox(event, this)" title="Click to expand diagram">
+                <div class="arch-img-wrap">
+                    <picture>
+                        <source srcset="Azure%20APIM%20and%20AI%20DR/azure_ai_dr_landing_zone.webp" type="image/webp">
+                        <img src="Azure%20APIM%20and%20AI%20DR/azure_ai_dr_landing_zone.png" alt="Azure Landing Zone Technical View — Zero-Trust DR Architecture across UAE North and Sweden Central" width="2800" height="1820" style="filter: invert(0.93) hue-rotate(180deg) brightness(1.1); transition: transform 0.3s ease;" loading="lazy" decoding="async" onload="this.classList.add('loaded'); this.closest('.arch-img-wrap').classList.add('loaded')">
+                    </picture>
+                </div>
             </a>
             <p class="diagram-caption" style="margin-top: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; color: #94a3b8;">
                 <i class="fas fa-search-plus" style="color: #60a5fa;"></i>
@@ -2349,8 +2511,13 @@ resource nsg 'Microsoft.Network/networkSecurityGroups@2023-05-01' = {
 
         <h3 id="operator-checklist"><span class="gradient-text">4. Operator Cut-over Checklist</span></h3>
         <div class="architecture-card reveal" style="opacity: 1; transform: none;">
-            <a href="Azure APIM and AI DR/azure_dr_failover_runbook.png" target="_blank" style="display: block; cursor: zoom-in;" title="Click to view full-scale sequence runbook">
-                <img src="Azure APIM and AI DR/azure_dr_failover_runbook.png" alt="Azure DR Sequence Runbook" style="width: 100%; height: auto; filter: invert(0.93) hue-rotate(180deg) brightness(1.1); transition: transform 0.3s ease;" loading="lazy">
+            <a href="Azure%20APIM%20and%20AI%20DR/azure_dr_failover_runbook.webp" data-lightbox="true" data-caption="Figure 2: Sequence of required manual and automated validation gates during cutover" style="display: block;" onclick="openLightbox(event, this)" title="Click to expand runbook">
+                <div class="arch-img-wrap">
+                    <picture>
+                        <source srcset="Azure%20APIM%20and%20AI%20DR/azure_dr_failover_runbook.webp" type="image/webp">
+                        <img src="Azure%20APIM%20and%20AI%20DR/azure_dr_failover_runbook.png" alt="Azure DR Failover Sequence Runbook — Validation gates during cutover" width="2600" height="1700" style="filter: invert(0.93) hue-rotate(180deg) brightness(1.1); transition: transform 0.3s ease;" loading="lazy" decoding="async" onload="this.classList.add('loaded'); this.closest('.arch-img-wrap').classList.add('loaded')">
+                    </picture>
+                </div>
             </a>
             <p class="diagram-caption" style="margin-top: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; color: #94a3b8;">
                 <i class="fas fa-search-plus" style="color: #60a5fa;"></i>
@@ -2536,6 +2703,87 @@ resource nsg 'Microsoft.Network/networkSecurityGroups@2023-05-01' = {
                 }, { rootMargin: '0px 0px -80% 0px', threshold: 0.1 });
                 headers.forEach(header => observer.observe(header));
             }
+        });
+    </script>
+
+    <!-- Reading Progress, Back-to-Top, Lightbox, Mobile TOC -->
+    <script>
+        // Reading Progress Bar
+        (function() {
+            const bar = document.getElementById('reading-progress');
+            const btn = document.getElementById('back-to-top');
+            function update() {
+                const scrollTop = window.scrollY || document.documentElement.scrollTop;
+                const docH = document.documentElement.scrollHeight - window.innerHeight;
+                const pct = docH > 0 ? Math.min(100, (scrollTop / docH) * 100) : 0;
+                bar.style.width = pct + '%';
+                bar.setAttribute('aria-valuenow', Math.round(pct));
+                btn.classList.toggle('visible', scrollTop > 400);
+            }
+            window.addEventListener('scroll', update, { passive: true });
+            update();
+        })();
+
+        // Lightbox
+        function openLightbox(e, anchor) {
+            e.preventDefault();
+            const img = anchor.querySelector('img');
+            const caption = anchor.getAttribute('data-caption') || img.alt || '';
+            const src = anchor.getAttribute('href');
+            const lbImg = document.getElementById('lb-img');
+            lbImg.src = src;
+            lbImg.alt = img.alt || '';
+            document.getElementById('lb-caption').textContent = caption;
+            const lb = document.getElementById('img-lightbox');
+            lb.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            document.addEventListener('keydown', lbKeyHandler);
+        }
+        function closeLightbox(e) {
+            if (e && e.target && e.target.id === 'lb-img') return;
+            const lb = document.getElementById('img-lightbox');
+            lb.classList.remove('open');
+            document.body.style.overflow = '';
+            document.removeEventListener('keydown', lbKeyHandler);
+        }
+        function lbKeyHandler(e) {
+            if (e.key === 'Escape') closeLightbox();
+        }
+
+        // Mobile TOC Toggle
+        function toggleMobileToc(btn) {
+            const body = document.getElementById('mobile-toc-body');
+            const isOpen = body.classList.toggle('open');
+            btn.classList.toggle('open', isOpen);
+            btn.setAttribute('aria-expanded', isOpen);
+        }
+
+        // Mobile TOC — close after link click & active highlight
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileTocLinks = document.querySelectorAll('#mobile-toc-body a');
+            mobileTocLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    const body = document.getElementById('mobile-toc-body');
+                    const btn = document.querySelector('.mobile-toc-btn');
+                    body.classList.remove('open');
+                    btn.classList.remove('open');
+                    btn.setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            // Active section highlighting for mobile TOC
+            const allHeaders = document.querySelectorAll('.blog-post-content h2[id]');
+            const allMobileLinks = document.querySelectorAll('#mobile-toc-body a');
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        allMobileLinks.forEach(l => {
+                            l.classList.toggle('active', l.getAttribute('href') === '#' + entry.target.id);
+                        });
+                    }
+                });
+            }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+            allHeaders.forEach(h => sectionObserver.observe(h));
         });
     </script>
 </body>
