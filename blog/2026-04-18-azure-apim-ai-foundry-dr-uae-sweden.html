@@ -929,7 +929,34 @@
 
     <!-- UX & Performance Enhancement Styles -->
     <style>
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { overflow-x: hidden; }
+
+        /* Table overflow fix: allow internal horizontal scroll without page-level overflow */
+        .table-responsive,
+        .blog-post-content div[style*="overflow-x: auto"],
+        .blog-post-content div[style*="overflow-x:auto"] {
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch;
+            max-width: 100%;
+        }
+
+        /* Prevent all tables from blowing out page width */
+        .blog-post-content table {
+            max-width: 100%;
+        }
+
+        /* Sim grid: collapse to 1 col on tablet */
+        @media (max-width: 900px) {
+            .sim-grid {
+                grid-template-columns: 1fr 1fr !important;
+            }
+        }
+        @media (max-width: 600px) {
+            .sim-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
 
         #reading-progress {
             position: fixed; top: 0; left: 0;
