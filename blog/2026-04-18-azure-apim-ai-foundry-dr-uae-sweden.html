@@ -929,32 +929,211 @@
 
     <!-- UX & Performance Enhancement Styles -->
     <style>
+        /* ── Core overflow prevention ─────────────────────────── */
         html { scroll-behavior: smooth; overflow-x: hidden; }
         body { overflow-x: hidden; }
 
-        /* Table overflow fix: allow internal horizontal scroll without page-level overflow */
-        .table-responsive,
-        .blog-post-content div[style*="overflow-x: auto"],
-        .blog-post-content div[style*="overflow-x:auto"] {
-            overflow-x: auto !important;
+        /* ── Code blocks: horizontal scroll on mobile ─────────── */
+        pre {
+            overflow-x: auto;
             -webkit-overflow-scrolling: touch;
             max-width: 100%;
+            white-space: pre;
+            font-size: 0.84rem;
+            line-height: 1.6;
+            border-radius: 10px;
+            background: #011627;
+            padding: 1.5rem;
+            border: 1px solid rgba(56,189,248,0.1);
+            margin: 1.5rem 0;
+            tab-size: 2;
+        }
+        pre code {
+            display: block;
+            font-size: inherit;
+            background: transparent;
+            padding: 0;
+            white-space: pre;
+            word-break: normal;
+            overflow-wrap: normal;
+        }
+        /* Inline code */
+        :not(pre) > code {
+            background: rgba(56,189,248,0.08);
+            border: 1px solid rgba(56,189,248,0.15);
+            border-radius: 4px;
+            padding: 0.15em 0.45em;
+            font-size: 0.88em;
+            word-break: break-word;
+            color: #7dd3fc;
         }
 
-        /* Prevent all tables from blowing out page width */
-        .blog-post-content table {
-            max-width: 100%;
+        /* ── Table overflow: internal scroll, no page blowout ─── */
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 12px;
+        }
+        .blog-post-content div[style*="overflow-x: auto"],
+        .blog-post-content div[style*="overflow-x:auto"] {
+            -webkit-overflow-scrolling: touch;
         }
 
-        /* Sim grid: collapse to 1 col on tablet */
-        @media (max-width: 900px) {
-            .sim-grid {
+        /* ── Mobile font & spacing overrides ─────────────────── */
+        @media (max-width: 767px) {
+            .blog-post-content {
+                font-size: 1rem !important;
+                line-height: 1.75 !important;
+                padding: 2rem 1.1rem !important;
+            }
+            .blog-post-hero {
+                padding: 90px 1.1rem 40px !important;
+            }
+            .blog-post-hero h1 {
+                font-size: clamp(1.55rem, 6vw, 2rem) !important;
+                line-height: 1.2 !important;
+            }
+            pre {
+                font-size: 0.78rem;
+                padding: 1rem;
+                border-radius: 8px;
+                margin: 1rem 0;
+            }
+            /* Reduce heavy card padding */
+            .glass-card,
+            .architecture-card,
+            .analogy-block,
+            .calculator-container,
+            .sre-dashboard,
+            .sim-container {
+                padding: 1.25rem !important;
+                border-radius: 12px !important;
+                margin: 1.5rem 0 !important;
+            }
+            .calculator-container { padding: 1.5rem !important; }
+            /* Pattern cards */
+            .pattern-card { padding: 1.25rem !important; }
+            /* SV bento cards */
+            .sv-bento-card { padding: 1.5rem !important; }
+            /* Video footer */
+            .video-footer { padding: 1rem 1.25rem !important; }
+            /* Metric value */
+            .metric-value { font-size: 2rem !important; }
+            /* Section headings */
+            h2 { font-size: 1.45rem !important; }
+            h3 { font-size: 1.2rem !important; }
+            /* Analogy block quote icon */
+            .analogy-block::before { font-size: 5rem !important; top: -10px !important; }
+            /* Architecture card padding */
+            .architecture-card { padding: 1rem !important; }
+            .architecture-card img { margin-bottom: 1rem !important; }
+            /* Diagram caption */
+            .diagram-caption { font-size: 0.82rem !important; }
+        }
+
+        /* ── Tap target improvements ──────────────────────────── */
+        .share-btn, .tab-btn, .calc-btn, .btn {
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+        }
+        .social-share-buttons { gap: 0.6rem !important; flex-wrap: wrap; }
+        @media (max-width: 480px) {
+            .social-share-buttons {
+                display: grid !important;
                 grid-template-columns: 1fr 1fr !important;
             }
+            .share-btn {
+                justify-content: center;
+                padding: 0.7rem 0.5rem !important;
+            }
         }
+
+        /* ── Blueprint tabs: scrollable on mobile ─────────────── */
+        .blueprint-tabs {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            flex-wrap: nowrap !important;
+            padding-bottom: 0.5rem;
+            scrollbar-width: none;
+        }
+        .blueprint-tabs::-webkit-scrollbar { display: none; }
+        .tab-btn { white-space: nowrap; flex-shrink: 0; }
+
+        /* ── Sim grid ─────────────────────────────────────────── */
+        @media (max-width: 900px) { .sim-grid { grid-template-columns: 1fr 1fr !important; } }
+        @media (max-width: 600px) { .sim-grid { grid-template-columns: 1fr !important; } }
+
+        /* ── Tooltip: prevent offscreen on mobile ─────────────── */
+        @media (max-width: 767px) {
+            .eli5-term::after {
+                left: 0 !important;
+                right: 0 !important;
+                transform: translateY(-10px) !important;
+                min-width: unset !important;
+                width: calc(100vw - 3rem);
+                max-width: 320px;
+                white-space: normal;
+            }
+            .eli5-term:hover::after {
+                transform: translateY(0) !important;
+            }
+        }
+
+        /* ── RTO/RPO flex → column on mobile ─────────────────── */
         @media (max-width: 600px) {
-            .sim-grid {
-                grid-template-columns: 1fr !important;
+            .rto-rpo-container {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                padding: 1.25rem !important;
+            }
+        }
+
+        /* ── Checklist group mobile ───────────────────────────── */
+        @media (max-width: 600px) {
+            .checklist-item { flex-direction: column; gap: 0.5rem; }
+        }
+
+        /* ── SV masterclass grid single column on small tablet ── */
+        @media (max-width: 700px) {
+            .sv-masterclass-grid { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
+        }
+
+        /* ── Pattern matrix grid: 1 col on small phones ─────── */
+        @media (max-width: 480px) {
+            .pattern-matrix-grid { grid-template-columns: 1fr !important; }
+            .responsive-grid { grid-template-columns: 1fr !important; }
+        }
+
+        /* ── Responsive grid 3-col → 1-col on phones ─────────── */
+        @media (max-width: 600px) {
+            .comparison-grid { grid-template-columns: 1fr !important; }
+        }
+
+        /* ── Blog meta row wrap ───────────────────────────────── */
+        .blog-post-meta {
+            flex-wrap: wrap;
+            gap: 0.5rem !important;
+        }
+
+        /* ── Back to blog button – full width on small phones ─── */
+        @media (max-width: 480px) {
+            .blog-post-content > div[style*="display: flex"] a.btn {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* ── Scrollbar hint on overflowing tables (mobile) ────── */
+        @media (max-width: 900px) {
+            div[style*="overflow-x: auto"]::after,
+            .table-responsive::after {
+                content: '← scroll →';
+                display: block;
+                text-align: center;
+                font-size: 0.7rem;
+                color: rgba(56,189,248,0.5);
+                padding: 0.4rem 0 0;
+                letter-spacing: 1px;
             }
         }
 
