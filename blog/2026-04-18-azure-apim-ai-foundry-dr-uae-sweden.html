@@ -1369,6 +1369,10 @@
                 <a href="#scenario">The Scenario</a>
                 <a href="#hard-truth">The Hard Truth on APIM Tiers</a>
                 <a href="#ai-dr">AI Services Recovery Pattern</a>
+                <a href="#ai-search-dr">→ AI Search DR &amp; Backup</a>
+                <a href="#doc-intel-dr">→ Document Intelligence DR</a>
+                <a href="#ai-foundry-dr">→ AI Foundry &amp; PTU DR</a>
+                <a href="#apim-backup-dr">→ APIM Backup &amp; Restore</a>
                 <a href="#landing-zone">Enterprise Landing Zone Controls</a>
                 <a href="#comparison">APIM DR Alternatives</a>
                 <a href="#deployment">Engineer's Deployment Runbook</a>
@@ -1383,6 +1387,10 @@
                 <li><a href="#scenario" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">The Scenario</a></li>
                 <li><a href="#hard-truth" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">The Hard Truth on APIM Tiers</a></li>
                 <li><a href="#ai-dr" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">AI Services Recovery Pattern</a></li>
+                <li><a href="#ai-search-dr" class="toc-link" style="color: #64748b; text-decoration: none; display: block; margin-bottom: 0.4rem; padding-left: 1rem; font-size: 0.85rem;">↳ AI Search DR &amp; Backup</a></li>
+                <li><a href="#doc-intel-dr" class="toc-link" style="color: #64748b; text-decoration: none; display: block; margin-bottom: 0.4rem; padding-left: 1rem; font-size: 0.85rem;">↳ Document Intelligence DR</a></li>
+                <li><a href="#ai-foundry-dr" class="toc-link" style="color: #64748b; text-decoration: none; display: block; margin-bottom: 0.4rem; padding-left: 1rem; font-size: 0.85rem;">↳ AI Foundry &amp; PTU Strategy</a></li>
+                <li><a href="#apim-backup-dr" class="toc-link" style="color: #64748b; text-decoration: none; display: block; margin-bottom: 0.5rem; padding-left: 1rem; font-size: 0.85rem;">↳ APIM Backup &amp; Restore</a></li>
                 <li><a href="#landing-zone" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">Enterprise Landing Zone Controls</a></li>
                 <li><a href="#comparison" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">APIM DR Alternatives</a></li>
                 <li><a href="#deployment" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">Engineer's Deployment Runbook</a></li>
@@ -2501,14 +2509,461 @@
         <h2 id="ai-dr"><span class="gradient-text">Designing DR for AI Services</span></h2>
         <p>When engineering AI into your DR posture, you must stop treating AI like a static web app. Here is how you decompose the dependencies:</p>
 
-        <h3>Azure AI Search</h3>
-        <p>Azure AI Search explicitly supports multi-region architectures, but it is not magic. You deploy multiple search services, synchronize schemas, and manage your own intelligent routing loop. If your primary index corrupts, and your secondary blindly replicates it, you don’t have DR—you have a fast, multi-continent outage. Warm standby and proven index currency are the absolute prerequisites here.</p>
+        <!-- ═══════════════════════════════════════════════════════════════
+             AZURE AI SEARCH — DR & BACKUP DEEP DIVE
+             ═══════════════════════════════════════════════════════════════ -->
+        <h3 id="ai-search-dr" style="color: #38bdf8; font-family: ‘Outfit’, sans-serif; margin-top: 2rem;">
+            <i class="fas fa-search" style="margin-right: 8px; color: #60a5fa;"></i>Azure AI Search — DR &amp; Backup Engineering
+        </h3>
 
-        <h3>Azure Document Intelligence</h3>
-        <p>Microsoft’s documentation does not expose a first-class cross-region DR toggle for Document Intelligence identical to Search. It is a regional AI dependency. Architects must explicitly manage separate endpoints, localized storage accounts, zero-trust RBAC tokens, and secrets per region.</p>
+        <div style="background: rgba(56, 189, 248, 0.06); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem;">
+            <p style="margin: 0 0 0.75rem 0;"><strong style="color: #f8fafc;">First principle:</strong> Azure AI Search is explicitly <em>not</em> a primary data store. Microsoft does not provide native backup/restore or automatic cross-region replication. <span class="eli5-term" data-tooltip="Your source documents live in Blob Storage or Cosmos DB. AI Search indexes them. If the index is destroyed, you re-index from source — the source is the backup.">You own the DR story end-to-end.</span> If your primary index corrupts and your secondary blindly mirrors it, you don’t have DR — you have a fast multi-continent outage.</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                <div style="background: rgba(15,23,42,0.5); padding: 0.75rem 1rem; border-radius: 6px; border-left: 3px solid #34d399;">
+                    <div style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">RTO Target</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: #34d399;">15–30 min</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8;">Front Door health probe + warm standby</div>
+                </div>
+                <div style="background: rgba(15,23,42,0.5); padding: 0.75rem 1rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
+                    <div style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">RPO Target</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: #f59e0b;">Near-zero</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8;">If indexer runs on both regions against shared source</div>
+                </div>
+                <div style="background: rgba(15,23,42,0.5); padding: 0.75rem 1rem; border-radius: 6px; border-left: 3px solid #c084fc;">
+                    <div style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">Min Replicas for HA</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: #c084fc;">2 replicas</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8;">Per service SLA requires ≥2 replicas</div>
+                </div>
+            </div>
+        </div>
 
-        <h3>Azure AI Foundry & Model Endpoints</h3>
-        <p>If there is only one lesson to extract, it is this: <strong>Azure AI Foundry itself does not provide automatic failover</strong>. Regional deployments must explicitly map standard vs. <span class="eli5-term" data-tooltip="Provisioned Throughput Unit. Pre-purchasing dedicated compute guarantees for generative AI models, ensuring latency and capacity SLAs during peak enterprise hours.">PTU</span> (Provisioned Throughput) availability across your active regions. Assuming PTU will magically spin up in Sweden Central under duress without pre-allocation is a fast track to Executive-level escalations.</p>
+        <h4 style="color: #e2e8f0; font-family: ‘Outfit’, sans-serif; margin-bottom: 0.75rem;"><i class="fas fa-network-wired" style="color: #60a5fa; margin-right: 6px;"></i>Multi-Region Architecture Pattern</h4>
+        <p>Deploy two completely independent AI Search services — one in UAE North, one in Sweden Central. Both services must run the same indexer pipeline against a <strong>geo-replicated source</strong> (Blob Storage with GRS/GZRS, or Cosmos DB with multi-region writes). The indexer in the secondary region runs on its own schedule and is independently queryable at all times (warm standby, not cold restore).</p>
+
+        <pre><code class="language-bash"># Deploy AI Search service in UAE North
+az search service create \
+  --name srch-uae-prod \
+  --resource-group rg-ai-uae-prod \
+  --location uaenorth \
+  --sku Standard \
+  --replica-count 2 \
+  --partition-count 2
+
+# Deploy identical service in Sweden Central (DR)
+az search service create \
+  --name srch-sweden-dr \
+  --resource-group rg-ai-sweden-dr \
+  --location swedencentral \
+  --sku Standard \
+  --replica-count 2 \
+  --partition-count 2</code></pre>
+
+        <h4 style="color: #e2e8f0; font-family: ‘Outfit’, sans-serif; margin-top: 1.5rem; margin-bottom: 0.75rem;"><i class="fas fa-sync" style="color: #34d399; margin-right: 6px;"></i>Index Synchronisation Strategy</h4>
+
+        <div class="table-responsive" style="margin-bottom: 1.5rem;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pattern</th>
+                        <th>How it Works</th>
+                        <th>RPO</th>
+                        <th>When to Use</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Dual-indexer (recommended)</strong></td>
+                        <td>Both regions run indexers against same GRS source. Indexer schedule: every 5 min.</td>
+                        <td style="color: #34d399;">~5 min</td>
+                        <td>Production AI Search for RAG workloads</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Push via REST API</strong></td>
+                        <td>Application code pushes document updates to both endpoints simultaneously via Search REST API.</td>
+                        <td style="color: #34d399;">&lt;1 min</td>
+                        <td>Real-time inventory, trading, live data</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Scheduled full re-index</strong></td>
+                        <td>Nightly full rebuild of secondary from source. Simple but slow recovery.</td>
+                        <td style="color: #f87171;">Up to 24 hrs</td>
+                        <td>Static content / large indexes with low update frequency</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="background: rgba(248, 113, 113, 0.08); border-left: 4px solid #f87171; padding: 1rem 1.5rem; border-radius: 4px; margin-bottom: 1.5rem;">
+            <p style="margin: 0;"><i class="fas fa-exclamation-triangle" style="color: #f87171; margin-right: 6px;"></i><strong>Critical:</strong> When the secondary indexer reads from the same GRS Blob Storage account, failover to the secondary storage endpoint must be pre-tested. A corrupted primary <em>document</em> will re-index into both regions. Always maintain a time-delayed snapshot of source documents (e.g., Azure Blob Lifecycle Policy archiving to Cool tier after 7 days) as your true backup layer.</p>
+        </div>
+
+        <h4 style="color: #e2e8f0; font-family: ‘Outfit’, sans-serif; margin-bottom: 0.75rem;"><i class="fas fa-route" style="color: #c084fc; margin-right: 6px;"></i>Front Door Health Probe Configuration for Automatic Failover</h4>
+        <pre><code class="language-json">// Front Door Origin Group — AI Search Failover
+{
+  "originGroup": "ai-search-origins",
+  "healthProbe": {
+    "path": "/indexes?api-version=2023-11-01",
+    "protocol": "Https",
+    "intervalInSeconds": 30,
+    "healthProbeMethod": "HEAD"
+  },
+  "loadBalancingSettings": {
+    "sampleSize": 4,
+    "successfulSamplesRequired": 2,
+    "additionalLatencyInMilliseconds": 0
+  },
+  "origins": [
+    { "hostname": "srch-uae-prod.search.windows.net",    "priority": 1, "weight": 1000 },
+    { "hostname": "srch-sweden-dr.search.windows.net",   "priority": 2, "weight": 1000 }
+  ]
+}</code></pre>
+
+        <div style="background: rgba(52, 211, 153, 0.08); border-left: 4px solid #34d399; padding: 1rem 1.5rem; border-radius: 4px; margin-bottom: 2rem;">
+            <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: #34d399; margin-right: 6px;"></i><strong>Private Endpoint Note:</strong> In a private-endpoint deployment, the Front Door health probe cannot reach AI Search directly. Use a lightweight Azure Function Health Checker in each region that probes the Search service over private link and exposes a public <code>/health</code> endpoint — Front Door probes the function, not Search directly.</p>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             AZURE DOCUMENT INTELLIGENCE — DR & BACKUP DEEP DIVE
+             ═══════════════════════════════════════════════════════════════ -->
+        <h3 id="doc-intel-dr" style="color: #38bdf8; font-family: ‘Outfit’, sans-serif; margin-top: 2.5rem;">
+            <i class="fas fa-file-invoice" style="margin-right: 8px; color: #60a5fa;"></i>Azure Document Intelligence — DR &amp; Backup Engineering
+        </h3>
+
+        <div style="background: rgba(56, 189, 248, 0.06); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem;">
+            <p style="margin: 0 0 0.75rem 0;"><strong style="color: #f8fafc;">Architecture reality:</strong> Azure Document Intelligence is a <em>regional</em> resource. There is no built-in cross-region failover toggle. DR requires deploying at minimum two separate resources — one per region — and using the <strong>Model Copy API</strong> to replicate custom models and classifiers. Out-of-the-box prebuilt models (Invoice, Receipt, Layout) are available in all regions and need no copy.</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                <div style="background: rgba(15,23,42,0.5); padding: 0.75rem 1rem; border-radius: 6px; border-left: 3px solid #34d399;">
+                    <div style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">RTO Target</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: #34d399;">10–20 min</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8;">Front Door failover + warm model copy</div>
+                </div>
+                <div style="background: rgba(15,23,42,0.5); padding: 0.75rem 1rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
+                    <div style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">RPO Target</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: #f59e0b;">~24 hrs</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8;">Daily scheduled model copy pipeline</div>
+                </div>
+                <div style="background: rgba(15,23,42,0.5); padding: 0.75rem 1rem; border-radius: 6px; border-left: 3px solid #c084fc;">
+                    <div style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">Copy API Tier</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: #c084fc;">S0 minimum</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8;">Free tier does not support Copy API</div>
+                </div>
+            </div>
+        </div>
+
+        <h4 style="color: #e2e8f0; font-family: ‘Outfit’, sans-serif; margin-bottom: 0.75rem;"><i class="fas fa-copy" style="color: #60a5fa; margin-right: 6px;"></i>Model Copy API — Step-by-Step Runbook</h4>
+        <p>The Copy API is a two-phase operation: <strong>authorize on target</strong>, then <strong>initiate copy from source</strong>. Both the source and target resources must use the same pricing tier (S0). The copy is asynchronous — poll the operation URL until status is <code>succeeded</code>.</p>
+
+        <pre><code class="language-bash"># Step 1: Authorize copy on TARGET (Sweden Central) — generates an authorization token
+TARGET_ENDPOINT="https://docintel-sweden-dr.cognitiveservices.azure.com"
+TARGET_KEY="&lt;sweden-dr-api-key&gt;"
+MODEL_ID="my-custom-invoice-classifier"
+
+AUTHORIZATION=$(curl -s -X POST \
+  "${TARGET_ENDPOINT}/documentintelligence/documentModels/${MODEL_ID}:authorizeCopy?api-version=2024-02-29-preview" \
+  -H "Ocp-Apim-Subscription-Key: ${TARGET_KEY}" \
+  -H "Content-Type: application/json" \
+  -d ‘{"modelId": "’"${MODEL_ID}"’"}’)
+
+echo "Authorization token: ${AUTHORIZATION}"
+
+# Step 2: Initiate copy FROM SOURCE (UAE North)
+SOURCE_ENDPOINT="https://docintel-uae-prod.cognitiveservices.azure.com"
+SOURCE_KEY="&lt;uae-prod-api-key&gt;"
+
+OPERATION_URL=$(curl -s -D - -o /dev/null -X POST \
+  "${SOURCE_ENDPOINT}/documentintelligence/documentModels/${MODEL_ID}:copyTo?api-version=2024-02-29-preview" \
+  -H "Ocp-Apim-Subscription-Key: ${SOURCE_KEY}" \
+  -H "Content-Type: application/json" \
+  -d "${AUTHORIZATION}" | grep -i ‘operation-location’ | tr -d ‘\r’ | cut -d’ ‘ -f2)
+
+echo "Polling: ${OPERATION_URL}"
+
+# Step 3: Poll until succeeded
+while true; do
+  STATUS=$(curl -s "${OPERATION_URL}" -H "Ocp-Apim-Subscription-Key: ${SOURCE_KEY}" | python3 -c "import sys,json; print(json.load(sys.stdin)[‘status’])")
+  echo "Status: ${STATUS}"
+  [[ "${STATUS}" == "succeeded" || "${STATUS}" == "failed" ]] &amp;&amp; break
+  sleep 10
+done</code></pre>
+
+        <h4 style="color: #e2e8f0; font-family: ‘Outfit’, sans-serif; margin-top: 1.5rem; margin-bottom: 0.75rem;"><i class="fas fa-calendar-alt" style="color: #34d399; margin-right: 6px;"></i>Automated Daily Model Sync Pipeline</h4>
+        <p>Wrap the above script into an <strong>Azure Logic App</strong> or <strong>Azure DevOps pipeline</strong> scheduled daily. For each model/classifier in the source resource, invoke the Copy API to the DR target. The pipeline should:</p>
+        <ol>
+            <li>List all custom models from UAE North using <code>GET /documentintelligence/documentModels?api-version=2024-02-29-preview</code></li>
+            <li>For each model, check if Sweden Central version’s <code>lastUpdatedDateTime</code> is older than source — only copy if stale</li>
+            <li>Send a Teams/email alert on copy failure so engineers can manually intervene before the next potential DR event</li>
+        </ol>
+
+        <div style="background: rgba(245, 158, 11, 0.08); border-left: 4px solid #f59e0b; padding: 1rem 1.5rem; border-radius: 4px; margin-bottom: 2rem;">
+            <p style="margin: 0;"><i class="fas fa-exclamation-triangle" style="color: #f59e0b; margin-right: 6px;"></i><strong>Zero-Trust Secret Management:</strong> Each regional Document Intelligence resource must have its own <strong>separate Key Vault</strong> in the same region. Cross-region Key Vault lookups during a DR event create a latency and availability dependency chain. Store both API keys in UAE North KV and Sweden Central KV independently. APIM Named Values must point to the local regional KV reference — not a shared cross-region KV.</p>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             AZURE AI FOUNDRY & MODEL ENDPOINTS — DR & BACKUP DEEP DIVE
+             ═══════════════════════════════════════════════════════════════ -->
+        <h3 id="ai-foundry-dr" style="color: #38bdf8; font-family: ‘Outfit’, sans-serif; margin-top: 2.5rem;">
+            <i class="fas fa-brain" style="margin-right: 8px; color: #60a5fa;"></i>Azure AI Foundry &amp; Model Endpoints — DR &amp; Backup Engineering
+        </h3>
+
+        <div style="background: rgba(56, 189, 248, 0.06); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem;">
+            <p style="margin: 0 0 0.75rem 0;"><strong style="color: #f8fafc;">The hard constraint that kills most DR plans:</strong> Azure AI Foundry provides <em>no automatic failover</em>. PTU (Provisioned Throughput Units) cannot be auto-spun in a secondary region under duress. You must pre-allocate PTU capacity in Sweden Central <em>before</em> you need it. Assuming you can spin up PTU during a sev-1 at 3 AM is a fast track to an executive-level outage post-mortem.</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                <div style="background: rgba(15,23,42,0.5); padding: 0.75rem 1rem; border-radius: 6px; border-left: 3px solid #f87171;">
+                    <div style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">RTO Target</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: #f87171;">30–60 min</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8;">Manual operator-triggered cutover (no auto)</div>
+                </div>
+                <div style="background: rgba(15,23,42,0.5); padding: 0.75rem 1rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
+                    <div style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">RPO Target</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: #f59e0b;">Agent state: ~1 hr</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8;">Cosmos DB backup interval dependent</div>
+                </div>
+                <div style="background: rgba(15,23,42,0.5); padding: 0.75rem 1rem; border-radius: 6px; border-left: 3px solid #c084fc;">
+                    <div style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">Model Deployments</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: #c084fc;">Static config</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8;">IaC-deployed, no copy API — redeploy from Bicep</div>
+                </div>
+            </div>
+        </div>
+
+        <h4 style="color: #e2e8f0; font-family: ‘Outfit’, sans-serif; margin-bottom: 0.75rem;"><i class="fas fa-layer-group" style="color: #60a5fa; margin-right: 6px;"></i>PTU Pre-Allocation Strategy</h4>
+        <p>There are two distinct PTU purchase patterns for DR. The right choice depends on your budget and RTO tolerance:</p>
+
+        <div class="table-responsive" style="margin-bottom: 1.5rem;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pattern</th>
+                        <th>UAE North (Primary)</th>
+                        <th>Sweden Central (DR)</th>
+                        <th>Cost Implication</th>
+                        <th>RTO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Active-Active PTU</strong></td>
+                        <td>Full PTU allocation (e.g., 100 PTU)</td>
+                        <td>Full PTU allocation (100 PTU)</td>
+                        <td style="color: #f87171;">2× PTU cost always</td>
+                        <td style="color: #34d399;">~5 min (Front Door reroute)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Workload + Enterprise Pool (recommended)</strong></td>
+                        <td>Workload PTU (dedicated, 100 PTU)</td>
+                        <td>Enterprise Data Zone PTU pool (shared, shared across projects)</td>
+                        <td style="color: #34d399;">~40–60% cost saving on DR region</td>
+                        <td style="color: #f59e0b;">15–20 min (pool allocation request)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PTU Primary + PAYG DR</strong></td>
+                        <td>PTU (100 PTU)</td>
+                        <td>Standard (PAYG) — no pre-purchase</td>
+                        <td style="color: #34d399;">Lowest cost</td>
+                        <td style="color: #f87171;">45–90 min + throttle risk during event</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h4 style="color: #e2e8f0; font-family: ‘Outfit’, sans-serif; margin-top: 1.5rem; margin-bottom: 0.75rem;"><i class="fas fa-database" style="color: #34d399; margin-right: 6px;"></i>Agent State Backup — Cosmos DB Configuration</h4>
+        <p>Azure AI Foundry Agent Service stores conversation threads, tool call history, and agent configuration in a <strong>customer-provisioned Azure Cosmos DB</strong> account. This is the only stateful component of the AI Foundry stack. If you skip this, your agents lose all session context on failover.</p>
+
+        <pre><code class="language-bash"># Configure Cosmos DB for AI Foundry Agent Service with multi-region writes
+az cosmosdb create \
+  --name cosmos-agents-prod \
+  --resource-group rg-ai-uae-prod \
+  --locations regionName="UAE North" failoverPriority=0 isZoneRedundant=true \
+  --locations regionName="Sweden Central" failoverPriority=1 isZoneRedundant=false \
+  --enable-multiple-write-locations true \
+  --default-consistency-level Session \
+  --backup-policy-type Continuous \
+  --continuous-mode-backup-interval 240
+
+# Link Cosmos DB to AI Foundry Project during hub creation
+az ml workspace create \
+  --name ai-foundry-uae-hub \
+  --resource-group rg-ai-uae-prod \
+  --location uaenorth \
+  --kind hub \
+  --cosmos-db-id "/subscriptions/&lt;sub-id&gt;/resourceGroups/rg-ai-uae-prod/providers/Microsoft.DocumentDB/databaseAccounts/cosmos-agents-prod"</code></pre>
+
+        <h4 style="color: #e2e8f0; font-family: ‘Outfit’, sans-serif; margin-top: 1.5rem; margin-bottom: 0.75rem;"><i class="fas fa-code-branch" style="color: #c084fc; margin-right: 6px;"></i>Model Deployment Parity via Bicep</h4>
+        <p>Model deployments in AI Foundry are configuration objects — there is no "copy API." The only safe DR approach is to manage them as <strong>Infrastructure as Code</strong> and maintain identical deployment manifests for both regions:</p>
+
+        <pre><code class="language-bicep">// Bicep: Deploy identical GPT-4o deployment in both regions
+param location string
+param hubName string
+
+resource aiFoundryHub ‘Microsoft.MachineLearningServices/workspaces@2024-04-01’ existing = {
+  name: hubName
+}
+
+resource gpt4oDeployment ‘Microsoft.CognitiveServices/accounts/deployments@2023-10-01-preview’ = {
+  name: ‘${hubName}/gpt-4o-deployment’
+  properties: {
+    model: {
+      format: ‘OpenAI’
+      name: ‘gpt-4o’
+      version: ‘2024-05-13’
+    }
+    scaleSettings: {
+      scaleType: ‘Standard’  // Switch to ‘ProvisionedManaged’ for PTU
+      capacity: 10
+    }
+  }
+}
+
+// Run with: az deployment group create --template-file ai-foundry.bicep \
+//   --parameters location=uaenorth hubName=ai-foundry-uae-hub
+// Run with: az deployment group create --template-file ai-foundry.bicep \
+//   --parameters location=swedencentral hubName=ai-foundry-sweden-hub</code></pre>
+
+        <div style="background: rgba(192, 132, 252, 0.08); border-left: 4px solid #c084fc; padding: 1rem 1.5rem; border-radius: 4px; margin-bottom: 2rem;">
+            <p style="margin: 0 0 0.5rem 0;"><i class="fas fa-exclamation-circle" style="color: #c084fc; margin-right: 6px;"></i><strong>DR Runbook — AI Foundry Failover Sequence:</strong></p>
+            <ol style="margin: 0; padding-left: 1.2rem; color: #cbd5e1;">
+                <li>Detect: Azure Monitor alert fires on <code>SuccessRate &lt; 95%</code> on UAE North AI Foundry endpoint for &gt;5 minutes</li>
+                <li>Validate: Run synthetic test against Sweden Central AI Foundry endpoint — confirm model responds correctly</li>
+                <li>Switch: Update Front Door origin weights (UAE=0, Sweden=1000) or disable UAE origin entirely</li>
+                <li>APIM: Verify Named Values (<code>ai-foundry-endpoint</code>) point to Sweden Central — update via APIOps if not already parameterized</li>
+                <li>Cosmos DB: Trigger manual failover if UAE North Cosmos region is also unavailable: <code>az cosmosdb failover-priority-change --name cosmos-agents-prod --failover-policies "Sweden Central=0" "UAE North=1"</code></li>
+                <li>Notify: Alert on-call + stakeholders, open sev-1 bridge</li>
+            </ol>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             APIM — DR & BACKUP DEEP DIVE
+             ═══════════════════════════════════════════════════════════════ -->
+        <h3 id="apim-backup-dr" style="color: #38bdf8; font-family: ‘Outfit’, sans-serif; margin-top: 2.5rem;">
+            <i class="fas fa-shield-alt" style="margin-right: 8px; color: #60a5fa;"></i>Azure API Management — Backup, Restore &amp; DR Engineering
+        </h3>
+
+        <div style="background: rgba(56, 189, 248, 0.06); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem;">
+            <p style="margin: 0 0 0.75rem 0;"><strong style="color: #f8fafc;">APIM DR architecture decision:</strong> Standard v2 in UAE North + Standard v2 in Sweden Central means two completely <em>independent</em> instances. Microsoft provides a native Backup/Restore REST API to export and import service configuration. The critical insight: <strong>backup captures configuration, not traffic state</strong>. Your DR posture is a combination of regular backups + APIOps pipeline for config parity + Front Door for traffic routing.</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                <div style="background: rgba(15,23,42,0.5); padding: 0.75rem 1rem; border-radius: 6px; border-left: 3px solid #34d399;">
+                    <div style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">RTO Target</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: #34d399;">5–15 min</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8;">Front Door reroute (warm standby)</div>
+                </div>
+                <div style="background: rgba(15,23,42,0.5); padding: 0.75rem 1rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
+                    <div style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">RPO Target</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: #f59e0b;">&lt;1 hr</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8;">Hourly backup + APIOps pipeline parity</div>
+                </div>
+                <div style="background: rgba(15,23,42,0.5); padding: 0.75rem 1rem; border-radius: 6px; border-left: 3px solid #c084fc;">
+                    <div style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">Backup Supported Tiers</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: #c084fc;">Dev, Basic, Std, Premium</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8;">Not supported on Consumption tier</div>
+                </div>
+            </div>
+        </div>
+
+        <h4 style="color: #e2e8f0; font-family: ‘Outfit’, sans-serif; margin-bottom: 0.75rem;"><i class="fas fa-save" style="color: #60a5fa; margin-right: 6px;"></i>APIM Backup REST API — Automated Hourly Schedule</h4>
+        <p>The Backup API exports APIs, products, subscriptions, policies, named values, users, groups, and certificates to an Azure Storage blob. Always backup to a <strong>geo-redundant storage account</strong> (GRS or GZRS) so the backup blob is available even if the primary region is down.</p>
+
+        <pre><code class="language-bash"># Automated APIM Backup using Azure CLI + REST API
+SUBSCRIPTION_ID="&lt;your-subscription-id&gt;"
+RESOURCE_GROUP="rg-apim-uae-prod"
+APIM_NAME="apim-uae-prod"
+STORAGE_ACCOUNT="stbackupapim"   # GRS storage account
+STORAGE_CONTAINER="apim-backups"
+BACKUP_NAME="apim-uae-$(date +%Y%m%d-%H%M)"
+STORAGE_KEY=$(az storage account keys list --account-name ${STORAGE_ACCOUNT} --query ‘[0].value’ -o tsv)
+
+# Trigger backup via ARM REST API
+az rest --method post \
+  --url "https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${RESOURCE_GROUP}/providers/Microsoft.ApiManagement/service/${APIM_NAME}/backup?api-version=2022-08-01" \
+  --body "{
+    \"storageAccount\": \"${STORAGE_ACCOUNT}\",
+    \"containerName\": \"${STORAGE_CONTAINER}\",
+    \"backupName\": \"${BACKUP_NAME}\",
+    \"accessType\": \"StorageAccessKey\",
+    \"accessKey\": \"${STORAGE_KEY}\"
+  }"
+
+echo "Backup initiated: ${BACKUP_NAME}"
+echo "Poll: az apim show --name ${APIM_NAME} --resource-group ${RESOURCE_GROUP} --query ‘provisioningState’  (wait for ‘Succeeded’)"</code></pre>
+
+        <h4 style="color: #e2e8f0; font-family: ‘Outfit’, sans-serif; margin-top: 1.5rem; margin-bottom: 0.75rem;"><i class="fas fa-undo" style="color: #f59e0b; margin-right: 6px;"></i>APIM Restore to DR Instance</h4>
+        <pre><code class="language-bash"># Restore backup to Sweden Central APIM instance
+DR_RESOURCE_GROUP="rg-apim-sweden-dr"
+DR_APIM_NAME="apim-sweden-dr"
+BACKUP_NAME="apim-uae-20260418-0300"  # Target specific backup snapshot
+
+az rest --method post \
+  --url "https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${DR_RESOURCE_GROUP}/providers/Microsoft.ApiManagement/service/${DR_APIM_NAME}/restore?api-version=2022-08-01" \
+  --body "{
+    \"storageAccount\": \"${STORAGE_ACCOUNT}\",
+    \"containerName\": \"${STORAGE_CONTAINER}\",
+    \"backupName\": \"${BACKUP_NAME}\",
+    \"accessType\": \"StorageAccessKey\",
+    \"accessKey\": \"${STORAGE_KEY}\"
+  }"
+
+# Limitations: Restore overwrites target configuration entirely.
+# Named Values pointing to UAEspecific Key Vault refs need post-restore re-pointing.
+# Always run APIOps publisher AFTER restore to re-apply environment-specific Named Values.</code></pre>
+
+        <div style="background: rgba(245, 158, 11, 0.08); border-left: 4px solid #f59e0b; padding: 1rem 1.5rem; border-radius: 4px; margin-bottom: 1.5rem;">
+            <p style="margin: 0 0 0.5rem 0;"><strong><i class="fas fa-exclamation-triangle" style="color: #f59e0b; margin-right: 6px;"></i>What APIM Backup Does NOT Include:</strong></p>
+            <ul style="margin: 0; padding-left: 1.2rem; color: #cbd5e1;">
+                <li>Custom gateway certificates — store in Key Vault and re-bind post-restore</li>
+                <li>Named Values that reference Key Vault secrets — KV references need separate regional KV setup</li>
+                <li>Analytics data and logs — these live in Azure Monitor / Application Insights, not in APIM</li>
+                <li>Identity provider configuration secrets — re-configure OAuth app secrets post-restore</li>
+            </ul>
+        </div>
+
+        <h4 style="color: #e2e8f0; font-family: ‘Outfit’, sans-serif; margin-top: 1.5rem; margin-bottom: 0.75rem;"><i class="fas fa-code" style="color: #34d399; margin-right: 6px;"></i>APIOps Pipeline for Continuous Config Parity</h4>
+        <p>Backup + restore is a recovery tool, not a sync tool. For continuous parity between UAE North and Sweden Central APIM instances, configure an <strong>APIOps extractor/publisher pipeline</strong> that runs on every merge to <code>main</code>:</p>
+
+        <pre><code class="language-yaml"># azure-pipelines-apiops.yml (abbreviated)
+trigger:
+  branches:
+    include: [ main ]
+
+stages:
+- stage: ExtractUAE
+  jobs:
+  - job: Extract
+    steps:
+    - task: AzureCLI@2
+      displayName: ‘Extract APIM config from UAE North’
+      inputs:
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: |
+          # APIOps extractor pulls APIs, policies, named values
+          ./extractor/run.sh \
+            --apimServiceName apim-uae-prod \
+            --resourceGroupName rg-apim-uae-prod \
+            --apiSpecificationFormat OpenApiJson \
+            --outputFolder $(Build.ArtifactStagingDirectory)/apim-config
+
+- stage: PublishSweden
+  dependsOn: ExtractUAE
+  condition: succeeded()
+  jobs:
+  - job: Publish
+    steps:
+    - task: AzureCLI@2
+      displayName: ‘Publish extracted config to Sweden Central’
+      inputs:
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: |
+          # Publisher deploys extracted config to Sweden DR instance
+          ./publisher/run.sh \
+            --apimServiceName apim-sweden-dr \
+            --resourceGroupName rg-apim-sweden-dr \
+            --configFile $(Build.ArtifactStagingDirectory)/apim-config/configuration.yaml \
+            --overrideNamedValues "ai-foundry-endpoint=$(SWEDEN_AI_ENDPOINT)" \
+                                  "ai-search-endpoint=$(SWEDEN_SEARCH_ENDPOINT)"</code></pre>
+
+        <div style="background: rgba(52, 211, 153, 0.08); border-left: 4px solid #34d399; padding: 1rem 1.5rem; border-radius: 4px; margin-bottom: 2rem;">
+            <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: #34d399; margin-right: 6px;"></i><strong>Key insight on Named Value overrides:</strong> The <code>--overrideNamedValues</code> flag in the publisher is what allows the same extracted APIM configuration to deploy to two different regions pointing to region-specific backend endpoints. This is the mechanism that eliminates manual post-restore reconfiguration. Without this, the Sweden DR APIM will point all its policies to UAE North backends — a silent failure that only reveals itself during an actual DR event.</p>
+        </div>
 
         <h2 id="landing-zone"><span class="gradient-text">Enterprise Landing Zone Engineering</span></h2>
         <p>We do not dump these systems into disparate resource groups. We design them into an aligned Azure Landing Zone utilizing a strict hub-and-spoke pattern:</p>
