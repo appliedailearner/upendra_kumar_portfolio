@@ -207,9 +207,231 @@
         }
 
         .blog-post-hero {
-            padding: 120px 0 60px;
-            background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.15), transparent 60%);
+            position: relative;
+            padding: 140px 0 70px;
+            background: #0f172a; /* Slate 900 base */
+            background: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.15) 0%, rgba(168, 85, 247, 0.08) 50%, transparent 100%), #0f172a;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+        }
+
+        .blog-post-hero::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: 25%;
+            width: 50%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, rgba(168, 85, 247, 0.04) 50%, transparent 100%);
+            filter: blur(80px);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .hero-nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .back-link {
+            color: #94a3b8;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #38bdf8;
+            transform: translateX(-4px);
+        }
+
+        .series-badge {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.12) 0%, rgba(56, 189, 248, 0.12) 100%);
+            color: #c084fc;
+            padding: 0.4rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .series-badge:hover {
+            border-color: rgba(168, 85, 247, 0.6);
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.25);
+            transform: translateY(-1px);
+        }
+
+        .hero-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(135deg, #ffffff 40%, #e2e8f0 80%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .blog-post-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .author-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid #38bdf8;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .author-avatar:hover {
+            transform: scale(1.08);
+        }
+
+        .author-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .author-name {
+            color: #f8fafc;
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        .author-title {
+            color: #94a3b8;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .meta-info-group {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .meta-info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meta-info-item i {
+            color: #38bdf8;
+        }
+
+        .blog-post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            position: relative;
+            z-index: 1;
+            margin-top: 1.5rem;
+        }
+
+        .blog-tag-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .blog-tag-pill.tag-azure {
+            background: rgba(56, 189, 248, 0.08);
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.15);
+        }
+
+        .blog-tag-pill.tag-azure:hover {
+            background: rgba(56, 189, 248, 0.15);
+            border-color: rgba(56, 189, 248, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .blog-tag-pill.tag-router {
+            background: rgba(168, 85, 247, 0.08);
+            color: #c084fc;
+            border: 1px solid rgba(168, 85, 247, 0.15);
+        }
+
+        .blog-tag-pill.tag-router:hover {
+            background: rgba(168, 85, 247, 0.15);
+            border-color: rgba(168, 85, 247, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .blog-tag-pill.tag-ai {
+            background: rgba(16, 185, 129, 0.08);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+
+        .blog-tag-pill.tag-ai:hover {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .blog-tag-pill.tag-finops {
+            background: rgba(245, 158, 11, 0.08);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.15);
+        }
+
+        .blog-tag-pill.tag-finops:hover {
+            background: rgba(245, 158, 11, 0.15);
+            border-color: rgba(245, 158, 11, 0.3);
+            transform: translateY(-1px);
         }
 
         .blog-post-content {
@@ -274,24 +496,36 @@
         /* Mobile Specific Overrides */
         @media (max-width: 991px) {
             .blog-post-hero {
-                text-align: center !important;
-                padding: 100px 1.5rem 40px !important;
+                text-align: left !important;
+                padding: 110px 1.5rem 40px !important;
             }
-            .blog-post-hero h1 {
-                font-size: 2.2rem !important;
+            .hero-nav-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+                margin-bottom: 2rem;
+            }
+            .hero-title {
+                font-size: 2.3rem !important;
                 line-height: 1.2;
             }
             .blog-post-meta {
-                justify-content: center !important;
                 flex-direction: column;
-                gap: 0.5rem !important;
-                align-items: center;
+                align-items: flex-start;
+                gap: 1.25rem;
+                padding: 1.25rem 0;
+            }
+            .meta-info-group {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 1rem 1.5rem;
+                width: 100%;
             }
             .blog-post-content {
                 padding: 2rem 1.25rem !important;
             }
-            .tag-container {
-                justify-content: center !important;
+            .blog-post-tags {
+                justify-content: flex-start !important;
             }
         }
 
@@ -408,31 +642,44 @@
     <!-- Blog Post Hero -->
     <section class="blog-post-hero">
         <div class="container" style="max-width: 1000px;">
-            <div style="margin-bottom: 2rem;">
-                <a href="../blog.html" style="color: var(--primary-color); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem;">
+            <div class="hero-nav-container">
+                <a href="../blog.html" class="back-link">
                     <i class="fas fa-arrow-left"></i> Back to Insights
                 </a>
-                <br>
-                <span style="background: rgba(168, 85, 247, 0.1); color: #c084fc; padding: 0.35rem 0.75rem; border-radius: 6px; font-size: 0.75rem; font-weight: 700; border: 1px solid rgba(168, 85, 247, 0.2); letter-spacing: 1px; text-transform: uppercase;">
+                <span class="series-badge">
                     <i class="fas fa-layer-group"></i> Enterprise AI Series
                 </span>
             </div>
 
-            <h1 style="font-family: 'Outfit', sans-serif; font-size: 3rem; line-height: 1.2; margin-bottom: 1.5rem; background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+            <h1 class="hero-title">
                 The Enterprise AI Model Layer: When to Use Azure AI Foundry Model Router and When Not To
             </h1>
 
             <div class="blog-post-meta">
-                <div><i class="fas fa-user"></i> Upendra Kumar</div>
-                <div><i class="fas fa-calendar"></i> May 20, 2026</div>
-                <div><i class="fas fa-clock"></i> 11 min read</div>
+                <div class="author-profile">
+                    <img src="../images/profile.webp" alt="Upendra Kumar" class="author-avatar">
+                    <div class="author-details">
+                        <span class="author-name">Upendra Kumar</span>
+                        <span class="author-title">Cloud Strategy &amp; Architecture</span>
+                    </div>
+                </div>
+                <div class="meta-info-group">
+                    <div class="meta-info-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>May 20, 2026</span>
+                    </div>
+                    <div class="meta-info-item">
+                        <i class="fas fa-clock"></i>
+                        <span>11 min read</span>
+                    </div>
+                </div>
             </div>
 
             <div class="blog-post-tags">
-                <span class="blog-tag"><i class="fas fa-tag"></i> Azure AI Foundry</span>
-                <span class="blog-tag"><i class="fas fa-tag"></i> Model Router</span>
-                <span class="blog-tag"><i class="fas fa-tag"></i> Enterprise AI</span>
-                <span class="blog-tag"><i class="fas fa-tag"></i> FinOps</span>
+                <span class="blog-tag-pill tag-azure"><i class="fas fa-tag"></i> Azure AI Foundry</span>
+                <span class="blog-tag-pill tag-router"><i class="fas fa-tag"></i> Model Router</span>
+                <span class="blog-tag-pill tag-ai"><i class="fas fa-tag"></i> Enterprise AI</span>
+                <span class="blog-tag-pill tag-finops"><i class="fas fa-tag"></i> FinOps</span>
             </div>
         </div>
     </section>
