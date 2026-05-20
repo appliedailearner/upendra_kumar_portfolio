@@ -790,23 +790,8 @@
             Model Router must reside within a structured, multi-layer gateway topology. It should not be exposed directly to client applications.
         </p>
 
-        <div class="diagram-container">
-[User / Business System]
-       | (HTTPS / OAuth2)
-       v
-[AI Gateway (Azure APIM)]
-       | -- Authentication & Authorization
-       | -- Centralized Event Hub & Audit Logs
-       | -- Rate Limiting & User Quota Shields
-       v
-[Orchestration Layer (LangChain / Semantic Kernel)]
-       | -- Prompt Templating & Retrieval (RAG Index)
-       | -- Workflow State & Retry Policies
-       v
-[Model Decision Layer (Azure AI Foundry)]
-       |---> [Model Router (Balanced / Cost Mode)] ---> GPT-4o-mini (Sweden Central)
-       |---> [Direct Pinned Endpoint]                ---> GPT-4o (Strict Compliance)
-       |---> [Fine-Tuned Endpoint]                 ---> Specialized Classification
+        <div style="text-align: center; margin: 2.5rem 0;">
+            <img src="../images/blog/azure-model-router-architecture.png" alt="Azure AI Foundry Model Router Enterprise Architecture Pattern" class="cinematic-video-effect" style="max-width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 15px 35px rgba(0,0,0,0.4);">
         </div>
 
         <!-- Section 11: When to Use Model Router -->
