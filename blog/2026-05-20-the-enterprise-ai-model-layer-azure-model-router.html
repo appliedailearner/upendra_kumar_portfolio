@@ -451,6 +451,7 @@
         }
 
         .checklist-group {
+            display: block !important;
             background: rgba(15, 23, 42, 0.4);
             border-radius: 12px;
             padding: 1.5rem;
@@ -589,6 +590,219 @@
             line-height: 1.5;
             color: #38bdf8;
             overflow-x: auto;
+        }
+
+        /* Interactive Decision Advisor */
+        .advisor-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin: 2.5rem 0;
+            background: rgba(15, 23, 42, 0.4);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(56, 189, 248, 0.1);
+        }
+
+        @media (min-width: 768px) {
+            .advisor-container {
+                grid-template-columns: 1.2fr 1fr;
+            }
+        }
+
+        .advisor-scenarios {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .scenario-card {
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1.25rem;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+            font-family: inherit;
+        }
+
+        .scenario-card:hover {
+            background: rgba(59, 130, 246, 0.08);
+            border-color: rgba(96, 165, 250, 0.3);
+            transform: translateX(4px);
+        }
+
+        .scenario-card.active {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: #3b82f6;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+        }
+
+        .scenario-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: transparent;
+            transition: background 0.3s;
+        }
+
+        .scenario-card.active::before {
+            background: #3b82f6;
+        }
+
+        .scenario-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            color: #94a3b8;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .scenario-card.active .scenario-number {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .scenario-text {
+            font-size: 1rem;
+            color: #e2e8f0;
+            line-height: 1.4;
+            font-weight: 500;
+        }
+
+        .advisor-result {
+            display: flex;
+            flex-direction: column;
+            background: rgba(10, 15, 30, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1.75rem;
+            min-height: 320px;
+            position: relative;
+            overflow: hidden;
+            justify-content: space-between;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .result-header {
+            margin-bottom: 1.25rem;
+        }
+
+        .result-badge {
+            display: inline-block;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.75rem;
+        }
+
+        .badge-router-cost { background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); }
+        .badge-router-balanced { background: rgba(59, 130, 246, 0.1); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.2); }
+        .badge-pinned { background: rgba(245, 158, 11, 0.1); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.2); }
+        .badge-finetune { background: rgba(168, 85, 247, 0.1); color: #a855f7; border: 1px solid rgba(168, 85, 247, 0.2); }
+        .badge-code { background: rgba(148, 163, 184, 0.1); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.2); }
+
+        .result-pattern {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+            margin-top: 0;
+        }
+
+        .result-description {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+        }
+
+        .result-metrics {
+            display: flex;
+            gap: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .metric-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .metric-item-label {
+            font-size: 0.75rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-item-val {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            font-weight: 600;
+        }
+
+        .result-code-box {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 0.85rem;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            font-size: 0.75rem;
+            color: #e2e8f0;
+            white-space: pre-wrap;
+            word-break: break-all;
+            margin: 0;
+            overflow-x: auto;
+        }
+
+        .toggle-view-btn {
+            background: transparent;
+            border: 1px dashed rgba(56, 189, 248, 0.3);
+            color: #38bdf8;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .toggle-view-btn:hover {
+            background: rgba(56, 189, 248, 0.08);
+            border-color: #38bdf8;
+            color: white;
+        }
+
+        .view-section {
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        .view-section.hidden {
+            display: none !important;
         }
     </style>
 
@@ -1187,13 +1401,53 @@
         </p>
 
         <!-- Section 15: Decision Framework -->
-        <h2 id="decision-framework"><span class="gradient-text">Practical Decision Framework</span></h2>
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; gap: 1rem;">
+            <h2 id="decision-framework" style="margin: 0;"><span class="gradient-text">Practical Decision Framework</span></h2>
+            <button class="toggle-view-btn" onclick="toggleDecisionView()">
+                <i class="fas fa-table" style="margin-right: 0.5rem;"></i>Switch to Table View
+            </button>
+        </div>
         <p>
-            Use this quick lookup framework when defining how a workflow should reach models:
+            Use this interactive decision advisor or switch to the quick lookup table to evaluate target patterns for model routing:
         </p>
 
-        <div style="overflow-x: auto; overflow-y: hidden;">
-            <table class="styled-table" style="min-width: 600px;">
+        <!-- Interactive Advisor View -->
+        <div id="advisor-view" class="view-section advisor-container">
+            <div class="advisor-scenarios">
+                <button class="scenario-card active" onclick="selectScenario(0, this)">
+                    <span class="scenario-number">1</span>
+                    <span class="scenario-text">Is the task low-risk and high-volume?</span>
+                </button>
+                <button class="scenario-card" onclick="selectScenario(1, this)">
+                    <span class="scenario-number">2</span>
+                    <span class="scenario-text">Is the workflow mixed or unpredictable?</span>
+                </button>
+                <button class="scenario-card" onclick="selectScenario(2, this)">
+                    <span class="scenario-number">3</span>
+                    <span class="scenario-text">Is the workflow regulated or contractually restricted?</span>
+                </button>
+                <button class="scenario-card" onclick="selectScenario(3, this)">
+                    <span class="scenario-number">4</span>
+                    <span class="scenario-text">Does the output require fixed repeatability (benchmarks)?</span>
+                </button>
+                <button class="scenario-card" onclick="selectScenario(4, this)">
+                    <span class="scenario-number">5</span>
+                    <span class="scenario-text">Does the task need deep domain-specific vocabulary?</span>
+                </button>
+                <button class="scenario-card" onclick="selectScenario(5, this)">
+                    <span class="scenario-number">6</span>
+                    <span class="scenario-text">Is the logic deterministic (e.g. check if field is null)?</span>
+                </button>
+            </div>
+            
+            <div class="advisor-result" id="advisor-result-panel">
+                <!-- Will be dynamically populated by Javascript -->
+            </div>
+        </div>
+
+        <!-- Table Lookup View (Hidden by default) -->
+        <div id="table-view" class="view-section hidden" style="overflow-x: auto; overflow-y: hidden; margin: 2rem 0;">
+            <table class="styled-table" style="min-width: 600px; margin-top: 0;">
                 <thead>
                     <tr>
                         <th>Architectural Question</th>
@@ -1532,6 +1786,148 @@
                     }
                 }
                 replaceTextNodes(contentBlock);
+            }
+        });
+    </script>
+
+    <!-- Interactive Decision Advisor Script -->
+    <script>
+        const scenarios = [
+            {
+                badgeClass: "badge-router-cost",
+                badgeText: "Model Router (Cost Mode)",
+                pattern: "Model Router: Cost-Optimized Path",
+                description: "Optimizes operational costs by default. Routes standard queries to low-tier, low-cost models. Dynamic upgrades to premium tiers only occur if complexity threshold is exceeded.",
+                metrics: [
+                    { label: "Cost Profile", val: "Minimal (Save up to 40%)" },
+                    { label: "Latency Profile", val: "Balanced (Low simple path)" }
+                ],
+                code: "{\n  \"properties\": {\n    \"routingMode\": \"cost\",\n    \"modelSubset\": [\"smaller-model\", \"reasoning-model\"]\n  }\n}"
+            },
+            {
+                badgeClass: "badge-router-balanced",
+                badgeText: "Model Router (Balanced Mode)",
+                pattern: "Model Router: Performance & Budget",
+                description: "Dynamically classifies incoming prompts. Simple requests are routed to low-tier models to save cost, while rich semantic/reasoning queries go directly to higher-capability reasoning models.",
+                metrics: [
+                    { label: "Cost Profile", val: "Optimized (Proportional)" },
+                    { label: "Latency Profile", val: "Aggregated Average" }
+                ],
+                code: "{\n  \"properties\": {\n    \"routingMode\": \"balanced\",\n    \"modelSubset\": [\"smaller-model\", \"reasoning-model\"]\n  }\n}"
+            },
+            {
+                badgeClass: "badge-pinned",
+                badgeText: "Direct Approved Model (Pinned)",
+                pattern: "Pinned Endpoint (Bypassing Router)",
+                description: "Required when compliance, sovereign guardrails, or strict audit policies mandate processing at a specific endpoint. Bypassing dynamic routing guarantees execution boundaries.",
+                metrics: [
+                    { label: "Cost Profile", val: "Fixed Tier Rates" },
+                    { label: "Latency Profile", val: "Endpoint Dependent" }
+                ],
+                code: "// Pin directly to the approved regional deployment\nconst client = new OpenAIClient(\n  \"https://sweden-pinned-endpoint.openai.azure.com/\"\n);"
+            },
+            {
+                badgeClass: "badge-pinned",
+                badgeText: "Direct Approved Model (Pinned)",
+                pattern: "Static Deployment (No Model Drift)",
+                description: "Used when prompt engineering templates and performance benchmarks are strictly dependent on a fixed model version. Disables model auto-updates to enforce absolute repeatability.",
+                metrics: [
+                    { label: "Cost Profile", val: "Standard Deployment" },
+                    { label: "Latency Profile", val: "Consistent Version Metrics" }
+                ],
+                code: "{\n  \"name\": \"pinned-model-deployment\",\n  \"properties\": {\n    \"model\": {\n      \"format\": \"OpenAI\",\n      \"name\": \"fixed-model-version\",\n      \"version\": \"0125\" // Pinned version\n    }\n  }\n}"
+            },
+            {
+                badgeClass: "badge-finetune",
+                badgeText: "Fine-Tuned Model",
+                pattern: "Dedicated Custom Weights",
+                description: "Necessary when the application requires specialized domain vocabulary, custom metadata structures, or adherence to strict formatting constraints that generic models cannot resolve.",
+                metrics: [
+                    { label: "Cost Profile", val: "Dedicated Node hosting (High)" },
+                    { label: "Latency Profile", val: "Tuned weight execution" }
+                ],
+                code: "{\n  \"properties\": {\n    \"model\": {\n      \"format\": \"OpenAI\",\n      \"name\": \"custom-finetuned-model-name\"\n    }\n  }\n}"
+            },
+            {
+                badgeClass: "badge-code",
+                badgeText: "Vanilla Application Code",
+                pattern: "Native Code Execution (No LLM)",
+                description: "Do not route logical validations (like null values, pattern matching, regex, simple conditions) to LLMs. Processing deterministic logic in code is faster, completely free, and secure.",
+                metrics: [
+                    { label: "Cost Profile", val: "Zero Token Spend" },
+                    { label: "Latency Profile", val: "Sub-millisecond" }
+                ],
+                code: "// Deterministic check - skip AI model calls entirely\nif (inputData === null || inputData.trim() === \"\") {\n    return false;\n}"
+            }
+        ];
+
+        function selectScenario(index, element) {
+            // Remove active class from all scenario cards
+            const cards = document.querySelectorAll('.scenario-card');
+            cards.forEach(card => card.classList.remove('active'));
+            
+            // Add active class to clicked card
+            element.classList.add('active');
+            
+            // Update the result panel with fading transition
+            const panel = document.getElementById('advisor-result-panel');
+            panel.style.opacity = '0';
+            panel.style.transform = 'translateY(5px)';
+            
+            setTimeout(() => {
+                const data = scenarios[index];
+                let metricsHTML = '';
+                data.metrics.forEach(m => {
+                    metricsHTML += `
+                        <div class="metric-item">
+                            <span class="metric-item-label">${m.label}</span>
+                            <span class="metric-item-val">${m.val}</span>
+                        </div>
+                    `;
+                });
+                
+                panel.innerHTML = `
+                    <div class="result-header">
+                        <span class="result-badge ${data.badgeClass}">${data.badgeText}</span>
+                        <h4 class="result-pattern">${data.pattern}</h4>
+                        <p class="result-description">${data.description}</p>
+                    </div>
+                    <div class="result-metrics">
+                        ${metricsHTML}
+                    </div>
+                    <pre class="result-code-box"><code>${escapeHTML(data.code)}</code></pre>
+                `;
+                
+                panel.style.opacity = '1';
+                panel.style.transform = 'translateY(0)';
+            }, 200);
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        function toggleDecisionView() {
+            const advisorView = document.getElementById('advisor-view');
+            const tableView = document.getElementById('table-view');
+            const btn = document.querySelector('.toggle-view-btn');
+            
+            if (advisorView.classList.contains('hidden')) {
+                advisorView.classList.remove('hidden');
+                tableView.classList.add('hidden');
+                btn.innerHTML = '<i class="fas fa-table" style="margin-right: 0.5rem;"></i>Switch to Table View';
+            } else {
+                advisorView.classList.add('hidden');
+                tableView.classList.remove('hidden');
+                btn.innerHTML = '<i class="fas fa-magic" style="margin-right: 0.5rem;"></i>Switch to Advisor View';
+            }
+        }
+
+        // Initialize the first scenario on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const activeCard = document.querySelector('.scenario-card.active');
+            if (activeCard) {
+                selectScenario(0, activeCard);
             }
         });
     </script>
