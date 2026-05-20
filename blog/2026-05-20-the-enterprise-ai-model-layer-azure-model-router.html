@@ -179,6 +179,7 @@
             list-style: none;
             padding: 0;
             margin: 0;
+            position: relative;
         }
         .toc-list li {
             margin-bottom: 0.75rem;
@@ -188,19 +189,28 @@
             text-decoration: none;
             font-size: 0.9rem;
             display: block;
-            padding-left: 0.5rem;
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.2s ease;
+            padding-left: 0.75rem;
+            border-left: 1.5px solid rgba(255, 255, 255, 0.05);
+            transition: color 0.2s ease;
             line-height: 1.4;
         }
         .toc-link:hover {
             color: #e2e8f0;
-            border-left-color: #a855f7;
         }
         .toc-link.active {
-            color: #60a5fa;
+            color: #38bdf8;
             font-weight: 600;
-            border-left: 3px solid #60a5fa;
+        }
+        .toc-indicator {
+            position: absolute;
+            left: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #38bdf8, #a855f7);
+            border-radius: 4px;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            pointer-events: none;
+            z-index: 2;
+            opacity: 0;
         }
         @media (max-width: 1200px) {
             .toc-container { display: none; }
@@ -804,6 +814,78 @@
         .view-section.hidden {
             display: none !important;
         }
+
+        /* Checklist Strike-through Sweep Animations */
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+        .checklist-item input[type="checkbox"] {
+            accent-color: #38bdf8;
+            cursor: pointer;
+            margin-top: 0.25rem;
+        }
+        .checklist-item span {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .checklist-item input[type="checkbox"]:checked ~ span {
+            color: #64748b;
+        }
+        .checklist-item span::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 55%;
+            width: 0;
+            height: 1.5px;
+            background: #64748b;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .checklist-item input[type="checkbox"]:checked ~ span::after {
+            width: 100%;
+        }
+
+        /* FinOps Calculator Layout styles */
+        @media (min-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1.2fr 1fr !important;
+            }
+        }
+        
+        /* Smooth ranges for slider inputs */
+        input[type="range"] {
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.1);
+            height: 6px;
+            border-radius: 4px;
+            outline: none;
+            transition: background 0.3s;
+        }
+        input[type="range"]:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #38bdf8;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+            transition: transform 0.1s;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+        input[type="range"]#tokens-slider::-webkit-slider-thumb {
+            background: #a855f7;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+        }
     </style>
 
     <!-- Performance: Preconnect to Font & Script Servers -->
@@ -1181,7 +1263,12 @@
         </ul>
 
         <!-- Section 8: Cost planning for Sweden Central -->
-        <h2 id="cost-planning"><span class="gradient-text">FinOps Cost Calculator: Sweden Central Planning</span></h2>
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; gap: 1rem;">
+            <h2 id="cost-planning" style="margin: 0;"><span class="gradient-text">FinOps Cost Calculator: Sweden Central Planning</span></h2>
+            <button class="toggle-cost-btn toggle-view-btn" onclick="toggleCostView()">
+                <i class="fas fa-table" style="margin-right: 0.5rem;"></i>Switch to Table View
+            </button>
+        </div>
         <p>
             Model Router is billed based on token consumption rather than fixed hourly instances. The calculation uses variable parameter <code>P</code>, which represents the input price per million tokens (based on your Azure Enterprise Agreement or public rates).
         </p>
@@ -1192,8 +1279,73 @@
             <strong>Monthly cost</strong> = <code>Hourly cost &times; active usage hours per month</code>
         </div>
 
-        <div style="overflow-x: auto; overflow-y: hidden;">
-            <table class="styled-table" style="min-width: 600px;">
+        <!-- Interactive FinOps Calculator Widget -->
+        <div id="calculator-view" class="view-section calculator-container" style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(56, 189, 248, 0.1); border-radius: 16px; padding: 2rem; margin: 2.5rem 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                <h4 style="margin: 0; color: #38bdf8; font-family: 'Outfit', sans-serif; font-size: 1.25rem;"><i class="fas fa-calculator" style="margin-right: 0.5rem;"></i>Interactive FinOps Estimator</h4>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <label for="price-parameter" style="font-size: 0.85rem; color: #94a3b8;">Base Price (P) per 1M tokens:</label>
+                    <input type="number" id="price-parameter" value="1.00" step="0.05" min="0.05" style="background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); color: white; padding: 0.25rem 0.5rem; border-radius: 6px; width: 80px; font-family: inherit; font-size: 0.9rem;">
+                </div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr; gap: 2rem; margin-bottom: 1.5rem;" class="comparison-grid">
+                <!-- Slider Controls -->
+                <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+                    <div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.95rem;">
+                            <span style="color: #cbd5e1; font-weight: 500;">Requests per Hour:</span>
+                            <span id="requests-val" style="color: #60a5fa; font-weight: 700; font-family: 'JetBrains Mono', monospace;">1,000</span>
+                        </div>
+                        <input type="range" id="requests-slider" min="50" max="25000" step="50" value="1000" style="width: 100%; accent-color: #3b82f6; cursor: pointer;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #64748b; margin-top: 0.25rem;">
+                            <span>50 reqs</span>
+                            <span>25k reqs</span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.95rem;">
+                            <span style="color: #cbd5e1; font-weight: 500;">Avg Tokens per Request:</span>
+                            <span id="tokens-val" style="color: #a855f7; font-weight: 700; font-family: 'JetBrains Mono', monospace;">4,000</span>
+                        </div>
+                        <input type="range" id="tokens-slider" min="500" max="16000" step="100" value="4000" style="width: 100%; accent-color: #a855f7; cursor: pointer;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #64748b; margin-top: 0.25rem;">
+                            <span>500 tokens</span>
+                            <span>16k tokens</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Display Results -->
+                <div style="background: rgba(10, 15, 30, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; gap: 1.25rem;">
+                    <div>
+                        <span style="display: block; font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">Calculated Token Volume</span>
+                        <div style="font-size: 1.35rem; color: #e2e8f0; font-weight: 700; font-family: 'Outfit', sans-serif;"><span id="calc-volume" style="color: #38bdf8; font-family: 'JetBrains Mono', monospace;">4,000,000</span> <span style="font-size: 0.9rem; font-weight: 400; color: #94a3b8;">tokens/hour</span></div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 1rem;">
+                        <div>
+                            <span style="display: block; font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">Pilot Scale (176 hrs)</span>
+                            <div style="font-size: 1.25rem; color: white; font-weight: 700; font-family: 'Outfit', sans-serif;">$<span id="pilot-cost" style="font-family: 'JetBrains Mono', monospace;">176.00</span></div>
+                        </div>
+                        <div>
+                            <span style="display: block; font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">Production Scale (730 hrs)</span>
+                            <div style="font-size: 1.25rem; color: white; font-weight: 700; font-family: 'Outfit', sans-serif;">$<span id="prod-cost" style="font-family: 'JetBrains Mono', monospace;">730.00</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="font-size: 0.85rem; color: #64748b; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 1rem; display: flex; align-items: center; gap: 0.5rem; justify-content: space-between; flex-wrap: wrap;">
+                <span>* Cost formula: (Requests/hr &times; Tokens/req &times; Hours &times; P) / 1,000,000</span>
+                <span id="tier-badge" class="result-badge badge-router-balanced" style="margin-bottom: 0; padding: 0.25rem 0.5rem; font-size: 0.7rem; text-transform: none;">Enterprise Copilot</span>
+            </div>
+        </div>
+
+        <!-- Table Lookup View (Hidden by default) -->
+        <div id="cost-table-view" class="view-section hidden" style="overflow-x: auto; overflow-y: hidden; margin: 2rem 0;">
+            <table class="styled-table" style="min-width: 600px; margin-top: 0;">
                 <thead>
                     <tr>
                         <th>Scenario Name</th>
@@ -1700,6 +1852,24 @@
             if (tocList) {
                 const headers = document.querySelectorAll('.blog-post-content h2');
                 const tocLinks = document.querySelectorAll('.toc-link');
+                
+                // Create sliding indicator
+                const indicator = document.createElement('div');
+                indicator.className = 'toc-indicator';
+                tocList.appendChild(indicator);
+                
+                function updateIndicator(activeLink) {
+                    if (activeLink) {
+                        const listRect = tocList.getBoundingClientRect();
+                        const linkRect = activeLink.getBoundingClientRect();
+                        indicator.style.top = `${linkRect.top - listRect.top}px`;
+                        indicator.style.height = `${linkRect.height}px`;
+                        indicator.style.opacity = '1';
+                    } else {
+                        indicator.style.opacity = '0';
+                    }
+                }
+
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
@@ -1707,12 +1877,20 @@
                                 link.classList.remove('active');
                                 if (link.getAttribute('href').substring(1) === entry.target.id) {
                                     link.classList.add('active');
+                                    updateIndicator(link);
                                 }
                             });
                         }
                     });
-                }, { rootMargin: '0px 0px -80% 0px', threshold: 0.1 });
+                }, { rootMargin: '0px 0px -60% 0px', threshold: 0.1 });
+                
                 headers.forEach(header => observer.observe(header));
+
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    const activeLink = document.querySelector('.toc-link.active');
+                    updateIndicator(activeLink);
+                });
             }
         });
     </script>
@@ -1735,6 +1913,85 @@
                 });
             });
         });
+    </script>
+
+    <!-- Interactive FinOps Calculator Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const reqSlider = document.getElementById('requests-slider');
+            const tokSlider = document.getElementById('tokens-slider');
+            const priceInput = document.getElementById('price-parameter');
+            
+            const reqVal = document.getElementById('requests-val');
+            const tokVal = document.getElementById('tokens-val');
+            const calcVol = document.getElementById('calc-volume');
+            const pilotCost = document.getElementById('pilot-cost');
+            const prodCost = document.getElementById('prod-cost');
+            const tierBadge = document.getElementById('tier-badge');
+            
+            if (reqSlider && tokSlider && priceInput) {
+                function formatNumber(num) {
+                    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                }
+                
+                function calculate() {
+                    const reqs = parseInt(reqSlider.value);
+                    const tokens = parseInt(tokSlider.value);
+                    const price = parseFloat(priceInput.value) || 0;
+                    
+                    reqVal.innerText = formatNumber(reqs);
+                    tokVal.innerText = formatNumber(tokens);
+                    
+                    const volumePerHour = reqs * tokens;
+                    calcVol.innerText = formatNumber(volumePerHour);
+                    
+                    const hourlyCost = (volumePerHour / 1000000) * price;
+                    const pilot = hourlyCost * 176;
+                    const prod = hourlyCost * 730;
+                    
+                    pilotCost.innerText = pilot.toFixed(2);
+                    prodCost.innerText = prod.toFixed(2);
+                    
+                    // Update scale tier badge
+                    if (volumePerHour < 200000) {
+                        tierBadge.innerText = "Light Pilot";
+                        tierBadge.className = "result-badge badge-router-cost";
+                    } else if (volumePerHour < 2000000) {
+                        tierBadge.innerText = "Team Assistant";
+                        tierBadge.className = "result-badge badge-pinned";
+                    } else if (volumePerHour < 8000000) {
+                        tierBadge.innerText = "Enterprise Copilot";
+                        tierBadge.className = "result-badge badge-router-balanced";
+                    } else {
+                        tierBadge.innerText = "High-Volume Workflow";
+                        tierBadge.className = "result-badge badge-finetune";
+                    }
+                }
+                
+                reqSlider.addEventListener('input', calculate);
+                tokSlider.addEventListener('input', calculate);
+                priceInput.addEventListener('input', calculate);
+                
+                // Initialize
+                calculate();
+            }
+        });
+
+        function toggleCostView() {
+            const calcView = document.getElementById('calculator-view');
+            const tableView = document.getElementById('cost-table-view');
+            const btn = document.querySelector('.toggle-cost-btn');
+            
+            if (calcView.classList.contains('hidden')) {
+                calcView.classList.remove('hidden');
+                tableView.classList.add('hidden');
+                btn.innerHTML = '<i class="fas fa-table" style="margin-right: 0.5rem;"></i>Switch to Table View';
+            } else {
+                calcView.classList.add('hidden');
+                tableView.classList.remove('hidden');
+                btn.innerHTML = '<i class="fas fa-calculator" style="margin-right: 0.5rem;"></i>Switch to Calculator';
+            }
+        }
     </script>
 
     <!-- ELI5 Smart Glossary Script -->
