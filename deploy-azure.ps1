@@ -1,6 +1,6 @@
 # Simplified Azure Deployment
 param([string]$StorageAccount = "porfolioupendrakumar", [string]$Container = "`$web", [switch]$Force)
-$ErrorActionPreference = "Stop"
+$ErrorActionPreference = "Continue"
 
 Write-Host "Deploying to $StorageAccount..." -ForegroundColor Cyan
 
