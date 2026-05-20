@@ -706,6 +706,7 @@
                 <li><a href="#orchestration-choices" class="toc-link">Orchestration Choices</a></li>
                 <li><a href="#best-practices" class="toc-link">Best Practices Framework</a></li>
                 <li><a href="#decision-framework" class="toc-link">Decision Framework</a></li>
+                <li><a href="#production-failures" class="toc-link">What Can Go Wrong</a></li>
                 <li><a href="#final-recommendation" class="toc-link">Final Recommendation</a></li>
                 <li><a href="#deployment-checklist" class="toc-link">Deployment Checklist</a></li>
                 <li><a href="#references" class="toc-link">References</a></li>
@@ -795,12 +796,12 @@
                     </tr>
                     <tr>
                         <td><strong>Cost</strong></td>
-                        <td>Lower-cost model selection (e.g. GPT-4o-mini)</td>
+                        <td>Lower-cost model selection (e.g. smaller lower-cost model)</td>
                         <td>High-volume, lower-risk classification/extraction tasks</td>
                     </tr>
                     <tr>
                         <td><strong>Quality</strong></td>
-                        <td>Highest-quality response (e.g. GPT-4o)</td>
+                        <td>Highest-quality response (e.g. higher-capability reasoning model)</td>
                         <td>Complex multi-step reasoning and critical regulatory tasks</td>
                     </tr>
                 </tbody>
@@ -813,7 +814,7 @@
 
         <div class="comparison-grid">
             <div class="glass-card">
-                <h3 style="color: #a855f7; margin-top: 0;"><i class="fas fa-concierge-bell"></i> Model Router (The Smart Valet)</h3>
+                <h3 style="color: #a855f7; margin-top: 0;"><i class="fas fa-layer-group"></i> Model Router: The Model Decision Layer</h3>
                 <ul style="padding-left: 1.25rem; font-size: 0.95rem; line-height: 1.6; margin-bottom: 0;">
                     <li>Optimizes individual prompt execution path</li>
                     <li>Evaluates prompt complexity dynamically</li>
@@ -823,7 +824,7 @@
                 </ul>
             </div>
             <div class="glass-card">
-                <h3 style="color: #60a5fa; margin-top: 0;"><i class="fas fa-shield-alt"></i> AI Gateway (The Security Gate)</h3>
+                <h3 style="color: #60a5fa; margin-top: 0;"><i class="fas fa-shield-alt"></i> AI Gateway: The Access and Governance Layer</h3>
                 <ul style="padding-left: 1.25rem; font-size: 0.95rem; line-height: 1.6; margin-bottom: 0;">
                     <li>Enforces authentication, authorization, and audit logs</li>
                     <li>Applies global rate limits and user-level token quotas</li>
@@ -852,7 +853,7 @@
                 <tbody>
                     <tr>
                         <td><strong>Sweden Central</strong></td>
-                        <td>Strong starting point for European workloads. Supports EU Data Boundary (EUDB) compliance, ensuring prompt and response data remains within the EU.</td>
+                        <td>Strong starting point for European workloads. Aligns with EU Data Boundary (EUDB) expectations, supporting prompt and response data residency within the EU.</td>
                         <td>High (EUDB Compliant)</td>
                     </tr>
                     <tr>
@@ -865,7 +866,10 @@
         </div>
 
         <p>
-            Microsoft's Model Router troubleshooting guidance states that deployment fails if the Foundry resource is not in <strong>East US 2</strong> or <strong>Sweden Central</strong>. For European enterprises, selecting Sweden Central with <strong>Data Zone Standard</strong> is critical to guarantee data sovereignty.
+            As of the current Microsoft documentation, Model Router deployment requires the Azure AI Foundry resource to be in <strong>East US 2</strong> or <strong>Sweden Central</strong>. This should be validated before production rollout because Azure AI Foundry feature availability can vary by model, deployment type, quota, and region.
+        </p>
+        <p>
+            For European workloads, Sweden Central with <strong>Data Zone Standard</strong> is a strong starting point when EU data-zone processing is required. It supports alignment with EU data-boundary expectations, but final sovereignty and compliance posture must still be validated against the customer's legal, regulatory, and contractual requirements.
         </p>
 
         <!-- Section 5: The business problem Model Router solves -->
@@ -888,31 +892,31 @@
                     <tr>
                         <td>Support Ticket Triage</td>
                         <td>Low</td>
-                        <td>Cheaper (e.g. GPT-4o-mini)</td>
+                        <td>Cheaper (smaller lower-cost model)</td>
                         <td>Cost Mode</td>
                     </tr>
                     <tr>
                         <td>FAQ Response Drafting</td>
                         <td>Low</td>
-                        <td>Cheaper (e.g. GPT-4o-mini)</td>
+                        <td>Cheaper (smaller lower-cost model)</td>
                         <td>Cost Mode</td>
                     </tr>
                     <tr>
-                        <td>Policy Document Summarization</td>
+                        <td>Customer Sentiment Analysis</td>
                         <td>Medium</td>
-                        <td>Balanced</td>
+                        <td>Cheaper (smaller lower-cost model)</td>
                         <td>Balanced Mode</td>
                     </tr>
                     <tr>
-                        <td>RFP Response Drafting</td>
+                        <td>Comprehensive Document Summarization</td>
                         <td>Medium</td>
-                        <td>Balanced</td>
+                        <td>Balanced Selection</td>
                         <td>Balanced Mode</td>
                     </tr>
                     <tr>
                         <td>Contract Risk & Compliance Auditing</td>
                         <td>High</td>
-                        <td>Advanced (e.g. GPT-4o)</td>
+                        <td>Advanced (higher-capability reasoning model)</td>
                         <td>Quality Mode / Fixed Pinning</td>
                     </tr>
                     <tr>
@@ -933,9 +937,12 @@
             Without Model Router, teams often build brittle application code containing nested conditional switches to select endpoints based on task name or budget rules. Model Router encapsulates this, presenting a stable endpoint to application developers while letting platform engineers tweak model weights behind the scenes.
         </p>
         
-        <h3>2. Natively Enforces Approved Subsets</h3>
+        <h3>2. Enforces Approved Model Subsets</h3>
         <p>
-            A <em>Model Subset</em> is a governance boundary. It restricts the pool of models the router is allowed to use. This ensures compliance with customer agreements, vendor policies, and regional rules (e.g., only using models certified for Sweden Central data processing).
+            Model Router restricts the pool of eligible models to an approved subset. While it honors the configured deployment type and data-zone boundaries where applicable, enterprise-wide security and compliance enforcement still require broader platform controls such as Azure Policy, RBAC, API gateway policy, logging, private networking, and procurement controls. The router is not a standalone governance plane.
+        </p>
+        <p>
+            <strong>Provider caveat:</strong> Some model families may have additional deployment requirements. For example, model families outside the default OpenAI path may need separate deployment or provider-specific setup before Model Router can route to them. Validate this during implementation instead of assuming every catalog model is immediately routable.
         </p>
 
         <h3>3. Supports Model Abstraction</h3>
@@ -956,6 +963,7 @@
             <li><strong>Hidden Context Window Constraints:</strong> The context window of the router does not automatically match the largest model in the pool. When parsing huge contract drafts, check your subset limitations.</li>
             <li><strong>FinOps Tracking Challenges:</strong> Dynamic routing can hide which models are generating cost. If "Quality" mode is overused, token budgets can expire rapidly without developers realizing it.</li>
             <li><strong>Multimodal Limitations:</strong> While the router can take image inputs when vision-enabled models are in the pool, routing decisions are purely based on the text prompt context. Audio inputs are not supported.</li>
+            <li><strong>Version Drift and Auto-Update Risk:</strong> Model Router versions can introduce a different set of underlying models. If auto-update is enabled, routing behavior, output quality, latency, and cost profile can change over time. Production workloads should treat Model Router version updates like controlled platform changes. Evaluate the new router version against representative prompts before promotion, and track changes in selected model, cost per workflow, latency, grounding quality, and human rework rate.</li>
         </ul>
 
         <!-- Section 8: Cost planning for Sweden Central -->
@@ -966,9 +974,8 @@
 
         <div class="callout-box">
             <h4><i class="fas fa-coins"></i> Core Planning Formula</h4>
-            <strong>Hourly Input Cost</strong> = <code>(Input Tokens / 1,000,000) &times; P</code> <br>
-            <strong>Office-Hours Month:</strong> 176 hours (8 hrs/day, 22 business days) <br>
-            <strong>Always-On Month:</strong> 730 hours (24x7)
+            <strong>Hourly cost</strong> = <code>(input tokens per hour / 1,000,000) &times; current Model Router input price per 1M tokens</code> <br><br>
+            <strong>Monthly cost</strong> = <code>Hourly cost &times; active usage hours per month</code>
         </div>
 
         <div style="overflow-x: auto; overflow-y: hidden;">
@@ -1016,7 +1023,7 @@
         </div>
 
         <p>
-            The FinOps lesson is clear: <em>The cost problem is not the router itself, but uncontrolled prompt token volume and unmanaged workflow loops.</em> Establish metric logging for the cost per accepted business outcome rather than tracking raw token costs alone.
+            The FinOps lesson is clear: <em>The cost problem is not the router itself, but uncontrolled prompt token volume and unmanaged workflow loops.</em> Establish metric logging for the cost per accepted business outcome rather than tracking raw token costs alone. A low-cost model output that needs human rework is not cheap. A higher-cost model that produces a trusted answer in one pass may be cheaper at the workflow level.
         </p>
 
         <!-- Section 9: Throughput Planning -->
@@ -1095,11 +1102,11 @@
                 <tbody>
                     <tr>
                         <td><strong>Regulated Decision Workflows</strong></td>
-                        <td>Use a <strong>Direct Approved Model (Pinned)</strong> to guarantee audit compliance.</td>
+                        <td>Use a <strong>Direct Approved Model (Pinned)</strong> to support strict audit compliance.</td>
                     </tr>
                     <tr>
                         <td><strong>Strict Benchmark Testing</strong></td>
-                        <td>Pin specific model versions (e.g. <code>gpt-4o-0513</code>) for output consistency.</td>
+                        <td>Pin specific model versions (direct approved model deployment) for output consistency.</td>
                     </tr>
                     <tr>
                         <td><strong>Deterministic Rules Validation</strong></td>
@@ -1146,15 +1153,17 @@
 
         <h3>4. Log the Selected Model</h3>
         <p>
-            Do not let the router become a black box. Downstream logging schemas must capture the model chosen for auditability:
+            Do not let the router become a black box. This is practical because the selected underlying model is disclosed in the API response through the model field. Applications should capture this value for audit, FinOps, troubleshooting, and quality analysis. Downstream logging schemas must capture this for auditability:
         </p>
         <pre><code>{
-  "application": "enterprise-copilot",
   "routingMode": "balanced",
-  "selectedModel": "gpt-4o-mini-2024-07-18",
-  "inputTokens": 4500,
-  "outputTokens": 800,
-  "latencyMs": 1400
+  "selectedModel": "model-name",
+  "promptClass": "high-risk",
+  "inputTokens": 8500,
+  "outputTokens": 1200,
+  "latencyMs": 7400,
+  "userRating": 4,
+  "humanOverride": false
 }</code></pre>
 
         <h3>5. Build an Evaluation Harness</h3>
@@ -1220,17 +1229,39 @@
             </table>
         </div>
 
-        <!-- Section 16: Final Recommendation -->
+        <!-- Section 16: What Can Go Wrong in Production -->
+        <h2 id="production-failures"><span class="gradient-text">What Can Go Wrong in Production</span></h2>
+        <p>
+            Model routing can fail as an operating model if teams do not control the surrounding platform.
+        </p>
+        <p>
+            Common failure patterns include:
+        </p>
+        <ul>
+            <li>Treating Model Router as a full AI governance layer.</li>
+            <li>Allowing uncontrolled model subsets in production.</li>
+            <li>Ignoring router version changes and auto-update behavior.</li>
+            <li>Measuring only token cost instead of cost per accepted outcome.</li>
+            <li>Sending large documents directly to the model instead of using extraction, chunking, retrieval, and grounding.</li>
+            <li>Using dynamic routing for regulated workflows that require a fixed approved model.</li>
+            <li>Failing to log the selected model, token usage, latency, and workflow context.</li>
+            <li>Assuming data-zone alignment equals complete legal sovereignty.</li>
+        </ul>
+        <p>
+            The fix is not to avoid Model Router. The fix is to use it inside a governed AI platform with gateway controls, model approval, observability, evaluation, and human accountability.
+        </p>
+
+        <!-- Section 17: Final Recommendation -->
         <h2 id="final-recommendation"><span class="gradient-text">Final Recommendation</span></h2>
         <p>
             Deploy **Azure AI Foundry Model Router** as the default decision layer for flexible, mixed-complexity workflows to minimize application code coupling. However, do not treat it as a blanket solution. Keep high-control, audited, or benchmarking processes pinned directly to specific endpoints.
         </p>
         <p>
-            For region strategy, validate Model Router support early. For European workloads, **Sweden Central with Data Zone Standard** remains the recommended configuration to align token usage with EUDB compliance.
+            For region strategy, validate Model Router support early. For European workloads, Sweden Central with Data Zone Standard is a strong starting point when EU data-zone processing is required. It supports alignment with EU data-boundary expectations, but final sovereignty and compliance posture must still be validated against the customer's legal, regulatory, and contractual requirements.
         </p>
 
-        <!-- Section 17: Deployment Checklist -->
-        <h2 id="deployment-checklist"><span class="gradient-text">Interactive Deployment Checklist</span></h2>
+        <!-- Section 18: Deployment Checklist -->
+        <h2 id="deployment-checklist"><span class="gradient-text">Deployment Checklist</span></h2>
         <p>
             Use this checklist to track your architecture's readiness. Your selection states are saved locally in your browser.
         </p>
@@ -1238,27 +1269,43 @@
         <div class="checklist-group">
             <label class="checklist-item">
                 <input type="checkbox">
-                <span><strong>Region Verification:</strong> Verify the Azure AI Foundry hub resource is provisioned in Sweden Central or East US 2.</span>
+                <span>Verify the Azure AI Foundry resource is in a Model Router-supported region.</span>
             </label>
             <label class="checklist-item">
                 <input type="checkbox">
-                <span><strong>Model Pool Quota:</strong> Ensure underlying models (e.g., GPT-4o-mini and GPT-4o) have sufficient TPM quota configured.</span>
+                <span>Confirm the deployment type: Global Standard or Data Zone Standard.</span>
             </label>
             <label class="checklist-item">
                 <input type="checkbox">
-                <span><strong>Deploy Model Router:</strong> Create the Model Router deployment instance in the AI Foundry workspace.</span>
+                <span>Validate RPM and TPM quota for the expected workload.</span>
             </label>
             <label class="checklist-item">
                 <input type="checkbox">
-                <span><strong>Define Model Subsets:</strong> Configure approved model subsets to enforce EUDB data boundaries in Sweden Central.</span>
+                <span>Define approved model subsets.</span>
             </label>
             <label class="checklist-item">
                 <input type="checkbox">
-                <span><strong>Gateway Integration:</strong> Publish the router endpoint inside APIM, binding central rate limits and telemetry.</span>
+                <span>Decide whether router version auto-update is allowed.</span>
             </label>
             <label class="checklist-item">
                 <input type="checkbox">
-                <span><strong>Audit Log Schema:</strong> Ensure downstream logs capture the <code>selectedModel</code> and transaction latency.</span>
+                <span>Place the router behind APIM or another approved AI gateway where centralized governance is required.</span>
+            </label>
+            <label class="checklist-item">
+                <input type="checkbox">
+                <span>Capture selected model, token count, latency, status code, workflow ID, and user/application identity in logs.</span>
+            </label>
+            <label class="checklist-item">
+                <input type="checkbox">
+                <span>Define fallback behavior for throttling, timeout, and model unavailability.</span>
+            </label>
+            <label class="checklist-item">
+                <input type="checkbox">
+                <span>Run evaluation tests before promoting to production.</span>
+            </label>
+            <label class="checklist-item">
+                <input type="checkbox">
+                <span>Review cost, quality, latency, and human rework metrics after release.</span>
             </label>
         </div>
 
