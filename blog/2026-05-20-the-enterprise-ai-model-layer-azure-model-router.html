@@ -314,7 +314,7 @@
         }
 
         .styled-table th {
-            background-color: rgba(3b, 82, f6, 0.1);
+            background-color: rgba(59, 130, 246, 0.1);
             color: #60a5fa;
             font-weight: 700;
         }
@@ -425,7 +425,7 @@
             <div class="blog-post-meta">
                 <div><i class="fas fa-user"></i> Upendra Kumar</div>
                 <div><i class="fas fa-calendar"></i> May 20, 2026</div>
-                <div><i class="fas fa-clock"></i> 10 min read</div>
+                <div><i class="fas fa-clock"></i> 11 min read</div>
             </div>
 
             <div class="blog-post-tags">
@@ -445,16 +445,23 @@
             <h4>In This Article</h4>
             <ul class="toc-list">
                 <li><a href="#executive-summary" class="toc-link">Executive Summary</a></li>
-                <li><a href="#governance-framework" class="toc-link">Director-Level Governance</a></li>
+                <li><a href="#governance-view" class="toc-link">Director-Level Governance</a></li>
                 <li><a href="#how-it-works" class="toc-link">How Model Router Works</a></li>
-                <li><a href="#region-availability" class="toc-link">Sweden Central Strategy</a></li>
-                <li><a href="#business-problems" class="toc-link">Workload Mapping</a></li>
+                <li><a href="#regional-strategy" class="toc-link">Sweden Central Strategy</a></li>
+                <li><a href="#workload-mapping" class="toc-link">Workload Mapping</a></li>
                 <li><a href="#advantages" class="toc-link">Architectural Advantages</a></li>
                 <li><a href="#disadvantages" class="toc-link">Disadvantages & Risks</a></li>
-                <li><a href="#finops-cost" class="toc-link">FinOps Cost Calculator</a></li>
+                <li><a href="#cost-planning" class="toc-link">FinOps Cost Calculator</a></li>
+                <li><a href="#throughput-planning" class="toc-link">Throughput Planning</a></li>
                 <li><a href="#architecture-pattern" class="toc-link">Enterprise AI Pattern</a></li>
+                <li><a href="#when-to-use" class="toc-link">When to Use Model Router</a></li>
+                <li><a href="#when-not-to-use" class="toc-link">When Not to Use It</a></li>
+                <li><a href="#orchestration-choices" class="toc-link">Orchestration Choices</a></li>
+                <li><a href="#best-practices" class="toc-link">Best Practices Framework</a></li>
                 <li><a href="#decision-framework" class="toc-link">Decision Framework</a></li>
+                <li><a href="#final-recommendation" class="toc-link">Final Recommendation</a></li>
                 <li><a href="#deployment-checklist" class="toc-link">Deployment Checklist</a></li>
+                <li><a href="#references" class="toc-link">References</a></li>
             </ul>
         </div>
         
@@ -490,7 +497,7 @@
         </div>
 
         <!-- Section 2: Director-level view -->
-        <h2 id="governance-framework"><span class="gradient-text">Director-Level Governance View</span></h2>
+        <h2 id="governance-view"><span class="gradient-text">Director-Level Governance View</span></h2>
         <p>
             The Model Router discussion should not be framed around which model to use. That is too narrow. A better architecture question is: <em>What model operating model gives us the right balance of quality, cost, latency, compliance, observability, and business accountability?</em>
         </p>
@@ -575,7 +582,7 @@
         </div>
 
         <!-- Section 4: Current region availability -->
-        <h2 id="region-availability"><span class="gradient-text">Sweden Central Regional Strategy</span></h2>
+        <h2 id="regional-strategy"><span class="gradient-text">Sweden Central Regional Strategy</span></h2>
         <p>
             As of the Microsoft documentation reviewed on <strong>20 May 2026</strong>, Model Router deployment requires the Azure AI Foundry resource to be in:
         </p>
@@ -609,7 +616,7 @@
         </p>
 
         <!-- Section 5: The business problem Model Router solves -->
-        <h2 id="business-problems"><span class="gradient-text">Workload Mapping: Task Complexity vs. Model Need</span></h2>
+        <h2 id="workload-mapping"><span class="gradient-text">Workload Mapping: Task Complexity vs. Model Need</span></h2>
         <p>
             Enterprise AI workloads are rarely uniform. Using one fixed model for everything is highly inefficient. Here is how typical tasks should be mapped:
         </p>
@@ -678,7 +685,12 @@
             A <em>Model Subset</em> is a governance boundary. It restricts the pool of models the router is allowed to use. This ensures compliance with customer agreements, vendor policies, and regional rules (e.g., only using models certified for Sweden Central data processing).
         </p>
 
-        <h3>3. Managed Model-Level Failover</h3>
+        <h3>3. Supports Model Abstraction</h3>
+        <p>
+            Model abstraction is critical. When application business logic directly binds to specific model IDs, model deprecation breaks production code. The Model Router exposes a stable, abstracted endpoint while platform engineers update underlying models seamlessly.
+        </p>
+
+        <h3>4. Managed Model-Level Failover</h3>
         <p>
             If a model endpoint experiences elevated latency or throttling, the Model Router can redirect requests to an alternative capable model in the subset. However, this is not a substitute for full network-level disaster recovery (using APIM or Azure Front Door).
         </p>
@@ -694,7 +706,7 @@
         </ul>
 
         <!-- Section 8: Cost planning for Sweden Central -->
-        <h2 id="finops-cost"><span class="gradient-text">FinOps Cost Calculator: Sweden Central Planning</span></h2>
+        <h2 id="cost-planning"><span class="gradient-text">FinOps Cost Calculator: Sweden Central Planning</span></h2>
         <p>
             Model Router is billed based on token consumption rather than fixed hourly instances. The calculation uses variable parameter <code>P</code>, which represents the input price per million tokens (based on your Azure Enterprise Agreement or public rates).
         </p>
@@ -754,7 +766,25 @@
             The FinOps lesson is clear: <em>The cost problem is not the router itself, but uncontrolled prompt token volume and unmanaged workflow loops.</em> Establish metric logging for the cost per accepted business outcome rather than tracking raw token costs alone.
         </p>
 
-        <!-- Section 9: Recommended enterprise architecture pattern -->
+        <!-- Section 9: Throughput Planning -->
+        <h2 id="throughput-planning"><span class="gradient-text">Throughput Planning for Sweden Central</span></h2>
+        <p>
+            Cost is only one side of design; throughput limits are the other. Before a production rollout, architects must validate the available Requests Per Minute (RPM) and Tokens Per Minute (TPM) quota configurations.
+        </p>
+        <p>
+            Ask these strategic planning questions:
+        </p>
+        <ul>
+            <li>What is the peak expected requests per minute vs average load?</li>
+            <li>Which business processes are interactive (requiring immediate, low-latency responses) and which can run asynchronously?</li>
+            <li>What is the downstream fallback when the quota is exhausted (HTTP 429)?</li>
+            <li>Do you need to request quota allocations or Provisioned Throughput (PTU) before launching?</li>
+        </ul>
+        <p>
+            Always design for peak load concurrency and apply exponential backoff retry behaviors inside the orchestration layer.
+        </p>
+
+        <!-- Section 10: Recommended enterprise architecture pattern -->
         <h2 id="architecture-pattern"><span class="gradient-text">Recommended Enterprise AI Architecture Pattern</span></h2>
         <p>
             Model Router must reside within a structured, multi-layer gateway topology. It should not be exposed directly to client applications.
@@ -779,7 +809,136 @@
        |---> [Fine-Tuned Endpoint]                 ---> Specialized Classification
         </div>
 
-        <!-- Section 10: Decision Framework -->
+        <!-- Section 11: When to Use Model Router -->
+        <h2 id="when-to-use"><span class="gradient-text">When to Use Model Router</span></h2>
+        <p>
+            Deploy Model Router when your workload has variable complexity, meaning different incoming queries require different degrees of cognitive capability.
+        </p>
+        
+        <div style="overflow-x: auto; overflow-y: hidden;">
+            <table class="styled-table" style="min-width: 600px;">
+                <thead>
+                    <tr>
+                        <th>Use Case</th>
+                        <th>Why Model Router Fits</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Customer Support Copilot</strong></td>
+                        <td>Mix of simple informational lookups and highly complex triage questions.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Internal Knowledge Assistant</strong></td>
+                        <td>Diverse queries across policy documents with varying lengths and structures.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sales Proposal Drafting</strong></td>
+                        <td>Combines basic structure generation (low cost) with deep competitive analysis (high capability).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 12: When Not to Use Model Router -->
+        <h2 id="when-not-to-use"><span class="gradient-text">When Not to Use Model Router</span></h2>
+        <p>
+            Bypass or tightly constrain the Model Router in scenarios where strict determinism, regulation, or specific performance constraints exist.
+        </p>
+        
+        <div style="overflow-x: auto; overflow-y: hidden;">
+            <table class="styled-table" style="min-width: 600px;">
+                <thead>
+                    <tr>
+                        <th>Scenario</th>
+                        <th>Alternative Strategy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Regulated Decision Workflows</strong></td>
+                        <td>Use a <strong>Direct Approved Model (Pinned)</strong> to guarantee audit compliance.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Strict Benchmark Testing</strong></td>
+                        <td>Pin specific model versions (e.g. <code>gpt-4o-0513</code>) for output consistency.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Deterministic Rules Validation</strong></td>
+                        <td>Enforce validations in application code rather than calling an LLM.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 13: Orchestration choices -->
+        <h2 id="orchestration-choices"><span class="gradient-text">Model Router vs. Other LLM Orchestration Choices</span></h2>
+        <p>
+            Evaluate these options based on your team's engineering capacity and compliance profile:
+        </p>
+        <ul>
+            <li><strong>Option 1: Direct Model Deployment</strong> - Best when control and deterministic behavior matter more than flexibility. Requires more application code to handle routing manually.</li>
+            <li><strong>Option 2: Model Router</strong> - Managed, cloud-native abstraction that reduces code complexity and automates cost optimization for mixed-complexity workloads.</li>
+            <li><strong>Option 3: Custom Orchestration</strong> - Building custom routing code (using Semantic Kernel or LangChain). Necessary for multi-cloud strategies, but introduces significant maintenance overhead.</li>
+            <li><strong>Option 4: Fine-Tuned Model</strong> - Reserved for highly domain-specific tasks (e.g. medical terminology) where base models consistently fail.</li>
+        </ul>
+
+        <!-- Section 14: Best Practices -->
+        <h2 id="best-practices"><span class="gradient-text">Best Practices for Using Model Router</span></h2>
+        
+        <h3>1. Start with Balanced Mode</h3>
+        <p>
+            Balanced mode provides the safest starting profile. Monitor performance, cost, and latency metrics for 14 days before switching to Cost or Quality modes.
+        </p>
+
+        <h3>2. Classify Prompts by Business Criticality</h3>
+        <p>
+            Never route all prompts blindly. Intercept prompts at the orchestration layer and map them:
+        </p>
+        <ul>
+            <li>Low risk tasks (Metadata extraction, triage) &rarr; <strong>Cost Mode</strong>.</li>
+            <li>Medium risk tasks (Summarization) &rarr; <strong>Balanced Mode</strong>.</li>
+            <li>High risk tasks (Financial advising) &rarr; <strong>Quality Mode / Direct Pinned Model</strong>.</li>
+        </ul>
+
+        <h3>3. Use Approved Model Subsets</h3>
+        <p>
+            Define a subset matching your region's compliance lanes. In Sweden Central, restrict the pool only to models certified for the EU Data Boundary.
+        </p>
+
+        <h3>4. Log the Selected Model</h3>
+        <p>
+            Do not let the router become a black box. Downstream logging schemas must capture the model chosen for auditability:
+        </p>
+        <pre><code>{
+  "application": "enterprise-copilot",
+  "routingMode": "balanced",
+  "selectedModel": "gpt-4o-mini-2024-07-18",
+  "inputTokens": 4500,
+  "outputTokens": 800,
+  "latencyMs": 1400
+}</code></pre>
+
+        <h3>5. Build an Evaluation Harness</h3>
+        <p>
+            Establish automated evaluations tracking hallucination rate, grounding accuracy, and response consistency. When the router switches models dynamically, automated tests must verify that response quality remains within tolerance.
+        </p>
+
+        <h3>6. Separate Retrieval from Reasoning</h3>
+        <p>
+            The Model Router selects models for reasoning capabilities. Enterprise context must be retrieved beforehand (via RAG indexing) and injected as grounded context, rather than relying on the LLM's static training data.
+        </p>
+
+        <h3>7. Do Not Use LLMs for Everything</h3>
+        <p>
+            Deterministic validations (null checks, range validation, pattern matching) should be run directly in code. Using LLMs for simple code-level checks is slow, expensive, and insecure.
+        </p>
+
+        <h3>8. Design Fallback Explicitly</h3>
+        <p>
+            Model Router handles model selection but not application resilience. Incorporate retry policies, circuit breakers, and alternate regions (e.g., East US 2) for disaster recovery planning.
+
+        <!-- Section 15: Decision Framework -->
         <h2 id="decision-framework"><span class="gradient-text">Practical Decision Framework</span></h2>
         <p>
             Use this quick lookup framework when defining how a workflow should reach models:
@@ -822,7 +981,16 @@
             </table>
         </div>
 
-        <!-- Section 11: Deployment Checklist -->
+        <!-- Section 16: Final Recommendation -->
+        <h2 id="final-recommendation"><span class="gradient-text">Final Recommendation</span></h2>
+        <p>
+            Deploy **Azure AI Foundry Model Router** as the default decision layer for flexible, mixed-complexity workflows to minimize application code coupling. However, do not treat it as a blanket solution. Keep high-control, audited, or benchmarking processes pinned directly to specific endpoints.
+        </p>
+        <p>
+            For region strategy, validate Model Router support early. For European workloads, **Sweden Central with Data Zone Standard** remains the recommended configuration to align token usage with EUDB compliance.
+        </p>
+
+        <!-- Section 17: Deployment Checklist -->
         <h2 id="deployment-checklist"><span class="gradient-text">Interactive Deployment Checklist</span></h2>
         <p>
             Use this checklist to track your architecture's readiness. Your selection states are saved locally in your browser.
@@ -854,6 +1022,17 @@
                 <span><strong>Audit Log Schema:</strong> Ensure downstream logs capture the <code>selectedModel</code> and transaction latency.</span>
             </label>
         </div>
+
+        <!-- Section 18: References -->
+        <h2 id="references"><span class="gradient-text">References</span></h2>
+        <ul>
+            <li>Microsoft Learn: <a href="https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-router" target="_blank">Model Router for Microsoft Foundry Concepts</a></li>
+            <li>Microsoft Learn: <a href="https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-router-how-it-works" target="_blank">How Model Router Works in Microsoft Foundry</a></li>
+            <li>Microsoft Learn: <a href="https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/model-router" target="_blank">How to Use Model Router for Microsoft Foundry</a></li>
+            <li>Microsoft Learn: <a href="https://learn.microsoft.com/en-us/azure/templates/microsoft.cognitiveservices/accounts/deployments" target="_blank">Microsoft.CognitiveServices Accounts Deployments ARM/Bicep Reference</a></li>
+            <li>Microsoft Learn: <a href="https://learn.microsoft.com/en-us/azure/api-management/genai-gateway-capabilities" target="_blank">Azure API Management AI Gateway Capabilities</a></li>
+            <li>Microsoft Learn: <a href="https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy" target="_blank">Data, Privacy, and Security for Foundry Models Sold by Azure</a></li>
+        </ul>
 
         <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
 
@@ -1031,7 +1210,9 @@
                 "SLA": "Service Level Agreement: A commitment between a service provider and a client regarding service availability and performance.",
                 "EUDB": "European Union Data Boundary: A commitment by Microsoft to process and store customer data within the EU/EFTA region for selected cloud services.",
                 "RAG": "Retrieval-Augmented Generation: An architectural pattern that optimizes the output of a large language model by referencing an authoritative, external knowledge base.",
-                "WAF": "Well-Architected Framework: A set of design principles, checklists, and best practices across five pillars (Reliability, Security, Cost Optimization, Operational Excellence, and Performance Efficiency)."
+                "WAF": "Well-Architected Framework: A set of design principles, checklists, and best practices across five pillars (Reliability, Security, Cost Optimization, Operational Excellence, and Performance Efficiency).",
+                "TPM": "Tokens Per Minute: A rate limit metric measuring the number of text tokens processed by an AI model endpoint within a one-minute window.",
+                "RPM": "Requests Per Minute: A rate limit metric measuring the number of API calls received by a service endpoint within a one-minute window."
             };
             
             const contentBlock = document.querySelector('.blog-post-content');
