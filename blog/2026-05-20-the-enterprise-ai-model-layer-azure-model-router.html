@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A rigorous enterprise architecture view on Azure AI Foundry Model Router — routing modes, regional strategy, FinOps cost planning, orchestration patterns, and when to bypass dynamic routing entirely.">
+    <meta name="description" content="A rigorous enterprise architecture view on Azure AI Foundry Model Router ΓÇö routing modes, regional strategy, FinOps cost planning, orchestration patterns, and when to bypass dynamic routing entirely.">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://portfolio.upendrakumar.com/blog/2026-05-20-the-enterprise-ai-model-layer-azure-model-router.html">
-    <meta property="og:title" content="Architecting the Enterprise AI Model Layer">
-    <meta property="og:description" content="A rigorous enterprise architecture view on Azure AI Foundry Model Router — routing modes, regional strategy, FinOps cost planning, orchestration patterns, and when to bypass dynamic routing entirely.">
+    <meta property="og:title" content="The Enterprise AI Model Layer: When to Use Azure AI Foundry Model Router and When Not To">
+    <meta property="og:description" content="A rigorous enterprise architecture view on Azure AI Foundry Model Router ΓÇö routing modes, regional strategy, FinOps cost planning, orchestration patterns, and when to bypass dynamic routing entirely.">
     <meta property="og:image" content="https://portfolio.upendrakumar.com/images/profile.webp">
     <meta property="og:site_name" content="Upendra Kumar | Cloud Strategy &amp; Architecture">
     <meta property="article:author" content="Upendra Kumar">
@@ -18,11 +18,11 @@
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://portfolio.upendrakumar.com/blog/2026-05-20-the-enterprise-ai-model-layer-azure-model-router.html">
-    <meta property="twitter:title" content="Architecting the Enterprise AI Model Layer">
-    <meta property="twitter:description" content="A rigorous enterprise architecture view on Azure AI Foundry Model Router — routing modes, regional strategy, FinOps cost planning, orchestration patterns, and when to bypass dynamic routing entirely.">
+    <meta property="twitter:title" content="The Enterprise AI Model Layer: When to Use Azure AI Foundry Model Router and When Not To">
+    <meta property="twitter:description" content="A rigorous enterprise architecture view on Azure AI Foundry Model Router ΓÇö routing modes, regional strategy, FinOps cost planning, orchestration patterns, and when to bypass dynamic routing entirely.">
     <meta property="twitter:image" content="https://portfolio.upendrakumar.com/images/profile.webp">
 
-    <title>Architecting the Enterprise AI Model Layer | Upendra Kumar</title>
+    <title>Azure Model Router: The Enterprise AI Model Layer | Upendra Kumar</title>
 
     <link rel="stylesheet" href="../css/style.css?v=48">
     <link rel="stylesheet" href="../css/premium.css?v=48">
@@ -38,7 +38,7 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Architecting the Enterprise AI Model Layer",
+      "headline": "The Enterprise AI Model Layer: When to Use Azure AI Foundry Model Router and When Not To",
       "image": "https://portfolio.upendrakumar.com/images/profile.webp",
       "author": {
         "@type": "Person",
@@ -623,7 +623,7 @@
             display: grid;
             grid-template-columns: 1fr;
             gap: 2rem;
-            margin: 1.5rem 0;
+            margin: 2.5rem 0;
             background: rgba(15, 23, 42, 0.4);
             border-radius: 16px;
             padding: 2rem;
@@ -1221,7 +1221,7 @@
             </div>
 
             <h1 class="hero-title">
-                Architecting the Enterprise AI Model Layer
+                Azure Model Router: The Enterprise AI Model Layer
             </h1>
 
             <div class="blog-post-meta">
@@ -1251,7 +1251,7 @@
             </div>
 
             <!-- V3 Hero Banner -->
-            <div class="reveal-scale" style="margin: 1.5rem 0; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05);">
+            <div class="reveal-scale" style="margin: 2.5rem 0; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05);">
                 <img src="../images/blog/azure-model-router-hero.webp" alt="Azure AI Foundry Model Router Abstract Data Flow" style="width: 100%; height: auto; display: block; object-fit: cover; max-height: 450px;">
             </div>          <span class="blog-tag-pill tag-finops"><i class="fas fa-tag"></i> FinOps</span>
             </div>
@@ -1268,7 +1268,188 @@
                 <li><a href="#executive-summary" class="toc-link">Executive Summary</a></li>
                 <li><a href="#governance-view" class="toc-link">Director-Level Governance</a></li>
                 <li><a href="#how-it-works" class="toc-link">How Model Router Works</a></li>
-                <li><a href="#regional-strategy" class="toc-link">Sweden Central</td><td>Strong starting point for European workloads where EU data-zone processing is required. Supports prompt and response processing within the Microsoft-defined EU data zone.</td><td>High alignment with EU data-zone processing requirements, subject to legal, regulatory, and contractual validation.</td>
+                <li><a href="#regional-strategy" class="toc-link">Sweden Central Strategy</a></li>
+                <li><a href="#workload-mapping" class="toc-link">Workload Mapping</a></li>
+                <li><a href="#advantages" class="toc-link">Architectural Advantages</a></li>
+                <li><a href="#disadvantages" class="toc-link">Disadvantages & Risks</a></li>
+                <li><a href="#cost-planning" class="toc-link">FinOps Cost Calculator</a></li>
+                <li><a href="#throughput-planning" class="toc-link">Throughput Planning</a></li>
+                <li><a href="#architecture-pattern" class="toc-link">Enterprise AI Pattern</a></li>
+                <li><a href="#when-to-use" class="toc-link">When to Use Model Router</a></li>
+                <li><a href="#when-not-to-use" class="toc-link">When Not to Use It</a></li>
+                <li><a href="#orchestration-choices" class="toc-link">Orchestration Choices</a></li>
+                <li><a href="#best-practices" class="toc-link">Best Practices Framework</a></li>
+                <li><a href="#decision-framework" class="toc-link">Decision Framework</a></li>
+                <li><a href="#production-failures" class="toc-link">What Can Go Wrong</a></li>
+                <li><a href="#final-recommendation" class="toc-link">Final Recommendation</a></li>
+                <li><a href="#deployment-checklist" class="toc-link">Deployment Checklist</a></li>
+                <li><a href="#references" class="toc-link">References</a></li>
+            </ul>
+        </div>
+        
+        <p class="lead">
+            Enterprise AI is moving beyond the "pick one best model" mindset. That approach is already outdated. The critical architectural question is no longer which LLM is best, but rather: <em>Which model should handle which task, under what controls, at what cost, in which region, and with what audit trail?</em>
+        </p>
+
+        <p>
+            This article provides a rigorous enterprise architecture view on <strong>Azure AI Foundry Model Router</strong>. We analyze when to deploy this managed decision layer, when to bypass it, how to handle Sweden Central region constraints, and how to govern token cost and latency within an enterprise AI platform.
+        </p>
+
+        <!-- Section 1: Executive Summary -->
+        <h2 id="executive-summary"><span class="gradient-text">Executive Impact Summary</span></h2>
+        <div class="responsive-grid">
+            <div class="glass-card reveal reveal-delay-1">
+                <h3 style="color: #f87171; margin-top: 0;"><i class="fas fa-exclamation-triangle"></i> Business Problem</h3>
+                <p style="font-size: 0.95rem; line-height: 1.6;">
+                    Workload fragmentation leads to hardcoded model selection in application code, causing massive over-provisioning (e.g., routing support triage to expensive models) and brittle integration pipelines.
+                </p>
+            </div>
+            <div class="glass-card reveal reveal-delay-2">
+                <h3 style="color: #60a5fa; margin-top: 0;"><i class="fas fa-play"></i> Strategic Play</h3>
+                <p style="font-size: 0.95rem; line-height: 1.6;">
+                    Deploy Azure AI Foundry Model Router as a managed abstraction layer. Let the platform dynamically select the optimal model based on prompt complexity, cost/quality modes, and compliance limits.
+                </p>
+            </div>
+            <div class="glass-card reveal reveal-delay-3">
+                <h3 style="color: #34d399; margin-top: 0;"><i class="fas fa-chart-line"></i> Executive ROI</h3>
+                <ul style="font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.2rem; padding-left: 1.2rem; color: #e5e7eb;">
+                    <li style="margin-bottom: 0.75rem;"><strong>Cost Optimization:</strong> Dynamically routes simple prompts to cheaper models, reserving premium tokens for complex tasks.</li>
+                    <li style="margin-bottom: 0rem;"><strong>Faster Time-to-Market:</strong> Decouples model selection from app code. Upgrade AI models without redeploying applications.</li>
+                </ul>
+                <div style="background: rgba(251, 191, 36, 0.1); border-left: 3px solid #fbbf24; padding: 0.75rem 1rem; border-radius: 4px; margin-top: auto;">
+                    <p style="font-size: 0.9rem; line-height: 1.5; margin-bottom: 0; color: #fbbf24;">
+                        <strong><i class="fas fa-lightbulb"></i> The True Enterprise Metric:</strong><br/>
+                        Evaluate <em>cost per accepted business outcome</em> (factoring in latency, quality, and human rework) instead of raw token cost.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Animated Key Stats Row -->
+        <div class="responsive-grid stats-row reveal" style="gap: 1rem; margin: 2rem 0;">
+            <div class="stat-card">
+                <span class="counter-value" data-target="3" data-suffix="">0</span>
+                <span class="counter-label">Routing Modes</span>
+            </div>
+            <div class="stat-card">
+                <span class="counter-value" data-target="2" data-suffix="">0</span>
+                <span class="counter-label">Supported Regions</span>
+            </div>
+            <div class="stat-card">
+                <span class="counter-value" data-target="6" data-suffix="">0</span>
+                <span class="counter-label">Decision Patterns</span>
+            </div>
+            <div class="stat-card">
+                <span class="counter-value" data-target="13" data-suffix="">0</span>
+                <span class="counter-label">Checklist Items</span>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Section 2: Director-level view -->
+        <h2 id="governance-view"><span class="gradient-text">Director-Level Governance View</span></h2>
+        <p>
+            The Model Router discussion should not be framed around which model to use. That is too narrow. A better architecture question is: <em>What AI operating model gives us the right balance of quality, cost, latency, compliance, observability, and business accountability?</em>
+        </p>
+        <p>
+            Common enterprise AI failure patterns include:
+        </p>
+        <ul>
+            <li>Every workflow defaults to the most expensive model out of developers' convenience.</li>
+            <li>Critical business decisions are routed to low-capability models to meet arbitrary budgets.</li>
+            <li>Model selection is buried inside deep application code, invisible to platform administrators.</li>
+            <li>Governance teams approve an AI use case but fail to regulate the model pool behind it.</li>
+            <li>Teams confuse dynamic model routing with AI platform governance.</li>
+        </ul>
+        
+        <div class="callout-box">
+            <h4><i class="fas fa-info-circle"></i> Architectural Mandate</h4>
+            The goal is not to use the biggest model. The goal is to use the right model, for the right task, with the right controls, placed inside a governed platform pattern.
+        </div>
+
+        <!-- Section 3: What Azure AI Foundry Model Router does -->
+        <h2 id="how-it-works"><span class="gradient-text">How Azure AI Foundry Model Router Works</span></h2>
+        <p>
+            Model Router acts as a model decision layer. Instead of directly calling a fixed endpoint, an application calls the Model Router deployment. The router uses an internal classifier to estimate prompt complexity before selecting a model from the configured subset ΓÇö the routing logic is managed by the platform and is not directly configurable by the developer. The selected model is disclosed in the API response <code>model</code> field, giving downstream observability tooling a clear audit signal.
+        </p>
+
+        <!-- V3 Routing Flowchart -->
+        <div style="text-align: center; margin: 2.5rem 0;" class="reveal-scale">
+            <img src="../images/blog/azure-model-router-flowchart.webp" alt="Azure AI Foundry Model Router Internal Classifier Decision Flowchart" class="cinematic-video-effect" style="max-width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 15px 35px rgba(0,0,0,0.4);">
+        </div>
+        
+        <p>Microsoft documents three primary routing modes:</p>
+        
+        <div class="responsive-grid" style="margin-bottom: 2rem;">
+            <div class="glass-card reveal" style="padding: 1.5rem; background: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));">
+                <h4 style="color: #60a5fa; margin-top: 0; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem;"><i class="fas fa-balance-scale"></i> Balanced Mode</h4>
+                <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 0.5rem;"><strong>Optimizes:</strong> Best combination of quality and cost.</p>
+                <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 0;"><strong>Fit:</strong> Default enterprise workloads and interactive assistants.</p>
+            </div>
+            <div class="glass-card reveal reveal-delay-1" style="padding: 1.5rem; background: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));">
+                <h4 style="color: #34d399; margin-top: 0; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem;"><i class="fas fa-coins"></i> Cost Mode</h4>
+                <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 0.5rem;"><strong>Optimizes:</strong> Lower-cost model selection.</p>
+                <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 0;"><strong>Fit:</strong> High-volume, lower-risk classification/extraction.</p>
+            </div>
+            <div class="glass-card reveal reveal-delay-2" style="padding: 1.5rem; background: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));">
+                <h4 style="color: #a855f7; margin-top: 0; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem;"><i class="fas fa-gem"></i> Quality Mode</h4>
+                <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 0.5rem;"><strong>Optimizes:</strong> Highest-quality reasoning output.</p>
+                <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 0;"><strong>Fit:</strong> Complex multi-step reasoning, critical regulatory tasks.</p>
+            </div>
+        </div>
+
+        <p>
+            To understand the operational boundary, let's contrast the Model Router with the AI Gateway:
+        </p>
+
+        <div class="comparison-grid">
+            <div class="glass-card reveal reveal-delay-1">
+                <h3 style="color: #a855f7; margin-top: 0;"><i class="fas fa-layer-group"></i> Model Router: The Model Decision Layer</h3>
+                <ul style="padding-left: 1.25rem; font-size: 0.95rem; line-height: 1.6; margin-bottom: 0;">
+                    <li>Optimizes individual prompt execution path</li>
+                    <li>Evaluates prompt complexity dynamically</li>
+                    <li>Selects the cheapest model capable of execution</li>
+                    <li>Operates inside the regional workspace boundary</li>
+                    <li>Manages subset eligibility for local workloads</li>
+                </ul>
+            </div>
+            <div class="glass-card reveal reveal-delay-2">
+                <h3 style="color: #60a5fa; margin-top: 0;"><i class="fas fa-shield-alt"></i> AI Gateway: The Access and Governance Layer</h3>
+                <ul style="padding-left: 1.25rem; font-size: 0.95rem; line-height: 1.6; margin-bottom: 0;">
+                    <li>Enforces authentication, authorization, and audit logs</li>
+                    <li>Applies global rate limits and user-level token quotas</li>
+                    <li>Provides semantic caching and circuit breaking</li>
+                    <li>Natively runs at the edge (Azure API Management)</li>
+                    <li>Injects system safety and content filters</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 4: Current region availability -->
+        <h2 id="regional-strategy"><span class="gradient-text">Sweden Central Regional Strategy</span></h2>
+        <p>
+            As of the Microsoft documentation reviewed on <strong>20 May 2026</strong>, Model Router deployment requires the Azure AI Foundry resource to be in:
+        </p>
+
+        <div style="overflow-x: auto; overflow-y: hidden;">
+            <table class="styled-table" style="min-width: 600px;">
+                <thead>
+                    <tr>
+                        <th>Region</th>
+                        <th>Deployment & Policy Considerations</th>
+                        <th>Compliance Match</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Sweden Central</strong></td>
+                        <td>Strong starting point for European workloads. Aligns with EU Data Boundary (EUDB) expectations, supporting prompt and response data residency within the EU.</td>
+                        <td>High (Supports EU Data Boundary Residency)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>East US 2</strong></td>
+                        <td>Suitable for US-centric or global workloads where local data residency rules are flexible.</td>
                         <td>Standard (Global/US Zone)</td>
                     </tr>
                 </tbody>
@@ -1276,42 +1457,50 @@
         </div>
 
         <p>
-            As of the current Microsoft documentation, Model Router deployment requires the Azure AI Foundry resource to be in <strong>East US 2</strong> or <strong>Sweden Central</td><td>Strong starting point for European workloads where EU data-zone processing is required. Supports prompt and response processing within the Microsoft-defined EU data zone.</td><td>High alignment with EU data-zone processing requirements, subject to legal, regulatory, and contractual validation.</td>
-                        <td>Cheaper (smaller lower-cost model)</td>
-                        <td>Cost Mode</td>
-                    </tr>
-                    <tr>
-                        <td>FAQ Response Drafting</td>
-                        <td>Low</td>
-                        <td>Cheaper (smaller lower-cost model)</td>
-                        <td>Cost Mode</td>
-                    </tr>
-                    <tr>
-                        <td>Customer Sentiment Analysis</td>
-                        <td>Medium</td>
-                        <td>Cheaper (smaller lower-cost model)</td>
-                        <td>Balanced Mode</td>
-                    </tr>
-                    <tr>
-                        <td>Comprehensive Document Summarization</td>
-                        <td>Medium</td>
-                        <td>Balanced Selection</td>
-                        <td>Balanced Mode</td>
-                    </tr>
-                    <tr>
-                        <td>Contract Risk & Compliance Auditing</td>
-                        <td>High</td>
-                        <td>Advanced (higher-capability reasoning model)</td>
-                        <td>Quality Mode / Fixed Pinning</td>
-                    </tr>
-                    <tr>
-                        <td>SQL Code Generation</td>
-                        <td>High</td>
-                        <td>Advanced / Specialized</td>
-                        <td>Quality Mode / Fixed Pinning</td>
-                    </tr>
-                </tbody>
-            </table>
+            As of the current Microsoft documentation, Model Router deployment requires the Azure AI Foundry resource to be in <strong>East US 2</strong> or <strong>Sweden Central</strong>. This should be validated before production rollout because Azure AI Foundry feature availability can vary by model, deployment type, quota, and region.
+        </p>
+        <p>
+            For European workloads, Sweden Central with <strong>Data Zone Standard</strong> is a strong starting point when EU data-zone processing is required. It supports alignment with EU data-boundary expectations, but final sovereignty and compliance posture must still be validated against the customer's legal, regulatory, and contractual requirements.
+        </p>
+
+        <div class="section-divider"></div>
+
+        <!-- Section 5: The business problem Model Router solves -->
+        <h2 id="workload-mapping"><span class="gradient-text">Workload Mapping: Task Complexity vs. Model Need</span></h2>
+        <p>
+            Enterprise AI workloads are rarely uniform. Using one fixed model for everything is highly inefficient. Here is how typical tasks should be mapped:
+        </p>
+
+        <div class="responsive-grid" style="gap: 1.5rem; margin-top: 2rem;">
+            <!-- Low Complexity -->
+            <div class="glass-card reveal reveal-delay-1" style="border-top: 4px solid #34d399;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <span class="badge-router-cost" style="padding: 0.25rem 0.75rem; border-radius: 99px; font-size: 0.8rem; font-weight: 600; background: rgba(52, 211, 153, 0.15); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.3);">Cost Mode</span>
+                    <span style="color: #94a3b8; font-size: 0.85rem;"><i class="fas fa-arrow-down"></i> Low Complexity</span>
+                </div>
+                <h3 style="color: #f8fafc; margin-top: 0; font-size: 1.1rem;">Support Triage & FAQ Drafting</h3>
+                <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 0;">Routes to smaller, lower-cost models optimized for high-volume, repetitive text generation.</p>
+            </div>
+
+            <!-- Medium Complexity -->
+            <div class="glass-card reveal reveal-delay-2" style="border-top: 4px solid #60a5fa;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <span class="badge-router-balanced" style="padding: 0.25rem 0.75rem; border-radius: 99px; font-size: 0.8rem; font-weight: 600; background: rgba(96, 165, 250, 0.15); color: #60a5fa; border: 1px solid rgba(96, 165, 250, 0.3);">Balanced Mode</span>
+                    <span style="color: #94a3b8; font-size: 0.85rem;"><i class="fas fa-exchange-alt"></i> Medium Complexity</span>
+                </div>
+                <h3 style="color: #f8fafc; margin-top: 0; font-size: 1.1rem;">Sentiment Analysis & Summarization</h3>
+                <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 0;">Balanced selection across eligible tiers for moderate reasoning tasks requiring nuanced understanding.</p>
+            </div>
+
+            <!-- High Complexity -->
+            <div class="glass-card reveal reveal-delay-3" style="border-top: 4px solid #a855f7;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <span class="badge-router-quality" style="padding: 0.25rem 0.75rem; border-radius: 99px; font-size: 0.8rem; font-weight: 600; background: rgba(168, 85, 247, 0.15); color: #a855f7; border: 1px solid rgba(168, 85, 247, 0.3);">Quality Mode / Fixed</span>
+                    <span style="color: #94a3b8; font-size: 0.85rem;"><i class="fas fa-arrow-up"></i> High Complexity</span>
+                </div>
+                <h3 style="color: #f8fafc; margin-top: 0; font-size: 1.1rem;">Risk Audits & SQL Generation</h3>
+                <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 0;">Routes strictly to advanced reasoning capabilities or specialized endpoints where accuracy is paramount.</p>
+            </div>
         </div>
 
         <!-- Section 6: Advantages of Azure AI Foundry Model Router -->
@@ -1319,7 +1508,7 @@
         
         <h3>1. Reduces Hardcoded Selection Logic</h3>
         <p>
-            Without Model Router, teams often build brittle application code containing nested conditional switches to select endpoints based on task name or budget rules. Model Router encapsulates this, presenting a stable endpoint to application developers while letting Model Router encapsulates this complexity by exposing a stable endpoint while platform engineers govern routing modes, eligible model subsets, and deployment policy..
+            Without Model Router, teams often build brittle application code containing nested conditional switches to select endpoints based on task name or budget rules. Model Router encapsulates this, presenting a stable endpoint to application developers while letting platform engineers tweak model weights behind the scenes.
         </p>
         
         <h3>2. Enforces Approved Model Subsets</h3>
@@ -1348,10 +1537,7 @@
             <li><strong>Hidden Context Window Constraints:</strong> The context window of the router does not automatically match the largest model in the pool. When parsing huge contract drafts, check your subset limitations.</li>
             <li><strong>FinOps Tracking Challenges:</strong> Dynamic routing can hide which models are generating cost. If "Quality" mode is overused, token budgets can expire rapidly without developers realizing it.</li>
             <li><strong>Multimodal Limitations:</strong> While the router can take image inputs when vision-enabled models are in the pool, routing decisions are purely based on the text prompt context. Audio inputs are not supported.</li>
-            <li><strong><h3>Version drift and auto-update risk</h3>
-<p>Model Router versions can introduce a different set of underlying models. If auto-update is enabled, routing behavior, output quality, latency, and cost profile can change over time.</p>
-<p>Production workloads should treat Model Router version updates like controlled platform changes. Evaluate the new router version against representative prompts before promotion. Track selected model, cost per workflow, latency, grounding quality, and human rework rate.</p></li>
-            <li><label><input type="checkbox"> Configure Azure Cost Management budgets and alerts for unexpected usage shifts.</label></li>
+            <li><strong>Version Drift and Auto-Update Risk:</strong> Model Router versions can introduce a different set of underlying models. If auto-update is enabled, routing behavior, output quality, latency, and cost profile can change over time. Production workloads should treat Model Router version updates like controlled platform changes. Evaluate the new router version against representative prompts before promotion, and track changes in selected model, cost per workflow, latency, grounding quality, and human rework rate.</li>
         </ul>
 
         <!-- Section 8: Cost planning for Sweden Central -->
@@ -1372,7 +1558,7 @@
         </div>
 
         <!-- Interactive FinOps Calculator Widget -->
-        <div id="calculator-view" class="view-section calculator-container" style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(56, 189, 248, 0.1); border-radius: 16px; padding: 2rem; margin: 1.5rem 0;">
+        <div id="calculator-view" class="view-section calculator-container" style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(56, 189, 248, 0.1); border-radius: 16px; padding: 2rem; margin: 2.5rem 0;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
                 <h4 style="margin: 0; color: #38bdf8; font-family: 'Outfit', sans-serif; font-size: 1.25rem;"><i class="fas fa-calculator" style="margin-right: 0.5rem;"></i>Interactive FinOps Estimator</h4>
                 <div style="display: flex; align-items: center; gap: 0.5rem;">
@@ -1433,7 +1619,8 @@
                         
                         <div style="margin-bottom: 0.75rem;">
                             <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 0.25rem;">
-                                <span style="color: #94a3b8;">This comparison is illustrative only. Actual cost depends on current pricing, selected model, routing mode, model subset, prompt length, output length, latency, and human rework rate..00</span>
+                                <span style="color: #94a3b8;">Direct Premium Model (No Router)</span>
+                                <span id="direct-cost-label" style="color: #e2e8f0; font-family: 'JetBrains Mono', monospace;">$2,920.00</span>
                             </div>
                             <div style="width: 100%; height: 10px; background: rgba(255,255,255,0.05); border-radius: 5px; overflow: hidden;">
                                 <div id="bar-direct" style="width: 100%; height: 100%; background: #f43f5e; border-radius: 5px; transition: width 0.3s ease;"></div>
@@ -1442,7 +1629,8 @@
 
                         <div>
                             <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 0.25rem;">
-                                <span style="color: #38bdf8; font-weight: 600;">.00</span>
+                                <span style="color: #38bdf8; font-weight: 600;">Model Router (Balanced Mode)</span>
+                                <span id="router-cost-label" style="color: #38bdf8; font-weight: 600; font-family: 'JetBrains Mono', monospace;">$730.00</span>
                             </div>
                             <div style="width: 100%; height: 10px; background: rgba(255,255,255,0.05); border-radius: 5px; overflow: hidden;">
                                 <div id="bar-router" style="width: 25%; height: 100%; background: linear-gradient(90deg, #38bdf8, #a855f7); border-radius: 5px; transition: width 0.3s ease;"></div>
@@ -1456,6 +1644,11 @@
                 <span>* Cost formula: (Requests/hr &times; Tokens/req &times; Hours &times; P) / 1,000,000</span>
                 <span id="tier-badge" class="result-badge badge-router-balanced" style="margin-bottom: 0; padding: 0.25rem 0.5rem; font-size: 0.7rem; text-transform: none;">Enterprise Copilot</span>
             </div>
+        </div>
+
+        <div class="callout-box" style="margin-top: 2rem; background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6;">
+            <h4><i class="fas fa-info-circle"></i> Cost Estimation Disclaimer</h4>
+            This comparison is illustrative only. Actual cost depends on current pricing, selected model, routing mode, model subset, prompt length, output length, latency, and human rework rate.
         </div>
 
         <!-- Table Lookup View (Hidden by default) -->
@@ -1520,10 +1713,9 @@
             <li>Which business processes are interactive (requiring immediate, low-latency responses) and which can run asynchronously?</li>
             <li>What is the downstream fallback when the quota is exhausted (HTTP 429)?</li>
             <li>Do you need to request quota allocations or Provisioned Throughput (PTU) before launching?</li>
-            <li><label><input type="checkbox"> Configure Azure Cost Management budgets and alerts for unexpected usage shifts.</label></li>
         </ul>
         <p>
-            Always design for peak load concurrency and apply exponential backoff retry behaviors inside the orchestration layer — specifically in the middleware that wraps Model Router calls (e.g., a Semantic Kernel plugin, LangChain chain, or a custom APIM retry policy). This retry logic must live at the call site, not inside Model Router itself.
+            Always design for peak load concurrency and apply exponential backoff retry behaviors inside the orchestration layer ΓÇö specifically in the middleware that wraps Model Router calls (e.g., a Semantic Kernel plugin, LangChain chain, or a custom APIM retry policy). This retry logic must live at the call site, not inside Model Router itself.
         </p>
 
         <div class="section-divider"></div>
@@ -1534,14 +1726,14 @@
             Model Router must reside within a structured, multi-layer gateway topology. It should not be exposed directly to client applications. For true enterprise scale, Azure API Management (APIM) should sit <em>in front</em> of the Model Router. This pattern enables cross-region disaster recovery (via APIM backend pools mapping to distinct Model Router deployments), strict rate limiting (to protect Provisioned Throughput limits), and centralized Entra ID JWT validation before traffic ever reaches the router layer.
         </p>
 
-        <div style="text-align: center; margin: 1.5rem 0;" class="reveal-scale">
+        <div style="text-align: center; margin: 2.5rem 0;" class="reveal-scale">
             <img src="../images/blog/azure-model-router-architecture.webp" alt="Azure AI Foundry Model Router Enterprise Architecture Pattern" class="cinematic-video-effect" style="max-width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 15px 35px rgba(0,0,0,0.4);">
         </div>
 
         <!-- V3 Security Topology -->
         <h3 style="margin-top: 3.5rem;"><i class="fas fa-shield-alt" style="color: #10b981; margin-right: 0.5rem;"></i> Secure Network Topology</h3>
         <p>A production-ready deployment must implement strict network boundaries, utilizing Private Endpoints to isolate the Model Router from the public internet and leveraging Managed Identities to authorize API Management requests.</p>
-        <div style="text-align: center; margin: 1.5rem 0;" class="reveal-scale">
+        <div style="text-align: center; margin: 2.5rem 0;" class="reveal-scale">
             <img src="../images/blog/azure-model-router-security.webp" alt="Secure Network Topology for Azure Model Router" class="cinematic-video-effect" style="max-width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 15px 35px rgba(0,0,0,0.4);">
         </div>
 
@@ -1617,7 +1809,6 @@
             <li><strong>Option 2: Model Router</strong> - Managed, cloud-native abstraction that reduces code complexity and automates cost optimization for mixed-complexity workloads.</li>
             <li><strong>Option 3: Custom Orchestration</strong> - Building custom routing code (using Semantic Kernel or LangChain). Necessary for multi-cloud strategies, but introduces significant maintenance overhead.</li>
             <li><strong>Option 4: Fine-Tuned Model</strong> - Reserved for highly domain-specific tasks (e.g. medical terminology) where base models consistently fail.</li>
-            <li><label><input type="checkbox"> Configure Azure Cost Management budgets and alerts for unexpected usage shifts.</label></li>
         </ul>
 
         <!-- Section 14: Best Practices -->
@@ -1636,12 +1827,11 @@
             <li>Low risk tasks (Metadata extraction, triage) &rarr; <strong>Cost Mode</strong>.</li>
             <li>Medium risk tasks (Summarization) &rarr; <strong>Balanced Mode</strong>.</li>
             <li>High risk tasks (Financial advising) &rarr; <strong>Quality Mode / Direct Pinned Model</strong>.</li>
-            <li><label><input type="checkbox"> Configure Azure Cost Management budgets and alerts for unexpected usage shifts.</label></li>
         </ul>
 
         <h3>3. Use Approved Model Subsets</h3>
         <p>
-            Define a subset matching your region's compliance lanes. In Sweden Central, restrict the pool to models available under the <strong>Data Zone Standard</strong> deployment type in your approved region. Verify this list directly in Azure AI Foundry — there is no static public certification registry.
+            Define a subset matching your region's compliance lanes. In Sweden Central, restrict the pool to models available under the <strong>Data Zone Standard</strong> deployment type in your approved region. Verify this list directly in Azure AI Foundry ΓÇö there is no static public certification registry.
         </p>
 
         <h3>4. Log the Selected Model</h3>
@@ -1726,6 +1916,11 @@
             </div>
         </div>
 
+        <div class="callout-box" style="margin-top: 2rem; background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6;">
+            <h4><i class="fas fa-info-circle"></i> Cost Estimation Disclaimer</h4>
+            This comparison is illustrative only. Actual cost depends on current pricing, selected model, routing mode, model subset, prompt length, output length, latency, and human rework rate.
+        </div>
+
         <!-- Table Lookup View (Hidden by default) -->
         <div id="table-view" class="view-section hidden" style="overflow-x: auto; overflow-y: hidden; margin: 2rem 0;">
             <table class="styled-table" style="min-width: 600px; margin-top: 0;">
@@ -1767,7 +1962,7 @@
         <!-- Section 16: What Can Go Wrong in Production -->
         <h2 id="production-failures"><span class="gradient-text">What Can Go Wrong in Production</span></h2>
         <p>
-            In practice, the most common mistake I see is teams treating Model Router as a governance layer — when in reality it is a cost and complexity optimization layer sitting <em>inside</em> a broader governed platform. The governance has to be built around it, not delegated to it.
+            In practice, the most common mistake I see is teams treating Model Router as a governance layer ΓÇö when in reality it is a cost and complexity optimization layer sitting <em>inside</em> a broader governed platform. The governance has to be built around it, not delegated to it.
         </p>
         <p>
             Model routing can fail as an operating model if teams do not control the surrounding platform.
@@ -1785,10 +1980,9 @@
             <li>Failing to log the selected model, token usage, latency, and workflow context.</li>
             <li>Ignoring developer friction: Local testing of routing logic is difficult because developers cannot run the internal classifier locally. Dev-specific router deployments are required.</li>
             <li>Assuming data-zone alignment equals complete legal sovereignty.</li>
-            <li><label><input type="checkbox"> Configure Azure Cost Management budgets and alerts for unexpected usage shifts.</label></li>
         </ul>
         <p>
-            The fix is not to avoid Model Router. The fix is to use it inside a governed AI platform with gateway controls, model approval, observability, evaluation, and human accountability. A useful rule of thumb: if your AI platform were audited tomorrow, could you answer which model processed which request, at what cost, with what output, reviewed by whom? If not, the router is running without governance — and that is the real risk.
+            The fix is not to avoid Model Router. The fix is to use it inside a governed AI platform with gateway controls, model approval, observability, evaluation, and human accountability. A useful rule of thumb: if your AI platform were audited tomorrow, could you answer which model processed which request, at what cost, with what output, reviewed by whom? If not, the router is running without governance ΓÇö and that is the real risk.
         </p>
 
         <div class="section-divider"></div>
@@ -1828,22 +2022,80 @@
         </div>
 
         <!-- Section 18: Deployment Checklist -->
-        
         <h2 id="deployment-checklist"><span class="gradient-text">Deployment Checklist</span></h2>
-        <ul style="list-style-type: none; padding-left: 0; line-height: 1.8;">
-            <li><label><input type="checkbox"> Verify the Azure AI Foundry resource is in a Model Router-supported region.</label></li>
-            <li><label><input type="checkbox"> Confirm the deployment type: Global Standard or Data Zone Standard.</label></li>
-            <li><label><input type="checkbox"> Validate RPM and TPM quota for the expected workload.</label></li>
-            <li><label><input type="checkbox"> Define approved model subsets.</label></li>
-            <li><label><input type="checkbox"> Decide whether router version auto-update is allowed.</label></li>
-            <li><label><input type="checkbox"> Place the router behind APIM or another approved AI gateway where centralized governance is required.</label></li>
-            <li><label><input type="checkbox"> Capture selected model, token count, latency, status code, workflow ID, and user/application identity in logs.</label></li>
-            <li><label><input type="checkbox"> Define fallback behavior for throttling, timeout, and model unavailability.</label></li>
-            <li><label><input type="checkbox"> Run evaluation tests before promoting to production.</label></li>
-            <li><label><input type="checkbox"> Review cost, quality, latency, and human rework metrics after release.</label></li>
-            <li><label><input type="checkbox"> Configure Azure Cost Management budgets and alerts for unexpected usage shifts.</label></li>
-        </ul>
+        <p>
+            Use this checklist to track your architecture's readiness. Your selection states are saved locally in your browser.
+        </p>
 
+        <div class="checklist-group reveal">
+            <!-- Checklist Progress -->
+            <div class="checklist-progress-container">
+                <div class="checklist-progress-header">
+                    <span class="checklist-progress-text">Deployment Readiness</span>
+                    <span class="checklist-progress-count" id="checklist-count">0 / 13</span>
+                </div>
+                <div class="checklist-progress-bar">
+                    <div class="checklist-progress-fill" id="checklist-fill"></div>
+                </div>
+            </div>
+
+            <label class="checklist-item" for="chk-1">
+                <input type="checkbox" id="chk-1">
+                <span>Verify the Azure AI Foundry resource is in a Model Router-supported region.</span>
+            </label>
+            <label class="checklist-item" for="chk-2">
+                <input type="checkbox" id="chk-2">
+                <span>Confirm the deployment type: Global Standard or Data Zone Standard.</span>
+            </label>
+            <label class="checklist-item" for="chk-3">
+                <input type="checkbox" id="chk-3">
+                <span>Validate RPM and TPM quota for the expected workload.</span>
+            </label>
+            <label class="checklist-item" for="chk-4">
+                <input type="checkbox" id="chk-4">
+                <span>Define approved model subsets.</span>
+            </label>
+            <label class="checklist-item" for="chk-5">
+                <input type="checkbox" id="chk-5">
+                <span>Decide whether router version auto-update is allowed.</span>
+            </label>
+            <label class="checklist-item" for="chk-6">
+                <input type="checkbox" id="chk-6">
+                <span>Place the router behind APIM or another approved AI gateway where centralized governance is required.</span>
+            </label>
+            <label class="checklist-item" for="chk-7">
+                <input type="checkbox" id="chk-7">
+                <span>Capture selected model, token count, latency, status code, workflow ID, and user/application identity in logs.</span>
+            </label>
+            <label class="checklist-item" for="chk-8">
+                <input type="checkbox" id="chk-8">
+                <span>Define fallback behavior for throttling, timeout, and model unavailability.</span>
+            </label>
+            <label class="checklist-item" for="chk-9">
+                <input type="checkbox" id="chk-9">
+                <span>Run evaluation tests before promoting to production.</span>
+            </label>
+            <label class="checklist-item" for="chk-10">
+                <input type="checkbox" id="chk-10">
+                <span>Review cost, quality, latency, and human rework metrics after release.</span>
+            </label>
+            <label class="checklist-item" for="chk-11">
+                <input type="checkbox" id="chk-11">
+                <span>Confirm whether the Azure AI Foundry resource requires a private endpoint for network-level isolation (recommended for production EU workloads).</span>
+            </label>
+            <label class="checklist-item" for="chk-12">
+                <input type="checkbox" id="chk-12">
+                <span>Use Managed Identity (specifically the <code>Cognitive Services OpenAI User</code> role) for service-to-service authentication. Avoid API key authentication in production deployments.</span>
+            </label>
+            <label class="checklist-item" for="chk-13">
+                <input type="checkbox" id="chk-13">
+                <span>Configure Azure Cost Management budgets and alerts scoped specifically to the Model Router deployment to detect unexpected routing shifts.</span>
+            </label>
+            <!-- Completion Message -->
+            <div class="checklist-complete-msg" id="checklist-complete">
+                <i class="fas fa-check-circle" style="margin-right: 0.5rem;"></i> All deployment readiness checks complete. Architecture is validated.
+            </div>
+        </div>
 
         <div class="section-divider"></div>
 
@@ -1856,7 +2108,6 @@
             <li>Microsoft Learn: <a href="https://learn.microsoft.com/en-us/azure/templates/microsoft.cognitiveservices/accounts/deployments" target="_blank">Microsoft.CognitiveServices Accounts Deployments ARM/Bicep Reference</a></li>
             <li>Microsoft Learn: <a href="https://learn.microsoft.com/en-us/azure/api-management/genai-gateway-capabilities" target="_blank">Azure API Management AI Gateway Capabilities</a></li>
             <li>Microsoft Learn: <a href="https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy" target="_blank">Data, Privacy, and Security for Foundry Models Sold by Azure</a></li>
-            <li><label><input type="checkbox"> Configure Azure Cost Management budgets and alerts for unexpected usage shifts.</label></li>
         </ul>
 
         <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
@@ -2108,7 +2359,7 @@
                     prodCost.innerText = formatNumber(prod.toFixed(2));
                     
                     // V3 Dynamic Chart Update
-                    const directCostVal = prod * 4; // Simulated baseline for higher-capability reasoning model direct
+                    const directCostVal = prod * 4; // Simulated baseline for GPT-4o direct
                     document.getElementById('direct-cost-label').innerText = '$' + formatNumber(directCostVal.toFixed(2));
                     document.getElementById('router-cost-label').innerText = '$' + formatNumber(prod.toFixed(2));
                     document.getElementById('bar-direct').style.width = '100%';
@@ -2484,7 +2735,7 @@
                 }
             } else if (dtState.step === 2) {
                 if (ans === 'all') {
-                    showDTResult('badge-router-cost', 'Premium Model Tier', 'Direct to higher-capability reasoning model', 'If 100% of your workload strictly requires deep reasoning, routing to a smaller model will just cause retries and hallucinations. Call the premium model directly.');
+                    showDTResult('badge-router-cost', 'Premium Model Tier', 'Direct to GPT-4o', 'If 100% of your workload strictly requires deep reasoning, routing to a smaller model will just cause retries and hallucinations. Call the premium model directly.');
                 } else {
                     showDTResult('badge-router-balanced', 'Model Router', 'Deploy Model Router', 'Perfect fit! Model Router will automatically push the simple extraction tasks to cheaper models, reserving expensive premium tokens only for the complex prompts.');
                 }
