@@ -1314,7 +1314,7 @@
                     The correct enterprise metric is not raw token cost.
                 </p>
                 <p style="font-size: 0.95rem; line-height: 1.6; margin-bottom: 0;">
-                    The better metric is cost per accepted business outcome, including token cost, latency, quality, and human correction effort.
+                    The better metric is cost per accepted business outcome, including token cost, latency, quality, and human correction effort. Furthermore, decoupling model selection from application code accelerates Time-to-Market (TTM) for new features by removing the need for application redeployments when upgrading AI capabilities.
                 </p>
             </div>
         </div>
@@ -1334,7 +1334,7 @@
                 <span class="counter-label">Decision Patterns</span>
             </div>
             <div class="stat-card">
-                <span class="counter-value" data-target="12" data-suffix="">0</span>
+                <span class="counter-value" data-target="13" data-suffix="">0</span>
                 <span class="counter-label">Checklist Items</span>
             </div>
         </div>
@@ -1712,7 +1712,7 @@
         <!-- Section 10: Recommended enterprise architecture pattern -->
         <h2 id="architecture-pattern"><span class="gradient-text">Recommended Enterprise AI Architecture Pattern</span></h2>
         <p>
-            Model Router must reside within a structured, multi-layer gateway topology. It should not be exposed directly to client applications.
+            Model Router must reside within a structured, multi-layer gateway topology. It should not be exposed directly to client applications. For true enterprise scale, Azure API Management (APIM) should sit <em>in front</em> of the Model Router. This pattern enables cross-region disaster recovery (via APIM backend pools mapping to distinct Model Router deployments), strict rate limiting (to protect Provisioned Throughput limits), and centralized Entra ID JWT validation before traffic ever reaches the router layer.
         </p>
 
         <div style="text-align: center; margin: 2.5rem 0;" class="reveal-scale">
@@ -1955,6 +1955,7 @@
             <li>Sending large documents directly to the model instead of using extraction, chunking, retrieval, and grounding.</li>
             <li>Using dynamic routing for regulated workflows that require a fixed approved model.</li>
             <li>Failing to log the selected model, token usage, latency, and workflow context.</li>
+            <li>Ignoring developer friction: Local testing of routing logic is difficult because developers cannot run the internal classifier locally. Dev-specific router deployments are required.</li>
             <li>Assuming data-zone alignment equals complete legal sovereignty.</li>
         </ul>
         <p>
@@ -1988,60 +1989,64 @@
             <div class="checklist-progress-container">
                 <div class="checklist-progress-header">
                     <span class="checklist-progress-text">Deployment Readiness</span>
-                    <span class="checklist-progress-count" id="checklist-count">0 / 12</span>
+                    <span class="checklist-progress-count" id="checklist-count">0 / 13</span>
                 </div>
                 <div class="checklist-progress-bar">
                     <div class="checklist-progress-fill" id="checklist-fill"></div>
                 </div>
             </div>
 
-            <label class="checklist-item">
-                <input type="checkbox">
+            <label class="checklist-item" for="chk-1">
+                <input type="checkbox" id="chk-1">
                 <span>Verify the Azure AI Foundry resource is in a Model Router-supported region.</span>
             </label>
-            <label class="checklist-item">
-                <input type="checkbox">
+            <label class="checklist-item" for="chk-2">
+                <input type="checkbox" id="chk-2">
                 <span>Confirm the deployment type: Global Standard or Data Zone Standard.</span>
             </label>
-            <label class="checklist-item">
-                <input type="checkbox">
+            <label class="checklist-item" for="chk-3">
+                <input type="checkbox" id="chk-3">
                 <span>Validate RPM and TPM quota for the expected workload.</span>
             </label>
-            <label class="checklist-item">
-                <input type="checkbox">
+            <label class="checklist-item" for="chk-4">
+                <input type="checkbox" id="chk-4">
                 <span>Define approved model subsets.</span>
             </label>
-            <label class="checklist-item">
-                <input type="checkbox">
+            <label class="checklist-item" for="chk-5">
+                <input type="checkbox" id="chk-5">
                 <span>Decide whether router version auto-update is allowed.</span>
             </label>
-            <label class="checklist-item">
-                <input type="checkbox">
+            <label class="checklist-item" for="chk-6">
+                <input type="checkbox" id="chk-6">
                 <span>Place the router behind APIM or another approved AI gateway where centralized governance is required.</span>
             </label>
-            <label class="checklist-item">
-                <input type="checkbox">
+            <label class="checklist-item" for="chk-7">
+                <input type="checkbox" id="chk-7">
                 <span>Capture selected model, token count, latency, status code, workflow ID, and user/application identity in logs.</span>
             </label>
-            <label class="checklist-item">
-                <input type="checkbox">
+            <label class="checklist-item" for="chk-8">
+                <input type="checkbox" id="chk-8">
                 <span>Define fallback behavior for throttling, timeout, and model unavailability.</span>
             </label>
-            <label class="checklist-item">
-                <input type="checkbox">
+            <label class="checklist-item" for="chk-9">
+                <input type="checkbox" id="chk-9">
                 <span>Run evaluation tests before promoting to production.</span>
             </label>
-            <label class="checklist-item">
-                <input type="checkbox">
+            <label class="checklist-item" for="chk-10">
+                <input type="checkbox" id="chk-10">
                 <span>Review cost, quality, latency, and human rework metrics after release.</span>
             </label>
-            <label class="checklist-item">
-                <input type="checkbox">
+            <label class="checklist-item" for="chk-11">
+                <input type="checkbox" id="chk-11">
                 <span>Confirm whether the Azure AI Foundry resource requires a private endpoint for network-level isolation (recommended for production EU workloads).</span>
             </label>
-            <label class="checklist-item">
-                <input type="checkbox">
-                <span>Use Managed Identity for service-to-service authentication. Avoid API key authentication in production deployments.</span>
+            <label class="checklist-item" for="chk-12">
+                <input type="checkbox" id="chk-12">
+                <span>Use Managed Identity (specifically the <code>Cognitive Services OpenAI User</code> role) for service-to-service authentication. Avoid API key authentication in production deployments.</span>
+            </label>
+            <label class="checklist-item" for="chk-13">
+                <input type="checkbox" id="chk-13">
+                <span>Configure Azure Cost Management budgets and alerts scoped specifically to the Model Router deployment to detect unexpected routing shifts.</span>
             </label>
             <!-- Completion Message -->
             <div class="checklist-complete-msg" id="checklist-complete">
