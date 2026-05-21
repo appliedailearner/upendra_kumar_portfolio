@@ -1764,21 +1764,21 @@
         <!-- Section 10: Recommended enterprise architecture pattern -->
         <h2 id="architecture-pattern"><span class="gradient-text">Recommended Enterprise AI Architecture Pattern</span></h2>
         <p>
-            Model Router must reside within a structured, multi-layer gateway topology. It should not be exposed directly to client applications. For true enterprise scale, Azure API Management (APIM) should sit <em>in front</em> of the Model Router. This pattern enables cross-region disaster recovery (via APIM backend pools mapping to distinct Model Router deployments), strict rate limiting (to protect Provisioned Throughput limits), and centralized Entra ID JWT validation before traffic ever reaches the router layer.
+            Model Router should sit inside a structured enterprise flow rather than being exposed directly to client applications. In the pattern shown below, requests move from the application or user through an AI gateway and orchestration layer before reaching the Model Router, which then selects only from an approved model pool. This keeps access control, policy enforcement, token governance, logging, and retry behavior in the surrounding platform layers instead of pushing those responsibilities into the router itself.
         </p>
 
         <div class="architecture-figure architecture-figure--wide reveal-scale">
             <img src="../images/blog/myimageuk1.png" alt="How Azure AI Foundry Model Router works" class="cinematic-video-effect">
         </div>
         <p class="architecture-caption">
-            <strong>Reference pattern:</strong> APIM remains the public control point, while Azure AI Foundry Model Router stays behind enterprise policy, identity, and approved backend governance.
+            <strong>Reference pattern:</strong> the diagram shows the full operating chain from application request to governed response, with the gateway, orchestration layer, Model Router, approved model subset, and routing modes each playing a distinct role.
         </p>
 
         <div class="architecture-figure architecture-figure--wide reveal-scale">
             <img src="../images/blog/myimageuk2.png" alt="Secure enterprise deployment topology for Azure AI Foundry Model Router" class="cinematic-video-effect">
         </div>
         <p class="architecture-caption">
-            <strong>Security pattern:</strong> ingress controls terminate before the private boundary, and the router plus supporting AI dependencies are reached through private endpoints and managed identity.
+            <strong>Security pattern:</strong> client traffic enters through the AI gateway layer, while the Model Router, private endpoints, supporting services, governance controls, and observability stack remain inside a private, managed enterprise topology.
         </p>
 
         <!-- Section 11: When to Use Model Router -->
