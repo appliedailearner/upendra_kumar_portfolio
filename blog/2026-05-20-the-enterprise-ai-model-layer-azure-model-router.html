@@ -2009,24 +2009,22 @@
             In practice, the most common mistake I see is teams treating Model Router as a governance layer ΓÇö when in reality it is a cost and complexity optimization layer sitting <em>inside</em> a broader governed platform. The governance has to be built around it, not delegated to it.
         </p>
         <p>
-            Model routing can fail as an operating model if teams do not control the surrounding platform.
+            Model routing fails in production when the surrounding platform controls are weak.
         </p>
         <p>
-            Common failure patterns include:
+            The most common failure patterns are:
         </p>
         <ul>
-            <li>Treating Model Router as a full AI governance layer.</li>
-            <li>Allowing uncontrolled model subsets in production.</li>
-            <li>Ignoring router version changes and auto-update behavior.</li>
-            <li>Measuring only token cost instead of cost per accepted outcome.</li>
+            <li>Treating Model Router as a governance platform instead of a routing component.</li>
+            <li>Allowing unapproved model subsets into production paths.</li>
+            <li>Using dynamic routing in regulated workflows that require a fixed approved model.</li>
+            <li>Measuring token cost without tracking accepted outcome, latency, and human rework.</li>
             <li>Sending large documents directly to the model instead of using extraction, chunking, retrieval, and grounding.</li>
-            <li>Using dynamic routing for regulated workflows that require a fixed approved model.</li>
-            <li>Failing to log the selected model, token usage, latency, and workflow context.</li>
-            <li>Ignoring developer friction: Local testing of routing logic is difficult because developers cannot run the internal classifier locally. Dev-specific router deployments are required.</li>
-            <li>Assuming data-zone alignment equals complete legal sovereignty.</li>
+            <li>Failing to log selected model, token usage, latency, workflow context, and reviewer accountability.</li>
+            <li>Assuming regional hosting or data-zone alignment automatically satisfies sovereignty obligations.</li>
         </ul>
         <p>
-            The fix is not to avoid Model Router. The fix is to use it inside a governed AI platform with gateway controls, model approval, observability, evaluation, and human accountability. A useful rule of thumb: if your AI platform were audited tomorrow, could you answer which model processed which request, at what cost, with what output, reviewed by whom? If not, the router is running without governance ΓÇö and that is the real risk.
+            The fix is not to avoid Model Router. The fix is to use it inside a governed AI platform with gateway controls, approved models, observability, evaluation, and human accountability. A useful rule of thumb is simple: if your AI platform were audited tomorrow, could you explain which model handled which request, at what cost, with what output, and under whose review? If not, the router is operating without governance ΓÇö and that is the real risk.
         </p>
 
         <div class="section-divider"></div>
