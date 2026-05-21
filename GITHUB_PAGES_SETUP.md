@@ -78,8 +78,8 @@ git push origin main
 │   └── main.js            # Interactivity
 ├── images/
 │   ├── profile.webp        # Your photo
-│   ├── azure-architecture.png
-│   └── project-preview.png
+│   ├── azure-architecture.webp
+│   └── project-preview.webp
 ├── projects/
 │   └── azure-landing-zones.html  # Detailed project page
 └── README.md              # Repository info

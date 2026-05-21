@@ -76,7 +76,7 @@ AI Fortress
 **Visual**: Simplified network flow diagram
 
 ```
-[Embed: uklifelabs_solution_overview_corporate.png]
+[Embed: uklifelabs_solution_overview_corporate.webp]
 
 Hub-and-Spoke Topology
 ↓

@@ -25,15 +25,15 @@ This folder contains:
    Place near the “Regional deployments + data residency” and “Why Cloudflare, not Front Door” section.
 
 ## SOP figures (from source file)
-- SOP-figure-01.png
-- SOP-figure-02.png
-- SOP-figure-03.png
+- SOP-figure-01.webp
+- SOP-figure-02.webp
+- SOP-figure-03.webp
 
 ## Microsoft Architecture Center diagrams (best-practice references)
-- microsoft_arch_appgw_apim.vsdx / .pdf / microsoft_arch_appgw_apim_300dpi-1.png
-- microsoft_arch_protect_apis.vsdx / .pdf / microsoft_arch_protect_apis_300dpi-1.png
-- microsoft_arch_baseline_foundry_chat.vsdx / .pdf / microsoft_arch_baseline_foundry_chat_300dpi-1.png
-- microsoft_arch_aoai_gateway_auth.vsdx / .pdf / microsoft_arch_aoai_gateway_auth_300dpi-01.png (page 1)
+- microsoft_arch_appgw_apim.vsdx / .pdf / microsoft_arch_appgw_apim_300dpi-1.webp
+- microsoft_arch_protect_apis.vsdx / .pdf / microsoft_arch_protect_apis_300dpi-1.webp
+- microsoft_arch_baseline_foundry_chat.vsdx / .pdf / microsoft_arch_baseline_foundry_chat_300dpi-1.webp
+- microsoft_arch_aoai_gateway_auth.vsdx / .pdf / microsoft_arch_aoai_gateway_auth_300dpi-01.webp (page 1)
 
 Notes:
 - The **SVG** files are Visio-friendly: import into Visio and restyle as needed.

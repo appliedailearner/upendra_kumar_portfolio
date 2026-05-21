@@ -8,7 +8,7 @@ Your portfolio was showing a **stuck page loader** (the "UK" logo with progress 
 2. Some placeholder images failed to load, preventing the `window.load` event from firing
 3. The loader stayed visible indefinitely
 
-![Stuck Loader](file:///C:/Users/upend/.gemini/antigravity/brain/9761e8dd-fb58-41e5-984d-d627ef2070b5/uploaded_image_1766163470319.png)
+![Stuck Loader](file:///C:/Users/upend/.gemini/antigravity/brain/9761e8dd-fb58-41e5-984d-d627ef2070b5/uploaded_image_1766163470319.webp)
 
 ---
 
