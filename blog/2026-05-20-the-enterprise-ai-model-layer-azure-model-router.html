@@ -1420,7 +1420,7 @@
                 <ul style="padding-left: 1.25rem; font-size: 0.95rem; line-height: 1.6; margin-bottom: 0;">
                     <li>Optimizes individual prompt execution path</li>
                     <li>Evaluates prompt complexity dynamically</li>
-                    <li>Selects the cheapest model capable of execution</li>
+                    <li>Selects a cost-effective eligible model based on routing mode, prompt complexity, and the configured model pool.</li>
                     <li>Operates inside the regional workspace boundary</li>
                     <li>Manages subset eligibility for local workloads</li>
                 </ul>
@@ -1431,8 +1431,8 @@
                     <li>Enforces authentication, authorization, and audit logs</li>
                     <li>Applies global rate limits and user-level token quotas</li>
                     <li>Provides semantic caching and circuit breaking</li>
-                    <li>Natively runs at the edge (Azure API Management)</li>
-                    <li>Injects system safety and content filters</li>
+                    <li>Runs as a managed API gateway layer, with tier-dependent scaling, regional deployment, policy, and observability capabilities.</li>
+                    <li>Applies prompt and response safety policies, including Azure AI Content Safety integration where configured.</li>
                 </ul>
             </div>
         </div>
@@ -1456,7 +1456,7 @@
                     <tr>
                         <td><strong>Sweden Central</strong></td>
                         <td>Strong starting point for European workloads. Aligns with EU Data Boundary (EUDB) expectations, supporting prompt and response data residency within the EU.</td>
-                        <td>High (Supports EU Data Boundary Residency)</td>
+                        <td>High (Supports alignment with EU data-boundary expectations)</td>
                     </tr>
                     <tr>
                         <td><strong>East US 2</strong></td>
@@ -1567,7 +1567,9 @@
             <li><strong>Hidden Context Window Constraints:</strong> The context window of the router does not automatically match the largest model in the pool. When parsing huge contract drafts, check your subset limitations.</li>
             <li><strong>FinOps Tracking Challenges:</strong> Dynamic routing can hide which models are generating cost. If "Quality" mode is overused, token budgets can expire rapidly without developers realizing it.</li>
             <li><strong>Multimodal Limitations:</strong> While the router can take image inputs when vision-enabled models are in the pool, routing decisions are purely based on the text prompt context. Audio inputs are not supported.</li>
-            <li><strong>Version Drift and Auto-Update Risk:</strong> Model Router versions can introduce a different set of underlying models. If auto-update is enabled, routing behavior, output quality, latency, and cost profile can change over time. Production workloads should treat Model Router version updates like controlled platform changes. Evaluate the new router version against representative prompts before promotion, and track changes in selected model, cost per workflow, latency, grounding quality, and human rework rate.</li>
+            <li><strong><h3>Version drift and auto-update risk</h3>
+<p>Model Router versions can introduce a different set of underlying models. If auto-update is enabled, routing behavior, output quality, latency, and cost profile can change over time.</p>
+<p>Production workloads should treat Model Router version updates like controlled platform changes. Evaluate the new router version against representative prompts before promotion. Track selected model, cost per workflow, latency, grounding quality, and human rework rate.</p></li>
         </ul>
 
         <!-- Section 8: Cost planning for Sweden Central -->
@@ -2042,80 +2044,21 @@
         </div>
 
         <!-- Section 18: Deployment Checklist -->
+        
         <h2 id="deployment-checklist"><span class="gradient-text">Deployment Checklist</span></h2>
-        <p>
-            Use this checklist to track your architecture's readiness. Your selection states are saved locally in your browser.
-        </p>
+        <ul style="list-style-type: none; padding-left: 0; line-height: 1.8;">
+            <li><label><input type="checkbox"> Verify the Azure AI Foundry resource is in a Model Router-supported region.</label></li>
+            <li><label><input type="checkbox"> Confirm the deployment type: Global Standard or Data Zone Standard.</label></li>
+            <li><label><input type="checkbox"> Validate RPM and TPM quota for the expected workload.</label></li>
+            <li><label><input type="checkbox"> Define approved model subsets.</label></li>
+            <li><label><input type="checkbox"> Decide whether router version auto-update is allowed.</label></li>
+            <li><label><input type="checkbox"> Place the router behind APIM or another approved AI gateway where centralized governance is required.</label></li>
+            <li><label><input type="checkbox"> Capture selected model, token count, latency, status code, workflow ID, and user/application identity in logs.</label></li>
+            <li><label><input type="checkbox"> Define fallback behavior for throttling, timeout, and model unavailability.</label></li>
+            <li><label><input type="checkbox"> Run evaluation tests before promoting to production.</label></li>
+            <li><label><input type="checkbox"> Review cost, quality, latency, and human rework metrics after release.</label></li>
+        </ul>
 
-        <div class="checklist-group reveal">
-            <!-- Checklist Progress -->
-            <div class="checklist-progress-container">
-                <div class="checklist-progress-header">
-                    <span class="checklist-progress-text">Deployment Readiness</span>
-                    <span class="checklist-progress-count" id="checklist-count">0 / 13</span>
-                </div>
-                <div class="checklist-progress-bar">
-                    <div class="checklist-progress-fill" id="checklist-fill"></div>
-                </div>
-            </div>
-
-            <label class="checklist-item" for="chk-1">
-                <input type="checkbox" id="chk-1">
-                <span>Verify the Azure AI Foundry resource is in a Model Router-supported region.</span>
-            </label>
-            <label class="checklist-item" for="chk-2">
-                <input type="checkbox" id="chk-2">
-                <span>Confirm the deployment type: Global Standard or Data Zone Standard.</span>
-            </label>
-            <label class="checklist-item" for="chk-3">
-                <input type="checkbox" id="chk-3">
-                <span>Validate RPM and TPM quota for the expected workload.</span>
-            </label>
-            <label class="checklist-item" for="chk-4">
-                <input type="checkbox" id="chk-4">
-                <span>Define approved model subsets.</span>
-            </label>
-            <label class="checklist-item" for="chk-5">
-                <input type="checkbox" id="chk-5">
-                <span>Decide whether router version auto-update is allowed.</span>
-            </label>
-            <label class="checklist-item" for="chk-6">
-                <input type="checkbox" id="chk-6">
-                <span>Place the router behind APIM or another approved AI gateway where centralized governance is required.</span>
-            </label>
-            <label class="checklist-item" for="chk-7">
-                <input type="checkbox" id="chk-7">
-                <span>Capture selected model, token count, latency, status code, workflow ID, and user/application identity in logs.</span>
-            </label>
-            <label class="checklist-item" for="chk-8">
-                <input type="checkbox" id="chk-8">
-                <span>Define fallback behavior for throttling, timeout, and model unavailability.</span>
-            </label>
-            <label class="checklist-item" for="chk-9">
-                <input type="checkbox" id="chk-9">
-                <span>Run evaluation tests before promoting to production.</span>
-            </label>
-            <label class="checklist-item" for="chk-10">
-                <input type="checkbox" id="chk-10">
-                <span>Review cost, quality, latency, and human rework metrics after release.</span>
-            </label>
-            <label class="checklist-item" for="chk-11">
-                <input type="checkbox" id="chk-11">
-                <span>Confirm whether the Azure AI Foundry resource requires a private endpoint for network-level isolation (recommended for production EU workloads).</span>
-            </label>
-            <label class="checklist-item" for="chk-12">
-                <input type="checkbox" id="chk-12">
-                <span>Use Managed Identity (specifically the <code>Cognitive Services OpenAI User</code> role) for service-to-service authentication. Avoid API key authentication in production deployments.</span>
-            </label>
-            <label class="checklist-item" for="chk-13">
-                <input type="checkbox" id="chk-13">
-                <span>Configure Azure Cost Management budgets and alerts scoped specifically to the Model Router deployment to detect unexpected routing shifts.</span>
-            </label>
-            <!-- Completion Message -->
-            <div class="checklist-complete-msg" id="checklist-complete">
-                <i class="fas fa-check-circle" style="margin-right: 0.5rem;"></i> All deployment readiness checks complete. Architecture is validated.
-            </div>
-        </div>
 
         <div class="section-divider"></div>
 
@@ -2379,7 +2322,7 @@
                     prodCost.innerText = formatNumber(prod.toFixed(2));
                     
                     // V3 Dynamic Chart Update
-                    const directCostVal = prod * 4; // Simulated baseline for GPT-4o direct
+                    const directCostVal = prod * 4; // Simulated baseline for higher-capability reasoning model direct
                     document.getElementById('direct-cost-label').innerText = '$' + formatNumber(directCostVal.toFixed(2));
                     document.getElementById('router-cost-label').innerText = '$' + formatNumber(prod.toFixed(2));
                     document.getElementById('bar-direct').style.width = '100%';
@@ -2755,7 +2698,7 @@
                 }
             } else if (dtState.step === 2) {
                 if (ans === 'all') {
-                    showDTResult('badge-router-cost', 'Premium Model Tier', 'Direct to GPT-4o', 'If 100% of your workload strictly requires deep reasoning, routing to a smaller model will just cause retries and hallucinations. Call the premium model directly.');
+                    showDTResult('badge-router-cost', 'Premium Model Tier', 'Direct to higher-capability reasoning model', 'If 100% of your workload strictly requires deep reasoning, routing to a smaller model will just cause retries and hallucinations. Call the premium model directly.');
                 } else {
                     showDTResult('badge-router-balanced', 'Model Router', 'Deploy Model Router', 'Perfect fit! Model Router will automatically push the simple extraction tasks to cheaper models, reserving expensive premium tokens only for the complex prompts.');
                 }
