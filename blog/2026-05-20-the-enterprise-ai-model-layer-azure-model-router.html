@@ -453,6 +453,26 @@
             font-size: 1.15rem;
         }
 
+        .architecture-figure {
+            text-align: center;
+            margin: 2.75rem auto;
+        }
+
+        .architecture-figure img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.42);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.985) 0%, rgba(249, 251, 255, 0.985) 100%);
+        }
+
+        .architecture-figure--wide {
+            width: min(1180px, calc(100vw - 7rem));
+            max-width: 100%;
+        }
+
         .gradient-text {
             background: linear-gradient(135deg, #60a5fa 0%, #a855f7 100%);
             -webkit-background-clip: text;
@@ -534,6 +554,9 @@
             }
             .blog-post-content {
                 padding: 2rem 1.25rem !important;
+            }
+            .architecture-figure--wide {
+                width: 100%;
             }
             .blog-post-tags {
                 justify-content: flex-start !important;
@@ -1726,15 +1749,15 @@
             Model Router must reside within a structured, multi-layer gateway topology. It should not be exposed directly to client applications. For true enterprise scale, Azure API Management (APIM) should sit <em>in front</em> of the Model Router. This pattern enables cross-region disaster recovery (via APIM backend pools mapping to distinct Model Router deployments), strict rate limiting (to protect Provisioned Throughput limits), and centralized Entra ID JWT validation before traffic ever reaches the router layer.
         </p>
 
-        <div style="text-align: center; margin: 2.5rem 0;" class="reveal-scale">
-            <img src="../images/blog/azure_enterprise_ai_architecture_v2.svg" alt="Azure Architecture: Enterprise AI Multi-layer Gateway Topology with APIM and Model Router" class="cinematic-video-effect" style="max-width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 15px 35px rgba(0,0,0,0.4);">
+        <div class="architecture-figure architecture-figure--wide reveal-scale">
+            <img src="../images/blog/azure_enterprise_ai_architecture_v2.svg" alt="Azure enterprise AI reference architecture with APIM, private network isolation, Azure AI Model Router, and approved model pools" class="cinematic-video-effect">
         </div>
 
         <!-- V3 Security Topology -->
         <h3 style="margin-top: 3.5rem;"><i class="fas fa-shield-alt" style="color: #10b981; margin-right: 0.5rem;"></i> Secure Network Topology</h3>
         <p>A production-ready deployment must implement strict network boundaries, utilizing Private Endpoints to isolate the Model Router from the public internet and leveraging Managed Identities to authorize API Management requests.</p>
-        <div style="text-align: center; margin: 2.5rem 0;" class="reveal-scale">
-            <img src="../images/blog/azure_secure_network_topology_v2.svg" alt="Azure Architecture: Secure Network Topology for Azure Model Router" class="cinematic-video-effect" style="max-width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 15px 35px rgba(0,0,0,0.4);">
+        <div class="architecture-figure architecture-figure--wide reveal-scale">
+            <img src="../images/blog/azure_secure_network_topology_v2.svg" alt="Azure private network reference topology for Model Router with Front Door, Application Gateway, APIM, private endpoints, managed identity, and key vault" class="cinematic-video-effect">
         </div>
 
         <!-- Section 11: When to Use Model Router -->
