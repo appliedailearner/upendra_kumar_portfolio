@@ -501,6 +501,69 @@
             color: #f8fafc;
         }
 
+        .references-intro {
+            margin: 0.35rem 0 1.4rem;
+            color: #cbd5e1;
+            font-size: 0.98rem;
+            line-height: 1.75;
+            max-width: 60rem;
+        }
+
+        .references-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.85rem 1rem;
+        }
+
+        .references-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            padding: 0.95rem 1rem;
+            background: rgba(15, 23, 42, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+        }
+
+        .references-item::before {
+            content: "";
+            width: 0.55rem;
+            height: 0.55rem;
+            margin-top: 0.55rem;
+            flex: 0 0 auto;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #60a5fa 0%, #a855f7 100%);
+            box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.12);
+        }
+
+        .references-meta {
+            display: block;
+            margin-bottom: 0.2rem;
+            color: #94a3b8;
+            font-size: 0.74rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .references-item a {
+            color: #dbeafe;
+            text-decoration: none;
+            font-weight: 600;
+            line-height: 1.55;
+        }
+
+        .references-item a:hover,
+        .references-item a:focus-visible {
+            color: #ffffff;
+            text-decoration: underline;
+            text-decoration-color: rgba(96, 165, 250, 0.65);
+            text-underline-offset: 0.14em;
+        }
+
         .mini-architecture-panel {
             margin: 2rem 0 2.5rem;
             padding: 1.5rem;
@@ -743,6 +806,9 @@
             .architecture-caption {
                 width: 100%;
                 margin: 0.9rem auto 2.6rem;
+            }
+            .references-list {
+                grid-template-columns: 1fr;
             }
             .blog-post-tags {
                 justify-content: flex-start !important;
@@ -2364,14 +2430,52 @@
 
         <!-- Section 18: References -->
         <h2 id="references"><span class="gradient-text">References</span></h2>
-        <ul>
-            <li>Microsoft Learn: <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/model-router" target="_blank" rel="noopener noreferrer">Model Router concepts</a></li>
-            <li>Microsoft Learn: <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/model-router-how-it-works" target="_blank" rel="noopener noreferrer">How Model Router works</a></li>
-            <li>Microsoft Learn: <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/model-router" target="_blank" rel="noopener noreferrer">How to use Model Router</a></li>
-            <li>Microsoft Learn: <a href="https://learn.microsoft.com/en-us/azure/api-management/genai-gateway-capabilities" target="_blank" rel="noopener noreferrer">Azure API Management AI gateway capabilities</a></li>
-            <li>Microsoft Learn: <a href="https://learn.microsoft.com/en-us/azure/api-management/llm-token-limit-policy" target="_blank" rel="noopener noreferrer">APIM LLM token limit policy</a></li>
-            <li>Microsoft Learn: <a href="https://learn.microsoft.com/en-us/azure/api-management/llm-content-safety-policy" target="_blank" rel="noopener noreferrer">APIM LLM content safety policy</a></li>
-            <li>Microsoft Learn: <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/responsible-ai/openai/data-privacy" target="_blank" rel="noopener noreferrer">Data, privacy, and security for Azure AI Foundry models sold by Azure</a></li>
+        <p class="references-intro">
+            Primary Microsoft references used for architecture guidance, routing behavior, gateway controls, and data protection considerations.
+        </p>
+        <ul class="references-list">
+            <li class="references-item">
+                <div>
+                    <span class="references-meta">Model Router</span>
+                    <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/model-router" target="_blank" rel="noopener noreferrer">Concepts and operating model</a>
+                </div>
+            </li>
+            <li class="references-item">
+                <div>
+                    <span class="references-meta">Model Router</span>
+                    <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/model-router-how-it-works" target="_blank" rel="noopener noreferrer">Routing behavior and selection logic</a>
+                </div>
+            </li>
+            <li class="references-item">
+                <div>
+                    <span class="references-meta">Model Router</span>
+                    <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/model-router" target="_blank" rel="noopener noreferrer">Deployment and usage guidance</a>
+                </div>
+            </li>
+            <li class="references-item">
+                <div>
+                    <span class="references-meta">AI Gateway</span>
+                    <a href="https://learn.microsoft.com/en-us/azure/api-management/genai-gateway-capabilities" target="_blank" rel="noopener noreferrer">Azure API Management AI gateway capabilities</a>
+                </div>
+            </li>
+            <li class="references-item">
+                <div>
+                    <span class="references-meta">AI Gateway</span>
+                    <a href="https://learn.microsoft.com/en-us/azure/api-management/llm-token-limit-policy" target="_blank" rel="noopener noreferrer">Token governance policy</a>
+                </div>
+            </li>
+            <li class="references-item">
+                <div>
+                    <span class="references-meta">Safety</span>
+                    <a href="https://learn.microsoft.com/en-us/azure/api-management/llm-content-safety-policy" target="_blank" rel="noopener noreferrer">Content safety policy</a>
+                </div>
+            </li>
+            <li class="references-item">
+                <div>
+                    <span class="references-meta">Privacy and Security</span>
+                    <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/responsible-ai/openai/data-privacy" target="_blank" rel="noopener noreferrer">Data, privacy, and security guidance</a>
+                </div>
+            </li>
         </ul>
 
         <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
