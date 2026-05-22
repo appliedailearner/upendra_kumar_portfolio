@@ -501,6 +501,160 @@
             color: #f8fafc;
         }
 
+        .mini-architecture-panel {
+            margin: 2rem 0 2.5rem;
+            padding: 1.5rem;
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.72), rgba(15, 23, 42, 0.52));
+            border: 1px solid rgba(168, 85, 247, 0.22);
+            border-radius: 18px;
+            box-shadow: 0 18px 38px rgba(0, 0, 0, 0.28);
+        }
+
+        .mini-architecture-title {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            margin: 0 0 1rem;
+            color: #f8fafc;
+            font-size: 1.15rem;
+            font-weight: 800;
+        }
+
+        .mini-architecture-flow {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 0.85rem;
+            align-items: stretch;
+        }
+
+        .mini-architecture-node {
+            position: relative;
+            padding: 1rem 0.9rem;
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            min-height: 112px;
+        }
+
+        .mini-architecture-node::after {
+            content: "→";
+            position: absolute;
+            right: -0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #60a5fa;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .mini-architecture-flow .mini-architecture-node:last-child::after {
+            display: none;
+        }
+
+        .mini-architecture-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #94a3b8;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 700;
+        }
+
+        .mini-architecture-name {
+            display: block;
+            color: #f8fafc;
+            font-size: 1rem;
+            line-height: 1.35;
+            font-weight: 700;
+        }
+
+        .mini-architecture-note {
+            display: block;
+            margin-top: 0.45rem;
+            color: #cbd5e1;
+            font-size: 0.88rem;
+            line-height: 1.45;
+        }
+
+        .mini-architecture-branch {
+            margin-top: 0.55rem;
+            display: grid;
+            gap: 0.45rem;
+        }
+
+        .mini-architecture-chip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.35rem 0.6rem;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .mini-architecture-chip--router {
+            background: rgba(96, 165, 250, 0.14);
+            color: #60a5fa;
+            border: 1px solid rgba(96, 165, 250, 0.28);
+        }
+
+        .mini-architecture-chip--direct {
+            background: rgba(168, 85, 247, 0.14);
+            color: #c084fc;
+            border: 1px solid rgba(168, 85, 247, 0.28);
+        }
+
+        .mini-architecture-controls {
+            margin-top: 1rem;
+            padding: 1rem 1.1rem;
+            background: rgba(8, 15, 28, 0.58);
+            border: 1px solid rgba(56, 189, 248, 0.12);
+            border-radius: 14px;
+        }
+
+        .mini-architecture-controls-title {
+            display: block;
+            margin-bottom: 0.65rem;
+            color: #38bdf8;
+            font-size: 0.76rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 800;
+        }
+
+        .mini-architecture-controls-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 0.6rem;
+        }
+
+        .mini-architecture-control {
+            padding: 0.65rem 0.55rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            color: #cbd5e1;
+            font-size: 0.82rem;
+            text-align: center;
+            line-height: 1.35;
+            font-weight: 600;
+        }
+
+        .mini-architecture-review {
+            margin-top: 1rem;
+            padding: 0.95rem 1rem;
+            border-left: 3px solid #f59e0b;
+            border-radius: 0 12px 12px 0;
+            background: rgba(245, 158, 11, 0.08);
+            color: #f8fafc;
+        }
+
+        .mini-architecture-review strong {
+            color: #fbbf24;
+        }
+
         .gradient-text {
             background: linear-gradient(135deg, #60a5fa 0%, #a855f7 100%);
             -webkit-background-clip: text;
@@ -595,6 +749,20 @@
             }
             .stat-card .counter-value {
                 font-size: 1.8rem;
+            }
+            .mini-architecture-flow {
+                grid-template-columns: 1fr;
+            }
+            .mini-architecture-node::after {
+                content: "↓";
+                right: auto;
+                left: 50%;
+                top: auto;
+                bottom: -0.85rem;
+                transform: translateX(-50%);
+            }
+            .mini-architecture-controls-grid {
+                grid-template-columns: 1fr 1fr;
             }
         }
 
@@ -1788,19 +1956,51 @@
         <p>
             Model Router should sit inside a structured enterprise flow rather than being exposed directly to client applications. In production, the surrounding platform still owns access policy, orchestration, observability, evaluation, and human accountability.
         </p>
-        <div class="callout-box">
-            <h4><i class="fas fa-sitemap"></i> Reference Architecture Pattern</h4>
-            Application or Copilot UI
-            <br>&darr;
-            <br>AI Gateway
-            <br>&darr;
-            <br>Orchestration Layer
-            <br>&darr;
-            <br>Model Router or Direct Approved Model
-            <br>&darr;
-            <br>Evaluation and Observability
-            <br>&darr;
-            <br>Human Accountability for High-Risk Decisions
+        <div class="mini-architecture-panel reveal-scale" role="img" aria-label="Reference architecture pattern showing the runtime flow from client through gateway and orchestration to either model router or a direct approved model, with cross-cutting controls and human review for high-risk decisions.">
+            <h4 class="mini-architecture-title"><i class="fas fa-sitemap"></i> Reference Architecture Pattern</h4>
+            <div class="mini-architecture-flow">
+                <div class="mini-architecture-node">
+                    <span class="mini-architecture-label">Client</span>
+                    <span class="mini-architecture-name">Application or Copilot UI</span>
+                    <span class="mini-architecture-note">User entry point and workload trigger.</span>
+                </div>
+                <div class="mini-architecture-node">
+                    <span class="mini-architecture-label">Access</span>
+                    <span class="mini-architecture-name">AI Gateway</span>
+                    <span class="mini-architecture-note">Identity, policy, quotas, and logging.</span>
+                </div>
+                <div class="mini-architecture-node">
+                    <span class="mini-architecture-label">Workflow</span>
+                    <span class="mini-architecture-name">Orchestration Layer</span>
+                    <span class="mini-architecture-note">Retrieval, prompt construction, retries, and tool calls.</span>
+                </div>
+                <div class="mini-architecture-node">
+                    <span class="mini-architecture-label">Decision</span>
+                    <span class="mini-architecture-name">Execution Path</span>
+                    <div class="mini-architecture-branch">
+                        <span class="mini-architecture-chip mini-architecture-chip--router">Model Router</span>
+                        <span class="mini-architecture-chip mini-architecture-chip--direct">Direct Approved Model</span>
+                    </div>
+                </div>
+                <div class="mini-architecture-node">
+                    <span class="mini-architecture-label">Outcome</span>
+                    <span class="mini-architecture-name">Response and Evidence</span>
+                    <span class="mini-architecture-note">Quality, cost, latency, and selected-model record.</span>
+                </div>
+            </div>
+            <div class="mini-architecture-controls">
+                <span class="mini-architecture-controls-title">Cross-Cutting Controls</span>
+                <div class="mini-architecture-controls-grid">
+                    <div class="mini-architecture-control">Policy and Safety</div>
+                    <div class="mini-architecture-control">Observability</div>
+                    <div class="mini-architecture-control">Evaluation</div>
+                    <div class="mini-architecture-control">FinOps</div>
+                    <div class="mini-architecture-control">Identity and Audit</div>
+                </div>
+            </div>
+            <div class="mini-architecture-review">
+                <strong>Human review:</strong> required for high-risk decisions, regulated workflows, or outcomes that trigger business escalation.
+            </div>
         </div>
         <p>
             In this pattern, the AI gateway handles access, policies, quotas, logging, and safety. The orchestration layer handles retrieval, prompt construction, workflow state, retries, and tool calling. Model Router handles dynamic model selection for flexible workloads. Direct approved models handle regulated or repeatable workloads. Evaluation and observability validate cost, quality, latency, grounding, and human rework.
