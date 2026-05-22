@@ -30,25 +30,62 @@ $rootFiles = @(
     "status.json"
 )
 
-$contentDirs = @(
-    "assets",
-    "blog",
-    "css",
-    "docs",
-    "images",
-    "js",
-    "pages",
-    "presentations",
-    "Azure HA DR",
-    "azurewebapp"
-)
-
-$allowedExtensions = @(
-    ".html", ".css", ".js", ".mjs", ".json", ".xml",
-    ".png", ".jpg", ".jpeg", ".webp", ".svg", ".gif", ".ico",
-    ".woff", ".woff2", ".ttf", ".eot",
-    ".pdf", ".zip", ".mp4", ".webm",
-    ".csv", ".xlsx", ".pptx", ".docx"
+$publishRules = @(
+    @{
+        Path = "assets"
+        Recurse = $true
+        Extensions = @(".css", ".js", ".json", ".xml", ".png", ".jpg", ".jpeg", ".webp", ".svg", ".gif", ".ico", ".pdf", ".zip", ".mp4", ".webm", ".csv", ".xlsx", ".pptx")
+    },
+    @{
+        Path = "blog"
+        Recurse = $false
+        Extensions = @(".html")
+    },
+    @{
+        Path = "blog\assets"
+        Recurse = $true
+        Extensions = @(".png", ".jpg", ".jpeg", ".webp", ".svg", ".gif", ".pdf", ".pptx", ".zip")
+    },
+    @{
+        Path = "css"
+        Recurse = $true
+        Extensions = @(".css", ".woff", ".woff2", ".ttf", ".eot")
+    },
+    @{
+        Path = "docs"
+        Recurse = $true
+        Extensions = @(".html", ".pdf", ".pptx")
+    },
+    @{
+        Path = "images"
+        Recurse = $true
+        Extensions = @(".png", ".jpg", ".jpeg", ".webp", ".svg", ".gif", ".ico", ".mp4", ".webm")
+    },
+    @{
+        Path = "js"
+        Recurse = $true
+        Extensions = @(".js", ".mjs", ".json")
+    },
+    @{
+        Path = "pages"
+        Recurse = $true
+        Extensions = @(".html")
+    },
+    @{
+        Path = "presentations"
+        Recurse = $true
+        Extensions = @(".html")
+    },
+    @{
+        Path = "Azure HA DR"
+        Recurse = $true
+        Extensions = @(".html", ".png", ".jpg", ".jpeg", ".webp", ".svg", ".json", ".js", ".csv")
+    },
+    @{
+        Path = "azurewebapp"
+        Recurse = $true
+        Extensions = @(".html", ".png", ".jpg", ".jpeg", ".webp", ".svg", ".mp4")
+    }
 )
 
 $excludedPathFragments = @(
@@ -85,18 +122,25 @@ foreach ($file in $rootFiles) {
     }
 }
 
-foreach ($dir in $contentDirs) {
-    $fullDir = Join-Path $sourceDir $dir
+foreach ($rule in $publishRules) {
+    $fullDir = Join-Path $sourceDir $rule.Path
     if (-not (Test-Path $fullDir -PathType Container)) {
         continue
     }
 
-    Get-ChildItem -LiteralPath $fullDir -Recurse -File -ErrorAction SilentlyContinue | ForEach-Object {
+    $childItems = if ($rule.Recurse) {
+        Get-ChildItem -LiteralPath $fullDir -Recurse -File -ErrorAction SilentlyContinue
+    }
+    else {
+        Get-ChildItem -LiteralPath $fullDir -File -ErrorAction SilentlyContinue
+    }
+
+    $childItems | ForEach-Object {
         $relativePath = [System.IO.Path]::GetRelativePath($sourceDir, $_.FullName)
         $normalizedRelativePath = "\" + ($relativePath -replace "/", "\") + "\"
         $extension = $_.Extension.ToLowerInvariant()
 
-        if ($allowedExtensions -notcontains $extension) {
+        if ($rule.Extensions -notcontains $extension) {
             return
         }
 
