@@ -486,37 +486,187 @@
                         grid-template-columns: 1fr;
                     }
                 }
+                .exec-card {
+                    position: relative;
+                    overflow: hidden;
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                    padding: 2rem !important;
+                    background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)) !important;
+                }
+                .exec-card.problem {
+                    border: 1px solid rgba(248, 113, 113, 0.2) !important;
+                    border-top: 4px solid #f87171 !important;
+                }
+                .exec-card.problem:hover {
+                    border-color: rgba(239, 68, 68, 0.5) !important;
+                    box-shadow: 0 12px 40px rgba(239, 68, 68, 0.15) !important;
+                    transform: translateY(-5px);
+                }
+                .exec-card.play {
+                    border: 1px solid rgba(96, 165, 250, 0.2) !important;
+                    border-top: 4px solid #60a5fa !important;
+                }
+                .exec-card.play:hover {
+                    border-color: rgba(59, 130, 246, 0.5) !important;
+                    box-shadow: 0 12px 40px rgba(59, 130, 246, 0.15) !important;
+                    transform: translateY(-5px);
+                }
+                .exec-card.roi {
+                    border: 1px solid rgba(52, 211, 153, 0.2) !important;
+                    border-top: 4px solid #34d399 !important;
+                }
+                .exec-card.roi:hover {
+                    border-color: rgba(16, 185, 129, 0.5) !important;
+                    box-shadow: 0 12px 40px rgba(16, 185, 129, 0.15) !important;
+                    transform: translateY(-5px);
+                }
+                .exec-icon-wrapper {
+                    width: 45px;
+                    height: 45px;
+                    border-radius: 10px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-bottom: 1.5rem;
+                    font-size: 1.2rem;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                }
+                .exec-card.problem .exec-icon-wrapper {
+                    background: rgba(248, 113, 113, 0.1);
+                    border-color: rgba(248, 113, 113, 0.2);
+                    color: #f87171;
+                }
+                .exec-card.play .exec-icon-wrapper {
+                    background: rgba(96, 165, 250, 0.1);
+                    border-color: rgba(96, 165, 250, 0.2);
+                    color: #60a5fa;
+                }
+                .exec-card.roi .exec-icon-wrapper {
+                    background: rgba(52, 211, 153, 0.1);
+                    border-color: rgba(52, 211, 153, 0.2);
+                    color: #34d399;
+                }
+                .exec-divider {
+                    height: 1px;
+                    background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), transparent);
+                    margin: 1.2rem 0;
+                }
+                .exec-list {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                    font-size: 0.9rem;
+                    color: #94a3b8;
+                    line-height: 1.5;
+                }
+                .exec-list li {
+                    display: flex;
+                    align-items: flex-start;
+                    gap: 0.6rem;
+                    margin-bottom: 0.8rem;
+                }
+                .exec-list li i {
+                    margin-top: 4px;
+                    font-size: 0.85rem;
+                }
+                .exec-list.problem-list li i {
+                    color: #f87171;
+                }
+                .exec-list.play-list li i {
+                    color: #60a5fa;
+                }
+                .exec-list.roi-list li i {
+                    color: #34d399;
+                }
+                .metric-highlight {
+                    font-weight: 700;
+                    color: #f1f5f9;
+                }
             </style>
             <div class="executive-grid">
                 
                 <!-- Card 1: Business Problem -->
-                <div class="glass-card" style="padding: 2rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)); border: 1px solid rgba(248, 113, 113, 0.2); border-top: 3px solid #f87171; position: relative; overflow: hidden;">
+                <div class="glass-card exec-card problem">
                     <div style="position: absolute; top: -15px; right: -15px; opacity: 0.03; font-size: 8rem; color: #f87171;"><i class="fas fa-exclamation-triangle"></i></div>
-                    <div style="width: 45px; height: 45px; background: rgba(248, 113, 113, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(248, 113, 113, 0.2);">
-                        <i class="fas fa-fire" style="color: #f87171; font-size: 1.2rem;"></i>
+                    <div class="exec-icon-wrapper">
+                        <i class="fas fa-fire"></i>
                     </div>
-                    <h4 style="color: #fca5a5; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">The Business Problem</h4>
-                    <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">Enterprise AI rollouts stall in production due to a compliance and leadership vacuum. Organizations bleed thousands in licensing waste ($150k+/month) and face severe security risks because architects focus purely on model parameters while ignoring strategic governance.</p>
+                    <h4 style="color: #fca5a5; margin: 0 0 0.5rem 0; font-size: 1.2rem; font-family: 'Outfit', sans-serif;">The Business Problem</h4>
+                    <p style="margin: 0; font-size: 0.95rem; color: #cbd5e1; line-height: 1.5; font-style: italic;">
+                        Enterprise AI rollouts stall in production due to a compliance and leadership vacuum.
+                    </p>
+                    <div class="exec-divider"></div>
+                    <ul class="exec-list problem-list">
+                        <li>
+                            <i class="fas fa-arrow-right"></i>
+                            <span><span class="metric-highlight">$150k+/month</span> in licensing waste from inactive or under-utilized AI seats.</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-arrow-right"></i>
+                            <span><span class="metric-highlight">Severe security risks</span> from lack of prompt auditing and unstructured model grounding.</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-arrow-right"></i>
+                            <span><span class="metric-highlight">Architecture blindness</span> prioritizing technical knobs while ignoring strategic alignment.</span>
+                        </li>
+                    </ul>
                 </div>
 
                 <!-- Card 2: Strategic Play -->
-                <div class="glass-card" style="padding: 2rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)); border: 1px solid rgba(96, 165, 250, 0.2); border-top: 3px solid #60a5fa; position: relative; overflow: hidden;">
+                <div class="glass-card exec-card play">
                     <div style="position: absolute; top: -15px; right: -15px; opacity: 0.03; font-size: 8rem; color: #60a5fa;"><i class="fas fa-chess-knight"></i></div>
-                    <div style="width: 45px; height: 45px; background: rgba(96, 165, 250, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(96, 165, 250, 0.2);">
-                        <i class="fas fa-network-wired" style="color: #60a5fa; font-size: 1.2rem;"></i>
+                    <div class="exec-icon-wrapper">
+                        <i class="fas fa-network-wired"></i>
                     </div>
-                    <h4 style="color: #93c5fd; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">The Strategic Play</h4>
-                    <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">Shift from technical implementers to AI advisory leaders by mastering Microsoft's official AB-730 (AI Professional) and AB-731 (AI Transformation Leader) structures. Align enterprise architectures with CCoE governance frameworks and robust security guidelines.</p>
+                    <h4 style="color: #93c5fd; margin: 0 0 0.5rem 0; font-size: 1.2rem; font-family: 'Outfit', sans-serif;">The Strategic Play</h4>
+                    <p style="margin: 0; font-size: 0.95rem; color: #cbd5e1; line-height: 1.5; font-style: italic;">
+                        Shift from technical implementers to AI advisors by mastering official business AI structures.
+                    </p>
+                    <div class="exec-divider"></div>
+                    <ul class="exec-list play-list">
+                        <li>
+                            <i class="fas fa-check"></i>
+                            <span><span class="metric-highlight">AB-730 Fluency:</span> Master generative AI productivity and user workflow optimization.</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check"></i>
+                            <span><span class="metric-highlight">AB-731 Leadership:</span> Lead AI councils, establish operating models, and drive adoption.</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check"></i>
+                            <span><span class="metric-highlight">Governance Zones:</span> Connect cloud architecture (CCoE) with responsible AI principles.</span>
+                        </li>
+                    </ul>
                 </div>
 
                 <!-- Card 3: Executive ROI -->
-                <div class="glass-card" style="padding: 2rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)); border: 1px solid rgba(52, 211, 153, 0.2); border-top: 3px solid #34d399; position: relative; overflow: hidden;">
+                <div class="glass-card exec-card roi">
                     <div style="position: absolute; top: -15px; right: -15px; opacity: 0.03; font-size: 8rem; color: #34d399;"><i class="fas fa-award"></i></div>
-                    <div style="width: 45px; height: 45px; background: rgba(52, 211, 153, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(52, 211, 153, 0.2);">
-                        <i class="fas fa-chart-pie" style="color: #34d399; font-size: 1.2rem;"></i>
+                    <div class="exec-icon-wrapper">
+                        <i class="fas fa-chart-pie"></i>
                     </div>
-                    <h4 style="color: #6ee7b7; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">The Executive ROI</h4>
-                    <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">Reduces AI implementation timelines by 40% (moving pilots to production in 60 days), optimizes Microsoft 365 Copilot licensing spend (saving ~$85k/yr), and secures comprehensive regulatory risk avoidance ($500k+ potential fine mitigation).</p>
+                    <h4 style="color: #6ee7b7; margin: 0 0 0.5rem 0; font-size: 1.2rem; font-family: 'Outfit', sans-serif;">The Executive ROI</h4>
+                    <p style="margin: 0; font-size: 0.95rem; color: #cbd5e1; line-height: 1.5; font-style: italic;">
+                        Quantifiable metrics that prove alignment between AI capabilities and business strategy.
+                    </p>
+                    <div class="exec-divider"></div>
+                    <ul class="exec-list roi-list">
+                        <li>
+                            <i class="fas fa-plus"></i>
+                            <span><span class="metric-highlight">40% speed-up:</span> Shift pilot projects into live secure production in under 60 days.</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-plus"></i>
+                            <span><span class="metric-highlight">~$85k/yr saved:</span> Right-size Microsoft 365 Copilot licensing spend per 100 seats.</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-plus"></i>
+                            <span><span class="metric-highlight">$500k+ risk mitigation:</span> Prevent non-compliance fines via active AI guardrails.</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
