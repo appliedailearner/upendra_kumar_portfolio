@@ -468,7 +468,7 @@
             <!-- Background ambient glow -->
             <div style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 80%; height: 100px; background: radial-gradient(ellipse, rgba(168, 85, 247, 0.15) 0%, transparent 70%); filter: blur(30px); z-index: -1;"></div>
 
-            <div style="text-align: center; margin-bottom: 2rem;">
+            <div style="text-align: center; margin-bottom: 2.5rem;">
                 <span style="display: inline-block; padding: 0.4rem 1rem; background: rgba(168, 85, 247, 0.1); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 20px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 1rem;">
                     <i class="fas fa-chart-line" style="margin-right: 6px;"></i> Strategic Alignment & ROI
                 </span>
@@ -476,130 +476,138 @@
             </div>
 
             <style>
-                .executive-grid {
-                    display: grid;
-                    grid-template-columns: repeat(3, 1fr);
+                .exec-rows-container {
+                    display: flex;
+                    flex-direction: column;
                     gap: 1.5rem;
                 }
-                @media (max-width: 900px) {
-                    .executive-grid {
-                        grid-template-columns: 1fr;
-                    }
-                }
-                .exec-card {
+                .exec-row {
+                    display: grid;
+                    grid-template-columns: 250px 1fr;
+                    gap: 2rem;
+                    padding: 1.75rem 2rem !important;
+                    background: linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.4)) !important;
+                    border-radius: 12px;
                     position: relative;
                     overflow: hidden;
                     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                }
+                @media (max-width: 768px) {
+                    .exec-row {
+                        grid-template-columns: 1fr;
+                        gap: 1.2rem;
+                        padding: 1.5rem !important;
+                    }
+                }
+                .exec-row.problem {
+                    border: 1px solid rgba(248, 113, 113, 0.15) !important;
+                    border-left: 4px solid #f87171 !important;
+                }
+                .exec-row.problem:hover {
+                    border-color: rgba(239, 68, 68, 0.4) !important;
+                    box-shadow: 0 10px 30px rgba(239, 68, 68, 0.12) !important;
+                    transform: translateY(-3px);
+                }
+                .exec-row.play {
+                    border: 1px solid rgba(96, 165, 250, 0.15) !important;
+                    border-left: 4px solid #60a5fa !important;
+                }
+                .exec-row.play:hover {
+                    border-color: rgba(59, 130, 246, 0.4) !important;
+                    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.12) !important;
+                    transform: translateY(-3px);
+                }
+                .exec-row.roi {
+                    border: 1px solid rgba(52, 211, 153, 0.15) !important;
+                    border-left: 4px solid #34d399 !important;
+                }
+                .exec-row.roi:hover {
+                    border-color: rgba(16, 185, 129, 0.4) !important;
+                    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.12) !important;
+                    transform: translateY(-3px);
+                }
+                .exec-meta-col {
                     display: flex;
                     flex-direction: column;
-                    height: 100%;
-                    padding: 2rem !important;
-                    background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)) !important;
-                }
-                .exec-card.problem {
-                    border: 1px solid rgba(248, 113, 113, 0.2) !important;
-                    border-top: 4px solid #f87171 !important;
-                }
-                .exec-card.problem:hover {
-                    border-color: rgba(239, 68, 68, 0.5) !important;
-                    box-shadow: 0 12px 40px rgba(239, 68, 68, 0.15) !important;
-                    transform: translateY(-5px);
-                }
-                .exec-card.play {
-                    border: 1px solid rgba(96, 165, 250, 0.2) !important;
-                    border-top: 4px solid #60a5fa !important;
-                }
-                .exec-card.play:hover {
-                    border-color: rgba(59, 130, 246, 0.5) !important;
-                    box-shadow: 0 12px 40px rgba(59, 130, 246, 0.15) !important;
-                    transform: translateY(-5px);
-                }
-                .exec-card.roi {
-                    border: 1px solid rgba(52, 211, 153, 0.2) !important;
-                    border-top: 4px solid #34d399 !important;
-                }
-                .exec-card.roi:hover {
-                    border-color: rgba(16, 185, 129, 0.5) !important;
-                    box-shadow: 0 12px 40px rgba(16, 185, 129, 0.15) !important;
-                    transform: translateY(-5px);
+                    justify-content: flex-start;
                 }
                 .exec-icon-wrapper {
-                    width: 45px;
-                    height: 45px;
-                    border-radius: 10px;
+                    width: 42px;
+                    height: 42px;
+                    border-radius: 8px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    margin-bottom: 1.5rem;
-                    font-size: 1.2rem;
+                    margin-bottom: 1rem;
+                    font-size: 1.15rem;
                     border: 1px solid rgba(255, 255, 255, 0.1);
                 }
-                .exec-card.problem .exec-icon-wrapper {
+                .exec-row.problem .exec-icon-wrapper {
                     background: rgba(248, 113, 113, 0.1);
                     border-color: rgba(248, 113, 113, 0.2);
                     color: #f87171;
                 }
-                .exec-card.play .exec-icon-wrapper {
+                .exec-row.play .exec-icon-wrapper {
                     background: rgba(96, 165, 250, 0.1);
                     border-color: rgba(96, 165, 250, 0.2);
                     color: #60a5fa;
                 }
-                .exec-card.roi .exec-icon-wrapper {
+                .exec-row.roi .exec-icon-wrapper {
                     background: rgba(52, 211, 153, 0.1);
                     border-color: rgba(52, 211, 153, 0.2);
                     color: #34d399;
                 }
-                .exec-divider {
-                    height: 1px;
-                    background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), transparent);
-                    margin: 1.2rem 0;
-                }
-                .exec-list {
+                .exec-details-list {
                     list-style: none;
                     padding: 0;
                     margin: 0;
-                    font-size: 0.9rem;
-                    color: #94a3b8;
-                    line-height: 1.5;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    gap: 0.75rem;
                 }
-                .exec-list li {
+                .exec-details-list li {
                     display: flex;
                     align-items: flex-start;
-                    gap: 0.6rem;
-                    margin-bottom: 0.8rem;
+                    gap: 0.75rem;
+                    font-size: 0.95rem;
+                    color: #cbd5e1;
+                    line-height: 1.5;
                 }
-                .exec-list li i {
-                    margin-top: 4px;
+                .exec-details-list li i {
+                    margin-top: 5px;
                     font-size: 0.85rem;
                 }
-                .exec-list.problem-list li i {
+                .exec-details-list.problem-list li i {
                     color: #f87171;
                 }
-                .exec-list.play-list li i {
+                .exec-details-list.play-list li i {
                     color: #60a5fa;
                 }
-                .exec-list.roi-list li i {
+                .exec-details-list.roi-list li i {
                     color: #34d399;
                 }
                 .metric-highlight {
                     font-weight: 700;
-                    color: #f1f5f9;
+                    color: #f8fafc;
                 }
             </style>
-            <div class="executive-grid">
+            
+            <div class="exec-rows-container">
                 
-                <!-- Card 1: Business Problem -->
-                <div class="glass-card exec-card problem">
-                    <div style="position: absolute; top: -15px; right: -15px; opacity: 0.03; font-size: 8rem; color: #f87171;"><i class="fas fa-exclamation-triangle"></i></div>
-                    <div class="exec-icon-wrapper">
-                        <i class="fas fa-fire"></i>
+                <!-- Row 1: Business Problem -->
+                <div class="glass-card exec-row problem">
+                    <div style="position: absolute; top: -15px; right: -15px; opacity: 0.02; font-size: 7rem; color: #f87171;"><i class="fas fa-exclamation-triangle"></i></div>
+                    <div class="exec-meta-col">
+                        <div class="exec-icon-wrapper">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <h4 style="color: #fca5a5; margin: 0 0 0.5rem 0; font-size: 1.25rem; font-family: 'Outfit', sans-serif;">The Business Problem</h4>
+                        <p style="margin: 0; font-size: 0.9rem; color: #cbd5e1; line-height: 1.4; font-style: italic;">
+                            Enterprise AI rollouts stall in production due to a compliance and leadership vacuum.
+                        </p>
                     </div>
-                    <h4 style="color: #fca5a5; margin: 0 0 0.5rem 0; font-size: 1.2rem; font-family: 'Outfit', sans-serif;">The Business Problem</h4>
-                    <p style="margin: 0; font-size: 0.95rem; color: #cbd5e1; line-height: 1.5; font-style: italic;">
-                        Enterprise AI rollouts stall in production due to a compliance and leadership vacuum.
-                    </p>
-                    <div class="exec-divider"></div>
-                    <ul class="exec-list problem-list">
+                    <ul class="exec-details-list problem-list">
                         <li>
                             <i class="fas fa-arrow-right"></i>
                             <span><span class="metric-highlight">$150k+/month</span> in licensing waste from inactive or under-utilized AI seats.</span>
@@ -615,18 +623,19 @@
                     </ul>
                 </div>
 
-                <!-- Card 2: Strategic Play -->
-                <div class="glass-card exec-card play">
-                    <div style="position: absolute; top: -15px; right: -15px; opacity: 0.03; font-size: 8rem; color: #60a5fa;"><i class="fas fa-chess-knight"></i></div>
-                    <div class="exec-icon-wrapper">
-                        <i class="fas fa-network-wired"></i>
+                <!-- Row 2: Strategic Play -->
+                <div class="glass-card exec-row play">
+                    <div style="position: absolute; top: -15px; right: -15px; opacity: 0.02; font-size: 7rem; color: #60a5fa;"><i class="fas fa-chess-knight"></i></div>
+                    <div class="exec-meta-col">
+                        <div class="exec-icon-wrapper">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h4 style="color: #93c5fd; margin: 0 0 0.5rem 0; font-size: 1.25rem; font-family: 'Outfit', sans-serif;">The Strategic Play</h4>
+                        <p style="margin: 0; font-size: 0.9rem; color: #cbd5e1; line-height: 1.4; font-style: italic;">
+                            Shift from technical implementers to AI advisors by mastering official business AI structures.
+                        </p>
                     </div>
-                    <h4 style="color: #93c5fd; margin: 0 0 0.5rem 0; font-size: 1.2rem; font-family: 'Outfit', sans-serif;">The Strategic Play</h4>
-                    <p style="margin: 0; font-size: 0.95rem; color: #cbd5e1; line-height: 1.5; font-style: italic;">
-                        Shift from technical implementers to AI advisors by mastering official business AI structures.
-                    </p>
-                    <div class="exec-divider"></div>
-                    <ul class="exec-list play-list">
+                    <ul class="exec-details-list play-list">
                         <li>
                             <i class="fas fa-check"></i>
                             <span><span class="metric-highlight">AB-730 Fluency:</span> Master generative AI productivity and user workflow optimization.</span>
@@ -642,18 +651,19 @@
                     </ul>
                 </div>
 
-                <!-- Card 3: Executive ROI -->
-                <div class="glass-card exec-card roi">
-                    <div style="position: absolute; top: -15px; right: -15px; opacity: 0.03; font-size: 8rem; color: #34d399;"><i class="fas fa-award"></i></div>
-                    <div class="exec-icon-wrapper">
-                        <i class="fas fa-chart-pie"></i>
+                <!-- Row 3: Executive ROI -->
+                <div class="glass-card exec-row roi">
+                    <div style="position: absolute; top: -15px; right: -15px; opacity: 0.02; font-size: 7rem; color: #34d399;"><i class="fas fa-award"></i></div>
+                    <div class="exec-meta-col">
+                        <div class="exec-icon-wrapper">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <h4 style="color: #6ee7b7; margin: 0 0 0.5rem 0; font-size: 1.25rem; font-family: 'Outfit', sans-serif;">The Executive ROI</h4>
+                        <p style="margin: 0; font-size: 0.9rem; color: #cbd5e1; line-height: 1.4; font-style: italic;">
+                            Quantifiable metrics that prove alignment between AI capabilities and business strategy.
+                        </p>
                     </div>
-                    <h4 style="color: #6ee7b7; margin: 0 0 0.5rem 0; font-size: 1.2rem; font-family: 'Outfit', sans-serif;">The Executive ROI</h4>
-                    <p style="margin: 0; font-size: 0.95rem; color: #cbd5e1; line-height: 1.5; font-style: italic;">
-                        Quantifiable metrics that prove alignment between AI capabilities and business strategy.
-                    </p>
-                    <div class="exec-divider"></div>
-                    <ul class="exec-list roi-list">
+                    <ul class="exec-details-list roi-list">
                         <li>
                             <i class="fas fa-plus"></i>
                             <span><span class="metric-highlight">40% speed-up:</span> Shift pilot projects into live secure production in under 60 days.</span>
@@ -668,6 +678,7 @@
                         </li>
                     </ul>
                 </div>
+                
             </div>
         </div>
 
