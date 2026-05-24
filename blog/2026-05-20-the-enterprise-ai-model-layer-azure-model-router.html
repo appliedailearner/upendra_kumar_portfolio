@@ -1347,6 +1347,74 @@
             color: #e2e8f0;
         }
 
+        .region-decision-table {
+            table-layout: fixed;
+        }
+
+        .region-decision-table col.region-col {
+            width: 180px;
+        }
+
+        .region-decision-table col.fit-col {
+            width: 54%;
+        }
+
+        .region-decision-table col.note-col {
+            width: 28%;
+        }
+
+        .region-decision-table th,
+        .region-decision-table td {
+            vertical-align: top;
+        }
+
+        .region-decision-table td:first-child,
+        .region-decision-table th:first-child {
+            white-space: normal;
+            word-break: keep-all;
+        }
+
+        .region-decision-table td strong {
+            display: inline-block;
+            color: #f8fafc;
+            font-size: 1rem;
+            line-height: 1.45;
+        }
+
+        .region-fit-copy,
+        .region-note-copy {
+            display: block;
+            color: #cbd5e1;
+            line-height: 1.65;
+        }
+
+        .region-note-copy strong {
+            color: #e2e8f0;
+            font-size: 0.96rem;
+        }
+
+        @media (max-width: 767px) {
+            .region-decision-table {
+                min-width: 0 !important;
+                table-layout: auto;
+            }
+
+            .region-decision-table col {
+                width: auto !important;
+            }
+
+            .region-decision-table th,
+            .region-decision-table td {
+                padding: 0.9rem 0.85rem;
+                font-size: 0.92rem;
+            }
+
+            .region-decision-table th:first-child,
+            .region-decision-table td:first-child {
+                min-width: 120px;
+            }
+        }
+
         /* ===== Back to Top Button ===== */
         .back-to-top {
             position: fixed;
@@ -1759,24 +1827,29 @@
         </p>
 
         <div style="overflow-x: auto; overflow-y: hidden;">
-            <table class="styled-table" style="min-width: 600px;">
+            <table class="styled-table region-decision-table" style="min-width: 680px;">
+                <colgroup>
+                    <col class="region-col">
+                    <col class="fit-col">
+                    <col class="note-col">
+                </colgroup>
                 <thead>
                     <tr>
                         <th>Region</th>
-                        <th>Deployment and policy considerations</th>
-                        <th>Planning note</th>
+                        <th>Best fit</th>
+                        <th>Decision note</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><strong>Sweden Central</strong></td>
-                        <td>Strong starting point for European workloads where EU data-zone processing is required. Supports prompt and response processing within the Microsoft-defined EU data zone.</td>
-                        <td>High alignment with EU data-zone processing requirements, subject to legal, regulatory, and contractual validation.</td>
+                        <td><span class="region-fit-copy">European workloads requiring EU data-zone processing. Supports prompt and response processing within the Microsoft-defined EU data zone.</span></td>
+                        <td><span class="region-note-copy"><strong>Strong alignment.</strong> Validate legal, regulatory, and contractual requirements.</span></td>
                     </tr>
                     <tr>
                         <td><strong>East US 2</strong></td>
-                        <td>Suitable for US-centric or global workloads where local data residency rules are flexible.</td>
-                        <td>Standard (Global/US Zone)</td>
+                        <td><span class="region-fit-copy">US-centric or globally flexible workloads where strict local residency rules are not the primary driver.</span></td>
+                        <td><span class="region-note-copy"><strong>Standard choice.</strong> Best when data-zone restrictions are not the leading requirement.</span></td>
                     </tr>
                 </tbody>
             </table>
