@@ -104,7 +104,7 @@ function Copy-ItemPreservingRelativePath {
         [Parameter(Mandatory = $true)][string]$FullPath
     )
 
-    $relativePath = [System.IO.Path]::GetRelativePath($sourceDir, $FullPath)
+    $relativePath = $FullPath.Substring($sourceDir.Length).TrimStart([System.IO.Path]::DirectorySeparatorChar)
     $destinationPath = Join-Path $tempDir $relativePath
     $destinationParent = Split-Path $destinationPath -Parent
 
@@ -136,7 +136,7 @@ foreach ($rule in $publishRules) {
     }
 
     $childItems | ForEach-Object {
-        $relativePath = [System.IO.Path]::GetRelativePath($sourceDir, $_.FullName)
+        $relativePath = $_.FullName.Substring($sourceDir.Length).TrimStart([System.IO.Path]::DirectorySeparatorChar)
         $normalizedRelativePath = "\" + ($relativePath -replace "/", "\") + "\"
         $extension = $_.Extension.ToLowerInvariant()
 
