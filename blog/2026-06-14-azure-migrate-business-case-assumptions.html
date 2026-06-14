@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Azure Migrate Business Cases guess your on-premises costs. This guide shows how to replace every default assumption with real data, unlock AHUB and the SQL 1:4 multiplier, and build a CFO-proof financial model.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://portfolio.upendrakumar.com/blog/2026-06-14-azure-migrate-business-case-assumptions.html">
+    <meta property="og:title" content="Azure Migrate Is Guessing Your Costs. Here's How Platform Leaders Fix It. | Upendra Kumar">
+    <meta property="og:description" content="Azure Migrate Business Cases guess your on-premises costs. This guide shows how to replace every default assumption with real data, unlock AHUB and the SQL 1:4 multiplier, and build a CFO-proof financial model.">
+    <meta property="og:image" content="https://portfolio.upendrakumar.com/images/profile.webp">
+    <meta property="og:site_name" content="Upendra Kumar | Cloud Strategy & Architecture">
+    <meta property="article:author" content="Upendra Kumar">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://portfolio.upendrakumar.com/blog/2026-06-14-azure-migrate-business-case-assumptions.html">
+    <meta property="twitter:title" content="Azure Migrate Is Guessing Your Costs. Here's How Platform Leaders Fix It. | Upendra Kumar">
+    <meta property="twitter:description" content="Azure Migrate Business Cases guess your on-premises costs. This guide shows how to replace every default assumption with real data, unlock AHUB and the SQL 1:4 multiplier, and build a CFO-proof financial model.">
+    <meta property="twitter:image" content="https://portfolio.upendrakumar.com/images/profile.webp">
+
+    <title>Azure Migrate Is Guessing Your Costs. Here's How Platform Leaders Fix It. | Upendra Kumar</title>
+
+    <!-- Performance: Critical Asset Preloading -->
+    <link rel="preload" href="../css/style.css?v=49" as="style">
+    <link rel="preload" href="../js/navbar-component.js" as="script">
+    <link rel="preload" href="../js/main.js" as="script">
+
+    <link rel="stylesheet" href="../css/style.css?v=49">
+    <link rel="stylesheet" href="../css/premium.css?v=49">
+    <link rel="stylesheet" href="../css/dropdown.css?v=49">
+
+    <!-- JSON-LD Article Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Azure Migrate Is Guessing Your Costs. Here's How Platform Leaders Fix It.",
+      "image": "https://portfolio.upendrakumar.com/images/profile.webp",
+      "author": {
+        "@type": "Person",
+        "name": "Upendra Kumar",
+        "url": "https://portfolio.upendrakumar.com/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Upendra Kumar",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://portfolio.upendrakumar.com/favicon.ico"
+        }
+      },
+      "datePublished": "2026-06-14",
+      "dateModified": "2026-06-14",
+      "description": "Azure Migrate Business Cases guess your on-premises costs. This guide shows how to replace every default assumption with real data, unlock AHUB and the SQL 1:4 multiplier, and build a CFO-proof financial model.",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://portfolio.upendrakumar.com/blog/2026-06-14-azure-migrate-business-case-assumptions.html"
+      }
+    }
+    </script>
+
+    <style>
+        .nav-logo-uk {
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+            border-radius: 8px !important;
+        }
+
+        /* Blog Post Specific Styles */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(56, 189, 248, 0.6);
+        }
+
+        .eli5-term {
+            border-bottom: 2px dashed #a855f7;
+            cursor: help;
+            position: relative;
+            font-weight: 600;
+            color: #c084fc;
+            -webkit-text-fill-color: initial;
+        }
+        .eli5-term::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            color: #f8fafc;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 400;
+            white-space: normal;
+            min-width: 200px;
+            max-width: 300px;
+            text-align: left;
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+            pointer-events: none;
+            line-height: 1.4;
+            -webkit-text-fill-color: initial;
+        }
+        .eli5-term::before {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-2px);
+            border-width: 8px;
+            border-style: solid;
+            border-color: rgba(168, 85, 247, 0.4) transparent transparent transparent;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+            pointer-events: none;
+        }
+        .eli5-term:hover::after,
+        .eli5-term:hover::before {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toc-container {
+            position: sticky;
+            top: 100px;
+            width: 250px;
+            float: left;
+            margin-left: -280px;
+            padding: 1.5rem;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+        .toc-container h4 {
+            font-family: 'Outfit', sans-serif;
+            color: #38bdf8;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-list li {
+            margin-bottom: 0.75rem;
+        }
+        .toc-link {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: block;
+            padding-left: 0.5rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s ease;
+            line-height: 1.4;
+        }
+        .toc-link:hover {
+            color: #e2e8f0;
+            border-left-color: #a855f7;
+        }
+        .toc-link.active {
+            color: #60a5fa;
+            font-weight: 600;
+            border-left: 3px solid #60a5fa;
+        }
+        @media (max-width: 1150px) {
+            .toc-container { display: none; }
+        }
+
+        .blog-post-hero {
+            padding: 120px 0 60px;
+            background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.15), transparent 60%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .blog-post-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        .blog-post-content h2 {
+            color: var(--text-main);
+            font-size: 2rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Outfit', sans-serif;
+        }
+        .blog-post-content h3 {
+            color: #e2e8f0;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .blog-post-content p { margin-bottom: 1.5rem; }
+        .blog-post-content ul,
+        .blog-post-content ol {
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+        .blog-post-content li { margin-bottom: 0.5rem; }
+        .blog-post-content code {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .blog-post-content pre {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-left: 4px solid #0ea5e9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+        .blog-post-content pre code { background: none; padding: 0; }
+        .blog-post-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .blog-post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 2rem 0;
+        }
+        .blog-tag {
+            background: rgba(168, 85, 247, 0.1);
+            color: #a855f7;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+        .btn {
+            display: inline-block;
+            font-weight: 600;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+            text-decoration: none;
+        }
+        .btn-primary { color: #fff; background-color: #3b82f6; border-color: #3b82f6; }
+        .btn-primary:hover { background-color: #2563eb; border-color: #2563eb; }
+        .btn-outline { color: #3b82f6; background-color: transparent; border-color: #3b82f6; }
+        .btn-outline:hover { color: #fff; background-color: #3b82f6; border-color: #3b82f6; }
+
+        /* Discovery Checklist */
+        .q-item { display: flex !important; align-items: flex-start; gap: 1rem; padding: 1rem 1.25rem; background: rgba(168,85,247,0.06); border: 1px solid rgba(168,85,247,0.15); border-radius: 10px; cursor: pointer; transition: opacity 0.2s ease, border-color 0.2s ease; }
+        .q-item:hover { border-color: rgba(168,85,247,0.35); background: rgba(168,85,247,0.1); }
+        .q-num { display: flex !important; align-items: center; justify-content: center; min-width: 38px; height: 38px; background: rgba(168,85,247,0.15); border: 1px solid rgba(168,85,247,0.3); border-radius: 6px; font-size: 0.75rem; font-weight: 700; color: #a855f7; flex-shrink: 0; letter-spacing: 0.03em; }
+        .q-body { flex: 1; min-width: 0; }
+        .q-title { margin: 0 0 0.3rem !important; font-weight: 700; color: #e2e8f0 !important; font-size: 0.95rem; }
+        .q-text { margin: 0 0 0.4rem !important; color: #94a3b8 !important; font-size: 0.9rem; line-height: 1.65; }
+        .q-map { margin: 0 !important; font-size: 0.78rem; color: #475569 !important; font-style: italic; }
+        .q-check { min-width: 22px; height: 22px; border-radius: 50%; border: 2px solid rgba(168,85,247,0.35); display: flex !important; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 8px; font-size: 11px; font-weight: 700; color: transparent; transition: all 0.2s ease; }
+        .q-item.done .q-check { background: rgba(168,85,247,0.25); border-color: #a855f7; color: #a855f7; }
+
+        /* Executive grid - mobile-responsive */
+        .executive-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        @media (max-width: 900px) {
+            .executive-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Pillar comparison grid */
+        .pillar-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+            margin: 2rem 0;
+        }
+        @media (max-width: 768px) {
+            .pillar-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Comparison table wrapper */
+        .table-scroll-wrapper {
+            overflow-x: auto;
+            overflow-y: hidden;
+            margin: 2rem 0;
+        }
+        .comparison-table {
+            min-width: 620px;
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .comparison-table th {
+            background: rgba(168, 85, 247, 0.15);
+            color: #c084fc;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+        .comparison-table td {
+            padding: 0.75rem 1rem;
+            border: 1px solid rgba(255,255,255,0.06);
+            color: #94a3b8;
+            vertical-align: top;
+        }
+        .comparison-table tr:nth-child(even) td {
+            background: rgba(255,255,255,0.02);
+        }
+
+        /* Supercharger cards */
+        .supercharger-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        @media (max-width: 900px) {
+            .supercharger-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+
+    <link rel="canonical" href="https://portfolio.upendrakumar.com/blog/2026-06-14-azure-migrate-business-case-assumptions.html">
+
+    <!-- Performance: Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <!-- Azure App Insights SDK (RUM) -->
+    <script type="text/javascript">
+        !function (T, l, y) {
+            var S = T.location, k = "script", D = "connectionString", C = "ingestionendpoint", I = "disableExceptionTracking";
+            var _ = y.url || "https://js.monitor.azure.com/scripts/b/ai.2.min.js";
+            if (y[D]) {
+                var T = T.appInsights || (T.appInsights = {});
+                T.loadAppInsights = function () {
+                    var p = { config: y }; T.initialize = !0; T._tags = [];
+                    T.addTelemetryInitializer = function (f) { T._tags.push(f); };
+                    var v = window.fetch;
+                    T.track = function (e) {
+                        (T._tags || []).forEach(function (f) { try { f(e); } catch (ex) { } });
+                        var i = p.config.endpointUrl || "https://dc.services.visualstudio.com/v2/track";
+                        v(i, { method: "POST", body: JSON.stringify(e), mode: "cors" }).catch(function () { });
+                    };
+                    T.trackEvent = function (d) { T.track({ name: d.name || "Event", data: { baseData: d } }); };
+                    T.trackPageView = function (d) { T.track({ name: "PageView", data: { baseData: d } }); };
+                    T.trackException = function (d) { T.track({ name: "Exception", data: { baseData: d } }); };
+                }
+            }
+        }(window, document, {
+            connectionString: "InstrumentationKey=8fc596f2-bb91-49d7-8495-2ac1ecd30501;IngestionEndpoint=https://centralindia-0.in.liana.ice.azure.microsoft.com/",
+            endpointUrl: "https://centralindia-0.in.liana.ice.azure.microsoft.com/v2/track"
+        });
+    </script>
+    <script src="../js/observability.js?v=49" defer></script>
+</head>
+
+<body class="dark-theme">
+<canvas id="particles-canvas"></canvas>
+
+<!-- Navigation -->
+<nav class="navbar" id="dynamic-nav"></nav>
+<script src="../js/navbar-component.js"></script>
+
+<!-- Blog Post Hero -->
+<section class="blog-post-hero">
+    <div class="container" style="max-width: 1000px;">
+        <div style="margin-bottom: 2rem;">
+            <a href="../blog.html" style="color: var(--primary-color); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem;">
+                <i class="fas fa-arrow-left"></i> Back to Insights
+            </a>
+            <br>
+            <!-- Series Badge: Migration Chronicles -->
+            <span style="display: inline-block; padding: 0.3rem 0.9rem; background: rgba(168, 85, 247, 0.1); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 20px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-top: 0.5rem;">
+                <i class="fas fa-chart-bar" style="margin-right: 5px;"></i> Migration Chronicles
+            </span>
+        </div>
+
+        <h1 style="font-family: 'Outfit', sans-serif; font-size: 3rem; line-height: 1.2; margin-bottom: 1.5rem; background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+            Azure Migrate Is Guessing Your Costs. Here's How Platform Leaders Fix It.
+        </h1>
+
+        <div class="blog-post-meta">
+            <div><i class="fas fa-user"></i> Upendra Kumar</div>
+            <div><i class="fas fa-calendar"></i> June 14, 2026</div>
+            <div><i class="fas fa-clock"></i> 10 min read</div>
+        </div>
+
+        <div class="blog-post-tags">
+            <span class="blog-tag"><i class="fas fa-tag"></i> Azure Migrate</span>
+            <span class="blog-tag"><i class="fas fa-tag"></i> FinOps</span>
+            <span class="blog-tag"><i class="fas fa-tag"></i> Cloud Migration</span>
+            <span class="blog-tag"><i class="fas fa-tag"></i> Business Case</span>
+        </div>
+    </div>
+</section>
+
+<!-- Blog Post Content -->
+<article class="blog-post-content">
+
+    <!-- Sticky Table of Contents -->
+    <nav class="toc-container" aria-label="Table of contents">
+        <h4><i class="fas fa-list"></i> Contents</h4>
+        <ul class="toc-list">
+            <li><a href="#the-problem" class="toc-link">The $0 Assumption Problem</a></li>
+            <li><a href="#capex-cliff" class="toc-link">The CapEx Cliff Explained</a></li>
+            <li><a href="#safe-discovery" class="toc-link">Safe, Non-Invasive Discovery</a></li>
+            <li><a href="#discovery-checklist" class="toc-link">Discovery Checklist (11 Questions)</a></li>
+            <li><a href="#superchargers" class="toc-link">AHUB, SQL 1:4 & Reserved Instances</a></li>
+            <li><a href="#presentation" class="toc-link">The CFO Presentation Blueprint</a></li>
+        </ul>
+    </nav>
+
+    <div style="margin-bottom: 2.5rem;">
+        <p style="font-size: 1.3rem; font-weight: 700; color: #ffffff; margin: 0 0 0.8rem; letter-spacing: -0.015em; line-height: 1.4;">298 servers. A looming hardware refresh. Zero confidence in the numbers.</p>
+        <p style="font-size: 1.05rem; font-weight: 400; color: #cbd5e1; margin: 0 0 0.8rem; line-height: 1.85;">Their first Azure Migrate business case died in the boardroom in under 4 minutes — every default assumption picked apart by the CFO's team before slide three.</p>
+        <p style="font-size: 1.05rem; font-weight: 600; color: #60a5fa; margin: 0;">This is how platform leaders fix that before the meeting starts.</p>
+    </div>
+
+    <!-- Executive Impact Summary -->
+    <div style="margin-bottom: 4rem; position: relative;">
+        <div style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 80%; height: 100px; background: radial-gradient(ellipse, rgba(168, 85, 247, 0.15) 0%, transparent 70%); filter: blur(30px); z-index: -1;"></div>
+
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <span style="display: inline-block; padding: 0.4rem 1rem; background: rgba(168, 85, 247, 0.1); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 20px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 1rem;">
+                <i class="fas fa-chart-line" style="margin-right: 6px;"></i> Strategic Alignment & ROI
+            </span>
+            <h2 style="margin: 0; font-family: 'Outfit', sans-serif; font-size: 2.2rem; color: #f8fafc;">Executive Impact <span style="color: transparent; background: linear-gradient(90deg, #c084fc, #3b82f6); -webkit-background-clip: text; background-clip: text;">Summary</span></h2>
+        </div>
+
+        <div class="executive-grid">
+
+            <!-- Card 1: Business Problem -->
+            <div class="glass-card" style="padding: 1.75rem; background: linear-gradient(145deg, rgba(15,23,42,0.9), rgba(30,41,59,0.4)); border: 1px solid rgba(248,113,113,0.2); border-top: 3px solid #f87171; position: relative; overflow: hidden;">
+                <div style="position: absolute; top: -15px; right: -15px; opacity: 0.03; font-size: 8rem; color: #f87171;"><i class="fas fa-exclamation-triangle"></i></div>
+                <div style="width: 42px; height: 42px; background: rgba(248,113,113,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; border: 1px solid rgba(248,113,113,0.2);">
+                    <i class="fas fa-fire" style="color: #f87171; font-size: 1.1rem;"></i>
+                </div>
+                <h4 style="color: #fca5a5; margin: 0 0 0.5rem; font-size: 1.05rem; font-family: 'Outfit', sans-serif; font-weight: 700;">The Business Problem</h4>
+                <p style="color: #e2e8f0; font-size: 0.95rem; font-weight: 600; margin: 0 0 1rem; line-height: 1.5;">Azure Migrate cannot read your contracts. It guesses.</p>
+                <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.55rem;">
+                    <li style="display: flex; align-items: flex-start; gap: 0.6rem; color: #94a3b8; font-size: 0.9rem; line-height: 1.5;"><span style="color: #f87171; flex-shrink: 0; font-weight: 700;">✗</span> Generic PUE — not your data centre power bill</li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.6rem; color: #94a3b8; font-size: 0.9rem; line-height: 1.5;"><span style="color: #f87171; flex-shrink: 0; font-weight: 700;">✗</span> $100k salary — not your actual FTE burden</li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.6rem; color: #94a3b8; font-size: 0.9rem; line-height: 1.5;"><span style="color: #f87171; flex-shrink: 0; font-weight: 700;">✗</span> $2/GB storage — not your SAN support contract</li>
+                </ul>
+                <div style="margin-top: 1.25rem; padding: 0.75rem 1rem; background: rgba(248,113,113,0.07); border-radius: 6px; border-left: 3px solid #f87171;">
+                    <p style="margin: 0; color: #fca5a5; font-size: 0.85rem; font-weight: 600; line-height: 1.5;">One spotted guess ends the meeting. Unvalidated assumptions have killed cloud programmes worth $2M–$15M.</p>
+                </div>
+            </div>
+
+            <!-- Card 2: Strategic Play -->
+            <div class="glass-card" style="padding: 1.75rem; background: linear-gradient(145deg, rgba(15,23,42,0.9), rgba(30,41,59,0.4)); border: 1px solid rgba(96,165,250,0.2); border-top: 3px solid #60a5fa; position: relative; overflow: hidden;">
+                <div style="position: absolute; top: -15px; right: -15px; opacity: 0.03; font-size: 8rem; color: #60a5fa;"><i class="fas fa-chess-knight"></i></div>
+                <div style="width: 42px; height: 42px; background: rgba(96,165,250,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; border: 1px solid rgba(96,165,250,0.2);">
+                    <i class="fas fa-network-wired" style="color: #60a5fa; font-size: 1.1rem;"></i>
+                </div>
+                <h4 style="color: #93c5fd; margin: 0 0 0.5rem; font-size: 1.05rem; font-family: 'Outfit', sans-serif; font-weight: 700;">The Strategic Play</h4>
+                <p style="color: #e2e8f0; font-size: 0.95rem; font-weight: 600; margin: 0 0 1rem; line-height: 1.5;">Run 4 discovery sprints. Replace every benchmark with real data.</p>
+                <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.55rem;">
+                    <li style="display: flex; align-items: flex-start; gap: 0.6rem; color: #94a3b8; font-size: 0.9rem; line-height: 1.5;"><span style="color: #60a5fa; flex-shrink: 0; font-weight: 700; min-width: 16px;">1</span> Compute &amp; Facilities — rack contracts, PUE, server age</li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.6rem; color: #94a3b8; font-size: 0.9rem; line-height: 1.5;"><span style="color: #60a5fa; flex-shrink: 0; font-weight: 700; min-width: 16px;">2</span> Storage &amp; DR — SAN capacity, vendor support invoices</li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.6rem; color: #94a3b8; font-size: 0.9rem; line-height: 1.5;"><span style="color: #60a5fa; flex-shrink: 0; font-weight: 700; min-width: 16px;">3</span> Software Licensing — EA/SA status, hypervisor costs</li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.6rem; color: #94a3b8; font-size: 0.9rem; line-height: 1.5;"><span style="color: #60a5fa; flex-shrink: 0; font-weight: 700; min-width: 16px;">4</span> IT Labour — fully burdened FTE cost, MSP spend</li>
+                </ul>
+                <div style="margin-top: 1.25rem; padding: 0.75rem 1rem; background: rgba(96,165,250,0.07); border-radius: 6px; border-left: 3px solid #60a5fa;">
+                    <p style="margin: 0; color: #93c5fd; font-size: 0.85rem; font-weight: 600; line-height: 1.5;">Layer in AHUB + SQL 1:4 as financial proof points → auditable Proof of Execution, not a generic estimate.</p>
+                </div>
+            </div>
+
+            <!-- Card 3: Executive ROI -->
+            <div class="glass-card" style="padding: 1.75rem; background: linear-gradient(145deg, rgba(15,23,42,0.9), rgba(30,41,59,0.4)); border: 1px solid rgba(52,211,153,0.2); border-top: 3px solid #34d399; position: relative; overflow: hidden;">
+                <div style="position: absolute; top: -15px; right: -15px; opacity: 0.03; font-size: 8rem; color: #34d399;"><i class="fas fa-award"></i></div>
+                <div style="width: 42px; height: 42px; background: rgba(52,211,153,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; border: 1px solid rgba(52,211,153,0.2);">
+                    <i class="fas fa-chart-pie" style="color: #34d399; font-size: 1.1rem;"></i>
+                </div>
+                <h4 style="color: #6ee7b7; margin: 0 0 0.5rem; font-size: 1.05rem; font-family: 'Outfit', sans-serif; font-weight: 700;">The Executive ROI</h4>
+                <p style="color: #e2e8f0; font-size: 0.95rem; font-weight: 600; margin: 0 0 1rem; line-height: 1.5;">Three savings mechanisms — apply all three simultaneously.</p>
+                <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.55rem;">
+                    <li style="display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.9rem; line-height: 1.5;"><span style="color: #34d399; flex-shrink: 0; font-weight: 700;">✓</span><span><strong style="color: #6ee7b7;">AHUB</strong> <span style="color: #94a3b8;">— removes Windows licence cost, up to 40% saving</span></span></li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.9rem; line-height: 1.5;"><span style="color: #34d399; flex-shrink: 0; font-weight: 700;">✓</span><span><strong style="color: #6ee7b7;">Reserved Instances</strong> <span style="color: #94a3b8;">— stacks on AHUB for +20–45% additional saving</span></span></li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.9rem; line-height: 1.5;"><span style="color: #34d399; flex-shrink: 0; font-weight: 700;">✓</span><span><strong style="color: #6ee7b7;">SQL 1:4 Multiplier</strong> <span style="color: #94a3b8;">— 10 owned cores covers 40 vCores in Azure SQL</span></span></li>
+                </ul>
+                <div style="margin-top: 1.25rem; padding: 0.75rem 1rem; background: rgba(52,211,153,0.07); border-radius: 6px; border-left: 3px solid #34d399;">
+                    <p style="margin: 0; color: #6ee7b7; font-size: 0.85rem; font-weight: 600; line-height: 1.5;">300-server enterprise: <strong>$800k–$2M net annual savings</strong> once real data replaces Microsoft's defaults.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Section 1 -->
+    <h2 id="the-problem"><span class="gradient-text">The $0 Assumption Problem</span></h2>
+
+    <p>The CFO asked one question.</p>
+
+    <p><em>"Where did these on-premises numbers come from?"</em></p>
+
+    <p>The silence lasted four seconds. The meeting ended in four minutes.</p>
+
+    <p>Here is the industry secret nobody tells you at the kickoff: <strong>Azure Migrate does not know your actual costs.</strong> When the platform generates its initial business case, it fills the On-Premises Cost section with Microsoft's own researched industry benchmarks — generic averages derived from thousands of enterprise environments.</p>
+
+    <p>That is not a flaw. It is the tool working exactly as designed. The flaw is presenting those un-customized averages to a financial decision-maker as if they are your client's actual numbers.</p>
+
+    <p>A CFO or procurement lead will spot a generic benchmark in thirty seconds. When they do, the entire migration programme loses credibility — not just the spreadsheet.</p>
+
+    <p>The fix is not technical. It is a structured discovery process that replaces every Microsoft assumption with a real contract figure, a real utility bill, or a real headcount number. This post gives you the exact framework to do it.</p>
+
+    <!-- Analogy Cards -->
+    <div style="margin: 2.5rem 0;">
+        <div class="pillar-grid">
+            <div class="glass-card" style="border-top: 3px solid #f87171;">
+                <div style="font-size: 2rem; margin-bottom: 1rem;">🏛️</div>
+                <h3 style="color: #fca5a5; margin-top: 0; font-size: 1.1rem;">The Generic Estimate</h3>
+                <p style="color: #94a3b8; font-size: 0.95rem; margin: 0;">Microsoft assumes your PUE is 1.80, your storage costs $2/GB, and your admins earn $100k. Directionally correct for a market average. Fatally wrong when presented as <em>your</em> business's reality to a CFO who knows the lease rate on your colo facility.</p>
+            </div>
+            <div class="glass-card" style="border-top: 3px solid #34d399;">
+                <div style="font-size: 2rem; margin-bottom: 1rem;">📋</div>
+                <h3 style="color: #6ee7b7; margin-top: 0; font-size: 1.1rem;">The Customized PoE</h3>
+                <p style="color: #94a3b8; font-size: 0.95rem; margin: 0;">Your actual rack lease at ₹4.2L/month. Your real SAN support contract at $180k/year. Your seven infrastructure FTEs fully burdened at $95k each. These numbers are auditable. A CFO can sign off on auditable numbers.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 2 -->
+    <h2 id="capex-cliff"><span class="gradient-text">The CapEx Cliff: Why "Stay On-Premises" Is Never Free</span></h2>
+
+    <p>Before you walk into a CFO meeting, make sure the financial framing is right.</p>
+
+    <p>On-premises infrastructure does not sit still. Physical servers run on a <strong>3-to-5-year hardware refresh cycle</strong>. Once a server exits that window, three cost events trigger simultaneously:</p>
+
+    <ul>
+        <li><strong>Support Escalation:</strong> OEM warranties expire. Post-warranty maintenance contracts spike — often 2x to 4x the original support cost.</li>
+        <li><strong>Operational Risk:</strong> Mechanical failure rates climb the reliability bathtub curve. Unexpected downtime carries real revenue impact: a one-hour outage for a mid-size bank is routinely modelled at $250k–$1M in lost transactions.</li>
+        <li><strong>Performance Degradation:</strong> 5-year-old silicon cannot run modern containerized workloads or GPU-accelerated analytics at acceptable cost-per-compute ratios.</li>
+    </ul>
+
+    <p>Staying on-premises is not the zero-cost option. It is a deferred CapEx bomb.</p>
+
+    <div class="glass-card" style="background: rgba(248, 113, 113, 0.05); border: 1px solid rgba(248, 113, 113, 0.2); border-left: 4px solid #f87171; margin: 2rem 0; border-radius: 8px;">
+        <p style="margin: 0; color: #fca5a5; font-family: 'Courier New', monospace; font-size: 0.9rem;">
+            [ Year 1–3: Hardware Stable ] ──► [ Year 4–5: Warranty Expires / Risk Spikes ]<br>──► 💥 [ CapEx Cliff: Massive Hardware Refresh Invoice ]
+        </p>
+    </div>
+
+    <p>Azure flips the model. You trade an unpredictable, spike-heavy capital outlay for a predictable monthly OpEx utility. That framing — CapEx elimination — is often worth more to a CFO than the raw TCO reduction percentage.</p>
+
+    <div class="glass-card" style="background: rgba(251, 191, 36, 0.04); border: 1px solid rgba(251, 191, 36, 0.2); border-left: 4px solid #fbbf24; margin: 2rem 0; border-radius: 8px;">
+        <p style="margin: 0 0 0.5rem 0; color: #fde68a; font-weight: 700; font-size: 0.95rem;"><i class="fas fa-shield-alt" style="margin-right: 6px;"></i> End-of-Life Workloads: The Hidden Migration Accelerator</p>
+        <p style="margin: 0; color: #94a3b8; font-size: 0.9rem; line-height: 1.6;">Organisations running Windows Server 2012/2012 R2 or SQL Server 2012 — both past Microsoft end-of-support — face compounding CapEx exposure. On-premises Extended Security Updates (ESU) cost up to $0.75 per core per month and increase annually. In Azure, ESUs are provided at <strong style="color: #fde68a;">no additional charge</strong> for the same workloads. This single line item frequently closes a business case that was otherwise borderline.</p>
+    </div>
+
+    <div class="glass-card" style="background: rgba(251, 146, 60, 0.04); border: 1px solid rgba(251, 146, 60, 0.2); border-left: 4px solid #f97316; margin: 2rem 0; border-radius: 8px;">
+        <p style="margin: 0 0 0.5rem; color: #fdba74; font-weight: 700; font-size: 0.95rem;"><i class="fas fa-bolt" style="margin-right: 6px;"></i> 2024–2026: The VMware/Broadcom Licensing Catalyst</p>
+        <p style="margin: 0; color: #94a3b8; font-size: 0.9rem; line-height: 1.65;">Since Broadcom's acquisition of VMware in late 2023, enterprises running vSphere or vCloud Foundation have faced mandatory migrations to subscription-based VCF bundles — with widely reported cost increases of <strong style="color: #fdba74;">3–5× their previous VMware spend</strong>. For organisations in active Broadcom contract renegotiations, this single line item in Q9 of the discovery checklist frequently exceeds the entire Azure Migrate cost reduction, making the migration business case self-funding before AHUB or Reserved Instances are even applied. If your client runs VMware, quantify the Broadcom renewal cost first. It is often the number that closes the meeting.</p>
+    </div>
+
+    <!-- Section 3 -->
+    <h2 id="safe-discovery"><span class="gradient-text">Safe, Non-Invasive Discovery: Zero Production Risk</span></h2>
+
+    <p>The first objection from IT infrastructure teams is always the same: <em>"Will this assessment touch our production systems?"</em></p>
+
+    <p>The answer is no. Here is exactly how Azure Migrate collects data:</p>
+
+    <div class="pillar-grid" style="margin: 2rem 0;">
+        <div class="glass-card">
+            <i class="fas fa-server" style="color: #38bdf8; font-size: 1.5rem; margin-bottom: 1rem;"></i>
+            <h3 style="color: #e2e8f0; margin-top: 0; font-size: 1rem;">Lightweight Agentless Appliance</h3>
+            <p style="color: #94a3b8; font-size: 0.9rem; margin: 0;">A single VM deployed inside your VMware vSphere or Hyper-V environment. No software installed inside production guest OS instances.</p>
+        </div>
+        <div class="glass-card">
+            <i class="fas fa-shield-alt" style="color: #34d399; font-size: 1.5rem; margin-bottom: 1rem;"></i>
+            <h3 style="color: #e2e8f0; margin-top: 0; font-size: 1rem;">Read-Only Management Privileges</h3>
+            <p style="color: #94a3b8; font-size: 0.9rem; margin: 0;">The appliance operates strictly read-only. It cannot modify configuration, deploy agents, or alter network state. CISO-safe by design.</p>
+        </div>
+        <div class="glass-card">
+            <i class="fas fa-chart-line" style="color: #a855f7; font-size: 1.5rem; margin-bottom: 1rem;"></i>
+            <h3 style="color: #e2e8f0; margin-top: 0; font-size: 1rem;">Continuous 10-Minute Polling</h3>
+            <p style="color: #94a3b8; font-size: 0.9rem; margin: 0;">Rather than a single snapshot, the appliance polls CPU, memory, disk throughput, and IOPS every 10 minutes across a 1–2 week window. This eliminates spike-day distortion from the right-sizing model.</p>
+        </div>
+        <div class="glass-card">
+            <i class="fas fa-compress-arrows-alt" style="color: #fbbf24; font-size: 1.5rem; margin-bottom: 1rem;"></i>
+            <h3 style="color: #e2e8f0; margin-top: 0; font-size: 1rem;">Right-Sizing from Real Utilisation</h3>
+            <p style="color: #94a3b8; font-size: 0.9rem; margin: 0;">Actual utilisation data — not provisioned capacity — drives the Azure SKU recommendation. Most enterprises discover 20–40% of workloads can run safely on smaller, cheaper cloud instances.</p>
+        </div>
+    </div>
+
+    <!-- Section 4 -->
+    <h2 id="discovery-checklist"><span class="gradient-text">The 11-Question Discovery Checklist</span></h2>
+
+    <p>These are the questions you need answered before you touch the Azure Migrate cost configuration panel. Assign each to the right internal stakeholder. Missing even one pillar will leave a hole that the CFO's team will find.</p>
+
+    <div style="display: flex; align-items: center; gap: 1rem; margin: 1.5rem 0 2rem; flex-wrap: wrap;">
+        <div id="checklist-progress-bar" style="flex: 1; min-width: 180px; height: 6px; background: rgba(168,85,247,0.15); border-radius: 3px; overflow: hidden;">
+            <div id="checklist-progress-fill" style="height: 100%; width: 0%; background: linear-gradient(90deg, #a855f7, #60a5fa); border-radius: 3px; transition: width 0.35s ease;"></div>
+        </div>
+        <div id="checklist-counter" style="flex-shrink: 0; font-size: 0.85rem; font-weight: 700; color: #a855f7; white-space: nowrap;">0 / 11 complete</div>
+    </div>
+
+    <!-- Pillar 1 -->
+    <h3 style="color: #38bdf8; margin-top: 2.5rem;"><i class="fas fa-server" style="margin-right: 8px;"></i> Pillar 1: Compute & Facilities</h3>
+    <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 1rem;">Target: Infrastructure & Facilities Leads. Microsoft defaults: PUE 1.80, standard linear depreciation on x86 hardware. At PUE 1.80, 44% of total facility power is consumed by cooling overhead — not computing.</p>
+
+    <div style="display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 0.5rem;">
+        <div class="q-item">
+            <div class="q-num">Q1</div>
+            <div class="q-body">
+                <p class="q-title">Hardware Age &amp; Refresh Timeline</p>
+                <p class="q-text">What is the average age of servers hosting target workloads, and when is the next major hardware refresh expected?</p>
+                <p class="q-map">Maps to: Compute CapEx &amp; Depreciation Timeline</p>
+            </div>
+            <div class="q-check">&#10003;</div>
+        </div>
+        <div class="q-item">
+            <div class="q-num">Q2</div>
+            <div class="q-body">
+                <p class="q-title">CapEx vs. Colocation Model</p>
+                <p class="q-text">Are servers owned outright (CapEx) or leased/collocated (OpEx)?</p>
+                <p class="q-map">Maps to: Compute Acquisition Model Type</p>
+            </div>
+            <div class="q-check">&#10003;</div>
+        </div>
+        <div class="q-item">
+            <div class="q-num">Q3</div>
+            <div class="q-body">
+                <p class="q-title">Colo Contract Terms</p>
+                <p class="q-text">If using colocation, what is the remaining contract duration and annual cost per rack or per square foot?</p>
+                <p class="q-map">Maps to: Facilities Real Estate &amp; Rack Rental</p>
+            </div>
+            <div class="q-check">&#10003;</div>
+        </div>
+        <div class="q-item">
+            <div class="q-num">Q4</div>
+            <div class="q-body">
+                <p class="q-title">Power &amp; Cooling Cost</p>
+                <p class="q-text">What is the monthly utility cost (power + HVAC) allocated specifically to the data centre or server rooms?</p>
+                <p class="q-map">Maps to: Facilities Power Consumption &amp; PUE</p>
+            </div>
+            <div class="q-check">&#10003;</div>
+        </div>
+    </div>
+
+    <!-- Pillar 2 -->
+    <h3 style="color: #38bdf8; margin-top: 2.5rem;"><i class="fas fa-hdd" style="margin-right: 8px;"></i> Pillar 2: Storage & Data Management</h3>
+    <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 1rem;">Target: Storage & Backup Admins. Microsoft defaults: $2.00/GB acquisition, 10% annual maintenance of raw hardware value.</p>
+
+    <div style="display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 0.5rem;">
+        <div class="q-item">
+            <div class="q-num">Q5</div>
+            <div class="q-body">
+                <p class="q-title">SAN/NAS Capacity &amp; Age</p>
+                <p class="q-text">What is the total raw capacity (GB/TB) and age of the current SAN or NAS infrastructure?</p>
+                <p class="q-map">Maps to: Storage CapEx</p>
+            </div>
+            <div class="q-check">&#10003;</div>
+        </div>
+        <div class="q-item">
+            <div class="q-num">Q6</div>
+            <div class="q-body">
+                <p class="q-title">Storage Vendor Support Contracts</p>
+                <p class="q-text">What is the annual maintenance and support contract cost paid to storage vendors (Dell EMC, NetApp, Pure Storage, etc.)?</p>
+                <p class="q-map">Maps to: Storage Maintenance &amp; Support OpEx</p>
+            </div>
+            <div class="q-check">&#10003;</div>
+        </div>
+        <div class="q-item">
+            <div class="q-num">Q7</div>
+            <div class="q-body">
+                <p class="q-title">Backup &amp; DR Infrastructure</p>
+                <p class="q-text">What are the hardware, licensing, and secondary-site costs for your current backup and disaster recovery footprint?</p>
+                <p class="q-map">Maps to: Storage Backup &amp; DR Infrastructure</p>
+            </div>
+            <div class="q-check">&#10003;</div>
+        </div>
+    </div>
+
+    <!-- Pillar 3 -->
+    <h3 style="color: #38bdf8; margin-top: 2.5rem;"><i class="fas fa-key" style="margin-right: 8px;"></i> Pillar 3: Software Licensing & Agreements</h3>
+    <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 1rem;">Target: Procurement & ITAM Teams. Microsoft defaults: standard retail PAYG pricing for Windows Server and SQL Server.</p>
+
+    <div style="display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 0.5rem;">
+        <div class="q-item">
+            <div class="q-num">Q8</div>
+            <div class="q-body">
+                <p class="q-title">Enterprise Agreement &amp; Software Assurance</p>
+                <p class="q-text">Do you hold an active Microsoft EA with Software Assurance that qualifies for Azure Hybrid Benefit?</p>
+                <p class="q-map">Maps to: Licensing OS &amp; DB Optimisation (AHUB)</p>
+            </div>
+            <div class="q-check">&#10003;</div>
+        </div>
+        <div class="q-item">
+            <div class="q-num">Q9</div>
+            <div class="q-body">
+                <p class="q-title">Virtualisation Layer Licensing</p>
+                <p class="q-text">What are the annual licensing and support costs for VMware vSphere, vCloud Foundation, or Red Hat Enterprise Linux?</p>
+                <p class="q-map">Maps to: Licensing Hypervisor / Virtualisation Software</p>
+            </div>
+            <div class="q-check">&#10003;</div>
+        </div>
+    </div>
+
+    <!-- Pillar 4 -->
+    <h3 style="color: #38bdf8; margin-top: 2.5rem;"><i class="fas fa-users" style="margin-right: 8px;"></i> Pillar 4: IT Labour & Operations</h3>
+    <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 1rem;">Target: IT Director & HR Finance. Microsoft defaults: $100,000/year administrator salary (geography-adjusted) with a fixed server-to-admin ratio.</p>
+
+    <div style="display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 0.5rem;">
+        <div class="q-item">
+            <div class="q-num">Q10</div>
+            <div class="q-body">
+                <p class="q-title">Fully Burdened IT Labour Cost</p>
+                <p class="q-text">What is the fully burdened cost (salary + benefits + overhead) per IT administrator, and how many FTEs are dedicated to physical infrastructure maintenance (racking, patching, hardware troubleshooting)?</p>
+                <p class="q-map">Maps to: Labour IT Administrator Salary &amp; Resource Density</p>
+            </div>
+            <div class="q-check">&#10003;</div>
+        </div>
+        <div class="q-item">
+            <div class="q-num">Q11</div>
+            <div class="q-body">
+                <p class="q-title">MSP &amp; External Consultant Spend</p>
+                <p class="q-text">What is the average annual spend on third-party managed service providers or external consultants supporting on-premises infrastructure?</p>
+                <p class="q-map">Maps to: Labour Outsourced Operational Expenses</p>
+            </div>
+            <div class="q-check">&#10003;</div>
+        </div>
+    </div>
+
+    <div style="margin: 2rem 0; padding: 1.1rem 1.4rem; background: rgba(168,85,247,0.05); border: 1px solid rgba(168,85,247,0.2); border-radius: 10px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+        <div>
+            <p style="margin: 0 0 0.2rem; font-weight: 700; color: #e2e8f0; font-size: 0.95rem;">Take this checklist to your team</p>
+            <p style="margin: 0; font-size: 0.85rem; color: #94a3b8;">Assign each question to the right stakeholder before your first Azure Migrate session.</p>
+        </div>
+        <a href="../pages/contact.html" style="flex-shrink: 0; display: inline-block; padding: 0.6rem 1.2rem; background: rgba(168,85,247,0.12); color: #c084fc; border: 1px solid rgba(168,85,247,0.3); border-radius: 6px; text-decoration: none; font-size: 0.88rem; font-weight: 600; white-space: nowrap;">Book a Discovery Workshop <i class="fas fa-arrow-right" style="margin-left: 4px;"></i></a>
+    </div>
+
+    <p style="margin-top: 2rem;">Once all 11 answers are in hand, you override the Azure Migrate cost properties panel with real figures. The tool will recalculate the entire financial model.</p>
+
+    <div class="glass-card" style="margin: 1.5rem 0; padding: 1.5rem 1.75rem; border-top: 3px solid #38bdf8; background: rgba(56,189,248,0.03);">
+        <p style="margin: 0 0 1rem; font-weight: 700; color: #38bdf8; font-size: 0.95rem;"><i class="fas fa-terminal" style="margin-right: 6px;"></i> How to Override Cost Properties in the Azure Migrate Portal</p>
+        <ol style="margin: 0; padding-left: 1.4rem; display: flex; flex-direction: column; gap: 0.65rem; color: #94a3b8; font-size: 0.9rem; line-height: 1.65;">
+            <li>In the Azure Portal, navigate to <strong style="color: #e2e8f0;">Azure Migrate → Servers, databases and web apps</strong></li>
+            <li>Select your project, then click <strong style="color: #e2e8f0;">Business case</strong> in the left menu (this is a separate tab from the Assessment view)</li>
+            <li>Open your business case and click <strong style="color: #e2e8f0;">Edit assumptions</strong> in the top-right action bar</li>
+            <li>Under <strong style="color: #e2e8f0;">On-premises infrastructure</strong>: update the facility cost (power + cooling per kWh), storage cost per GB, and the IT labour rate and server-to-admin ratio using your discovery data</li>
+            <li>Under <strong style="color: #e2e8f0;">Azure settings</strong>: toggle on <strong style="color: #e2e8f0;">Azure Hybrid Benefit</strong> and confirm coverage scope (Windows Server, SQL Server, or both)</li>
+            <li>Set your <strong style="color: #e2e8f0;">Reserved Instance term</strong> preference — 1-year or 3-year — for the compute right-sizing model</li>
+            <li>Click <strong style="color: #e2e8f0;">Save &amp; recalculate</strong> — the TCO comparison updates immediately across all five cost pillars</li>
+        </ol>
+        <p style="margin: 0.85rem 0 0; font-size: 0.8rem; color: #475569; font-style: italic; line-height: 1.5;">Note: If you only see right-sizing recommendations, you are in the Assessment view. Navigate back to the project overview and select Business Case — it is a distinct workflow within Azure Migrate.</p>
+    </div>
+
+    <!-- Section 5 -->
+    <h2 id="superchargers"><span class="gradient-text">The Three Financial Superchargers</span></h2>
+
+    <p>Replacing the defaults gets you an honest baseline. These three mechanisms dramatically improve the Azure side of the equation — and they stack.</p>
+
+    <div style="display: flex; flex-direction: column; gap: 1.5rem; margin: 2rem 0;">
+
+        <!-- AHUB -->
+        <div class="glass-card" style="padding: 1.5rem 1.75rem; border-top: 3px solid #60a5fa;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; flex-wrap: wrap;">
+                <span style="font-size: 1.75rem; flex-shrink: 0;">🎫</span>
+                <div style="flex: 1; min-width: 180px;">
+                    <h3 style="color: #93c5fd; margin: 0; font-size: 1.1rem; line-height: 1.3;">Azure Hybrid Benefit (AHUB)</h3>
+                    <p style="color: #94a3b8; margin: 0.25rem 0 0; font-size: 0.88rem;">Reuse existing EA licences in Azure — Windows and SQL licence fee drops to zero.</p>
+                </div>
+                <div style="background: rgba(96,165,250,0.12); border: 1px solid rgba(96,165,250,0.25); border-radius: 8px; padding: 0.6rem 1.1rem; text-align: center; flex-shrink: 0;">
+                    <div style="font-size: 2rem; font-weight: 800; color: #60a5fa; line-height: 1;">49%</div>
+                    <div style="font-size: 0.68rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.2rem;">Datacenter saving vs PAYG</div>
+                </div>
+            </div>
+            <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+                <ul style="margin: 0; padding: 0; list-style: none; flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 0.5rem;">
+                    <li style="display: flex; align-items: flex-start; gap: 0.5rem; color: #94a3b8; font-size: 0.9rem;"><span style="color: #60a5fa; font-weight: 700; flex-shrink: 0;">✓</span>EA + Software Assurance licence brought to Azure as a pre-paid coupon</li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.5rem; color: #94a3b8; font-size: 0.9rem;"><span style="color: #60a5fa; font-weight: 700; flex-shrink: 0;">✓</span>Covers both Windows Server and SQL Server licences</li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.5rem; color: #94a3b8; font-size: 0.9rem;"><span style="color: #60a5fa; font-weight: 700; flex-shrink: 0;">✓</span>Datacenter edition: run on-prem and Azure simultaneously — zero OS cost during migration</li>
+                </ul>
+                <div style="flex: 0 1 240px; min-width: 200px; background: rgba(96,165,250,0.06); border-left: 3px solid #60a5fa; border-radius: 0 6px 6px 0; padding: 0.8rem 1rem;">
+                    <p style="margin: 0 0 0.3rem; font-size: 0.75rem; color: #60a5fa; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;">Who qualifies</p>
+                    <p style="margin: 0; font-size: 0.87rem; color: #94a3b8; line-height: 1.6;">Any enterprise with an active Microsoft EA and Software Assurance on Windows Server or SQL Server. <strong style="color: #e2e8f0;">Windows Server Datacenter edition</strong> achieves the full 49% saving. Standard edition saves up to 40%.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SQL 1:4 -->
+        <div class="glass-card" style="padding: 1.5rem 1.75rem; border-top: 3px solid #34d399;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; flex-wrap: wrap;">
+                <span style="font-size: 1.75rem; flex-shrink: 0;">🎟️</span>
+                <div style="flex: 1; min-width: 180px;">
+                    <h3 style="color: #6ee7b7; margin: 0; font-size: 1.1rem; line-height: 1.3;">SQL Server 1:4 Enterprise Multiplier</h3>
+                    <p style="color: #94a3b8; margin: 0.25rem 0 0; font-size: 0.88rem;">One on-premises SQL Enterprise core buys four Azure SQL vCores.</p>
+                </div>
+                <div style="background: rgba(52,211,153,0.12); border: 1px solid rgba(52,211,153,0.25); border-radius: 8px; padding: 0.6rem 1.1rem; text-align: center; flex-shrink: 0;">
+                    <div style="font-size: 2rem; font-weight: 800; color: #34d399; line-height: 1;">1→4</div>
+                    <div style="font-size: 0.68rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.2rem;">core multiplier</div>
+                </div>
+            </div>
+            <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+                <ul style="margin: 0; padding: 0; list-style: none; flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 0.5rem;">
+                    <li style="display: flex; align-items: flex-start; gap: 0.5rem; color: #94a3b8; font-size: 0.9rem;"><span style="color: #34d399; font-weight: 700; flex-shrink: 0;">✓</span>Applies to SQL Server Enterprise Edition (core-based licensing only)</li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.5rem; color: #94a3b8; font-size: 0.9rem;"><span style="color: #34d399; font-weight: 700; flex-shrink: 0;">✓</span>Targets Azure SQL Managed Instance or General Purpose tier</li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.5rem; color: #94a3b8; font-size: 0.9rem;"><span style="color: #34d399; font-weight: 700; flex-shrink: 0;">✓</span>Retire remaining on-prem cores — eliminate all future Software Assurance renewals</li>
+                </ul>
+                <div style="flex: 0 1 240px; min-width: 200px; background: rgba(52,211,153,0.06); border-left: 3px solid #34d399; border-radius: 0 6px 6px 0; padding: 0.8rem 1rem;">
+                    <p style="margin: 0 0 0.3rem; font-size: 0.75rem; color: #34d399; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;">Real example</p>
+                    <p style="margin: 0 0 0.6rem; font-size: 0.87rem; color: #94a3b8; line-height: 1.6;">Need 40 vCores in Azure SQL? Bring <strong style="color: #e2e8f0;">10 SQL Enterprise cores</strong> from on-prem. Retire the remaining 30 — no future SA payments on those licences.</p>
+                    <p style="margin: 0; font-size: 0.78rem; color: #475569; line-height: 1.5; font-style: italic;">⚠ Applies to Azure SQL Managed Instance or SQL Database (General Purpose tier) only. SQL Server on Azure VMs uses standard AHUB core-for-core — not this multiplier.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reserved Instances -->
+        <div class="glass-card" style="padding: 1.5rem 1.75rem; border-top: 3px solid #fbbf24;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; flex-wrap: wrap;">
+                <span style="font-size: 1.75rem; flex-shrink: 0;">📌</span>
+                <div style="flex: 1; min-width: 180px;">
+                    <h3 style="color: #fde68a; margin: 0; font-size: 1.1rem; line-height: 1.3;">Azure Reserved Instances (RIs)</h3>
+                    <p style="color: #94a3b8; margin: 0.25rem 0 0; font-size: 0.88rem;">Commit to 1- or 3-year terms on predictable workloads — stacks directly on top of AHUB.</p>
+                </div>
+                <div style="background: rgba(251,191,36,0.12); border: 1px solid rgba(251,191,36,0.25); border-radius: 8px; padding: 0.6rem 1.1rem; text-align: center; flex-shrink: 0;">
+                    <div style="font-size: 2rem; font-weight: 800; color: #fbbf24; line-height: 1;">80%</div>
+                    <div style="font-size: 0.68rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.2rem;">max combined saving</div>
+                </div>
+            </div>
+            <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+                <ul style="margin: 0; padding: 0; list-style: none; flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 0.5rem;">
+                    <li style="display: flex; align-items: flex-start; gap: 0.5rem; color: #94a3b8; font-size: 0.9rem;"><span style="color: #fbbf24; font-weight: 700; flex-shrink: 0;">✓</span>1-year RI: <strong style="color: #e2e8f0;">up to 37%</strong> saving vs PAYG compute rate (Microsoft published)</li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.5rem; color: #94a3b8; font-size: 0.9rem;"><span style="color: #fbbf24; font-weight: 700; flex-shrink: 0;">✓</span>3-year RI: <strong style="color: #e2e8f0;">up to 57%</strong> saving vs PAYG compute rate (Microsoft published)</li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.5rem; color: #94a3b8; font-size: 0.9rem;"><span style="color: #fbbf24; font-weight: 700; flex-shrink: 0;">✓</span>AHUB + RI apply simultaneously on the same VM — effects fully stack</li>
+                </ul>
+                <div style="flex: 0 1 240px; min-width: 200px; background: rgba(251,191,36,0.06); border-left: 3px solid #fbbf24; border-radius: 0 6px 6px 0; padding: 0.8rem 1rem;">
+                    <p style="margin: 0 0 0.3rem; font-size: 0.75rem; color: #fbbf24; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;">The boardroom number</p>
+                    <p style="margin: 0; font-size: 0.87rem; color: #94a3b8; line-height: 1.6;">AHUB removes the licence cost (up to 49%). A 3-year RI then cuts the remaining compute rate by up to 57%. On Windows Server Datacenter estates, this combination can reach <strong style="color: #e2e8f0;">75–80% total saving</strong> versus PAYG — the figure that closes the meeting.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="glass-card" style="background: rgba(52, 211, 153, 0.05); border: 1px solid rgba(52, 211, 153, 0.2); border-left: 4px solid #34d399; margin: 2rem 0; border-radius: 8px;">
+        <p style="margin: 0; color: #6ee7b7; font-family: 'Courier New', monospace; font-size: 0.9rem;">
+            [ 1 On-Premises SQL Enterprise Core ] ──► Unlocks ──► [ 4 Azure SQL vCores ]
+        </p>
+    </div>
+
+    <!-- Section 6 -->
+    <h2 id="presentation"><span class="gradient-text">The CFO Presentation Blueprint</span></h2>
+
+    <p>Once the data is in and the superchargers are applied, synthesise the output into this comparison framework. Do not present Azure Migrate's raw output. Translate it.</p>
+
+    <p style="font-size: 0.82rem; color: #475569; margin: -0.5rem 0 1.5rem; font-style: italic;">Numbers below are representative of a 300-server enterprise estate. Your discovery replaces these with client-specific inputs — the structure stays identical.</p>
+
+    <div class="table-scroll-wrapper">
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Cost Pillar</th>
+                    <th>On-Premises (As-Is)</th>
+                    <th>Azure (To-Be)</th>
+                    <th>How We Win</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Compute / Virtualisation</strong></td>
+                    <td style="color: #f87171;">$1.90M</td>
+                    <td>$1.05M</td>
+                    <td><strong style="color: #93c5fd;">AHUB</strong> — up to 40% off VM costs</td>
+                </tr>
+                <tr>
+                    <td><strong>Database Licensing</strong></td>
+                    <td style="color: #f87171;">$720K</td>
+                    <td>$215K</td>
+                    <td><strong style="color: #6ee7b7;">SQL 1:4 multiplier</strong> — retire 75% of licence estate</td>
+                </tr>
+                <tr>
+                    <td><strong>Storage &amp; Backup</strong></td>
+                    <td style="color: #f87171;">$540K</td>
+                    <td>$160K</td>
+                    <td><strong style="color: #c4b5fd;">Azure Archive</strong> — ~70% below on-prem tape cost</td>
+                </tr>
+                <tr style="background: rgba(52,211,153,0.07); border-top: 1px solid rgba(52,211,153,0.2); border-bottom: 1px solid rgba(52,211,153,0.2);">
+                    <td><strong style="color: #e2e8f0;">Facilities &amp; Power</strong></td>
+                    <td style="color: #f87171;">$440K</td>
+                    <td><span style="font-size: 1.4rem; font-weight: 800; color: #34d399; line-height: 1;">$0</span></td>
+                    <td><strong style="color: #34d399;">Physical footprint gone</strong> — no lease, no power bill, no refresh CapEx</td>
+                </tr>
+                <tr>
+                    <td><strong>IT Labour &amp; Operations</strong></td>
+                    <td style="color: #f87171;">$620K</td>
+                    <td>$310K</td>
+                    <td><strong style="color: #fde68a;">FTE hours</strong> — redirected from patching to product</td>
+                </tr>
+                <tr style="background: rgba(52,211,153,0.04); border-top: 2px solid rgba(52,211,153,0.35);">
+                    <td style="font-size: 1rem; font-weight: 700; color: #e2e8f0;">Total Annual Cost</td>
+                    <td style="font-size: 1.15rem; font-weight: 800; color: #f87171;">$4.22M</td>
+                    <td style="font-size: 1.15rem; font-weight: 800; color: #34d399;">$1.74M</td>
+                    <td style="font-size: 1rem; font-weight: 700; color: #34d399;">Net Saving: $2.48M <span style="font-size: 0.8rem; font-weight: 600; color: #6ee7b7;">(59%)</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p>This is the slide that closes the CFO meeting — not reopens it.</p>
+
+    <div style="margin: 2rem 0; padding: 1.1rem 1.4rem; background: rgba(52,211,153,0.04); border: 1px solid rgba(52,211,153,0.2); border-radius: 10px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+        <div>
+            <p style="margin: 0 0 0.2rem; font-weight: 700; color: #e2e8f0; font-size: 0.95rem;">Ready to build your business case?</p>
+            <p style="margin: 0; font-size: 0.85rem; color: #94a3b8;">I help platform leaders structure Azure business cases that pass CFO review first time.</p>
+        </div>
+        <a href="../pages/contact.html" style="flex-shrink: 0; display: inline-block; padding: 0.6rem 1.2rem; background: rgba(52,211,153,0.1); color: #34d399; border: 1px solid rgba(52,211,153,0.3); border-radius: 6px; text-decoration: none; font-size: 0.88rem; font-weight: 600; white-space: nowrap;">Let's Talk <i class="fas fa-arrow-right" style="margin-left: 4px;"></i></a>
+    </div>
+
+    <!-- Closing -->
+    <h2><span class="gradient-text">The Bottom Line</span></h2>
+
+    <p style="font-size: 1.05rem; color: #e2e8f0; line-height: 1.75; margin-bottom: 1.5rem;">A regional bank with 298 servers and a hardware refresh due in 18 months walked into their first CFO presentation with Azure Migrate's default output. The CFO's team identified three assumptions inside four minutes — a PUE of 1.80 that didn't reflect their actual data centre efficiency, a $100k admin salary that bore no relation to their London FTE costs, and a $2/GB storage figure that was a fraction of their NetApp support contract. The meeting ended before slide three. The programme was placed on hold.</p>
+
+    <p style="font-style: italic; color: #6ee7b7; border-left: 3px solid #34d399; padding-left: 1.25rem; margin-bottom: 1.5rem; line-height: 1.8;">Two weeks later, the discovery sprint was complete. Their City data centre rack contract came in at $235k per year. Seven infrastructure FTEs were fully burdened at $112k each — $784k in annual labour, not the $700k Microsoft had assumed. Their NetApp support renewal was $220k per year — nearly four times the default $2/GB estimate. The Azure Migrate cost properties were overwritten with these real figures. AHUB was applied across the Windows Server Datacenter estate. The SQL 1:4 multiplier eliminated 30 cores of on-premises SQL Enterprise renewal cost entirely.</p>
+
+    <p style="margin-bottom: 2rem; line-height: 1.75;">The resubmitted business case cleared the CFO review in 40 minutes. A <strong style="color: #34d399;">$2.3M migration programme</strong> was signed the following month. Not because the technology changed — because the numbers were real and every figure in the comparison table could be traced back to an invoice.</p>
+
+    <p>Azure Migrate is not guessing because it is poorly engineered. It is guessing because it has no way to read your client's contracts. Your job as the platform leader driving the business case is to close that information gap before the presentation — not during it.</p>
+
+    <p>Run the 11-question discovery sprint. Replace the defaults. Apply AHUB and the SQL multiplier. Present real numbers in the CFO comparison table.</p>
+
+    <p><strong>That is how a generic assessment becomes a signed migration programme.</strong></p>
+
+    <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+    <!-- Author Bio -->
+    <div class="glass-card" style="margin: 0 0 3rem; padding: 1.75rem; border-top: 3px solid #a855f7; display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: wrap;">
+        <div style="flex-shrink: 0;">
+            <div style="width: 64px; height: 64px; background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; font-weight: 800; color: #fff; font-family: 'Outfit', sans-serif;">UK</div>
+        </div>
+        <div style="flex: 1; min-width: 200px;">
+            <p style="margin: 0 0 0.2rem; font-weight: 700; color: #e2e8f0; font-size: 1.05rem; font-family: 'Outfit', sans-serif;">Upendra Kumar</p>
+            <p style="margin: 0 0 0.85rem; font-size: 0.8rem; color: #a855f7; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em;">Cloud Solution Architect &nbsp;·&nbsp; Azure Migration &nbsp;·&nbsp; FinOps &nbsp;·&nbsp; Pre-Sales</p>
+            <p style="margin: 0 0 1rem; font-size: 0.9rem; color: #94a3b8; line-height: 1.7;">I design and deliver Azure migration business cases for enterprise programmes across banking, insurance, healthcare, and regulated public sector. My focus is turning Azure Migrate assessments into CFO-approved investment decisions — using real discovery data, structured financial models, and the cost optimisation mechanisms that reduce on-premises TCO by 40–80%.</p>
+            <div style="display: flex; gap: 1.25rem; flex-wrap: wrap;">
+                <a href="https://www.linkedin.com/in/journeytocloudwithupendra/" target="_blank" rel="noopener noreferrer" style="color: #60a5fa; font-size: 0.88rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; font-weight: 600;"><i class="fab fa-linkedin"></i> Connect on LinkedIn</a>
+                <a href="../pages/contact.html" style="color: #a855f7; font-size: 0.88rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; font-weight: 600;"><i class="fas fa-envelope"></i> Work with me</a>
+            </div>
+        </div>
+    </div>
+
+    <h3>Ready to turn your assessment into a signed migration programme?</h3>
+    <p>Whether you are building your first business case or validating an existing one, the framework above applies across regulated industries — banking, insurance, healthcare, and public sector alike.</p>
+    <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="../pages/contact.html" class="btn btn-primary">Contact Me</a>
+        <a href="../pages/azure-migration-toolkit.html" class="btn btn-outline">View the Toolkit</a>
+    </div>
+
+    <!-- Social Share -->
+    <div class="social-share-container">
+        <p style="color: #94a3b8; font-size: 0.8rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700;">Spread the Insight</p>
+        <div class="social-share-buttons">
+            <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn(event)" title="Share on LinkedIn" aria-label="Share on LinkedIn">
+                <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+            <a href="#" class="share-btn twitter" onclick="shareOnTwitter(event)" title="Share on X (Twitter)" aria-label="Share on Twitter">
+                <i class="fab fa-x-twitter"></i> Twitter
+            </a>
+            <a href="#" class="share-btn facebook" onclick="shareOnFacebook(event)" title="Share on Facebook">
+                <i class="fab fa-facebook-f"></i> Facebook
+            </a>
+            <button class="share-btn copy-link" onclick="copyPageLink(this)" title="Copy Link" aria-label="Copy Page Link">
+                <i class="fas fa-link"></i> <span class="btn-text">Copy Link</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function shareOnLinkedIn(e) {
+            e.preventDefault();
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=600');
+        }
+        function shareOnTwitter(e) {
+            e.preventDefault();
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent(document.title);
+            window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
+        }
+        function shareOnFacebook(e) {
+            e.preventDefault();
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+        }
+        function copyPageLink(btn) {
+            const url = window.location.href;
+            const btnText = btn.querySelector('.btn-text');
+            const originalText = btnText.innerText;
+            navigator.clipboard.writeText(url).then(() => {
+                btnText.innerText = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btnText.innerText = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(() => {
+                btnText.innerText = 'Copy failed';
+                setTimeout(() => { btnText.innerText = originalText; }, 2000);
+            });
+        }
+    </script>
+
+    <!-- Back to Blog -->
+    <div style="text-align: center; margin: 4rem 0;">
+        <a href="../blog.html" class="btn btn-primary" style="display: inline-block; padding: 1rem 2rem;">
+            <i class="fas fa-arrow-left"></i> Back to Insights
+        </a>
+    </div>
+</article>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2026 Upendra Kumar. All rights reserved.</p>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/journeytocloudwithupendra/" target="_blank" title="LinkedIn" aria-label="LinkedIn Profile">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/appliedailearner" target="_blank" title="GitHub" aria-label="GitHub Repository">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+        <div class="footer-qr-container" style="margin-top: 2rem; display: flex; flex-direction: column; align-items: center;">
+            <div style="padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.08); margin-top: 1.5rem; width: 100%; max-width: 500px; backdrop-filter: blur(8px);">
+                <div style="display: flex; justify-content: space-around; font-size: 0.8rem; text-align: center;">
+                    <div>
+                        <div style="color: rgba(255, 255, 255, 0.5); margin-bottom: 0.25rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">UX Speed</div>
+                        <div id="ux-speed" style="font-weight: 600; font-family: 'JetBrains Mono', monospace; color: #34d399;">--ms</div>
+                    </div>
+                    <div style="width: 1px; background: rgba(255, 255, 255, 0.1); margin: 0 0.5rem;"></div>
+                    <div>
+                        <div style="color: rgba(255, 255, 255, 0.5); margin-bottom: 0.25rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Privacy Hits</div>
+                        <div id="privacy-hits" style="font-weight: 600; font-family: 'JetBrains Mono', monospace; color: #60a5fa;">0</div>
+                    </div>
+                    <div style="width: 1px; background: rgba(255, 255, 255, 0.1); margin: 0 0.5rem;"></div>
+                    <div>
+                        <div style="color: rgba(255, 255, 255, 0.5); margin-bottom: 0.25rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Edge Node</div>
+                        <div style="font-weight: 600; font-family: 'JetBrains Mono', monospace; color: #fbbf24;">IN-CENTRAL</div>
+                    </div>
+                </div>
+            </div>
+            <div style="padding: 0.5rem; background: rgba(255, 255, 255, 0.05); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); margin-top: 1rem;">
+                <div class="status-ticker" id="system-status">
+                    <span class="status-dot pulse"></span>
+                    <span class="status-text">System Status: <span id="status-val">Online</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="../js/particles.js"></script>
+<script src="../js/main.js"></script>
+
+<!-- Table of Contents Observer -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const tocList = document.querySelector('.toc-list');
+        if (tocList) {
+            const headers = document.querySelectorAll('.blog-post-content h2');
+            const tocLinks = document.querySelectorAll('.toc-link');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        tocLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, { rootMargin: '0px 0px -80% 0px', threshold: 0.1 });
+            headers.forEach(header => observer.observe(header));
+        }
+    });
+</script>
+
+<!-- Interactive Stateful Checklist -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const pageKey = window.location.pathname.split('/').pop().replace('.html', '');
+        const items = document.querySelectorAll('.q-item');
+        const total = items.length;
+        const counter = document.getElementById('checklist-counter');
+        const fill = document.getElementById('checklist-progress-fill');
+
+        function markDone(item) {
+            item.classList.add('done');
+            item.style.opacity = '0.45';
+        }
+
+        function updateProgress() {
+            const done = document.querySelectorAll('.q-item.done').length;
+            if (counter) {
+                counter.textContent = `${done} / ${total} complete`;
+                counter.style.color = done === total ? '#34d399' : '#a855f7';
+            }
+            if (fill) fill.style.width = `${(done / total) * 100}%`;
+        }
+
+        items.forEach((item, index) => {
+            const storageKey = `checklist_${pageKey}_${index}`;
+            if (localStorage.getItem(storageKey) === 'true') markDone(item);
+            item.addEventListener('click', () => {
+                if (item.classList.contains('done')) {
+                    item.classList.remove('done');
+                    item.style.opacity = '1';
+                    localStorage.removeItem(storageKey);
+                } else {
+                    markDone(item);
+                    localStorage.setItem(storageKey, 'true');
+                }
+                updateProgress();
+            });
+        });
+        updateProgress();
+    });
+</script>
+
+<!-- ELI5 Smart Glossary -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const glossaryTerms = {
+            "AHUB": "Azure Hybrid Benefit — a Microsoft licensing perk that lets you reuse on-premises Windows/SQL licences in Azure at no extra cost, saving up to 40% versus standard pricing.",
+            "CapEx": "Capital Expenditure — a large upfront purchase like buying physical servers. The opposite of OpEx (a monthly subscription or utility bill).",
+            "OpEx": "Operating Expenditure — recurring monthly costs like a cloud bill or SaaS subscription. More predictable than CapEx spikes.",
+            "PUE": "Power Usage Effectiveness — a data centre efficiency ratio. A PUE of 1.80 means 44% of all power consumed is wasted on cooling, not computing.",
+            "IOPS": "Input/Output Operations Per Second — a measure of how fast a storage system can read/write data. Higher IOPS = faster storage.",
+            "TCO": "Total Cost of Ownership — the full cost of running something over its lifetime, including purchase price, maintenance, power, and staffing.",
+            "SAN": "Storage Area Network — a high-speed dedicated network that connects servers to shared storage arrays. Common in enterprise data centres.",
+            "EA": "Enterprise Agreement — a volume licensing contract between a large organisation and Microsoft, typically covering 3 years and including Software Assurance.",
+            "vCore": "Virtual Core — a unit of compute capacity in Azure SQL. One physical CPU core maps to multiple vCores depending on your licence type.",
+            "PoE": "Proof of Execution — a boardroom-grade document that uses real, auditable data to justify a major financial decision like a cloud migration.",
+            "RI": "Reserved Instance — a 1-year or 3-year Azure compute commitment that reduces the hourly rate by 20–45% versus pay-as-you-go. Stacks with AHUB for combined savings of 55–65%.",
+            "ESU": "Extended Security Updates — Microsoft's paid patch programme for end-of-support OS versions (e.g., Windows Server 2012). Free in Azure; costs up to $0.75/core/month on-premises."
+        };
+
+        const contentBlock = document.querySelector('.blog-post-content');
+        if (contentBlock && glossaryTerms && Object.keys(glossaryTerms).length > 0) {
+            const terms = Object.keys(glossaryTerms).sort((a, b) => b.length - a.length);
+            const termsRegex = new RegExp(`\\b(${terms.join('|')})\\b`, 'g');
+
+            function replaceTextNodes(node) {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    const parent = node.parentNode;
+                    if (parent && parent.nodeName !== 'SCRIPT' && parent.nodeName !== 'STYLE' && parent.className !== 'eli5-term') {
+                        if (parent.closest && parent.closest('h1, h2, h3, h4, h5, h6, a, pre, code, figure')) return;
+                        const newHTML = node.nodeValue.replace(termsRegex, match => {
+                            const cleanTooltip = glossaryTerms[match].replace(/"/g, '&quot;');
+                            return `<span class="eli5-term" data-tooltip="${cleanTooltip}">${match}</span>`;
+                        });
+                        if (newHTML !== node.nodeValue) {
+                            const tempDiv = document.createElement('div');
+                            tempDiv.innerHTML = newHTML;
+                            while (tempDiv.firstChild) parent.insertBefore(tempDiv.firstChild, node);
+                            parent.removeChild(node);
+                        }
+                    }
+                } else {
+                    Array.from(node.childNodes).forEach(replaceTextNodes);
+                }
+            }
+            replaceTextNodes(contentBlock);
+        }
+    });
+</script>
+</body>
+</html>
