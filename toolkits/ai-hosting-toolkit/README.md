@@ -22,10 +22,10 @@ ai-hosting-toolkit/
 │   └── tool-allowlist.xml         # Tool API allowlisting
 └── diagrams/
     ├── protect-apis.webp           # APIM gateway architecture
-    ├── internal-apim.png          # Internal APIM pattern
-    ├── landing-zone-networking.png # Landing zone networking
+    ├── internal-apim.webp          # Internal APIM pattern
+    ├── landing-zone-networking.webp # Landing zone networking
     ├── network-isolation.svg      # Network isolation
-    └── basic-openai.png           # Basic OpenAI architecture
+    └── basic-openai.webp           # Basic OpenAI architecture
 ```
 
 ---

@@ -1,0 +1,1857 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore how global enterprises are shifting from failure prevention to predictable recovery using AZ-first architecture and workload-aware resilience in Azure.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://portfolio.upendrakumar.com/blog/2026-04-10-reliability-resiliency-azure.html">
+    <meta property="og:title" content="Modern Azure Resilience: Continuity by Design in the Era of AI">
+    <meta property="og:description" content="A strategic guide for executives and architects to move beyond the legacy failover mindset into high-fidelity, AZ-first availability.">
+    <meta property="og:image" content="https://portfolio.upendrakumar.com/images/profile.webp">
+    <meta property="og:site_name" content="Upendra Kumar | Cloud Strategy & Architecture">
+    <meta property="article:author" content="Upendra Kumar">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://portfolio.upendrakumar.com/blog/2026-04-10-reliability-resiliency-azure.html">
+    <meta property="twitter:title" content="Modern Azure Resilience: Continuity by Design in the Era of AI">
+    <meta property="twitter:description" content="A strategic guide for executives and architects to move beyond the legacy failover mindset into high-fidelity, AZ-first availability.">
+    <meta property="twitter:image" content="https://portfolio.upendrakumar.com/images/profile.webp">
+
+    <title>Modern Azure Resilience | Upendra Kumar</title>
+
+    <link rel="stylesheet" href="../css/style.css?v=48">
+    <link rel="stylesheet" href="../css/premium.css?v=48">
+    <link rel="stylesheet" href="../css/dropdown.css">
+
+    <!-- Performance: Critical Asset Preloading -->
+    <link rel="preload" href="../css/style.css?v=48" as="style">
+    <link rel="preload" href="../js/navbar-component.js" as="script">
+    <link rel="preload" href="../js/main.js" as="script">
+
+    <!-- JSON-LD Article Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Modern Azure Resilience: Continuity by Design in the Era of AI",
+      "image": "https://portfolio.upendrakumar.com/images/profile.webp",
+      "author": {
+        "@type": "Person",
+        "name": "Upendra Kumar",
+        "url": "https://portfolio.upendrakumar.com/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Upendra Kumar",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://portfolio.upendrakumar.com/favicon.ico"
+        }
+      },
+      "datePublished": "2026-04-10",
+      "dateModified": "2026-04-10",
+      "description": "Explore how global enterprises are shifting from failure prevention to predictable recovery using AZ-first architecture and workload-aware resilience in Azure."
+    }
+    </script>
+
+    <style>
+        .nav-logo-uk {
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+            border-radius: 8px !important;
+        }
+
+        /* Blog Post Specific Styles */
+        
+        .glass-card {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(56, 189, 248, 0.4);
+            box-shadow: 0 20px 40px rgba(56, 189, 248, 0.1);
+        }
+        .glass-card:hover::after {
+            opacity: 1;
+        }
+
+        .eli5-term {
+            border-bottom: 2px dashed #a855f7;
+            cursor: help;
+            position: relative;
+            font-weight: 600;
+            color: #c084fc;
+        }
+        .eli5-term::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            color: #f8fafc;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 400;
+            min-width: 250px;
+            text-align: left;
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+            line-height: 1.5;
+        }
+        .eli5-term:hover::after {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toc-container {
+            position: sticky;
+            top: 100px;
+            width: 250px;
+            float: left;
+            margin-left: -280px;
+            padding: 1.5rem;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+        @media (max-width: 1200px) {
+            .toc-container { display: none; }
+        }
+
+        .blog-post-hero {
+            padding: 120px 0 60px;
+            background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.15), transparent 60%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .blog-post-content {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            color: #94a3b8;
+            line-height: 1.8;
+            font-size: 1.15rem;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .checklist-group {
+            display: block !important;
+            background: rgba(15, 23, 42, 0.4);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(56, 189, 248, 0.1);
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .checklist-item input {
+            margin-top: 0.4rem;
+        }
+
+        /* Mobile First: Grids stack by default */
+        .responsive-grid, 
+        .comparison-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: 1fr;
+            margin-bottom: 2rem;
+        }
+
+        .comparison-grid {
+            margin: 2rem 0;
+        }
+
+        /* Desktop: Larger screens layout overrides */
+        @media (min-width: 992px) {
+            .blog-post-content .responsive-grid {
+                grid-template-columns: repeat(3, 1fr) !important;
+            }
+            .blog-post-content .comparison-grid {
+                grid-template-columns: 1fr 1fr !important;
+            }
+        }
+
+        /* Mobile Specific Overrides (Mobile-First Polish) */
+        @media (max-width: 991px) {
+            .blog-post-hero {
+                text-align: center !important;
+                padding: 100px 1.5rem 40px !important;
+            }
+            .blog-post-hero h1 {
+                font-size: 2.2rem !important;
+                line-height: 1.2;
+            }
+            .blog-post-meta {
+                justify-content: center !important;
+                flex-direction: column;
+                gap: 0.5rem !important;
+                align-items: center;
+            }
+            .blog-post-content {
+                padding: 2rem 1.25rem !important;
+            }
+            .tag-container {
+                justify-content: center !important;
+            }
+            .hero-badge {
+                margin: 0 auto 1.5rem !important;
+            }
+        }
+        /* Resiliency Matrix Pattern Cards */
+        .pattern-matrix-grid {
+            display: grid;
+            gap: 2rem;
+            margin: 3rem 0;
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 768px) {
+            .pattern-matrix-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .pattern-matrix-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .pattern-card {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .pattern-card:hover {
+            transform: translateY(-8px);
+            background: rgba(30, 41, 59, 0.6);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .pattern-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .pattern-card:hover::before {
+            opacity: 1;
+        }
+
+        .tier-badge {
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            width: fit-content;
+            margin-bottom: 1.5rem;
+        }
+
+        .tier-0 { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); }
+        .tier-1 { background: rgba(245, 158, 11, 0.1); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.2); }
+        .tier-2 { background: rgba(59, 130, 246, 0.1); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.2); }
+        .tier-3 { background: rgba(148, 163, 184, 0.1); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.2); }
+
+        .pattern-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #60a5fa, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.9;
+        }
+
+        .pattern-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            color: #f8fafc;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .pattern-use-case {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .pattern-tradeoff {
+            font-size: 0.85rem;
+            padding: 1rem;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 8px;
+            border-left: 3px solid #f87171;
+            color: #cbd5e1;
+        }
+
+        .pattern-tradeoff strong {
+            color: #fca5a5;
+            display: block;
+            margin-bottom: 0.25rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Masterclass Action Strips */
+        .masterclass-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.8rem 1.25rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: auto;
+            width: fit-content;
+        }
+        .masterclass-cta:hover {
+            background: rgba(30, 41, 59, 0.8);
+            border-color: rgba(59, 130, 246, 0.5);
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .masterclass-cta.drasi:hover {
+            border-color: rgba(168, 85, 247, 0.5);
+        }
+
+        /* Video Section Styles */
+        .video-insight-card {
+            margin: 3.5rem 0;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .video-insight-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(56, 189, 248, 0.5);
+        }
+        .video-insight-header {
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+            background: rgba(56, 189, 248, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .video-icon-box {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        .video-content video {
+            width: 100%;
+            display: block;
+            aspect-ratio: 16/9;
+            background: #000;
+        }
+        .video-footer {
+            padding: 1.2rem 2rem;
+            background: rgba(15, 23, 42, 0.6);
+            font-size: 1rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Architecture Diagram & Analogy Styles */
+        .architecture-card {
+            margin: 3.5rem 0;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        .architecture-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+        .architecture-card:hover img {
+            transform: scale(1.01);
+        }
+        .diagram-caption {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .analogy-block {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .analogy-block::before {
+            content: "\f10d";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            top: -20px;
+            right: 20px;
+            font-size: 8rem;
+            color: rgba(255, 255, 255, 0.03);
+            pointer-events: none;
+        }
+        .analogy-header {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        .analogy-icon {
+            font-size: 2rem;
+            color: #60a5fa;
+        }
+
+        /* SRE Dashboard Styles */
+        .sre-dashboard {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 3rem 0;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        @media (max-width: 768px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+        }
+        .metric-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            position: relative;
+        }
+        .status-pulse {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            position: relative;
+        }
+        .pulse-green { background: #10b981; box-shadow: 0 0 10px #10b981; }
+        .pulse-yellow { background: #f59e0b; box-shadow: 0 0 10px #f59e0b; animation: pulse-anim 2s infinite; }
+        @keyframes pulse-anim {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .metric-value { font-size: 2.5rem; font-weight: 800; font-family: 'Outfit', sans-serif; margin: 1rem 0; color: #f8fafc; }
+        .metric-label { font-size: 0.85rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Calculator Styles */
+        .calculator-container {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.9) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+        }
+        .calc-question { margin-bottom: 2.5rem; }
+        .calc-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+        @media (max-width: 600px) { .calc-options { grid-template-columns: 1fr; } }
+        .calc-btn {
+            background: rgba(51, 65, 85, 0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #cbd5e1;
+            padding: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .calc-btn:hover { background: rgba(59, 130, 246, 0.2); border-color: #60a5fa; color: #f8fafc; }
+        .calc-btn.active { background: #3b82f6; border-color: #60a5fa; color: white; box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }
+        .calc-result-box {
+            display: none;
+            margin-top: 2rem;
+            padding: 2.5rem;
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 16px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+        .calc-result-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: #10b981;
+        }
+        
+        .expert-recommendation-box {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(252, 211, 77, 0.05);
+            border: 1px solid rgba(252, 211, 77, 0.2);
+            border-radius: 12px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .rto-rpo-container {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .rto-rpo-container:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .rto-rpo-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Simulator Styles */
+        .sim-container {
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(56, 189, 248, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        .sim-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .sim-node {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+        .sim-node.failed {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: #ef4444;
+            opacity: 0.6;
+        }
+        .sim-heartbeat {
+            width: 10px;
+            height: 10px;
+            background: #10b981;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            box-shadow: 0 0 10px #10b981;
+        }
+        .sim-node.failed .sim-heartbeat {
+            background: #ef4444;
+            box-shadow: none;
+            animation: none;
+        }
+        .sim-pulse { animation: pulse-anim 2s infinite; }
+
+        /* Blueprint Gallery Styles */
+        .blueprint-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 1rem;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s;
+        }
+        .tab-btn.active {
+            color: #60a5fa;
+            border-bottom: 2px solid #60a5fa;
+        }
+        .tab-content { display: none; background: #011627; border-radius: 8px; padding: 1.5rem; overflow-x: auto; }
+        .tab-content.active { display: block; }
+        /* --- Silicon Valley Executive UI Components --- */
+        
+        :root {
+            --beam-size: 150px;
+            --beam-speed: 8s;
+            --spotlight-opacity: 0.15;
+        }
+
+        .sv-card-container {
+            position: relative;
+            padding: 2px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.03);
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Border Beam Animation */
+        .sv-card-container::before {
+            content: "";
+            position: absolute;
+            inset: -100%;
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg,
+                transparent 300deg,
+                rgba(59, 130, 246, 0.4) 330deg,
+                rgba(168, 85, 247, 0.4) 360deg
+            );
+            animation: beam-spin var(--beam-speed) linear infinite;
+            z-index: 0;
+            opacity: 0.6;
+        }
+
+        @keyframes beam-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Strict Masterclass 2-Column Grid */
+        .sv-masterclass-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: stretch;
+            margin: 4rem 0;
+            position: relative;
+            z-index: 5;
+            width: 100%;
+        }
+
+        /* Break out of 850px parent containment for premium wide view */
+        @media (min-width: 1250px) {
+            .sv-masterclass-grid {
+                width: calc(100% + 150px);
+                margin-left: -75px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .sv-masterclass-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sv-masterclass-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* High-Fidelity Bento Card */
+        .sv-bento-card {
+            position: relative;
+            z-index: 1;
+            background: rgba(10, 15, 30, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 22px;
+            padding: 2.5rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: transform 0.3s cubic-bezier(0.2, 0, 0.1, 1);
+        }
+
+        .sv-bento-card:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Spotlight Hover Effect */
+        .sv-spotlight {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(
+                circle 250px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                rgba(96, 165, 250, var(--spotlight-opacity)),
+                transparent 80%
+            );
+            pointer-events: none;
+            z-index: 2;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Grid / Texture Backgrounds */
+        .sv-texture-grid {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 24px 24px;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        .sv-texture-dots {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+            background-size: 12px 12px;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.2;
+        }
+
+        /* Refined Component Badges */
+        .sv-badge-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 3;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .sv-badge-icon i {
+            font-size: 1.6rem;
+            filter: drop-shadow(0 0 8px currentColor);
+        }
+
+        /* Premium Typography Layout */
+        .sv-bento-title {
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            font-size: 1.75rem;
+            letter-spacing: -0.02em;
+            color: #f8fafc;
+            margin: 0 0 1rem 0;
+            position: relative;
+            z-index: 3;
+        }
+
+        .sv-bento-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 1.05rem;
+            color: #60a5fa;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 3;
+        }
+
+        .sv-bento-text {
+            color: #94a3b8;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 3;
+        }
+
+        .sv-insight-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 2.5rem 0;
+            position: relative;
+            z-index: 3;
+        }
+
+        .sv-insight-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.85rem;
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+
+        .sv-insight-list li i {
+            margin-top: 0.35rem;
+            font-size: 0.8rem;
+            color: #60a5fa;
+        }
+
+        /* Action Strips / Buttons */
+        .sv-action-strip {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            color: #f8fafc;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 4;
+            width: 100%;
+        }
+
+        .sv-action-strip:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+            transform: scale(1.02);
+        }
+
+        .sv-action-strip ::after {
+            content: " →";
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .sv-action-strip:hover ::after {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+    </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="dark-theme">
+    <canvas id="particles-canvas"></canvas>
+    <nav class="navbar" id="dynamic-nav"></nav>
+    <script src="../js/navbar-component.js"></script>
+
+    <section class="blog-post-hero">
+        <div class="container" style="max-width: 1000px;">
+            <div class="hero-badge" style="margin-bottom: 2rem; width: fit-content;">
+                <a href="../blog.html" style="color: #60a5fa; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; font-weight: 600;">
+                    <i class="fas fa-arrow-left"></i> Back to Insights
+                </a>
+                <br>
+                <span style="display: inline-block; padding: 0.4rem 1rem; background: rgba(59, 130, 246, 0.1); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 20px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">
+                    <i class="fas fa-chess-king" style="margin-right: 6px;"></i> Value Architect Playbook
+                </span>
+            </div>
+
+            <h1 style="font-family: 'Outfit', sans-serif; font-size: 3.5rem; line-height: 1.1; margin-bottom: 1.5rem; color: #f8fafc;">
+                Modern Azure Resilience: <span class="gradient-text">Continuity by Design</span> in the Era of AI
+            </h1>
+
+            <div class="blog-post-meta" style="display: flex; gap: 2rem; color: #64748b; font-size: 0.95rem; margin-bottom: 2rem;">
+                <div><i class="fas fa-user-tie"></i> Upendra Kumar, Delivery Architect</div>
+                <div><i class="fas fa-calendar"></i> April 10, 2026</div>
+                <div><i class="fas fa-clock"></i> 10 min read</div>
+            </div>
+
+            <div class="tag-container" style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 3rem;">
+                <span style="background: rgba(168, 85, 247, 0.1); color: #a855f7; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; border: 1px solid rgba(168, 85, 247, 0.2); font-weight: 600;"><i class="fas fa-tag" style="margin-right: 5px;"></i> Azure</span>
+                <span style="background: rgba(168, 85, 247, 0.1); color: #a855f7; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; border: 1px solid rgba(168, 85, 247, 0.2); font-weight: 600;"><i class="fas fa-tag" style="margin-right: 5px;"></i> Reliability</span>
+                <span style="background: rgba(168, 85, 247, 0.1); color: #a855f7; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; border: 1px solid rgba(168, 85, 247, 0.2); font-weight: 600;"><i class="fas fa-tag" style="margin-right: 5px;"></i> Architecture</span>
+                <span style="background: rgba(168, 85, 247, 0.1); color: #a855f7; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; border: 1px solid rgba(168, 85, 247, 0.2); font-weight: 600;"><i class="fas fa-tag" style="margin-right: 5px;"></i> Risk Mitigation</span>
+            </div>
+
+            <div style="text-align: center; position: relative; margin-top: 2rem;">
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, transparent 70%); filter: blur(50px); z-index: -1;"></div>
+                <img src="../images/azure_resilience_infographic.webp" 
+                     alt="Modern Azure Resilience: Semantic Triad and 4 Patterns Infographic" 
+                     style="width: 100%; max-width: 1000px; border-radius: 16px; box-shadow: 0 30px 60px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer;"
+                     onmouseover="this.style.transform='scale(1.02)'"
+                     onmouseout="this.style.transform='scale(1)'"
+                     fetchpriority="high">
+            </div>
+        </div>
+    </section>
+
+    <article class="blog-post-content">
+        <!-- Sticky ToC -->
+        <nav class="toc-container">
+            <h4 style="color: #60a5fa; font-family: 'Outfit', sans-serif; margin-bottom: 1rem;">Navigation</h4>
+            <ul style="list-style: none; padding: 0; font-size: 0.9rem;">
+                <li><a href="#shifting-paradigm" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">1. The Shifting Paradigm</a></li>
+                <li><a href="#az-first" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">2. AZ-First Strategy</a></li>
+                <li><a href="#selection-matrix" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">3. Resiliency Selection Matrix</a></li>
+                <li><a href="#enterprise-playbook" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">4. Enterprise Resilience Playbook (CAF & WAF)</a></li>
+                <li><a href="#maturity-model" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">5. Maturity Roadmap</a></li>
+                <li><a href="#next-gen-ops" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">6. Next-Gen Operations</a></li>
+                <li><a href="#references" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">7. References</a></li>
+            </ul>
+        </nav>
+
+        <div class="lead-quote-wrapper" style="margin: 4rem 0; position: relative; padding: 3rem; background: rgba(30, 41, 59, 0.4); border-radius: 24px; border-left: 6px solid #3b82f6; overflow: hidden;">
+            <div style="position: absolute; top: -20px; right: 20px; font-size: 12rem; color: rgba(59, 130, 246, 0.05); font-family: 'Outfit', sans-serif; pointer-events: none;">&ldquo;</div>
+            <p class="lead" style="font-size: 1.6rem; color: #f8fafc; font-weight: 700; line-height: 1.3; font-family: 'Outfit', sans-serif; margin: 0; position: relative; z-index: 1; text-wrap: balance;">
+                "Our architecture looked perfect on paper, but a management plane disruption exposed our hidden dependencies. This is how we moved beyond the legacy failover mindset."
+            </p>
+            <div style="margin-top: 1.5rem; display: flex; align-items: center; gap: 1rem;">
+                <div style="width: 40px; height: 2px; background: #60a5fa;"></div>
+                <span style="font-size: 0.9rem; color: #60a5fa; text-transform: uppercase; letter-spacing: 2px; font-weight: 800;">Executive Perspective</span>
+            </div>
+        </div>
+
+        <!-- Premium Executive Impact Summary -->
+        <div id="executive-impact" class="reveal" style="margin-bottom: 4rem; position: relative;">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <span style="display: inline-block; padding: 0.4rem 1rem; background: rgba(168, 85, 247, 0.1); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 20px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;">
+                    <i class="fas fa-chart-line" style="margin-right: 6px;"></i> Strategic Alignment and ROI
+                </span>
+                <h2 style="margin: 1rem 0 0; font-family: 'Outfit', sans-serif; font-size: 2.2rem; color: #f8fafc;">Executive Impact Summary</h2>
+            </div>
+
+            <div class="responsive-grid">
+                <div class="glass-card" style="border-top: 3px solid #f87171;">
+                    <i class="fas fa-fire" style="color: #f87171; font-size: 1.5rem; margin-bottom: 1rem;"></i>
+                    <h4 style="color: #fca5a5; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">The Semantic Disconnect</h4>
+                    <p style="font-size: 0.95rem;">Legacy architectures conflate High Availability with true continuity. Without properly aligning the "resiliency triad"—<strong style="color: #cbd5e1;">reliability</strong>, <strong style="color: #cbd5e1;">resiliency</strong>, and <strong style="color: #cbd5e1;">recoverability</strong>—RTO objectives are often exposed to systemic regional failures.</p>
+                </div>
+                <div class="glass-card" style="border-top: 3px solid #60a5fa;">
+                    <i class="fas fa-network-wired" style="color: #60a5fa; font-size: 1.5rem; margin-bottom: 1rem;"></i>
+                    <h4 style="color: #93c5fd; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">The 4-Pattern Architecture</h4>
+                    <p style="font-size: 0.95rem;">By evolving beyond static region pairs, we deploy dynamic topologies (Active/Active, in-region high availability) and strictly enforce the five-level <strong style="color: #cbd5e1;">WAF Reliability Maturity Roadmap</strong>. We shift from passive DR to active, automated survival.</p>
+                </div>
+                <div class="glass-card" style="border-top: 3px solid #34d399;">
+                    <i class="fas fa-award" style="color: #34d399; font-size: 1.5rem; margin-bottom: 1rem;"></i>
+                    <h4 style="color: #6ee7b7; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">The Executive ROI</h4>
+                    <p style="font-size: 0.95rem;">Achieved near-zero <span class="eli5-term" data-tooltip="The maximum time a system can be down before the business suffers unacceptable consequences.">RTO/RPO</span> via multi-region balancing, cutting mitigation costs by 75%. We stopped paying for 'maybe' and engineered a self-healing fabric designed for 'always'.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 id="shifting-paradigm"><span class="gradient-text">1. The Shifting Paradigm</span></h2>
+        <p>For decades, the standard playbook for cloud resilience was simple: <strong>Region A + Region B = Safe.</strong> We assumed that distance was the ultimate shield. But the reality of modern cloud architecture is more nuanced. As Mark Russinovich (CTO of Azure) recently outlined, resilience is no longer about preventing a datacenter from failing; it’s about ensuring the workload survives even when the management plane is under stress.</p>
+        
+        <p>The "No-BS" truth? Regional pairing is a relic. If your failover relies on a manual VNet cutover that takes 4 hours, you don't have a resilience strategy—you have a documented catastrophe.</p>
+
+        <!-- The Regional Pairing Analogy: Architect's Corner -->
+        <div class="analogy-block reveal" style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 24px; padding: 3rem; margin: 3rem 0; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: -10px; left: -10px; font-size: 8rem; color: rgba(59, 130, 246, 0.03); font-family: 'Outfit', sans-serif; pointer-events: none;"><i class="fas fa-lightbulb"></i></div>
+            <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.8rem; color: #f8fafc; margin-bottom: 2rem; position: relative; z-index: 1;">Architect's Corner: Why Regional Pairing is a Relic</h3>
+            
+            <div class="comparison-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; position: relative; z-index: 1;">
+                <div>
+                    <h5 style="color: #f87171; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+                        <i class="fas fa-history"></i> The Legacy: The "Distant Cabin"
+                    </h5>
+                    <p style="font-size: 1rem; color: #94a3b8; margin-bottom: 1.5rem;">Think of traditional Disaster Recovery as having a backup cabin in the mountains 500 miles away from your city home.</p>
+                    <ul style="list-style: none; padding: 0; color: #cbd5e1; font-size: 0.95rem;">
+                        <li style="margin-bottom: 1rem;"><i class="fas fa-times-circle" style="color: #ef4444; margin-right: 10px;"></i> <strong>The Commute:</strong> If your house floods, you must pack your bags and drive 8 hours. You are "offline" (RTO) during the entire trip.</li>
+                        <li style="margin-bottom: 1rem;"><i class="fas fa-times-circle" style="color: #ef4444; margin-right: 10px;"></i> <strong>The Blockage:</strong> If the roads are closed (Management Plane failure), you can't even reach your backup.</li>
+                    </ul>
+                </div>
+                <div style="border-left: 1px solid rgba(255,255,255,0.05); padding-left: 3rem;">
+                    <h5 style="color: #10b981; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+                        <i class="fas fa-bolt"></i> Modern: The "Neighborhood Watch"
+                    </h5>
+                    <p style="font-size: 1rem; color: #94a3b8; margin-bottom: 1.5rem;">Instead of one distant cabin, you have <strong>three homes on the same street</strong>, each on a different power grid and ISP.</p>
+                    <ul style="list-style: none; padding: 0; color: #cbd5e1; font-size: 0.95rem;">
+                        <li style="margin-bottom: 1rem;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 10px;"></i> <strong>Zero Latency:</strong> You live in all three houses at once. If the power fails in House A, you simply step into House B.</li>
+                        <li style="margin-bottom: 1rem;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 10px;"></i> <strong>Self-Correction:</strong> The transition is instantaneous. There is no driving, no "failover," and no lost time.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+                <p style="font-style: italic; color: #60a5fa; font-size: 1.1rem; max-width: 800px; margin: 0 auto;">"Modern resilience is not about <strong>recovering</strong> from a failure; it is about <strong>absorbing</strong> the failure so the user never even knows it happened."</p>
+            </div>
+        </div>
+
+        <h2 id="az-first"><span class="gradient-text">2. Strategic Alignment and ROI (The Business Case)</span></h2>
+        <p>At the strategic enterprise level, we are moving the goalposts. High Availability (HA) used to be an "add-on." Now, Multi-AZ is the baseline requirement. <span class="eli5-term" data-tooltip="Physically separate datacenters within a single Azure region, each with independent power, cooling, and networking.">Availability Zones (AZs)</span> are now treated as the primary region. We hedge against catastrophic, cross-zone failure with regional BCDR, but we run the business <em>within</em> the zones.</p>
+
+        <!-- Architecture Diagram 1: Regions & AZs -->
+        <div class="architecture-card">
+            <h4 style="color: #f8fafc; font-family: 'Outfit', sans-serif; margin-bottom: 1.5rem;">The Physical Foundation: Regions & Availability Zones</h4>
+            <img src="Reliability and Resiliency in Azure/regions-availability-zones.svg" alt="Azure Regions and Availability Zones Architecture Diagram">
+            <p class="diagram-caption">
+                <i class="fas fa-info-circle" style="color: #60a5fa; margin-right: 6px;"></i> 
+                Azure regions are comprised of multiple, physically isolated Availability Zones. Our "AZ-First" strategy ensures that workloads are distributed across these zones to survive localized datacenter failures without regional failover.
+            </p>
+        </div>
+
+        <!-- Expert Video Deep Dive -->
+        <div class="video-insight-card">
+            <div class="video-insight-header">
+                <div class="video-icon-box">
+                    <i class="fas fa-video"></i>
+                </div>
+                <div>
+                    <h4 style="margin: 0; color: #f8fafc; font-family: 'Outfit', sans-serif; font-size: 1.15rem;">Expert Deep Dive</h4>
+                    <p style="margin: 0; font-size: 0.85rem; color: #94a3b8; font-weight: 500;">Ensuring Resiliency & HA with Azure Availability Zones</p>
+                </div>
+            </div>
+            <div class="video-content">
+                <video controls preload="metadata" poster="../images/azure_resilience_infographic.webp">
+                    <source src="https://pub-2d01be0306284df386da6dae9d2014d0.r2.dev/Ensure-resiliency-and-high-availability-with-Azure-Availability-Zones_en-us-0x720-3266k.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="video-footer">
+                <p style="margin: 0;"><i class="fas fa-info-circle" style="color: #60a5fa; margin-right: 8px;"></i> This technical breakdown illustrates how Azure's zone-aware infrastructure provides the physical isolation required for high-fidelity business continuity.</p>
+            </div>
+        </div>
+
+        <p>Why? Because it eliminates the latency and data-drift penalties of inter-regional replication. With Azure's 165,000-mile fiber backbone and <strong>Software Defined Networking (SDN)</strong>, we can route around fiber cuts in milliseconds—but only if the application is "Zone-Aware."</p>
+
+        <!-- Zone Failure Simulator: Practical Proof -->
+        <div class="sim-container reveal">
+            <h4 style="color: #f8fafc; font-family: 'Outfit', sans-serif; margin-bottom: 1rem;">Live Simulation: Automated Zone Healing</h4>
+            <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 2rem;">Simulate a localized failure in Zone A to observe the automated traffic shift and maintenance of high availability across the remaining infrastructure.</p>
+            
+            <div class="sim-grid">
+                <div class="sim-node" id="zone-1">
+                    <div class="sim-heartbeat sim-pulse"></div>
+                    <span style="color: #f8fafc; font-weight: 600;">Zone A</span>
+                    <p style="font-size: 0.75rem; color: #94a3b8; margin-top: 5px;">Primary Workload</p>
+                </div>
+                <div class="sim-node" id="zone-2">
+                    <div class="sim-heartbeat sim-pulse"></div>
+                    <span style="color: #f8fafc; font-weight: 600;">Zone B</span>
+                    <p style="font-size: 0.75rem; color: #94a3b8; margin-top: 5px;">Standby Resource</p>
+                </div>
+                <div class="sim-node" id="zone-3">
+                    <div class="sim-heartbeat sim-pulse"></div>
+                    <span style="color: #f8fafc; font-weight: 600;">Zone C</span>
+                    <p style="font-size: 0.75rem; color: #94a3b8; margin-top: 5px;">Quorum / Witness</p>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <button class="btn btn-primary" onclick="runSimulation()" id="sim-trigger">Simulate Zone A Failure</button>
+            </div>
+
+            <div id="sim-log" style="margin-top: 2rem; padding: 1rem; border-radius: 8px; background: rgba(0,0,0,0.3); border: 1px dashed rgba(56, 189, 248, 0.2); font-size: 0.85rem; color: #60a5fa; display: none;">
+                <i class="fas fa-satellite-dish"></i> <span id="log-text">Ready for simulation...</span>
+            </div>
+        </div>
+
+        <h2 id="selection-matrix"><span class="gradient-text">3. The Resiliency Selection Matrix</span></h2>
+        
+        <div style="display: flex; flex-wrap: wrap; gap: 3rem; margin: 3rem 0; background: rgba(15, 23, 42, 0.6); padding: 2.5rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);">
+            <div style="flex: 1 1 400px;">
+                <h3 style="font-family: 'Outfit', sans-serif; color: #f8fafc; margin-bottom: 1.5rem; font-size: 1.5rem;">Business Impact Qualification</h3>
+                <p style="margin-bottom: 2rem; color: #cbd5e1; line-height: 1.6;">Before selecting an architectural pattern, we must force the business to quantify the actual value of their data and uptime. Use these interrogation points to define your targets.</p>
+                
+                <h4 style="color: #60a5fa; margin-bottom: 1rem; font-weight: 600;"><i class="fas fa-stopwatch" style="margin-right: 0.5rem;"></i>RTO (Recovery Time Objective) Drivers</h4>
+                <ul style="list-style-type: none; padding-left: 0; margin-bottom: 2rem; color: #94a3b8; font-size: 0.95rem;">
+                    <li style="margin-bottom: 0.75rem; display: flex;"><i class="fas fa-arrow-right" style="color: #3b82f6; margin-right: 0.75rem; margin-top: 0.3rem; font-size: 0.8rem;"></i> What is the impact if this application is unavailable, and does it compound?</li>
+                    <li style="margin-bottom: 0.75rem; display: flex;"><i class="fas fa-arrow-right" style="color: #3b82f6; margin-right: 0.75rem; margin-top: 0.3rem; font-size: 0.8rem;"></i> Is there a financial cost? How much per hour?</li>
+                    <li style="margin-bottom: 0.75rem; display: flex;"><i class="fas fa-arrow-right" style="color: #3b82f6; margin-right: 0.75rem; margin-top: 0.3rem; font-size: 0.8rem;"></i> Is there a reputational cost (e.g. public facing portals)?</li>
+                    <li style="margin-bottom: 0.75rem; display: flex;"><i class="fas fa-arrow-right" style="color: #3b82f6; margin-right: 0.75rem; margin-top: 0.3rem; font-size: 0.8rem;"></i> Are there strict SLAs or external compliance/regulatory requirements?</li>
+                    <li style="margin-bottom: 0.75rem; display: flex;"><i class="fas fa-arrow-right" style="color: #3b82f6; margin-right: 0.75rem; margin-top: 0.3rem; font-size: 0.8rem;"></i> Does this application have upstream or downstream dependencies?</li>
+                </ul>
+
+                <h4 style="color: #c084fc; margin-bottom: 1rem; font-weight: 600;"><i class="fas fa-database" style="margin-right: 0.5rem;"></i>RPO (Recovery Point Objective) Drivers</h4>
+                <ul style="list-style-type: none; padding-left: 0; color: #94a3b8; font-size: 0.95rem;">
+                    <li style="margin-bottom: 0.75rem; display: flex;"><i class="fas fa-arrow-right" style="color: #a855f7; margin-right: 0.75rem; margin-top: 0.3rem; font-size: 0.8rem;"></i> What is the exact impact of data loss for this application?</li>
+                    <li style="margin-bottom: 0.75rem; display: flex;"><i class="fas fa-arrow-right" style="color: #a855f7; margin-right: 0.75rem; margin-top: 0.3rem; font-size: 0.8rem;"></i> Do dependent applications have stricter RPO constraints?</li>
+                    <li style="margin-bottom: 0.75rem; display: flex;"><i class="fas fa-arrow-right" style="color: #a855f7; margin-right: 0.75rem; margin-top: 0.3rem; font-size: 0.8rem;"></i> Can lost data be recreated? How long would it take, and is it acceptable?</li>
+                    <li style="margin-bottom: 0.75rem; display: flex;"><i class="fas fa-arrow-right" style="color: #a855f7; margin-right: 0.75rem; margin-top: 0.3rem; font-size: 0.8rem;"></i> How dynamically and frequently does the workload data change?</li>
+                </ul>
+            </div>
+            <div style="flex: 1 1 400px;">
+                <div class="glass-card" style="height: 100%; padding: 3rem; display: flex; flex-direction: column;">
+                    <div class="rto-rpo-container" style="background: rgba(0,0,0,0.4); border-radius: 12px; padding: 1rem; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 2.5rem; box-shadow: 0 15px 35px rgba(0,0,0,0.3);">
+                        <img src="../images/rto_rpo_timeline.webp" alt="RTO and RPO Timeline Integration Diagram" style="width: 100%; border-radius: 4px; filter: contrast(1.1) brightness(1.1);">
+                    </div>
+
+                    <div id="calculator-anchor" style="width: 100%;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                            <i class="fas fa-calculator" style="color: #60a5fa; font-size: 1.25rem;"></i>
+                            <h3 style="margin: 0; font-family: 'Outfit', sans-serif; font-size: 1.5rem; color: #f8fafc;">Interactive Tier Finder</h3>
+                        </div>
+
+                        <div class="expert-recommendation-box">
+                            <i class="fas fa-lightbulb" style="color: #fcd34d; margin-right: 8px;"></i>
+                            <strong style="color: #fcd34d; font-weight: 700;">Expert Insight:</strong> 
+                            <span style="color: #cbd5e1;">Avoid legacy regional pair designs. Prioritize Availability Zone-redundant architectures to maintain performance SLAs during partial failures.</span>
+                        </div>
+                        
+                        <p style="font-size: 0.95rem; color: #94a3b8; margin: 2rem 0 1.5rem;">Configure your business constraints to identify the optimal architectural pattern:</p>
+                        
+                        <div id="tier-calc" style="text-align: left;">
+                            <div class="calc-question" style="margin-bottom: 2rem;">
+                                <p style="font-size: 1rem; color: #f8fafc; margin-bottom: 1rem; font-weight: 600;">Acceptable Data Loss (RPO):</p>
+                                <div class="calc-options" style="grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                    <button class="calc-btn" onclick="setCalcValue('rpo', 0, this)">Zero (Active/Active)</button>
+                                    <button class="calc-btn" onclick="setCalcValue('rpo', 1, this)">Seconds/Minutes</button>
+                                    <button class="calc-btn" onclick="setCalcValue('rpo', 2, this)">Hours</button>
+                                    <button class="calc-btn" onclick="setCalcValue('rpo', 3, this)">Next Day</button>
+                                </div>
+                            </div>
+                            <div class="calc-question" style="margin-bottom: 0;">
+                                <p style="font-size: 1rem; color: #f8fafc; margin-bottom: 1rem; font-weight: 600;">Recovery Target (RTO):</p>
+                                <div class="calc-options" style="grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                    <button class="calc-btn" onclick="setCalcValue('rto', 0, this)">Instantaneous</button>
+                                    <button class="calc-btn" onclick="setCalcValue('rto', 1, this)">Sub-Minute</button>
+                                    <button class="calc-btn" onclick="setCalcValue('rto', 2, this)">1-4 Hours</button>
+                                    <button class="calc-btn" onclick="setCalcValue('rto', 3, this)">Best Effort</button>
+                                </div>
+                            </div>
+                            <div id="calc-result" class="calc-result-box">
+                                <span id="result-tier" style="display: block; font-weight: 800; font-size: 1.25rem; color: #10b981; margin-bottom: 0.5rem; font-family: 'Outfit', sans-serif;">TIER 0: MISSION CRITICAL</span>
+                                <p id="result-desc" style="font-size: 0.95rem; color: #cbd5e1; margin: 0; line-height: 1.6;">Multi-Zone + Multi-Region Active-Active is your required architectural standard.</p>
+                                <a href="../pages/contact.html" class="masterclass-cta" style="margin-top: 1.5rem; background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.2); color: #10b981;">
+                                    Book a Resilience Audit <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p>Once the business has qualified the workload using the metrics above, we align it to one of six architectural tiers, balancing the trade-off between <strong>Availability</strong>, <strong>Complexity</strong>, and <strong>Cost</strong>. Below is the internal decision matrix we use to align workload tiers with the architecture of survivability.</p>
+
+        <!-- Architecture Diagram 2: Zone Redundant -->
+        <div class="architecture-card" style="background: rgba(30, 41, 59, 0.4); border-color: rgba(56, 189, 248, 0.3);">
+            <h4 style="color: #f8fafc; font-family: 'Outfit', sans-serif; margin-bottom: 1.5rem;">Visualizing Survivability: Zone-Redundant Architecture</h4>
+            <img src="Reliability and Resiliency in Azure/zone-redundant.svg" alt="Azure Zone-Redundant Architecture Diagram">
+            <p class="diagram-caption">
+                <i class="fas fa-project-diagram" style="color: #60a5fa; margin-right: 6px;"></i> 
+                Zone-redundant services automatically replicate your data and instances across AZs. If one zone disappears, the service remains available with zero manual intervention—the ultimate "Self-Healing" pattern.
+            </p>
+        </div>
+
+        <div class="pattern-matrix-grid">
+            <!-- Pattern 1 -->
+            <div class="pattern-card">
+                <div class="tier-badge tier-3">Tier 3: Low Impact</div>
+                <i class="fas fa-server pattern-icon"></i>
+                <h4 class="pattern-title">Locally Redundant, Single Region</h4>
+                <p class="pattern-use-case">Ideal for internal tools and dev/test environments where downtime is acceptable and cost is the primary driver.</p>
+                <div class="pattern-tradeoff">
+                    <strong>Avoid when</strong>
+                    Workload has meaningful uptime targets or strict recovery expectations.
+                </div>
+            </div>
+
+            <!-- Pattern 2 -->
+            <div class="pattern-card">
+                <div class="tier-badge tier-2">Tier 2: Production</div>
+                <i class="fas fa-cubes pattern-icon"></i>
+                <h4 class="pattern-title">Single Region, Multi-Zone</h4>
+                <p class="pattern-use-case">Our standard for production workloads needing strong in-region resilience with simpler Azure-managed operations.</p>
+                <div class="pattern-tradeoff">
+                    <strong>Avoid when</strong>
+                    You need protection from a full regional outage or service doesn't support ZRS.
+                </div>
+            </div>
+
+            <!-- Pattern 3 -->
+            <div class="pattern-card">
+                <div class="tier-badge tier-2">Tier 2: Custom VM</div>
+                <i class="fas fa-location-arrow pattern-icon"></i>
+                <h4 class="pattern-title">Zonal Deployment (Manual)</h4>
+                <p class="pattern-use-case">Used for VM-heavy or latency-sensitive workloads where we need tighter control over placement and failover.</p>
+                <div class="pattern-tradeoff">
+                    <strong>Avoid when</strong>
+                    You want Microsoft-managed failover. In most cases, Zone-Redundant is cleaner.
+                </div>
+            </div>
+
+            <!-- Pattern 4 -->
+            <div class="pattern-card">
+                <div class="tier-badge tier-1">Tier 1: Business-Critical</div>
+                <i class="fas fa-exchange-alt pattern-icon"></i>
+                <h4 class="pattern-title">Primary + Secondary (Active-Passive)</h4>
+                <p class="pattern-use-case">Required for regional disaster recovery. Common for apps that can tolerate some recovery time and lag.</p>
+                <div class="pattern-tradeoff">
+                    <strong>Avoid when</strong>
+                    You need near-zero RPO/RTO. Continuous availability requires Active-Active.
+                </div>
+            </div>
+
+            <!-- Pattern 5 -->
+            <div class="pattern-card">
+                <div class="tier-badge tier-0">Tier 0: Mission-Critical</div>
+                <i class="fas fa-globe pattern-icon"></i>
+                <h4 class="pattern-title">Multi-Zone + Multi-Region (Active-Active)</h4>
+                <p class="pattern-use-case">The gold standard for always-on digital services. Zero-downtime during major regional incidents.</p>
+                <div class="pattern-tradeoff">
+                    <strong>Avoid when</strong>
+                    The business case doesn't justify the extreme cost and operational maturity required.
+                </div>
+            </div>
+
+            <!-- Pattern 6 -->
+            <div class="pattern-card">
+                <div class="tier-badge tier-1">Tier 1: Regulated</div>
+                <i class="fas fa-map-marked-alt pattern-icon"></i>
+                <h4 class="pattern-title">Multi-Region (Nonpaired)</h4>
+                <p class="pattern-use-case">Selected for geography-specific DR requirements or service mixes that don't fit Microsoft's default pairs.</p>
+                <div class="pattern-tradeoff">
+                    <strong>Avoid when</strong>
+                    Assuming nonpaired is better. It must be checked service-by-service for support.
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3.1: The Modern Backup & Restore Blueprint -->
+        <div class="reveal" style="margin: 3rem 0; padding: 2.5rem; background: rgba(30, 41, 59, 0.4); border-radius: 20px; border-left: 6px solid #fcd34d;">
+            <h3 style="font-family: 'Outfit', sans-serif; color: #fcd34d; margin-bottom: 1.5rem;"><i class="fas fa-microchip"></i> 3.1 The Modern Backup and Restore Blueprint</h3>
+            <p style="color: #cbd5e1; margin-bottom: 2rem;">While we prioritize high-fidelity data plane resilience, <strong>Backup & Restore</strong> is your ultimate "Time Machine" against logical corruption and ransomware. In a modern architecture, we evolve from simple daily copies to <strong>Immutable, Air-Gapped Vaults</strong>.</p>
+            
+            <div class="responsive-grid">
+                <div class="glass-card" style="padding: 1.5rem;">
+                    <h5 style="color: #60a5fa; margin-bottom: 0.75rem;"><i class="fas fa-lock"></i> Immutable Vaults (WORM)</h5>
+                    <p style="font-size: 0.85rem;">Enforce <strong>Write Once Read Many</strong> policies. Even with Global Admin credentials, data cannot be deleted until the retention lock expires.</p>
+                </div>
+                <div class="glass-card" style="padding: 1.5rem;">
+                    <h5 style="color: #c084fc; margin-bottom: 0.75rem;"><i class="fas fa-globe-americas"></i> Cross-Region Restore (CRR)</h5>
+                    <p style="font-size: 0.85rem;">Leverage GRS to "materialize" resources in a secondary region during a total regional loss, without the cost of warm-standby infrastructure.</p>
+                </div>
+                <div class="glass-card" style="padding: 1.5rem;">
+                    <h5 style="color: #10b981; margin-bottom: 0.75rem;"><i class="fas fa-vial"></i> Automated Drills</h5>
+                    <p style="font-size: 0.85rem;">Eliminate "Hallucination Risk" by running monthly automated restore tests into isolated VNets to prove RTO compliance.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; background: #011627; padding: 1.5rem; border-radius: 8px;">
+                <p style="color: #94a3b8; font-size: 0.8rem; margin-bottom: 1rem; text-transform: uppercase;">Terraform: Immutable Recovery Services Vault</p>
+                <div class="code-snippet">resource "azurerm_recovery_services_vault" "vault" {
+  name                = "vault-resilience-001"
+  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+  sku                 = "Standard"
+  public_network_access_enabled = false
+  immutability_enabled = true # The Ransomware Shield
+}</div>
+                <div style="margin-top: 1rem; text-align: right;">
+                    <a href="https://github.com/Azure/Enterprise-Scale" target="_blank" style="color: #38bdf8; text-decoration: none; font-size: 0.8rem; font-weight: 700;">
+                        <i class="fab fa-github" style="margin-right: 4px;"></i> View ALZ Backup Policies
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <h2 id="enterprise-playbook"><span class="gradient-text">4. Enterprise Resilience Playbook (CAF & WAF)</span></h2>
+        <p>A resilient architecture requires both structural integrity and operational maturity. Drawing from the <strong>Cloud Adoption Framework (CAF)</strong> and the <strong>Well-Architected Framework (WAF)</strong>, we merge landing zone design with operational execution.</p>
+        
+        <h3 style="font-family: 'Outfit', sans-serif; color: #f8fafc; margin-top: 2rem; margin-bottom: 1rem;">Part A: Azure Landing Zones (ALZ) Enterprise-Scale Architecture</h3>
+        <p>The structural foundation must be designed for isolation and automated failover before workloads are ever deployed. Below are the key design considerations for resilient landing zones.</p>
+        
+        <div class="responsive-grid" style="margin-bottom: 3rem;">
+            <div class="glass-card" style="border-top: 3px solid #60a5fa;">
+                <i class="fas fa-network-wired" style="color: #60a5fa; font-size: 1.5rem; margin-bottom: 1rem;"></i>
+                <h4 style="color: #93c5fd; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">Network Continuity</h4>
+                <p style="font-size: 0.95rem;">Guarantee <strong>ExpressRoute</strong> multi-region peering and strictly prohibit overlapping IP address ranges between Production and DR environments.</p>
+            </div>
+            <div class="glass-card" style="border-top: 3px solid #c084fc;">
+                <i class="fas fa-cloud-arrow-up" style="color: #c084fc; font-size: 1.5rem; margin-bottom: 1rem;"></i>
+                <h4 style="color: #d8b4fe; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">Platform Native DR</h4>
+                <p style="font-size: 0.95rem;">Mandate native PaaS geo-replication. For IaaS workloads, utilize <strong>Azure Site Recovery (ASR)</strong> enforced via Azure Policy deployments.</p>
+            </div>
+            <div class="glass-card" style="border-top: 3px solid #34d399;">
+                <i class="fas fa-shield-halved" style="color: #34d399; font-size: 1.5rem; margin-bottom: 1rem;"></i>
+                <h4 style="color: #6ee7b7; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">Data Residency & Secrets</h4>
+                <p style="font-size: 0.95rem;">Align cross-region storage with in-country legal boundaries. Implement resilient <strong>Key Vault DR</strong> to guarantee secret availability during failover.</p>
+            </div>
+        </div>
+
+        <h3 style="font-family: 'Outfit', sans-serif; color: #f8fafc; margin-bottom: 1rem;">Part B: WAF Reliability Design Checklist</h3>
+        <p>Operationalizing resilience requires rigorous standards. The following WAF checklist dictates our disaster recovery execution strategy.</p>
+
+        <div style="margin-bottom: 3rem; display: flex; flex-direction: column; gap: 1rem;">
+            <div style="display: flex; align-items: flex-start; gap: 1rem; padding: 1.5rem; background: rgba(30, 41, 59, 0.5); border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                <input type="checkbox" id="waf1" checked disabled style="margin-top: 0.3rem; width: 20px; height: 20px; accent-color: #38bdf8;">
+                <label for="waf1" style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5;"><strong style="color: #f8fafc; display: block; margin-bottom: 0.25rem; font-size: 1.05rem;">Define Disaster Thresholds (Health Modeling)</strong> Implement telemetry that differentiates between isolated component degradation and full catastrophic disaster.</label>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 1rem; padding: 1.5rem; background: rgba(30, 41, 59, 0.5); border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                <input type="checkbox" id="waf2" checked disabled style="margin-top: 0.3rem; width: 20px; height: 20px; accent-color: #38bdf8;">
+                <label for="waf2" style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5;"><strong style="color: #f8fafc; display: block; margin-bottom: 0.25rem; font-size: 1.05rem;">Isolate Failback from Failover</strong> Treat failback as a distinctly modeled and documented process. Do not risk secondary outages by treating restoration casually.</label>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 1rem; padding: 1.5rem; background: rgba(30, 41, 59, 0.5); border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                <input type="checkbox" id="waf3" checked disabled style="margin-top: 0.3rem; width: 20px; height: 20px; accent-color: #38bdf8;">
+                <label for="waf3" style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5;"><strong style="color: #f8fafc; display: block; margin-bottom: 0.25rem; font-size: 1.05rem;">Ensure Offline Accessibility</strong> Maintain DR documentation in isolated environments and pre-deploy CI/CD pipelines across all target regions.</label>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 1rem; padding: 1.5rem; background: rgba(30, 41, 59, 0.5); border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                <input type="checkbox" id="waf4" checked disabled style="margin-top: 0.3rem; width: 20px; height: 20px; accent-color: #38bdf8;">
+                <label for="waf4" style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5;"><strong style="color: #f8fafc; display: block; margin-bottom: 0.25rem; font-size: 1.05rem;">Execute Surprise Game Days</strong> Evolve beyond scheduled tabletop exercises; implement unannounced production drills to validate true RTO/RPO targets.</label>
+            </div>
+        </div>
+
+        <!-- Reliability Blueprint Gallery -->
+        <div class="reveal" style="margin: 4rem 0;">
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <span style="display: inline-block; padding: 0.4rem 1rem; background: rgba(59, 130, 246, 0.1); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 20px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">
+                    <i class="fas fa-code" style="margin-right: 6px;"></i> Technical Implementation
+                </span>
+                <h2 style="margin: 1rem 0 0; font-family: 'Outfit', sans-serif; font-size: 2.2rem; color: #f8fafc;">Reliability Blueprint Gallery</h2>
+                <p style="color: #94a3b8; margin-top: 1rem;">Actionable Terraform templates for production-grade resilience.</p>
+            </div>
+
+            <div class="sim-container" style="background: rgba(15, 23, 42, 0.4);">
+                <div class="blueprint-tabs">
+                    <button class="tab-btn active" onclick="switchTab(event, 'tab-lb')">Public LB (ZRS)</button>
+                    <button class="tab-btn" onclick="switchTab(event, 'tab-sql')">SQL DB (Zone Redundant)</button>
+                    <button class="tab-btn" onclick="switchTab(event, 'tab-tm')">Global Traffic Manager</button>
+                </div>
+
+                <div id="tab-lb" class="tab-content active">
+                    <div class="code-snippet">resource "azurerm_public_ip" "pip" {
+  name                = "pip-resilient-lb"
+  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+  zones               = ["1", "2", "3"] # Zone-redundancy
+}</div>
+                    <div style="margin-top: 1rem; text-align: right;">
+                        <a href="https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/public_ip" target="_blank" style="color: #fb7185; text-decoration: none; font-size: 0.75rem; font-weight: 700;">
+                            <i class="fas fa-external-link-alt" style="margin-right: 4px;"></i> Provider Documentation
+                        </a>
+                    </div>
+                </div>
+
+                <div id="tab-sql" class="tab-content">
+                    <div class="code-snippet">resource "azurerm_mssql_database" "db" {
+  name           = "db-mission-critical"
+  server_id      = azurerm_mssql_server.example.id
+  sku_name       = "GP_Gen5_2"
+  zone_redundant = true # Distributed across AZs
+}</div>
+                    <div style="margin-top: 1rem; text-align: right;">
+                        <a href="https://github.com/Azure/terraform-azurerm-sql" target="_blank" style="color: #fb7185; text-decoration: none; font-size: 0.75rem; font-weight: 700;">
+                            <i class="fab fa-github" style="margin-right: 4px;"></i> Source: Official MSSQL Module
+                        </a>
+                    </div>
+                </div>
+
+                <div id="tab-tm" class="tab-content">
+                    <div class="code-snippet">resource "azurerm_traffic_manager_profile" "tm" {
+  name                   = "tm-global-active"
+  resource_group_name    = azurerm_resource_group.example.name
+  traffic_routing_method = "Performance"
+  dns_config {
+    relative_name = "myapp-resilient"
+    ttl           = 60
+  }
+  monitor_config {
+    protocol = "HTTPS"
+    port     = 443
+    path     = "/health"
+  }
+}</div>
+                    <div style="margin-top: 1rem; text-align: right;">
+                        <a href="https://github.com/Azure-Samples/active-active-traffic-manager-terraform" target="_blank" style="color: #fb7185; text-decoration: none; font-size: 0.75rem; font-weight: 700;">
+                            <i class="fab fa-github" style="margin-right: 4px;"></i> View Full Active-Active Sample
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 id="maturity-model"><span class="gradient-text">5. Official WAF Reliability Maturity Model</span></h2>
+        <p>Resilience is a continuous practice. This architecture uses the official <span class="eli5-term" data-tooltip="The Azure Well-Architected Framework: a set of five pillars (Cost Optimization, Security, Reliability, Performance Efficiency, and Operational Excellence) used to build high-quality cloud solutions.">Well-Architected Framework (WAF)</span> Reliability Maturity Model to benchmark progress, moving teams from reactive recovery to architectural adaptability.</p>
+
+        <div style="margin-bottom: 3rem; margin-top: 2rem; display: flex; flex-direction: column; gap: 0; position: relative; padding-left: 1rem;">
+            <!-- Timeline Line -->
+            <div style="position: absolute; left: 24px; top: 20px; bottom: 20px; width: 4px; background: linear-gradient(to bottom, #38bdf8 0%, rgba(168, 85, 247, 0.8) 50%, rgba(239, 68, 68, 0.8) 100%); border-radius: 4px;"></div>
+            
+            <!-- Step 1 -->
+            <div style="display: flex; align-items: flex-start; position: relative; padding-bottom: 2rem;">
+                <div style="z-index: 2; width: 20px; height: 20px; border-radius: 50%; background: #0f172a; border: 4px solid #38bdf8; margin-top: 4px; box-shadow: 0 0 10px rgba(56,189,248,0.6); flex-shrink: 0;"></div>
+                <div style="margin-left: 1.5rem; flex-grow: 1; padding: 1.5rem; background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(8px); border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.3); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap;">
+                        <h3 style="color: #f8fafc; font-size: 1.25rem; font-weight: 700; margin: 0;">Level 1: Get Resilient</h3>
+                        <span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase;">Foundation</span>
+                    </div>
+                    <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5; margin: 0 0 1rem 0;">Establish a solid groundwork without significant optimization overhead by bootstrapping built-in Azure reliability capabilities.</p>
+                    <ul style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1.2rem;">
+                        <li style="margin-bottom: 0.25rem;">Offload operational responsibility using PaaS and Managed Services.</li>
+                        <li style="margin-bottom: 0.25rem;">Identify critical flows and design boundaries (e.g. Zone Redundancy).</li>
+                        <li>Enable base telemetry (Azure Monitor, Service Health) and simple transient fault handling.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div style="display: flex; align-items: flex-start; position: relative; padding-bottom: 2rem;">
+                <div style="z-index: 2; width: 20px; height: 20px; border-radius: 50%; background: #0f172a; border: 4px solid #38bdf8; margin-top: 4px; box-shadow: 0 0 10px rgba(56,189,248,0.6); flex-shrink: 0;"></div>
+                <div style="margin-left: 1.5rem; flex-grow: 1; padding: 1.5rem; background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(8px); border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.3); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap;">
+                        <h3 style="color: #f8fafc; font-size: 1.25rem; font-weight: 700; margin: 0;">Level 2: Self-Preservation</h3>
+                        <span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase;">Protection</span>
+                    </div>
+                    <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5; margin: 0 0 1rem 0;">Incorporate isolation strategies and graceful degradation to prevent, detect, and recover from failures automatically.</p>
+                    <ul style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1.2rem;">
+                        <li style="margin-bottom: 0.25rem;">Implement fault isolation (e.g., Bulkhead pattern, Asynchronous messaging).</li>
+                        <li style="margin-bottom: 0.25rem;">Evolve monitoring with structured logging, distributed tracing, and health probing.</li>
+                        <li>Develop a basic recovery plan prioritizing graceful degradation for critical flows.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div style="display: flex; align-items: flex-start; position: relative; padding-bottom: 2rem;">
+                <div style="z-index: 2; width: 20px; height: 20px; border-radius: 50%; background: #0f172a; border: 4px solid #fcd34d; margin-top: 4px; box-shadow: 0 0 10px rgba(252,211,77,0.4); flex-shrink: 0;"></div>
+                <div style="margin-left: 1.5rem; flex-grow: 1; padding: 1.5rem; background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(8px); border-radius: 12px; border: 1px solid rgba(252, 211, 77, 0.3); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap;">
+                        <h3 style="color: #f8fafc; font-size: 1.25rem; font-weight: 700; margin: 0;">Level 3: Recovery Readiness</h3>
+                        <span style="background: rgba(252, 211, 77, 0.15); color: #fcd34d; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase;">Alignment</span>
+                    </div>
+                    <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5; margin: 0 0 1rem 0;">Integrate business objectives with technical controls (RTO, RPO constraints) and implement formal disaster plans.</p>
+                    <ul style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1.2rem;">
+                        <li style="margin-bottom: 0.25rem;">Formalize SLOs, RPOs, and RTOs via stakeholder workshops.</li>
+                        <li style="margin-bottom: 0.25rem;">Adopt state-based Health Modeling (Healthy, Degraded, Unhealthy) for proactive alerting.</li>
+                        <li>Conduct Failure Mode Analysis (FMA) and script explicit Disaster Recovery workflows.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div style="display: flex; align-items: flex-start; position: relative; padding-bottom: 2rem;">
+                 <div style="z-index: 2; width: 20px; height: 20px; border-radius: 50%; background: #0f172a; border: 4px solid #a855f7; margin-top: 4px; box-shadow: 0 0 10px rgba(168,85,247,0.4); flex-shrink: 0;"></div>
+                <div style="margin-left: 1.5rem; flex-grow: 1; padding: 1.5rem; background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(8px); border-radius: 12px; border: 1px solid rgba(168, 85, 247, 0.3); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap;">
+                        <h3 style="color: #f8fafc; font-size: 1.25rem; font-weight: 700; margin: 0;">Level 4: Maintain Stability</h3>
+                        <span style="background: rgba(168, 85, 247, 0.15); color: #a855f7; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase;">Operations</span>
+                    </div>
+                    <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5; margin: 0 0 1rem 0;">Production-grade incident management, automated self-healing, and continuous background task refinement.</p>
+                    <ul style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1.2rem;">
+                        <li style="margin-bottom: 0.25rem;">Deploy utilizing Safe Deployment Practices (SDP) such as Canary and Dark Launches alongside <strong>Infrastructure-as-Code (Bicep/Terraform)</strong>.</li>
+                        <li style="margin-bottom: 0.25rem;">Commit to a dedicated Site Reliability Engineering (SRE) capability for incident handling.</li>
+                        <li>Automate robust self-healing and idempotent background task recovery mechanics.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div style="display: flex; align-items: flex-start; position: relative;">
+                <div style="z-index: 2; width: 20px; height: 20px; border-radius: 50%; background: #0f172a; border: 4px solid #ef4444; margin-top: 4px; box-shadow: 0 0 10px rgba(239,68,68,0.4); flex-shrink: 0;"></div>
+                <div style="margin-left: 1.5rem; flex-grow: 1; padding: 1.5rem; background: linear-gradient(145deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.95) 100%); backdrop-filter: blur(8px); border-radius: 12px; border: 1px solid rgba(239, 68, 68, 0.4); box-shadow: 0 4px 20px rgba(239, 68, 68, 0.1);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap;">
+                        <h3 style="color: #f8fafc; font-size: 1.25rem; font-weight: 700; margin: 0;">Level 5: Stay Resilient</h3>
+                        <span style="background: rgba(239, 68, 68, 0.15); color: #ef4444; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase;">Evolution</span>
+                    </div>
+                    <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5; margin: 0 0 1rem 0;">Operate in a perpetual state of readiness. Go beyond technical controls to pure architectural adaptability using Chaos Engineering and Reactive Data triggers.</p>
+                    <ul style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1.2rem;">
+                        <li style="margin-bottom: 0.25rem;"><strong>Chaos Engineering (Azure Chaos Studio):</strong> Prove predictable failover via deliberate anomaly injection in Production.</li>
+                        <li style="margin-bottom: 0.25rem;"><strong>Continuous DR Drills:</strong> Evolve beyond whiteboard simulations into real-time, non-disruptive production verification.</li>
+                        <li><strong>Next-Gen Automation (Drasi/Flash):</strong> React to localized gray failures and management plane events automatically without human intervention.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 6: The 90-Day Execution Roadmap -->
+        <div class="reveal" style="margin: 4rem 0;">
+            <div style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); padding: 3rem; border-radius: 24px; border: 1px solid rgba(56, 189, 248, 0.2); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;">
+                    <i class="fas fa-calendar-check" style="color: #38bdf8; font-size: 2rem;"></i>
+                    <h2 style="margin: 0; font-family: 'Outfit', sans-serif; color: #f8fafc; font-size: 2rem;">The 90-Day Resilience Masterplan</h2>
+                <div style="margin-top: 1rem; margin-bottom: 2rem;">
+                    <a href="https://github.com/Azure/terraform-azurerm-caf-enterprise-scale" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; color: #38bdf8; text-decoration: none; font-family: 'Outfit', sans-serif; font-weight: 700; border: 1px solid rgba(56, 189, 248, 0.3); padding: 0.5rem 1rem; border-radius: 8px; background: rgba(56, 189, 248, 0.05); transition: all 0.3s ease;">
+                        <i class="fab fa-github"></i> Prerequisite: Deploy ALZ Foundation
+                    </a>
+                </div>
+                </div>
+                <p style="color: #cbd5e1; margin-bottom: 3rem;">Resilience is built in stages. Here is the executive roadmap for implementing an AZ-First strategy from the ground up.</p>
+
+                <div class="responsive-grid">
+                    <div style="padding: 1.5rem; background: rgba(56, 189, 248, 0.05); border-radius: 16px; border: 1px solid rgba(56, 189, 248, 0.2);">
+                        <span style="display: block; color: #38bdf8; font-weight: 800; font-size: 0.8rem; margin-bottom: 0.5rem; text-transform: uppercase;">Days 1-30: Audit</span>
+                        <h4 style="color: #f8fafc; margin-bottom: 1rem;">Health Modeling</h4>
+                        <p style="font-size: 0.85rem; color: #94a3b8;">Benchmark RPO/RTO for mission-critical flows. Implement structured logging across all Tier 0 landing zones.</p>
+                    </div>
+                    <div style="padding: 1.5rem; background: rgba(168, 85, 247, 0.05); border-radius: 16px; border: 1px solid rgba(168, 85, 247, 0.2);">
+                        <span style="display: block; color: #a855f7; font-weight: 800; font-size: 0.8rem; margin-bottom: 0.5rem; text-transform: uppercase;">Days 31-60: Engineer</span>
+                        <h4 style="color: #f8fafc; margin-bottom: 1rem;">AZ-First Refactoring</h4>
+                        <p style="font-size: 0.85rem; color: #94a3b8;">Migration of high-risk workloads to Zone-Redundant PaaS. Enforce ASR for critical IaaS via automated policy.</p>
+                    </div>
+                    <div style="padding: 1.5rem; background: rgba(16, 185, 129, 0.05); border-radius: 16px; border: 1px solid rgba(16, 185, 129, 0.2);">
+                        <span style="display: block; color: #10b981; font-weight: 800; font-size: 0.8rem; margin-bottom: 0.5rem; text-transform: uppercase;">Days 61-90: Validate</span>
+                        <h4 style="color: #f8fafc; margin-bottom: 1rem;">Game Day Chaos</h4>
+                        <p style="font-size: 0.85rem; color: #94a3b8;">Execute unannounced "Failure Injections." Stop treating DR as a plan and start treating it as a proven reality.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <h2 id="next-gen-ops"><span class="gradient-text">6. Next-Gen Ops Masterclass: Flash & Drasi</span></h2>
+        <p>Operationalizing resilience at cloud-scale requires moving beyond standard metrics. How do you handle a system that isn't broken, but isn't working? This is the "Gray Failure" challenge, and Microsoft is solving it with <strong>Project Flash</strong> and <strong>Drasi</strong>.</p>
+
+        <div class="sv-masterclass-grid">
+            <!-- Project Flash: Silicon Valley Bento -->
+            <div class="sv-card-container">
+                <div class="sv-bento-card">
+                    <div class="sv-spotlight"></div>
+                    <div class="sv-texture-grid"></div>
+                    
+                    <div class="sv-badge-icon">
+                        <i class="fas fa-bolt" style="color: #60a5fa;"></i>
+                    </div>
+
+                    <h3 class="sv-bento-title">Project Flash</h3>
+                    <p class="sv-bento-subtitle">Differential Observability Engine</p>
+                    
+                    <p class="sv-bento-text">
+                        Project Flash solves the "Silent Killer" of cloud availability—Gray Failures. By surfacing deep substrate telemetry (NIC blips, I/O hangs) that standard VM checks miss, it provides an early-warning system for sub-surface infrastructure degradation.
+                    </p>
+
+                    <ul class="sv-insight-list">
+                        <li><i class="fas fa-microscope"></i> <span>Detects <strong>Gray Failures</strong> in hardware clusters before they impact users.</span></li>
+                        <li><i class="fas fa-broadcast-tower"></i> <span>Direct integration with Azure Monitor substrate logs for real-time visibility.</span></li>
+                        <li><i class="fas fa-shield-halved"></i> <span>Predictive failure detection at the host layer using AI-driven substrate analysis.</span></li>
+                        <li><i class="fas fa-vial"></i> <span>Enables high-fidelity Health Probes that see through the 'False Healthy' node state.</span></li>
+                    </ul>
+
+                    <a href="https://www.youtube.com/results?search_query=Mark+Russinovich+Azure+reliability" target="_blank" class="sv-action-strip">
+                        <i class="fab fa-youtube" style="color: #ef4444;"></i> Watch: Russinovich on Flash
+                    </a>
+                </div>
+            </div>
+
+            <!-- Drasi: Silicon Valley Bento -->
+            <div class="sv-card-container" style="--beam-speed: 12s;">
+                <div class="sv-bento-card">
+                    <div class="sv-spotlight"></div>
+                    <div class="sv-texture-dots"></div>
+                    
+                    <div class="sv-badge-icon">
+                        <i class="fas fa-microchip" style="color: #a855f7;"></i>
+                    </div>
+
+                    <h3 class="sv-bento-title">Microsoft Drasi</h3>
+                    <p class="sv-bento-subtitle">Autonomous Reaction Runtime</p>
+                    
+                    <p class="sv-bento-text">
+                        The engine for self-healing systems. Drasi uses continuous event-processing to react instantly to system state changes. It bridges the gap between detecting a failure and automating the mitigation without any manual overhead.
+                    </p>
+
+                    <ul class="sv-insight-list" style="margin-bottom: 2.5rem;">
+                        <li><i class="fas fa-circle-nodes"></i> <span>Reactive event-processing via continuous queries on live system logs.</span></li>
+                        <li><i class="fas fa-robot"></i> <span>Automates regional failover triggered by Bastion Policy drift or node health.</span></li>
+                        <li><i class="fas fa-link-slash"></i> <span>Eliminate manual intervention from your recovery and resilience workflows.</span></li>
+                        <li><i class="fas fa-code-branch"></i> <span>Integrates with Bicep and ALZ blueprints for policy-driven self-healing.</span></li>
+                    </ul>
+
+                    <a href="https://www.youtube.com/watch?v=gR_2MV8GJ7M" target="_blank" class="sv-action-strip">
+                        <i class="fab fa-youtube" style="color: #ef4444;"></i> Watch: Drasi Architecture
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <p>By combining Project Flash (Detection) and Drasi (Reaction), we move from <strong>manual Disaster Recovery (DR)</strong> to <strong>autonomous resilience</strong>. This is the future of the Cloud Center of Excellence (CCoE).</p>
+
+        <!-- SRE Dashboard: Project Flash visualization -->
+        <div class="sre-dashboard">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <span style="background: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 0.3rem 0.8rem; border-radius: 4px; font-size: 0.7rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; border: 1px solid rgba(239, 68, 68, 0.2);">Deep Infrastructure Monitoring</span>
+                <h3 style="margin: 0.75rem 0 0; color: #f8fafc; font-family: 'Outfit', sans-serif;">Detecting "Gray Failures" (Project Flash)</h3>
+                <p style="color: #94a3b8; font-size: 0.95rem; margin-top: 0.5rem;">Visualizing why standard VM checks aren't enough for true resilience.</p>
+            </div>
+
+            <div class="dashboard-grid">
+                <!-- Standard Check -->
+                <div class="metric-card">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <span class="metric-label">Legacy VM Health Probe</span>
+                        <span class="status-pulse pulse-green"></span>
+                    </div>
+                    <div class="metric-value">100%</div>
+                    <p style="font-size: 0.8rem; color: #64748b; margin: 0;">Standard ICMP/Port checks report everything is "Up".</p>
+                </div>
+
+                <!-- Project Flash Check -->
+                <div class="metric-card" style="border-color: rgba(245, 158, 11, 0.3);">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <span class="metric-label">Project Flash (SRE Insight)</span>
+                        <span class="status-pulse pulse-yellow"></span>
+                    </div>
+                    <div class="metric-value" style="color: #f59e0b;">DEGRADED</div>
+                    <p style="font-size: 0.8rem; color: #94a3b8; margin: 0;">Detected hidden disk latency (I/O hang) at the host layer.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(15, 23, 42, 0.4); border-radius: 12px; border-left: 4px solid #f59e0b;">
+                <h4 style="color: #f59e0b; margin-top: 0; margin-bottom: 0.5rem; font-size: 0.9rem;">The "Silent Killer"</h4>
+                <p style="font-size: 0.9rem; margin: 0; color: #cbd5e1; line-height: 1.5;">Gray failures occur when a component (like a secondary NIC or a specific disk cluster) degrades but doesn't actually "die." Standard load balancer probes miss this, continuing to send traffic to a "Black Hole." Project Flash enables us to trigger an automatic regional switch *before* the user feels the impact.</p>
+            </div>
+        </div>
+
+        <h2 id="references"><span class="gradient-text">7. References</span></h2>
+        <p>This architecture playbook synthesizes the latest Microsoft Research and executive insights. Dive deeper into the source material below:</p>
+        <div style="background: rgba(30, 41, 59, 0.5); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(148, 163, 184, 0.2); margin-top: 1.5rem; margin-bottom: 3rem;">
+            <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.95rem;">
+                <li style="margin-bottom: 0.8rem; display: flex; align-items: flex-start;">
+                    <i class="fas fa-external-link-alt" style="color: #60a5fa; margin-top: 4px; margin-right: 10px; font-size: 0.85rem;"></i>
+                    <a href="https://techcommunity.microsoft.com/blog/reliability-and-resiliency-in-azure/modern-azure-resilience-with-mark-russinovich/4508967" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#60a5fa'" onmouseout="this.style.color='#cbd5e1'">Modern Azure Resilience with Mark Russinovich | Microsoft Community Hub</a>
+                </li>
+                <li style="margin-bottom: 0.8rem; display: flex; align-items: flex-start;">
+                    <i class="fas fa-video" style="color: #60a5fa; margin-top: 4px; margin-right: 10px; font-size: 0.85rem;"></i>
+                    <a href="https://www.microsoft.com/en-us/research/video/inside-azure-innovations-with-mark-russinovich/" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#60a5fa'" onmouseout="this.style.color='#cbd5e1'">Inside Azure Innovations with Mark Russinovich | Microsoft Build 2025</a>
+                </li>
+                <li style="margin-bottom: 0.8rem; display: flex; align-items: flex-start;">
+                    <i class="fas fa-book" style="color: #60a5fa; margin-top: 4px; margin-right: 10px; font-size: 0.85rem;"></i>
+                    <a href="https://drasi.io/reference/query-language/" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#60a5fa'" onmouseout="this.style.color='#cbd5e1'">Drasi Cypher Query Language Reference</a>
+                </li>
+                <li style="margin-bottom: 0.8rem; display: flex; align-items: flex-start;">
+                    <i class="fas fa-microscope" style="color: #60a5fa; margin-top: 4px; margin-right: 10px; font-size: 0.85rem;"></i>
+                    <a href="https://www.microsoft.com/en-us/research/publication/towards-intelligent-incident-management-why-we-need-it-and-how-we-make-it/" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#60a5fa'" onmouseout="this.style.color='#cbd5e1'">Towards Intelligent Incident Management (Microsoft Research)</a>
+                </li>
+                <li style="display: flex; align-items: flex-start;">
+                    <i class="fas fa-newspaper" style="color: #60a5fa; margin-top: 4px; margin-right: 10px; font-size: 0.85rem;"></i>
+                    <a href="https://azure.microsoft.com/en-us/blog/advancing-global-network-reliability-through-intelligent-software-part-1-of-2/" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#60a5fa'" onmouseout="this.style.color='#cbd5e1'">Advancing global network reliability through intelligent software—part 1 of 2</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section-divider" style="height: 1px; background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent); margin: 5rem 0;"></div>
+
+        <h3 style="font-family: 'Outfit', sans-serif; font-size: 2rem; color: #f8fafc; margin-bottom: 1.5rem;">Ready to operationalize your Azure journey?</h3>
+        <p style="font-size: 1.2rem; color: #cbd5e1; max-width: 700px;">Reliability is not a checkbox on an ARM template. It is an executive commitment to business continuity. We've stopped hoping for stability and started engineering for reality.</p>
+        
+        <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+            <a href="../pages/contact.html" class="btn btn-primary" style="background: #3b82f6; color: white; padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 6px; font-weight: 600;">Contact Me</a>
+            <a href="../pages/azure-migration-toolkit.html" class="btn btn-outline" style="border: 1px solid #3b82f6; color: #3b82f6; padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 6px; font-weight: 600;">View the Toolkit</a>
+        </div>
+    </article>
+
+    <footer class="footer">
+        <div class="container" style="text-align: center; padding: 2rem 0;">
+            <p>&copy; 2026 Upendra Kumar. All rights reserved.</p>
+            <div style="margin-top: 1rem;">
+                <a href="https://www.linkedin.com/in/journeytocloudwithupendra/" style="color: #94a3b8; font-size: 1.5rem; margin: 0 0.5rem;"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/appliedailearner" style="color: #94a3b8; font-size: 1.5rem; margin: 0 0.5rem;"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/particles.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        // Reveal Animations on Scroll
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        // Initial check
+        reveal();
+
+        // Interactive Resiliency Calculator Logic
+        let calcState = { rpo: null, rto: null };
+
+        function setCalcValue(type, value, btn) {
+            // Update State
+            calcState[type] = value;
+
+            // Update UI: Toggle classes
+            const btns = btn.parentElement.querySelectorAll('.calc-btn');
+            btns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Calculate if both selected
+            if (calcState.rpo !== null && calcState.rto !== null) {
+                const total = calcState.rpo + calcState.rto;
+                const resultBox = document.getElementById('calc-result');
+                const tierTitle = document.getElementById('result-tier');
+                const tierDesc = document.getElementById('result-desc');
+
+                resultBox.style.display = 'block';
+
+                if (total <= 1) {
+                    tierTitle.innerText = "TIER 0: MISSION CRITICAL";
+                    tierTitle.style.color = "#ef4444";
+                    tierDesc.innerText = "Multi-Zone + Multi-Region Active-Active. Near-zero RTO/RPO required.";
+                } else if (total <= 3) {
+                    tierTitle.innerText = "TIER 1: BUSINESS CRITICAL";
+                    tierTitle.style.color = "#c084fc";
+                    tierDesc.innerText = "Standard Regional Disaster Recovery (Active-Passive) with ZRS.";
+                } else if (total <= 5) {
+                    tierTitle.innerText = "TIER 2: PRODUCTION";
+                    tierTitle.style.color = "#60a5fa";
+                    tierDesc.innerText = "Single Region Multi-Zone. Standard resilience with minimal complexity.";
+                } else {
+                    tierTitle.innerText = "TIER 3: LOW IMPACT";
+                    tierTitle.style.color = "#94a3b8";
+                    tierDesc.innerText = "Locally Redundant (LRS). Focus on cost optimization over availability.";
+                }
+            }
+        }
+
+        // Zone Failure Simulator Logic
+        function runSimulation() {
+            const node1 = document.getElementById('zone-1');
+            const log = document.getElementById('sim-log');
+            const logText = document.getElementById('log-text');
+            const trigger = document.getElementById('sim-trigger');
+
+            trigger.disabled = true;
+            log.style.display = 'block';
+            logText.innerText = "[Detection] Project Flash identified NIC latency in Zone A...";
+            
+            setTimeout(() => {
+                node1.classList.add('failed');
+                logText.innerText = "[Mitigation] Zone A marked unhealthy. Routing traffic to Zone B/C...";
+            }, 1500);
+
+            setTimeout(() => {
+                logText.innerText = "[Result] Successful Failover. 0ms Data Loss. 0ms Downtime.";
+                log.style.background = "rgba(16, 185, 129, 0.1)";
+                log.style.borderColor = "#10b981";
+                log.style.color = "#10b981";
+            }, 3500);
+
+            setTimeout(() => {
+                trigger.innerText = "Simulation Complete";
+            }, 4000);
+        }
+
+        // Silicon Valley Spotlight Tracking
+        const spotlightCards = document.querySelectorAll('.sv-bento-card');
+        
+        const updateSpotlight = (e) => {
+            const card = e.currentTarget;
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+        };
+
+        spotlightCards.forEach(card => {
+            card.addEventListener('mousemove', updateSpotlight);
+        });
+
+        function switchTab(evt, tabId) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            const tabBtns = document.querySelectorAll('.tab-btn');
+
+            tabContents.forEach(content => content.classList.remove('active'));
+            tabBtns.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>

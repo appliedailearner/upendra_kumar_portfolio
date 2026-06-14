@@ -330,6 +330,34 @@
         })(window, document, "clarity", "script", "v5iynlmgo7");
     </script>
     <link rel="stylesheet" href="../css/dropdown.css">
+
+        <!-- Azure App Insights SDK (RUM) -->
+    <script type="text/javascript">
+        !function (T, l, y) {
+            var S = T.location, k = "script", D = "connectionString", C = "ingestionendpoint", I = "disableExceptionTracking";
+            var _ = y.url || "https://js.monitor.azure.com/scripts/b/ai.2.min.js";
+            if (y[D]) {
+                var T = T.appInsights || (T.appInsights = {});
+                T.loadAppInsights = function () {
+                    var p = { config: y }; T.initialize = !0; T._tags = [];
+                    T.addTelemetryInitializer = function (f) { T._tags.push(f); };
+                    var v = window.fetch;
+                    T.track = function (e) {
+                        (T._tags || []).forEach(function (f) { try { f(e); } catch (ex) { } });
+                        var i = p.config.endpointUrl || "https://dc.services.visualstudio.com/v2/track";
+                        v(i, { method: "POST", body: JSON.stringify(e), mode: "cors" }).catch(function () { });
+                    };
+                    T.trackEvent = function (d) { T.track({ name: d.name || "Event", data: { baseData: d } }); };
+                    T.trackPageView = function (d) { T.track({ name: "PageView", data: { baseData: d } }); };
+                    T.trackException = function (d) { T.track({ name: "Exception", data: { baseData: d } }); };
+                }
+            }
+        }(window, document, { 
+            connectionString: "InstrumentationKey=8fc596f2-bb91-49d7-8495-2ac1ecd30501;IngestionEndpoint=https://centralindia-0.in.liana.ice.azure.microsoft.com/",
+            endpointUrl: "https://centralindia-0.in.liana.ice.azure.microsoft.com/v2/track"
+        });
+    </script>
+    <script src="../js/observability.js?v=3" defer></script>
 </head>
 
 <body class="dark-theme">
@@ -546,7 +574,7 @@
         <p>To prevent downstream chaos, we separate the workload into <strong>two isolated lanes</strong> with one
             boundary.</p>
 
-        <img src="../assets/diagrams/png/ai-architecture-pattern.png" alt="Two Lanes AI Architecture Pattern"
+        <img src="../assets/diagrams/png/ai-architecture-pattern.webp" alt="Two Lanes AI Architecture Pattern"
             loading="lazy">
 
         <ul>
@@ -561,7 +589,7 @@
         <h2><span class="gradient-text">4) The Five-Layer Model</span></h2>
         <p>Upendra stops the “patchwork architecture” by layering the workload.</p>
 
-        <img src="../assets/diagrams/png/personas-to-architectures.png" alt="Five Layer AI Architecture" loading="lazy">
+        <img src="../assets/diagrams/png/personas-to-architectures.webp" alt="Five Layer AI Architecture" loading="lazy">
 
         <table>
             <thead>
@@ -677,7 +705,7 @@
         <h2><span class="gradient-text">11) Day-2 Operating Model</span></h2>
         <p>This avoids “who owns it?” fights during incidents.</p>
 
-        <img src="../assets/diagrams/png/organizational-governance-structure.png" alt="AI Governance Structure"
+        <img src="../assets/diagrams/png/organizational-governance-structure.webp" alt="AI Governance Structure"
             loading="lazy">
 
         <table>
@@ -719,14 +747,14 @@
 
         <h2><span class="gradient-text">13) GenAIOps Change Control</span></h2>
 
-        <img src="../assets/diagrams/png/mlops-genaiops.png" alt="GenAIOps Lifecycle" loading="lazy">
+        <img src="../assets/diagrams/png/mlops-genaiops.webp" alt="GenAIOps Lifecycle" loading="lazy">
 
         <p>Version everything that changes behavior: `promptVersion`, `indexVersion`, `policyVersion`. Your release
             gates must verify security trimming and injection resistance before every deployment.</p>
 
         <h2><span class="gradient-text">14) Responsible AI (Minimum Controls)</span></h2>
 
-        <img src="../assets/diagrams/png/responsible-ai.png" alt="Responsible AI Controls" loading="lazy">
+        <img src="../assets/diagrams/png/responsible-ai.webp" alt="Responsible AI Controls" loading="lazy">
 
         <p>Responsible AI is not a slide. It’s enforcement. Ensure citations are transparent, content safety filters are
             active (input/output), and PII usage is explicitly governed.</p>

@@ -121,6 +121,20 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+// ===== Throttle Function for Performance =====
+function throttle(func, limit) {
+    let inThrottle;
+    return function () {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    }
+}
+
 // ===== Active Navigation on Scroll =====
 const sections = document.querySelectorAll('section[id]');
 const navItems = document.querySelectorAll('.nav-menu a');
@@ -152,18 +166,18 @@ function highlightNav() {
     });
 }
 
-window.addEventListener('scroll', highlightNav);
+window.addEventListener('scroll', throttle(highlightNav, 100));
 
 // ===== Scroll Indicator in Hero =====
 const scrollIndicator = document.querySelector('.scroll-indicator');
 if (scrollIndicator) {
-    window.addEventListener('scroll', () => {
+    window.addEventListener('scroll', throttle(() => {
         if (window.scrollY > 100) {
             scrollIndicator.style.opacity = '0';
         } else {
             scrollIndicator.style.opacity = '1';
         }
-    });
+    }, 150));
 }
 
 // ===== Intersection Observer for Fade-in/Reveal Animations =====
@@ -495,50 +509,68 @@ function updateSavings(val) {
     }
 }
 
-// ===== Skills Radar Chart =====
+// ===== Skills Radar Chart (Lazy Loaded) =====
 document.addEventListener('DOMContentLoaded', function () {
-    const ctx = document.getElementById('skillsRadarChart');
-    if (ctx) {
-        new Chart(ctx.getContext('2d'), {
-            type: 'radar',
-            data: {
-                labels: ['Cloud Strategy', 'Azure Architecture', 'DevOps/SRE', 'Security/Compliance', 'AI/ML Innovation', 'Leadership'],
-                datasets: [{
-                    label: 'Proficiency Level',
-                    data: [95, 90, 85, 88, 80, 92],
-                    fill: true,
-                    backgroundColor: 'rgba(14, 165, 233, 0.2)',
-                    borderColor: 'rgba(14, 165, 233, 1)',
-                    pointBackgroundColor: 'rgba(14, 165, 233, 1)',
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: 'rgba(14, 165, 233, 1)'
-                }]
-            },
-            options: {
-                elements: {
-                    line: { borderWidth: 3 }
-                },
-                scales: {
-                    r: {
-                        angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
-                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
-                        pointLabels: {
-                            color: '#94a3b8',
-                            font: { size: 12, family: '\'Outfit\', sans-serif' }
-                        },
-                        ticks: { display: false, backdropColor: 'transparent' },
-                        suggestedMin: 50,
-                        suggestedMax: 100
-                    }
-                },
-                plugins: {
-                    legend: { display: false }
-                }
+    const skillsChartCanvas = document.getElementById('skillsRadarChart');
+
+    if (skillsChartCanvas) {
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                // Load Chart.js dynamically
+                const script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+                script.onload = () => {
+                    initSkillsChart(skillsChartCanvas);
+                };
+                document.head.appendChild(script);
+                observer.disconnect();
             }
-        });
+        }, { threshold: 0.1 }); // Trigger when 10% visible
+
+        observer.observe(skillsChartCanvas);
     }
 });
+
+function initSkillsChart(ctx) {
+    new Chart(ctx.getContext('2d'), {
+        type: 'radar',
+        data: {
+            labels: ['Cloud Strategy', 'Azure Architecture', 'DevOps/SRE', 'Security/Compliance', 'AI/ML Innovation', 'Leadership'],
+            datasets: [{
+                label: 'Proficiency Level',
+                data: [95, 90, 85, 88, 80, 92],
+                fill: true,
+                backgroundColor: 'rgba(14, 165, 233, 0.2)',
+                borderColor: 'rgba(14, 165, 233, 1)',
+                pointBackgroundColor: 'rgba(14, 165, 233, 1)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgba(14, 165, 233, 1)'
+            }]
+        },
+        options: {
+            elements: {
+                line: { borderWidth: 3 }
+            },
+            scales: {
+                r: {
+                    angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                    grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                    pointLabels: {
+                        color: '#94a3b8',
+                        font: { size: 12, family: '\'Outfit\', sans-serif' }
+                    },
+                    ticks: { display: false, backdropColor: 'transparent' },
+                    suggestedMin: 50,
+                    suggestedMax: 100
+                }
+            },
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+}
 
 // ===== Project View Toggle =====
 function toggleProjectView(projectId, viewType) {
@@ -551,21 +583,13 @@ function toggleProjectView(projectId, viewType) {
         if (viewType === 'business') {
             businessContent.classList.remove('hidden');
             technicalContent.classList.add('hidden');
-
-            businessBtn.classList.remove('text-gray-400', 'hover:text-white');
-            businessBtn.classList.add('bg-blue-600', 'text-white');
-
-            technicalBtn.classList.remove('bg-blue-600', 'text-white');
-            technicalBtn.classList.add('text-gray-400', 'hover:text-white');
+            businessBtn.classList.add('active');
+            technicalBtn.classList.remove('active');
         } else {
             businessContent.classList.add('hidden');
             technicalContent.classList.remove('hidden');
-
-            technicalBtn.classList.remove('text-gray-400', 'hover:text-white');
-            technicalBtn.classList.add('bg-blue-600', 'text-white');
-
-            businessBtn.classList.remove('bg-blue-600', 'text-white');
-            businessBtn.classList.add('text-gray-400', 'hover:text-white');
+            technicalBtn.classList.add('active');
+            businessBtn.classList.remove('active');
         }
     }
 }
@@ -603,3 +627,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+
+// ===== Live System Status Simulation =====
+document.addEventListener('DOMContentLoaded', () => {
+    const latencyEl = document.getElementById('azure-latency');
+    const uptimeEl = document.getElementById('api-uptime');
+    const statusEl = document.getElementById('platform-status');
+
+    if (latencyEl && uptimeEl && statusEl) {
+        // Randomize Latency (80ms - 120ms)
+        const latency = Math.floor(Math.random() * (120 - 80 + 1)) + 80;
+        latencyEl.innerText = latency + 'ms';
+        if (latency < 100) latencyEl.classList.add('text-green-400');
+        else latencyEl.classList.add('text-yellow-400');
+
+        // Randomize Uptime (99.95% - 100.00%)
+        const uptime = (Math.random() * (100 - 99.95) + 99.95).toFixed(2);
+        uptimeEl.innerText = uptime + '%';
+
+        // Randomize Status
+        const statuses = ['Ready', 'Optimal', 'Active', 'Online'];
+        const status = statuses[Math.floor(Math.random() * statuses.length)];
+        statusEl.innerText = status;
+    }
+});

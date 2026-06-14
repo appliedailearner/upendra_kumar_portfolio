@@ -1,0 +1,26 @@
+// App Service Private-Only Architecture
+digraph {
+	graph [fontname="Segoe UI" nodesep=0.8 rankdir=LR ranksep=1.2 splines=ortho]
+	node [color="#0078D4" fillcolor="#EBF3FC" fontname="Segoe UI" fontsize=10 shape=box style="rounded,filled"]
+	edge [color="#605E5C" fontname="Segoe UI" fontsize=9]
+	Client [label="Users / Internet Clients" color="#8A8886" fillcolor="#F3F2F1" shape=ellipse]
+	subgraph cluster_vnet {
+		bgcolor="#F8F8F8" color="#0078D4" fontcolor="#0078D4" label="Virtual Network: vnet-UKLifeLabs-sea-01" style=dashed
+		APIM [label="Azure API Management
+(External/Internal VNet Mode)"]
+		PE [label="Azure Private Endpoint
+IP: 10.50.10.x"]
+	}
+	subgraph cluster_paas {
+		bgcolor="#F3F9F1" color="#107C10" fontcolor="#107C10" label="Azure PaaS Services" style=dashed
+		AppServer [label="Azure App Service Web App
+Public Access: Disabled!" color="#D13438" fillcolor="#FDE7E9" fontcolor="#A4262C"]
+	}
+	DNS [label="Private DNS Zone
+privatelink.azurewebsites.net" color="#8764B8" fillcolor="#F3F0F9"]
+	Client -> APIM [label=" HTTPS Request"]
+	APIM -> PE [label=" Routes to Private IP"]
+	PE -> AppServer [label=" Private Link"]
+	APIM -> DNS [label=" Resolves Backend Name" style=dashed]
+}
+

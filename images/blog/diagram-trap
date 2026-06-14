@@ -1,0 +1,16 @@
+digraph "The Trap: Broken Logic" {
+	graph [bgcolor=transparent fontcolor="#e2e8f0" fontname=Outfit fontsize=16 label="The Trap: Broken Logic" nodesep=0.60 pad=0.5 rankdir=TB ranksep=0.75 splines=ortho]
+	node [fixedsize=true fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13 height=1.4 imagescale=true labelloc=b shape=box style=rounded width=1.4]
+	edge [color="#7B8894"]
+	subgraph "cluster_Azure Environment" {
+		graph [bgcolor=transparent fontcolor="#e2e8f0" fontname="Sans-Serif" fontsize=12 label="Azure Environment" labeljust=l pencolor="#334155" rankdir=LR shape=box style=rounded]
+		a5ffd160b58f4aadbce8ee78bab05848 [label="Azure Firewall" height=1.9 image="C:\Users\upend\AppData\Local\Programs\Python\Python313\Lib\site-packages\resources/azure/network\firewall.png" shape=none]
+	}
+	subgraph "cluster_On-Prem" {
+		graph [bgcolor=transparent fontcolor="#e2e8f0" fontname="Sans-Serif" fontsize=12 label="On-Prem" labeljust=l pencolor="#334155" rankdir=LR shape=box style=rounded]
+		b69192c5c553439f84cde657f4f6c608 [label="On-Prem Gateway" height=1.9 image="C:\Users\upend\AppData\Local\Programs\Python\Python313\Lib\site-packages\resources/azure/network\virtual-network-gateways.png" shape=none]
+	}
+	"63b6885dfbaf4344a2c260405faa9356" [label="Microsoft Control Plane" height=1.9 image="C:\Users\upend\AppData\Local\Programs\Python\Python313\Lib\site-packages\resources/azure/general\managementgroups.png" shape=none]
+	a5ffd160b58f4aadbce8ee78bab05848 -> b69192c5c553439f84cde657f4f6c608 [label=" 0.0.0.0/0 (Forced)" color="#ef4444" dir=forward fontcolor="#e2e8f0" fontname="Sans-Serif" fontsize=13]
+	b69192c5c553439f84cde657f4f6c608 -> "63b6885dfbaf4344a2c260405faa9356" [label=" Management Traffic Blocked" color="#ef4444" dir=forward fontcolor="#e2e8f0" fontname="Sans-Serif" fontsize=13 style=dashed]
+}

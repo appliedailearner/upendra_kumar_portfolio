@@ -14,7 +14,7 @@
 
 ## Diagram 1: Complete Solution Overview
 
-**Filename**: `uklifelabs_solution_overview_corporate.png`
+**Filename**: `uklifelabs_solution_overview_corporate.webp`
 
 **Prompt**:
 ```
@@ -80,7 +80,7 @@ ANNOTATIONS:
 
 ## Diagram 2: Network Flow Diagram
 
-**Filename**: `uklifelabs_network_flow_corporate.png`
+**Filename**: `uklifelabs_network_flow_corporate.webp`
 
 **Prompt**:
 ```
@@ -157,7 +157,7 @@ ANNOTATIONS:
 
 ## Diagram 3: Security Flow Diagram
 
-**Filename**: `uklifelabs_security_flow_corporate.png`
+**Filename**: `uklifelabs_security_flow_corporate.webp`
 
 **Prompt**:
 ```
@@ -231,7 +231,7 @@ ANNOTATIONS:
 
 ## Diagram 4: Service Journey - User Request Flow
 
-**Filename**: `uklifelabs_service_journey_corporate.png`
+**Filename**: `uklifelabs_service_journey_corporate.webp`
 
 **Prompt**:
 ```
@@ -311,7 +311,7 @@ ANNOTATIONS:
 
 ## Diagram 5: DR Failover Journey
 
-**Filename**: `uklifelabs_dr_failover_journey_v5_corporate.png`
+**Filename**: `uklifelabs_dr_failover_journey_v5_corporate.webp`
 
 **Prompt**:
 ```
@@ -385,7 +385,7 @@ ANNOTATIONS:
 
 ## Diagram 6: APIM Caching Architecture
 
-**Filename**: `uklifelabs_apim_redis_caching_architecture.png`
+**Filename**: `uklifelabs_apim_redis_caching_architecture.webp`
 
 **Prompt**:
 ```

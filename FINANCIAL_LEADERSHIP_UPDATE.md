@@ -10,7 +10,7 @@ You wanted to update the Financial Leadership section because:
 ## ✅ What I Changed
 
 ### **Before (Not Truthful):**
-![Old Financial Leadership](file:///C:/Users/upend/.gemini/antigravity/brain/9761e8dd-fb58-41e5-984d-d627ef2070b5/uploaded_image_1766164342679.png)
+![Old Financial Leadership](file:///C:/Users/upend/.gemini/antigravity/brain/9761e8dd-fb58-41e5-984d-d627ef2070b5/uploaded_image_1766164342679.webp)
 
 - ❌ "Delivered $55K+ annual cost savings through FinOps practices" (too vague)
 - ❌ "Achieved 78% ROI in first year of implementation" (vague)

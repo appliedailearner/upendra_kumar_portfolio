@@ -4,7 +4,7 @@
 
 ### **www.upendrakumar.com Design**
 
-![upendrakumar.com Design](file:///C:/Users/upend/.gemini/antigravity/brain/9761e8dd-fb58-41e5-984d-d627ef2070b5/upendra_kumar_site_hero_1766165511000.png)
+![upendrakumar.com Design](file:///C:/Users/upend/.gemini/antigravity/brain/9761e8dd-fb58-41e5-984d-d627ef2070b5/upendra_kumar_site_hero_1766165511000.webp)
 
 #### **🎨 Color Palette**
 ```css
@@ -54,7 +54,7 @@ Fallback: -apple-system, BlinkMacSystemFont, 'Segoe UI'
 
 ### **Your GitHub Portfolio Design**
 
-![Your Portfolio Navigation](file:///C:/Users/upend/.gemini/antigravity/brain/9761e8dd-fb58-41e5-984d-d627ef2070b5/navbar_focus_1766165395486.png)
+![Your Portfolio Navigation](file:///C:/Users/upend/.gemini/antigravity/brain/9761e8dd-fb58-41e5-984d-d627ef2070b5/navbar_focus_1766165395486.webp)
 
 #### **Current Color Palette**
 ```css

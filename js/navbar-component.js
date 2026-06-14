@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="container">
         <div class="nav-brand" style="display: flex; align-items: center; gap: 1rem;">
             <a href="${base}index.html" style="text-decoration: none;">
-                <video autoplay loop muted playsinline class="nav-logo-video">
+                <video autoplay loop muted playsinline preload="metadata" class="nav-logo-video">
                     <source src="${base}images/logo-animated.mp4" type="video/mp4">
                 </video>
             </a>
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <li><a href="${base}pages/contact.html">Contact</a></li>
             <li class="nav-item">
                 <a class="nav-link btn btn-primary text-white ms-lg-3 px-4 shadow-sm rounded-pill flex items-center gap-2"
-                    href="${base}assets/downloads/Upendra_Kumar_2026.pdf" target="_blank"
+                    href="${base}assets/pdf/Upendra_Kumar_Resume_2026.pdf" target="_blank"
                     style="line-height: 1.5; font-weight: 600;">
                     <i class="fas fa-file-download"></i> Executive Brief
                 </a>
@@ -157,4 +157,9 @@ document.addEventListener('DOMContentLoaded', () => {
             hamburger.classList.remove('active');
         }
     });
+
+    // Inject Command Palette Script Globally
+    const cmdScript = document.createElement('script');
+    cmdScript.src = `${base}js/command-palette.js`;
+    document.body.appendChild(cmdScript);
 });

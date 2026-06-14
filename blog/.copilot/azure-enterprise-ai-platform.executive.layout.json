@@ -1,0 +1,113 @@
+{
+  "title": "Enterprise Azure AI Platform - Executive View",
+  "subtitle": "Global Entry, Governed AI Gateway, Private Data Plane, Warm Standby DR",
+  "containers": [
+    { "id": "access", "label": "Users", "x": 20, "y": 110, "w": 180, "h": 760, "fillColor": "#f8fafc", "strokeColor": "#94a3b8" },
+    { "id": "control", "label": "Global Entry & Shared Controls", "x": 220, "y": 110, "w": 260, "h": 760, "fillColor": "#eff6ff", "strokeColor": "#60a5fa" },
+    { "id": "primary", "label": "UAE North - Primary", "x": 500, "y": 110, "w": 520, "h": 760, "fillColor": "#eef2ff", "strokeColor": "#6366f1" },
+    { "id": "data", "label": "Private Data & AI Services", "x": 1040, "y": 110, "w": 260, "h": 760, "fillColor": "#fefce8", "strokeColor": "#f59e0b" },
+    { "id": "dr", "label": "UAE Central - Warm Standby DR", "x": 1320, "y": 110, "w": 260, "h": 760, "fillColor": "#f5f3ff", "strokeColor": "#8b5cf6" },
+    { "id": "notes", "label": "Leadership Notes", "x": 1600, "y": 110, "w": 280, "h": 760, "fillColor": "#ffffff", "strokeColor": "#cbd5e1" }
+  ],
+  "nodes": [
+    { "id": "enterprise-users", "parent": "access", "label": "Enterprise Users", "kind": "image", "iconKey": "users", "serviceType": "actor", "isAzureService": false, "iconRequired": false, "fallbackAllowed": true, "reason": "Actor icon only", "x": 60, "y": 120, "w": 60, "h": 60 },
+    { "id": "internet-users", "parent": "access", "label": "Internet / Partner Users", "kind": "image", "iconKey": "internet", "serviceType": "actor", "isAzureService": false, "iconRequired": false, "fallbackAllowed": true, "reason": "Actor icon only", "x": 60, "y": 300, "w": 60, "h": 60 },
+
+    { "id": "global-entry", "parent": "control", "label": "Azure Front Door", "kind": "image", "iconKey": "frontdoor", "serviceType": "azure-front-door", "isAzureService": true, "iconRequired": true, "fallbackAllowed": false, "reason": "Local standard Azure icon available in the local Azure icon pack", "x": 100, "y": 115, "w": 60, "h": 60 },
+    { "id": "azure-firewall", "parent": "control", "label": "Azure Firewall", "kind": "image", "iconKey": "firewall", "serviceType": "azure-firewall", "isAzureService": true, "iconRequired": true, "fallbackAllowed": false, "reason": "Local standard Azure icon available", "x": 25, "y": 290, "w": 58, "h": 58 },
+    { "id": "dns-private-resolver", "parent": "control", "label": "DNS Private Resolver", "kind": "image", "iconKey": "dnspr", "serviceType": "dns-private-resolver", "isAzureService": true, "iconRequired": true, "fallbackAllowed": false, "reason": "Local standard Azure icon available", "x": 101, "y": 290, "w": 58, "h": 58 },
+    { "id": "key-vault", "parent": "control", "label": "Key Vault", "kind": "image", "iconKey": "keyvault", "serviceType": "key-vault", "isAzureService": true, "iconRequired": true, "fallbackAllowed": false, "reason": "Local standard Azure icon available", "x": 177, "y": 290, "w": 58, "h": 58 },
+    { "id": "azure-monitor", "parent": "control", "label": "Azure Monitor", "kind": "image", "iconKey": "monitor", "serviceType": "azure-monitor", "isAzureService": true, "iconRequired": true, "fallbackAllowed": false, "reason": "Local standard Azure icon available", "x": 101, "y": 390, "w": 58, "h": 58 },
+    { "id": "shared-controls", "parent": "control", "label": "Shared controls\nIdentity, policy, DNS, secrets, logging, network security", "kind": "service-green", "serviceType": "abstract-shared-controls", "isAzureService": false, "iconRequired": false, "fallbackAllowed": true, "reason": "Executive summary card", "x": 30, "y": 520, "w": 200, "h": 80 },
+
+    { "id": "app-gateway-waf", "parent": "primary", "label": "Application Gateway\n(WAF)", "kind": "image", "iconKey": "appgw", "serviceType": "application-gateway", "isAzureService": true, "iconRequired": true, "fallbackAllowed": false, "reason": "Local standard Azure icon available", "x": 44, "y": 114, "w": 72, "h": 72 },
+    { "id": "ai-gateway", "parent": "primary", "label": "API Management\n(AI Gateway)", "kind": "image", "iconKey": "apim", "serviceType": "api-management", "isAzureService": true, "iconRequired": true, "fallbackAllowed": false, "reason": "Local standard Azure icon available", "x": 224, "y": 114, "w": 72, "h": 72 },
+    { "id": "chat-runtime", "parent": "primary", "label": "AKS\n(Chat Runtime)", "kind": "image", "iconKey": "aks", "serviceType": "aks", "isAzureService": true, "iconRequired": true, "fallbackAllowed": false, "reason": "Local standard Azure icon available", "x": 114, "y": 324, "w": 72, "h": 72 },
+    { "id": "ingestion-runtime", "parent": "primary", "label": "AKS\n(Ingestion Runtime)", "kind": "image", "iconKey": "aks", "serviceType": "aks", "isAzureService": true, "iconRequired": true, "fallbackAllowed": false, "reason": "Local standard Azure icon available", "x": 314, "y": 324, "w": 72, "h": 72 },
+    { "id": "primary-story", "parent": "primary", "label": "One governed gateway, two workload lanes", "kind": "anchor", "serviceType": "abstract-primary-story", "isAzureService": false, "iconRequired": false, "fallbackAllowed": true, "reason": "Executive summary card", "x": 115, "y": 540, "w": 220, "h": 56 },
+
+    { "id": "private-endpoints", "parent": "data", "label": "Private Endpoints", "kind": "image", "iconKey": "pep", "serviceType": "private-endpoints", "isAzureService": true, "iconRequired": true, "fallbackAllowed": false, "reason": "Local standard Azure icon available", "x": 84, "y": 104, "w": 72, "h": 72 },
+    { "id": "azure-sql", "parent": "data", "label": "Azure SQL", "kind": "image", "iconKey": "sqldb", "serviceType": "azure-sql", "isAzureService": true, "iconRequired": true, "fallbackAllowed": false, "reason": "Local standard Azure icon available", "x": 20, "y": 290, "w": 58, "h": 58 },
+    { "id": "cosmos-db", "parent": "data", "label": "Cosmos DB", "kind": "image", "iconKey": "cosmos", "serviceType": "cosmos-db", "isAzureService": true, "iconRequired": true, "fallbackAllowed": false, "reason": "Local standard Azure icon available", "x": 101, "y": 290, "w": 58, "h": 58 },
+    { "id": "storage", "parent": "data", "label": "Storage", "kind": "image", "iconKey": "storage", "serviceType": "storage-account", "isAzureService": true, "iconRequired": true, "fallbackAllowed": false, "reason": "Local standard Azure icon available", "x": 182, "y": 290, "w": 58, "h": 58 },
+    { "id": "azure-openai", "parent": "data", "label": "Azure OpenAI", "kind": "image", "iconKey": "openai", "serviceType": "azure-openai", "isAzureService": true, "iconRequired": true, "fallbackAllowed": false, "reason": "Local standard Azure icon available", "x": 50, "y": 460, "w": 58, "h": 58 },
+    { "id": "doc-intelligence", "parent": "data", "label": "Doc Intelligence", "kind": "image", "iconKey": "cogsvc", "serviceType": "document-intelligence", "isAzureService": true, "iconRequired": true, "fallbackAllowed": false, "reason": "Local standard Azure icon available", "x": 150, "y": 460, "w": 58, "h": 58 },
+    { "id": "data-story", "parent": "data", "label": "Private data plane\nNo public data path to core services", "kind": "service-gold", "serviceType": "abstract-data-story", "isAzureService": false, "iconRequired": false, "fallbackAllowed": true, "reason": "Executive summary card", "x": 35, "y": 600, "w": 190, "h": 72 },
+
+    { "id": "dr-ingress", "parent": "dr", "label": "Application Gateway\n(DR Ingress)", "kind": "image", "iconKey": "appgw", "serviceType": "application-gateway", "isAzureService": true, "iconRequired": true, "fallbackAllowed": false, "reason": "Local standard Azure icon available", "x": 14, "y": 112, "w": 68, "h": 68 },
+    { "id": "dr-ai-gateway", "parent": "dr", "label": "API Management\n(DR Gateway)", "kind": "image", "iconKey": "apim", "serviceType": "api-management", "isAzureService": true, "iconRequired": true, "fallbackAllowed": false, "reason": "Local standard Azure icon available", "x": 96, "y": 112, "w": 68, "h": 68 },
+    { "id": "dr-runtime", "parent": "dr", "label": "AKS\n(DR Runtime)", "kind": "image", "iconKey": "aks", "serviceType": "aks", "isAzureService": true, "iconRequired": true, "fallbackAllowed": false, "reason": "Local standard Azure icon available", "x": 178, "y": 112, "w": 68, "h": 68 },
+    { "id": "dr-data", "parent": "dr", "label": "DR data recovery\nSQL failover | Cosmos replication | Storage GRS | AI standby/redeploy", "kind": "service-purple", "serviceType": "abstract-dr-data-semantics", "isAzureService": false, "iconRequired": false, "fallbackAllowed": true, "reason": "Executive DR summary card", "x": 30, "y": 340, "w": 200, "h": 86 },
+    { "id": "dr-story", "parent": "dr", "label": "Warm standby region with explicit service-by-service recovery", "kind": "anchor", "serviceType": "abstract-dr-story", "isAzureService": false, "iconRequired": false, "fallbackAllowed": true, "reason": "Executive summary card", "x": 35, "y": 570, "w": 190, "h": 60 }
+  ],
+  "notes": [
+    {
+      "id": "note-what",
+      "parent": "notes",
+      "label": "<b>Business story</b>\nOne governed AI gateway controls user access, policy, and observability across chat and ingestion workloads.",
+      "fillColor": "#eff6ff",
+      "strokeColor": "#93c5fd",
+      "fontColor": "#1e3a8a",
+      "x": 20,
+      "y": 70,
+      "w": 230,
+      "h": 110
+    },
+    {
+      "id": "note-risk",
+      "parent": "notes",
+      "label": "<b>Risk reduction</b>\nPrivate endpoints, controlled DNS, secrets management, and centralized monitoring reduce security and operational risk.",
+      "fillColor": "#ecfdf5",
+      "strokeColor": "#86efac",
+      "fontColor": "#166534",
+      "x": 20,
+      "y": 230,
+      "w": 230,
+      "h": 110
+    },
+    {
+      "id": "note-dr",
+      "parent": "notes",
+      "label": "<b>Resilience truth</b>\nFailover is not identical for every service. Gateway, compute, SQL, Cosmos, Storage, and AI services each have explicit recovery semantics.",
+      "fillColor": "#faf5ff",
+      "strokeColor": "#d8b4fe",
+      "fontColor": "#6b21a8",
+      "x": 20,
+      "y": 390,
+      "w": 230,
+      "h": 120
+    },
+    {
+      "id": "note-decisions",
+      "parent": "notes",
+      "label": "<b>Leadership decisions</b>\nConfirm global ingress pattern, APIM regional model, AKS DR model, and service-specific DR commitments before sign-off.",
+      "fillColor": "#f8fafc",
+      "strokeColor": "#cbd5e1",
+      "fontColor": "#334155",
+      "x": 20,
+      "y": 560,
+      "w": 230,
+      "h": 110
+    }
+  ],
+  "edges": [
+    { "id": "e01", "source": "internet-users", "target": "global-entry", "kind": "active" },
+    { "id": "e02", "source": "enterprise-users", "target": "global-entry", "kind": "active" },
+    { "id": "e03", "source": "global-entry", "target": "app-gateway-waf", "kind": "active", "points": [{ "x": 470, "y": 256 }] },
+    { "id": "e04", "source": "app-gateway-waf", "target": "ai-gateway", "kind": "active" },
+    { "id": "e05", "source": "ai-gateway", "target": "chat-runtime", "kind": "active" },
+    { "id": "e06", "source": "ai-gateway", "target": "ingestion-runtime", "kind": "active" },
+    { "id": "e07", "source": "chat-runtime", "target": "private-endpoints", "kind": "private", "points": [{ "x": 1080, "y": 360 }] },
+    { "id": "e08", "source": "ingestion-runtime", "target": "private-endpoints", "kind": "private", "points": [{ "x": 1110, "y": 360 }] },
+    { "id": "e09", "source": "private-endpoints", "target": "azure-sql", "kind": "private" },
+    { "id": "e10", "source": "private-endpoints", "target": "cosmos-db", "kind": "private" },
+    { "id": "e11", "source": "private-endpoints", "target": "storage", "kind": "private" },
+    { "id": "e12", "source": "private-endpoints", "target": "azure-openai", "kind": "private" },
+    { "id": "e13", "source": "private-endpoints", "target": "doc-intelligence", "kind": "private" },
+    { "id": "e14", "source": "shared-controls", "target": "ai-gateway", "kind": "private", "points": [{ "x": 470, "y": 590 }, { "x": 470, "y": 260 }, { "x": 760, "y": 260 }] },
+    { "id": "e15", "source": "global-entry", "target": "dr-ingress", "kind": "sync", "points": [{ "x": 1420, "y": 256 }] },
+    { "id": "e16", "source": "ai-gateway", "target": "dr-ai-gateway", "kind": "sync", "points": [{ "x": 1450, "y": 260 }] },
+    { "id": "e17", "source": "chat-runtime", "target": "dr-runtime", "kind": "sync", "points": [{ "x": 1460, "y": 360 }] },
+    { "id": "e18", "source": "private-endpoints", "target": "dr-data", "kind": "sync", "points": [{ "x": 1460, "y": 470 }] }
+  ]
+}

@@ -15,10 +15,16 @@
     *   Particles.js (for background effects).
 *   **No Frameworks:** Do NOT use React, Vue, or Tailwind. Use pure, maintainable CSS.
 
+## 1.5. Agent Expertise & Skills
+*   **Knowledge Context:** Always check the `.agent/skills/` directory for domain-specific knowledge bases (e.g., `azure-landing-zones`, `finops-patterns`).
+*   **Alignment:** Ensure all architectural recommendations and code snippets align with the patterns defined in these skills to maintain high-fidelity Azure professional standards.
+
 ## 2. File Structure
 Create the following directory structure:
 ```
 /
+├── .agent/                 # Agent configuration and expertise
+│   └── skills/             # Local skills repository (Azure patterns, ROI logic)
 ├── index.html              # Main Landing Page
 ├── blog.html               # Blog Index
 ├── 404.html                # Custom Error Page

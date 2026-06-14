@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure Databricks Zero-Trust Reference Blueprint</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;700;900&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --primary: #3b82f6;
+            --secondary: #8b5cf6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .blueprint-container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: var(--bg-card);
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.9)), url('https://www.transparenttextures.com/patterns/cubes.webp');
+            padding: 60px 40px;
+            text-align: center;
+            border-bottom: 4px solid var(--primary);
+            position: relative;
+        }
+
+        .header h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            margin: 0 0 10px 0;
+            background: linear-gradient(to right, #60a5fa, #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            color: #fff;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2 i {
+            color: var(--primary);
+        }
+
+        h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
+            color: #e2e8f0;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .exec-summary {
+            background: rgba(59, 130, 246, 0.05);
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            margin-bottom: 40px;
+            border-radius: 0 8px 8px 0;
+            font-size: 1.1rem;
+        }
+
+        /* Callout Boxes */
+        .box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .box-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .box.decision {
+            border-left: 4px solid var(--secondary);
+        }
+
+        .box.decision .box-title {
+            color: #c084fc;
+        }
+
+        .box.anti-pattern {
+            border-left: 4px solid var(--danger);
+        }
+
+        .box.anti-pattern .box-title {
+            color: #fca5a5;
+        }
+
+        .box.prereq {
+            border-left: 4px solid var(--success);
+        }
+
+        .box.prereq .box-title {
+            color: #6ee7b7;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .code-inline {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .diagram-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .diagram-container img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: #0f172a;
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+
+            body {
+                background: #fff;
+                color: #000;
+                padding: 2cm;
+                /* Regain some of the lost margin internally */
+            }
+
+            .blueprint-container {
+                box-shadow: none;
+                border: none;
+                margin: 0;
+                max-width: 100%;
+                background: #fff !important;
+            }
+
+            .header {
+                background: #f8fafc;
+                border-bottom: 4px solid #3b82f6;
+                padding: 40px;
+            }
+
+            .header h1 {
+                background: none;
+                -webkit-text-fill-color: #0f172a;
+                color: #0f172a;
+            }
+
+            h2 {
+                color: #0f172a;
+                border-bottom: 1px solid #e2e8f0;
+            }
+
+            h3 {
+                color: #334155;
+            }
+
+            .box {
+                background: #f1f5f9;
+                border: 1px solid #e2e8f0;
+                color: #334155;
+                page-break-inside: avoid;
+            }
+
+            .code-inline {
+                background: #e2e8f0;
+                color: #0f172a;
+                border-color: #cbd5e1;
+            }
+
+            .exec-summary {
+                background: #eff6ff;
+                color: #1e3a8a;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="blueprint-container">
+        <header class="header">
+            <span class="badge">Architecture Guide</span>
+            <h1>Azure Databricks Zero-Trust Blueprint</h1>
+            <p>Enterprise Network Isolation & Exfiltration Defense</p>
+        </header>
+
+        <div class="content">
+            <div class="exec-summary">
+                <strong>Executive Summary:</strong> Standard VNet injection is insufficient for regulated industries.
+                This blueprint details the exact configurations, routing decisions, and networking anti-patterns
+                required to establish strict data residency, eliminate public inbound/outbound paths, and prevent
+                identity-driven exfiltration across the Azure Data platform.
+            </div>
+
+            <h2><i class="fas fa-sitemap"></i> The Golden State Architecture</h2>
+            <div class="diagram-container">
+                <!-- Using the ADF SVG as a generic representation of the secure pattern, just as in the blog -->
+                <img src="https://learn.microsoft.com/en-us/azure/architecture/databases/architecture/_images/azure-data-factory-hardened-network.svg"
+                    alt="Secure Azure Network Topology">
+            </div>
+
+            <h2><i class="fas fa-balance-scale"></i> Hard Design Decisions (The "Why")</h2>
+
+            <div class="box decision">
+                <div class="box-title"><i class="fas fa-route"></i> Decision 1: Bypassing the NVA for Storage Traffic
+                </div>
+                <p><strong>The Trade-off:</strong> Security teams typically mandate all inter-spoke traffic routes
+                    through a Hub firewall (Azure Firewall Premium). </p>
+                <p><strong>The Reality:</strong> Azure Firewall Premium costs roughly $0.016/GB. Databricks shuffle
+                    operations can hit 100TB/day. Forcing internal Spoke-to-Spoke storage traffic through the Hub
+                    Firewall adds severe latency and catastrophic cost ($1,600+/day) for zero security benefit, as the
+                    traffic is already on the encrypted Microsoft backbone.</p>
+                <p><strong>Implementation:</strong> Apply User Defined Routes (UDRs) directly to the Databricks subnets
+                    routing <span class="code-inline">10.x.x.x</span> (Storage Private Endpoints) as <span
+                        class="code-inline">NextHopType: VirtualNetwork</span>. Keep the traffic local.</p>
+            </div>
+
+            <div class="box decision">
+                <div class="box-title"><i class="fas fa-network-wired"></i> Decision 2: Centralized Private DNS
+                    Resolution</div>
+                <p><strong>The Reality:</strong> Spoke-local Private DNS zones create unmanageable "split-brain" routing
+                    where on-premise users or Hub VMs cannot accurately resolve the private endpoints inside the Spoke.
+                </p>
+                <p><strong>Implementation:</strong> Deploy the <strong>Azure DNS Private Resolver</strong> in the Hub
+                    VNet. Link central Private DNS Zones <em>only</em> to the Hub, and configure conditional forwarders
+                    from your corporate Active Directory to point to the Resolver's inbound endpoint.</p>
+            </div>
+
+            <div class="box decision">
+                <div class="box-title"><i class="fas fa-key"></i> Decision 3: Dedicated Browser Authentication Workspace
+                </div>
+                <p><strong>The Reality:</strong> Databricks uses a global authentication mechanism per region. Relying
+                    on the primary data-processing workspace for Auth means if that specific VNet experiences a routing
+                    failure, <em>all</em> Databricks workspaces in that entire Azure region will fail to authenticate
+                    users.</p>
+                <p><strong>Implementation:</strong> Provision a dedicated, empty "Auth" Databricks workspace with its
+                    own Private Endpoint explicitly for SSO token exchange.</p>
+            </div>
+
+            <h2><i class="fas fa-check-circle"></i> Mandatory Assumptions & Prerequisites</h2>
+
+            <div class="box prereq">
+                <div class="box-title"><i class="fas fa-id-card"></i> 1. Identity & Governance Matrix</div>
+                <p>The organization must use <strong>Entra ID (Azure AD)</strong> paired with <strong>Unity
+                        Catalog</strong>. Relying on workspace-local groups, legacy Hive Metastore ACLs, or long-lived
+                    Service Principal secrets is incompatible with this lockdown design. All cluster access must utilize
+                    Azure Managed Identities.</p>
+            </div>
+
+            <div class="box prereq">
+                <div class="box-title"><i class="fas fa-server"></i> 2. IP Address Space Allocation</div>
+                <p>The organization has allocated a minimum of a <span class="code-inline">/24</span> subnet for the
+                    Databricks Public (Host) subnet and a <span class="code-inline">/24</span> for the Private
+                    (Container) subnet to handle node scale-out during burst processing. Attempting to cram these into a
+                    <span class="code-inline">/26</span> will cause job failures during peak load.
+                </p>
+            </div>
+
+            <h2><i class="fas fa-skull-crossbones"></i> The Anti-Pattern Graveyard</h2>
+
+            <div class="box anti-pattern">
+                <div class="box-title"><i class="fas fa-times-circle"></i> Anti-Pattern 1: The "Lazy" Service Endpoint
+                </div>
+                <p><strong>What it is:</strong> Using VNet Service Endpoints to secure ADLS Gen2 instead of Azure
+                    Private Link.</p>
+                <p><strong>Why it fails:</strong> Service Endpoints keep the storage account resolving to a public IP
+                    (it merely ACLs access to your VNet). This means data still transverses public endpoints (failing
+                    strict data-residency compliance audits) and does <em>not</em> prevent data exfiltration to other
+                    generic Azure storage accounts in the same region.</p>
+            </div>
+
+            <div class="box anti-pattern">
+                <div class="box-title"><i class="fas fa-times-circle"></i> Anti-Pattern 2: Default Route (0.0.0.0/0)
+                    Forced Tunneling Without Exceptions</div>
+                <p><strong>What it is:</strong> Forcing all outbound traffic from the Databricks subnets back
+                    on-premises or to a Hub firewall blindly.</p>
+                <p><strong>Why it fails:</strong> Databricks control-plane traffic (Secure Cluster Connectivity relay,
+                    Azure Storage metrics) will be dropped by on-premise asymmetric routing or stateful firewalls,
+                    preventing clusters from ever starting. You <em>must</em> use Service Tags (e.g., <span
+                        class="code-inline">AzureDatabricks</span>, <span class="code-inline">Sql</span>, <span
+                        class="code-inline">Storage</span>) in your UDRs to allow required Azure control traffic to
+                    bypass the default route.</p>
+            </div>
+
+            <div class="box anti-pattern">
+                <div class="box-title"><i class="fas fa-times-circle"></i> Anti-Pattern 3: Disabling Public Access
+                    Before DNS Validation</div>
+                <p><strong>What it is:</strong> Flipping the storage firewall to "Deny All" immediately upon creating
+                    the Private Endpoint.</p>
+                <p><strong>Why it fails:</strong> DNS propagation up to corporate forwarders takes time. If the Private
+                    DNS zone hasn't fully synced to your on-premise network, locking down the storage account public
+                    endpoint will instantly break production pipelines that are still resolving the public IP.</p>
+            </div>
+
+        </div>
+
+        <footer class="footer">
+            <p>Designed by Upendra Kumar | Azure Cloud Solutions Architect</p>
+            <p style="margin-top: 10px; opacity: 0.7;"><em>Use this blueprint to accelerate your cloud security
+                    review.</em></p>
+        </footer>
+    </div>
+
+</body>
+
+</html>

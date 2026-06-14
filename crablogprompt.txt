@@ -1,0 +1,144 @@
+You are a senior cloud strategy consultant and technical writer. Write a single, end-to-end “pillar” blog post in Markdown that explains a Cloud Readiness Assessment (CRA) Phase 1 playbook comparing AWS vs Azure vs GCP. Use the sample SOW details below ONLY as dummy example data. Do not claim you worked with any specific customer. Do not include any confidential info. Treat all numbers as illustrative and label them as “example from a sample SOW”.
+
+OUTPUT REQUIREMENTS
+- Output a single Markdown file body only (no extra commentary).
+- Blog length: ~1,500 to 2,500 words. One page style but complete.
+- Tone: direct, practical, no marketing fluff, no jargon without defining it.
+- Include clear headings, short paragraphs, and tables.
+- Include links to templates using relative GitHub paths like:
+  - /templates/00-project-governance/TEMPLATE_Project-Plan.md
+  - /templates/00-project-governance/TEMPLATE_Communication-Plan.md
+  - /templates/02-discovery/TEMPLATE_Infrastructure-Discovery-Report.md
+  - /templates/03-csp-selection/TEMPLATE_Evaluation-Matrix.csv
+  - /templates/04-tco/TEMPLATE_TCO-Model-Inputs.csv
+  - /templates/05-strategy/TEMPLATE_Cloud-Strategy-Report.md
+  - /templates/05-strategy/TEMPLATE_Executive-Presentation-Outline.md
+- Whenever info is unknown, write TBD and list what input is needed.
+- IMPORTANT: Do NOT include Mermaid diagrams. Instead, include instructions and prompts to generate PNG diagrams.
+
+DUMMY INPUT DATA (use as examples in the blog)
+- Engagement: Cloud Readiness Assessment (CRA) Phase 1
+- Phases (do not add Phase 0 or a “Kick-off” phase):
+  - Phase 1 Strategy Assessment (Week 1–5)
+  - Phase 2 Automated Infrastructure Discovery (Week 1–5)
+  - Phase 3 Cloud Service Provider Selection (Week 6–7)
+  - Phase 4 TCO Analysis (Week 8–9)
+  - Phase 5 Cloud Strategy Report and Presentation (Week 10–11)
+- Scope limits (examples, keep these exact numbers):
+  - Up to 7,350 VMs
+  - Up to 480 databases
+  - Up to 275 network segments
+  - Up to 920 TB storage
+- In-scope application examples (use a small subset only in the blog, do not list all):
+  - MOL (Mail Online), RTA (analytics engine), Atex (print), AirTable (editorial hub),
+    Infoblox DNS, TeamCity, Zabbix, Horizon VDI, CDS (content delivery), Sendgrid,
+    Akamai web caching, CVDB
+
+BLOG STRUCTURE (must include all sections below)
+
+1) Title + Who this is for + What you will get
+- Title: “Cloud Readiness Assessment Playbook (AWS vs Azure vs GCP)”
+- Audience: CIO, Head of Infrastructure, Cloud Program Lead, Architects
+- Goal: show a repeatable method and concrete outputs
+
+2) What CRA Phase 1 is, and what it is not
+- Explain the purpose and boundaries in plain language.
+- Do NOT include a dedicated “Out of scope” section or an “Out of scope” bullet list.
+- Keep it focused on assessment outputs and decision artifacts, not implementation steps.
+
+3) Inputs needed (the “don’t waste Week 1–2” checklist)
+- Include a table: Input | Owner | When needed | Why it matters
+- Reference the example scope limits (7,350 VMs, 480 DBs, 275 network segments, 920 TB)
+
+4) Delivery flow (timeline mapped to phases)
+- Include a timeline table (Phase | Weeks | Activities | Deliverables)
+- Use only the phases listed above.
+- For each phase, add “done means” acceptance criteria in 1–2 bullets
+
+5) Deliverables list with links to templates
+- Group by phase and link to the template paths
+- For each deliverable: what it contains + what “good” looks like
+- Include governance artifacts (project plan, communication plan) under Phase 1 as Week 1 outputs, without calling it “Kick-off”.
+
+6) Scoring model for hyper-scaler selection (transparent)
+- Define scoring scale (0–5) and weighting (0–10)
+- Include a sample criteria table (5–8 rows only)
+- Explain “evidence required” rule and how to handle TBDs
+- Link to /templates/03-csp-selection/TEMPLATE_Evaluation-Matrix.csv
+
+7) TCO approach (assumptions, drivers, what changes the answer)
+- Explain what is included and what is excluded, but do not label it as “Out of scope”
+- Include an assumptions register sample (5 items)
+- Explain sensitivities (top 5 cost drivers)
+- Link to /templates/04-tco/ templates
+
+8) What “cloud maturity + gap analysis” measures
+- Define maturity domains: Governance, Security, Identity, Network, Operations, Platform engineering, Data, FinOps
+- Provide a simple maturity table (domain | current | target | gaps)
+
+9) Common failure points and how to prevent them
+- List at least 8 failure modes
+- Add a short prevention checklist
+- Call out the common ambiguity: who installs discovery tooling (customer vs partner). Advise to lock RACI in Week 1.
+
+10) How to present the recommendation to execs (decision summary format)
+- Provide a “Decision Summary” one-pager format with:
+  - Recommendation
+  - Top 5 evidence-based reasons
+  - Trade-offs
+  - Cost view
+  - Risks/unknowns
+  - Decisions needed this week
+- Link to /templates/05-strategy/TEMPLATE_Executive-Presentation-Outline.md
+
+11) Embedded “Deep dives” inside the same pillar page (single blog)
+- Add five subsections inside this page (not separate posts), each 150–250 words:
+  - Governance that prevents scope drift (project plan + communication plan templates)
+  - Workshops that produce usable requirements (agenda + question bank + requirements summary)
+  - Discovery done right (tooling, data model, mappings, what good looks like in the discovery report)
+  - Cloud evaluation matrix (criteria, scoring, weights, how to avoid vendor bias)
+  - TCO + 1-year projection (what you include, how you explain uncertainty, cost optimization levers)
+- Each subsection must link to at least 2 templates.
+
+PNG DIAGRAM REQUIREMENTS (must include BOTH process instructions AND image-generation prompts)
+
+A) “How to create PNG diagrams” section (inside the blog)
+Include a step-by-step guide that works without Mermaid. Provide two options:
+
+Option 1: diagrams.net (draw.io) using official icon libraries
+- Steps to import Azure/AWS/GCP icon packs
+- Layout guidance (swimlanes, left-to-right flow)
+- Export settings (PNG 16:9, high resolution, white background)
+
+Option 2: AI image generation prompt (copy/paste)
+- Provide prompts that produce a clean vector diagram and export PNG
+
+B) Branded icon diagram prompts (copy/paste ready)
+In a section titled “Branded PNG Architecture Diagrams (Copy/Paste Prompts)”, output 5 prompts:
+
+Prompt 1: CRA Phase 1 end-to-end pipeline (cloud-agnostic, includes all 3 logos in header only)
+Prompt 2: AWS-focused diagram (uses AWS official architecture icons and AWS logo)
+Prompt 3: Azure-focused diagram (uses Microsoft Azure architecture icons and Azure logo)
+Prompt 4: GCP-focused diagram (uses Google Cloud icons and GCP logo)
+Prompt 5: Executive “decision summary” diagram (1 slide visual showing scoring + TCO + risks -> recommendation)
+
+Each prompt must:
+- Specify: clean vector style, white background, 16:9, high resolution, exportable as PNG
+- Use official icon sets and branded logos for the specific cloud (for cloud-specific prompts)
+- Diagram content: CRA Phase 1 discovery and assessment pipeline (not implementation)
+- Must show these blocks:
+  - Source environments (on-prem DC/VMware, existing cloud if any)
+  - Discovery collectors/agents (generic)
+  - Inventory and configuration data outputs
+  - Dependency mapping (network, DNS, identity)
+  - Analysis layer (evaluation matrix + TCO model + maturity gap)
+  - Deliverables outputs (Discovery report, Evaluation matrix, TCO, Strategy report, Exec presentation)
+- Add small labels like “TBD inputs” where appropriate
+- Include a note in each prompt: “Use the official hyperscaler icon packs. Do not use third-party unlicensed logos.”
+
+QUALITY RULES
+- Do not imply implementation steps. Keep it assessment and decision focused.
+- Keep examples explicitly labeled as “sample” or “dummy based on a sample SOW”.
+- Use the in-scope apps only as examples. Do not deep dive app details.
+
+Now write the complete pillar blog post in Markdown, following all requirements exactly

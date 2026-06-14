@@ -508,6 +508,34 @@
         })(window, document, "clarity", "script", "v5iynlmgo7");
     </script>
     <link rel="stylesheet" href="../css/dropdown.css">
+
+        <!-- Azure App Insights SDK (RUM) -->
+    <script type="text/javascript">
+        !function (T, l, y) {
+            var S = T.location, k = "script", D = "connectionString", C = "ingestionendpoint", I = "disableExceptionTracking";
+            var _ = y.url || "https://js.monitor.azure.com/scripts/b/ai.2.min.js";
+            if (y[D]) {
+                var T = T.appInsights || (T.appInsights = {});
+                T.loadAppInsights = function () {
+                    var p = { config: y }; T.initialize = !0; T._tags = [];
+                    T.addTelemetryInitializer = function (f) { T._tags.push(f); };
+                    var v = window.fetch;
+                    T.track = function (e) {
+                        (T._tags || []).forEach(function (f) { try { f(e); } catch (ex) { } });
+                        var i = p.config.endpointUrl || "https://dc.services.visualstudio.com/v2/track";
+                        v(i, { method: "POST", body: JSON.stringify(e), mode: "cors" }).catch(function () { });
+                    };
+                    T.trackEvent = function (d) { T.track({ name: d.name || "Event", data: { baseData: d } }); };
+                    T.trackPageView = function (d) { T.track({ name: "PageView", data: { baseData: d } }); };
+                    T.trackException = function (d) { T.track({ name: "Exception", data: { baseData: d } }); };
+                }
+            }
+        }(window, document, { 
+            connectionString: "InstrumentationKey=8fc596f2-bb91-49d7-8495-2ac1ecd30501;IngestionEndpoint=https://centralindia-0.in.liana.ice.azure.microsoft.com/",
+            endpointUrl: "https://centralindia-0.in.liana.ice.azure.microsoft.com/v2/track"
+        });
+    </script>
+    <script src="../js/observability.js?v=3" defer></script>
 </head>
 
 <body class="dark-theme">
@@ -523,7 +551,7 @@
     <!-- Blog Post Hero -->
     <section class="blog-post-hero">
         <video class="hero-bg-video" autoplay muted loop playsinline preload="metadata"
-            poster="../assets/images/hero-poster-placeholder.jpg">
+            poster="../assets/images/hero-poster-placeholder.webp">
             <source
                 src="https://pub-2d01be0306284df386da6dae9d2014d0.r2.dev/cinematic_enterprise_cloud_migration_hero_video_seamless.mp4"
                 type="video/mp4">
@@ -677,7 +705,7 @@
         <h2>TCO vs ROI vs Business Case</h2>
         <!-- Visual: TCO Chart -->
         <div class="blog-visual-container" style="margin: 2rem 0; text-align: center;">
-            <img src="../images/blog/2026-01-15/tco-comparison-chart.png" alt="TCO Comparison Chart: On-Prem vs Azure"
+            <img src="../images/blog/2026-01-15/tco-comparison-chart.webp" alt="TCO Comparison Chart: On-Prem vs Azure"
                 style="max-width: 100%; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
             <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 0.5rem; font-style: italic;">Visualizing the
                 savings: TCO is the math foundation.</p>
@@ -780,7 +808,7 @@
         <h2>How Azure Migrate helps you build TCO and the Business Case</h2>
         <!-- Visual: Architecture Flow -->
         <div class="blog-visual-container" style="margin: 2rem 0; text-align: center;">
-            <img src="../images/blog/2026-01-15/azure-migrate-architecture.png"
+            <img src="../images/blog/2026-01-15/azure-migrate-architecture.webp"
                 alt="Azure Migrate Agentless Architecture"
                 style="max-width: 100%; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
             <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 0.5rem; font-style: italic;">Agentless discovery
@@ -820,7 +848,7 @@
         <h3>Step 3. Dependencies and network truth</h3>
         <!-- Visual: Dependency Map -->
         <div class="blog-visual-container" style="margin: 2rem 0; text-align: center;">
-            <img src="../images/blog/2026-01-15/dependency-map.png" alt="Server Dependency Visual Map"
+            <img src="../images/blog/2026-01-15/dependency-map.webp" alt="Server Dependency Visual Map"
                 style="max-width: 100%; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
             <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 0.5rem; font-style: italic;">Visualize
                 interconnections to define the "Move Group" boundary.</p>
@@ -866,7 +894,7 @@
         <h3>Step 7. Write the Business Case</h3>
         <!-- Visual: Business Case Dashboard -->
         <div class="blog-visual-container" style="margin: 2rem 0; text-align: center;">
-            <img src="../images/blog/2026-01-15/business-case-dashboard.png" alt="Azure Migrate Business Case Dashboard"
+            <img src="../images/blog/2026-01-15/business-case-dashboard.webp" alt="Azure Migrate Business Case Dashboard"
                 style="max-width: 100%; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
             <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 0.5rem; font-style: italic;">The executive summary:
                 Annual savings, Cashflow, and ROI.</p>
@@ -1107,7 +1135,7 @@
             <!-- Video 1: Overview -->
             <div class="video-card" onclick="loadVideo(this)" data-id="oxqP5mwWLu4">
                 <div class="video-facade">
-                    <img src="https://img.youtube.com/vi/oxqP5mwWLu4/hqdefault.jpg" alt="Azure Migrate Overview"
+                    <img src="https://img.youtube.com/vi/oxqP5mwWLu4/hqdefault.webp" alt="Azure Migrate Overview"
                         loading="lazy">
                     <div class="play-button">
                         <i class="fas fa-play"></i>
@@ -1122,7 +1150,7 @@
             <!-- Video 2: Discovery -->
             <div class="video-card" onclick="loadVideo(this)" data-id="QnAYoadYiGY">
                 <div class="video-facade">
-                    <img src="https://img.youtube.com/vi/QnAYoadYiGY/hqdefault.jpg" alt="Agentless Discovery"
+                    <img src="https://img.youtube.com/vi/QnAYoadYiGY/hqdefault.webp" alt="Agentless Discovery"
                         loading="lazy">
                     <div class="play-button">
                         <i class="fas fa-play"></i>
@@ -1137,7 +1165,7 @@
             <!-- Video 3: Business Case -->
             <div class="video-card" onclick="loadVideo(this)" data-id="TmoEpeBJWMI">
                 <div class="video-facade">
-                    <img src="https://img.youtube.com/vi/TmoEpeBJWMI/hqdefault.jpg" alt="Building a Business Case"
+                    <img src="https://img.youtube.com/vi/TmoEpeBJWMI/hqdefault.webp" alt="Building a Business Case"
                         loading="lazy">
                     <div class="play-button">
                         <i class="fas fa-play"></i>

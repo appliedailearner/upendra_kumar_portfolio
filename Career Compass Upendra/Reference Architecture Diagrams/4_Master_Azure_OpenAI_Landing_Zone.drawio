@@ -1,0 +1,63 @@
+<mxfile host="Electron" modified="2026-03-07T12:00:00.000Z" agent="Mozilla/5.0" etag="12345" version="21.1.2" type="device">
+  <diagram id="aoai_lz" name="Azure OpenAI Landing Zone">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="hub_vnet" value="Connectivity Hub VNET&#10;(Subscription A)" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;align=left;verticalAlign=top;fillColor=none;strokeColor=#0078D4;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="100" width="250" height="400" as="geometry" />
+        </mxCell>
+
+        <mxCell id="spoke_vnet" value="AI Workload Spoke VNET&#10;(Subscription B)" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;align=left;verticalAlign=top;fillColor=none;strokeColor=#107C10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="450" y="100" width="300" height="400" as="geometry" />
+        </mxCell>
+
+        <mxCell id="er" value="ExpressRoute / VPN" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#E1DFDD;" vertex="1" parent="1">
+          <mxGeometry x="80" y="150" width="120" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="fw" value="Azure Firewall&#10;(DNS Proxy &amp; Routing)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFD8D8;strokeColor=#A80000;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="100" y="300" width="150" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="aoai" value="Azure OpenAI Service" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DFF6DD;strokeColor=#107C10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="550" y="160" width="150" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pe" value="Private Endpoint&#10;(NIC)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#DEECF9;strokeColor=#0078D4;" vertex="1" parent="1">
+          <mxGeometry x="460" y="160" width="60" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="app" value="App Service / AKS&#10;(VNET Integrated)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DEECF9;strokeColor=#0078D4;" vertex="1" parent="1">
+          <mxGeometry x="550" y="300" width="150" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="app_pe" value="Private Endpoint&#10;(Front-End)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#DEECF9;strokeColor=#0078D4;" vertex="1" parent="1">
+          <mxGeometry x="460" y="300" width="60" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="er" target="fw">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge2" value="VNET Peering" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="fw" target="app_pe">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="app_pe" target="app">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="edge4" value="Direct VNET Auth" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" parent="1" source="app" target="aoai">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="edge5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;dashed=1;" edge="1" parent="1" source="aoai" target="pe">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

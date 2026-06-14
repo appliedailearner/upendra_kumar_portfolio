@@ -1,0 +1,16 @@
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor': '#ffffff', 'primaryBorderColor': '#0078D4', 'primaryTextColor': '#323130', 'lineColor': '#0078D4', 'fontFamily': 'Segoe UI, Arial'}}}%%
+sequenceDiagram
+    autonumber
+    participant U as fa:fa-user Client / APIM
+    participant DNS as fa:fa-sitemap Private DNS Zone
+    participant PE as fa:fa-link Private Endpoint
+    participant AI as fa:fa-brain Azure AI Backend
+
+    Note over U, AI: AI Backend Private Connectivity Sequence
+    U->>DNS: Resolves AL.private.endpoint
+    DNS-->>U: Returns IP: 10.1.1.5
+    U->>PE: Forward Request to 10.1.1.5
+    PE->>AI: Azure Backbone Routing
+    Note right of AI: Process AI Request<br/>& Generate Response
+    AI-->>PE: Return AI Response
+    PE-->>U: Forward Response

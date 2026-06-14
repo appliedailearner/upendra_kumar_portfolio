@@ -298,6 +298,34 @@
         })(window, document, "clarity", "script", "v5iynlmgo7");
     </script>
     <link rel="stylesheet" href="../css/dropdown.css">
+
+        <!-- Azure App Insights SDK (RUM) -->
+    <script type="text/javascript">
+        !function (T, l, y) {
+            var S = T.location, k = "script", D = "connectionString", C = "ingestionendpoint", I = "disableExceptionTracking";
+            var _ = y.url || "https://js.monitor.azure.com/scripts/b/ai.2.min.js";
+            if (y[D]) {
+                var T = T.appInsights || (T.appInsights = {});
+                T.loadAppInsights = function () {
+                    var p = { config: y }; T.initialize = !0; T._tags = [];
+                    T.addTelemetryInitializer = function (f) { T._tags.push(f); };
+                    var v = window.fetch;
+                    T.track = function (e) {
+                        (T._tags || []).forEach(function (f) { try { f(e); } catch (ex) { } });
+                        var i = p.config.endpointUrl || "https://dc.services.visualstudio.com/v2/track";
+                        v(i, { method: "POST", body: JSON.stringify(e), mode: "cors" }).catch(function () { });
+                    };
+                    T.trackEvent = function (d) { T.track({ name: d.name || "Event", data: { baseData: d } }); };
+                    T.trackPageView = function (d) { T.track({ name: "PageView", data: { baseData: d } }); };
+                    T.trackException = function (d) { T.track({ name: "Exception", data: { baseData: d } }); };
+                }
+            }
+        }(window, document, { 
+            connectionString: "InstrumentationKey=8fc596f2-bb91-49d7-8495-2ac1ecd30501;IngestionEndpoint=https://centralindia-0.in.liana.ice.azure.microsoft.com/",
+            endpointUrl: "https://centralindia-0.in.liana.ice.azure.microsoft.com/v2/track"
+        });
+    </script>
+    <script src="../js/observability.js?v=3" defer></script>
 </head>
 
 <body class="dark-theme">
@@ -973,7 +1001,7 @@ locust -f tests/load/locustfile.py \
                     <!-- Thumbnail fallback (shown only if iframe blocked) -->
                     <a class="video-fallback" href="https://www.youtube.com/watch?v=NVp9jiMDdXc" target="_blank"
                         rel="noopener">
-                        <img src="https://i3.ytimg.com/vi/NVp9jiMDdXc/hqdefault.jpg"
+                        <img src="https://i3.ytimg.com/vi/NVp9jiMDdXc/hqdefault.webp"
                             alt="RAG at scale with Azure AI Search" loading="lazy" />
                     </a>
                 </div>
@@ -997,7 +1025,7 @@ locust -f tests/load/locustfile.py \
 
                     <a class="video-fallback" href="https://www.youtube.com/watch?v=gh1kRmpoKxc" target="_blank"
                         rel="noopener">
-                        <img src="https://i3.ytimg.com/vi/gh1kRmpoKxc/hqdefault.jpg"
+                        <img src="https://i3.ytimg.com/vi/gh1kRmpoKxc/hqdefault.webp"
                             alt="Azure AI Document Intelligence: extraction patterns" loading="lazy" />
                     </a>
                 </div>
@@ -1021,7 +1049,7 @@ locust -f tests/load/locustfile.py \
 
                     <a class="video-fallback" href="https://www.youtube.com/watch?v=tc-rUS_-FN0" target="_blank"
                         rel="noopener">
-                        <img src="https://i3.ytimg.com/vi/tc-rUS_-FN0/hqdefault.jpg"
+                        <img src="https://i3.ytimg.com/vi/tc-rUS_-FN0/hqdefault.webp"
                             alt="Azure API Management: token control and guardrails" loading="lazy" />
                     </a>
                 </div>
@@ -1045,7 +1073,7 @@ locust -f tests/load/locustfile.py \
 
                     <a class="video-fallback" href="https://www.youtube.com/watch?v=gOopye0Hwo4" target="_blank"
                         rel="noopener">
-                        <img src="https://i3.ytimg.com/vi/gOopye0Hwo4/hqdefault.jpg"
+                        <img src="https://i3.ytimg.com/vi/gOopye0Hwo4/hqdefault.webp"
                             alt="APIM as AI Gateway: securing and scaling AI APIs" loading="lazy" />
                     </a>
                 </div>

@@ -1,0 +1,2183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="A strategic look at the evolution of Azure architecture from manual diagramming to AI-assisted, programmable assets using MCP and drawio-mcp.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url"
+        content="https://portfolio.upendrakumar.com/blog/2026-03-18-why-the-future-of-azure-architecture-is-programmable.html">
+    <meta property="og:title" content="Beyond the Whiteboard: Why the Future of Azure Architecture is Programmable">
+    <meta property="og:description"
+        content="A strategic look at the evolution of Azure architecture from manual diagramming to AI-assisted, programmable assets using MCP and drawio-mcp.">
+    <meta property="og:image" content="https://portfolio.upendrakumar.com/images/profile.webp">
+    <meta property="og:site_name" content="Upendra Kumar | Cloud Strategy & Architecture">
+    <meta property="article:author" content="Upendra Kumar">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url"
+        content="https://portfolio.upendrakumar.com/blog/2026-03-18-why-the-future-of-azure-architecture-is-programmable.html">
+    <meta property="twitter:title"
+        content="Beyond the Whiteboard: Why the Future of Azure Architecture is Programmable">
+    <meta property="twitter:description"
+        content="A strategic look at the evolution of Azure architecture from manual diagramming to AI-assisted, programmable assets using MCP and drawio-mcp.">
+    <meta property="twitter:image" content="https://portfolio.upendrakumar.com/images/profile.webp">
+
+    <title>Beyond the Whiteboard: Why the Future of Azure Architecture is Programmable | Upendra Kumar</title>
+
+    <link rel="stylesheet" href="../css/style.css?v=48">
+    <link rel="stylesheet" href="../css/premium.css?v=48">
+    <link rel="stylesheet" href="../css/dropdown.css">
+
+    <!-- Performance: Critical Asset Preloading -->
+    <link rel="preload" href="../css/style.css?v=48" as="style">
+    <link rel="preload" href="../js/navbar-component.js" as="script">
+    <link rel="preload" href="../js/main.js" as="script">
+
+    <!-- JSON-LD Article Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Beyond the Whiteboard: Why the Future of Azure Architecture is Programmable",
+      "image": "https://portfolio.upendrakumar.com/images/profile.webp",
+      "author": {
+        "@type": "Person",
+        "name": "Upendra Kumar",
+        "url": "https://portfolio.upendrakumar.com/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Upendra Kumar",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://portfolio.upendrakumar.com/favicon.ico"
+        }
+      },
+      "datePublished": "2026-03-18",
+      "dateModified": "2026-03-18",
+      "description": "A strategic look at the evolution of Azure architecture from manual diagramming to AI-assisted, programmable assets using MCP and drawio-mcp."
+    }
+    </script>
+
+    <style>
+        .nav-logo-uk {
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+            border-radius: 8px !important;
+        }
+
+        /* Blog Post Specific Styles */
+
+        /* Glassmorphism Engine & Analyst Cards */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(56, 189, 248, 0.6);
+        }
+
+        /* Smart Glossary Tooltips */
+        .eli5-term {
+            border-bottom: 2px dashed #a855f7;
+            cursor: help;
+            position: relative;
+            font-weight: 600;
+            color: #c084fc;
+            -webkit-text-fill-color: initial;
+        }
+
+        .eli5-term::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            color: #f8fafc;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 400;
+            white-space: normal;
+            min-width: 200px;
+            max-width: 300px;
+            text-align: left;
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+            pointer-events: none;
+            line-height: 1.4;
+            -webkit-text-fill-color: initial;
+        }
+
+        .eli5-term::before {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-2px);
+            border-width: 8px;
+            border-style: solid;
+            border-color: rgba(168, 85, 247, 0.4) transparent transparent transparent;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .eli5-term:hover::after,
+        .eli5-term:hover::before {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Sticky Table of Contents */
+        .toc-container {
+            position: sticky;
+            top: 100px;
+            width: 250px;
+            float: left;
+            margin-left: -280px;
+            padding: 1.5rem;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .toc-container h4 {
+            font-family: 'Outfit', sans-serif;
+            color: #38bdf8;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-list li {
+            margin-bottom: 0.75rem;
+        }
+
+        .toc-link {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: block;
+            padding-left: 0.5rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s ease;
+            line-height: 1.4;
+        }
+
+        .toc-link:hover {
+            color: #e2e8f0;
+            border-left-color: #a855f7;
+        }
+
+        .toc-link.active {
+            color: #60a5fa;
+            font-weight: 600;
+            border-left: 3px solid #60a5fa;
+        }
+
+        @media (max-width: 1200px) {
+            .toc-container {
+                display: none;
+            }
+        }
+
+        .blog-post-hero {
+            padding: 120px 0 60px;
+            background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.15), transparent 60%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .blog-post-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .blog-post-content h2 {
+            color: var(--text-main);
+            font-size: 2rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .blog-post-content h3 {
+            color: #e2e8f0;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-post-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-post-content ul,
+        .blog-post-content ol {
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .blog-post-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-post-content code {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .blog-post-content pre {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-left: 4px solid #0ea5e9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+
+        .blog-post-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .blog-post-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .blog-post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 2rem 0;
+        }
+
+        .blog-tag {
+            background: rgba(168, 85, 247, 0.1);
+            color: #a855f7;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .btn {
+            display: inline-block;
+            font-weight: 600;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+
+        .btn-primary:hover {
+            background-color: #2563eb;
+            border-color: #2563eb;
+        }
+
+        .btn-outline {
+            color: #3b82f6;
+            background-color: transparent;
+            border-color: #3b82f6;
+        }
+
+        .btn-outline:hover {
+            color: #fff;
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+
+        .executive-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .analogy-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 0;
+            margin: 3rem 0;
+            align-items: stretch;
+        }
+
+        @media (max-width: 768px) {
+            .analogy-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .analogy-grid>div:nth-child(2) {
+                display: none;
+                /* Hide the VS divider on mobile */
+            }
+        }
+
+        @media (max-width: 900px) {
+            .executive-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Premium Lead Callout */
+        .lead-callout {
+            position: relative;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.6));
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-left: 4px solid #a855f7;
+            border-radius: 16px;
+            margin-bottom: 3rem;
+            overflow: hidden;
+        }
+
+        .lead-callout::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .lead-callout p {
+            font-size: 1.35rem;
+            line-height: 1.7;
+            color: #e2e8f0;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .lead-callout .lead-icon {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 6rem;
+            opacity: 0.04;
+            color: #a855f7;
+        }
+
+        /* Section Divider */
+        .section-divider {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin: 4rem 0 3rem;
+        }
+
+        .section-divider::before,
+        .section-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.3), transparent);
+        }
+
+        .section-divider .divider-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 50%;
+            color: #c084fc;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        /* Integration Mode Cards */
+        .integration-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .integration-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .integration-card {
+            padding: 1.5rem;
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.4));
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .integration-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--card-accent, #3b82f6), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .integration-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .integration-card:hover::before {
+            opacity: 1;
+        }
+
+        .integration-card .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .integration-card h4 {
+            color: #f8fafc;
+            font-size: 1rem;
+            margin: 0 0 0.5rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .integration-card p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Tokenomics Comparison */
+        .token-compare {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            margin: 2rem 0 3rem;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        @media (max-width: 768px) {
+            .token-compare {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .token-card {
+            padding: 2rem;
+            position: relative;
+        }
+
+        .token-card .token-count {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.25rem;
+        }
+
+        .token-card .token-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        /* Glowing Timeline */
+        .glow-timeline {
+            position: relative;
+            padding-left: 3rem;
+            margin: 2rem 0 3rem;
+        }
+
+        .glow-timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #a855f7 0%, #3b82f6 50%, #34d399 100%);
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+        }
+
+        .timeline-step {
+            position: relative;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-step:hover {
+            background: rgba(15, 23, 42, 0.8);
+            border-color: rgba(168, 85, 247, 0.2);
+            transform: translateX(5px);
+        }
+
+        .timeline-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: -3rem;
+            top: 1.5rem;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #a855f7, #3b82f6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 800;
+            font-family: 'Outfit', sans-serif;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+            z-index: 1;
+        }
+
+        .timeline-step h4 {
+            color: #f8fafc;
+            font-size: 1.05rem;
+            margin: 0 0 0.5rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .timeline-step p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Decision Cards */
+        .decision-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0 3rem;
+        }
+
+        @media (max-width: 900px) {
+            .decision-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .decision-card {
+            padding: 1.5rem;
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.4));
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .decision-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(96, 165, 250, 0.3);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .decision-card .tool-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .decision-card h4 {
+            color: #f8fafc;
+            font-size: 1.05rem;
+            margin: 0 0 0.5rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .decision-card .use-case {
+            color: #60a5fa;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .decision-card p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Guardrails numbered list */
+        .guardrail-list {
+            counter-reset: guardrail;
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+        }
+
+        .guardrail-list li {
+            counter-increment: guardrail;
+            position: relative;
+            padding: 1.5rem 1.5rem 1.5rem 4.5rem;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .guardrail-list li:hover {
+            border-color: rgba(248, 113, 113, 0.3);
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .guardrail-list li::before {
+            content: counter(guardrail);
+            position: absolute;
+            left: 1.5rem;
+            top: 1.5rem;
+            width: 28px;
+            height: 28px;
+            background: rgba(248, 113, 113, 0.15);
+            border: 1px solid rgba(248, 113, 113, 0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f87171;
+            font-size: 0.85rem;
+            font-weight: 800;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .blog-post-content>* {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Analogy grid responsive */
+        @media (max-width: 768px) {
+            .analogy-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        /* ===== INTERACTIVE: Reading Progress Bar ===== */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #a855f7, #3b82f6, #34d399);
+            z-index: 9999;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+        }
+
+        /* ===== INTERACTIVE: Token Counter Animation ===== */
+        @keyframes countPulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .token-count.counted {
+            animation: countPulse 0.4s ease;
+        }
+
+        /* ===== INTERACTIVE: Copy Button on Code ===== */
+        .code-copy-wrapper {
+            position: relative;
+            display: inline;
+        }
+
+        .copy-code-btn {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(15, 23, 42, 0.9);
+            color: #94a3b8;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            opacity: 0;
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+
+        .code-copy-wrapper:hover .copy-code-btn {
+            opacity: 1;
+        }
+
+        .copy-code-btn:hover {
+            background: #3b82f6;
+            color: #fff;
+            border-color: #3b82f6;
+        }
+
+        .copy-code-btn.copied {
+            background: #34d399;
+            color: #fff;
+            border-color: #34d399;
+        }
+
+        /* ===== INTERACTIVE: Decision Quiz ===== */
+        .quiz-container {
+            margin: 2rem 0 3rem;
+            padding: 2.5rem;
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.6));
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quiz-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #a855f7, #3b82f6, #34d399);
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-header h3 {
+            font-family: 'Outfit', sans-serif;
+            color: #f8fafc;
+            font-size: 1.4rem;
+            margin: 0 0 0.5rem;
+        }
+
+        .quiz-header p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .quiz-progress {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .quiz-dot.active {
+            background: #a855f7;
+            box-shadow: 0 0 8px rgba(168, 85, 247, 0.5);
+        }
+
+        .quiz-dot.complete {
+            background: #34d399;
+        }
+
+        .quiz-question {
+            display: none;
+            text-align: center;
+        }
+
+        .quiz-question.active {
+            display: block;
+            animation: fadeInUp 0.4s ease;
+        }
+
+        .quiz-question h4 {
+            color: #e2e8f0;
+            font-size: 1.1rem;
+            margin: 0 0 1.5rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .quiz-option {
+            padding: 1rem 1.25rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            color: #cbd5e1;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        .quiz-option:hover {
+            background: rgba(168, 85, 247, 0.1);
+            border-color: rgba(168, 85, 247, 0.3);
+            color: #f8fafc;
+            transform: translateX(5px);
+        }
+
+        .quiz-option.selected {
+            background: rgba(168, 85, 247, 0.15);
+            border-color: #a855f7;
+            color: #f8fafc;
+        }
+
+        .quiz-result {
+            display: none;
+            text-align: center;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .quiz-result.active {
+            display: block;
+        }
+
+        .quiz-result-card {
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 1rem auto;
+            max-width: 450px;
+        }
+
+        .quiz-result-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            margin: 0 0 0.5rem;
+        }
+
+        .quiz-result-card .result-subtitle {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-result-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .quiz-restart {
+            margin-top: 1.5rem;
+            padding: 0.6rem 1.5rem;
+            background: transparent;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            color: #c084fc;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .quiz-restart:hover {
+            background: rgba(168, 85, 247, 0.1);
+            border-color: #a855f7;
+        }
+    </style>
+
+    <!-- Performance: Preconnect to Font & Script Servers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <!-- Typography: Inter (Body) & Outfit (Headings) with Swap for Performance -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <!-- Azure App Insights SDK (RUM) -->
+    <script type="text/javascript">
+        !function (T, l, y) {
+            var S = T.location, k = "script", D = "connectionString", C = "ingestionendpoint", I = "disableExceptionTracking";
+            var _ = y.url || "https://js.monitor.azure.com/scripts/b/ai.2.min.js";
+            if (y[D]) {
+                var T = T.appInsights || (T.appInsights = {});
+                T.loadAppInsights = function () {
+                    var p = { config: y }; T.initialize = !0; T._tags = [];
+                    T.addTelemetryInitializer = function (f) { T._tags.push(f); };
+                    var v = window.fetch;
+                    T.track = function (e) {
+                        (T._tags || []).forEach(function (f) { try { f(e); } catch (ex) { } });
+                        var i = p.config.endpointUrl || "https://dc.services.visualstudio.com/v2/track";
+                        v(i, { method: "POST", body: JSON.stringify(e), mode: "cors" }).catch(function () { });
+                    };
+                    T.trackEvent = function (d) { T.track({ name: d.name || "Event", data: { baseData: d } }); };
+                    T.trackPageView = function (d) { T.track({ name: "PageView", data: { baseData: d } }); };
+                    T.trackException = function (d) { T.track({ name: "Exception", data: { baseData: d } }); };
+                }
+            }
+        }(window, document, {
+            connectionString: "InstrumentationKey=8fc596f2-bb91-49d7-8495-2ac1ecd30501;IngestionEndpoint=https://centralindia-0.in.liana.ice.azure.microsoft.com/",
+            endpointUrl: "https://centralindia-0.in.liana.ice.azure.microsoft.com/v2/track"
+        });
+    </script>
+    <script src="../js/observability.js?v=3" defer></script>
+</head>
+
+<body class="dark-theme">
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress" id="reading-progress"></div>
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="dynamic-nav"></nav>
+    <script src="../js/navbar-component.js"></script>
+
+    <!-- Blog Post Hero -->
+    <section class="blog-post-hero">
+        <div class="container" style="max-width: 1000px;">
+            <div style="margin-bottom: 2rem;">
+                <a href="../blog.html"
+                    style="color: var(--primary-color); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem;">
+                    <i class="fas fa-arrow-left"></i> Back to Insights
+                </a>
+                <br>
+                <span
+                    style="display: inline-block; padding: 0.4rem 1rem; background: rgba(59, 130, 246, 0.1); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">
+                    <i class="fas fa-book-open" style="margin-right: 6px;"></i> Value Architect Playbook
+                </span>
+            </div>
+
+            <h1
+                style="font-family: 'Outfit', sans-serif; font-size: 3rem; line-height: 1.2; margin-bottom: 1.5rem; background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                Beyond the Whiteboard: Why the Future of Azure Architecture is Programmable
+            </h1>
+
+            <div class="blog-post-meta">
+                <div><i class="fas fa-user"></i> Upendra Kumar</div>
+                <div><i class="fas fa-calendar"></i> March 18, 2026</div>
+                <div><i class="fas fa-clock"></i> 8 min read</div>
+            </div>
+
+            <div class="blog-post-tags">
+                <span class="blog-tag"><i class="fas fa-tag"></i> Azure</span>
+                <span class="blog-tag"><i class="fas fa-tag"></i> Architecture</span>
+                <span class="blog-tag"><i class="fas fa-tag"></i> AI</span>
+                <span class="blog-tag"><i class="fas fa-tag"></i> MCP</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Post Content -->
+    <article class="blog-post-content">
+        <aside class="toc-container">
+            <h4>In this post</h4>
+            <ul class="toc-list">
+                <li><a href="#executive-summary" class="toc-link">Executive Summary</a></li>
+                <li><a href="#vibe-diagramming" class="toc-link">The Era of Vibe Diagramming</a></li>
+                <li><a href="#usb-c-moment" class="toc-link">The "USB-C for AI" Moment</a></li>
+                <li><a href="#tokenomics" class="toc-link">Tokenomics of Design</a></li>
+                <li><a href="#technical-guardrails" class="toc-link">Technical Guardrails</a></li>
+                <li><a href="#decision-matrix" class="toc-link">The Decision Matrix</a></li>
+                <li><a href="#tool-quiz" class="toc-link">🧭 Find Your Tool</a></li>
+                <li><a href="#execution-sequence" class="toc-link">Execution Sequence</a></li>
+                <li><a href="#reference-impl" class="toc-link">Reference Implementation</a></li>
+            </ul>
+        </aside>
+
+        <!-- Premium Lead Callout -->
+        <div class="lead-callout">
+            <i class="fas fa-bolt lead-icon"></i>
+            <p>Architecture is no longer a "stale artifact." It's a <strong style="color: #c084fc;">living, programmable
+                    asset</strong>. We are moving from manual "pixel-pushing" to an engineering-first workflow where AI
+                programmatically builds and heals our designs.</p>
+        </div>
+
+        <!-- Premium Executive Impact Summary -->
+        <div id="executive-summary" style="margin-bottom: 4rem; position: relative;">
+            <div
+                style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 80%; height: 100px; background: radial-gradient(ellipse, rgba(168, 85, 247, 0.15) 0%, transparent 70%); filter: blur(30px); z-index: -1;">
+            </div>
+
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <span
+                    style="display: inline-block; padding: 0.4rem 1rem; background: rgba(168, 85, 247, 0.1); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 20px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 1rem;">
+                    <i class="fas fa-chart-line" style="margin-right: 6px;"></i> Strategic Alignment & ROI
+                </span>
+                <h2 style="margin: 0; font-family: 'Outfit', sans-serif; font-size: 2.2rem; color: #f8fafc;">Executive
+                    Impact <span
+                        style="color: transparent; background: linear-gradient(90deg, #c084fc, #3b82f6); -webkit-background-clip: text; background-clip: text;">Summary</span>
+                </h2>
+            </div>
+
+            <div class="executive-grid">
+                <!-- Card 1: Business Problem -->
+                <div class="glass-card"
+                    style="padding: 2rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)); border: 1px solid rgba(248, 113, 113, 0.2); border-top: 3px solid #f87171; position: relative; overflow: hidden;">
+                    <div
+                        style="width: 45px; height: 45px; background: rgba(248, 113, 113, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(248, 113, 113, 0.2);">
+                        <i class="fas fa-fire" style="color: #f87171; font-size: 1.2rem;"></i>
+                    </div>
+                    <h4
+                        style="color: #fca5a5; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">
+                        The Business Problem</h4>
+                    <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">Architectural drift and
+                        manual "pixel-pushing" create stale documentation that slows down large-scale migrations and
+                        increases TCO by requiring constant manual remediation.</p>
+                </div>
+
+                <!-- Card 2: Strategic Play -->
+                <div class="glass-card"
+                    style="padding: 2rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)); border: 1px solid rgba(96, 165, 250, 0.2); border-top: 3px solid #60a5fa; position: relative; overflow: hidden;">
+                    <div
+                        style="width: 45px; height: 45px; background: rgba(96, 165, 250, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(96, 165, 250, 0.2);">
+                        <i class="fas fa-network-wired" style="color: #60a5fa; font-size: 1.2rem;"></i>
+                    </div>
+                    <h4
+                        style="color: #93c5fd; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">
+                        The Strategic Play</h4>
+                    <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">Transitioning from
+                        manual artifacts to <strong>Programmable Architecture</strong> via MCP. This treats diagrams as
+                        living, versioned assets that sync with actual code.</p>
+                </div>
+
+                <!-- Card 3: Executive ROI -->
+                <div class="glass-card"
+                    style="padding: 2rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)); border: 1px solid rgba(52, 211, 153, 0.2); border-top: 3px solid #34d399; position: relative; overflow: hidden;">
+                    <div
+                        style="width: 45px; height: 45px; background: rgba(52, 211, 153, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(52, 211, 153, 0.2);">
+                        <i class="fas fa-chart-pie" style="color: #34d399; font-size: 1.2rem;"></i>
+                    </div>
+                    <h4
+                        style="color: #6ee7b7; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">
+                        The Executive ROI</h4>
+                    <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;"><strong>10x-20x
+                            productivity multiplier</strong> on visual documentation. Reduces "documentation debt" and
+                        cuts time-to-market for complex Azure designs.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 id="vibe-diagramming"><span class="gradient-text">The Era of "Vibe Diagramming"</span></h2>
+        <p>
+            I’ve spent a large part of my career as an Azure Architect "pixel-pushing"— wrestling with connectors and
+            manually aligning boxes in tools like Visio or Draw.io. But as I look toward leadership roles, I’ve realized
+            we have to stop treating diagrams as one-off, "stale artifacts" that immediately drift from the code they
+            represent.
+        </p>
+
+        <!-- Featured Diagram Alignment -->
+        <div class="glass-card" style="margin: 3rem 0; padding: 1rem; background: rgba(15, 23, 42, 0.8);">
+            <div style="text-align: center; margin-bottom: 1rem;">
+                <span
+                    style="font-size: 0.8rem; color: #60a5fa; text-transform: uppercase; letter-spacing: 2px; font-weight: 700;">Featured
+                    Architecture: The 2026 Roadmap</span>
+            </div>
+            <img src="Navigating%202026%20Diagramming%20evolution/Navigating%202026%20Diagramming%20Evolution.webp"
+                alt="Navigating 2026 Diagramming Evolution"
+                style="width: 100%; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1);" loading="lazy">
+            <p style="font-size: 0.9rem; color: #94a3b8; text-align: center; margin-top: 1rem; margin-bottom: 0;">
+                <em>Visualization: The transition from manual "Static Artifacts" to AI-orchestrated "Programmable
+                    Assets."</em>
+            </p>
+        </div>
+
+        <p>
+            We are entering the era of <span class="eli5-term"
+                data-tooltip="A conversational, high-level approach where you describe architecture and the AI generates the precise visual.">Vibe
+                Diagramming</span>—a conversational, AI-assisted approach where architecture becomes a living,
+            programmable asset. If you're looking to actually implement this, here is how you move from manual busywork
+            to an engineering-first workflow.
+        </p>
+
+        <!-- Analogy: Before vs After -->
+        <div class="analogy-grid">
+            <!-- BEFORE: The Map -->
+            <div class="glass-card"
+                style="border: 1px solid rgba(248, 113, 113, 0.2); border-top: 3px solid #f87171; margin: 0; position: relative; overflow: hidden;">
+                <div
+                    style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: radial-gradient(circle, rgba(248, 113, 113, 0.08) 0%, transparent 70%); pointer-events: none;">
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem;">
+                    <div
+                        style="width: 50px; height: 50px; background: rgba(248, 113, 113, 0.1); border: 1px solid rgba(248, 113, 113, 0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">
+                        🗺️</div>
+                    <div>
+                        <span
+                            style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: #f87171; font-weight: 700;">The
+                            Old Way</span>
+                        <h4 style="color: #f8fafc; margin: 0; font-family: 'Outfit', sans-serif; font-size: 1.1rem;">
+                            Static Artifact</h4>
+                    </div>
+                </div>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li
+                        style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); color: #94a3b8; font-size: 0.9rem;">
+                        <i class="fas fa-times-circle" style="color: #f87171; margin-right: 8px; width: 16px;"></i>
+                        Stale the day after it's drawn
+                    </li>
+                    <li
+                        style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); color: #94a3b8; font-size: 0.9rem;">
+                        <i class="fas fa-times-circle" style="color: #f87171; margin-right: 8px; width: 16px;"></i>
+                        Manual pixel-pushing in Visio
+                    </li>
+                    <li
+                        style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); color: #94a3b8; font-size: 0.9rem;">
+                        <i class="fas fa-times-circle" style="color: #f87171; margin-right: 8px; width: 16px;"></i>
+                        Lives in SharePoint, not Git
+                    </li>
+                    <li style="padding: 0.5rem 0; color: #94a3b8; font-size: 0.9rem;"><i class="fas fa-times-circle"
+                            style="color: #f87171; margin-right: 8px; width: 16px;"></i> Nobody trusts it after Sprint 2
+                    </li>
+                </ul>
+            </div>
+            <!-- VS divider -->
+            <div style="display: flex; align-items: center; justify-content: center; padding: 0 0.75rem;">
+                <div
+                    style="width: 44px; height: 44px; background: linear-gradient(135deg, rgba(248,113,113,0.2), rgba(52,211,153,0.2)); border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; color: #f8fafc; font-family: 'Outfit', sans-serif; letter-spacing: 1px;">
+                    VS</div>
+            </div>
+            <!-- AFTER: The GPS -->
+            <div class="glass-card"
+                style="border: 1px solid rgba(52, 211, 153, 0.2); border-top: 3px solid #34d399; margin: 0; position: relative; overflow: hidden;">
+                <div
+                    style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: radial-gradient(circle, rgba(52, 211, 153, 0.08) 0%, transparent 70%); pointer-events: none;">
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem;">
+                    <div
+                        style="width: 50px; height: 50px; background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">
+                        🛰️</div>
+                    <div>
+                        <span
+                            style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: #34d399; font-weight: 700;">The
+                            New Way</span>
+                        <h4 style="color: #f8fafc; margin: 0; font-family: 'Outfit', sans-serif; font-size: 1.1rem;">
+                            Programmable Asset</h4>
+                    </div>
+                </div>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li
+                        style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); color: #cbd5e1; font-size: 0.9rem;">
+                        <i class="fas fa-check-circle" style="color: #34d399; margin-right: 8px; width: 16px;"></i>
+                        Auto-updates when IaC changes
+                    </li>
+                    <li
+                        style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); color: #cbd5e1; font-size: 0.9rem;">
+                        <i class="fas fa-check-circle" style="color: #34d399; margin-right: 8px; width: 16px;"></i> AI
+                        generates pixel-perfect layouts
+                    </li>
+                    <li
+                        style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); color: #cbd5e1; font-size: 0.9rem;">
+                        <i class="fas fa-check-circle" style="color: #34d399; margin-right: 8px; width: 16px;"></i>
+                        Version-controlled in Git alongside code
+                    </li>
+                    <li style="padding: 0.5rem 0; color: #cbd5e1; font-size: 0.9rem;"><i class="fas fa-check-circle"
+                            style="color: #34d399; margin-right: 8px; width: 16px;"></i> Zero drift. Zero egress. Zero
+                        trust.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section-divider">
+            <div class="divider-icon"><i class="fas fa-plug"></i></div>
+        </div>
+        <h2 id="usb-c-moment"><span class="gradient-text">The "USB-C for AI" Moment</span></h2>
+        <p>
+            The <a href="https://github.com/jgraph/drawio-mcp" target="_blank" rel="noopener"
+                style="color: #60a5fa; text-decoration: none; border-bottom: 1px dashed rgba(96,165,250,0.4);">drawio-mcp</a>
+            server from <strong>JGraph</strong> (the team behind Draw.io) is effectively the "USB-C for AI" — a
+            universal interface between LLMs and our engineering tools. It supports XML, CSV, and Mermaid.js formats
+            with export to <code>.drawio</code>, <code>.webp</code>, <code>.svg</code>, and <code>.pdf</code>.
+        </p>
+        <p>For those of us leading teams, there are <strong>four integration modes</strong> — pick the one that fits
+            your setup:</p>
+
+        <div class="integration-grid">
+            <!-- Card 1: MCP App Server -->
+            <div class="integration-card" style="--card-accent: #a855f7;">
+                <div class="card-icon"
+                    style="background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.2);">
+                    <i class="fas fa-window-restore" style="color: #a855f7;"></i>
+                </div>
+                <h4>MCP App Server</h4>
+                <p>Renders diagrams <strong>inline in chat</strong> as interactive iframes via the <a
+                        href="https://modelcontextprotocol.io/docs/extensions/apps" target="_blank" rel="noopener"
+                        style="color: #c084fc;">MCP Apps</a> protocol. No browser tab required.</p>
+                <div style="margin-top: auto; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05);">
+                    <code
+                        style="font-size: 0.72rem; color: #c084fc; background: rgba(168,85,247,0.08); padding: 0.25rem 0.5rem; border-radius: 4px; display: block; text-align: center;">https://mcp.draw.io/mcp</code>
+                    <span
+                        style="display: block; text-align: center; font-size: 0.65rem; color: #64748b; margin-top: 0.35rem;">Hosted
+                        endpoint — zero install</span>
+                </div>
+            </div>
+            <!-- Card 2: MCP Tool Server -->
+            <div class="integration-card" style="--card-accent: #3b82f6;">
+                <div class="card-icon"
+                    style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2);">
+                    <i class="fas fa-terminal" style="color: #3b82f6;"></i>
+                </div>
+                <h4>MCP Tool Server</h4>
+                <p>The original server. Opens diagrams in the <strong>Draw.io editor</strong> via stdio. Supports XML,
+                    CSV, and Mermaid with dark mode and lightbox options.</p>
+                <div style="margin-top: auto; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05);">
+                    <code
+                        style="font-size: 0.72rem; color: #60a5fa; background: rgba(59,130,246,0.08); padding: 0.25rem 0.5rem; border-radius: 4px; display: block; text-align: center;">npx @drawio/mcp</code>
+                    <span
+                        style="display: block; text-align: center; font-size: 0.65rem; color: #64748b; margin-top: 0.35rem;">Published
+                        on <a href="https://www.npmjs.com/package/@drawio/mcp" target="_blank" rel="noopener"
+                            style="color: #60a5fa;">npm</a></span>
+                </div>
+            </div>
+            <!-- Card 3: Skill + CLI -->
+            <div class="integration-card" style="--card-accent: #34d399;">
+                <div class="card-icon"
+                    style="background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.2);">
+                    <i class="fas fa-code-branch" style="color: #34d399;"></i>
+                </div>
+                <h4>Skill + CLI</h4>
+                <p>A Claude Code skill that writes native <code>.drawio</code> files with optional export to PNG, SVG,
+                    or PDF using <code>--embed-diagram</code>.</p>
+                <div style="margin-top: auto; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05);">
+                    <div style="display: flex; gap: 0.35rem; justify-content: center; flex-wrap: wrap;">
+                        <span
+                            style="padding: 0.15rem 0.4rem; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.2); border-radius: 4px; font-size: 0.65rem; color: #34d399;">.drawio</span>
+                        <span
+                            style="padding: 0.15rem 0.4rem; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.2); border-radius: 4px; font-size: 0.65rem; color: #34d399;">.webp</span>
+                        <span
+                            style="padding: 0.15rem 0.4rem; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.2); border-radius: 4px; font-size: 0.65rem; color: #34d399;">.svg</span>
+                        <span
+                            style="padding: 0.15rem 0.4rem; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.2); border-radius: 4px; font-size: 0.65rem; color: #34d399;">.pdf</span>
+                    </div>
+                    <span
+                        style="display: block; text-align: center; font-size: 0.65rem; color: #64748b; margin-top: 0.35rem;">No
+                        MCP setup required</span>
+                </div>
+            </div>
+            <!-- Card 4: Project Instructions -->
+            <div class="integration-card" style="--card-accent: #fbbf24;">
+                <div class="card-icon"
+                    style="background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.2);">
+                    <i class="fas fa-link" style="color: #fbbf24;"></i>
+                </div>
+                <h4>Project Instructions</h4>
+                <p>Zero infrastructure. Add instructions to a Claude Project — it generates clickable Draw.io URLs via
+                    <strong>Python code execution</strong>.
+                </p>
+                <div style="margin-top: auto; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05);">
+                    <span
+                        style="display: block; text-align: center; font-size: 0.7rem; color: #fbbf24; font-weight: 600;"><i
+                            class="fas fa-magic" style="margin-right: 4px;"></i> Paste and go</span>
+                    <span
+                        style="display: block; text-align: center; font-size: 0.65rem; color: #64748b; margin-top: 0.35rem;">No
+                        server, no desktop app</span>
+                </div>
+            </div>
+        </div>
+        <!-- GitHub Source Link -->
+        <p style="text-align: center; margin-top: 1rem;">
+            <a href="https://github.com/jgraph/drawio-mcp" target="_blank" rel="noopener noreferrer"
+                style="color: #94a3b8; font-size: 0.85rem; text-decoration: none; transition: color 0.2s;"
+                onmouseover="this.style.color='#f8fafc'" onmouseout="this.style.color='#94a3b8'"><i
+                    class="fab fa-github" style="margin-right: 6px;"></i>Source: jgraph/drawio-mcp</a>
+        </p>
+
+        <div class="section-divider">
+            <div class="divider-icon"><i class="fas fa-coins"></i></div>
+        </div>
+        <h2 id="tokenomics"><span class="gradient-text">The "Tokenomics" of Design</span></h2>
+        <p>
+            As a leader, I have to weigh the "return on clarity" against the tokenomics of our AI pipelines. Not all
+            formats are equal:
+        </p>
+
+        <div class="token-compare">
+            <div class="token-card"
+                style="background: linear-gradient(145deg, rgba(52, 211, 153, 0.08), rgba(15, 23, 42, 0.9));">
+                <div class="token-count" data-target="50" style="color: #34d399;">~0</div>
+                <div class="token-label" style="color: #6ee7b7;">tokens per diagram</div>
+                <h4 style="color: #f8fafc; margin: 0 0 0.5rem; font-family: 'Outfit', sans-serif;">Mermaid.js</h4>
+                <p style="color: #94a3b8; font-size: 0.9rem; margin: 0;">The "lightweight" champion. Highest LLM
+                    affinity, perfect for rapid internal drafting and brainstorming sessions.</p>
+            </div>
+            <div class="token-card"
+                style="background: linear-gradient(145deg, rgba(96, 165, 250, 0.08), rgba(15, 23, 42, 0.9)); border-left: 1px solid rgba(255,255,255,0.06);">
+                <div class="token-count" data-target="1200" style="color: #60a5fa;">~0</div>
+                <div class="token-label" style="color: #93c5fd;">tokens per diagram</div>
+                <h4 style="color: #f8fafc; margin: 0 0 0.5rem; font-family: 'Outfit', sans-serif;">Draw.io XML (mxGraph)
+                </h4>
+                <p style="color: #94a3b8; font-size: 0.9rem; margin: 0;">The "fine-dining" option. 24x more verbose, but
+                    provides engineering precision for security zones.</p>
+            </div>
+        </div>
+
+        <div class="section-divider">
+            <div class="divider-icon"><i class="fas fa-shield-alt"></i></div>
+        </div>
+        <h2 id="technical-guardrails"><span class="gradient-text">Hard-Won Technical Guardrails</span></h2>
+        <p>If you're setting up the Draw.io MCP server, here are the "non-negotiables" to ensure your generated diagrams
+            don't break:</p>
+
+        <ul class="guardrail-list">
+            <li>
+                <strong style="color: #f8fafc;">The Double-Hyphen Rule</strong><br>
+                <span style="color: #94a3b8;">NEVER use double hyphens (--) inside XML comments. It violates XML specs
+                    and will cause parsing errors every time.</span>
+            </li>
+            <li>
+                <strong style="color: #f8fafc;">Edge Geometry Requirements</strong><br>
+                <span style="color: #94a3b8;">Every edge mxCell must contain an expanded
+                    <code>&lt;mxGeometry relative="1" as="geometry" /&gt;</code> child element. Self-closing tags simply
+                    won't render.</span>
+            </li>
+            <li>
+                <strong style="color: #f8fafc;">Parent-Child Containment</strong><br>
+                <span style="color: #94a3b8;">Don't just stack shapes. Use proper containment (like Swimlanes for VNets)
+                    and ensure children use relative coordinates to their parent.</span>
+            </li>
+        </ul>
+
+        <div class="section-divider">
+            <div class="divider-icon"><i class="fas fa-chess-board"></i></div>
+        </div>
+        <h2 id="decision-matrix"><span class="gradient-text">The Decision Matrix</span></h2>
+        <p>I use this matrix to guide my teams on which tool to use for specific missions:</p>
+
+        <div class="decision-cards">
+            <!-- Draw.io Card -->
+            <div class="decision-card" style="position: relative; overflow: hidden;">
+                <div
+                    style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #3b82f6, #60a5fa);">
+                </div>
+                <div class="tool-icon"
+                    style="background: rgba(96, 165, 250, 0.1); border: 1px solid rgba(96, 165, 250, 0.25);">
+                    <i class="fas fa-project-diagram" style="color: #60a5fa;"></i>
+                </div>
+                <h4><a href="https://www.drawio.com/" target="_blank" rel="noopener"
+                        style="color: inherit; text-decoration: none; border-bottom: 1px dashed rgba(96,165,250,0.3);">Draw.io</a>
+                </h4>
+                <div class="use-case">Permanent Technical Docs</div>
+                <ul style="list-style: none; padding: 0; margin: 0.75rem 0; text-align: left;">
+                    <li style="padding: 0.25rem 0; color: #cbd5e1; font-size: 0.8rem;"><i class="fas fa-check"
+                            style="color: #34d399; margin-right: 6px; width: 14px; font-size: 0.7rem;"></i> MCP Server
+                        (official)</li>
+                    <li style="padding: 0.25rem 0; color: #cbd5e1; font-size: 0.8rem;"><i class="fas fa-check"
+                            style="color: #34d399; margin-right: 6px; width: 14px; font-size: 0.7rem;"></i> Zero egress
+                        / offline</li>
+                    <li style="padding: 0.25rem 0; color: #cbd5e1; font-size: 0.8rem;"><i class="fas fa-check"
+                            style="color: #34d399; margin-right: 6px; width: 14px; font-size: 0.7rem;"></i> Git-native
+                        (.drawio XML)</li>
+                    <li style="padding: 0.25rem 0; color: #cbd5e1; font-size: 0.8rem;"><i class="fas fa-check"
+                            style="color: #34d399; margin-right: 6px; width: 14px; font-size: 0.7rem;"></i> 100% free &
+                        open-source</li>
+                </ul>
+                <div style="margin-top: auto; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05);">
+                    <span
+                        style="display: inline-block; padding: 0.2rem 0.5rem; background: rgba(96,165,250,0.1); border: 1px solid rgba(96,165,250,0.2); border-radius: 12px; font-size: 0.65rem; color: #93c5fd; font-weight: 600;"><i
+                            class="fas fa-shield-alt" style="margin-right: 4px;"></i> Best for: Regulated /
+                        Air-gapped</span>
+                </div>
+            </div>
+            <!-- Eraser.io Card -->
+            <div class="decision-card" style="position: relative; overflow: hidden;">
+                <div
+                    style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #a855f7, #c084fc);">
+                </div>
+                <div class="tool-icon"
+                    style="background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.25);">
+                    <i class="fas fa-sync-alt" style="color: #a855f7;"></i>
+                </div>
+                <h4><a href="https://www.eraser.io/" target="_blank" rel="noopener"
+                        style="color: inherit; text-decoration: none; border-bottom: 1px dashed rgba(168,85,247,0.3);">Eraser.io</a>
+                </h4>
+                <div class="use-case">"Self-Healing" Documentation</div>
+                <ul style="list-style: none; padding: 0; margin: 0.75rem 0; text-align: left;">
+                    <li style="padding: 0.25rem 0; color: #cbd5e1; font-size: 0.8rem;"><i class="fas fa-check"
+                            style="color: #34d399; margin-right: 6px; width: 14px; font-size: 0.7rem;"></i> Eraserbot
+                        auto-updates via Git</li>
+                    <li style="padding: 0.25rem 0; color: #cbd5e1; font-size: 0.8rem;"><i class="fas fa-check"
+                            style="color: #34d399; margin-right: 6px; width: 14px; font-size: 0.7rem;"></i>
+                        Diagram-as-markdown native</li>
+                    <li style="padding: 0.25rem 0; color: #cbd5e1; font-size: 0.8rem;"><i class="fas fa-times"
+                            style="color: #f87171; margin-right: 6px; width: 14px; font-size: 0.7rem;"></i> Cloud-only
+                        (no offline)</li>
+                    <li style="padding: 0.25rem 0; color: #cbd5e1; font-size: 0.8rem;"><i class="fas fa-check"
+                            style="color: #34d399; margin-right: 6px; width: 14px; font-size: 0.7rem;"></i> Free tier
+                        available</li>
+                </ul>
+                <div style="margin-top: auto; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05);">
+                    <span
+                        style="display: inline-block; padding: 0.2rem 0.5rem; background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.2); border-radius: 12px; font-size: 0.65rem; color: #d8b4fe; font-weight: 600;"><i
+                            class="fas fa-code-branch" style="margin-right: 4px;"></i> Best for: IaC-synced teams</span>
+                </div>
+            </div>
+            <!-- Excalidraw Card -->
+            <div class="decision-card" style="position: relative; overflow: hidden;">
+                <div
+                    style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #34d399, #6ee7b7);">
+                </div>
+                <div class="tool-icon"
+                    style="background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.25);">
+                    <i class="fas fa-pencil-alt" style="color: #34d399;"></i>
+                </div>
+                <h4><a href="https://excalidraw.com/" target="_blank" rel="noopener"
+                        style="color: inherit; text-decoration: none; border-bottom: 1px dashed rgba(52,211,153,0.3);">Excalidraw</a>
+                </h4>
+                <div class="use-case">Rapid Brainstorming</div>
+                <ul style="list-style: none; padding: 0; margin: 0.75rem 0; text-align: left;">
+                    <li style="padding: 0.25rem 0; color: #cbd5e1; font-size: 0.8rem;"><i class="fas fa-check"
+                            style="color: #34d399; margin-right: 6px; width: 14px; font-size: 0.7rem;"></i> "Napkin
+                        sketch" aesthetic</li>
+                    <li style="padding: 0.25rem 0; color: #cbd5e1; font-size: 0.8rem;"><i class="fas fa-check"
+                            style="color: #34d399; margin-right: 6px; width: 14px; font-size: 0.7rem;"></i> VS Code
+                        extension available</li>
+                    <li style="padding: 0.25rem 0; color: #cbd5e1; font-size: 0.8rem;"><i class="fas fa-times"
+                            style="color: #f87171; margin-right: 6px; width: 14px; font-size: 0.7rem;"></i> No MCP
+                        server (yet)</li>
+                    <li style="padding: 0.25rem 0; color: #cbd5e1; font-size: 0.8rem;"><i class="fas fa-check"
+                            style="color: #34d399; margin-right: 6px; width: 14px; font-size: 0.7rem;"></i> 100% free &
+                        open-source</li>
+                </ul>
+                <div style="margin-top: auto; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05);">
+                    <span
+                        style="display: inline-block; padding: 0.2rem 0.5rem; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.2); border-radius: 12px; font-size: 0.65rem; color: #6ee7b7; font-weight: 600;"><i
+                            class="fas fa-bolt" style="margin-right: 4px;"></i> Best for: Workshops / Ideation</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="glass-card"
+            style="margin: 2rem 0; padding: 0; overflow-x: auto; overflow-y: hidden; border: 1px solid rgba(255,255,255,0.06);">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 600px;">
+                <thead>
+                    <tr style="background: rgba(15, 23, 42, 0.9);">
+                        <th
+                            style="padding: 0.75rem 1rem; text-align: left; color: #94a3b8; font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">
+                            Capability</th>
+                        <th
+                            style="padding: 0.75rem 1rem; text-align: center; color: #60a5fa; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                            Draw.io</th>
+                        <th
+                            style="padding: 0.75rem 1rem; text-align: center; color: #a855f7; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                            Eraser</th>
+                        <th
+                            style="padding: 0.75rem 1rem; text-align: center; color: #34d399; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                            Excalidraw</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
+                        <td style="padding: 0.6rem 1rem; color: #cbd5e1;">MCP Integration</td>
+                        <td style="padding: 0.6rem 1rem; text-align: center; color: #34d399;">✅ Official</td>
+                        <td style="padding: 0.6rem 1rem; text-align: center; color: #f87171;">❌</td>
+                        <td style="padding: 0.6rem 1rem; text-align: center; color: #f87171;">❌</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.01);">
+                        <td style="padding: 0.6rem 1rem; color: #cbd5e1;">Zero Egress / Offline</td>
+                        <td style="padding: 0.6rem 1rem; text-align: center; color: #34d399;">✅</td>
+                        <td style="padding: 0.6rem 1rem; text-align: center; color: #f87171;">❌</td>
+                        <td style="padding: 0.6rem 1rem; text-align: center; color: #34d399;">✅</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
+                        <td style="padding: 0.6rem 1rem; color: #cbd5e1;">Git-Native Format</td>
+                        <td style="padding: 0.6rem 1rem; text-align: center; color: #34d399;">✅ XML</td>
+                        <td style="padding: 0.6rem 1rem; text-align: center; color: #34d399;">✅ MD</td>
+                        <td style="padding: 0.6rem 1rem; text-align: center; color: #34d399;">✅ JSON</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.01);">
+                        <td style="padding: 0.6rem 1rem; color: #cbd5e1;">Auto-Sync from IaC</td>
+                        <td style="padding: 0.6rem 1rem; text-align: center; color: #fbbf24;">🟡 Via MCP</td>
+                        <td style="padding: 0.6rem 1rem; text-align: center; color: #34d399;">✅ Eraserbot</td>
+                        <td style="padding: 0.6rem 1rem; text-align: center; color: #f87171;">❌</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.6rem 1rem; color: #cbd5e1;">Cost</td>
+                        <td style="padding: 0.6rem 1rem; text-align: center; color: #34d399; font-weight: 600;">
+                            <a href="https://www.drawio.com/" target="_blank"
+                                style="color: inherit; text-decoration: underline; text-underline-offset: 2px;">Free</a>
+                        </td>
+                        <td style="padding: 0.6rem 1rem; text-align: center; color: #cbd5e1;">
+                            <a href="https://www.eraser.io/pricing" target="_blank"
+                                style="color: inherit; text-decoration: underline; text-underline-offset: 2px;">Freemium</a>
+                        </td>
+                        <td style="padding: 0.6rem 1rem; text-align: center; color: #cbd5e1;">
+                            <a href="https://plus.excalidraw.com/pricing" target="_blank"
+                                style="color: inherit; text-decoration: underline; text-underline-offset: 2px;">Freemium</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Interactive Decision Quiz -->
+        <div class="section-divider">
+            <div class="divider-icon"><i class="fas fa-question-circle"></i></div>
+        </div>
+        <h2 id="tool-quiz"><span class="gradient-text">Find Your Tool</span></h2>
+        <p>Not sure which tool fits your workflow? Take this <strong>15-second quiz</strong> to get a personalized
+            recommendation:</p>
+
+        <div class="quiz-container" id="tool-quiz-container">
+            <div class="quiz-header">
+                <h3><i class="fas fa-compass" style="color: #a855f7; margin-right: 8px;"></i> Diagramming Tool Finder
+                </h3>
+                <p>Answer 3 quick questions to find your ideal match</p>
+            </div>
+            <div class="quiz-progress">
+                <div class="quiz-dot active" data-step="1"></div>
+                <div class="quiz-dot" data-step="2"></div>
+                <div class="quiz-dot" data-step="3"></div>
+            </div>
+
+            <!-- Q1 -->
+            <div class="quiz-question active" data-q="1">
+                <h4>What is your primary use case?</h4>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-value="precision" onclick="quizSelect(this)"><i
+                            class="fas fa-bullseye" style="color: #60a5fa; margin-right: 8px;"></i> Production-grade
+                        Azure architecture docs</div>
+                    <div class="quiz-option" data-value="sync" onclick="quizSelect(this)"><i class="fas fa-sync"
+                            style="color: #a855f7; margin-right: 8px;"></i> Living docs that auto-sync with code/IaC
+                    </div>
+                    <div class="quiz-option" data-value="ideation" onclick="quizSelect(this)"><i
+                            class="fas fa-lightbulb" style="color: #fbbf24; margin-right: 8px;"></i> Rapid brainstorming
+                        and early-stage design</div>
+                </div>
+            </div>
+            <!-- Q2 -->
+            <div class="quiz-question" data-q="2">
+                <h4>How important is data sovereignty / zero egress?</h4>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-value="critical" onclick="quizSelect(this)"><i class="fas fa-lock"
+                            style="color: #f87171; margin-right: 8px;"></i> Critical &mdash; regulated industry (BFSI,
+                        Gov, Healthcare)</div>
+                    <div class="quiz-option" data-value="moderate" onclick="quizSelect(this)"><i
+                            class="fas fa-shield-alt" style="color: #fbbf24; margin-right: 8px;"></i> Important but not
+                        a hard blocker</div>
+                    <div class="quiz-option" data-value="low" onclick="quizSelect(this)"><i class="fas fa-globe"
+                            style="color: #34d399; margin-right: 8px;"></i> Not a concern &mdash; standard enterprise
+                        SaaS is fine</div>
+                </div>
+            </div>
+            <!-- Q3 -->
+            <div class="quiz-question" data-q="3">
+                <h4>What's your team's AI maturity level?</h4>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-value="advanced" onclick="quizSelect(this)"><i class="fas fa-robot"
+                            style="color: #a855f7; margin-right: 8px;"></i> We use MCP / Copilot Agent Skills today
+                    </div>
+                    <div class="quiz-option" data-value="growing" onclick="quizSelect(this)"><i class="fas fa-seedling"
+                            style="color: #34d399; margin-right: 8px;"></i> We use Copilot but haven't explored agents
+                    </div>
+                    <div class="quiz-option" data-value="exploring" onclick="quizSelect(this)"><i
+                            class="fas fa-map-signs" style="color: #60a5fa; margin-right: 8px;"></i> Still evaluating
+                        AI-assisted workflows</div>
+                </div>
+            </div>
+
+            <!-- Result -->
+            <div class="quiz-result" id="quiz-result"></div>
+        </div>
+
+        <div class="section-divider">
+            <div class="divider-icon"><i class="fas fa-rocket"></i></div>
+        </div>
+        <h2 id="execution-sequence"><span class="gradient-text">Execution Sequence: The "Programmable" Workflow</span>
+        </h2>
+
+        <div class="glow-timeline">
+            <div class="timeline-step" data-step="1">
+                <h4><i class="fas fa-wand-magic-sparkles" style="color: #a855f7; margin-right: 8px;"></i> Define the
+                    Vibe</h4>
+                <p>Use an LLM to draft the high-level architecture in Mermaid.js. Low token cost, maximum creative
+                    velocity.</p>
+            </div>
+            <div class="timeline-step" data-step="2">
+                <h4><i class="fas fa-arrow-up-right-dots" style="color: #3b82f6; margin-right: 8px;"></i> Elevate to
+                    Precision</h4>
+                <p>Trigger the <code>drawio-mcp</code> server to convert the draft into detailed mxGraph XML with
+                    pixel-perfect layout.</p>
+            </div>
+            <div class="timeline-step" data-step="3">
+                <h4><i class="fas fa-shield-halved" style="color: #fbbf24; margin-right: 8px;"></i> Apply Governance
+                </h4>
+                <p>Run the "Azure Diagram Agent Skill" to enforce VNet boundaries, official Azure2 icon standards, and
+                    regional compliance.</p>
+            </div>
+            <div class="timeline-step" data-step="4">
+                <h4><i class="fas fa-code-commit" style="color: #34d399; margin-right: 8px;"></i> Version & Commit</h4>
+                <p>Save the <code>.drawio</code> file directly to the Git repository alongside your Bicep/Terraform IaC.
+                    Zero drift guaranteed.</p>
+            </div>
+        </div>
+
+        <!-- Reference Implementation Section -->
+        <div class="section-divider">
+            <div class="divider-icon"><i class="fab fa-github"></i></div>
+        </div>
+        <h2 id="reference-impl"><span class="gradient-text">Reference Implementation</span></h2>
+        <p>Theory is valuable, but <strong>production-ready code is priceless</strong>. For teams looking to
+            operationalize this workflow today, Thomas Thornton's open-source repo provides a battle-tested starting
+            point:</p>
+
+        <div class="glass-card"
+            style="position: relative; overflow: hidden; border: 1px solid rgba(96, 165, 250, 0.25); background: linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.6));">
+            <!-- Accent glow -->
+            <div
+                style="position: absolute; top: -30px; right: -30px; width: 150px; height: 150px; background: radial-gradient(circle, rgba(96, 165, 250, 0.1) 0%, transparent 70%); pointer-events: none;">
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem;">
+                <div
+                    style="width: 48px; height: 48px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <i class="fab fa-github" style="color: #f8fafc; font-size: 1.4rem;"></i>
+                </div>
+                <div>
+                    <h4
+                        style="color: #f8fafc; margin: 0 0 0.25rem; font-family: 'Outfit', sans-serif; font-size: 1.15rem;">
+                        GitHub Copilot Agent Skills</h4>
+                    <span style="color: #94a3b8; font-size: 0.85rem;">by Thomas Thornton &middot; Open Source</span>
+                </div>
+            </div>
+
+            <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.25rem;">A curated
+                collection of GitHub Copilot <strong>Agents</strong> and <strong>Skills</strong> for Azure architecture
+                workflows. Invoke <code style="color: #60a5fa;">@azure-architect</code> directly in VS Code to run
+                pre-built skills for diagramming, cost optimization, WAF assessments, and APIM policy authoring.</p>
+
+            <!-- Skill Badges -->
+            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
+                <span
+                    style="padding: 0.35rem 0.75rem; background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.25); border-radius: 6px; font-size: 0.75rem; color: #c084fc; font-weight: 600;"><i
+                        class="fas fa-project-diagram" style="margin-right: 4px;"></i>
+                    azure-drawio-mcp-diagramming</span>
+                <span
+                    style="padding: 0.35rem 0.75rem; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 6px; font-size: 0.75rem; color: #60a5fa; font-weight: 600;"><i
+                        class="fas fa-drafting-compass" style="margin-right: 4px;"></i> architecture-design</span>
+                <span
+                    style="padding: 0.35rem 0.75rem; background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.25); border-radius: 6px; font-size: 0.75rem; color: #34d399; font-weight: 600;"><i
+                        class="fas fa-coins" style="margin-right: 4px;"></i> cost-optimization</span>
+                <span
+                    style="padding: 0.35rem 0.75rem; background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.25); border-radius: 6px; font-size: 0.75rem; color: #fbbf24; font-weight: 600;"><i
+                        class="fas fa-shield-alt" style="margin-right: 4px;"></i> waf-assessment</span>
+                <span
+                    style="padding: 0.35rem 0.75rem; background: rgba(248, 113, 113, 0.1); border: 1px solid rgba(248, 113, 113, 0.25); border-radius: 6px; font-size: 0.75rem; color: #f87171; font-weight: 600;"><i
+                        class="fas fa-key" style="margin-right: 4px;"></i> api-security-review</span>
+            </div>
+
+            <a href="https://github.com/thomast1906/github-copilot-agent-skills" target="_blank"
+                rel="noopener noreferrer"
+                style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.65rem 1.25rem; background: linear-gradient(135deg, #3b82f6, #2563eb); color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.9rem; transition: all 0.2s ease; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);"
+                onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(59,130,246,0.4)'"
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(59,130,246,0.3)'">
+                <i class="fab fa-github"></i> Explore on GitHub <i class="fas fa-arrow-right"
+                    style="font-size: 0.75rem;"></i>
+            </a>
+        </div>
+
+        <p>
+            The age of agents as passive code generators is over. The age of agents as tool-wielding collaborators has
+            begun. By treating diagrams as living, version-controlled assets, we bridge the gap between abstract design
+            and concrete implementation.
+        </p>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h3>Ready to operationalize your Azure journey?</h3>
+        <p>
+            Leveraging programmable architecture is a key pillar of the modern Cloud Center of Excellence (CCoE). If
+            you're looking to automate your documentation and reduce technical debt, let's talk.
+        </p>
+        <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+            <a href="../pages/contact.html" class="btn btn-primary">Contact Me</a>
+            <a href="../pages/azure-migration-toolkit.html" class="btn btn-outline">View the Toolkit</a>
+        </div>
+
+        <!-- Social Share Section -->
+        <div class="social-share-container">
+            <p
+                style="color: #94a3b8; font-size: 0.8rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700;">
+                Spread the Insight</p>
+            <div class="social-share-buttons">
+                <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn(event)" title="Share on LinkedIn"
+                    aria-label="Share on LinkedIn">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+                <a href="#" class="share-btn twitter" onclick="shareOnTwitter(event)" title="Share on X (Twitter)"
+                    aria-label="Share on Twitter">
+                    <i class="fab fa-x-twitter"></i> Twitter
+                </a>
+                <a href="#" class="share-btn facebook" onclick="shareOnFacebook(event)" title="Share on Facebook">
+                    <i class="fab fa-facebook-f"></i> Facebook
+                </a>
+                <button class="share-btn copy-link" onclick="copyPageLink(this)" title="Copy Link"
+                    aria-label="Copy Page Link">
+                    <i class="fas fa-link"></i> <span class="btn-text">Copy Link</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Back to Blog Button -->
+        <div style="text-align: center; margin: 4rem 0;">
+            <a href="../blog.html" class="btn btn-primary" style="display: inline-block; padding: 1rem 2rem;">
+                <i class="fas fa-arrow-left"></i> Back to Insights
+            </a>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Upendra Kumar. All rights reserved.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/journeytocloudwithupendra/" target="_blank" title="LinkedIn"
+                    aria-label="LinkedIn Profile">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/appliedailearner" target="_blank" title="GitHub"
+                    aria-label="GitHub Repository">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+
+            <div class="footer-qr-container"
+                style="margin-top: 2rem; display: flex; flex-direction: column; align-items: center;">
+                <div
+                    style="padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.08); margin-top: 1.5rem; width: 100%; max-width: 500px; backdrop-filter: blur(8px);">
+                    <div style="display: flex; justify-content: space-around; font-size: 0.8rem; text-align: center;">
+                        <div>
+                            <div
+                                style="color: rgba(255, 255, 255, 0.5); margin-bottom: 0.25rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                                UX Speed</div>
+                            <div id="ux-speed"
+                                style="font-weight: 600; font-family: 'JetBrains Mono', monospace; color: #34d399;">--ms
+                            </div>
+                        </div>
+                        <div style="width: 1px; background: rgba(255, 255, 255, 0.1); margin: 0 0.5rem;"></div>
+                        <div>
+                            <div
+                                style="color: rgba(255, 255, 255, 0.5); margin-bottom: 0.25rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                                Privacy Hits</div>
+                            <div id="privacy-hits"
+                                style="font-weight: 600; font-family: 'JetBrains Mono', monospace; color: #60a5fa;">0
+                            </div>
+                        </div>
+                        <div style="width: 1px; background: rgba(255, 255, 255, 0.1); margin: 0 0.5rem;"></div>
+                        <div>
+                            <div
+                                style="color: rgba(255, 255, 255, 0.5); margin-bottom: 0.25rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                                Edge Node</div>
+                            <div style="font-weight: 600; font-family: 'JetBrains Mono', monospace; color: #fbbf24;">
+                                IN-CENTRAL</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    style="padding: 0.5rem; background: rgba(255, 255, 255, 0.05); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); margin-top: 1rem;">
+                    <div class="status-ticker" id="system-status">
+                        <span class="status-dot pulse"></span>
+                        <span class="status-text">System Status: <span id="status-val">Online</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/particles.js"></script>
+
+    <!-- ===== INTERACTIVE FEATURES SCRIPT ===== -->
+    <script>
+        (function () {
+            'use strict';
+
+            // 1. READING PROGRESS BAR
+            const progressBar = document.getElementById('reading-progress');
+            if (progressBar) {
+                window.addEventListener('scroll', () => {
+                    const scrollTop = window.scrollY;
+                    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    const progress = Math.min((scrollTop / docHeight) * 100, 100);
+                    progressBar.style.width = progress + '%';
+                }, { passive: true });
+            }
+
+            // 2. ANIMATED TOKEN COUNTERS
+            const counters = document.querySelectorAll('.token-count[data-target]');
+            let counterObserved = false;
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !counterObserved) {
+                        counterObserved = true;
+                        counters.forEach(counter => {
+                            const target = parseInt(counter.dataset.target);
+                            const duration = 1500;
+                            const startTime = performance.now();
+                            const easeOut = t => 1 - Math.pow(1 - t, 3);
+                            function animate(now) {
+                                const elapsed = now - startTime;
+                                const progress = Math.min(elapsed / duration, 1);
+                                const current = Math.round(easeOut(progress) * target);
+                                counter.textContent = '~' + current.toLocaleString();
+                                if (progress < 1) {
+                                    requestAnimationFrame(animate);
+                                } else {
+                                    counter.classList.add('counted');
+                                }
+                            }
+                            requestAnimationFrame(animate);
+                        });
+                    }
+                });
+            }, { threshold: 0.5 });
+            const tokenSection = document.querySelector('.token-compare');
+            if (tokenSection) counterObserver.observe(tokenSection);
+
+            // 3. COPY-TO-CLIPBOARD ON CODE ELEMENTS
+            document.querySelectorAll('.blog-post-content code').forEach(codeEl => {
+                if (codeEl.closest('pre')) return; // skip code blocks inside <pre>
+                const text = codeEl.textContent.trim();
+                if (text.length < 3 || text.length > 80) return; // skip very short or long
+                const wrapper = document.createElement('span');
+                wrapper.className = 'code-copy-wrapper';
+                codeEl.parentNode.insertBefore(wrapper, codeEl);
+                wrapper.appendChild(codeEl);
+                const btn = document.createElement('button');
+                btn.className = 'copy-code-btn';
+                btn.innerHTML = '<i class="fas fa-copy"></i>';
+                btn.title = 'Copy';
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    navigator.clipboard.writeText(text).then(() => {
+                        btn.innerHTML = '<i class="fas fa-check"></i>';
+                        btn.classList.add('copied');
+                        setTimeout(() => {
+                            btn.innerHTML = '<i class="fas fa-copy"></i>';
+                            btn.classList.remove('copied');
+                        }, 1500);
+                    });
+                });
+                wrapper.appendChild(btn);
+            });
+
+            // 4. INTERACTIVE DECISION QUIZ
+            const quizAnswers = [];
+            window.quizSelect = function (optionEl) {
+                const questionEl = optionEl.closest('.quiz-question');
+                const qNum = parseInt(questionEl.dataset.q);
+                // highlight selection
+                questionEl.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+                optionEl.classList.add('selected');
+                quizAnswers[qNum - 1] = optionEl.dataset.value;
+                // short delay then advance
+                setTimeout(() => {
+                    if (qNum < 3) {
+                        // advance to next question
+                        questionEl.classList.remove('active');
+                        document.querySelector('.quiz-question[data-q="' + (qNum + 1) + '"]').classList.add('active');
+                        // update dots
+                        document.querySelectorAll('.quiz-dot').forEach(dot => {
+                            const step = parseInt(dot.dataset.step);
+                            dot.classList.remove('active', 'complete');
+                            if (step < qNum + 1) dot.classList.add('complete');
+                            if (step === qNum + 1) dot.classList.add('active');
+                        });
+                    } else {
+                        // show result
+                        questionEl.classList.remove('active');
+                        document.querySelectorAll('.quiz-dot').forEach(d => {
+                            d.classList.remove('active');
+                            d.classList.add('complete');
+                        });
+                        showQuizResult();
+                    }
+                }, 400);
+            };
+
+            function showQuizResult() {
+                const [useCase, security, maturity] = quizAnswers;
+                let tool, color, borderColor, icon, subtitle, reason;
+
+                if (useCase === 'precision' || security === 'critical') {
+                    tool = 'Draw.io + MCP';
+                    color = '#60a5fa';
+                    borderColor = 'rgba(96, 165, 250, 0.3)';
+                    icon = 'fa-project-diagram';
+                    subtitle = 'Maximum Precision & Sovereignty';
+                    reason = 'Your need for production-grade accuracy and data sovereignty makes Draw.io with the MCP server your ideal choice. Zero egress, full XML control, and Git-native versioning.';
+                } else if (useCase === 'sync' || maturity === 'advanced') {
+                    tool = 'Eraser.io';
+                    color = '#a855f7';
+                    borderColor = 'rgba(168, 85, 247, 0.3)';
+                    icon = 'fa-sync-alt';
+                    subtitle = 'Self-Healing & Code-Synced';
+                    reason = 'Your focus on living documentation and advanced AI maturity makes Eraser.io the best fit. Eraserbot auto-updates diagrams when your Git repo changes.';
+                } else {
+                    tool = 'Excalidraw';
+                    color = '#34d399';
+                    borderColor = 'rgba(52, 211, 153, 0.3)';
+                    icon = 'fa-pencil-alt';
+                    subtitle = 'Fast & Friction-Free';
+                    reason = 'For rapid brainstorming and early-stage ideation, Excalidraw gives you the lowest friction. Perfect for whiteboard sessions that don\'t need engineering precision yet.';
+                }
+
+                const resultEl = document.getElementById('quiz-result');
+                resultEl.innerHTML = `
+                <div class="quiz-result-card" style="background: linear-gradient(145deg, rgba(15,23,42,0.9), rgba(30,41,59,0.5)); border: 1px solid ${borderColor}; border-top: 3px solid ${color};">
+                    <div style="width: 55px; height: 55px; background: ${color}15; border: 1px solid ${borderColor}; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.4rem;">
+                        <i class="fas ${icon}" style="color: ${color};"></i>
+                    </div>
+                    <h3 style="color: ${color};">${tool}</h3>
+                    <div class="result-subtitle" style="color: ${color}99;">${subtitle}</div>
+                    <p style="color: #94a3b8;">${reason}</p>
+                </div>
+                <button class="quiz-restart" onclick="restartQuiz()"><i class="fas fa-redo" style="margin-right: 6px;"></i> Retake Quiz</button>
+            `;
+                resultEl.classList.add('active');
+            }
+
+            window.restartQuiz = function () {
+                quizAnswers.length = 0;
+                document.getElementById('quiz-result').classList.remove('active');
+                document.getElementById('quiz-result').innerHTML = '';
+                document.querySelectorAll('.quiz-question').forEach((q, i) => {
+                    q.classList.toggle('active', i === 0);
+                    q.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+                });
+                document.querySelectorAll('.quiz-dot').forEach((d, i) => {
+                    d.classList.remove('complete');
+                    d.classList.toggle('active', i === 0);
+                });
+            };
+        })();
+    </script>
+    <script src="../js/main.js"></script>
+
+    <!-- Table of Contents Observer -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tocList = document.querySelector('.toc-list');
+            if (tocList) {
+                const headers = document.querySelectorAll('.blog-post-content h2');
+                const tocLinks = document.querySelectorAll('.toc-link');
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            tocLinks.forEach(link => {
+                                link.classList.remove('active');
+                                if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                    link.classList.add('active');
+                                }
+                            });
+                        }
+                    });
+                }, { rootMargin: '0px 0px -80% 0px', threshold: 0.1 });
+                headers.forEach(header => observer.observe(header));
+            }
+        });
+    </script>
+
+    <!-- Interactive Stateful Checklist -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pageKey = window.location.pathname.split('/').pop().replace('.html', '');
+            const checkboxes = document.querySelectorAll('.checklist-group input[type="checkbox"]');
+
+            checkboxes.forEach((cb, index) => {
+                const storageKey = `checklist_${pageKey}_${index}`;
+                if (localStorage.getItem(storageKey) === 'true') {
+                    cb.checked = true;
+                    cb.closest('label').style.opacity = '0.5';
+                }
+                cb.addEventListener('change', (e) => {
+                    localStorage.setItem(storageKey, e.target.checked);
+                    e.target.closest('label').style.opacity = e.target.checked ? '0.5' : '1';
+                });
+            });
+        });
+
+        function shareOnLinkedIn(e) {
+            e.preventDefault();
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=600');
+        }
+
+        function shareOnTwitter(e) {
+            e.preventDefault();
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent(document.title);
+            window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
+        }
+
+        function shareOnFacebook(e) {
+            e.preventDefault();
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+        }
+
+        function copyPageLink(btn) {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                const btnText = btn.querySelector('.btn-text');
+                const originalText = btnText.innerText;
+                btnText.innerText = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btnText.innerText = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+    </script>
+
+    <!-- ELI5 Smart Glossary Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const glossaryTerms = {
+                "MCP": "Model Context Protocol - A universal interface that lets AI models talk directly to engineering tools like Draw.io.",
+                "mxGraph": "The XML-based format used by Draw.io to define complex spatial relationships in architecture diagrams.",
+                "Tokenomics": "The study of how efficiently an AI uses 'tokens' (data chunks) to process complex designs without blowing the budget.",
+                "Zero Egress": "A security mandate ensuring that sensitive architectural data never leaves a controlled environment during AI processing.",
+                "Vibe Diagramming": "A conversational, high-level approach where you describe architecture and the AI generates the precise visual."
+            };
+
+            const contentBlock = document.querySelector('.blog-post-content');
+            if (contentBlock && glossaryTerms && Object.keys(glossaryTerms).length > 0) {
+                const terms = Object.keys(glossaryTerms).sort((a, b) => b.length - a.length);
+                const termsRegex = new RegExp(`\\b(${terms.join('|')})\\b`, 'g');
+
+                // Helper to walk text nodes and replace terms
+                const walk = (node) => {
+                    if (node.nodeType === 3) {
+                        const original = node.nodeValue;
+                        if (termsRegex.test(original)) {
+                            const span = document.createElement('span');
+                            span.innerHTML = original.replace(termsRegex, match => {
+                                return `<span class="eli5-term" data-tooltip="${glossaryTerms[match]}">${match}</span>`;
+                            });
+                            node.parentNode.replaceChild(span, node);
+                        }
+                    } else if (node.nodeType === 1 && node.tagName !== 'A' && node.tagName !== 'CODE' && !node.classList.contains('eli5-term')) {
+                        Array.from(node.childNodes).forEach(walk);
+                    }
+                };
+                // walk(contentBlock); // Disabled to prevent double-wrapping since we manually added some
+            }
+        });
+    </script>
+</body>
+
+</html>

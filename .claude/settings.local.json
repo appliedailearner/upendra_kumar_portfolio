@@ -1,0 +1,43 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(magick --version)",
+      "Bash(convert --version)",
+      "Bash(cwebp --version)",
+      "Bash(python3 -c \"from PIL import Image; print\\('Pillow available'\\)\")",
+      "Bash(python -c \"from PIL import Image; print\\('Pillow available'\\)\")",
+      "Bash(echo \"exit: $?\")",
+      "Bash(python3 -c \"from PIL import Image; print\\('Pillow OK'\\)\")",
+      "Bash(python3 -c \"import cwebp; print\\('cwebp OK'\\)\")",
+      "Bash(ffmpeg -version)",
+      "Bash(node -e \"require\\('sharp'\\)\")",
+      "Bash(ffmpeg -i azure_ai_dr_landing_zone.png -c:v libwebp -quality 90 -y azure_ai_dr_landing_zone.webp)",
+      "Bash(ffmpeg -i azure_dr_failover_runbook.png -c:v libwebp -quality 90 -y azure_dr_failover_runbook.webp)",
+      "Bash(dir \"c:\\\\MyResumePortfolio\\\\blog\\\\Azure APIM and AI DR\\\\*.png\" \"c:\\\\MyResumePortfolio\\\\blog\\\\Azure APIM and AI DR\\\\*.webp\")",
+      "Bash(ffprobe -v quiet -print_format json -show_streams \"c:/MyResumePortfolio/blog/Azure APIM and AI DR/azure_ai_dr_landing_zone.png\")",
+      "Bash(ffprobe -v quiet -print_format json -show_streams \"c:/MyResumePortfolio/blog/Azure APIM and AI DR/azure_dr_failover_runbook.png\")",
+      "Bash(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 \"c:/MyResumePortfolio/blog/Azure APIM and AI DR/azure_ai_dr_landing_zone.png\")",
+      "Bash(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 \"c:/MyResumePortfolio/blog/Azure APIM and AI DR/azure_dr_failover_runbook.png\")",
+      "Bash(git -C \"c:/MyResumePortfolio\" diff --stat HEAD -- \"blog/2026-04-18-azure-apim-ai-foundry-dr-uae-sweden.html\")",
+      "Bash(git -C \"c:/MyResumePortfolio\" status --short -- \"blog/Azure APIM and AI DR/\")",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File ./deploy-azure.ps1)",
+      "Bash(node -e \"require\\('playwright'\\)\")",
+      "Bash(npx playwright *)",
+      "Bash(node -e \"const {chromium}=require\\('playwright-core'\\); chromium.executablePath && console.log\\('chromium OK:', chromium.executablePath\\(\\)\\)\")",
+      "Bash(node blog-visual-test.js)",
+      "Bash(node -e \"require\\('C:/MyResumePortfolio/node_modules/playwright-core'\\); console.log\\('ok'\\)\")",
+      "Bash(node \"c:/tmp/find-overflow.js\")",
+      "Bash(node find-overflow.js)",
+      "Bash(node blog-local-test.js)",
+      "Bash(node \"c:/tmp/blog-local-test.js\")",
+      "Bash(node \"c:/tmp/mobile-audit.js\")",
+      "Bash(node c:/tmp/mobile-audit.js)",
+      "Bash(node \"c:/tmp/focused-check.js\")",
+      "Bash(node \"c:/tmp/deep-mobile-check.js\")",
+      "Bash(node -e ' *)"
+    ]
+  }
+}

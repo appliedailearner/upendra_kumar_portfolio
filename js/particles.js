@@ -13,12 +13,12 @@ if (canvas && ctx) {
 
     // Configuration
     const config = {
-        particleCount: 60,
-        connectionDistance: 150,
+        particleCount: 40,        // Reduced from 60
+        connectionDistance: 120, // Reduced from 150
         mouseRadius: 150,
-        baseColor: 'rgba(56, 189, 248, 0.5)', // Sky blue
+        baseColor: 'rgba(56, 189, 248, 0.5)',
         lineColor: 'rgba(56, 189, 248, 0.15)',
-        particleSpeed: 0.3 // Very slow, subtle
+        particleSpeed: 0.25      // Slightly slower
     };
 
     // Handle Resize

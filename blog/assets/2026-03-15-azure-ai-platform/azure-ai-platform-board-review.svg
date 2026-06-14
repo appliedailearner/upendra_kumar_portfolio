@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1120" viewBox="0 0 1800 1120" role="img" aria-labelledby="t d">
+  <title id="t">Azure AI Platform Board Review Diagram</title>
+  <desc id="d">Board-review architecture diagram for a multi-region Azure AI platform with primary UAE North, DR UK Central, Traffic Manager ingress, APIM gateway, App Service orchestration, AI services, shared services, connectivity, and governance.</desc>
+  <defs>
+    <style>
+      text{font-family:"Segoe UI",Arial,sans-serif;fill:#1b1b1b}
+      .bg{fill:#f6f8fb}.box{fill:#fff;stroke:#d2dae5;stroke-width:1.4;rx:16}.sub{fill:#fff;stroke:#7ea7cf;stroke-width:1.4;rx:12}
+      .head{fill:#0f6cbd;rx:12}.pri{fill:#f4fbff;stroke:#77b6df;stroke-width:1.3;rx:12}.dr{fill:#f7fcf3;stroke:#95bd84;stroke-width:1.3;rx:12}
+      .gov{fill:#f5f6fb;stroke:#959db0;stroke-width:1.3;rx:12}.note{fill:#fffaf0;stroke:#d3a74e;stroke-width:1.2;rx:12}
+      .card{fill:#fff;stroke:#8fa8c1;stroke-width:1.1;rx:9}.carddr{fill:#fff;stroke:#95b98c;stroke-width:1.1;rx:9}
+      .title{font-size:30px;font-weight:700}.subt{font-size:15px;fill:#4d4d4d}.sec{font-size:20px;font-weight:700;fill:#0f3b68}.subsec{font-size:16px;font-weight:700}
+      .ct{font-size:13px;font-weight:700}.cs{font-size:11px;fill:#4f4f4f}.hw{font-size:14px;font-weight:700;fill:#fff}.lb{font-size:12px;font-weight:700;fill:#1f4e79}
+      .flow{stroke:#2b579a;stroke-width:2.8;fill:none;marker-end:url(#b)}.flowdr{stroke:#5e9732;stroke-width:2.8;fill:none;marker-end:url(#g)}.dash{stroke:#7b7b7b;stroke-width:2.2;fill:none;stroke-dasharray:8 6;marker-end:url(#n)}
+    </style>
+    <marker id="b" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2b579a"/></marker>
+    <marker id="g" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5e9732"/></marker>
+    <marker id="n" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#7b7b7b"/></marker>
+  </defs>
+  <rect class="bg" x="0" y="0" width="1800" height="1120"/>
+  <text class="title" x="28" y="42">Azure AI Platform Reference Architecture</text>
+  <text class="subt" x="28" y="66">Board-review view with clear production story, DR posture, and centralized platform controls</text>
+
+  <rect class="box" x="20" y="86" width="1760" height="84"/>
+  <text class="sec" x="38" y="116">1. Consumers and Global Entry</text>
+  <rect class="card" x="90" y="128" width="190" height="28"/><text class="ct" x="112" y="146">Enterprise users</text>
+  <rect class="card" x="300" y="128" width="220" height="28"/><text class="ct" x="322" y="146">Business apps and channels</text>
+  <rect class="card" x="690" y="118" width="300" height="42"/><text class="ct" x="712" y="140">Azure Traffic Manager</text><text class="cs" x="712" y="153">Current DNS-based global routing layer</text>
+  <rect class="note" x="1030" y="118" width="330" height="42"/><text class="ct" x="1050" y="140">Future enhancement: Azure Front Door</text><text class="cs" x="1050" y="153">Roadmap option, not current-state ingress</text>
+
+  <rect class="box" x="20" y="186" width="1760" height="324"/>
+  <text class="sec" x="38" y="216">2. Production AI Landing Zone</text>
+  <rect class="sub" x="48" y="234" width="1288" height="254"/><rect class="head" x="48" y="234" width="1288" height="32"/><text class="hw" x="64" y="254">sub-prod-ai-01 | Production workload boundary</text>
+  <rect class="pri" x="70" y="284" width="610" height="180"/><text class="subsec" x="88" y="310">Primary Region | UAE North</text><text class="cs" x="88" y="328">rg-ai-prod-uaen-01 | vnet-ai-prod-uaen-01</text>
+  <rect class="card" x="88" y="350" width="160" height="48"/><text class="ct" x="106" y="374">Application Gateway + WAF</text><text class="cs" x="106" y="388">Regional ingress</text>
+  <rect class="card" x="266" y="350" width="140" height="48"/><text class="ct" x="284" y="374">API Management</text><text class="cs" x="284" y="388">AI gateway</text>
+  <rect class="card" x="424" y="350" width="230" height="48"/><text class="ct" x="442" y="374">App Service / AI orchestrator</text><text class="cs" x="442" y="388">Prompt orchestration and business logic</text>
+  <rect class="card" x="88" y="416" width="132" height="34"/><text class="ct" x="106" y="438">Azure AI Search</text>
+  <rect class="card" x="236" y="416" width="166" height="34"/><text class="ct" x="254" y="438">Azure OpenAI GPT-4o PTU</text>
+  <rect class="card" x="418" y="416" width="150" height="34"/><text class="ct" x="436" y="438">Document Intelligence</text>
+  <rect class="card" x="584" y="416" width="70" height="34"/><text class="ct" x="600" y="438">Storage</text>
+  <rect class="dr" x="706" y="284" width="608" height="180"/><text class="subsec" x="724" y="310">Secondary / DR Region | UK Central</text><text class="cs" x="724" y="328">rg-ai-prod-ukc-01 | vnet-ai-prod-ukc-01</text>
+  <rect class="carddr" x="724" y="350" width="160" height="48"/><text class="ct" x="742" y="374">Application Gateway + WAF</text><text class="cs" x="742" y="388">Regional DR ingress</text>
+  <rect class="carddr" x="902" y="350" width="140" height="48"/><text class="ct" x="920" y="374">API Management</text><text class="cs" x="920" y="388">Regional gateway</text>
+  <rect class="carddr" x="1060" y="350" width="230" height="48"/><text class="ct" x="1078" y="374">App Service / AI orchestrator</text><text class="cs" x="1078" y="388">Failover runtime</text>
+  <rect class="carddr" x="724" y="416" width="132" height="34"/><text class="ct" x="742" y="438">Azure AI Search</text>
+  <rect class="carddr" x="872" y="416" width="176" height="34"/><text class="ct" x="890" y="438">Azure OpenAI warm DR option</text>
+  <rect class="carddr" x="1064" y="416" width="160" height="34"/><text class="ct" x="1082" y="438">Document Intelligence DR</text>
+  <rect class="carddr" x="1240" y="416" width="50" height="34"/><text class="ct" x="1248" y="438">Storage</text>
+  <rect class="note" x="1360" y="234" width="396" height="254"/>
+  <text class="subsec" x="1380" y="260">Design decisions</text>
+  <text class="cs" x="1380" y="288">1. Traffic Manager is the current global routing layer.</text>
+  <text class="cs" x="1380" y="308">2. Azure Front Door is future-state.</text>
+  <text class="cs" x="1380" y="328">3. GPT-4o PTU resides in UAE North.</text>
+  <text class="cs" x="1380" y="348">4. UK Central supports warm DR or degraded DR.</text>
+  <text class="cs" x="1380" y="368">5. AI Search needs a DR recovery pattern.</text>
+  <text class="cs" x="1380" y="388">6. Document Intelligence models must be copied to DR.</text>
+  <text class="cs" x="1380" y="408">7. Private endpoints only for AI services.</text>
+  <text class="cs" x="1380" y="428">8. Managed identity is preferred over API keys.</text>
+
+  <rect class="box" x="20" y="528" width="1760" height="170"/>
+  <text class="sec" x="38" y="558">3. Shared Services and Control Plane</text>
+  <rect class="sub" x="48" y="578" width="520" height="98"/><rect class="head" x="48" y="578" width="520" height="30"/><text class="hw" x="64" y="597">sub-sharedservices-01</text>
+  <rect class="card" x="72" y="622" width="120" height="32"/><text class="ct" x="88" y="643">Key Vault</text>
+  <rect class="card" x="206" y="622" width="126" height="32"/><text class="ct" x="222" y="643">Private DNS</text>
+  <rect class="card" x="346" y="622" width="98" height="32"/><text class="ct" x="362" y="643">Monitor</text>
+  <rect class="card" x="458" y="622" width="90" height="32"/><text class="ct" x="474" y="643">App Insights</text>
+  <rect class="sub" x="592" y="578" width="664" height="98"/><rect class="head" x="592" y="578" width="664" height="30"/><text class="hw" x="608" y="597">sub-connectivity-01</text>
+  <rect class="card" x="616" y="622" width="144" height="32"/><text class="ct" x="632" y="643">Hub VNets</text>
+  <rect class="card" x="774" y="622" width="122" height="32"/><text class="ct" x="790" y="643">Azure Firewall</text>
+  <rect class="card" x="910" y="622" width="164" height="32"/><text class="ct" x="926" y="643">DNS Private Resolver</text>
+  <rect class="card" x="1088" y="622" width="78" height="32"/><text class="ct" x="1104" y="643">Bastion</text>
+  <rect class="card" x="1180" y="622" width="60" height="32"/><text class="ct" x="1192" y="643">ER/VPN</text>
+  <rect class="gov" x="1280" y="578" width="476" height="98"/>
+  <text class="subsec" x="1300" y="604">Security and governance</text>
+  <rect class="card" x="1300" y="622" width="146" height="32"/><text class="ct" x="1316" y="643">Defender for Cloud</text>
+  <rect class="card" x="1460" y="622" width="96" height="32"/><text class="ct" x="1476" y="643">Sentinel</text>
+  <rect class="card" x="1570" y="622" width="162" height="32"/><text class="ct" x="1586" y="643">Policy, RBAC, MGs</text>
+
+  <rect class="box" x="20" y="716" width="1760" height="184"/>
+  <text class="sec" x="38" y="746">4. Core Architecture Flows</text>
+  <rect class="card" x="70" y="790" width="370" height="84"/><text class="subsec" x="88" y="816">User request flow</text><text class="cs" x="88" y="842">Users → Traffic Manager → Application Gateway + WAF</text><text class="cs" x="88" y="860">→ API Management → App Service orchestrator</text>
+  <rect class="card" x="470" y="790" width="390" height="84"/><text class="subsec" x="488" y="816">RAG and ingestion</text><text class="cs" x="488" y="842">Orchestrator → Search → GPT-4o → APIM → response</text><text class="cs" x="488" y="860">Storage → Doc Intelligence → chunking → Search</text>
+  <rect class="card" x="890" y="790" width="390" height="84"/><text class="subsec" x="908" y="816">Private networking path</text><text class="cs" x="908" y="842">Spoke → Hub → Firewall / DNS Private Resolver</text><text class="cs" x="908" y="860">→ private endpoints for AI services and secrets</text>
+  <rect class="carddr" x="1310" y="790" width="420" height="84"/><text class="subsec" x="1328" y="816">DR failover path</text><text class="cs" x="1328" y="842">Traffic Manager → UK Central regional stack</text><text class="cs" x="1328" y="860">Warm DR or degraded DR without GPT inference</text>
+
+  <path class="flow" d="M840 160 L168 350"/>
+  <path class="flowdr" d="M840 160 L804 350"/>
+  <path class="flow" d="M248 374 L266 374"/><path class="flow" d="M406 374 L424 374"/>
+  <path class="flow" d="M538 398 C538 416 154 416 154 416"/><path class="flow" d="M538 398 C538 416 318 416 318 416"/>
+  <path class="dash" d="M538 450 C538 610 704 610 704 622"/><path class="dash" d="M538 450 C538 610 132 610 132 622"/>
+  <path class="flowdr" d="M840 160 C840 250 840 250 840 350"/>
+
+  <rect class="box" x="20" y="918" width="1760" height="166"/>
+  <text class="sec" x="38" y="948">5. Non-production and presentation guidance</text>
+  <rect class="sub" x="48" y="968" width="420" height="94"/><rect class="head" x="48" y="968" width="420" height="28"/><text class="hw" x="64" y="987">sub-nonprod-ai-01</text>
+  <text class="cs" x="68" y="1018">Separate lower-cost environment for dev, test, and model evaluation.</text>
+  <text class="cs" x="68" y="1038">Outside the production trust and data boundary.</text>
+  <rect class="note" x="500" y="968" width="560" height="94"/>
+  <text class="cs" x="520" y="1000">This board-review diagram intentionally suppresses subnet-level detail.</text>
+  <text class="cs" x="520" y="1020">Use the engineering topology diagram for CIDRs, hub routing, and DNS path specifics.</text>
+  <rect class="gov" x="1090" y="968" width="666" height="94"/>
+  <text class="cs" x="1110" y="1000">Recommended review sequence: board review diagram first, engineering topology second, implementation workbook third.</text>
+  <text class="cs" x="1110" y="1020">That keeps executive decisions, network truth, and deployment detail aligned without overloading one canvas.</text>
+</svg>

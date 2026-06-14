@@ -1,0 +1,180 @@
+UKLifeLabs App Service Private-Only SOPOption 2: Disable Public Network Access and use Private Endpoint (Singapore example)Date: 25 Feb 2026
+Revision history
+Version
+Date
+Author
+Notes
+v3.4
+25 Feb 2026
+Generated
+PDF baseline (Option 2 only), formatting QA complete
+v3.5
+25 Feb 2026
+Generated
+Word editable. Fixes screenshots ambiguity, adds per-app checklist, strengthens validation and APIM dependency clarity
+1. Purpose and scope
+This SOP shows how to restrict Azure App Service Web Apps to private access only using Private Endpoint (Private Link) and by disabling public network access. After completion, the web apps cannot be reached from the public internet. Only clients that can reach the target VNet can access the apps.
+Why this exists (problem statement)If Public network access is enabled, the default https://<app>.azurewebsites.net URL is reachable on the internet.That allows direct access to the backend API and Swagger, bypassing API Management (APIM) policies such as auth, rate limit, and WAF controls.Microsoft Support recommended Option 2 as the stronger long-term fix: disable public access and/or use a private endpoint.
+2. Target web apps
+Web App name
+Private Endpoint name (example)
+Private IP (example)
+UKLifeLabs-restapi-v1
+pe-UKLifeLabs-restapi-v1
+10.50.10.4
+UKLifeLabs-restapi-test-002
+pe-UKLifeLabs-restapi-test-002
+10.50.10.5
+UKLifeLabs-event-grid-viewer
+pe-UKLifeLabs-event-grid-viewer
+10.50.10.6
+3. Simple mental model (analogy)
+Think of your Web App as a building with two doors:
+Door 1: Public door (internet). Anyone can try it if it is unlocked.
+Door 2: Private door (inside your VNet). Only people inside the building campus can reach it.
+A Private Endpoint creates the private door. Disabling public network access locks the public door.
+4. Architecture overview
+High-level flow (private-only):
+Figure: Private Endpoint places App Service behind a private IP in the VNet.
+5. Prerequisites and constraints
+Before you start, confirm:
+App Service plan supports Private Endpoint (not Free/Shared).
+You have RBAC rights to create Private Endpoints, Private DNS zones, and to approve private endpoint connections.
+APIM (or any caller) must have private network reachability to vnet-UKLifeLabs-sea-01 (same VNet, peering, or VPN/ExpressRoute).
+You have a VM/jumpbox or self-hosted agent inside the VNet for testing and (if needed) deployments.
+CI/CD and SCM (Kudu) impact (do not skip)When you disable public network access, public GitHub/Azure DevOps hosted agents will not be able to deploy using Kudu/ZipDeploy.Plan to use self-hosted runners/agents inside the private network or an approved private deployment path.DNS must include both records: <app> and <app>.scm in the private DNS zone.
+6. Example naming and parameters
+Item
+Example value
+Region
+Southeast Asia (Singapore)
+Resource group
+rg-UKLifeLabs-prod-sea-01
+Virtual network
+vnet-UKLifeLabs-sea-01
+Private endpoint subnet
+snet-private-endpoints (10.50.10.0/24)
+Private DNS zone (required)
+privatelink.azurewebsites.net
+7. Go/No-Go checklist (before cutover)
+Do not disable public network access until all items are TRUE.
+App
+PE created
+Connection state
+DNS (app+scm)
+Private test
+APIM test
+Public access disabled
+UKLifeLabs-restapi-v1
+Yes/No
+Approved
+Yes/No
+Yes/No
+Yes/No
+Yes/No
+UKLifeLabs-restapi-test-002
+Yes/No
+Approved
+Yes/No
+Yes/No
+Yes/No
+Yes/No
+UKLifeLabs-event-grid-viewer
+Yes/No
+Approved
+Yes/No
+Yes/No
+Yes/No
+Yes/No
+APIM dependency (most common outage cause)If APIM is not able to reach the private IP (routing) AND resolve the name to that private IP (DNS), APIM calls will fail after cutover.Validate APIM reachability before disabling public access. If APIM is public-only today, you must first move APIM into a VNet-capable setup or use a different ingress design.
+8. Step-by-step procedure (repeat per app)
+Perform steps 8.1 to 8.7 for each web app. Recommended approach: complete all Private Endpoints and DNS first, validate privately, then do the public access cutover as the final step.
+8.1 Capture current state
+For each app, record:
+Current Public network access state (Enabled/Disabled).
+Any deployment slots in use (each slot needs its own private endpoint).
+Whether CI/CD uses public Kudu/ZipDeploy.
+8.2 Create or confirm Private DNS zone and VNet link
+Create or confirm the Private DNS zone:
+Private DNS zone name: privatelink.azurewebsites.net
+Link it to VNet: vnet-UKLifeLabs-sea-01 (enable auto-registration: No).
+If you use enterprise DNS, configure forwarding so workloads in the VNet can resolve this zone.
+DNS reference (what must exist):
+Figure: Required private DNS zone and A records for app and SCM endpoints.
+8.3 Create Private Endpoint for the Web App
+Portal path: Web App > Networking > Private endpoints > Add.
+Private Endpoint wizard (Basics):
+Wizard (Resource) - App Service specific values:
+Wizard (Virtual Network): choose the VNet and the private endpoint subnet.
+Subnet noteA dedicated subnet for private endpoints is recommended for clarity, but not required.Private endpoint network policies are disabled by default. Only change this if you have a validated NSG/UDR enforcement requirement on PE NICs.
+8.4 Approve the private endpoint connection (if Pending)
+Portal path: Web App > Networking > Private endpoint connections.
+If the connection state is Pending:
+Select the connection row, then click Approve.
+Wait until the state becomes Approved.
+Pending example:
+Approved example:
+8.5 Validate private name resolution and private connectivity
+Run these tests from a VM/jumpbox inside the target VNet (or a peered VNet with the same DNS view).
+# DNS checks (run from inside the VNet)nslookup UKLifeLabs-restapi-v1.azurewebsites.netnslookup UKLifeLabs-restapi-v1.scm.azurewebsites.netnslookup UKLifeLabs-restapi-test-002.azurewebsites.netnslookup UKLifeLabs-restapi-test-002.scm.azurewebsites.netnslookup UKLifeLabs-event-grid-viewer.azurewebsites.netnslookup UKLifeLabs-event-grid-viewer.scm.azurewebsites.net# Connectivity check (HTTPS)# Use the standard hostname (not the privatelink hostname) so TLS matches *.azurewebsites.netcurl -I https://UKLifeLabs-restapi-v1.azurewebsites.netcurl -I https://UKLifeLabs-restapi-test-002.azurewebsites.netcurl -I https://UKLifeLabs-event-grid-viewer.azurewebsites.net
+Expected resultsInside the VNet: <app>.azurewebsites.net resolves to a private IP (for example 10.50.10.x).Both app and scm names resolve privately.curl succeeds (HTTP 200/302/etc based on your app).
+8.6 Cutover: disable public network access
+This is the step that removes internet reachability. Do this only after Step 8.5 succeeds for the app and APIM reachability is confirmed.
+Portal path: Web App > Networking > Inbound traffic configuration > Public network access.
+Set Public network access to Disabled, then click Save.
+Re-open the blade and confirm it still shows Disabled (save succeeded).
+8.7 Post-cutover validation
+After disabling public network access:
+From an internet-connected machine (outside the VNet), https://<app>.azurewebsites.net should fail to load.
+From inside the VNet, the app should still respond.
+From APIM, backend calls must succeed (end-to-end test).
+9. Rollback (2-minute recovery)
+If production impact occurs:
+Set Public network access back to Enabled (temporarily) and Save.
+Confirm service is restored via APIM and direct testing.
+Fix DNS/routing/approval issues, then repeat Step 8.5 and Step 8.6.
+10. Notes and gotchas
+Slots:
+Each deployment slot is treated as a separate target. Create and approve a private endpoint per slot.
+Access restrictions:
+Access restrictions are not evaluated for private endpoint traffic. Public network access is the isolation control.
+TLS:
+Always use https://<app>.azurewebsites.net in tests. The TLS certificate matches *.azurewebsites.net.
+Appendix A. Per-app execution checklist
+Use this table during implementation and attach it to the change record.
+App
+PE created
+PE approved
+DNS app
+DNS scm
+Private test
+APIM test
+PNA disabled
+UKLifeLabs-restapi-v1
+□
+□
+□
+□
+□
+□
+□
+UKLifeLabs-restapi-test-002
+□
+□
+□
+□
+□
+□
+□
+UKLifeLabs-event-grid-viewer
+□
+□
+□
+□
+□
+□
+□
+Appendix B. Reference docs
+Azure App Service Private Endpoint overview: https://learn.microsoft.com/en-us/azure/app-service/overview-private-endpoint
+Create a private endpoint (portal): https://learn.microsoft.com/en-us/azure/private-link/create-private-endpoint-portal
+Private endpoint connection approval: https://learn.microsoft.com/en-us/azure/private-link/manage-private-endpoint

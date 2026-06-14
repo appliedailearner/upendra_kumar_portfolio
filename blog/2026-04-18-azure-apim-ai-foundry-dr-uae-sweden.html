@@ -1,0 +1,3552 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A zero-trust architecture field guide for engineering cross-region disaster recovery across Azure API Management, AI Search, Document Intelligence, and AI Foundry — covering non-paired regions UAE North to Sweden Central with RTO/RPO targets, Bicep runbooks, and APIOps pipelines.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://portfolio.upendrakumar.com/blog/2026-04-18-azure-apim-ai-foundry-dr-uae-sweden.html">
+    <meta property="og:title" content="Engineering Cross-Region Disaster Recovery for Azure API Management, AI Search, Document Intelligence, and AI Foundry: A Zero-Trust Architecture Field Guide">
+    <meta property="og:description" content="A zero-trust architecture field guide for engineering cross-region DR across Azure APIM, AI Search, Document Intelligence, and AI Foundry across non-paired regions UAE North to Sweden Central.">
+    <meta property="og:image" content="https://portfolio.upendrakumar.com/images/profile.webp">
+    <meta property="og:site_name" content="Upendra Kumar | Cloud Strategy & Architecture">
+    <meta property="article:author" content="Upendra Kumar">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://portfolio.upendrakumar.com/blog/2026-04-18-azure-apim-ai-foundry-dr-uae-sweden.html">
+    <meta property="twitter:title" content="Engineering Cross-Region Disaster Recovery for Azure API Management, AI Search, Document Intelligence, and AI Foundry: A Zero-Trust Architecture Field Guide">
+    <meta property="twitter:description" content="A zero-trust architecture field guide for engineering cross-region DR across Azure APIM, AI Search, Document Intelligence, and AI Foundry across non-paired regions UAE North to Sweden Central.">
+    <meta property="twitter:image" content="https://portfolio.upendrakumar.com/images/profile.webp">
+
+    <title>Engineering Cross-Region DR for Azure APIM, AI Search, Document Intelligence &amp; AI Foundry: A Zero-Trust Architecture Field Guide | Upendra Kumar</title>
+
+    <link rel="stylesheet" href="../css/style.css?v=48">
+    <link rel="stylesheet" href="../css/premium.css?v=48">
+    <link rel="stylesheet" href="../css/dropdown.css">
+
+    <!-- Performance: Critical Asset Preloading -->
+    <link rel="preload" href="../css/style.css?v=48" as="style">
+    <link rel="preload" href="../js/navbar-component.js" as="script">
+    <link rel="preload" href="../js/main.js" as="script">
+
+    <!-- JSON-LD Article Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Engineering Cross-Region Disaster Recovery for Azure API Management, AI Search, Document Intelligence, and AI Foundry: A Zero-Trust Architecture Field Guide",
+      "image": "https://portfolio.upendrakumar.com/images/profile.webp",
+      "author": {
+        "@type": "Person",
+        "name": "Upendra Kumar",
+        "url": "https://portfolio.upendrakumar.com/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Upendra Kumar",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://portfolio.upendrakumar.com/favicon.ico"
+        }
+      },
+      "datePublished": "2026-04-18",
+      "dateModified": "2026-04-19",
+      "description": "A zero-trust architecture field guide for engineering cross-region DR across Azure APIM, AI Search, Document Intelligence, and AI Foundry across non-paired regions UAE North to Sweden Central."
+    }
+    </script>
+
+    <style>
+        .nav-logo-uk {
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+            border-radius: 8px !important;
+        }
+
+        /* Blog Post Specific Styles */
+        
+        .glass-card {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(56, 189, 248, 0.4);
+            box-shadow: 0 20px 40px rgba(56, 189, 248, 0.1);
+        }
+        .glass-card:hover::after {
+            opacity: 1;
+        }
+
+        .eli5-term {
+            border-bottom: 2px dashed #a855f7;
+            cursor: help;
+            position: relative;
+            font-weight: 600;
+            color: #c084fc;
+        }
+        .eli5-term::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            color: #f8fafc;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 400;
+            min-width: 250px;
+            text-align: left;
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+            line-height: 1.5;
+        }
+        .eli5-term:hover::after {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toc-container {
+            position: sticky;
+            top: 100px;
+            width: 250px;
+            float: left;
+            margin-left: -280px;
+            padding: 1.5rem;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+        @media (max-width: 1200px) {
+            .toc-container { display: none; }
+        }
+
+        .blog-post-hero {
+            padding: 120px 0 60px;
+            background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.15), transparent 60%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .blog-post-content {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            color: #94a3b8;
+            line-height: 1.8;
+            font-size: 1.15rem;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .checklist-group {
+            display: block !important;
+            background: rgba(15, 23, 42, 0.4);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(56, 189, 248, 0.1);
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .checklist-item input {
+            margin-top: 0.4rem;
+        }
+
+        /* Mobile First: Grids stack by default */
+        .responsive-grid, 
+        .comparison-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: 1fr;
+            margin-bottom: 2rem;
+        }
+
+        .comparison-grid {
+            margin: 2rem 0;
+        }
+
+        /* Desktop: Larger screens layout overrides */
+        @media (min-width: 992px) {
+            .blog-post-content .responsive-grid {
+                grid-template-columns: repeat(3, 1fr) !important;
+            }
+            .blog-post-content .comparison-grid {
+                grid-template-columns: 1fr 1fr !important;
+            }
+        }
+
+        /* Mobile Specific Overrides (Mobile-First Polish) */
+        @media (max-width: 991px) {
+            .blog-post-hero {
+                text-align: center !important;
+                padding: 100px 1.5rem 40px !important;
+            }
+            .blog-post-hero h1 {
+                font-size: 2.2rem !important;
+                line-height: 1.2;
+            }
+            .blog-post-meta {
+                justify-content: center !important;
+                flex-direction: column;
+                gap: 0.5rem !important;
+                align-items: center;
+            }
+            .blog-post-content {
+                padding: 2rem 1.25rem !important;
+            }
+            .tag-container {
+                justify-content: center !important;
+            }
+            .hero-badge {
+                margin: 0 auto 1.5rem !important;
+            }
+        }
+        /* Resiliency Matrix Pattern Cards */
+        .pattern-matrix-grid {
+            display: grid;
+            gap: 2rem;
+            margin: 3rem 0;
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 768px) {
+            .pattern-matrix-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .pattern-matrix-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .pattern-card {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .pattern-card:hover {
+            transform: translateY(-8px);
+            background: rgba(30, 41, 59, 0.6);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .pattern-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .pattern-card:hover::before {
+            opacity: 1;
+        }
+
+        .tier-badge {
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            width: fit-content;
+            margin-bottom: 1.5rem;
+        }
+
+        .tier-0 { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); }
+        .tier-1 { background: rgba(245, 158, 11, 0.1); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.2); }
+        .tier-2 { background: rgba(59, 130, 246, 0.1); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.2); }
+        .tier-3 { background: rgba(148, 163, 184, 0.1); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.2); }
+
+        .pattern-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #60a5fa, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.9;
+        }
+
+        .pattern-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            color: #f8fafc;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .pattern-use-case {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .pattern-tradeoff {
+            font-size: 0.85rem;
+            padding: 1rem;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 8px;
+            border-left: 3px solid #f87171;
+            color: #cbd5e1;
+        }
+
+        .pattern-tradeoff strong {
+            color: #fca5a5;
+            display: block;
+            margin-bottom: 0.25rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Masterclass Action Strips */
+        .masterclass-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.8rem 1.25rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: auto;
+            width: fit-content;
+        }
+        .masterclass-cta:hover {
+            background: rgba(30, 41, 59, 0.8);
+            border-color: rgba(59, 130, 246, 0.5);
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .masterclass-cta.drasi:hover {
+            border-color: rgba(168, 85, 247, 0.5);
+        }
+
+        /* Video Section Styles */
+        .video-insight-card {
+            margin: 3.5rem 0;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .video-insight-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(56, 189, 248, 0.5);
+        }
+        .video-insight-header {
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+            background: rgba(56, 189, 248, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .video-icon-box {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        .video-content video {
+            width: 100%;
+            display: block;
+            aspect-ratio: 16/9;
+            background: #000;
+        }
+        .video-footer {
+            padding: 1.2rem 2rem;
+            background: rgba(15, 23, 42, 0.6);
+            font-size: 1rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Architecture Diagram & Analogy Styles */
+        .architecture-card {
+            margin: 3.5rem 0;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        .architecture-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+        .architecture-card:hover img {
+            transform: scale(1.01);
+        }
+        .diagram-caption {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .analogy-block {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .analogy-block::before {
+            content: "\f10d";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            top: -20px;
+            right: 20px;
+            font-size: 8rem;
+            color: rgba(255, 255, 255, 0.03);
+            pointer-events: none;
+        }
+        .analogy-header {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        .analogy-icon {
+            font-size: 2rem;
+            color: #60a5fa;
+        }
+
+        /* SRE Dashboard Styles */
+        .sre-dashboard {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 3rem 0;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        @media (max-width: 768px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+        }
+        .metric-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            position: relative;
+        }
+        .status-pulse {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            position: relative;
+        }
+        .pulse-green { background: #10b981; box-shadow: 0 0 10px #10b981; }
+        .pulse-yellow { background: #f59e0b; box-shadow: 0 0 10px #f59e0b; animation: pulse-anim 2s infinite; }
+        @keyframes pulse-anim {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .metric-value { font-size: 2.5rem; font-weight: 800; font-family: 'Outfit', sans-serif; margin: 1rem 0; color: #f8fafc; }
+        .metric-label { font-size: 0.85rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Calculator Styles */
+        .calculator-container {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.9) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+        }
+        .calc-question { margin-bottom: 2.5rem; }
+        .calc-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+        @media (max-width: 600px) { .calc-options { grid-template-columns: 1fr; } }
+        .calc-btn {
+            background: rgba(51, 65, 85, 0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #cbd5e1;
+            padding: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .calc-btn:hover { background: rgba(59, 130, 246, 0.2); border-color: #60a5fa; color: #f8fafc; }
+        .calc-btn.active { background: #3b82f6; border-color: #60a5fa; color: white; box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }
+        .calc-result-box {
+            display: none;
+            margin-top: 2rem;
+            padding: 2.5rem;
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 16px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+        .calc-result-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: #10b981;
+        }
+        
+        .expert-recommendation-box {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(252, 211, 77, 0.05);
+            border: 1px solid rgba(252, 211, 77, 0.2);
+            border-radius: 12px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .rto-rpo-container {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .rto-rpo-container:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .rto-rpo-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Simulator Styles */
+        .sim-container {
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(56, 189, 248, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        .sim-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .sim-node {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+        .sim-node.failed {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: #ef4444;
+            opacity: 0.6;
+        }
+        .sim-heartbeat {
+            width: 10px;
+            height: 10px;
+            background: #10b981;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            box-shadow: 0 0 10px #10b981;
+        }
+        .sim-node.failed .sim-heartbeat {
+            background: #ef4444;
+            box-shadow: none;
+            animation: none;
+        }
+        .sim-pulse { animation: pulse-anim 2s infinite; }
+
+        /* Blueprint Gallery Styles */
+        .blueprint-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 1rem;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s;
+        }
+        .tab-btn.active {
+            color: #60a5fa;
+            border-bottom: 2px solid #60a5fa;
+        }
+        .tab-content { display: none; background: #011627; border-radius: 8px; padding: 1.5rem; overflow-x: auto; }
+        .tab-content.active { display: block; }
+        /* --- Silicon Valley Executive UI Components --- */
+        
+        :root {
+            --beam-size: 150px;
+            --beam-speed: 8s;
+            --spotlight-opacity: 0.15;
+        }
+
+        .sv-card-container {
+            position: relative;
+            padding: 2px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.03);
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Border Beam Animation */
+        .sv-card-container::before {
+            content: "";
+            position: absolute;
+            inset: -100%;
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg,
+                transparent 300deg,
+                rgba(59, 130, 246, 0.4) 330deg,
+                rgba(168, 85, 247, 0.4) 360deg
+            );
+            animation: beam-spin var(--beam-speed) linear infinite;
+            z-index: 0;
+            opacity: 0.6;
+        }
+
+        @keyframes beam-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Strict Masterclass 2-Column Grid */
+        .sv-masterclass-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: stretch;
+            margin: 4rem 0;
+            position: relative;
+            z-index: 5;
+            width: 100%;
+        }
+
+        /* Break out of 850px parent containment for premium wide view */
+        @media (min-width: 1250px) {
+            .sv-masterclass-grid {
+                width: calc(100% + 150px);
+                margin-left: -75px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .sv-masterclass-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sv-masterclass-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* High-Fidelity Bento Card */
+        .sv-bento-card {
+            position: relative;
+            z-index: 1;
+            background: rgba(10, 15, 30, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 22px;
+            padding: 2.5rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: transform 0.3s cubic-bezier(0.2, 0, 0.1, 1);
+        }
+
+        .sv-bento-card:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Spotlight Hover Effect */
+        .sv-spotlight {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(
+                circle 250px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                rgba(96, 165, 250, var(--spotlight-opacity)),
+                transparent 80%
+            );
+            pointer-events: none;
+            z-index: 2;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Grid / Texture Backgrounds */
+        .sv-texture-grid {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 24px 24px;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        .sv-texture-dots {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+            background-size: 12px 12px;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.2;
+        }
+
+        /* Refined Component Badges */
+        .sv-badge-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 3;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .sv-badge-icon i {
+            font-size: 1.6rem;
+            filter: drop-shadow(0 0 8px currentColor);
+        }
+
+        /* Premium Typography Layout */
+        .sv-bento-title {
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            font-size: 1.75rem;
+            letter-spacing: -0.02em;
+            color: #f8fafc;
+            margin: 0 0 1rem 0;
+            position: relative;
+            z-index: 3;
+        }
+
+        .sv-bento-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 1.05rem;
+            color: #60a5fa;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 3;
+        }
+
+        .sv-bento-text {
+            color: #94a3b8;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 3;
+        }
+
+        .sv-insight-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 2.5rem 0;
+            position: relative;
+            z-index: 3;
+        }
+
+        .sv-insight-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.85rem;
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+
+        .sv-insight-list li i {
+            margin-top: 0.35rem;
+            font-size: 0.8rem;
+            color: #60a5fa;
+        }
+
+        /* Action Strips / Buttons */
+        .sv-action-strip {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            color: #f8fafc;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 4;
+            width: 100%;
+        }
+
+        .sv-action-strip:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+            transform: scale(1.02);
+        }
+
+        .sv-action-strip ::after {
+            content: " →";
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .sv-action-strip:hover ::after {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+    </style>
+
+    <!-- UX & Performance Enhancement Styles -->
+    <style>
+        /* ── Core overflow prevention ─────────────────────────── */
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { overflow-x: hidden; }
+
+        /* ── Code blocks: horizontal scroll on mobile ─────────── */
+        pre {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            max-width: 100%;
+            white-space: pre;
+            font-size: 0.84rem;
+            line-height: 1.6;
+            border-radius: 10px;
+            background: #011627;
+            padding: 1.5rem;
+            border: 1px solid rgba(56,189,248,0.1);
+            margin: 1.5rem 0;
+            tab-size: 2;
+        }
+        pre code {
+            display: block;
+            font-size: inherit;
+            background: transparent;
+            padding: 0;
+            white-space: pre;
+            word-break: normal;
+            overflow-wrap: normal;
+        }
+        /* Inline code */
+        :not(pre) > code {
+            background: rgba(56,189,248,0.08);
+            border: 1px solid rgba(56,189,248,0.15);
+            border-radius: 4px;
+            padding: 0.15em 0.45em;
+            font-size: 0.88em;
+            word-break: break-word;
+            color: #7dd3fc;
+        }
+
+        /* ── Table overflow: internal scroll, no page blowout ─── */
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 12px;
+        }
+        .blog-post-content div[style*="overflow-x: auto"],
+        .blog-post-content div[style*="overflow-x:auto"] {
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* ── Mobile font & spacing overrides ─────────────────── */
+        @media (max-width: 767px) {
+            .blog-post-content {
+                font-size: 1rem !important;
+                line-height: 1.75 !important;
+                padding: 2rem 1.1rem !important;
+            }
+            .blog-post-hero {
+                padding: 90px 1.1rem 40px !important;
+            }
+            .blog-post-hero h1 {
+                font-size: clamp(1.55rem, 6vw, 2rem) !important;
+                line-height: 1.2 !important;
+            }
+            pre {
+                font-size: 0.78rem;
+                padding: 1rem;
+                border-radius: 8px;
+                margin: 1rem 0;
+            }
+            /* Reduce heavy card padding */
+            .glass-card,
+            .architecture-card,
+            .analogy-block,
+            .calculator-container,
+            .sre-dashboard,
+            .sim-container {
+                padding: 1.25rem !important;
+                border-radius: 12px !important;
+                margin: 1.5rem 0 !important;
+            }
+            .calculator-container { padding: 1.5rem !important; }
+            /* Pattern cards */
+            .pattern-card { padding: 1.25rem !important; }
+            /* SV bento cards */
+            .sv-bento-card { padding: 1.5rem !important; }
+            /* Video footer */
+            .video-footer { padding: 1rem 1.25rem !important; }
+            /* Metric value */
+            .metric-value { font-size: 2rem !important; }
+            /* Section headings */
+            h2 { font-size: 1.45rem !important; }
+            h3 { font-size: 1.2rem !important; }
+            /* Analogy block quote icon */
+            .analogy-block::before { font-size: 5rem !important; top: -10px !important; }
+            /* Architecture card padding */
+            .architecture-card { padding: 1rem !important; }
+            .architecture-card img { margin-bottom: 1rem !important; }
+            /* Diagram caption */
+            .diagram-caption { font-size: 0.82rem !important; }
+        }
+
+        /* ── Tap target improvements ──────────────────────────── */
+        .share-btn, .tab-btn, .calc-btn, .btn {
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+        }
+        .social-share-buttons { gap: 0.6rem !important; flex-wrap: wrap; }
+        @media (max-width: 480px) {
+            .social-share-buttons {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+            }
+            .share-btn {
+                justify-content: center;
+                padding: 0.7rem 0.5rem !important;
+            }
+        }
+
+        /* ── Blueprint tabs: scrollable on mobile ─────────────── */
+        .blueprint-tabs {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            flex-wrap: nowrap !important;
+            padding-bottom: 0.5rem;
+            scrollbar-width: none;
+        }
+        .blueprint-tabs::-webkit-scrollbar { display: none; }
+        .tab-btn { white-space: nowrap; flex-shrink: 0; }
+
+        /* ── Sim grid ─────────────────────────────────────────── */
+        @media (max-width: 900px) { .sim-grid { grid-template-columns: 1fr 1fr !important; } }
+        @media (max-width: 600px) { .sim-grid { grid-template-columns: 1fr !important; } }
+
+        /* ── Tooltip: prevent offscreen on mobile ─────────────── */
+        @media (max-width: 767px) {
+            .eli5-term::after {
+                left: 0 !important;
+                right: 0 !important;
+                transform: translateY(-10px) !important;
+                min-width: unset !important;
+                width: calc(100vw - 3rem);
+                max-width: 320px;
+                white-space: normal;
+            }
+            .eli5-term:hover::after {
+                transform: translateY(0) !important;
+            }
+        }
+
+        /* ── RTO/RPO flex → column on mobile ─────────────────── */
+        @media (max-width: 600px) {
+            .rto-rpo-container {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                padding: 1.25rem !important;
+            }
+        }
+
+        /* ── Checklist group mobile ───────────────────────────── */
+        @media (max-width: 600px) {
+            .checklist-item { flex-direction: column; gap: 0.5rem; }
+        }
+
+        /* ── SV masterclass grid ─────────────────────────────── */
+        /* 3-col variant (Executive Impact Summary) */
+        .sv-3col { gap: 2rem !important; }
+        @media (min-width: 1025px)                          { .sv-3col { grid-template-columns: repeat(3,1fr) !important; } }
+        @media (min-width: 701px) and (max-width: 1024px)  { .sv-3col { grid-template-columns: 1fr 1fr !important; } }
+        @media (max-width: 700px)                           { .sv-3col { grid-template-columns: 1fr !important; gap: 1.25rem !important; } }
+
+        /* Standard 2-col → 1-col on mobile */
+        @media (max-width: 700px) {
+            .sv-masterclass-grid { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
+        }
+
+        /* ── Pattern matrix grid: 1 col on small phones ─────── */
+        @media (max-width: 480px) {
+            .pattern-matrix-grid { grid-template-columns: 1fr !important; }
+            .responsive-grid { grid-template-columns: 1fr !important; }
+        }
+
+        /* ── Responsive grid 3-col → 1-col on phones ─────────── */
+        @media (max-width: 600px) {
+            .comparison-grid { grid-template-columns: 1fr !important; }
+        }
+
+        /* ── Blog meta row wrap ───────────────────────────────── */
+        .blog-post-meta {
+            flex-wrap: wrap;
+            gap: 0.5rem !important;
+        }
+
+        /* ── Back to blog button – full width on small phones ─── */
+        @media (max-width: 480px) {
+            .blog-post-content > div[style*="display: flex"] a.btn {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* ── Scrollbar hint on overflowing tables (mobile) ────── */
+        @media (max-width: 900px) {
+            div[style*="overflow-x: auto"]::after,
+            .table-responsive::after {
+                content: '← scroll →';
+                display: block;
+                text-align: center;
+                font-size: 0.7rem;
+                color: rgba(56,189,248,0.5);
+                padding: 0.4rem 0 0;
+                letter-spacing: 1px;
+            }
+        }
+
+        #reading-progress {
+            position: fixed; top: 0; left: 0;
+            width: 0%; height: 3px;
+            background: linear-gradient(90deg, #a855f7, #3b82f6, #38bdf8);
+            z-index: 9999;
+            transition: width 0.08s linear;
+            box-shadow: 0 0 8px rgba(168,85,247,0.6);
+        }
+
+        #back-to-top {
+            position: fixed; bottom: 2rem; right: 2rem;
+            width: 48px; height: 48px;
+            background: linear-gradient(135deg, #a855f7, #3b82f6);
+            border: none; border-radius: 50%;
+            color: white; font-size: 1.1rem; cursor: pointer;
+            opacity: 0; transform: translateY(20px);
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(168,85,247,0.4);
+            display: flex; align-items: center; justify-content: center;
+        }
+        #back-to-top.visible { opacity: 1; transform: translateY(0); }
+        #back-to-top:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(168,85,247,0.6); }
+
+        #mobile-toc-toggle {
+            display: none;
+            position: sticky; top: 70px; z-index: 50;
+            margin-bottom: 2rem;
+            background: rgba(15,23,42,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(56,189,248,0.2);
+            border-radius: 12px;
+        }
+        @media (max-width: 1200px) { #mobile-toc-toggle { display: block; } }
+        .mobile-toc-btn {
+            width: 100%; padding: 0.9rem 1.25rem;
+            background: transparent; border: none;
+            color: #60a5fa; font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem; font-weight: 700;
+            cursor: pointer; display: flex;
+            align-items: center; justify-content: space-between;
+            letter-spacing: 0.5px;
+        }
+        .mobile-toc-btn i.chevron { transition: transform 0.3s ease; }
+        .mobile-toc-btn.open i.chevron { transform: rotate(180deg); }
+        #mobile-toc-body {
+            display: none; padding: 0.5rem 1.25rem 1rem;
+            border-top: 1px solid rgba(56,189,248,0.1);
+        }
+        #mobile-toc-body.open { display: block; }
+        #mobile-toc-body a {
+            display: block; padding: 0.5rem 0;
+            color: #94a3b8; text-decoration: none;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            transition: color 0.2s;
+        }
+        #mobile-toc-body a:hover, #mobile-toc-body a.active { color: #60a5fa; }
+
+        #img-lightbox {
+            display: none; position: fixed; inset: 0;
+            background: rgba(3,7,18,0.93);
+            backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+            z-index: 10000; align-items: center; justify-content: center;
+            padding: 1rem; cursor: zoom-out;
+        }
+        #img-lightbox.open { display: flex; animation: lb-fade 0.25s ease; }
+        @keyframes lb-fade { from { opacity: 0; } to { opacity: 1; } }
+        #lb-img {
+            max-width: min(95vw, 1400px); max-height: 90vh;
+            border-radius: 12px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.9);
+            object-fit: contain; cursor: default;
+            animation: lb-zoom 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
+        }
+        @keyframes lb-zoom { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        #lb-close {
+            position: absolute; top: 1rem; right: 1rem;
+            width: 44px; height: 44px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50%; color: white; font-size: 1.2rem;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s;
+        }
+        #lb-close:hover { background: rgba(239,68,68,0.5); }
+        #lb-caption {
+            position: absolute; bottom: 1.5rem; left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15,23,42,0.9); color: #cbd5e1;
+            padding: 0.5rem 1.5rem; border-radius: 30px;
+            font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.08);
+            text-align: center; max-width: 80vw; white-space: nowrap;
+            overflow: hidden; text-overflow: ellipsis;
+        }
+
+        .architecture-card a { cursor: zoom-in; }
+        .architecture-card a:hover img {
+            box-shadow: 0 0 30px rgba(56,189,248,0.25);
+        }
+
+        /* Image load shimmer */
+        .arch-img-wrap {
+            position: relative; overflow: hidden;
+            background: rgba(30,41,59,0.5); border-radius: 8px;
+        }
+        .arch-img-wrap::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.04) 50%, transparent 100%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            transition: opacity 0.4s;
+        }
+        .arch-img-wrap.loaded::after { opacity: 0; pointer-events: none; }
+        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+        .arch-img-wrap img { opacity: 0; transition: opacity 0.5s ease; display: block; width: 100%; }
+        .arch-img-wrap img.loaded { opacity: 1; }
+    </style>
+
+    <!-- Performance: Preconnect to Font & Script Servers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <!-- Typography: Inter (Body) & Outfit (Headings) with Swap for Performance -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+    <!-- Azure App Insights SDK (RUM) -->
+    <script type="text/javascript">
+        !function (T, l, y) {
+            var S = T.location, k = "script", D = "connectionString", C = "ingestionendpoint", I = "disableExceptionTracking";
+            var _ = y.url || "https://js.monitor.azure.com/scripts/b/ai.2.min.js";
+            if (y[D]) {
+                var T = T.appInsights || (T.appInsights = {});
+                T.loadAppInsights = function () {
+                    var p = { config: y }; T.initialize = !0; T._tags = [];
+                    T.addTelemetryInitializer = function (f) { T._tags.push(f); };
+                    var v = window.fetch;
+                    T.track = function (e) {
+                        (T._tags || []).forEach(function (f) { try { f(e); } catch (ex) { } });
+                        var i = p.config.endpointUrl || "https://dc.services.visualstudio.com/v2/track";
+                        v(i, { method: "POST", body: JSON.stringify(e), mode: "cors" }).catch(function () { });
+                    };
+                    T.trackEvent = function (d) { T.track({ name: d.name || "Event", data: { baseData: d } }); };
+                    T.trackPageView = function (d) { T.track({ name: "PageView", data: { baseData: d } }); };
+                    T.trackException = function (d) { T.track({ name: "Exception", data: { baseData: d } }); };
+                }
+            }
+        }(window, document, { 
+            connectionString: "InstrumentationKey=8fc596f2-bb91-49d7-8495-2ac1ecd30501;IngestionEndpoint=https://centralindia-0.in.liana.ice.azure.microsoft.com/",
+            endpointUrl: "https://centralindia-0.in.liana.ice.azure.microsoft.com/v2/track"
+        });
+    </script>
+    <script src="../js/observability.js?v=3" defer></script>
+</head>
+
+    <body class="dark-theme">
+    <!-- Reading Progress Bar -->
+    <div id="reading-progress" role="progressbar" aria-label="Reading progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+
+    <!-- Lightbox Overlay -->
+    <div id="img-lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" onclick="closeLightbox(event)">
+        <button id="lb-close" onclick="closeLightbox()" aria-label="Close image viewer"><i class="fas fa-times"></i></button>
+        <img id="lb-img" src="" alt="" onclick="event.stopPropagation()">
+        <div id="lb-caption"></div>
+    </div>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top" title="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <canvas id="particles-canvas"></canvas>
+    
+    <!-- Navigation -->
+    <nav class="navbar" id="dynamic-nav"></nav>
+    <script src="../js/navbar-component.js"></script>
+
+    <!-- Blog Post Hero -->
+    <section class="blog-post-hero">
+        <div class="container" style="max-width: 1000px;">
+            <div style="margin-bottom: 2rem;">
+                <a href="../blog.html" style="color: var(--primary-color); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem;">
+                    <i class="fas fa-arrow-left"></i> Back to Insights
+                </a>
+                <br>
+                <!-- Series Badge: Dynamic based on input -->
+                <span class="blog-tag tag-blue" style="border: 1px solid rgba(56, 189, 248, 0.6); background: rgba(56, 189, 248, 0.1); color: #38bdf8; text-transform: uppercase; font-weight: bold; letter-spacing: 1px;">Value Architect Playbook</span>
+            </div>
+
+            <h1 style="font-family: 'Outfit', sans-serif; font-size: 3rem; line-height: 1.2; margin-bottom: 1.5rem; background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                Engineering Cross-Region Disaster Recovery for Azure API Management, AI Search, Document Intelligence, and AI Foundry: A Zero-Trust Architecture Field Guide
+            </h1>
+
+            <div class="blog-post-meta" style="display: flex; gap: 2rem; color: #64748b; font-size: 0.95rem; margin-bottom: 2rem;">
+                <div><i class="fas fa-user-tie"></i> Upendra Kumar, Delivery Architect</div>
+                <div><i class="fas fa-calendar"></i> April 18, 2026</div>
+                <div><i class="fas fa-clock"></i> 12 min read</div>
+            </div>
+
+            <div class="blog-post-tags">
+                <span class="blog-tag tag-blue"><i class="fas fa-tag"></i> Architecture</span>
+                <span class="blog-tag tag-purple"><i class="fas fa-tag"></i> Disaster Recovery</span>
+                <span class="blog-tag tag-red"><i class="fas fa-tag"></i> Risk Mitigation</span>
+                <span class="blog-tag tag-blue"><i class="fas fa-tag"></i> Azure Front Door</span>
+                <span class="blog-tag tag-purple"><i class="fas fa-tag"></i> NSG Lockdown</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Post Content -->
+    <article class="blog-post-content">
+        <!-- Mobile Table of Contents (hidden on desktop via CSS) -->
+        <div id="mobile-toc-toggle">
+            <button class="mobile-toc-btn" onclick="toggleMobileToc(this)" aria-expanded="false" aria-controls="mobile-toc-body">
+                <span><i class="fas fa-list" style="margin-right:0.5rem; opacity:0.7;"></i> Table of Contents</span>
+                <i class="fas fa-chevron-down chevron"></i>
+            </button>
+            <div id="mobile-toc-body" role="navigation" aria-label="Article sections">
+                <a href="#scenario">The Scenario</a>
+                <a href="#hard-truth">The Hard Truth on APIM Tiers</a>
+                <a href="#ai-dr">AI Services Recovery Pattern</a>
+                <a href="#ai-search-dr">→ AI Search DR &amp; Backup</a>
+                <a href="#doc-intel-dr">→ Document Intelligence DR</a>
+                <a href="#ai-foundry-dr">→ AI Foundry &amp; PTU DR</a>
+                <a href="#apim-backup-dr">→ APIM Backup &amp; Restore</a>
+                <a href="#landing-zone">Enterprise Landing Zone Controls</a>
+                <a href="#comparison">APIM DR Alternatives</a>
+                <a href="#deployment">Engineer's Deployment Runbook</a>
+                <a href="#fd-lockdown">Front Door Origin Lockdown</a>
+                <a href="#mistakes">Common Mistakes</a>
+            </div>
+        </div>
+
+        <nav class="toc-container">
+            <h4 style="color: #60a5fa; font-family: 'Outfit', sans-serif; margin-bottom: 1rem;">Table of Contents</h4>
+            <ul style="list-style: none; padding: 0; font-size: 0.9rem;">
+                <li><a href="#scenario" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">The Scenario</a></li>
+                <li><a href="#hard-truth" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">The Hard Truth on APIM Tiers</a></li>
+                <li><a href="#ai-dr" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">AI Services Recovery Pattern</a></li>
+                <li><a href="#ai-search-dr" class="toc-link" style="color: #64748b; text-decoration: none; display: block; margin-bottom: 0.4rem; padding-left: 1rem; font-size: 0.85rem;">↳ AI Search DR &amp; Backup</a></li>
+                <li><a href="#doc-intel-dr" class="toc-link" style="color: #64748b; text-decoration: none; display: block; margin-bottom: 0.4rem; padding-left: 1rem; font-size: 0.85rem;">↳ Document Intelligence DR</a></li>
+                <li><a href="#ai-foundry-dr" class="toc-link" style="color: #64748b; text-decoration: none; display: block; margin-bottom: 0.4rem; padding-left: 1rem; font-size: 0.85rem;">↳ AI Foundry &amp; PTU Strategy</a></li>
+                <li><a href="#apim-backup-dr" class="toc-link" style="color: #64748b; text-decoration: none; display: block; margin-bottom: 0.5rem; padding-left: 1rem; font-size: 0.85rem;">↳ APIM Backup &amp; Restore</a></li>
+                <li><a href="#landing-zone" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">Enterprise Landing Zone Controls</a></li>
+                <li><a href="#comparison" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">APIM DR Alternatives</a></li>
+                <li><a href="#deployment" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">Engineer's Deployment Runbook</a></li>
+                <li><a href="#fd-lockdown" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">Front Door Origin Lockdown</a></li>
+                <li><a href="#mistakes" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">Common Mistakes</a></li>
+            </ul>
+        </nav>
+        
+        <div style="margin: 3rem 0; padding: 2rem 2.5rem; background: linear-gradient(90deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.6)); border-left: 4px solid #a855f7; border-radius: 0 12px 12px 0; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at left, rgba(168, 85, 247, 0.1), transparent 70%); pointer-events: none;"></div>
+            <p style="font-family: 'Outfit', sans-serif; font-size: 1.4rem; color: #f8fafc; font-weight: 400; line-height: 1.6; margin: 0; position: relative; z-index: 1;">
+                <i class="fas fa-quote-left" style="color: rgba(168, 85, 247, 0.4); font-size: 1.5rem; margin-right: 0.5rem; transform: translateY(-5px); display: inline-block;"></i>
+                The board-level mandate is always identical: when UAE North fails, Sweden Central must instantly take over. The engineering reality? Azure API Management tiers and Generative AI scaling models do not fail over uniformly. <br><br>
+                <span style="background: linear-gradient(90deg, #c084fc, #3b82f6); -webkit-background-clip: text; color: transparent; font-weight: 700;">Here is the authoritative blueprint for engineering the recovery gap.</span>
+            </p>
+        </div>
+
+        <!-- Executive Impact Summary -->
+        <div style="margin-bottom: 4rem; position: relative; margin-top: 3rem;">
+            <!-- Background ambient glow -->
+            <div style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 80%; height: 100px; background: radial-gradient(ellipse, rgba(168, 85, 247, 0.15) 0%, transparent 70%); filter: blur(30px); z-index: -1;"></div>
+
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <span style="display: inline-block; padding: 0.4rem 1rem; background: rgba(168, 85, 247, 0.1); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 20px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 1rem;">
+                    <i class="fas fa-chart-line" style="margin-right: 6px;"></i> Strategic Alignment & ROI
+                </span>
+                <h2 style="margin: 0; font-family: 'Outfit', sans-serif; font-size: 2.2rem; color: #f8fafc;">Executive Impact <span style="color: transparent; background: linear-gradient(90deg, #c084fc, #3b82f6); -webkit-background-clip: text; background-clip: text;">Summary</span></h2>
+            </div>
+            
+            <style>
+        .nav-logo-uk {
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+            border-radius: 8px !important;
+        }
+
+        /* Blog Post Specific Styles */
+        
+        .glass-card {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(56, 189, 248, 0.4);
+            box-shadow: 0 20px 40px rgba(56, 189, 248, 0.1);
+        }
+        .glass-card:hover::after {
+            opacity: 1;
+        }
+
+        .eli5-term {
+            border-bottom: 2px dashed #a855f7;
+            cursor: help;
+            position: relative;
+            font-weight: 600;
+            color: #c084fc;
+        }
+        .eli5-term::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            color: #f8fafc;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 400;
+            min-width: 250px;
+            text-align: left;
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+            line-height: 1.5;
+        }
+        .eli5-term:hover::after {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toc-container {
+            position: sticky;
+            top: 100px;
+            width: 250px;
+            float: left;
+            margin-left: -280px;
+            padding: 1.5rem;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+        @media (max-width: 1200px) {
+            .toc-container { display: none; }
+        }
+
+        .blog-post-hero {
+            padding: 120px 0 60px;
+            background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.15), transparent 60%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .blog-post-content {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            color: #94a3b8;
+            line-height: 1.8;
+            font-size: 1.15rem;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .checklist-group {
+            display: block !important;
+            background: rgba(15, 23, 42, 0.4);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(56, 189, 248, 0.1);
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .checklist-item input {
+            margin-top: 0.4rem;
+        }
+
+        /* Mobile First: Grids stack by default */
+        .responsive-grid, 
+        .comparison-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: 1fr;
+            margin-bottom: 2rem;
+        }
+
+        .comparison-grid {
+            margin: 2rem 0;
+        }
+
+        /* Desktop: Larger screens layout overrides */
+        @media (min-width: 992px) {
+            .blog-post-content .responsive-grid {
+                grid-template-columns: repeat(3, 1fr) !important;
+            }
+            .blog-post-content .comparison-grid {
+                grid-template-columns: 1fr 1fr !important;
+            }
+        }
+
+        /* Mobile Specific Overrides (Mobile-First Polish) */
+        @media (max-width: 991px) {
+            .blog-post-hero {
+                text-align: center !important;
+                padding: 100px 1.5rem 40px !important;
+            }
+            .blog-post-hero h1 {
+                font-size: 2.2rem !important;
+                line-height: 1.2;
+            }
+            .blog-post-meta {
+                justify-content: center !important;
+                flex-direction: column;
+                gap: 0.5rem !important;
+                align-items: center;
+            }
+            .blog-post-content {
+                padding: 2rem 1.25rem !important;
+            }
+            .tag-container {
+                justify-content: center !important;
+            }
+            .hero-badge {
+                margin: 0 auto 1.5rem !important;
+            }
+        }
+        /* Resiliency Matrix Pattern Cards */
+        .pattern-matrix-grid {
+            display: grid;
+            gap: 2rem;
+            margin: 3rem 0;
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 768px) {
+            .pattern-matrix-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .pattern-matrix-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .pattern-card {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .pattern-card:hover {
+            transform: translateY(-8px);
+            background: rgba(30, 41, 59, 0.6);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .pattern-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .pattern-card:hover::before {
+            opacity: 1;
+        }
+
+        .tier-badge {
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            width: fit-content;
+            margin-bottom: 1.5rem;
+        }
+
+        .tier-0 { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); }
+        .tier-1 { background: rgba(245, 158, 11, 0.1); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.2); }
+        .tier-2 { background: rgba(59, 130, 246, 0.1); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.2); }
+        .tier-3 { background: rgba(148, 163, 184, 0.1); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.2); }
+
+        .pattern-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #60a5fa, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.9;
+        }
+
+        .pattern-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            color: #f8fafc;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .pattern-use-case {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .pattern-tradeoff {
+            font-size: 0.85rem;
+            padding: 1rem;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 8px;
+            border-left: 3px solid #f87171;
+            color: #cbd5e1;
+        }
+
+        .pattern-tradeoff strong {
+            color: #fca5a5;
+            display: block;
+            margin-bottom: 0.25rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Masterclass Action Strips */
+        .masterclass-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.8rem 1.25rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: auto;
+            width: fit-content;
+        }
+        .masterclass-cta:hover {
+            background: rgba(30, 41, 59, 0.8);
+            border-color: rgba(59, 130, 246, 0.5);
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .masterclass-cta.drasi:hover {
+            border-color: rgba(168, 85, 247, 0.5);
+        }
+
+        /* Video Section Styles */
+        .video-insight-card {
+            margin: 3.5rem 0;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .video-insight-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(56, 189, 248, 0.5);
+        }
+        .video-insight-header {
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+            background: rgba(56, 189, 248, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .video-icon-box {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        .video-content video {
+            width: 100%;
+            display: block;
+            aspect-ratio: 16/9;
+            background: #000;
+        }
+        .video-footer {
+            padding: 1.2rem 2rem;
+            background: rgba(15, 23, 42, 0.6);
+            font-size: 1rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Architecture Diagram & Analogy Styles */
+        .architecture-card {
+            margin: 3.5rem 0;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        .architecture-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+        .architecture-card:hover img {
+            transform: scale(1.01);
+        }
+        .diagram-caption {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .analogy-block {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .analogy-block::before {
+            content: "\f10d";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            top: -20px;
+            right: 20px;
+            font-size: 8rem;
+            color: rgba(255, 255, 255, 0.03);
+            pointer-events: none;
+        }
+        .analogy-header {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        .analogy-icon {
+            font-size: 2rem;
+            color: #60a5fa;
+        }
+
+        /* SRE Dashboard Styles */
+        .sre-dashboard {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 3rem 0;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        @media (max-width: 768px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+        }
+        .metric-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            position: relative;
+        }
+        .status-pulse {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            position: relative;
+        }
+        .pulse-green { background: #10b981; box-shadow: 0 0 10px #10b981; }
+        .pulse-yellow { background: #f59e0b; box-shadow: 0 0 10px #f59e0b; animation: pulse-anim 2s infinite; }
+        @keyframes pulse-anim {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .metric-value { font-size: 2.5rem; font-weight: 800; font-family: 'Outfit', sans-serif; margin: 1rem 0; color: #f8fafc; }
+        .metric-label { font-size: 0.85rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Calculator Styles */
+        .calculator-container {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.9) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+        }
+        .calc-question { margin-bottom: 2.5rem; }
+        .calc-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+        @media (max-width: 600px) { .calc-options { grid-template-columns: 1fr; } }
+        .calc-btn {
+            background: rgba(51, 65, 85, 0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #cbd5e1;
+            padding: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .calc-btn:hover { background: rgba(59, 130, 246, 0.2); border-color: #60a5fa; color: #f8fafc; }
+        .calc-btn.active { background: #3b82f6; border-color: #60a5fa; color: white; box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }
+        .calc-result-box {
+            display: none;
+            margin-top: 2rem;
+            padding: 2.5rem;
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 16px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+        .calc-result-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: #10b981;
+        }
+        
+        .expert-recommendation-box {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(252, 211, 77, 0.05);
+            border: 1px solid rgba(252, 211, 77, 0.2);
+            border-radius: 12px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .rto-rpo-container {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .rto-rpo-container:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .rto-rpo-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Simulator Styles */
+        .sim-container {
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(56, 189, 248, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        .sim-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .sim-node {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+        .sim-node.failed {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: #ef4444;
+            opacity: 0.6;
+        }
+        .sim-heartbeat {
+            width: 10px;
+            height: 10px;
+            background: #10b981;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            box-shadow: 0 0 10px #10b981;
+        }
+        .sim-node.failed .sim-heartbeat {
+            background: #ef4444;
+            box-shadow: none;
+            animation: none;
+        }
+        .sim-pulse { animation: pulse-anim 2s infinite; }
+
+        /* Blueprint Gallery Styles */
+        .blueprint-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 1rem;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s;
+        }
+        .tab-btn.active {
+            color: #60a5fa;
+            border-bottom: 2px solid #60a5fa;
+        }
+        .tab-content { display: none; background: #011627; border-radius: 8px; padding: 1.5rem; overflow-x: auto; }
+        .tab-content.active { display: block; }
+        /* --- Silicon Valley Executive UI Components --- */
+        
+        :root {
+            --beam-size: 150px;
+            --beam-speed: 8s;
+            --spotlight-opacity: 0.15;
+        }
+
+        .sv-card-container {
+            position: relative;
+            padding: 2px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.03);
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Border Beam Animation */
+        .sv-card-container::before {
+            content: "";
+            position: absolute;
+            inset: -100%;
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg,
+                transparent 300deg,
+                rgba(59, 130, 246, 0.4) 330deg,
+                rgba(168, 85, 247, 0.4) 360deg
+            );
+            animation: beam-spin var(--beam-speed) linear infinite;
+            z-index: 0;
+            opacity: 0.6;
+        }
+
+        @keyframes beam-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Strict Masterclass 2-Column Grid */
+        .sv-masterclass-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: stretch;
+            margin: 4rem 0;
+            position: relative;
+            z-index: 5;
+            width: 100%;
+        }
+
+        /* Break out of 850px parent containment for premium wide view */
+        @media (min-width: 1250px) {
+            .sv-masterclass-grid {
+                width: calc(100% + 150px);
+                margin-left: -75px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .sv-masterclass-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sv-masterclass-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* High-Fidelity Bento Card */
+        .sv-bento-card {
+            position: relative;
+            z-index: 1;
+            background: rgba(10, 15, 30, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 22px;
+            padding: 2.5rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: transform 0.3s cubic-bezier(0.2, 0, 0.1, 1);
+        }
+
+        .sv-bento-card:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Spotlight Hover Effect */
+        .sv-spotlight {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(
+                circle 250px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                rgba(96, 165, 250, var(--spotlight-opacity)),
+                transparent 80%
+            );
+            pointer-events: none;
+            z-index: 2;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Grid / Texture Backgrounds */
+        .sv-texture-grid {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 24px 24px;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        .sv-texture-dots {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+            background-size: 12px 12px;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.2;
+        }
+
+        /* Refined Component Badges */
+        .sv-badge-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 3;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .sv-badge-icon i {
+            font-size: 1.6rem;
+            filter: drop-shadow(0 0 8px currentColor);
+        }
+
+        /* Premium Typography Layout */
+        .sv-bento-title {
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            font-size: 1.75rem;
+            letter-spacing: -0.02em;
+            color: #f8fafc;
+            margin: 0 0 1rem 0;
+            position: relative;
+            z-index: 3;
+        }
+
+        .sv-bento-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 1.05rem;
+            color: #60a5fa;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 3;
+        }
+
+        .sv-bento-text {
+            color: #94a3b8;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 3;
+        }
+
+        .sv-insight-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 2.5rem 0;
+            position: relative;
+            z-index: 3;
+        }
+
+        .sv-insight-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.85rem;
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+
+        .sv-insight-list li i {
+            margin-top: 0.35rem;
+            font-size: 0.8rem;
+            color: #60a5fa;
+        }
+
+        /* Action Strips / Buttons */
+        .sv-action-strip {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            color: #f8fafc;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 4;
+            width: 100%;
+        }
+
+        .sv-action-strip:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+            transform: scale(1.02);
+        }
+
+        .sv-action-strip ::after {
+            content: " →";
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .sv-action-strip:hover ::after {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+    </style>
+            
+            <div class="sv-masterclass-grid sv-3col">
+                <!-- Card 1: Business Problem -->
+                <div class="sv-card-container">
+                    <div class="sv-bento-card">
+                        <div class="sv-spotlight"></div>
+                        <div class="sv-texture-grid"></div>
+                        
+                        <div class="sv-badge-icon">
+                            <i class="fas fa-fire" style="color: #f87171;"></i>
+                        </div>
+
+                        <h3 class="sv-bento-title" style="font-size: 1.3rem;">The Business Problem</h3>
+                        <p class="sv-bento-subtitle" style="color: #fca5a5;">Failure Exposure</p>
+                        
+                        <p class="sv-bento-text">
+                            Assuming "multi-region" means automatic failover for AI workflows leaves enterprises exposed. When a primary region degrades, untested DR patterns cause prolonged outages, risking partner integrations and revenue.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2: Strategic Play -->
+                <div class="sv-card-container" style="--beam-speed: 12s;">
+                    <div class="sv-bento-card">
+                        <div class="sv-spotlight"></div>
+                        <div class="sv-texture-dots"></div>
+                        
+                        <div class="sv-badge-icon">
+                            <i class="fas fa-network-wired" style="color: #60a5fa;"></i>
+                        </div>
+
+                        <h3 class="sv-bento-title" style="font-size: 1.3rem;">The Strategic Play</h3>
+                        <p class="sv-bento-subtitle" style="color: #93c5fd;">Zero-Trust Routing</p>
+                        
+                        <p class="sv-bento-text">
+                            A zero-trust, landing-zone-aligned DR architecture using APIM Standard v2 twin instances, isolated Azure AI Search replication, and explicit DNS/Gateway failover routing across cross-geography regions.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Executive ROI -->
+                <div class="sv-card-container" style="--beam-speed: 10s;">
+                    <div class="sv-bento-card">
+                        <div class="sv-spotlight"></div>
+                        <div class="sv-texture-grid"></div>
+                        
+                        <div class="sv-badge-icon">
+                            <i class="fas fa-chart-pie" style="color: #34d399;"></i>
+                        </div>
+
+                        <h3 class="sv-bento-title" style="font-size: 1.3rem;">The Executive ROI</h3>
+                        <p class="sv-bento-subtitle" style="color: #6ee7b7;">Mitigated Risk</p>
+                        
+                        <p class="sv-bento-text">
+                            Reduced RTO from undefined days to tested minutes. Mitigated regional failure risks while securing SLA retention for mission-critical AI APIs across the Middle East and Europe.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 id="scenario"><span class="gradient-text">The Scenario: Why this is harder than it looks</span></h2>
+        <p>Imagine an enterprise platform serving mobile apps, partner integrations, internal business systems, and AI-assisted workflows across the Middle East. The primary region is <strong>UAE North</strong>. It leverages Azure API Management (APIM) as the gateway tier, intertwined with Azure AI Search, Document Intelligence, and Azure AI Foundry endpoints.</p>
+        <p>The business mandates a strict disaster recovery design extending into <strong>Sweden Central</strong>. Simple geography, right? Wrong. The first issue is tier reality. APIM does not support identical DR mechanisms across its versions. The second issue is service behavior. Generative AI endpoint availability and failure patterns do not mirror traditional IaaS configurations. And the third issue? UAE North to Sweden Central is an explicitly non-paired cross-geography DR design.</p>
+        <p>If you assume an active passive pattern is just a simple "networking flip", then your architecture looks fine in presentation slides, but completely fails under system pressure.</p>
+
+        <h2 id="hard-truth"><span class="gradient-text">The First Hard Truth: APIM Tiers Matter</span></h2>
+        <p>Microsoft’s reliability SLA is clear, yet often glossed over. Not every tier of APIM natively supports multi-region routing. Here is the operational reality check you need before finalizing any topology:</p>
+        <ul>
+            <li><strong>Premium classic</strong> supports native <strong>multi-region deployment</strong>. But remember, this propagates gateway proxies, not isolated backup environments.</li>
+            <li><strong>Premium v2</strong> supports <strong>availability zones</strong>, but it entirely lacks multi-region deployments. Worse yet, as of current mappings, it is not even available in UAE North. Designing around a non-supported tier is an amateur mistake.</li>
+            <li><strong>Standard v2</strong> supports neither out-of-the-box.</li>
+        </ul>
+
+        <!-- APIM Tier Comparison Matrix -->
+        <div style="margin: 3rem 0;">
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                <div style="width: 42px; height: 42px; background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);">
+                    <i class="fas fa-table" style="color: white; font-size: 1.1rem;"></i>
+                </div>
+                <div>
+                    <h3 style="margin: 0; font-family: 'Outfit', sans-serif; color: #f8fafc; font-size: 1.3rem;">APIM Tier Comparison: DR Feature Matrix</h3>
+                    <p style="margin: 0; font-size: 0.85rem; color: #64748b;">Source: <a href="https://learn.microsoft.com/en-us/azure/api-management/api-management-features" target="_blank" style="color: #60a5fa; text-decoration: none;">Azure APIM Feature Comparison <i class="fas fa-external-link-alt" style="font-size: 0.7em;"></i></a></p>
+                </div>
+            </div>
+
+            <div style="overflow-x: auto; border-radius: 16px; border: 1px solid rgba(56, 189, 248, 0.15); box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 900px;">
+                    <thead>
+                        <tr style="background: rgba(15, 23, 42, 0.9); border-bottom: 2px solid rgba(56, 189, 248, 0.2);">
+                            <th style="padding: 1rem 1.25rem; text-align: left; color: #94a3b8; font-weight: 700; font-family: 'Outfit', sans-serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; min-width: 160px;">Feature</th>
+                            <th style="padding: 1rem; text-align: center; color: #64748b; font-weight: 600; font-size: 0.8rem;">Consumption</th>
+                            <th style="padding: 1rem; text-align: center; color: #64748b; font-weight: 600; font-size: 0.8rem;">Developer</th>
+                            <th style="padding: 1rem; text-align: center; color: #64748b; font-weight: 600; font-size: 0.8rem;">Basic v2</th>
+                            <th style="padding: 1rem; text-align: center; color: #64748b; font-weight: 600; font-size: 0.8rem;">Standard</th>
+                            <th style="padding: 1rem; text-align: center; background: rgba(59, 130, 246, 0.08); border-left: 2px solid rgba(59, 130, 246, 0.3); border-right: 2px solid rgba(59, 130, 246, 0.3); color: #60a5fa; font-weight: 800; font-size: 0.8rem;">Standard v2 ★</th>
+                            <th style="padding: 1rem; text-align: center; color: #34d399; font-weight: 800; font-size: 0.8rem;">Premium</th>
+                            <th style="padding: 1rem; text-align: center; color: #f87171; font-weight: 700; font-size: 0.8rem;">Premium V2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- SLA -->
+                        <tr style="background: rgba(30, 41, 59, 0.3); border-bottom: 1px solid rgba(255,255,255,0.03);">
+                            <td style="padding: 0.85rem 1.25rem; color: #cbd5e1; font-weight: 600;"><i class="fas fa-shield-check" style="color: #60a5fa; margin-right: 6px; font-size: 0.8rem;"></i>SLA</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #94a3b8;">99.95%</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #94a3b8;">99.95%</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #94a3b8;">99.95%</td>
+                            <td style="padding: 0.85rem; text-align: center; background: rgba(59, 130, 246, 0.05); border-left: 2px solid rgba(59, 130, 246, 0.15); border-right: 2px solid rgba(59, 130, 246, 0.15); color: #cbd5e1; font-weight: 600;">99.95%</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399; font-weight: 700;">99.99%</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399; font-weight: 700;">99.99%</td>
+                        </tr>
+                        <!-- Scale-out Units -->
+                        <tr style="background: rgba(15, 23, 42, 0.3); border-bottom: 1px solid rgba(255,255,255,0.03);">
+                            <td style="padding: 0.85rem 1.25rem; color: #cbd5e1; font-weight: 600;"><i class="fas fa-expand-arrows-alt" style="color: #a855f7; margin-right: 6px; font-size: 0.8rem;"></i>Max Scale-out</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #64748b;">N/A</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #94a3b8;">1</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #94a3b8;">10</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #94a3b8;">4</td>
+                            <td style="padding: 0.85rem; text-align: center; background: rgba(59, 130, 246, 0.05); border-left: 2px solid rgba(59, 130, 246, 0.15); border-right: 2px solid rgba(59, 130, 246, 0.15); color: #60a5fa; font-weight: 700;">10</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #94a3b8;">10/region</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #94a3b8;">30</td>
+                        </tr>
+                        <!-- VNet Support -->
+                        <tr style="background: rgba(30, 41, 59, 0.3); border-bottom: 1px solid rgba(255,255,255,0.03);">
+                            <td style="padding: 0.85rem 1.25rem; color: #cbd5e1; font-weight: 600;"><i class="fas fa-network-wired" style="color: #f59e0b; margin-right: 6px; font-size: 0.8rem;"></i>VNet Support</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i> ⓘ</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; background: rgba(59, 130, 246, 0.05); border-left: 2px solid rgba(59, 130, 246, 0.15); border-right: 2px solid rgba(59, 130, 246, 0.15); color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i> ⓘ</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i> ⓘ</td>
+                        </tr>
+                        <!-- Multi-Region -->
+                        <tr style="background: rgba(15, 23, 42, 0.3); border-bottom: 1px solid rgba(255,255,255,0.03);">
+                            <td style="padding: 0.85rem 1.25rem; color: #f8fafc; font-weight: 700;"><i class="fas fa-globe-americas" style="color: #ef4444; margin-right: 6px; font-size: 0.8rem;"></i>Multi-Region Deploy</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; background: rgba(239, 68, 68, 0.08); border-left: 2px solid rgba(59, 130, 246, 0.15); border-right: 2px solid rgba(59, 130, 246, 0.15); color: #fca5a5; font-weight: 700;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399; font-weight: 700;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171; font-weight: 700;"><i class="fas fa-times"></i></td>
+                        </tr>
+                        <!-- Self-hosted Gateway -->
+                        <tr style="background: rgba(30, 41, 59, 0.3); border-bottom: 1px solid rgba(255,255,255,0.03);">
+                            <td style="padding: 0.85rem 1.25rem; color: #cbd5e1; font-weight: 600;"><i class="fas fa-server" style="color: #38bdf8; margin-right: 6px; font-size: 0.8rem;"></i>Self-hosted Gateway</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i> ⓘ</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; background: rgba(59, 130, 246, 0.05); border-left: 2px solid rgba(59, 130, 246, 0.15); border-right: 2px solid rgba(59, 130, 246, 0.15); color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i> ⓘ</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                        </tr>
+                        <!-- Multiple Custom Domains -->
+                        <tr style="background: rgba(15, 23, 42, 0.3); border-bottom: 1px solid rgba(255,255,255,0.03);">
+                            <td style="padding: 0.85rem 1.25rem; color: #cbd5e1; font-weight: 600;"><i class="fas fa-globe" style="color: #8b5cf6; margin-right: 6px; font-size: 0.8rem;"></i>Custom Domain Names</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; background: rgba(59, 130, 246, 0.05); border-left: 2px solid rgba(59, 130, 246, 0.15); border-right: 2px solid rgba(59, 130, 246, 0.15); color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                        </tr>
+                        <!-- Developer Portal -->
+                        <tr style="background: rgba(30, 41, 59, 0.3); border-bottom: 1px solid rgba(255,255,255,0.03);">
+                            <td style="padding: 0.85rem 1.25rem; color: #cbd5e1; font-weight: 600;"><i class="fas fa-laptop-code" style="color: #06b6d4; margin-right: 6px; font-size: 0.8rem;"></i>Developer Portal</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; background: rgba(59, 130, 246, 0.05); border-left: 2px solid rgba(59, 130, 246, 0.15); border-right: 2px solid rgba(59, 130, 246, 0.15); color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i></td>
+                        </tr>
+                        <!-- Cache -->
+                        <tr style="background: rgba(15, 23, 42, 0.3); border-bottom: 1px solid rgba(255,255,255,0.03);">
+                            <td style="padding: 0.85rem 1.25rem; color: #cbd5e1; font-weight: 600;"><i class="fas fa-database" style="color: #f472b6; margin-right: 6px; font-size: 0.8rem;"></i>Cache</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #64748b; font-size: 0.8rem;">External</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #94a3b8; font-size: 0.8rem;">10 MB</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #94a3b8; font-size: 0.8rem;">250 MB/region</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #94a3b8; font-size: 0.8rem;">1 GB/unit</td>
+                            <td style="padding: 0.85rem; text-align: center; background: rgba(59, 130, 246, 0.05); border-left: 2px solid rgba(59, 130, 246, 0.15); border-right: 2px solid rgba(59, 130, 246, 0.15); color: #cbd5e1; font-size: 0.8rem;">1 GB/unit</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #94a3b8; font-size: 0.8rem;">5 GB/unit</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #94a3b8; font-size: 0.8rem;">5 GB/unit</td>
+                        </tr>
+                        <!-- Entra ID Integration -->
+                        <tr style="background: rgba(30, 41, 59, 0.3); border-bottom: 2px solid rgba(56, 189, 248, 0.15);">
+                            <td style="padding: 0.85rem 1.25rem; color: #cbd5e1; font-weight: 600;"><i class="fas fa-id-badge" style="color: #fbbf24; margin-right: 6px; font-size: 0.8rem;"></i>Entra ID in Portal</td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; background: rgba(59, 130, 246, 0.05); border-left: 2px solid rgba(59, 130, 246, 0.15); border-right: 2px solid rgba(59, 130, 246, 0.15); color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #34d399;"><i class="fas fa-check"></i></td>
+                            <td style="padding: 0.85rem; text-align: center; color: #f87171;"><i class="fas fa-times"></i></td>
+                        </tr>
+                        <!-- DR Verdict Row -->
+                        <tr style="background: linear-gradient(90deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));">
+                            <td style="padding: 1rem 1.25rem; color: #f8fafc; font-weight: 800; font-family: 'Outfit', sans-serif; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;"><i class="fas fa-gavel" style="color: #c084fc; margin-right: 6px;"></i>DR Verdict</td>
+                            <td style="padding: 1rem; text-align: center; color: #f87171; font-size: 0.75rem; font-weight: 700;">NOT VIABLE</td>
+                            <td style="padding: 1rem; text-align: center; color: #f87171; font-size: 0.75rem; font-weight: 700;">DEV ONLY</td>
+                            <td style="padding: 1rem; text-align: center; color: #f87171; font-size: 0.75rem; font-weight: 700;">NO VNET</td>
+                            <td style="padding: 1rem; text-align: center; color: #f59e0b; font-size: 0.75rem; font-weight: 700;">LEGACY</td>
+                            <td style="padding: 1rem; text-align: center; background: rgba(59, 130, 246, 0.12); border-left: 2px solid rgba(59, 130, 246, 0.3); border-right: 2px solid rgba(59, 130, 246, 0.3); font-size: 0.75rem;"><span style="background: linear-gradient(90deg, #60a5fa, #a855f7); -webkit-background-clip: text; color: transparent; font-weight: 800;">RECOMMENDED</span></td>
+                            <td style="padding: 1rem; text-align: center; color: #34d399; font-size: 0.75rem; font-weight: 700;">NATIVE DR</td>
+                            <td style="padding: 1rem; text-align: center; color: #f87171; font-size: 0.75rem; font-weight: 700;">NO UAE ⚠️</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="font-size: 0.8rem; color: #64748b; margin-top: 0.75rem; text-align: right;"><i class="fas fa-info-circle" style="margin-right: 4px;"></i>Scroll horizontally on mobile to view all tiers. ★ = Recommended for this DR scenario.</p>
+        </div>
+
+        <p>If UAE North must remain the primary region and you demand the updated platform, <span class="eli5-term" data-tooltip="An APIM pricing and capability tier offering better networking and scale-to-zero capabilities, but requires customer-engineered DR mechanisms across multiple regions.">Standard v2</span> is your baseline. However, this means two explicitly standalone instances—aligned purely via <span class="eli5-term" data-tooltip="The practice of using GitOps and Infrastructure as Code to manage APIs, policies, and deployments programmatically rather than manually tweaking UI configurations.">APIOps</span> and IaC. You are engineering the recovery, not toggling a magic platform feature.</p>
+
+        <h2 id="ai-dr"><span class="gradient-text">Designing DR for AI Services</span></h2>
+        <p>When engineering AI into your DR posture, you must stop treating AI like a static web app. Here is how you decompose the dependencies:</p>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             AZURE AI SEARCH — DR & BACKUP DEEP DIVE
+             ═══════════════════════════════════════════════════════════════ -->
+        <h3 id="ai-search-dr" style="color: #38bdf8; font-family: ‘Outfit’, sans-serif; margin-top: 2rem;">
+            <i class="fas fa-search" style="margin-right: 8px; color: #60a5fa;"></i>Azure AI Search — DR &amp; Backup Engineering
+        </h3>
+
+        <div style="background: rgba(56, 189, 248, 0.06); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem;">
+            <p style="margin: 0 0 0.75rem 0;"><strong style="color: #f8fafc;">First principle:</strong> Azure AI Search is explicitly <em>not</em> a primary data store. Microsoft does not provide native backup/restore or automatic cross-region replication. <span class="eli5-term" data-tooltip="Your source documents live in Blob Storage or Cosmos DB. AI Search indexes them. If the index is destroyed, you re-index from source — the source is the backup.">You own the DR story end-to-end.</span> If your primary index corrupts and your secondary blindly mirrors it, you don’t have DR — you have a fast multi-continent outage.</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                <div style="background: rgba(15,23,42,0.5); padding: 0.75rem 1rem; border-radius: 6px; border-left: 3px solid #34d399;">
+                    <div style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">RTO Target</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: #34d399;">15–30 min</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8;">Front Door health probe + warm standby</div>
+                </div>
+                <div style="background: rgba(15,23,42,0.5); padding: 0.75rem 1rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
+                    <div style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">RPO Target</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: #f59e0b;">Near-zero</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8;">If indexer runs on both regions against shared source</div>
+                </div>
+                <div style="background: rgba(15,23,42,0.5); padding: 0.75rem 1rem; border-radius: 6px; border-left: 3px solid #c084fc;">
+                    <div style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">Min Replicas for HA</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: #c084fc;">2 replicas</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8;">Per service SLA requires ≥2 replicas</div>
+                </div>
+            </div>
+        </div>
+
+        <h4 style="color: #e2e8f0; font-family: ‘Outfit’, sans-serif; margin-bottom: 0.75rem;"><i class="fas fa-network-wired" style="color: #60a5fa; margin-right: 6px;"></i>Multi-Region Architecture Pattern</h4>
+        <p>Deploy two completely independent AI Search services — one in UAE North, one in Sweden Central. Both services must run the same indexer pipeline against a <strong>geo-replicated source</strong> (Blob Storage with GRS/GZRS, or Cosmos DB with multi-region writes). The indexer in the secondary region runs on its own schedule and is independently queryable at all times (warm standby, not cold restore).</p>
+
+        <pre><code class="language-bash"># Deploy AI Search service in UAE North
+az search service create \
+  --name srch-uae-prod \
+  --resource-group rg-ai-uae-prod \
+  --location uaenorth \
+  --sku Standard \
+  --replica-count 2 \
+  --partition-count 2
+
+# Deploy identical service in Sweden Central (DR)
+az search service create \
+  --name srch-sweden-dr \
+  --resource-group rg-ai-sweden-dr \
+  --location swedencentral \
+  --sku Standard \
+  --replica-count 2 \
+  --partition-count 2</code></pre>
+
+        <h4 style="color: #e2e8f0; font-family: ‘Outfit’, sans-serif; margin-top: 1.5rem; margin-bottom: 0.75rem;"><i class="fas fa-sync" style="color: #34d399; margin-right: 6px;"></i>Index Synchronisation Strategy</h4>
+
+        <div class="table-responsive" style="margin-bottom: 1.5rem;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pattern</th>
+                        <th>How it Works</th>
+                        <th>RPO</th>
+                        <th>When to Use</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Dual-indexer (recommended)</strong></td>
+                        <td>Both regions run indexers against same GRS source. Indexer schedule: every 5 min.</td>
+                        <td style="color: #34d399;">~5 min</td>
+                        <td>Production AI Search for RAG workloads</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Push via REST API</strong></td>
+                        <td>Application code pushes document updates to both endpoints simultaneously via Search REST API.</td>
+                        <td style="color: #34d399;">&lt;1 min</td>
+                        <td>Real-time inventory, trading, live data</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Scheduled full re-index</strong></td>
+                        <td>Nightly full rebuild of secondary from source. Simple but slow recovery.</td>
+                        <td style="color: #f87171;">Up to 24 hrs</td>
+                        <td>Static content / large indexes with low update frequency</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="background: rgba(248, 113, 113, 0.08); border-left: 4px solid #f87171; padding: 1rem 1.5rem; border-radius: 4px; margin-bottom: 1.5rem;">
+            <p style="margin: 0;"><i class="fas fa-exclamation-triangle" style="color: #f87171; margin-right: 6px;"></i><strong>Critical:</strong> When the secondary indexer reads from the same GRS Blob Storage account, failover to the secondary storage endpoint must be pre-tested. A corrupted primary <em>document</em> will re-index into both regions. Always maintain a time-delayed snapshot of source documents (e.g., Azure Blob Lifecycle Policy archiving to Cool tier after 7 days) as your true backup layer.</p>
+        </div>
+
+        <h4 style="color: #e2e8f0; font-family: ‘Outfit’, sans-serif; margin-bottom: 0.75rem;"><i class="fas fa-route" style="color: #c084fc; margin-right: 6px;"></i>Front Door Health Probe Configuration for Automatic Failover</h4>
+        <pre><code class="language-json">// Front Door Origin Group — AI Search Failover
+{
+  "originGroup": "ai-search-origins",
+  "healthProbe": {
+    "path": "/indexes?api-version=2023-11-01",
+    "protocol": "Https",
+    "intervalInSeconds": 30,
+    "healthProbeMethod": "HEAD"
+  },
+  "loadBalancingSettings": {
+    "sampleSize": 4,
+    "successfulSamplesRequired": 2,
+    "additionalLatencyInMilliseconds": 0
+  },
+  "origins": [
+    { "hostname": "srch-uae-prod.search.windows.net",    "priority": 1, "weight": 1000 },
+    { "hostname": "srch-sweden-dr.search.windows.net",   "priority": 2, "weight": 1000 }
+  ]
+}</code></pre>
+
+        <div style="background: rgba(52, 211, 153, 0.08); border-left: 4px solid #34d399; padding: 1rem 1.5rem; border-radius: 4px; margin-bottom: 2rem;">
+            <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: #34d399; margin-right: 6px;"></i><strong>Private Endpoint Note:</strong> In a private-endpoint deployment, the Front Door health probe cannot reach AI Search directly. Use a lightweight Azure Function Health Checker in each region that probes the Search service over private link and exposes a public <code>/health</code> endpoint — Front Door probes the function, not Search directly.</p>
+        </div>
+
+        <!-- AI Search Reference Labs -->
+        <div style="background: rgba(15,23,42,0.6); border: 1px solid rgba(96,165,250,0.25); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 2.5rem;">
+            <h5 style="margin: 0 0 1rem 0; color: #60a5fa; font-family: 'Outfit', sans-serif; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                <i class="fas fa-flask" style="margin-right: 6px;"></i>Hands-On Labs &amp; Official References — Azure AI Search DR
+            </h5>
+            <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+                <a href="https://learn.microsoft.com/en-us/azure/search/search-multi-region" target="_blank" rel="noopener" style="display: flex; align-items: flex-start; gap: 0.75rem; text-decoration: none; padding: 0.6rem 0.75rem; background: rgba(96,165,250,0.06); border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(96,165,250,0.12)'" onmouseout="this.style.background='rgba(96,165,250,0.06)'">
+                    <i class="fas fa-book" style="color: #60a5fa; margin-top: 3px; flex-shrink: 0;"></i>
+                    <div><div style="color: #e2e8f0; font-weight: 600; font-size: 0.88rem;">Multi-Region Solutions — Azure AI Search (MS Learn)</div><div style="color: #64748b; font-size: 0.78rem; margin-top: 2px;">Official DR guide: index sync with push/pull models, Cosmos DB change feed, Front Door failover patterns</div></div>
+                    <i class="fas fa-external-link-alt" style="color: #475569; font-size: 0.7rem; margin-left: auto; flex-shrink: 0; margin-top: 5px;"></i>
+                </a>
+                <a href="https://learn.microsoft.com/en-us/samples/azure-samples/azure-search-dotnet-utilities/azure-search-backup-restore-index/" target="_blank" rel="noopener" style="display: flex; align-items: flex-start; gap: 0.75rem; text-decoration: none; padding: 0.6rem 0.75rem; background: rgba(96,165,250,0.06); border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(96,165,250,0.12)'" onmouseout="this.style.background='rgba(96,165,250,0.06)'">
+                    <i class="fab fa-github" style="color: #60a5fa; margin-top: 3px; flex-shrink: 0;"></i>
+                    <div><div style="color: #e2e8f0; font-weight: 600; font-size: 0.88rem;">Azure Search Backup &amp; Restore Index (Azure-Samples)</div><div style="color: #64748b; font-size: 0.78rem; margin-top: 2px;">.NET/Python code sample: serialize index to JSON, restore across services — the closest to a native backup tool for AI Search</div></div>
+                    <i class="fas fa-external-link-alt" style="color: #475569; font-size: 0.7rem; margin-left: auto; flex-shrink: 0; margin-top: 5px;"></i>
+                </a>
+                <a href="https://github.com/Azure-Samples/azure-search-multiple-regions" target="_blank" rel="noopener" style="display: flex; align-items: flex-start; gap: 0.75rem; text-decoration: none; padding: 0.6rem 0.75rem; background: rgba(96,165,250,0.06); border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(96,165,250,0.12)'" onmouseout="this.style.background='rgba(96,165,250,0.06)'">
+                    <i class="fab fa-github" style="color: #60a5fa; margin-top: 3px; flex-shrink: 0;"></i>
+                    <div><div style="color: #e2e8f0; font-weight: 600; font-size: 0.88rem;">azure-search-multiple-regions (GitHub)</div><div style="color: #64748b; font-size: 0.78rem; margin-top: 2px;">Complete BCDR reference: multi-region deployment with Front Door + Cosmos DB change feed for live data sync</div></div>
+                    <i class="fas fa-external-link-alt" style="color: #475569; font-size: 0.7rem; margin-left: auto; flex-shrink: 0; margin-top: 5px;"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             AZURE DOCUMENT INTELLIGENCE — DR & BACKUP DEEP DIVE
+             ═══════════════════════════════════════════════════════════════ -->
+        <h3 id="doc-intel-dr" style="color: #38bdf8; font-family: ‘Outfit’, sans-serif; margin-top: 2.5rem;">
+            <i class="fas fa-file-invoice" style="margin-right: 8px; color: #60a5fa;"></i>Azure Document Intelligence — DR &amp; Backup Engineering
+        </h3>
+
+        <div style="background: rgba(56, 189, 248, 0.06); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem;">
+            <p style="margin: 0 0 0.75rem 0;"><strong style="color: #f8fafc;">Architecture reality:</strong> Azure Document Intelligence is a <em>regional</em> resource. There is no built-in cross-region failover toggle. DR requires deploying at minimum two separate resources — one per region — and using the <strong>Model Copy API</strong> to replicate custom models and classifiers. Out-of-the-box prebuilt models (Invoice, Receipt, Layout) are available in all regions and need no copy.</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                <div style="background: rgba(15,23,42,0.5); padding: 0.75rem 1rem; border-radius: 6px; border-left: 3px solid #34d399;">
+                    <div style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">RTO Target</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: #34d399;">10–20 min</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8;">Front Door failover + warm model copy</div>
+                </div>
+                <div style="background: rgba(15,23,42,0.5); padding: 0.75rem 1rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
+                    <div style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">RPO Target</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: #f59e0b;">~24 hrs</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8;">Daily scheduled model copy pipeline</div>
+                </div>
+                <div style="background: rgba(15,23,42,0.5); padding: 0.75rem 1rem; border-radius: 6px; border-left: 3px solid #c084fc;">
+                    <div style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">Copy API Tier</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: #c084fc;">S0 minimum</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8;">Free tier does not support Copy API</div>
+                </div>
+            </div>
+        </div>
+
+        <h4 style="color: #e2e8f0; font-family: ‘Outfit’, sans-serif; margin-bottom: 0.75rem;"><i class="fas fa-copy" style="color: #60a5fa; margin-right: 6px;"></i>Model Copy API — Step-by-Step Runbook</h4>
+        <p>The Copy API is a two-phase operation: <strong>authorize on target</strong>, then <strong>initiate copy from source</strong>. Both the source and target resources must use the same pricing tier (S0). The copy is asynchronous — poll the operation URL until status is <code>succeeded</code>.</p>
+
+        <pre><code class="language-bash"># Step 1: Authorize copy on TARGET (Sweden Central) — generates an authorization token
+TARGET_ENDPOINT="https://docintel-sweden-dr.cognitiveservices.azure.com"
+TARGET_KEY="&lt;sweden-dr-api-key&gt;"
+MODEL_ID="my-custom-invoice-classifier"
+
+AUTHORIZATION=$(curl -s -X POST \
+  "${TARGET_ENDPOINT}/documentintelligence/documentModels/${MODEL_ID}:authorizeCopy?api-version=2024-02-29-preview" \
+  -H "Ocp-Apim-Subscription-Key: ${TARGET_KEY}" \
+  -H "Content-Type: application/json" \
+  -d ‘{"modelId": "’"${MODEL_ID}"’"}’)
+
+echo "Authorization token: ${AUTHORIZATION}"
+
+# Step 2: Initiate copy FROM SOURCE (UAE North)
+SOURCE_ENDPOINT="https://docintel-uae-prod.cognitiveservices.azure.com"
+SOURCE_KEY="&lt;uae-prod-api-key&gt;"
+
+OPERATION_URL=$(curl -s -D - -o /dev/null -X POST \
+  "${SOURCE_ENDPOINT}/documentintelligence/documentModels/${MODEL_ID}:copyTo?api-version=2024-02-29-preview" \
+  -H "Ocp-Apim-Subscription-Key: ${SOURCE_KEY}" \
+  -H "Content-Type: application/json" \
+  -d "${AUTHORIZATION}" | grep -i ‘operation-location’ | tr -d ‘\r’ | cut -d’ ‘ -f2)
+
+echo "Polling: ${OPERATION_URL}"
+
+# Step 3: Poll until succeeded
+while true; do
+  STATUS=$(curl -s "${OPERATION_URL}" -H "Ocp-Apim-Subscription-Key: ${SOURCE_KEY}" | python3 -c "import sys,json; print(json.load(sys.stdin)[‘status’])")
+  echo "Status: ${STATUS}"
+  [[ "${STATUS}" == "succeeded" || "${STATUS}" == "failed" ]] &amp;&amp; break
+  sleep 10
+done</code></pre>
+
+        <h4 style="color: #e2e8f0; font-family: ‘Outfit’, sans-serif; margin-top: 1.5rem; margin-bottom: 0.75rem;"><i class="fas fa-calendar-alt" style="color: #34d399; margin-right: 6px;"></i>Automated Daily Model Sync Pipeline</h4>
+        <p>Wrap the above script into an <strong>Azure Logic App</strong> or <strong>Azure DevOps pipeline</strong> scheduled daily. For each model/classifier in the source resource, invoke the Copy API to the DR target. The pipeline should:</p>
+        <ol>
+            <li>List all custom models from UAE North using <code>GET /documentintelligence/documentModels?api-version=2024-02-29-preview</code></li>
+            <li>For each model, check if Sweden Central version’s <code>lastUpdatedDateTime</code> is older than source — only copy if stale</li>
+            <li>Send a Teams/email alert on copy failure so engineers can manually intervene before the next potential DR event</li>
+        </ol>
+
+        <div style="background: rgba(245, 158, 11, 0.08); border-left: 4px solid #f59e0b; padding: 1rem 1.5rem; border-radius: 4px; margin-bottom: 2rem;">
+            <p style="margin: 0;"><i class="fas fa-exclamation-triangle" style="color: #f59e0b; margin-right: 6px;"></i><strong>Zero-Trust Secret Management:</strong> Each regional Document Intelligence resource must have its own <strong>separate Key Vault</strong> in the same region. Cross-region Key Vault lookups during a DR event create a latency and availability dependency chain. Store both API keys in UAE North KV and Sweden Central KV independently. APIM Named Values must point to the local regional KV reference — not a shared cross-region KV.</p>
+        </div>
+
+        <!-- Doc Intelligence Reference Labs -->
+        <div style="background: rgba(15,23,42,0.6); border: 1px solid rgba(96,165,250,0.25); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 2.5rem;">
+            <h5 style="margin: 0 0 1rem 0; color: #60a5fa; font-family: 'Outfit', sans-serif; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                <i class="fas fa-flask" style="margin-right: 6px;"></i>Hands-On Labs &amp; Official References — Azure Document Intelligence DR
+            </h5>
+            <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+                <a href="https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/how-to-guides/disaster-recovery?view=doc-intel-4.0.0" target="_blank" rel="noopener" style="display: flex; align-items: flex-start; gap: 0.75rem; text-decoration: none; padding: 0.6rem 0.75rem; background: rgba(96,165,250,0.06); border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(96,165,250,0.12)'" onmouseout="this.style.background='rgba(96,165,250,0.06)'">
+                    <i class="fas fa-book" style="color: #60a5fa; margin-top: 3px; flex-shrink: 0;"></i>
+                    <div><div style="color: #e2e8f0; font-weight: 600; font-size: 0.88rem;">Disaster Recovery Guidance — Document Intelligence (MS Learn)</div><div style="color: #64748b; font-size: 0.78rem; margin-top: 2px;">Official Copy API walkthrough: authorize → copy → poll. Covers regional outage patterns and multi-region failover strategies</div></div>
+                    <i class="fas fa-external-link-alt" style="color: #475569; font-size: 0.7rem; margin-left: auto; flex-shrink: 0; margin-top: 5px;"></i>
+                </a>
+                <a href="https://github.com/Azure-Samples/document-intelligence-code-samples" target="_blank" rel="noopener" style="display: flex; align-items: flex-start; gap: 0.75rem; text-decoration: none; padding: 0.6rem 0.75rem; background: rgba(96,165,250,0.06); border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(96,165,250,0.12)'" onmouseout="this.style.background='rgba(96,165,250,0.06)'">
+                    <i class="fab fa-github" style="color: #60a5fa; margin-top: 3px; flex-shrink: 0;"></i>
+                    <div><div style="color: #e2e8f0; font-weight: 600; font-size: 0.88rem;">document-intelligence-code-samples (Azure-Samples)</div><div style="color: #64748b; font-size: 0.78rem; margin-top: 2px;">Runnable SDK samples covering Copy API for model replication across regions in Python, C#, Java, and JavaScript</div></div>
+                    <i class="fas fa-external-link-alt" style="color: #475569; font-size: 0.7rem; margin-left: auto; flex-shrink: 0; margin-top: 5px;"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             AZURE AI FOUNDRY & MODEL ENDPOINTS — DR & BACKUP DEEP DIVE
+             ═══════════════════════════════════════════════════════════════ -->
+        <h3 id="ai-foundry-dr" style="color: #38bdf8; font-family: ‘Outfit’, sans-serif; margin-top: 2.5rem;">
+            <i class="fas fa-brain" style="margin-right: 8px; color: #60a5fa;"></i>Azure AI Foundry &amp; Model Endpoints — DR &amp; Backup Engineering
+        </h3>
+
+        <div style="background: rgba(56, 189, 248, 0.06); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem;">
+            <p style="margin: 0 0 0.75rem 0;"><strong style="color: #f8fafc;">The hard constraint that kills most DR plans:</strong> Azure AI Foundry provides <em>no automatic failover</em>. PTU (Provisioned Throughput Units) cannot be auto-spun in a secondary region under duress. You must pre-allocate PTU capacity in Sweden Central <em>before</em> you need it. Assuming you can spin up PTU during a sev-1 at 3 AM is a fast track to an executive-level outage post-mortem.</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                <div style="background: rgba(15,23,42,0.5); padding: 0.75rem 1rem; border-radius: 6px; border-left: 3px solid #f87171;">
+                    <div style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">RTO Target</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: #f87171;">30–60 min</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8;">Manual operator-triggered cutover (no auto)</div>
+                </div>
+                <div style="background: rgba(15,23,42,0.5); padding: 0.75rem 1rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
+                    <div style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">RPO Target</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: #f59e0b;">Agent state: ~1 hr</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8;">Cosmos DB backup interval dependent</div>
+                </div>
+                <div style="background: rgba(15,23,42,0.5); padding: 0.75rem 1rem; border-radius: 6px; border-left: 3px solid #c084fc;">
+                    <div style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">Model Deployments</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: #c084fc;">Static config</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8;">IaC-deployed, no copy API — redeploy from Bicep</div>
+                </div>
+            </div>
+        </div>
+
+        <h4 style="color: #e2e8f0; font-family: ‘Outfit’, sans-serif; margin-bottom: 0.75rem;"><i class="fas fa-layer-group" style="color: #60a5fa; margin-right: 6px;"></i>PTU Pre-Allocation Strategy</h4>
+        <p>There are two distinct PTU purchase patterns for DR. The right choice depends on your budget and RTO tolerance:</p>
+
+        <div class="table-responsive" style="margin-bottom: 1.5rem;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pattern</th>
+                        <th>UAE North (Primary)</th>
+                        <th>Sweden Central (DR)</th>
+                        <th>Cost Implication</th>
+                        <th>RTO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Active-Active PTU</strong></td>
+                        <td>Full PTU allocation (e.g., 100 PTU)</td>
+                        <td>Full PTU allocation (100 PTU)</td>
+                        <td style="color: #f87171;">2× PTU cost always</td>
+                        <td style="color: #34d399;">~5 min (Front Door reroute)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Workload + Enterprise Pool (recommended)</strong></td>
+                        <td>Workload PTU (dedicated, 100 PTU)</td>
+                        <td>Enterprise Data Zone PTU pool (shared, shared across projects)</td>
+                        <td style="color: #34d399;">~40–60% cost saving on DR region</td>
+                        <td style="color: #f59e0b;">15–20 min (pool allocation request)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PTU Primary + PAYG DR</strong></td>
+                        <td>PTU (100 PTU)</td>
+                        <td>Standard (PAYG) — no pre-purchase</td>
+                        <td style="color: #34d399;">Lowest cost</td>
+                        <td style="color: #f87171;">45–90 min + throttle risk during event</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h4 style="color: #e2e8f0; font-family: ‘Outfit’, sans-serif; margin-top: 1.5rem; margin-bottom: 0.75rem;"><i class="fas fa-database" style="color: #34d399; margin-right: 6px;"></i>Agent State Backup — Cosmos DB Configuration</h4>
+        <p>Azure AI Foundry Agent Service stores conversation threads, tool call history, and agent configuration in a <strong>customer-provisioned Azure Cosmos DB</strong> account. This is the only stateful component of the AI Foundry stack. If you skip this, your agents lose all session context on failover.</p>
+
+        <pre><code class="language-bash"># Configure Cosmos DB for AI Foundry Agent Service with multi-region writes
+az cosmosdb create \
+  --name cosmos-agents-prod \
+  --resource-group rg-ai-uae-prod \
+  --locations regionName="UAE North" failoverPriority=0 isZoneRedundant=true \
+  --locations regionName="Sweden Central" failoverPriority=1 isZoneRedundant=false \
+  --enable-multiple-write-locations true \
+  --default-consistency-level Session \
+  --backup-policy-type Continuous \
+  --continuous-mode-backup-interval 240
+
+# Link Cosmos DB to AI Foundry Project during hub creation
+az ml workspace create \
+  --name ai-foundry-uae-hub \
+  --resource-group rg-ai-uae-prod \
+  --location uaenorth \
+  --kind hub \
+  --cosmos-db-id "/subscriptions/&lt;sub-id&gt;/resourceGroups/rg-ai-uae-prod/providers/Microsoft.DocumentDB/databaseAccounts/cosmos-agents-prod"</code></pre>
+
+        <h4 style="color: #e2e8f0; font-family: ‘Outfit’, sans-serif; margin-top: 1.5rem; margin-bottom: 0.75rem;"><i class="fas fa-code-branch" style="color: #c084fc; margin-right: 6px;"></i>Model Deployment Parity via Bicep</h4>
+        <p>Model deployments in AI Foundry are configuration objects — there is no "copy API." The only safe DR approach is to manage them as <strong>Infrastructure as Code</strong> and maintain identical deployment manifests for both regions:</p>
+
+        <pre><code class="language-bicep">// Bicep: Deploy identical GPT-4o deployment in both regions
+param location string
+param hubName string
+
+resource aiFoundryHub ‘Microsoft.MachineLearningServices/workspaces@2024-04-01’ existing = {
+  name: hubName
+}
+
+resource gpt4oDeployment ‘Microsoft.CognitiveServices/accounts/deployments@2023-10-01-preview’ = {
+  name: ‘${hubName}/gpt-4o-deployment’
+  properties: {
+    model: {
+      format: ‘OpenAI’
+      name: ‘gpt-4o’
+      version: ‘2024-05-13’
+    }
+    scaleSettings: {
+      scaleType: ‘Standard’  // Switch to ‘ProvisionedManaged’ for PTU
+      capacity: 10
+    }
+  }
+}
+
+// Run with: az deployment group create --template-file ai-foundry.bicep \
+//   --parameters location=uaenorth hubName=ai-foundry-uae-hub
+// Run with: az deployment group create --template-file ai-foundry.bicep \
+//   --parameters location=swedencentral hubName=ai-foundry-sweden-hub</code></pre>
+
+        <div style="background: rgba(192, 132, 252, 0.08); border-left: 4px solid #c084fc; padding: 1rem 1.5rem; border-radius: 4px; margin-bottom: 2rem;">
+            <p style="margin: 0 0 0.5rem 0;"><i class="fas fa-exclamation-circle" style="color: #c084fc; margin-right: 6px;"></i><strong>DR Runbook — AI Foundry Failover Sequence:</strong></p>
+            <ol style="margin: 0; padding-left: 1.2rem; color: #cbd5e1;">
+                <li>Detect: Azure Monitor alert fires on <code>SuccessRate &lt; 95%</code> on UAE North AI Foundry endpoint for &gt;5 minutes</li>
+                <li>Validate: Run synthetic test against Sweden Central AI Foundry endpoint — confirm model responds correctly</li>
+                <li>Switch: Update Front Door origin weights (UAE=0, Sweden=1000) or disable UAE origin entirely</li>
+                <li>APIM: Verify Named Values (<code>ai-foundry-endpoint</code>) point to Sweden Central — update via APIOps if not already parameterized</li>
+                <li>Cosmos DB: Trigger manual failover if UAE North Cosmos region is also unavailable: <code>az cosmosdb failover-priority-change --name cosmos-agents-prod --failover-policies "Sweden Central=0" "UAE North=1"</code></li>
+                <li>Notify: Alert on-call + stakeholders, open sev-1 bridge</li>
+            </ol>
+        </div>
+
+        <!-- AI Foundry Reference Labs -->
+        <div style="background: rgba(15,23,42,0.6); border: 1px solid rgba(96,165,250,0.25); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 2.5rem;">
+            <h5 style="margin: 0 0 1rem 0; color: #60a5fa; font-family: 'Outfit', sans-serif; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                <i class="fas fa-flask" style="margin-right: 6px;"></i>Hands-On Labs &amp; Official References — Azure AI Foundry DR
+            </h5>
+            <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+                <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/disaster-recovery" target="_blank" rel="noopener" style="display: flex; align-items: flex-start; gap: 0.75rem; text-decoration: none; padding: 0.6rem 0.75rem; background: rgba(96,165,250,0.06); border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(96,165,250,0.12)'" onmouseout="this.style.background='rgba(96,165,250,0.06)'">
+                    <i class="fas fa-book" style="color: #60a5fa; margin-top: 3px; flex-shrink: 0;"></i>
+                    <div><div style="color: #e2e8f0; font-weight: 600; font-size: 0.88rem;">Customer-Enabled DR for AI Hub Projects (MS Learn)</div><div style="color: #64748b; font-size: 0.78rem; margin-top: 2px;">Official BCDR guide: regional failure handling, storage redundancy, multi-region hub deployment patterns</div></div>
+                    <i class="fas fa-external-link-alt" style="color: #475569; font-size: 0.7rem; margin-left: auto; flex-shrink: 0; margin-top: 5px;"></i>
+                </a>
+                <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/business-continuity-disaster-recovery" target="_blank" rel="noopener" style="display: flex; align-items: flex-start; gap: 0.75rem; text-decoration: none; padding: 0.6rem 0.75rem; background: rgba(96,165,250,0.06); border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(96,165,250,0.12)'" onmouseout="this.style.background='rgba(96,165,250,0.06)'">
+                    <i class="fas fa-book" style="color: #60a5fa; margin-top: 3px; flex-shrink: 0;"></i>
+                    <div><div style="color: #e2e8f0; font-weight: 600; font-size: 0.88rem;">BCDR for Azure OpenAI in AI Foundry (MS Learn)</div><div style="color: #64748b; font-size: 0.78rem; margin-top: 2px;">Multi-region failover and resource redundancy strategies specifically for Azure OpenAI model deployments in Foundry</div></div>
+                    <i class="fas fa-external-link-alt" style="color: #475569; font-size: 0.7rem; margin-left: auto; flex-shrink: 0; margin-top: 5px;"></i>
+                </a>
+                <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/agent-service-disaster-recovery?view=foundry-classic" target="_blank" rel="noopener" style="display: flex; align-items: flex-start; gap: 0.75rem; text-decoration: none; padding: 0.6rem 0.75rem; background: rgba(96,165,250,0.06); border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(96,165,250,0.12)'" onmouseout="this.style.background='rgba(96,165,250,0.06)'">
+                    <i class="fas fa-book" style="color: #60a5fa; margin-top: 3px; flex-shrink: 0;"></i>
+                    <div><div style="color: #e2e8f0; font-weight: 600; font-size: 0.88rem;">Agent Service Disaster Recovery (MS Learn)</div><div style="color: #64748b; font-size: 0.78rem; margin-top: 2px;">Agent Service-specific DR: Cosmos DB for agent state persistence, regional recovery procedures for conversation threads</div></div>
+                    <i class="fas fa-external-link-alt" style="color: #475569; font-size: 0.7rem; margin-left: auto; flex-shrink: 0; margin-top: 5px;"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             APIM — DR & BACKUP DEEP DIVE
+             ═══════════════════════════════════════════════════════════════ -->
+        <h3 id="apim-backup-dr" style="color: #38bdf8; font-family: ‘Outfit’, sans-serif; margin-top: 2.5rem;">
+            <i class="fas fa-shield-alt" style="margin-right: 8px; color: #60a5fa;"></i>Azure API Management — Backup, Restore &amp; DR Engineering
+        </h3>
+
+        <div style="background: rgba(56, 189, 248, 0.06); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem;">
+            <p style="margin: 0 0 0.75rem 0;"><strong style="color: #f8fafc;">APIM DR architecture decision:</strong> Standard v2 in UAE North + Standard v2 in Sweden Central means two completely <em>independent</em> instances. Microsoft provides a native Backup/Restore REST API to export and import service configuration. The critical insight: <strong>backup captures configuration, not traffic state</strong>. Your DR posture is a combination of regular backups + APIOps pipeline for config parity + Front Door for traffic routing.</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                <div style="background: rgba(15,23,42,0.5); padding: 0.75rem 1rem; border-radius: 6px; border-left: 3px solid #34d399;">
+                    <div style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">RTO Target</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: #34d399;">5–15 min</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8;">Front Door reroute (warm standby)</div>
+                </div>
+                <div style="background: rgba(15,23,42,0.5); padding: 0.75rem 1rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
+                    <div style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">RPO Target</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: #f59e0b;">&lt;1 hr</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8;">Hourly backup + APIOps pipeline parity</div>
+                </div>
+                <div style="background: rgba(15,23,42,0.5); padding: 0.75rem 1rem; border-radius: 6px; border-left: 3px solid #c084fc;">
+                    <div style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">Backup Supported Tiers</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: #c084fc;">Dev, Basic, Std, Premium</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8;">Not supported on Consumption tier</div>
+                </div>
+            </div>
+        </div>
+
+        <h4 style="color: #e2e8f0; font-family: ‘Outfit’, sans-serif; margin-bottom: 0.75rem;"><i class="fas fa-save" style="color: #60a5fa; margin-right: 6px;"></i>APIM Backup REST API — Automated Hourly Schedule</h4>
+        <p>The Backup API exports APIs, products, subscriptions, policies, named values, users, groups, and certificates to an Azure Storage blob. Always backup to a <strong>geo-redundant storage account</strong> (GRS or GZRS) so the backup blob is available even if the primary region is down.</p>
+
+        <pre><code class="language-bash"># Automated APIM Backup using Azure CLI + REST API
+SUBSCRIPTION_ID="&lt;your-subscription-id&gt;"
+RESOURCE_GROUP="rg-apim-uae-prod"
+APIM_NAME="apim-uae-prod"
+STORAGE_ACCOUNT="stbackupapim"   # GRS storage account
+STORAGE_CONTAINER="apim-backups"
+BACKUP_NAME="apim-uae-$(date +%Y%m%d-%H%M)"
+STORAGE_KEY=$(az storage account keys list --account-name ${STORAGE_ACCOUNT} --query ‘[0].value’ -o tsv)
+
+# Trigger backup via ARM REST API
+az rest --method post \
+  --url "https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${RESOURCE_GROUP}/providers/Microsoft.ApiManagement/service/${APIM_NAME}/backup?api-version=2022-08-01" \
+  --body "{
+    \"storageAccount\": \"${STORAGE_ACCOUNT}\",
+    \"containerName\": \"${STORAGE_CONTAINER}\",
+    \"backupName\": \"${BACKUP_NAME}\",
+    \"accessType\": \"StorageAccessKey\",
+    \"accessKey\": \"${STORAGE_KEY}\"
+  }"
+
+echo "Backup initiated: ${BACKUP_NAME}"
+echo "Poll: az apim show --name ${APIM_NAME} --resource-group ${RESOURCE_GROUP} --query ‘provisioningState’  (wait for ‘Succeeded’)"</code></pre>
+
+        <h4 style="color: #e2e8f0; font-family: ‘Outfit’, sans-serif; margin-top: 1.5rem; margin-bottom: 0.75rem;"><i class="fas fa-undo" style="color: #f59e0b; margin-right: 6px;"></i>APIM Restore to DR Instance</h4>
+        <pre><code class="language-bash"># Restore backup to Sweden Central APIM instance
+DR_RESOURCE_GROUP="rg-apim-sweden-dr"
+DR_APIM_NAME="apim-sweden-dr"
+BACKUP_NAME="apim-uae-20260418-0300"  # Target specific backup snapshot
+
+az rest --method post \
+  --url "https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${DR_RESOURCE_GROUP}/providers/Microsoft.ApiManagement/service/${DR_APIM_NAME}/restore?api-version=2022-08-01" \
+  --body "{
+    \"storageAccount\": \"${STORAGE_ACCOUNT}\",
+    \"containerName\": \"${STORAGE_CONTAINER}\",
+    \"backupName\": \"${BACKUP_NAME}\",
+    \"accessType\": \"StorageAccessKey\",
+    \"accessKey\": \"${STORAGE_KEY}\"
+  }"
+
+# Limitations: Restore overwrites target configuration entirely.
+# Named Values pointing to UAEspecific Key Vault refs need post-restore re-pointing.
+# Always run APIOps publisher AFTER restore to re-apply environment-specific Named Values.</code></pre>
+
+        <div style="background: rgba(245, 158, 11, 0.08); border-left: 4px solid #f59e0b; padding: 1rem 1.5rem; border-radius: 4px; margin-bottom: 1.5rem;">
+            <p style="margin: 0 0 0.5rem 0;"><strong><i class="fas fa-exclamation-triangle" style="color: #f59e0b; margin-right: 6px;"></i>What APIM Backup Does NOT Include:</strong></p>
+            <ul style="margin: 0; padding-left: 1.2rem; color: #cbd5e1;">
+                <li>Custom gateway certificates — store in Key Vault and re-bind post-restore</li>
+                <li>Named Values that reference Key Vault secrets — KV references need separate regional KV setup</li>
+                <li>Analytics data and logs — these live in Azure Monitor / Application Insights, not in APIM</li>
+                <li>Identity provider configuration secrets — re-configure OAuth app secrets post-restore</li>
+            </ul>
+        </div>
+
+        <h4 style="color: #e2e8f0; font-family: ‘Outfit’, sans-serif; margin-top: 1.5rem; margin-bottom: 0.75rem;"><i class="fas fa-code" style="color: #34d399; margin-right: 6px;"></i>APIOps Pipeline for Continuous Config Parity</h4>
+        <p>Backup + restore is a recovery tool, not a sync tool. For continuous parity between UAE North and Sweden Central APIM instances, configure an <strong>APIOps extractor/publisher pipeline</strong> that runs on every merge to <code>main</code>:</p>
+
+        <pre><code class="language-yaml"># azure-pipelines-apiops.yml (abbreviated)
+trigger:
+  branches:
+    include: [ main ]
+
+stages:
+- stage: ExtractUAE
+  jobs:
+  - job: Extract
+    steps:
+    - task: AzureCLI@2
+      displayName: ‘Extract APIM config from UAE North’
+      inputs:
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: |
+          # APIOps extractor pulls APIs, policies, named values
+          ./extractor/run.sh \
+            --apimServiceName apim-uae-prod \
+            --resourceGroupName rg-apim-uae-prod \
+            --apiSpecificationFormat OpenApiJson \
+            --outputFolder $(Build.ArtifactStagingDirectory)/apim-config
+
+- stage: PublishSweden
+  dependsOn: ExtractUAE
+  condition: succeeded()
+  jobs:
+  - job: Publish
+    steps:
+    - task: AzureCLI@2
+      displayName: ‘Publish extracted config to Sweden Central’
+      inputs:
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: |
+          # Publisher deploys extracted config to Sweden DR instance
+          ./publisher/run.sh \
+            --apimServiceName apim-sweden-dr \
+            --resourceGroupName rg-apim-sweden-dr \
+            --configFile $(Build.ArtifactStagingDirectory)/apim-config/configuration.yaml \
+            --overrideNamedValues "ai-foundry-endpoint=$(SWEDEN_AI_ENDPOINT)" \
+                                  "ai-search-endpoint=$(SWEDEN_SEARCH_ENDPOINT)"</code></pre>
+
+        <div style="background: rgba(52, 211, 153, 0.08); border-left: 4px solid #34d399; padding: 1rem 1.5rem; border-radius: 4px; margin-bottom: 2rem;">
+            <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: #34d399; margin-right: 6px;"></i><strong>Key insight on Named Value overrides:</strong> The <code>--overrideNamedValues</code> flag in the publisher is what allows the same extracted APIM configuration to deploy to two different regions pointing to region-specific backend endpoints. This is the mechanism that eliminates manual post-restore reconfiguration. Without this, the Sweden DR APIM will point all its policies to UAE North backends — a silent failure that only reveals itself during an actual DR event.</p>
+        </div>
+
+        <!-- APIM Reference Labs -->
+        <div style="background: rgba(15,23,42,0.6); border: 1px solid rgba(96,165,250,0.25); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 2.5rem;">
+            <h5 style="margin: 0 0 1rem 0; color: #60a5fa; font-family: 'Outfit', sans-serif; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                <i class="fas fa-flask" style="margin-right: 6px;"></i>Hands-On Labs &amp; Official References — Azure APIM Backup &amp; DR
+            </h5>
+            <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+                <a href="https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-disaster-recovery-backup-restore" target="_blank" rel="noopener" style="display: flex; align-items: flex-start; gap: 0.75rem; text-decoration: none; padding: 0.6rem 0.75rem; background: rgba(96,165,250,0.06); border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(96,165,250,0.12)'" onmouseout="this.style.background='rgba(96,165,250,0.06)'">
+                    <i class="fas fa-book" style="color: #60a5fa; margin-top: 3px; flex-shrink: 0;"></i>
+                    <div><div style="color: #e2e8f0; font-weight: 600; font-size: 0.88rem;">APIM Backup &amp; Restore for DR (MS Learn)</div><div style="color: #64748b; font-size: 0.78rem; margin-top: 2px;">Official backup/restore REST API reference: PowerShell and ARM examples, supported tiers, storage account requirements</div></div>
+                    <i class="fas fa-external-link-alt" style="color: #475569; font-size: 0.7rem; margin-left: auto; flex-shrink: 0; margin-top: 5px;"></i>
+                </a>
+                <a href="https://github.com/Azure/apiops" target="_blank" rel="noopener" style="display: flex; align-items: flex-start; gap: 0.75rem; text-decoration: none; padding: 0.6rem 0.75rem; background: rgba(96,165,250,0.06); border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(96,165,250,0.12)'" onmouseout="this.style.background='rgba(96,165,250,0.06)'">
+                    <i class="fab fa-github" style="color: #60a5fa; margin-top: 3px; flex-shrink: 0;"></i>
+                    <div><div style="color: #e2e8f0; font-weight: 600; font-size: 0.88rem;">Azure APIOps Toolkit (GitHub — Azure/apiops)</div><div style="color: #64748b; font-size: 0.78rem; margin-top: 2px;">Official APIOps extractor + publisher toolkit — the CI/CD engine for multi-region APIM config parity in this DR architecture</div></div>
+                    <i class="fas fa-external-link-alt" style="color: #475569; font-size: 0.7rem; margin-left: auto; flex-shrink: 0; margin-top: 5px;"></i>
+                </a>
+                <a href="https://learn.microsoft.com/en-us/azure/architecture/example-scenario/devops/automated-api-deployments-apiops" target="_blank" rel="noopener" style="display: flex; align-items: flex-start; gap: 0.75rem; text-decoration: none; padding: 0.6rem 0.75rem; background: rgba(96,165,250,0.06); border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(96,165,250,0.12)'" onmouseout="this.style.background='rgba(96,165,250,0.06)'">
+                    <i class="fas fa-sitemap" style="color: #60a5fa; margin-top: 3px; flex-shrink: 0;"></i>
+                    <div><div style="color: #e2e8f0; font-weight: 600; font-size: 0.88rem;">Automated API Deployments via APIOps (Azure Architecture Center)</div><div style="color: #64748b; font-size: 0.78rem; margin-top: 2px;">Architecture pattern: APIOps CI/CD pipeline from Dev → QA → Prod across multiple APIM instances with environment-specific Named Value overrides</div></div>
+                    <i class="fas fa-external-link-alt" style="color: #475569; font-size: 0.7rem; margin-left: auto; flex-shrink: 0; margin-top: 5px;"></i>
+                </a>
+            </div>
+        </div>
+
+        <h2 id="landing-zone"><span class="gradient-text">Enterprise Landing Zone Engineering</span></h2>
+        <p>We do not dump these systems into disparate resource groups. We design them into an aligned Azure Landing Zone utilizing a strict hub-and-spoke pattern:</p>
+        
+        <div class="architecture-card reveal" style="opacity: 1; transform: none;">
+            <a href="Azure%20APIM%20and%20AI%20DR/azure_ai_dr_landing_zone.webp" data-lightbox="true" data-caption="Figure 1: Complete Zero-Trust DR Architecture across UAE North and Sweden Central" style="display: block;" onclick="openLightbox(event, this)" title="Click to expand diagram">
+                <div class="arch-img-wrap">
+                    <picture>
+                        <source srcset="Azure%20APIM%20and%20AI%20DR/azure_ai_dr_landing_zone.webp" type="image/webp">
+                        <img src="Azure%20APIM%20and%20AI%20DR/azure_ai_dr_landing_zone.webp" alt="Azure Landing Zone Technical View — Zero-Trust DR Architecture across UAE North and Sweden Central" width="2800" height="1820" style="filter: invert(0.93) hue-rotate(180deg) brightness(1.1); transition: transform 0.3s ease;" loading="lazy" decoding="async" onload="this.classList.add('loaded'); this.closest('.arch-img-wrap').classList.add('loaded')">
+                    </picture>
+                </div>
+            </a>
+            <p class="diagram-caption" style="margin-top: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; color: #94a3b8;">
+                <i class="fas fa-search-plus" style="color: #60a5fa;"></i>
+                <span>Figure 1: Complete Zero-Trust DR Architecture across UAE North and Sweden Central (Click diagram to expand)</span>
+            </p>
+        </div>
+        
+        <div class="checklist-group" style="background: rgba(255, 255, 255, 0.03); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #38bdf8; margin-bottom: 2rem;">
+            <h4 style="margin-top: 0; color: #38bdf8; font-family: 'Outfit', sans-serif;">The Architectural Verification Sequence</h4>
+            <label style="display: block; margin-bottom: 0.5rem; cursor: pointer; transition: opacity 0.2s;"><input type="checkbox" style="margin-right: 0.5rem; accent-color: #38bdf8;"> <strong>Private Endpoints:</strong> Ensure granular isolation and explicit routing per region without public ingress.</label>
+            <label style="display: block; margin-bottom: 0.5rem; cursor: pointer; transition: opacity 0.2s;"><input type="checkbox" style="margin-right: 0.5rem; accent-color: #38bdf8;"> <strong>Central DNS Integrity:</strong> Resolve Private Link DNS explicitly avoiding Split-Brain failures during cutovers.</label>
+            <label style="display: block; margin-bottom: 0.5rem; cursor: pointer; transition: opacity 0.2s;"><input type="checkbox" style="margin-right: 0.5rem; accent-color: #38bdf8;"> <strong>WAF Decoupling:</strong> Use Application Gateway with WAF ahead of APIM. WAF controls edge protection; APIM manages policy mediation.</label>
+            <label style="display: block; margin-bottom: 0.5rem; cursor: pointer; transition: opacity 0.2s;"><input type="checkbox" style="margin-right: 0.5rem; accent-color: #38bdf8;"> <strong>Runbook Orchestration:</strong> Script the entire failover flow. Do not rely on manual operators during a sev-1.</label>
+        </div>
+
+        <h2 id="comparison"><span class="gradient-text">APIM DR Alternatives at a Glance</span></h2>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tier</th>
+                        <th>Native Platform Mechanism</th>
+                        <th>Architectural Burden</th>
+                        <th>My Recommendation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-weight: 600;">Standard v2</td>
+                        <td>Modern scaling across UAE and Sweden independently.</td>
+                        <td>Total customer-owned DR routing, config parity, failover runbooks via APIOps.</td>
+                        <td style="color: #34d399;">Recommended if UAE primary & v2 alignment are strict requirements.</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 600;">Premium classic</td>
+                        <td>Built-in multi-region gateway propagation.</td>
+                        <td>Testing governance, managing complex rollbacks globally.</td>
+                        <td style="color: #60a5fa;">Recommended if "native multi-region" APIM drives board approval.</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 600;">Premium v2</td>
+                        <td>Availability Zones in selected geographies.</td>
+                        <td>Massive constraint: Not deployable in UAE North today.</td>
+                        <td style="color: #f87171;">Reject outright for this exact scenario.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 id="deployment"><span class="gradient-text">Engineer's Runbook: Deploying the DR Pattern</span></h2>
+        <p>Transitioning from presentation slides to actual Terraform or Bicep requires specific engineering execution. If you are the Cloud Engineer tasked directly with deploying this architecture, here is exactly how you execute the landing zone setup:</p>
+
+        <h3>1. Decoupling Infrastructure from API Governance (APIOps)</h3>
+        <p>Because Standard v2 APIM instances are entirely independent, manually recreating APIs in Sweden Central will lead to configuration drift and inevitable outage during failover. You must isolate the core architecture deployment from the API policy lifecycle.</p>
+        <div style="background: rgba(15, 23, 42, 0.4); border-left: 4px solid #a855f7; padding: 1rem 1.5rem; border-radius: 4px; margin-bottom: 2rem;">
+            <p style="margin: 0;"><strong>The Rule:</strong> Deploy the APIM infrastructure shells via parameterized Bicep/Terraform (<code>main.bicep</code> with <code>var.uae</code> and <code>var.sweden</code>). Then, establish an <a href="https://github.com/Azure/apiops" target="_blank" style="color: #c084fc; font-weight: 600; text-decoration: none;">Azure APIOps <i class="fas fa-external-link-alt" style="font-size: 0.8em;"></i></a> pipeline. The APIOps extractor pulls API designs, named values, and policies from UAE North and the publisher deploys them immutably to Sweden Central.</p>
+        </div>
+
+        <h3>2. Azure Front Door Priority Origin Generation</h3>
+        <p>You cannot use a simple Active/Passive traffic manager. You must configure Azure Front Door with strict origin priorities to ensure Sweden Central only receives health-probe traffic until the UAE North origin group drops below acceptable health thresholds.</p>
+        
+        <pre><code class="language-bicep">// Bicep: Azure Front Door Origin Routing Logic
+resource originGroup 'Microsoft.Cdn/profiles/originGroups@2023-05-01' = {
+  name: 'dr-origin-group'
+  parent: frontDoorProfile
+  properties: {
+    loadBalancingSettings: {
+      sampleSize: 4
+      successfulSamplesRequired: 3
+    }
+    healthProbeSettings: {
+      probePath: '/status-0123456789abcdef' // Secure APIM health probe URL
+      probeProtocol: 'Https'
+      probeIntervalInSeconds: 60 // Keep intervals longer to reduce backend load
+    }
+  }
+}
+
+// UAE North - Active
+resource uaeOrigin 'Microsoft.Cdn/profiles/originGroups/origins@2023-05-01' = {
+  name: 'uae-appgw-origin'
+  parent: originGroup
+  properties: {
+    hostName: uaeAppGatewayFQDN
+    priority: 1    // Traffic defaults here
+    weight: 1000
+  }
+}
+
+// Sweden Central - Standby
+resource swedenOrigin 'Microsoft.Cdn/profiles/originGroups/origins@2023-05-01' = {
+  name: 'sweden-appgw-origin'
+  parent: originGroup
+  properties: {
+    hostName: swedenAppGatewayFQDN
+    priority: 2    // Activated on Priority 1 failure
+    weight: 1000
+  }
+}</code></pre>
+
+        <h2 id="fd-lockdown"><span class="gradient-text">Front Door + APIM Origin Lockdown Pattern</span></h2>
+        <p>A critical hardening step most architects skip: ensuring that your APIM instances <strong>only accept traffic routed through Azure Front Door</strong>, not direct public internet hits. The <a href="https://learn.microsoft.com/en-us/samples/azure/azure-quickstart-templates/front-door-standard-premium-api-management-external/" target="_blank" style="color: #c084fc; font-weight: 600; text-decoration: none;">Azure Quickstart Template: Front Door Standard/Premium with API Management <i class="fas fa-external-link-alt" style="font-size: 0.8em;"></i></a> provides the canonical reference for this pattern. Here is how you engineer it into each regional APIM instance:</p>
+
+        <div class="analogy-block">
+            <div class="analogy-header">
+                <i class="fas fa-shield-halved analogy-icon"></i>
+                <h3 style="color: #f8fafc; margin: 0; font-family: 'Outfit', sans-serif;">The Nightclub Bouncer Analogy</h3>
+            </div>
+            <p style="color: #cbd5e1; margin-bottom: 0;">Think of Azure Front Door as the only legitimate entrance to your nightclub (APIM). The NSG is the velvet rope that blocks anyone who tries to sneak in through the kitchen door. The global APIM policy is the bouncer inside who checks every guest's VIP wristband (<code>X-Azure-FDID</code> header) to make sure they actually came through the front entrance—and didn't just forge a ticket.</p>
+        </div>
+
+        <h3>Step 1: NSG — Block All Non-Front-Door Ingress</h3>
+        <p>Deploy a Network Security Group on the APIM subnet that <strong>only allows inbound HTTPS from the <code>AzureFrontDoor.Backend</code> service tag</strong>. This physically prevents any internet user from hitting APIM's public IP directly, even if they discover it.</p>
+        <pre><code class="language-bicep">// NSG Rule: Allow ONLY Azure Front Door backend traffic
+resource nsg 'Microsoft.Network/networkSecurityGroups@2023-05-01' = {
+  name: 'nsg-apim-${regionSuffix}'
+  location: location
+  properties: {
+    securityRules: [
+      {
+        name: 'AllowFrontDoorInbound'
+        properties: {
+          priority: 100
+          direction: 'Inbound'
+          access: 'Allow'
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          destinationPortRange: '443'
+          sourceAddressPrefix: 'AzureFrontDoor.Backend'
+          destinationAddressPrefix: 'VirtualNetwork'
+        }
+      }
+      {
+        name: 'AllowAPIMManagement'
+        properties: {
+          priority: 110
+          direction: 'Inbound'
+          access: 'Allow'
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          destinationPortRange: '3443'
+          sourceAddressPrefix: 'ApiManagement'
+          destinationAddressPrefix: 'VirtualNetwork'
+        }
+      }
+      {
+        name: 'DenyAllOtherInbound'
+        properties: {
+          priority: 4096
+          direction: 'Inbound'
+          access: 'Deny'
+          protocol: '*'
+          sourcePortRange: '*'
+          destinationPortRange: '*'
+          sourceAddressPrefix: '*'
+          destinationAddressPrefix: '*'
+        }
+      }
+    ]
+  }
+}</code></pre>
+
+        <h3>Step 2: Global APIM Policy — Validate the <code>X-Azure-FDID</code> Header</h3>
+        <p>NSG rules alone are necessary but <strong>not sufficient</strong>. The <code>AzureFrontDoor.Backend</code> service tag permits traffic from <em>any</em> Front Door instance globally. To ensure requests originate from <em>your specific</em> Front Door profile, you must inject a global inbound policy that validates the <code>X-Azure-FDID</code> header against your Front Door's unique ID:</p>
+        <pre><code class="language-xml">&lt;!-- Global APIM Policy: Validate Front Door ID --&gt;
+&lt;policies&gt;
+  &lt;inbound&gt;
+    &lt;base /&gt;
+    &lt;check-header name="X-Azure-FDID" 
+                  failed-check-httpcode="403" 
+                  failed-check-error-message="Invalid Front Door ID" 
+                  ignore-case="false"&gt;
+      &lt;value&gt;{{front-door-id}}&lt;/value&gt;
+    &lt;/check-header&gt;
+  &lt;/inbound&gt;
+&lt;/policies&gt;</code></pre>
+        <div style="background: rgba(15, 23, 42, 0.4); border-left: 4px solid #f59e0b; padding: 1rem 1.5rem; border-radius: 4px; margin: 1.5rem 0 2rem;">
+            <p style="margin: 0; color: #fcd34d;"><strong><i class="fas fa-exclamation-triangle" style="margin-right: 6px;"></i>DR-Critical Note:</strong></p>
+            <p style="margin: 0.5rem 0 0 0;">Store the Front Door ID as a <strong>Named Value</strong> in each regional APIM instance (e.g., <code>front-door-id</code>). Your APIOps pipeline must propagate this value identically to <em>both</em> UAE North and Sweden Central instances. If the Sweden Central APIM has a stale or missing Front Door ID, <strong>every request will return 403 during failover</strong> — defeating the entire DR exercise.</p>
+        </div>
+
+        <h3>Step 3: Apply to Both Regions via APIOps</h3>
+        <p>This lockdown must be <strong>identical in both regions</strong>. The APIOps extractor/publisher pipeline you built in Step 1 of the deployment runbook must include:</p>
+        <ul>
+            <li><strong>Named Values:</strong> Specifically <code>front-door-id</code> — extracted from UAE North and published to Sweden Central.</li>
+            <li><strong>Global Policy XML:</strong> The <code>check-header</code> policy above must live in the all-APIs policy scope, not per-API. This is non-negotiable.</li>
+            <li><strong>NSG Terraform/Bicep modules:</strong> Parameterized per region (<code>var.uae</code>, <code>var.sweden</code>) so NSG rules deploy alongside each APIM subnet.</li>
+        </ul>
+
+        <div style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 12px; padding: 1.5rem; margin: 2rem 0;">
+            <h4 style="color: #34d399; margin-top: 0; font-family: 'Outfit', sans-serif;"><i class="fas fa-check-circle" style="margin-right: 6px;"></i>Why This Matters for DR</h4>
+            <p style="margin-bottom: 0;">Without this pattern, a direct-to-APIM attack during a region failover can bypass Front Door's WAF, DDoS protection, and health-probe routing entirely — eliminating every layer of your DR investment. The NSG + header validation combination creates <strong>defense-in-depth that survives region cutovers</strong> because it's baked into each standalone APIM instance's infrastructure and policy layer.</p>
+        </div>
+
+        <h3>3. Private Endpoint & Hub DNS Wiring</h3>
+        <p>A fatal multi-region mistake is failing to isolate DNS resolution. If APIM in Sweden Central attempts to resolve <code>my-ai-search.privatelink.search.windows.net</code> and it resolves to the dead UAE North private IP, the failover collapses.</p>
+        <ul>
+            <li><strong>The Fix:</strong> Do not link the global Hub VNet Private DNS Zone statically. Use <strong>Azure Private DNS Virtual Network Links</strong> localized per region if possible, or leverage Azure Firewall DNS proxies as forwarders.</li>
+            <li>Configure APIM networking to explicitly point its custom DNS setting to the local regional subset (or local Azure Firewall IP acting as DNS proxy) so that the exact same AI Search <code>privatelink</code> URL resolves to the local Sweden Central endpoint instead of crossing the global peering back into UAE.</li>
+        </ul>
+
+        <h3 id="operator-checklist"><span class="gradient-text">4. Operator Cut-over Checklist</span></h3>
+        <div class="architecture-card reveal" style="opacity: 1; transform: none;">
+            <a href="Azure%20APIM%20and%20AI%20DR/azure_dr_failover_runbook.webp" data-lightbox="true" data-caption="Figure 2: Sequence of required manual and automated validation gates during cutover" style="display: block;" onclick="openLightbox(event, this)" title="Click to expand runbook">
+                <div class="arch-img-wrap">
+                    <picture>
+                        <source srcset="Azure%20APIM%20and%20AI%20DR/azure_dr_failover_runbook.webp" type="image/webp">
+                        <img src="Azure%20APIM%20and%20AI%20DR/azure_dr_failover_runbook.webp" alt="Azure DR Failover Sequence Runbook — Validation gates during cutover" width="2600" height="1700" style="filter: invert(0.93) hue-rotate(180deg) brightness(1.1); transition: transform 0.3s ease;" loading="lazy" decoding="async" onload="this.classList.add('loaded'); this.closest('.arch-img-wrap').classList.add('loaded')">
+                    </picture>
+                </div>
+            </a>
+            <p class="diagram-caption" style="margin-top: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; color: #94a3b8;">
+                <i class="fas fa-search-plus" style="color: #60a5fa;"></i>
+                <span>Figure 2: Sequence of required manual and automated validation gates during cutover. (Click diagram to expand)</span>
+            </p>
+        </div>
+        <p>Automated DR failovers for AI systems are structurally dangerous. Instead, document a precise operator trigger:</p>
+        <ol>
+            <li><strong>Confirm Priority Shift:</strong> Validate Front Door has automatically evicted Priority 1 and traffic is flowing to Priority 2 matching the telemetry dashboards.</li>
+            <li><strong>Validate Data Freshness:</strong> The operator triggers a runbook to verify the Sweden Central AI Search Index synchronization is within the RPO (Recovery Point Objective) acceptable timeframe (e.g. &lt; 5 minutes stale) before unlocking full user write capabilities.</li>
+            <li><strong>Re-test Grounding:</strong> Execute an explicit end-to-end synthetic API test hitting the Sweden Central APIM to ensure the RAG model successfully queries the DR Search Vector Index before publicly declaring the failover sequence successful.</li>
+        </ol>
+
+        <h2 id="mistakes"><span class="gradient-text">The Traps to Avoid</span></h2>
+        <p>Enterprise deployments stall at the design phase due to predictable mistakes. Confusing High Availability (intra-region AZ distribution) with Disaster Recovery (cross-region localized isolation) completely misses the mark. Furthermore, expecting AI Foundry deployments to seamlessly auto-scale during a planetary-scale event without distinct RTO/RPO models is an architectural gamble you will lose.</p>
+
+        <h3>Final Stance</h3>
+        <p>A cross-geography DR pattern for AI and API workloads is inherently a <strong>customer-engineered resilience pattern, not a product feature bundle</strong>. If you are going this route, commit to Standard v2 with twin regional instances, separate regional AI model commitments, and a DNS governance strategy that actually survives cutover night.</p>
+        <p>That is not the lowest effort design, but it is the one you can confidently stand behind when the dashboard turns red.</p>
+
+        <h3><span class="gradient-text">References &amp; Further Reading</span></h3>
+        <ul>
+            <li><a href="https://learn.microsoft.com/en-us/samples/azure/azure-quickstart-templates/front-door-standard-premium-api-management-external/" target="_blank" style="color: #60a5fa;">Azure Quickstart Template: Front Door Standard/Premium with API Management Origin <i class="fas fa-external-link-alt" style="font-size: 0.7em;"></i></a> — NSG lockdown + <code>X-Azure-FDID</code> header validation pattern.</li>
+            <li><a href="https://learn.microsoft.com/en-us/azure/api-management/api-management-using-with-vnet" target="_blank" style="color: #60a5fa;">APIM with VNet — External Mode <i class="fas fa-external-link-alt" style="font-size: 0.7em;"></i></a> — Required NSG rules for APIM management traffic.</li>
+            <li><a href="https://github.com/Azure/apiops" target="_blank" style="color: #60a5fa;">Azure APIOps Toolkit (GitHub) <i class="fas fa-external-link-alt" style="font-size: 0.7em;"></i></a> — Extractor/Publisher pipeline for multi-region APIM config parity.</li>
+            <li><a href="https://github.com/azure/azure-quickstart-templates/tree/master/quickstarts/microsoft.cdn/front-door-standard-premium-api-management-external" target="_blank" style="color: #60a5fa;">Full Bicep/ARM Source Code (GitHub) <i class="fas fa-external-link-alt" style="font-size: 0.7em;"></i></a> — Deploy the Front Door + APIM lockdown template directly.</li>
+        </ul>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h3>Ready to operationalize your Azure journey?</h3>
+        <p>Stop trusting slide decks and start engineering for failure. Review the tools required for comprehensive migration strategies below.</p>
+        
+        <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+            <a href="../pages/contact.html" class="btn btn-primary">Contact Me</a>
+            <a href="../pages/azure-migration-toolkit.html" class="btn btn-outline">View the Toolkit</a>
+        </div>
+
+        <!-- Social Share Section -->
+        <div class="social-share-container" style="margin-top: 3rem;">
+            <p style="color: #94a3b8; font-size: 0.8rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700;">Spread the Insight</p>
+            <div class="social-share-buttons">
+                <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn(event)" title="Share on LinkedIn" aria-label="Share on LinkedIn">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+                <a href="#" class="share-btn twitter" onclick="shareOnTwitter(event)" title="Share on X (Twitter)" aria-label="Share on Twitter">
+                    <i class="fab fa-x-twitter"></i> Twitter
+                </a>
+                <a href="#" class="share-btn facebook" onclick="shareOnFacebook(event)" title="Share on Facebook">
+                    <i class="fab fa-facebook-f"></i> Facebook
+                </a>
+                <button class="share-btn copy-link" onclick="copyPageLink(this)" title="Copy Link" aria-label="Copy Page Link">
+                    <i class="fas fa-link"></i> <span class="btn-text">Copy Link</span>
+                </button>
+            </div>
+        </div>
+
+        <script>
+            function shareOnLinkedIn(e) {
+                e.preventDefault();
+                const url = encodeURIComponent(window.location.href);
+                window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=600');
+            }
+
+            function shareOnTwitter(e) {
+                e.preventDefault();
+                const url = encodeURIComponent(window.location.href);
+                const text = encodeURIComponent(document.title);
+                window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
+            }
+
+            function shareOnFacebook(e) {
+                e.preventDefault();
+                const url = encodeURIComponent(window.location.href);
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+            }
+
+            function copyPageLink(btn) {
+                const url = window.location.href;
+                navigator.clipboard.writeText(url).then(() => {
+                    const btnText = btn.querySelector('.btn-text');
+                    const originalText = btnText.innerText;
+                    btnText.innerText = 'Copied!';
+                    btn.classList.add('copied');
+                    setTimeout(() => {
+                        btnText.innerText = originalText;
+                        btn.classList.remove('copied');
+                    }, 2000);
+                });
+            }
+            
+            // Checkboxes persistence
+            document.addEventListener('DOMContentLoaded', () => {
+                const pageKey = window.location.pathname.split('/').pop().replace('.html', '');
+                const checkboxes = document.querySelectorAll('.checklist-group input[type="checkbox"]');
+                
+                checkboxes.forEach((cb, index) => {
+                    const storageKey = `checklist_${pageKey}_${index}`;
+                    if (localStorage.getItem(storageKey) === 'true') {
+                        cb.checked = true;
+                        cb.closest('label').style.opacity = '0.5';
+                    }
+                    cb.addEventListener('change', (e) => {
+                        localStorage.setItem(storageKey, e.target.checked);
+                        e.target.closest('label').style.opacity = e.target.checked ? '0.5' : '1';
+                    });
+                });
+            });
+        </script>
+
+        <!-- Back to Blog Button -->
+        <div style="text-align: center; margin: 4rem 0;">
+            <a href="../blog.html" class="btn btn-primary" style="display: inline-block; padding: 1rem 2rem;">
+                <i class="fas fa-arrow-left"></i> Back to Insights
+            </a>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Upendra Kumar. All rights reserved.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/journeytocloudwithupendra/" target="_blank" title="LinkedIn" aria-label="LinkedIn Profile">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/appliedailearner" target="_blank" title="GitHub" aria-label="GitHub Repository">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+            
+            <div class="footer-qr-container" style="margin-top: 2rem; display: flex; flex-direction: column; align-items: center;">
+                <div style="padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.08); margin-top: 1.5rem; width: 100%; max-width: 500px; backdrop-filter: blur(8px);">
+                    <div style="display: flex; justify-content: space-around; font-size: 0.8rem; text-align: center;">
+                        <div>
+                            <div style="color: rgba(255, 255, 255, 0.5); margin-bottom: 0.25rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">UX Speed</div>
+                            <div id="ux-speed" style="font-weight: 600; font-family: 'JetBrains Mono', monospace; color: #34d399;">--ms</div>
+                        </div>
+                        <div style="width: 1px; background: rgba(255, 255, 255, 0.1); margin: 0 0.5rem;"></div>
+                        <div>
+                            <div style="color: rgba(255, 255, 255, 0.5); margin-bottom: 0.25rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Privacy Hits</div>
+                            <div id="privacy-hits" style="font-weight: 600; font-family: 'JetBrains Mono', monospace; color: #60a5fa;">0</div>
+                        </div>
+                        <div style="width: 1px; background: rgba(255, 255, 255, 0.1); margin: 0 0.5rem;"></div>
+                        <div>
+                            <div style="color: rgba(255, 255, 255, 0.5); margin-bottom: 0.25rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Edge Node</div>
+                            <div style="font-weight: 600; font-family: 'JetBrains Mono', monospace; color: #fbbf24;">IN-CENTRAL</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="padding: 0.5rem; background: rgba(255, 255, 255, 0.05); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); margin-top: 1rem;">
+                    <div class="status-ticker" id="system-status">
+                        <span class="status-dot pulse"></span>
+                        <span class="status-text">System Status: <span id="status-val">Online</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/particles.js"></script>
+    <script src="../js/main.js"></script>
+
+    <!-- Table of Contents Observer -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tocList = document.querySelector('.toc-list');
+            if (tocList) {
+                const headers = document.querySelectorAll('.blog-post-content h2');
+                const tocLinks = document.querySelectorAll('.toc-link');
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            tocLinks.forEach(link => {
+                                link.classList.remove('active');
+                                if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                    link.classList.add('active');
+                                }
+                            });
+                        }
+                    });
+                }, { rootMargin: '0px 0px -80% 0px', threshold: 0.1 });
+                headers.forEach(header => observer.observe(header));
+            }
+        });
+    </script>
+
+    <!-- Reading Progress, Back-to-Top, Lightbox, Mobile TOC -->
+    <script>
+        // Reading Progress Bar
+        (function() {
+            const bar = document.getElementById('reading-progress');
+            const btn = document.getElementById('back-to-top');
+            function update() {
+                const scrollTop = window.scrollY || document.documentElement.scrollTop;
+                const docH = document.documentElement.scrollHeight - window.innerHeight;
+                const pct = docH > 0 ? Math.min(100, (scrollTop / docH) * 100) : 0;
+                bar.style.width = pct + '%';
+                bar.setAttribute('aria-valuenow', Math.round(pct));
+                btn.classList.toggle('visible', scrollTop > 400);
+            }
+            window.addEventListener('scroll', update, { passive: true });
+            update();
+        })();
+
+        // Lightbox
+        function openLightbox(e, anchor) {
+            e.preventDefault();
+            const img = anchor.querySelector('img');
+            const caption = anchor.getAttribute('data-caption') || img.alt || '';
+            const src = anchor.getAttribute('href');
+            const lbImg = document.getElementById('lb-img');
+            lbImg.src = src;
+            lbImg.alt = img.alt || '';
+            document.getElementById('lb-caption').textContent = caption;
+            const lb = document.getElementById('img-lightbox');
+            lb.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            document.addEventListener('keydown', lbKeyHandler);
+        }
+        function closeLightbox(e) {
+            if (e && e.target && e.target.id === 'lb-img') return;
+            const lb = document.getElementById('img-lightbox');
+            lb.classList.remove('open');
+            document.body.style.overflow = '';
+            document.removeEventListener('keydown', lbKeyHandler);
+        }
+        function lbKeyHandler(e) {
+            if (e.key === 'Escape') closeLightbox();
+        }
+
+        // Mobile TOC Toggle
+        function toggleMobileToc(btn) {
+            const body = document.getElementById('mobile-toc-body');
+            const isOpen = body.classList.toggle('open');
+            btn.classList.toggle('open', isOpen);
+            btn.setAttribute('aria-expanded', isOpen);
+        }
+
+        // Mobile TOC — close after link click & active highlight
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileTocLinks = document.querySelectorAll('#mobile-toc-body a');
+            mobileTocLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    const body = document.getElementById('mobile-toc-body');
+                    const btn = document.querySelector('.mobile-toc-btn');
+                    body.classList.remove('open');
+                    btn.classList.remove('open');
+                    btn.setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            // Active section highlighting for mobile TOC
+            const allHeaders = document.querySelectorAll('.blog-post-content h2[id]');
+            const allMobileLinks = document.querySelectorAll('#mobile-toc-body a');
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        allMobileLinks.forEach(l => {
+                            l.classList.toggle('active', l.getAttribute('href') === '#' + entry.target.id);
+                        });
+                    }
+                });
+            }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+            allHeaders.forEach(h => sectionObserver.observe(h));
+        });
+    </script>
+</body>
+</html>
+

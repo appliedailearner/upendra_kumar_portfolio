@@ -32,7 +32,7 @@
 
 ## 2. High-Level Design (The Global Blueprint)
 
-![UKLifeLabs Ultimate Architecture](docs/diagrams/01_solution_overview.png)
+![UKLifeLabs Ultimate Architecture](docs/diagrams/01_solution_overview.webp)
 
 ---
 
@@ -179,7 +179,7 @@ For a "Regulator-Ready" platform, **AKS** was the necessary choice over the serv
 
 The following service map illustrates the end-to-end journey of a request—from the moment a user hits "Submit" to the moment the AI-generated insight is delivered.
 
-![UKLifeLabs End-User Service Journey Map](docs/diagrams/02_service_journey.png)
+![UKLifeLabs End-User Service Journey Map](docs/diagrams/02_service_journey.webp)
 
 ### Journey Milestones:
 1.  **Request Initiation**: High-speed entry via Global Edge (Azure Front Door).
@@ -195,7 +195,7 @@ The following service map illustrates the end-to-end journey of a request—from
 
 This journey explains how the AI "learns" from your private enterprise data. It is a continuous background process that ensures the vector database remains synchronized with your raw documents.
 
-![UKLifeLabs Network Flow](docs/diagrams/03_network_flow.png)
+![UKLifeLabs Network Flow](docs/diagrams/03_network_flow.webp)
 
 ---
 
@@ -203,7 +203,7 @@ This journey explains how the AI "learns" from your private enterprise data. It 
 
 This journey is for compliance and security stakeholders. It visualizes how the platform proactively defends itself and generates the audit trail required for regulatory approval.
 
-![UKLifeLabs Security Flow](docs/diagrams/04_security_flow.png)
+![UKLifeLabs Security Flow](docs/diagrams/04_security_flow.webp)
 
 ---
 
@@ -211,7 +211,7 @@ This journey is for compliance and security stakeholders. It visualizes how the 
 
 This journey showcases the platform engineering flow, demonstrating how code is securely deployed into a completely isolated private cluster without bypassing network security.
 
-![UKLifeLabs DR Failover Journey](docs/diagrams/05_dr_failover.png)
+![UKLifeLabs DR Failover Journey](docs/diagrams/05_dr_failover.webp)
 
 ---
 
@@ -219,7 +219,7 @@ This journey showcases the platform engineering flow, demonstrating how code is 
 
 This journey visualizes the automated response to a regional disaster, ensuring that UKLifeLabs remains operational even if the entire UK South region becomes unavailable.
 
-![UKLifeLabs DR Failover Journey](docs/diagrams/05_dr_failover.png)
+![UKLifeLabs DR Failover Journey](docs/diagrams/05_dr_failover.webp)
 
 ---
 

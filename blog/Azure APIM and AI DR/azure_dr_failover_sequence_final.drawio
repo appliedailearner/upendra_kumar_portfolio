@@ -1,0 +1,49 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.1 Chrome/142.0.7444.265 Electron/39.8.0 Safari/537.36" version="29.6.1">
+  <diagram id="Exec_Diagram" name="Architecture">
+    <mxGraphModel dx="933" dy="681" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="s0" parent="1" style="rounded=1;fillColor=#cdeb8b;strokeColor=#36393d;html=1;whiteSpace=wrap;" value="&lt;div style=&quot;text-align:left;padding:10px;&quot;&gt;1. Detect Failure\nFront Door health probes fail on UAE North. Regional ingress is marked unhealthy.&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="260" x="40" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="s1" parent="1" style="rounded=1;fillColor=#cdeb8b;strokeColor=#36393d;html=1;whiteSpace=wrap;" value="&lt;div style=&quot;text-align:left;padding:10px;&quot;&gt;2. Stop Primary Routing\nFront Door stops sending requests to UAE North. Public DNS stays same.&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="260" x="340" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_s0_s1" edge="1" parent="1" source="s0" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2;" target="s1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s2" parent="1" style="rounded=1;fillColor=#cdeb8b;strokeColor=#36393d;html=1;whiteSpace=wrap;" value="&lt;div style=&quot;text-align:left;padding:10px;&quot;&gt;3. Promote DR Ingress\nTraffic routed to Sweden Central App Gateway organically. No client change.&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="260" x="640" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_s1_s2" edge="1" parent="1" source="s1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2;" target="s2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s3" parent="1" style="rounded=1;fillColor=#cdeb8b;strokeColor=#36393d;html=1;whiteSpace=wrap;" value="&lt;div style=&quot;text-align:left;padding:10px;&quot;&gt;4. Use DR APIM\nSweden Central APIM takes traffic using aligned APIOps/IaC policies.&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="260" x="40" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="s4" parent="1" style="rounded=1;fillColor=#cdeb8b;strokeColor=#36393d;html=1;whiteSpace=wrap;" value="&lt;div style=&quot;text-align:left;padding:10px;&quot;&gt;5. Call Regional AI\nDR APIM routes to pre-deployed Sweden Central OpenAI and Search via Private Endpoints.&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="260" x="340" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="e_s3_s4" edge="1" parent="1" source="s3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2;" target="s4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="329cM12sxXGyznYVwet5-1" edge="1" parent="1" source="s5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#2478FF;strokeWidth=2;" target="s6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s5" parent="1" style="rounded=1;fillColor=#cdeb8b;strokeColor=#36393d;html=1;whiteSpace=wrap;" value="&lt;div style=&quot;text-align:left;padding:10px;&quot;&gt;6. Validate Business Readiness\nOperations validates Search index freshness and model reachability.&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="260" x="640" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="e_s4_s5" edge="1" parent="1" source="s4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2;" target="s5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s6" parent="1" style="rounded=1;fillColor=#cdeb8b;strokeColor=#36393d;html=1;whiteSpace=wrap;" value="&lt;div style=&quot;text-align:left;padding:10px;&quot;&gt;7. Controlled Failback\nManual fallback to UAE North only after resolution and sync.&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="260" x="640" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="329cM12sxXGyznYVwet5-2" edge="1" parent="1" source="s2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.415;entryY=-0.035;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#2478FF;strokeWidth=2;" target="s3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

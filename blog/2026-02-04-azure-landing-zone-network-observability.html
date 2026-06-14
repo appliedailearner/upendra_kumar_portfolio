@@ -23,7 +23,7 @@
       "@context": "https://schema.org",
       "@type": "Article",
       "headline": "The Hub-and-Spoke Lie: Production-Grade Networking for the Real World",
-      "image": "https://portfolio.upendrakumar.com/images/azure_lab_full_topology.png",
+      "image": "https://portfolio.upendrakumar.com/images/azure_lab_full_topology.webp",
       "author": {
         "@type": "Person",
         "name": "Upendra Kumar",
@@ -592,6 +592,34 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
+
+        <!-- Azure App Insights SDK (RUM) -->
+    <script type="text/javascript">
+        !function (T, l, y) {
+            var S = T.location, k = "script", D = "connectionString", C = "ingestionendpoint", I = "disableExceptionTracking";
+            var _ = y.url || "https://js.monitor.azure.com/scripts/b/ai.2.min.js";
+            if (y[D]) {
+                var T = T.appInsights || (T.appInsights = {});
+                T.loadAppInsights = function () {
+                    var p = { config: y }; T.initialize = !0; T._tags = [];
+                    T.addTelemetryInitializer = function (f) { T._tags.push(f); };
+                    var v = window.fetch;
+                    T.track = function (e) {
+                        (T._tags || []).forEach(function (f) { try { f(e); } catch (ex) { } });
+                        var i = p.config.endpointUrl || "https://dc.services.visualstudio.com/v2/track";
+                        v(i, { method: "POST", body: JSON.stringify(e), mode: "cors" }).catch(function () { });
+                    };
+                    T.trackEvent = function (d) { T.track({ name: d.name || "Event", data: { baseData: d } }); };
+                    T.trackPageView = function (d) { T.track({ name: "PageView", data: { baseData: d } }); };
+                    T.trackException = function (d) { T.track({ name: "Exception", data: { baseData: d } }); };
+                }
+            }
+        }(window, document, { 
+            connectionString: "InstrumentationKey=8fc596f2-bb91-49d7-8495-2ac1ecd30501;IngestionEndpoint=https://centralindia-0.in.liana.ice.azure.microsoft.com/",
+            endpointUrl: "https://centralindia-0.in.liana.ice.azure.microsoft.com/v2/track"
+        });
+    </script>
+    <script src="../js/observability.js?v=3" defer></script>
 </head>
 
 <body class="dark-theme">
@@ -824,12 +852,12 @@
                 just logs—they are the operational brain of your Landing Zone.</p>
 
             <div class="break-out-diagram">
-                <img src="../images/vnet_flow_logs_authentic.png"
+                <img src="../images/vnet_flow_logs_authentic.webp"
                     alt="Azure Traffic Analytics: Authentic VNet Flow Logs Dashboard">
             </div>
 
             <div class="break-out-diagram">
-                <img src="../images/connection_monitor_authentic.png"
+                <img src="../images/connection_monitor_authentic.webp"
                     alt="Azure Connection Monitor: Authentic Path Validation Results">
             </div>
 

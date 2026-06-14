@@ -116,6 +116,21 @@
 
 /* Mobile Adjustments */
 @media (max-width: 992px) {
+    .nav-item-dropdown {
+        flex-direction: column;
+        width: 100%;
+        align-items: stretch;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        /* Match other nav items */
+    }
+
+    .dropdown-trigger {
+        justify-content: center !important;
+        width: 100%;
+        padding: 20px 0 !important;
+        /* Match top-level a padding */
+    }
+
     .dropdown-menu {
         width: 100% !important;
         position: static !important;
@@ -123,18 +138,60 @@
         opacity: 1 !important;
         visibility: visible !important;
         display: none;
-        padding-top: 0;
+        padding: 0 1rem 1rem;
+        /* Container padding */
     }
 
     .dropdown-content {
         grid-template-columns: 1fr;
-        background: transparent;
-        border: none;
-        box-shadow: none;
-        padding: 0 1rem;
+        background: rgba(2, 6, 23, 0.4);
+        /* Much more subtle inline box */
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        padding: 0.5rem;
+        margin-top: 0;
+    }
+
+    .dropdown-column {
+        gap: 0.25rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .dropdown-header {
+        text-align: left;
+        padding-left: 0.5rem;
+        margin-top: 1rem;
+        color: #38bdf8;
+        /* Brighter Blue */
+        border-bottom: none;
+    }
+
+    /* Override main.css huge text forcing */
+    .dropdown-menu a.dropdown-link,
+    .dropdown-menu a.dropdown-footer-link {
+        font-size: 1.05rem !important;
+        /* Readable but tighter */
+        padding: 0.6rem 0.5rem !important;
+        text-align: left !important;
+        opacity: 1 !important;
+        transform: none !important;
+        justify-content: flex-start !important;
+        width: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        border: none !important;
+    }
+
+    .dropdown-menu a.dropdown-link span {
+        text-align: left;
     }
 
     .dropdown-footer {
         grid-column: span 1;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        padding-top: 0.5rem;
+        margin-top: 0.5rem;
     }
 }

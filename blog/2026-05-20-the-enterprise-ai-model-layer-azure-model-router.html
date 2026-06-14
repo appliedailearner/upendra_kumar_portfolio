@@ -1,0 +1,3202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A rigorous enterprise architecture decision guide for Azure AI Foundry Model Router, covering routing modes, region strategy, FinOps cost planning, governance, and when to bypass dynamic routing entirely.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://portfolio.upendrakumar.com/blog/2026-05-20-the-enterprise-ai-model-layer-azure-model-router.html">
+    <meta property="og:title" content="The Enterprise AI Model Layer: When to Use Azure AI Foundry Model Router and When Not To">
+    <meta property="og:description" content="A rigorous enterprise architecture decision guide for Azure AI Foundry Model Router, covering routing modes, region strategy, FinOps cost planning, governance, and when to bypass dynamic routing entirely.">
+    <meta property="og:image" content="https://portfolio.upendrakumar.com/images/profile.webp">
+    <meta property="og:site_name" content="Upendra Kumar | Cloud Strategy &amp; Architecture">
+    <meta property="article:author" content="Upendra Kumar">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://portfolio.upendrakumar.com/blog/2026-05-20-the-enterprise-ai-model-layer-azure-model-router.html">
+    <meta property="twitter:title" content="The Enterprise AI Model Layer: When to Use Azure AI Foundry Model Router and When Not To">
+    <meta property="twitter:description" content="A rigorous enterprise architecture decision guide for Azure AI Foundry Model Router, covering routing modes, region strategy, FinOps cost planning, governance, and when to bypass dynamic routing entirely.">
+    <meta property="twitter:image" content="https://portfolio.upendrakumar.com/images/profile.webp">
+
+    <title>Azure Model Router: The Enterprise AI Model Layer | Upendra Kumar</title>
+
+    <link rel="stylesheet" href="../css/style.css?v=48">
+    <link rel="stylesheet" href="../css/premium.css?v=48">
+    <link rel="stylesheet" href="../css/dropdown.css">
+
+    <!-- Performance: Critical Asset Preloading -->
+    <link rel="preload" href="../css/style.css?v=48" as="style">
+    <link rel="preload" href="../js/navbar-component.js" as="script">
+    <link rel="preload" href="../js/main.js" as="script">
+
+    <!-- JSON-LD Article Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "The Enterprise AI Model Layer: When to Use Azure AI Foundry Model Router and When Not To",
+      "image": "https://portfolio.upendrakumar.com/images/profile.webp",
+      "author": {
+        "@type": "Person",
+        "name": "Upendra Kumar",
+        "url": "https://portfolio.upendrakumar.com/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Upendra Kumar",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://portfolio.upendrakumar.com/favicon.ico"
+        }
+      },
+      "datePublished": "2026-05-20",
+      "dateModified": "2026-05-22",
+      "description": "A practical enterprise architecture view on Azure AI Foundry Model Router, including advantages, disadvantages, regions, cost planning, and LLM orchestration patterns."
+    }
+    </script>
+
+    <style>
+        body.dark-theme {
+            overflow-x: hidden;
+        }
+
+        .nav-logo-uk {
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+            border-radius: 8px !important;
+        }
+
+        /* Blog Post Specific Styles */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+        .glass-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.05), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(56, 189, 248, 0.4);
+            box-shadow: 0 20px 40px rgba(56, 189, 248, 0.15);
+        }
+        .glass-card:hover::after {
+            opacity: 1;
+        }
+
+        /* Smart Glossary Tooltips */
+        .eli5-term {
+            border-bottom: 2px dashed #a855f7;
+            cursor: help;
+            position: relative;
+            font-weight: 600;
+            color: #c084fc;
+            -webkit-text-fill-color: initial;
+        }
+        .eli5-term::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(10px);
+            color: #f8fafc;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 400;
+            white-space: normal;
+            min-width: 240px;
+            max-width: 320px;
+            text-align: left;
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+            pointer-events: none;
+            line-height: 1.4;
+            -webkit-text-fill-color: initial;
+        }
+        .eli5-term::before {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-2px);
+            border-width: 8px;
+            border-style: solid;
+            border-color: rgba(168, 85, 247, 0.4) transparent transparent transparent;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+            pointer-events: none;
+        }
+        .eli5-term:hover::after,
+        .eli5-term:hover::before {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Sticky Table of Contents */
+        .toc-container {
+            position: sticky;
+            top: 100px;
+            width: 250px;
+            float: left;
+            margin-left: -280px;
+            padding: 1.5rem;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+        .toc-container h4 {
+            font-family: 'Outfit', sans-serif;
+            color: #38bdf8;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            position: relative;
+        }
+        .toc-list li {
+            margin-bottom: 0.75rem;
+        }
+        .toc-link {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: block;
+            padding-left: 0.75rem;
+            border-left: 1.5px solid rgba(255, 255, 255, 0.05);
+            transition: color 0.2s ease;
+            line-height: 1.4;
+        }
+        .toc-link:hover {
+            color: #e2e8f0;
+        }
+        .toc-link.active {
+            color: #38bdf8;
+            font-weight: 600;
+        }
+        .toc-indicator {
+            position: absolute;
+            left: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #38bdf8, #a855f7);
+            border-radius: 4px;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            pointer-events: none;
+            z-index: 2;
+            opacity: 0;
+        }
+        @media (max-width: 1500px) {
+            .toc-container { display: none; }
+        }
+
+        .blog-post-hero {
+            position: relative;
+            padding: 140px 0 70px;
+            background: #0f172a; /* Slate 900 base */
+            background: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.15) 0%, rgba(168, 85, 247, 0.08) 50%, transparent 100%), #0f172a;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+        }
+
+        .blog-post-hero::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: 25%;
+            width: 50%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, rgba(168, 85, 247, 0.04) 50%, transparent 100%);
+            filter: blur(80px);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .hero-nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .back-link {
+            color: #94a3b8;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #38bdf8;
+            transform: translateX(-4px);
+        }
+
+        .series-badge {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.12) 0%, rgba(56, 189, 248, 0.12) 100%);
+            color: #c084fc;
+            padding: 0.4rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .series-badge:hover {
+            border-color: rgba(168, 85, 247, 0.6);
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.25);
+            transform: translateY(-1px);
+        }
+
+        .hero-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(135deg, #ffffff 40%, #e2e8f0 80%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .blog-post-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .author-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid #38bdf8;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .author-avatar:hover {
+            transform: scale(1.08);
+        }
+
+        .author-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .author-name {
+            color: #f8fafc;
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        .author-title {
+            color: #94a3b8;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .meta-info-group {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .meta-info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meta-info-item i {
+            color: #38bdf8;
+        }
+
+        .blog-post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            position: relative;
+            z-index: 1;
+            margin-top: 1.5rem;
+        }
+
+        .blog-tag-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .blog-tag-pill.tag-azure {
+            background: rgba(56, 189, 248, 0.08);
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.15);
+        }
+
+        .blog-tag-pill.tag-azure:hover {
+            background: rgba(56, 189, 248, 0.15);
+            border-color: rgba(56, 189, 248, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .blog-tag-pill.tag-router {
+            background: rgba(168, 85, 247, 0.08);
+            color: #c084fc;
+            border: 1px solid rgba(168, 85, 247, 0.15);
+        }
+
+        .blog-tag-pill.tag-router:hover {
+            background: rgba(168, 85, 247, 0.15);
+            border-color: rgba(168, 85, 247, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .blog-tag-pill.tag-ai {
+            background: rgba(16, 185, 129, 0.08);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+
+        .blog-tag-pill.tag-ai:hover {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .blog-tag-pill.tag-finops {
+            background: rgba(245, 158, 11, 0.08);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.15);
+        }
+
+        .blog-tag-pill.tag-finops:hover {
+            background: rgba(245, 158, 11, 0.15);
+            border-color: rgba(245, 158, 11, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .blog-post-content {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            color: #94a3b8;
+            line-height: 1.8;
+            font-size: 1.15rem;
+            overflow-wrap: anywhere;
+        }
+
+        .blog-post-content pre {
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        .blog-post-content div[style*="overflow-x: auto"] {
+            max-width: 100%;
+        }
+
+        .architecture-figure {
+            text-align: center;
+            margin: 2.75rem auto;
+        }
+
+        .architecture-figure img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.42);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.985) 0%, rgba(249, 251, 255, 0.985) 100%);
+        }
+
+        .architecture-figure--wide {
+            width: min(1180px, calc(100vw - 7rem));
+            max-width: 100%;
+        }
+
+        .architecture-caption {
+            width: min(980px, calc(100vw - 9rem));
+            max-width: 100%;
+            margin: 1rem auto 3.25rem;
+            color: #cbd5e1;
+            font-size: 0.98rem;
+            line-height: 1.75;
+            text-align: left;
+        }
+
+        .architecture-caption strong {
+            color: #f8fafc;
+        }
+
+        .references-intro {
+            margin: 0.35rem 0 1.4rem;
+            color: #cbd5e1;
+            font-size: 0.98rem;
+            line-height: 1.75;
+            max-width: 60rem;
+        }
+
+        .references-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.85rem 1rem;
+        }
+
+        .references-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            padding: 0.95rem 1rem;
+            background: rgba(15, 23, 42, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+        }
+
+        .references-item::before {
+            content: "";
+            width: 0.55rem;
+            height: 0.55rem;
+            margin-top: 0.55rem;
+            flex: 0 0 auto;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #60a5fa 0%, #a855f7 100%);
+            box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.12);
+        }
+
+        .references-meta {
+            display: block;
+            margin-bottom: 0.2rem;
+            color: #94a3b8;
+            font-size: 0.74rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .references-item a {
+            color: #dbeafe;
+            text-decoration: none;
+            font-weight: 600;
+            line-height: 1.55;
+        }
+
+        .references-item a:hover,
+        .references-item a:focus-visible {
+            color: #ffffff;
+            text-decoration: underline;
+            text-decoration-color: rgba(96, 165, 250, 0.65);
+            text-underline-offset: 0.14em;
+        }
+
+        .mini-architecture-panel {
+            margin: 2rem 0 2.5rem;
+            padding: 1.5rem;
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.72), rgba(15, 23, 42, 0.52));
+            border: 1px solid rgba(168, 85, 247, 0.22);
+            border-radius: 18px;
+            box-shadow: 0 18px 38px rgba(0, 0, 0, 0.28);
+        }
+
+        .mini-architecture-title {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            margin: 0 0 1rem;
+            color: #f8fafc;
+            font-size: 1.15rem;
+            font-weight: 800;
+        }
+
+        .mini-architecture-flow {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 0.85rem;
+            align-items: stretch;
+        }
+
+        .mini-architecture-node {
+            position: relative;
+            padding: 1rem 0.9rem;
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            min-height: 112px;
+        }
+
+        .mini-architecture-node::after {
+            content: "→";
+            position: absolute;
+            right: -0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #60a5fa;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .mini-architecture-flow .mini-architecture-node:last-child::after {
+            display: none;
+        }
+
+        .mini-architecture-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #94a3b8;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 700;
+        }
+
+        .mini-architecture-name {
+            display: block;
+            color: #f8fafc;
+            font-size: 1rem;
+            line-height: 1.35;
+            font-weight: 700;
+        }
+
+        .mini-architecture-note {
+            display: block;
+            margin-top: 0.45rem;
+            color: #cbd5e1;
+            font-size: 0.88rem;
+            line-height: 1.45;
+        }
+
+        .mini-architecture-branch {
+            margin-top: 0.55rem;
+            display: grid;
+            gap: 0.45rem;
+        }
+
+        .mini-architecture-chip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.35rem 0.6rem;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .mini-architecture-chip--router {
+            background: rgba(96, 165, 250, 0.14);
+            color: #60a5fa;
+            border: 1px solid rgba(96, 165, 250, 0.28);
+        }
+
+        .mini-architecture-chip--direct {
+            background: rgba(168, 85, 247, 0.14);
+            color: #c084fc;
+            border: 1px solid rgba(168, 85, 247, 0.28);
+        }
+
+        .mini-architecture-controls {
+            margin-top: 1rem;
+            padding: 1rem 1.1rem;
+            background: rgba(8, 15, 28, 0.58);
+            border: 1px solid rgba(56, 189, 248, 0.12);
+            border-radius: 14px;
+        }
+
+        .mini-architecture-controls-title {
+            display: block;
+            margin-bottom: 0.65rem;
+            color: #38bdf8;
+            font-size: 0.76rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 800;
+        }
+
+        .mini-architecture-controls-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 0.6rem;
+        }
+
+        .mini-architecture-control {
+            padding: 0.65rem 0.55rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            color: #cbd5e1;
+            font-size: 0.82rem;
+            text-align: center;
+            line-height: 1.35;
+            font-weight: 600;
+        }
+
+        .mini-architecture-review {
+            margin-top: 1rem;
+            padding: 0.95rem 1rem;
+            border-left: 3px solid #f59e0b;
+            border-radius: 0 12px 12px 0;
+            background: rgba(245, 158, 11, 0.08);
+            color: #f8fafc;
+        }
+
+        .mini-architecture-review strong {
+            color: #fbbf24;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .checklist-group {
+            display: block !important;
+            background: rgba(15, 23, 42, 0.4);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(56, 189, 248, 0.1);
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+
+        .checklist-item input {
+            margin-top: 0.4rem;
+        }
+
+        /* Mobile First: Grids stack by default */
+        .responsive-grid, 
+        .comparison-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: 1fr;
+            margin-bottom: 2rem;
+        }
+
+        .comparison-grid {
+            margin: 2rem 0;
+        }
+
+        /* Desktop: Larger screens layout overrides */
+        @media (min-width: 992px) {
+            .blog-post-content .responsive-grid {
+                grid-template-columns: repeat(3, 1fr) !important;
+            }
+            .blog-post-content .comparison-grid {
+                grid-template-columns: 1fr 1fr !important;
+            }
+        }
+
+        /* Mobile Specific Overrides */
+        @media (max-width: 991px) {
+            .blog-post-hero {
+                text-align: left !important;
+                padding: 110px 1.5rem 40px !important;
+            }
+            .hero-nav-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+                margin-bottom: 2rem;
+            }
+            .hero-title {
+                font-size: 2.3rem !important;
+                line-height: 1.2;
+            }
+            .blog-post-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.25rem;
+                padding: 1.25rem 0;
+            }
+            .meta-info-group {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 1rem 1.5rem;
+                width: 100%;
+            }
+            .blog-post-content {
+                padding: 2rem 1.25rem !important;
+            }
+            .architecture-figure--wide {
+                width: 100%;
+            }
+            .architecture-caption {
+                width: 100%;
+                margin: 0.9rem auto 2.6rem;
+            }
+            .references-list {
+                grid-template-columns: 1fr;
+            }
+            .blog-post-tags {
+                justify-content: flex-start !important;
+            }
+            .stat-card .counter-value {
+                font-size: 1.8rem;
+            }
+            .mini-architecture-flow {
+                grid-template-columns: 1fr;
+            }
+            .mini-architecture-node::after {
+                content: "↓";
+                right: auto;
+                left: 50%;
+                top: auto;
+                bottom: -0.85rem;
+                transform: translateX(-50%);
+            }
+            .mini-architecture-controls-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* ===== U1: 320px stat card overflow fix ===== */
+        @media (max-width: 400px) {
+            .stats-row {
+                gap: 0.5rem !important;
+            }
+            .stat-card .counter-value {
+                font-size: 1.5rem;
+            }
+            .stat-card {
+                padding: 1rem 0.75rem;
+            }
+        }
+
+        /* Table CSS custom styling */
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+            background: rgba(15, 23, 42, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .styled-table th, .styled-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .styled-table th {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: #60a5fa;
+            font-weight: 700;
+        }
+
+        .styled-table tr:hover {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        /* Callout Boxes */
+        .callout-box {
+            background: rgba(168, 85, 247, 0.05);
+            border-left: 4px solid #a855f7;
+            padding: 1.25rem 1.5rem;
+            border-radius: 4px 8px 8px 4px;
+            margin: 1.5rem 0;
+            color: #e2e8f0;
+        }
+
+        /* Lead paragraph */
+        .lead {
+            font-size: 1.25rem;
+            color: #e2e8f0;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 1.5rem;
+        }
+
+        /* Custom diagram styling */
+        .diagram-container {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: #38bdf8;
+            overflow-x: auto;
+        }
+
+        /* Interactive Decision Advisor */
+        .advisor-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin: 2.5rem 0;
+            background: rgba(15, 23, 42, 0.4);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(56, 189, 248, 0.1);
+        }
+
+        @media (min-width: 768px) {
+            .advisor-container {
+                grid-template-columns: 1.2fr 1fr;
+            }
+        }
+
+        .advisor-scenarios {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .scenario-card {
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1.25rem;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+            font-family: inherit;
+        }
+
+        .scenario-card:hover {
+            background: rgba(59, 130, 246, 0.08);
+            border-color: rgba(96, 165, 250, 0.3);
+            transform: translateX(4px);
+        }
+
+        .scenario-card.active {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: #3b82f6;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+        }
+
+        .scenario-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: transparent;
+            transition: background 0.3s;
+        }
+
+        .scenario-card.active::before {
+            background: #3b82f6;
+        }
+
+        .scenario-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            color: #94a3b8;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .scenario-card.active .scenario-number {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .scenario-text {
+            font-size: 1rem;
+            color: #e2e8f0;
+            line-height: 1.4;
+            font-weight: 500;
+        }
+
+        .advisor-result {
+            display: flex;
+            flex-direction: column;
+            background: rgba(10, 15, 30, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1.75rem;
+            min-height: 320px;
+            position: relative;
+            overflow: hidden;
+            justify-content: space-between;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .result-header {
+            margin-bottom: 1.25rem;
+        }
+
+        .result-badge {
+            display: inline-block;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.75rem;
+        }
+
+        .badge-router-cost { background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); }
+        .badge-router-balanced { background: rgba(59, 130, 246, 0.1); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.2); }
+        .badge-pinned { background: rgba(245, 158, 11, 0.1); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.2); }
+        .badge-finetune { background: rgba(168, 85, 247, 0.1); color: #a855f7; border: 1px solid rgba(168, 85, 247, 0.2); }
+        .badge-code { background: rgba(148, 163, 184, 0.1); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.2); }
+
+        .result-pattern {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+            margin-top: 0;
+        }
+
+        .result-description {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+        }
+
+        .result-metrics {
+            display: flex;
+            gap: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .metric-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .metric-item-label {
+            font-size: 0.75rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-item-val {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            font-weight: 600;
+        }
+
+        .result-code-box {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 0.85rem;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            font-size: 0.75rem;
+            color: #e2e8f0;
+            white-space: pre-wrap;
+            word-break: break-all;
+            margin: 0;
+            overflow-x: auto;
+        }
+
+        .toggle-view-btn {
+            background: transparent;
+            border: 1px dashed rgba(56, 189, 248, 0.3);
+            color: #38bdf8;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .toggle-view-btn:hover {
+            background: rgba(56, 189, 248, 0.08);
+            border-color: #38bdf8;
+            color: white;
+        }
+
+        .view-section {
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        .view-section.hidden {
+            display: none !important;
+        }
+
+        /* Checklist Strike-through Sweep Animations */
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+        .checklist-item input[type="checkbox"] {
+            accent-color: #38bdf8;
+            cursor: pointer;
+            margin-top: 0.25rem;
+        }
+        .checklist-item span {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .checklist-item input[type="checkbox"]:checked ~ span {
+            color: #64748b;
+        }
+        .checklist-item span::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 55%;
+            width: 0;
+            height: 1.5px;
+            background: #64748b;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .checklist-item input[type="checkbox"]:checked ~ span::after {
+            width: 100%;
+        }
+
+        /* FinOps Calculator Layout styles */
+        @media (min-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1.2fr 1fr !important;
+            }
+        }
+        
+        /* Smooth ranges for slider inputs */
+        input[type="range"] {
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.1);
+            height: 6px;
+            border-radius: 4px;
+            outline: none;
+            transition: background 0.3s;
+        }
+        input[type="range"]:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #38bdf8;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+            transition: transform 0.1s;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+        input[type="range"]#tokens-slider::-webkit-slider-thumb {
+            background: #a855f7;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+        }
+
+        /* ===== Reading Progress Bar ===== */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #38bdf8, #a855f7, #ec4899);
+            z-index: 10001;
+            width: 0%;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+        }
+
+        /* ===== Scroll Reveal Animations ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+
+        /* Reveal from left */
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-left.revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Reveal scale */
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-scale.revealed {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* ===== Animated Counter ===== */
+        .counter-value {
+            display: inline-block;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            font-weight: 800;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #38bdf8, #a855f7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+        .counter-label {
+            display: block;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+        }
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.1);
+            transform: translateY(-4px);
+        }
+        .stats-row {
+            grid-template-columns: repeat(2, 1fr) !important;
+        }
+        @media (min-width: 768px) {
+            .stats-row {
+                grid-template-columns: repeat(4, 1fr) !important;
+            }
+        }
+
+        /* ===== Checklist Progress Bar ===== */
+        .checklist-progress-container {
+            margin-bottom: 1.5rem;
+        }
+        .checklist-progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        .checklist-progress-text {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+        .checklist-progress-count {
+            font-size: 0.85rem;
+            color: #38bdf8;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .checklist-progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .checklist-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #38bdf8, #a855f7);
+            border-radius: 3px;
+            transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .checklist-complete-msg {
+            text-align: center;
+            padding: 1rem;
+            margin-top: 1rem;
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 8px;
+            color: #34d399;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: none;
+            animation: fadeInUp 0.4s ease;
+        }
+        .checklist-complete-msg.visible {
+            display: block;
+        }
+
+        /* ===== Enhanced Table Hover ===== */
+        .styled-table tbody tr {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .styled-table tbody tr:hover {
+            background-color: rgba(56, 189, 248, 0.06) !important;
+            box-shadow: inset 3px 0 0 #38bdf8;
+        }
+        .styled-table tbody tr:hover td {
+            color: #e2e8f0;
+        }
+
+        .region-decision-table {
+            table-layout: fixed;
+        }
+
+        .region-decision-table col.region-col {
+            width: 180px;
+        }
+
+        .region-decision-table col.fit-col {
+            width: 54%;
+        }
+
+        .region-decision-table col.note-col {
+            width: 28%;
+        }
+
+        .region-decision-table th,
+        .region-decision-table td {
+            vertical-align: top;
+        }
+
+        .region-decision-table td:first-child,
+        .region-decision-table th:first-child {
+            white-space: normal;
+            word-break: keep-all;
+        }
+
+        .region-decision-table td strong {
+            display: inline-block;
+            color: #f8fafc;
+            font-size: 1rem;
+            line-height: 1.45;
+        }
+
+        .region-fit-copy,
+        .region-note-copy {
+            display: block;
+            color: #cbd5e1;
+            line-height: 1.65;
+        }
+
+        .region-note-copy strong {
+            color: #e2e8f0;
+            font-size: 0.96rem;
+        }
+
+        @media (max-width: 767px) {
+            .region-decision-table {
+                min-width: 0 !important;
+                table-layout: auto;
+            }
+
+            .region-decision-table col {
+                width: auto !important;
+            }
+
+            .region-decision-table th,
+            .region-decision-table td {
+                padding: 0.9rem 0.85rem;
+                font-size: 0.92rem;
+            }
+
+            .region-decision-table th:first-child,
+            .region-decision-table td:first-child {
+                min-width: 120px;
+            }
+        }
+
+        /* ===== Back to Top Button ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #a855f7);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            font-size: 1.1rem;
+        }
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .back-to-top:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6);
+        }
+
+        /* ===== Animated Section Divider ===== */
+        .section-divider {
+            position: relative;
+            height: 1px;
+            margin: 3rem 0;
+            background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.3), rgba(168, 85, 247, 0.3), transparent);
+            overflow: hidden;
+        }
+        .section-divider::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.8), transparent);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        @keyframes shimmer {
+            0% { left: -60%; }
+            100% { left: 160%; }
+        }
+
+        /* U2: Stagger shimmer delays so dividers animate independently */
+        .section-divider:nth-of-type(2n)::after { animation-delay: 1s; }
+        .section-divider:nth-of-type(3n)::after { animation-delay: 2s; }
+        .section-divider:nth-of-type(4n)::after { animation-delay: 0.5s; }
+        .section-divider:nth-of-type(5n)::after { animation-delay: 1.5s; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== Pulse glow for active glass cards ===== */
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+            50% { box-shadow: 0 10px 30px rgba(0,0,0,0.3), 0 0 20px rgba(56, 189, 248, 0.08); }
+        }
+        .glass-card.revealed {
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+
+        /* ===== Reduced Motion ===== */
+        @media (prefers-reduced-motion: reduce) {
+            .reveal, .reveal-left, .reveal-scale {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+            .section-divider::after {
+                animation: none !important;
+            }
+            .glass-card.revealed {
+                animation: none !important;
+            }
+            .reading-progress {
+                transition: none !important;
+            }
+        }
+    </style>
+
+    <!-- Performance: Preconnect to Font & Script Servers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <!-- Typography: Inter (Body) & Outfit (Headings) with Swap for Performance -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+    
+    <!-- Azure App Insights SDK (RUM) -->
+    <script type="text/javascript">
+        !function (T, l, y) {
+            var S = T.location, k = "script", D = "connectionString", C = "ingestionendpoint", I = "disableExceptionTracking";
+            var _ = y.url || "https://js.monitor.azure.com/scripts/b/ai.2.min.js";
+            if (y[D]) {
+                var T = T.appInsights || (T.appInsights = {});
+                T.loadAppInsights = function () {
+                    var p = { config: y }; T.initialize = !0; T._tags = [];
+                    T.addTelemetryInitializer = function (f) { T._tags.push(f); };
+                    var v = window.fetch;
+                    T.track = function (e) {
+                        (T._tags || []).forEach(function (f) { try { f(e); } catch (ex) { } });
+                        var i = p.config.endpointUrl || "https://dc.services.visualstudio.com/v2/track";
+                        v(i, { method: "POST", body: JSON.stringify(e), mode: "cors" }).catch(function () { });
+                    };
+                    T.trackEvent = function (d) { T.track({ name: d.name || "Event", data: { baseData: d } }); };
+                    T.trackPageView = function (d) { T.track({ name: "PageView", data: { baseData: d } }); };
+                    T.trackException = function (d) { T.track({ name: "Exception", data: { baseData: d } }); };
+                }
+            }
+        }(window, document, { 
+            connectionString: "InstrumentationKey=8fc596f2-bb91-49d7-8495-2ac1ecd30501;IngestionEndpoint=https://centralindia-0.in.liana.ice.azure.microsoft.com/",
+            endpointUrl: "https://centralindia-0.in.liana.ice.azure.microsoft.com/v2/track"
+        });
+    </script>
+    <script src="../js/observability.js?v=3" defer></script>
+</head>
+
+<body class="dark-theme">
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress" id="reading-progress"></div>
+    
+    <canvas id="particles-canvas"></canvas>
+    
+    <!-- Back to Top Button -->
+    <button type="button" class="back-to-top" id="back-to-top" aria-label="Back to top" title="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- Navigation -->
+    <nav class="navbar" id="dynamic-nav"></nav>
+    <script src="../js/navbar-component.js"></script>
+
+    <!-- Blog Post Hero -->
+    <section class="blog-post-hero">
+        <div class="container" style="max-width: 1000px;">
+            <div class="hero-nav-container">
+                <a href="../blog.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to Insights
+                </a>
+                <span class="series-badge">
+                    <i class="fas fa-layer-group"></i> Enterprise AI Series
+                </span>
+            </div>
+
+            <h1 class="hero-title">
+                Azure Model Router: The Enterprise AI Model Layer
+            </h1>
+
+            <div class="blog-post-meta">
+                <div class="author-profile">
+                    <img src="../images/profile.webp" alt="Upendra Kumar" class="author-avatar">
+                    <div class="author-details">
+                        <span class="author-name">Upendra Kumar</span>
+                        <span class="author-title">Cloud Solutions Architect &middot; Azure AI &amp; Platform Engineering</span>
+                    </div>
+                </div>
+                <div class="meta-info-group">
+                    <div class="meta-info-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>May 20, 2026</span>
+                    </div>
+                    <div class="meta-info-item">
+                        <i class="fas fa-clock"></i>
+                        <span>11 min read</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blog-post-tags">
+                <span class="blog-tag-pill tag-azure"><i class="fas fa-tag"></i> Azure AI Foundry</span>
+                <span class="blog-tag-pill tag-router"><i class="fas fa-tag"></i> Model Router</span>
+                <span class="blog-tag-pill tag-ai"><i class="fas fa-tag"></i> Enterprise AI</span>
+            </div>
+
+            <!-- V3 Hero Banner -->
+            <div class="reveal-scale" style="margin: 2.5rem 0; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05);">
+                <img src="../images/blog/azure-model-router-hero.webp" alt="Azure AI Foundry Model Router Abstract Data Flow" style="width: 100%; height: auto; display: block; object-fit: cover; max-height: 450px;">
+            </div>
+            <div class="blog-post-tags" style="margin-top: -1rem;">
+                <span class="blog-tag-pill tag-finops"><i class="fas fa-tag"></i> FinOps</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Post Content -->
+    <article class="blog-post-content">
+        
+        <!-- Floating Table of Contents -->
+        <div class="toc-container">
+            <h4>In This Article</h4>
+            <ul class="toc-list">
+                <li><a href="#executive-summary" class="toc-link">Executive Summary</a></li>
+                <li><a href="#how-it-works" class="toc-link">How Model Router Works</a></li>
+                <li><a href="#architecture-pattern" class="toc-link">Enterprise Architecture Pattern</a></li>
+                <li><a href="#cost-planning" class="toc-link">Cost, Region, and Throughput</a></li>
+                <li><a href="#decision-framework" class="toc-link">Decision Framework</a></li>
+                <li><a href="#production-failures" class="toc-link">Production Risks</a></li>
+                <li><a href="#deployment-checklist" class="toc-link">Deployment Checklist</a></li>
+                <li><a href="#final-recommendation" class="toc-link">Final Recommendation</a></li>
+                <li><a href="#references" class="toc-link">References</a></li>
+            </ul>
+        </div>
+        
+        <p class="lead">
+            Enterprise AI is moving beyond the "pick one best model" mindset. That approach is already outdated. The critical architectural question is no longer which LLM is best, but rather: <em>Which model should handle which task, under what controls, at what cost, in which region, and with what audit trail?</em>
+        </p>
+
+        <p>
+            This article is written as a decision guide for Azure architects, enterprise AI platform owners, CISOs, cloud directors, and senior technical leaders. It focuses on where Model Router fits, where it does not, and the operating controls required to make dynamic model selection safe in production.
+        </p>
+
+        <!-- Section 1: Executive Summary -->
+        <h2 id="executive-summary"><span class="gradient-text">Executive Summary</span></h2>
+        <div class="glass-card reveal" style="padding: 1.5rem 1.5rem 1.35rem; margin-bottom: 1.25rem;">
+            <p style="margin: 0; font-size: 1.3rem; line-height: 1.45; color: #f8fafc; font-weight: 700;">
+                Use Model Router for variable AI workloads.
+                <span style="display: block; margin-top: 0.35rem; color: #cbd5e1; font-size: 1.05rem; font-weight: 500;">
+                    Do not use it where fixed-model control, strict audit repeatability, or regulatory determinism are mandatory.
+                </span>
+            </p>
+        </div>
+
+        <div class="responsive-grid" style="gap: 1rem; margin-bottom: 1rem;">
+            <div class="glass-card reveal reveal-delay-1" style="padding: 1.25rem;">
+                <div style="font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; color: #f87171; font-weight: 800; margin-bottom: 0.6rem;">Problem</div>
+                <p style="font-size: 1rem; line-height: 1.5; margin: 0; color: #e2e8f0;">
+                    Hardcoded model choice drives overspend, slow change, and inconsistent governance.
+                </p>
+            </div>
+            <div class="glass-card reveal reveal-delay-2" style="padding: 1.25rem;">
+                <div style="font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; color: #60a5fa; font-weight: 800; margin-bottom: 0.6rem;">Leadership Move</div>
+                <p style="font-size: 1rem; line-height: 1.5; margin: 0; color: #e2e8f0;">
+                    Centralize routing in the platform, then pin high-control workflows to approved endpoints.
+                </p>
+            </div>
+            <div class="glass-card reveal reveal-delay-3" style="padding: 1.25rem;">
+                <div style="font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; color: #34d399; font-weight: 800; margin-bottom: 0.6rem;">Business Outcome</div>
+                <p style="font-size: 1rem; line-height: 1.5; margin: 0; color: #e2e8f0;">
+                    Lower model waste, faster upgrades, and stronger enterprise control.
+                </p>
+            </div>
+        </div>
+
+        <div class="glass-card reveal" style="padding: 1rem 1.25rem; border-color: rgba(251, 191, 36, 0.22); background: linear-gradient(135deg, rgba(251, 191, 36, 0.09), rgba(15, 23, 42, 0.7));">
+            <p style="margin: 0; font-size: 0.98rem; line-height: 1.5; color: #fde68a;">
+                <strong>Board-level metric:</strong> measure cost per accepted business outcome, not raw token spend.
+            </p>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Section 2: Decision problem -->
+        <h2 id="governance-view"><span class="gradient-text">The Decision Problem: One Model Is Not an Operating Model</span></h2>
+        <p>
+            The Model Router discussion should not be framed around which model to use. That is too narrow. The more useful architecture question is: <em>What operating model gives the business the right balance of quality, cost, latency, observability, compliance, and accountability?</em>
+        </p>
+        <p>
+            A single model endpoint is not an operating model. Enterprise AI requires a decision layer, an access layer, an orchestration layer, and a control framework around all four.
+        </p>
+        <ul>
+            <li>Every workflow defaults to the most expensive model out of developers' convenience.</li>
+            <li>Critical business decisions are routed to low-capability models to meet arbitrary budgets.</li>
+            <li>Model selection is buried inside deep application code, invisible to platform administrators.</li>
+            <li>Governance teams approve an AI use case but fail to regulate the model pool behind it.</li>
+            <li>Teams confuse dynamic model routing with AI platform governance.</li>
+        </ul>
+        
+        <div class="callout-box">
+            <h4><i class="fas fa-info-circle"></i> Architectural Mandate</h4>
+            The goal is not to use the biggest model. The goal is to use the right model, for the right task, with the right controls, placed inside a governed platform pattern.
+        </div>
+
+        <!-- Section 3: What Azure AI Foundry Model Router does -->
+        <h2 id="how-it-works"><span class="gradient-text">How Azure AI Foundry Model Router Works</span></h2>
+        <p>
+            Model Router should be treated as the model decision layer. Instead of directly calling a fixed model endpoint, an application calls a Model Router deployment. Microsoft documents that the router evaluates prompt complexity and routing mode, then selects from the configured eligible model pool. The selected underlying model is returned in the API response <code>model</code> field, which makes it observable for downstream logging and audit analysis.
+        </p>
+        <p style="font-size: 0.92rem; color: #94a3b8; margin-top: -0.25rem;">
+            Source: Microsoft Learn documentation for <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/model-router" target="_blank" rel="noopener noreferrer">Model Router concepts</a> and <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/model-router-how-it-works" target="_blank" rel="noopener noreferrer">how routing works</a>.
+        </p>
+
+        <figure class="architecture-figure architecture-figure--wide reveal-scale" style="margin-top: 2rem;">
+            <a href="../images/blog/myimageuk1.png" target="_blank" rel="noopener noreferrer">
+                <img src="../images/blog/myimageuk1.png" alt="Model Router architecture showing application traffic moving through an AI gateway and orchestration layer before dynamic selection from an approved model pool." class="cinematic-video-effect">
+            </a>
+            <figcaption class="architecture-caption">
+                <strong>Figure 1:</strong> Model Router should be treated as the model decision layer. It should sit behind gateway controls, orchestration, observability, and approved model governance.
+            </figcaption>
+        </figure>
+        
+        <p>Microsoft documents three primary routing modes:</p>
+        
+        <div class="responsive-grid" style="margin-bottom: 2rem;">
+            <div class="glass-card reveal" style="padding: 1.5rem; background: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));">
+                <h4 style="color: #60a5fa; margin-top: 0; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem;"><i class="fas fa-balance-scale"></i> Balanced Mode</h4>
+                <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 0.5rem;"><strong>Optimizes:</strong> Best combination of quality and cost.</p>
+                <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 0;"><strong>Fit:</strong> Default enterprise workloads and interactive assistants.</p>
+            </div>
+            <div class="glass-card reveal reveal-delay-1" style="padding: 1.5rem; background: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));">
+                <h4 style="color: #34d399; margin-top: 0; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem;"><i class="fas fa-coins"></i> Cost Mode</h4>
+                <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 0.5rem;"><strong>Optimizes:</strong> Lower-cost model selection.</p>
+                <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 0;"><strong>Fit:</strong> High-volume, lower-risk classification/extraction.</p>
+            </div>
+            <div class="glass-card reveal reveal-delay-2" style="padding: 1.5rem; background: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));">
+                <h4 style="color: #a855f7; margin-top: 0; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem;"><i class="fas fa-gem"></i> Quality Mode</h4>
+                <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 0.5rem;"><strong>Optimizes:</strong> Highest-quality reasoning output.</p>
+                <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 0;"><strong>Fit:</strong> Complex multi-step reasoning workloads that still permit dynamic routing.</p>
+            </div>
+        </div>
+
+        <p>
+            To understand the operational boundary, let's contrast the Model Router with the AI Gateway:
+        </p>
+        <h3>Model Router vs AI Gateway</h3>
+
+        <div class="comparison-grid">
+            <div class="glass-card reveal reveal-delay-1">
+                <h3 style="color: #a855f7; margin-top: 0;"><i class="fas fa-layer-group"></i> Model Router: The Model Decision Layer</h3>
+                <ul style="padding-left: 1.25rem; font-size: 0.95rem; line-height: 1.6; margin-bottom: 0;">
+                    <li>Optimizes individual prompt execution path</li>
+                    <li>Evaluates prompt complexity dynamically</li>
+                    <li>Selects a cost-effective eligible model based on routing mode, prompt complexity, and the configured model pool</li>
+                    <li>Operates inside the regional workspace boundary</li>
+                    <li>Manages subset eligibility for local workloads</li>
+                </ul>
+            </div>
+            <div class="glass-card reveal reveal-delay-2">
+                <h3 style="color: #60a5fa; margin-top: 0;"><i class="fas fa-shield-alt"></i> AI Gateway: The Access and Governance Layer</h3>
+                <ul style="padding-left: 1.25rem; font-size: 0.95rem; line-height: 1.6; margin-bottom: 0;">
+                    <li>Enforces authentication, authorization, and audit logs</li>
+                    <li>Applies global rate limits and user-level token quotas</li>
+                    <li>Provides semantic caching and circuit breaking</li>
+                    <li>Runs as a managed API gateway layer, with tier-dependent scaling, regional deployment, policy, and observability capabilities</li>
+                    <li>Applies prompt and response safety policies, including Azure AI Content Safety integration where configured</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="overflow-x: auto; overflow-y: hidden; margin-top: 2rem;">
+            <table class="styled-table" style="min-width: 620px;">
+                <caption style="caption-side: top; text-align: left; color: #94a3b8; padding-bottom: 0.75rem;">Recommended gateway controls when Model Router is used in production.</caption>
+                <thead>
+                    <tr>
+                        <th>Control area</th>
+                        <th>Recommended control</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Identity</strong></td>
+                        <td>Use managed identity from APIM to Foundry where supported.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Authorization</strong></td>
+                        <td>Use Entra ID, APIM products, and subscription-level access controls.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Token governance</strong></td>
+                        <td>Use APIM token limit policy per consumer or application.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Safety</strong></td>
+                        <td>Apply Azure AI Content Safety policies where required.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Network exposure</strong></td>
+                        <td>Avoid direct public client access to model endpoints.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Logging</strong></td>
+                        <td>Capture selected model, tokens, latency, caller identity, workflow ID, and outcome.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Compliance</strong></td>
+                        <td>Use approved model subsets, data-zone-aware deployment choices, and legal review.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Resilience</strong></td>
+                        <td>Use retry, timeout, circuit breaker, queue-based async handling, and fallback patterns.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 4: Current region availability -->
+        <h2 id="regional-strategy"><span class="gradient-text">Region, Throughput, and Cost Planning</span></h2>
+        <p>
+            As of the current Microsoft documentation, Model Router deployment requires the Foundry resource to be in <strong>East US 2</strong> or <strong>Sweden Central</strong>. This should be validated before production rollout because Azure AI Foundry feature availability can vary by model, deployment type, quota, and region.
+        </p>
+        <p style="font-size: 0.92rem; color: #94a3b8; margin-top: -0.25rem;">
+            Source: Microsoft Learn <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/model-router" target="_blank" rel="noopener noreferrer">Model Router deployment guidance</a>.
+        </p>
+
+        <div style="overflow-x: auto; overflow-y: hidden;">
+            <table class="styled-table region-decision-table" style="min-width: 680px;">
+                <colgroup>
+                    <col class="region-col">
+                    <col class="fit-col">
+                    <col class="note-col">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Region</th>
+                        <th>Best fit</th>
+                        <th>Decision note</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Sweden Central</strong></td>
+                        <td><span class="region-fit-copy">European workloads requiring EU data-zone processing. Supports prompt and response processing within the Microsoft-defined EU data zone.</span></td>
+                        <td><span class="region-note-copy"><strong>Strong alignment.</strong> Validate legal, regulatory, and contractual requirements.</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>East US 2</strong></td>
+                        <td><span class="region-fit-copy">US-centric or globally flexible workloads where strict local residency rules are not the primary driver.</span></td>
+                        <td><span class="region-note-copy"><strong>Standard choice.</strong> Best when data-zone restrictions are not the leading requirement.</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p>
+            For European workloads, Sweden Central with <strong>Data Zone Standard</strong> is a strong starting point when EU data-zone processing is required. It supports prompt and response processing within the Microsoft-defined EU data zone, but final sovereignty and compliance posture must still be validated against the customer's legal, regulatory, and contractual requirements.
+        </p>
+
+        <div class="section-divider"></div>
+
+        <!-- Section 5: The business problem Model Router solves -->
+        <h2 id="workload-mapping"><span class="gradient-text">When to Use Model Router</span></h2>
+        <p>
+            Use Model Router when workload complexity varies and the platform benefits from dynamic model selection inside an approved model pool.
+        </p>
+
+        <div class="responsive-grid" style="gap: 1.5rem; margin-top: 2rem;">
+            <!-- Low Complexity -->
+            <div class="glass-card reveal reveal-delay-1" style="border-top: 4px solid #34d399;">
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <span class="badge-router-cost" style="white-space: nowrap; padding: 0.25rem 0.75rem; border-radius: 99px; font-size: 0.8rem; font-weight: 600; background: rgba(52, 211, 153, 0.15); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.3);">Cost Mode</span>
+                    <span style="color: #94a3b8; font-size: 0.85rem;"><i class="fas fa-arrow-down"></i> Low Complexity</span>
+                </div>
+                <h3 style="color: #f8fafc; margin-top: 0; font-size: 1.1rem;">Support Triage & FAQ Drafting</h3>
+                <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 0; line-height: 1.5;">Routes to smaller, lower-cost models optimized for high-volume, repetitive text generation.</p>
+            </div>
+
+            <!-- Medium Complexity -->
+            <div class="glass-card reveal reveal-delay-2" style="border-top: 4px solid #60a5fa;">
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <span class="badge-router-balanced" style="white-space: nowrap; padding: 0.25rem 0.75rem; border-radius: 99px; font-size: 0.8rem; font-weight: 600; background: rgba(96, 165, 250, 0.15); color: #60a5fa; border: 1px solid rgba(96, 165, 250, 0.3);">Balanced Mode</span>
+                    <span style="color: #94a3b8; font-size: 0.85rem;"><i class="fas fa-exchange-alt"></i> Medium Complexity</span>
+                </div>
+                <h3 style="color: #f8fafc; margin-top: 0; font-size: 1.1rem;">Sentiment Analysis & Summarization</h3>
+                <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 0; line-height: 1.5;">Balanced selection across eligible tiers for moderate reasoning tasks requiring nuanced understanding.</p>
+            </div>
+
+            <!-- High Complexity -->
+            <div class="glass-card reveal reveal-delay-3" style="border-top: 4px solid #a855f7;">
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <span class="badge-router-quality" style="white-space: nowrap; padding: 0.25rem 0.75rem; border-radius: 99px; font-size: 0.8rem; font-weight: 600; background: rgba(168, 85, 247, 0.15); color: #a855f7; border: 1px solid rgba(168, 85, 247, 0.3);">Quality Mode / Fixed</span>
+                    <span style="color: #94a3b8; font-size: 0.85rem;"><i class="fas fa-arrow-up"></i> High Complexity</span>
+                </div>
+                <h3 style="color: #f8fafc; margin-top: 0; font-size: 1.1rem;">Complex Analysis & Synthesis</h3>
+                <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 0; line-height: 1.5;">Routes to higher-capability reasoning models or to a direct approved endpoint when the task requires stronger quality control.</p>
+            </div>
+        </div>
+
+        <!-- Section 6: Advantages of Azure AI Foundry Model Router -->
+        <h2 id="advantages"><span class="gradient-text">Operating Model Considerations</span></h2>
+        
+        <h3>1. Reduces Hardcoded Selection Logic</h3>
+        <p>
+            Without Model Router, teams often build brittle application code containing nested conditional switches to select endpoints based on task name or budget rules. Model Router encapsulates this complexity by exposing a stable endpoint while platform engineers govern routing modes, eligible model subsets, and deployment policy.
+        </p>
+        
+        <h3>2. Enforces Approved Model Subsets</h3>
+        <p>
+            Model Router honors the configured deployment type and eligible model pool, including data-zone boundaries where applicable. However, enterprise enforcement still requires Azure Policy, RBAC, API gateway policy, logging, private networking, approved model governance, procurement controls, and legal review.
+        </p>
+        <p>
+            <strong>Provider caveat:</strong> Some model families have additional deployment requirements. For example, Microsoft documents that Claude models must be deployed separately before Model Router can route to them. Validate provider-specific setup before assuming every catalog model is immediately routable. See Microsoft Learn <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/model-router" target="_blank" rel="noopener noreferrer">Model Router how-to guidance</a>.
+        </p>
+
+        <h3>3. Supports Model Abstraction</h3>
+        <p>
+            Model abstraction is critical. When application business logic directly binds to specific model IDs, model deprecation breaks production code. The Model Router exposes a stable, abstracted endpoint while platform engineers update underlying models seamlessly.
+        </p>
+
+        <h3>4. Managed Model-Level Failover</h3>
+        <p>
+            If a model endpoint experiences elevated latency or throttling, the Model Router can redirect requests to an alternative capable model in the subset. However, this is not a substitute for full network-level disaster recovery (using APIM or Azure Front Door).
+        </p>
+
+        <!-- Section 7: Disadvantages and risks -->
+        <h2 id="disadvantages"><span class="gradient-text">Model Router vs Direct Approved Model</span></h2>
+        
+        <ul>
+            <li><strong>Use Model Router</strong> when workloads are mixed, prompt difficulty is unpredictable, and the platform needs one governed endpoint that can route across an approved model subset.</li>
+            <li><strong>Use a direct approved model deployment</strong> when regulation, benchmarking, or contractual control requires a fixed model version and repeatable execution path.</li>
+            <li><strong>Do not use either pattern as a governance substitute.</strong> Gateway policy, observability, evaluation, and human accountability remain separate architectural responsibilities.</li>
+            <li><strong>Review context and modality constraints carefully.</strong> Eligible model pools and deployment types can change the practical limits of the workload you are routing.</li>
+        </ul>
+
+        <!-- Section 8: Cost planning for Sweden Central -->
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; gap: 1rem;">
+            <h2 id="cost-planning" style="margin: 0;"><span class="gradient-text">Cost Planning</span></h2>
+            <button class="toggle-cost-btn toggle-view-btn" onclick="toggleCostView()">
+                <i class="fas fa-table" style="margin-right: 0.5rem;"></i>Switch to Table View
+            </button>
+        </div>
+        <p>
+            Model Router is billed based on token consumption rather than fixed hourly instances. The calculation uses variable parameter <code>P</code>, which represents the input price per million tokens (based on your Azure Enterprise Agreement or public rates).
+        </p>
+        <p>
+            The default calculator value uses <code>P = $1</code> per 1M input tokens only as a placeholder. Replace <code>P</code> with the current Model Router input-token price from Azure Pricing Calculator or your Microsoft agreement.
+        </p>
+
+        <div class="callout-box">
+            <h4><i class="fas fa-coins"></i> Core Planning Formula</h4>
+            <strong>Hourly cost</strong> = <code>(input tokens per hour / 1,000,000) &times; current Model Router input price per 1M tokens</code> <br><br>
+            <strong>Monthly cost</strong> = <code>Hourly cost &times; active usage hours per month</code>
+        </div>
+
+        <!-- Interactive FinOps Calculator Widget -->
+        <div id="calculator-view" class="view-section calculator-container" style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(56, 189, 248, 0.1); border-radius: 16px; padding: 2rem; margin: 2.5rem 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                <h4 style="margin: 0; color: #38bdf8; font-family: 'Outfit', sans-serif; font-size: 1.25rem;"><i class="fas fa-calculator" style="margin-right: 0.5rem;"></i>Interactive FinOps Estimator</h4>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <label for="price-parameter" style="font-size: 0.85rem; color: #94a3b8;">Base Price (P) per 1M tokens:</label>
+                    <input type="number" id="price-parameter" value="1.00" step="0.05" min="0.05" style="background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); color: white; padding: 0.25rem 0.5rem; border-radius: 6px; width: 80px; font-family: inherit; font-size: 0.9rem;">
+                </div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr; gap: 2rem; margin-bottom: 1.5rem;" class="comparison-grid">
+                <!-- Slider Controls -->
+                <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+                    <div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.95rem;">
+                            <span style="color: #cbd5e1; font-weight: 500;">Requests per Hour:</span>
+                            <span id="requests-val" style="color: #60a5fa; font-weight: 700; font-family: 'JetBrains Mono', monospace;">1,000</span>
+                        </div>
+                        <input type="range" id="requests-slider" min="50" max="25000" step="50" value="1000" style="width: 100%; accent-color: #3b82f6; cursor: pointer;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #64748b; margin-top: 0.25rem;">
+                            <span>50 reqs</span>
+                            <span>25k reqs</span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.95rem;">
+                            <span style="color: #cbd5e1; font-weight: 500;">Avg Tokens per Request:</span>
+                            <span id="tokens-val" style="color: #a855f7; font-weight: 700; font-family: 'JetBrains Mono', monospace;">4,000</span>
+                        </div>
+                        <input type="range" id="tokens-slider" min="500" max="16000" step="100" value="4000" style="width: 100%; accent-color: #a855f7; cursor: pointer;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #64748b; margin-top: 0.25rem;">
+                            <span>500 tokens</span>
+                            <span>16k tokens</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Display Results -->
+                <div style="background: rgba(10, 15, 30, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; gap: 1.25rem;">
+                    <div>
+                        <span style="display: block; font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">Calculated Token Volume</span>
+                        <div style="font-size: 1.35rem; color: #e2e8f0; font-weight: 700; font-family: 'Outfit', sans-serif;"><span id="calc-volume" style="color: #38bdf8; font-family: 'JetBrains Mono', monospace;">4,000,000</span> <span style="font-size: 0.9rem; font-weight: 400; color: #94a3b8;">tokens/hour</span></div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 1rem;">
+                        <div>
+                            <span style="display: block; font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">Pilot Scale (176 hrs)</span>
+                            <div style="font-size: 1.25rem; color: white; font-weight: 700; font-family: 'Outfit', sans-serif;">$<span id="pilot-cost" style="font-family: 'JetBrains Mono', monospace;">176.00</span></div>
+                        </div>
+                        <div>
+                            <span style="display: block; font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">Production Scale (730 hrs)</span>
+                            <div style="font-size: 1.25rem; color: white; font-weight: 700; font-family: 'Outfit', sans-serif;">$<span id="prod-cost" style="font-family: 'JetBrains Mono', monospace;">730.00</span></div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05);">
+                        <span style="display: block; font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Illustrative comparison note</span>
+                        <p style="margin: 0; color: #cbd5e1; font-size: 0.9rem; line-height: 1.55;">
+                            This comparison is illustrative only. Actual cost depends on current pricing, selected model, routing mode, model subset, prompt length, output length, latency, and human rework rate.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="font-size: 0.85rem; color: #64748b; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 1rem; display: flex; align-items: center; gap: 0.5rem; justify-content: space-between; flex-wrap: wrap;">
+                <span>* Cost formula: (Requests/hr &times; Tokens/req &times; Hours &times; P) / 1,000,000</span>
+                <span id="tier-badge" class="result-badge badge-router-balanced" style="margin-bottom: 0; padding: 0.25rem 0.5rem; font-size: 0.7rem; text-transform: none;">Enterprise Copilot</span>
+            </div>
+        </div>
+
+        <div class="callout-box" style="margin-top: 2rem; background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6;">
+            <h4><i class="fas fa-info-circle"></i> FinOps Interpretation</h4>
+            A low-cost model output that needs human rework is not cheap. A higher-cost model that produces a trusted answer in one pass may be cheaper at the workflow level.
+        </div>
+
+        <!-- Table Lookup View (Hidden by default) -->
+        <div id="cost-table-view" class="view-section hidden" style="overflow-x: auto; overflow-y: hidden; margin: 2rem 0;">
+            <table class="styled-table" style="min-width: 600px; margin-top: 0;">
+                <thead>
+                    <tr>
+                        <th>Scenario</th>
+                        <th>Workload scale</th>
+                        <th>Formula output</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Light pilot</strong></td>
+                        <td>50 requests per hour x 2K tokens</td>
+                        <td><code>Monthly cost = 17.6 x P</code> for 176 hours, or <code>73.0 x P</code> for 730 hours</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Team assistant</strong></td>
+                        <td>250 requests per hour x 3K tokens</td>
+                        <td><code>Monthly cost = 132.0 x P</code> for 176 hours, or <code>547.5 x P</code> for 730 hours</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Enterprise copilot</strong></td>
+                        <td>1,000 requests per hour x 4K tokens</td>
+                        <td><code>Monthly cost = 704.0 x P</code> for 176 hours, or <code>2,920.0 x P</code> for 730 hours</td>
+                    </tr>
+                    <tr>
+                        <td><strong>High-volume workflow</strong></td>
+                        <td>5,000 requests per hour x 3K tokens</td>
+                        <td><code>Monthly cost = 2,640.0 x P</code> for 176 hours, or <code>10,950.0 x P</code> for 730 hours</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p>
+            The FinOps lesson is clear: <em>the cost problem is rarely the router itself; it is uncontrolled prompt volume, unmanaged workflow loops, and poor outcome quality.</em> Establish metric logging for cost per accepted business outcome rather than tracking raw token cost alone.
+        </p>
+
+        <!-- Section 9: Throughput Planning -->
+        <h3 id="throughput-planning"><span class="gradient-text">Throughput Planning</span></h3>
+        <p>
+            Cost is only one side of design; throughput limits are the other. Before a production rollout, architects must validate the available Requests Per Minute (RPM) and Tokens Per Minute (TPM) quota configurations.
+        </p>
+        <p>
+            Ask these strategic planning questions:
+        </p>
+        <ul>
+            <li>What is the peak expected requests per minute vs average load?</li>
+            <li>Which business processes are interactive (requiring immediate, low-latency responses) and which can run asynchronously?</li>
+            <li>What is the downstream fallback when the quota is exhausted (HTTP 429)?</li>
+            <li>Do you need to request quota allocations or Provisioned Throughput (PTU) before launching?</li>
+        </ul>
+        <p>
+            Always design for peak load concurrency and apply exponential backoff retry behaviors inside the orchestration layer, specifically in the middleware that wraps Model Router calls (for example, a Semantic Kernel plugin, LangChain chain, or a custom APIM retry policy). This retry logic must live at the call site, not inside Model Router itself.
+        </p>
+
+        <div class="section-divider"></div>
+
+        <!-- Section 10: Recommended enterprise architecture pattern -->
+        <h2 id="architecture-pattern"><span class="gradient-text">Enterprise Architecture Pattern</span></h2>
+        <p>
+            Model Router should sit inside a structured enterprise flow rather than being exposed directly to client applications. In production, the surrounding platform still owns access policy, orchestration, observability, evaluation, and human accountability.
+        </p>
+        <div class="mini-architecture-panel reveal-scale" role="img" aria-label="Reference architecture pattern showing the runtime flow from client through gateway and orchestration to either model router or a direct approved model, with cross-cutting controls and human review for high-risk decisions.">
+            <h4 class="mini-architecture-title"><i class="fas fa-sitemap"></i> Reference Architecture Pattern</h4>
+            <div class="mini-architecture-flow">
+                <div class="mini-architecture-node">
+                    <span class="mini-architecture-label">Client</span>
+                    <span class="mini-architecture-name">Application or Copilot UI</span>
+                    <span class="mini-architecture-note">User entry point and workload trigger.</span>
+                </div>
+                <div class="mini-architecture-node">
+                    <span class="mini-architecture-label">Access</span>
+                    <span class="mini-architecture-name">AI Gateway</span>
+                    <span class="mini-architecture-note">Identity, policy, quotas, and logging.</span>
+                </div>
+                <div class="mini-architecture-node">
+                    <span class="mini-architecture-label">Workflow</span>
+                    <span class="mini-architecture-name">Orchestration Layer</span>
+                    <span class="mini-architecture-note">Retrieval, prompt construction, retries, and tool calls.</span>
+                </div>
+                <div class="mini-architecture-node">
+                    <span class="mini-architecture-label">Decision</span>
+                    <span class="mini-architecture-name">Execution Path</span>
+                    <div class="mini-architecture-branch">
+                        <span class="mini-architecture-chip mini-architecture-chip--router">Model Router</span>
+                        <span class="mini-architecture-chip mini-architecture-chip--direct">Direct Approved Model</span>
+                    </div>
+                </div>
+                <div class="mini-architecture-node">
+                    <span class="mini-architecture-label">Outcome</span>
+                    <span class="mini-architecture-name">Response and Evidence</span>
+                    <span class="mini-architecture-note">Quality, cost, latency, and selected-model record.</span>
+                </div>
+            </div>
+            <div class="mini-architecture-controls">
+                <span class="mini-architecture-controls-title">Cross-Cutting Controls</span>
+                <div class="mini-architecture-controls-grid">
+                    <div class="mini-architecture-control">Policy and Safety</div>
+                    <div class="mini-architecture-control">Observability</div>
+                    <div class="mini-architecture-control">Evaluation</div>
+                    <div class="mini-architecture-control">FinOps</div>
+                    <div class="mini-architecture-control">Identity and Audit</div>
+                </div>
+            </div>
+            <div class="mini-architecture-review">
+                <strong>Human review:</strong> required for high-risk decisions, regulated workflows, or outcomes that trigger business escalation.
+            </div>
+        </div>
+        <p>
+            In this pattern, the AI gateway handles access, policies, quotas, logging, and safety. The orchestration layer handles retrieval, prompt construction, workflow state, retries, and tool calling. Model Router handles dynamic model selection for flexible workloads. Direct approved models handle regulated or repeatable workloads. Evaluation and observability validate cost, quality, latency, grounding, and human rework.
+        </p>
+
+        <figure class="architecture-figure architecture-figure--wide reveal-scale">
+            <a href="../images/blog/myimageuk2.png" target="_blank" rel="noopener noreferrer">
+                <img src="../images/blog/myimageuk2.png" alt="Secure enterprise topology showing controlled client access, API gateway, private networking, model router, supporting services, governance, and observability." class="cinematic-video-effect">
+            </a>
+            <figcaption class="architecture-caption">
+                <strong>Figure 2:</strong> Secure deployment requires controlled client access, APIM policy, managed identity, private networking, logging, content safety, and approved model subsets.
+            </figcaption>
+        </figure>
+
+        <!-- Section 11: When to Use Model Router -->
+        <h2 id="when-to-use"><span class="gradient-text">Decision Framework: Where Model Router Fits</span></h2>
+        <p>
+            Deploy Model Router when your workload has variable complexity, meaning different incoming queries require different degrees of cognitive capability.
+        </p>
+        
+        <div style="overflow-x: auto; overflow-y: hidden;">
+            <table class="styled-table" style="min-width: 600px;">
+                <thead>
+                    <tr>
+                        <th>Use Case</th>
+                        <th>Why Model Router Fits</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Customer Support Copilot</strong></td>
+                        <td>Mix of simple informational lookups and highly complex triage questions.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Internal Knowledge Assistant</strong></td>
+                        <td>Diverse queries across policy documents with varying lengths and structures.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sales Proposal Drafting</strong></td>
+                        <td>Combines basic structure generation (low cost) with deep competitive analysis (high capability).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 12: When Not to Use Model Router -->
+        <h2 id="when-not-to-use"><span class="gradient-text">When Not to Use Model Router</span></h2>
+        <p>
+            Bypass or tightly constrain the Model Router in scenarios where strict determinism, regulation, or specific performance constraints exist.
+        </p>
+        
+        <div style="overflow-x: auto; overflow-y: hidden;">
+            <table class="styled-table" style="min-width: 600px;">
+                <thead>
+                    <tr>
+                        <th>Scenario</th>
+                        <th>Alternative Strategy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Regulated Decision Workflows</strong></td>
+                        <td>Use a <strong>Direct Approved Model (Pinned)</strong> to support strict audit compliance.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Strict Benchmark Testing</strong></td>
+                        <td>Pin specific model versions (direct approved model deployment) for output consistency.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Deterministic Rules Validation</strong></td>
+                        <td>Enforce validations in application code rather than calling an LLM.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 13: Orchestration choices -->
+        <h2 id="orchestration-choices"><span class="gradient-text">Model Router vs Direct Approved Model</span></h2>
+        <p>
+            The architectural choice is often not simply router or no router. It is whether the workload benefits from dynamic selection inside an approved pool or whether it requires a direct approved model deployment with tighter execution controls.
+        </p>
+        <ul>
+            <li><strong>Regulated decision workflows:</strong> use a direct approved model deployment to support strict audit review.</li>
+            <li><strong>Strict benchmark testing:</strong> pin a fixed model version for repeatable output measurements.</li>
+            <li><strong>Deterministic validation:</strong> enforce business rules in code rather than routing simple logic to an LLM.</li>
+            <li><strong>Provider-specific specialization:</strong> use a direct approved model when the workload depends on a specific model family or setup path.</li>
+        </ul>
+
+        <!-- Section 14: Best Practices -->
+        <h2 id="best-practices"><span class="gradient-text">Operating Model Controls</span></h2>
+        
+        <h3>1. Start with Balanced Mode</h3>
+        <p>
+            Balanced mode provides the safest starting profile. Monitor performance, cost, and latency metrics against representative prompts before switching to Cost or Quality modes.
+        </p>
+
+        <h3>2. Classify Prompts by Business Criticality</h3>
+        <p>
+            Never route all prompts blindly. Intercept prompts at the orchestration layer and map them:
+        </p>
+        <ul>
+            <li>Low risk tasks (Metadata extraction, triage) &rarr; <strong>Cost Mode</strong>.</li>
+            <li>Medium risk tasks (Summarization) &rarr; <strong>Balanced Mode</strong>.</li>
+            <li>High risk tasks (Financial advising) &rarr; <strong>Quality Mode / Direct Pinned Model</strong>.</li>
+        </ul>
+
+        <h3>3. Use Approved Model Subsets</h3>
+        <p>
+            Define a subset matching your region's compliance lanes. In Sweden Central, restrict the pool to models available under the <strong>Data Zone Standard</strong> deployment type in your approved region. Verify this list directly in Azure AI Foundry because there is no static public certification registry for your exact enterprise policy boundary.
+        </p>
+
+        <h3>4. Log the Selected Model</h3>
+        <p>
+            Do not let the router become a black box. The selected underlying model should be captured from the API response <code>model</code> field and logged with prompt class, routing mode, input tokens, output tokens, latency, caller identity, workflow ID, and outcome. A downstream telemetry schema should capture at least:
+        </p>
+        <pre><code>{
+  "routingMode": "balanced",
+  "selectedModel": "model-name",
+  "promptClass": "high-risk",
+  "inputTokens": 8500,
+  "outputTokens": 1200,
+  "latencyMs": 7400,
+  "callerIdentity": "application-or-user-id",
+  "workflowId": "business-workflow-id",
+  "userRating": 4,
+  "humanOverride": false
+}</code></pre>
+
+        <h3>5. Build an Evaluation Harness</h3>
+        <p>
+            Establish automated evaluations tracking hallucination rate, grounding accuracy, and response consistency. When the router switches models dynamically, automated tests must verify that response quality remains within tolerance.
+        </p>
+
+        <h3>6. Separate Retrieval from Reasoning</h3>
+        <p>
+            The Model Router selects models for reasoning capabilities. Enterprise context must be retrieved beforehand (via RAG indexing) and injected as grounded context, rather than relying on the LLM's static training data.
+        </p>
+
+        <h3>7. Do Not Use LLMs for Everything</h3>
+        <p>
+            Deterministic validations (null checks, range validation, pattern matching) should be run directly in code. Using LLMs for simple code-level checks is slow, expensive, and insecure.
+        </p>
+
+        <h3>8. Design Fallback Explicitly</h3>
+        <p>
+            Model Router handles model selection but not application resilience. Incorporate retry policies, circuit breakers, and alternate regions (e.g., East US 2) for disaster recovery planning.
+        </p>
+
+        <div class="section-divider"></div>
+
+        <!-- Section 15: Decision Framework -->
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; gap: 1rem;">
+            <h2 id="decision-framework" style="margin: 0;"><span class="gradient-text">Practical Decision Framework</span></h2>
+            <button class="toggle-view-btn" onclick="toggleDecisionView()">
+                <i class="fas fa-table" style="margin-right: 0.5rem;"></i>Switch to Table View
+            </button>
+        </div>
+        <p>
+            Use this interactive decision advisor or switch to the quick lookup table to evaluate target patterns for model routing:
+        </p>
+
+        <!-- Interactive Advisor View -->
+        <div id="advisor-view" class="view-section advisor-container reveal-scale">
+            <div class="advisor-scenarios">
+                <button class="scenario-card active" onclick="selectScenario(0, this)">
+                    <span class="scenario-number">1</span>
+                    <span class="scenario-text">Is the task low-risk and high-volume?</span>
+                </button>
+                <button class="scenario-card" onclick="selectScenario(1, this)">
+                    <span class="scenario-number">2</span>
+                    <span class="scenario-text">Is the workflow mixed or unpredictable?</span>
+                </button>
+                <button class="scenario-card" onclick="selectScenario(2, this)">
+                    <span class="scenario-number">3</span>
+                    <span class="scenario-text">Is the workflow regulated or contractually restricted?</span>
+                </button>
+                <button class="scenario-card" onclick="selectScenario(3, this)">
+                    <span class="scenario-number">4</span>
+                    <span class="scenario-text">Does the output require fixed repeatability (benchmarks)?</span>
+                </button>
+                <button class="scenario-card" onclick="selectScenario(4, this)">
+                    <span class="scenario-number">5</span>
+                    <span class="scenario-text">Does the task need deep domain-specific vocabulary?</span>
+                </button>
+                <button class="scenario-card" onclick="selectScenario(5, this)">
+                    <span class="scenario-number">6</span>
+                    <span class="scenario-text">Is the logic deterministic (e.g. check if field is null)?</span>
+                </button>
+            </div>
+            
+            <div class="advisor-result" id="advisor-result-panel">
+                <!-- Will be dynamically populated by Javascript -->
+            </div>
+        </div>
+
+        <div class="callout-box" style="margin-top: 2rem; background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6;">
+            <h4><i class="fas fa-info-circle"></i> Decision note</h4>
+            This comparison is illustrative only. Actual cost depends on current pricing, selected model, routing mode, model subset, prompt length, output length, latency, and human rework rate.
+        </div>
+
+        <!-- Table Lookup View (Hidden by default) -->
+        <div id="table-view" class="view-section hidden" style="overflow-x: auto; overflow-y: hidden; margin: 2rem 0;">
+            <table class="styled-table" style="min-width: 600px; margin-top: 0;">
+                <thead>
+                    <tr>
+                        <th>Architectural Question</th>
+                        <th>Recommended Target Pattern</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Is the task low-risk and high-volume?</td>
+                        <td><strong>Model Router (Cost Mode)</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Is the workflow mixed or unpredictable?</td>
+                        <td><strong>Model Router (Balanced Mode)</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Is the workflow regulated or contractually restricted?</td>
+                        <td><strong>Direct Approved Model (Pinned)</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Does the output require fixed repeatability (benchmarks)?</td>
+                        <td><strong>Direct Approved Model (Pinned)</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Does the task need deep domain-specific vocabulary?</td>
+                        <td><strong>Fine-Tuned Model</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Is the logic deterministic (e.g. check if field is null)?</td>
+                        <td><strong>Vanilla Application Code (Not LLM)</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 16: What Can Go Wrong in Production -->
+        <h2 id="production-failures"><span class="gradient-text">Production Risks and Controls</span></h2>
+        <p>
+            Model routing can fail as an operating model if teams do not control the surrounding platform.
+        </p>
+        <p>
+            Common failure patterns include:
+        </p>
+        <ul>
+            <li>Treating Model Router as a full AI governance layer.</li>
+            <li>Allowing uncontrolled model subsets in production.</li>
+            <li>Ignoring router version changes and auto-update behavior.</li>
+            <li>Measuring only token cost instead of cost per accepted outcome.</li>
+            <li>Sending large documents directly to the model instead of using extraction, chunking, retrieval, and grounding.</li>
+            <li>Using dynamic routing for regulated workflows that require a fixed approved model.</li>
+            <li>Failing to log the selected model, token usage, latency, caller identity, and workflow context.</li>
+            <li>Assuming data-zone alignment equals complete legal sovereignty.</li>
+        </ul>
+
+        <h3>Version drift and auto-update risk</h3>
+        <p>
+            Model Router versions can introduce a different set of underlying models. If auto-update is enabled, routing behavior, output quality, latency, and cost profile can change over time.
+        </p>
+        <p>
+            Production workloads should treat Model Router version updates like controlled platform changes. Evaluate the new router version against representative prompts before promotion. Track selected model, cost per workflow, latency, grounding quality, and human rework rate.
+        </p>
+
+        <p>
+            The fix is not to avoid Model Router. The fix is to use it inside a governed AI platform with gateway controls, approved model subsets, observability, evaluation, FinOps controls, and human accountability.
+        </p>
+
+        <div class="section-divider"></div>
+
+        <!-- Section 17: Final Recommendation -->
+        <h2 id="final-recommendation"><span class="gradient-text">Final Recommendation</span></h2>
+        <p>
+            Model Router is useful for dynamic model selection, but production-grade enterprise AI still needs gateway governance, approved model subsets, observability, evaluation, FinOps controls, and human accountability.
+        </p>
+        <p>
+            Use it where flexibility, scale, and mixed-complexity workload patterns matter. Bypass it where regulatory control, benchmark repeatability, or fixed-model assurance are mandatory.
+        </p>
+        <p>
+            The goal is not to use the biggest model.
+        </p>
+        <p>
+            The goal is to use the right model, for the right task, with the right controls.
+        </p>
+
+        <div class="callout-box" style="border-left-color: #a855f7; margin-top: 2rem;">
+            <h4><i class="fas fa-chart-line"></i> Executive Takeaway</h4>
+            Model Router should optimize model choice, not own enterprise risk. The winning pattern is simple: route dynamically where you can, pin explicitly where you must, and govern both through gateway policy, approved models, observability, evaluation, and human accountability.
+        </div>
+
+        <!-- Section 18: Deployment Checklist -->
+        <h2 id="deployment-checklist"><span class="gradient-text">Deployment Checklist</span></h2>
+        <p>
+            Use this checklist to review production readiness before rollout.
+        </p>
+
+        <div class="checklist-group reveal">
+            <!-- Checklist Progress -->
+            <div class="checklist-progress-container">
+                <div class="checklist-progress-header">
+                    <span class="checklist-progress-text">Deployment Readiness</span>
+                    <span class="checklist-progress-count" id="checklist-count">0 / 11</span>
+                </div>
+                <div class="checklist-progress-bar">
+                    <div class="checklist-progress-fill" id="checklist-fill"></div>
+                </div>
+            </div>
+
+            <label class="checklist-item" for="chk-1">
+                <input type="checkbox" id="chk-1">
+                <span>Verify the Azure AI Foundry resource is in a Model Router-supported region.</span>
+            </label>
+            <label class="checklist-item" for="chk-2">
+                <input type="checkbox" id="chk-2">
+                <span>Confirm the deployment type: Global Standard or Data Zone Standard.</span>
+            </label>
+            <label class="checklist-item" for="chk-3">
+                <input type="checkbox" id="chk-3">
+                <span>Validate RPM and TPM quota for the expected workload.</span>
+            </label>
+            <label class="checklist-item" for="chk-4">
+                <input type="checkbox" id="chk-4">
+                <span>Define approved model subsets.</span>
+            </label>
+            <label class="checklist-item" for="chk-5">
+                <input type="checkbox" id="chk-5">
+                <span>Decide whether router version auto-update is allowed.</span>
+            </label>
+            <label class="checklist-item" for="chk-6">
+                <input type="checkbox" id="chk-6">
+                <span>Place the router behind APIM or another approved AI gateway where centralized governance is required.</span>
+            </label>
+            <label class="checklist-item" for="chk-7">
+                <input type="checkbox" id="chk-7">
+                <span>Capture selected model, token count, latency, status code, workflow ID, and user or application identity in logs.</span>
+            </label>
+            <label class="checklist-item" for="chk-8">
+                <input type="checkbox" id="chk-8">
+                <span>Define fallback behavior for throttling, timeout, and model unavailability.</span>
+            </label>
+            <label class="checklist-item" for="chk-9">
+                <input type="checkbox" id="chk-9">
+                <span>Run evaluation tests before promoting to production.</span>
+            </label>
+            <label class="checklist-item" for="chk-10">
+                <input type="checkbox" id="chk-10">
+                <span>Review cost, quality, latency, and human rework metrics after release.</span>
+            </label>
+            <label class="checklist-item" for="chk-11">
+                <input type="checkbox" id="chk-11">
+                <span>Configure Azure Cost Management budgets and alerts for unexpected usage shifts.</span>
+            </label>
+            <!-- Completion Message -->
+            <div class="checklist-complete-msg" id="checklist-complete">
+                <i class="fas fa-check-circle" style="margin-right: 0.5rem;"></i> All deployment readiness checks complete. Architecture is validated.
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Section 18: References -->
+        <h2 id="references"><span class="gradient-text">References</span></h2>
+        <p class="references-intro">
+            Primary Microsoft references used for architecture guidance, routing behavior, gateway controls, and data protection considerations.
+        </p>
+        <ul class="references-list">
+            <li class="references-item">
+                <div>
+                    <span class="references-meta">Model Router</span>
+                    <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/model-router" target="_blank" rel="noopener noreferrer">Concepts and operating model</a>
+                </div>
+            </li>
+            <li class="references-item">
+                <div>
+                    <span class="references-meta">Model Router</span>
+                    <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/model-router-how-it-works" target="_blank" rel="noopener noreferrer">Routing behavior and selection logic</a>
+                </div>
+            </li>
+            <li class="references-item">
+                <div>
+                    <span class="references-meta">Model Router</span>
+                    <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/model-router" target="_blank" rel="noopener noreferrer">Deployment and usage guidance</a>
+                </div>
+            </li>
+            <li class="references-item">
+                <div>
+                    <span class="references-meta">AI Gateway</span>
+                    <a href="https://learn.microsoft.com/en-us/azure/api-management/genai-gateway-capabilities" target="_blank" rel="noopener noreferrer">Azure API Management AI gateway capabilities</a>
+                </div>
+            </li>
+            <li class="references-item">
+                <div>
+                    <span class="references-meta">AI Gateway</span>
+                    <a href="https://learn.microsoft.com/en-us/azure/api-management/llm-token-limit-policy" target="_blank" rel="noopener noreferrer">Token governance policy</a>
+                </div>
+            </li>
+            <li class="references-item">
+                <div>
+                    <span class="references-meta">Safety</span>
+                    <a href="https://learn.microsoft.com/en-us/azure/api-management/llm-content-safety-policy" target="_blank" rel="noopener noreferrer">Content safety policy</a>
+                </div>
+            </li>
+            <li class="references-item">
+                <div>
+                    <span class="references-meta">Privacy and Security</span>
+                    <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/responsible-ai/openai/data-privacy" target="_blank" rel="noopener noreferrer">Data, privacy, and security guidance</a>
+                </div>
+            </li>
+        </ul>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h3>Ready to operationalize your Azure journey?</h3>
+        <p>
+            Standardizing model layer abstraction is one of the pillars of high-fidelity cloud systems. Let's discuss how to align your AI platform architecture with FinOps controls and regulatory compliance.
+        </p>
+        <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+            <a href="../pages/contact.html" class="btn btn-primary">Contact Me</a>
+            <a href="../pages/azure-migration-toolkit.html" class="btn btn-outline">View the Toolkit</a>
+        </div>
+
+        <!-- Social Share Section -->
+        <div class="social-share-container">
+            <p style="color: #94a3b8; font-size: 0.8rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700;">Spread the Insight</p>
+            <div class="social-share-buttons">
+                <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn(event)" title="Share on LinkedIn" aria-label="Share on LinkedIn">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+                <a href="#" class="share-btn twitter" onclick="shareOnTwitter(event)" title="Share on X (Twitter)" aria-label="Share on Twitter">
+                    <i class="fab fa-x-twitter"></i> Twitter
+                </a>
+                <a href="#" class="share-btn facebook" onclick="shareOnFacebook(event)" title="Share on Facebook">
+                    <i class="fab fa-facebook-f"></i> Facebook
+                </a>
+                <button class="share-btn copy-link" onclick="copyPageLink(this)" title="Copy Link" aria-label="Copy Page Link">
+                    <i class="fas fa-link"></i> <span class="btn-text">Copy Link</span>
+                </button>
+            </div>
+        </div>
+
+        <script>
+            function shareOnLinkedIn(e) {
+                e.preventDefault();
+                const url = encodeURIComponent(window.location.href);
+                window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=600');
+            }
+
+            function shareOnTwitter(e) {
+                e.preventDefault();
+                const url = encodeURIComponent(window.location.href);
+                const text = encodeURIComponent(document.title);
+                window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
+            }
+
+            function shareOnFacebook(e) {
+                e.preventDefault();
+                const url = encodeURIComponent(window.location.href);
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+            }
+
+            function copyPageLink(btn) {
+                const url = window.location.href;
+                navigator.clipboard.writeText(url).then(() => {
+                    const btnText = btn.querySelector('.btn-text');
+                    const originalText = btnText.innerText;
+                    btnText.innerText = 'Copied!';
+                    btn.classList.add('copied');
+                    setTimeout(() => {
+                        btnText.innerText = originalText;
+                        btn.classList.remove('copied');
+                    }, 2000);
+                });
+            }
+        </script>
+
+        <!-- Back to Blog Button -->
+        <div style="text-align: center; margin: 4rem 0;">
+            <a href="../blog.html" class="btn btn-primary" style="display: inline-block; padding: 1rem 2rem;">
+                <i class="fas fa-arrow-left"></i> Back to Insights
+            </a>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Upendra Kumar. All rights reserved.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/journeytocloudwithupendra/" target="_blank" title="LinkedIn" aria-label="LinkedIn Profile">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/appliedailearner" target="_blank" title="GitHub" aria-label="GitHub Repository">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+            
+            <div class="footer-qr-container" style="margin-top: 2rem; display: flex; flex-direction: column; align-items: center;">
+                <div style="padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.08); margin-top: 1.5rem; width: 100%; max-width: 500px; backdrop-filter: blur(8px);">
+                    <div style="display: flex; justify-content: space-around; font-size: 0.8rem; text-align: center;">
+                        <div>
+                            <div style="color: rgba(255, 255, 255, 0.5); margin-bottom: 0.25rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">UX Speed</div>
+                            <div id="ux-speed" style="font-weight: 600; font-family: 'JetBrains Mono', monospace; color: #34d399;">--ms</div>
+                        </div>
+                        <div style="width: 1px; background: rgba(255, 255, 255, 0.1); margin: 0 0.5rem;"></div>
+                        <div>
+                            <div style="color: rgba(255, 255, 255, 0.5); margin-bottom: 0.25rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Privacy Hits</div>
+                            <div id="privacy-hits" style="font-weight: 600; font-family: 'JetBrains Mono', monospace; color: #60a5fa;">0</div>
+                        </div>
+                        <div style="width: 1px; background: rgba(255, 255, 255, 0.1); margin: 0 0.5rem;"></div>
+                        <div>
+                            <div style="color: rgba(255, 255, 255, 0.5); margin-bottom: 0.25rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Edge Node</div>
+                            <div style="font-weight: 600; font-family: 'JetBrains Mono', monospace; color: #fbbf24;">IN-CENTRAL</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="padding: 0.5rem; background: rgba(255, 255, 255, 0.05); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); margin-top: 1rem;">
+                    <div class="status-ticker" id="system-status">
+                        <span class="status-dot pulse"></span>
+                        <span class="status-text">System Status: <span id="status-val">Online</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/particles.js"></script>
+    <script src="../js/main.js"></script>
+
+    <!-- Table of Contents Observer -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tocList = document.querySelector('.toc-list');
+            if (tocList) {
+                const headers = document.querySelectorAll('.blog-post-content h2');
+                const tocLinks = document.querySelectorAll('.toc-link');
+                
+                // Create sliding indicator
+                const indicator = document.createElement('div');
+                indicator.className = 'toc-indicator';
+                tocList.appendChild(indicator);
+                
+                function updateIndicator(activeLink) {
+                    if (activeLink) {
+                        const listRect = tocList.getBoundingClientRect();
+                        const linkRect = activeLink.getBoundingClientRect();
+                        indicator.style.top = `${linkRect.top - listRect.top}px`;
+                        indicator.style.height = `${linkRect.height}px`;
+                        indicator.style.opacity = '1';
+                    } else {
+                        indicator.style.opacity = '0';
+                    }
+                }
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            tocLinks.forEach(link => {
+                                link.classList.remove('active');
+                                if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                    link.classList.add('active');
+                                    updateIndicator(link);
+                                }
+                            });
+                        }
+                    });
+                }, { rootMargin: '0px 0px -60% 0px', threshold: 0.1 });
+                
+                headers.forEach(header => observer.observe(header));
+
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    const activeLink = document.querySelector('.toc-link.active');
+                    updateIndicator(activeLink);
+                });
+            }
+        });
+    </script>
+
+    <!-- Interactive Stateful Checklist with Progress Bar -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pageKey = window.location.pathname.split('/').pop().replace('.html', '');
+            const checkboxes = document.querySelectorAll('.checklist-group input[type="checkbox"]');
+            const progressFill = document.getElementById('checklist-fill');
+            const progressCount = document.getElementById('checklist-count');
+            const completeMsg = document.getElementById('checklist-complete');
+            const total = checkboxes.length;
+
+            function updateProgress() {
+                const checked = document.querySelectorAll('.checklist-group input[type="checkbox"]:checked').length;
+                const pct = total > 0 ? (checked / total) * 100 : 0;
+                if (progressFill) progressFill.style.width = pct + '%';
+                if (progressCount) progressCount.textContent = checked + ' / ' + total;
+                if (completeMsg) {
+                    if (checked === total && total > 0) {
+                        completeMsg.classList.add('visible');
+                    } else {
+                        completeMsg.classList.remove('visible');
+                    }
+                }
+            }
+            
+            checkboxes.forEach((cb, index) => {
+                const storageKey = `checklist_${pageKey}_${index}`;
+                if (localStorage.getItem(storageKey) === 'true') {
+                    cb.checked = true;
+                    cb.closest('label').style.opacity = '0.5';
+                }
+                cb.addEventListener('change', (e) => {
+                    localStorage.setItem(storageKey, e.target.checked);
+                    e.target.closest('label').style.opacity = e.target.checked ? '0.5' : '1';
+                    updateProgress();
+                });
+            });
+
+            // Initialize progress on page load
+            updateProgress();
+        });
+    </script>
+
+    <!-- Interactive FinOps Calculator Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const reqSlider = document.getElementById('requests-slider');
+            const tokSlider = document.getElementById('tokens-slider');
+            const priceInput = document.getElementById('price-parameter');
+            
+            const reqVal = document.getElementById('requests-val');
+            const tokVal = document.getElementById('tokens-val');
+            const calcVol = document.getElementById('calc-volume');
+            const pilotCost = document.getElementById('pilot-cost');
+            const prodCost = document.getElementById('prod-cost');
+            const tierBadge = document.getElementById('tier-badge');
+            
+            if (reqSlider && tokSlider && priceInput) {
+                function formatNumber(num) {
+                    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                }
+                
+                function calculate() {
+                    const reqs = parseInt(reqSlider.value);
+                    const tokens = parseInt(tokSlider.value);
+                    const price = parseFloat(priceInput.value) || 0;
+                    
+                    reqVal.innerText = formatNumber(reqs);
+                    tokVal.innerText = formatNumber(tokens);
+                    
+                    const volumePerHour = reqs * tokens;
+                    calcVol.innerText = formatNumber(volumePerHour);
+                    
+                    const hourlyCost = (volumePerHour / 1000000) * price;
+                    const pilot = hourlyCost * 176;
+                    const prod = hourlyCost * 730;
+                    
+                    pilotCost.innerText = formatNumber(pilot.toFixed(2));
+                    prodCost.innerText = formatNumber(prod.toFixed(2));
+                    
+                    // Update scale tier badge
+                    if (volumePerHour < 200000) {
+                        tierBadge.innerText = "Light Pilot";
+                        tierBadge.className = "result-badge badge-router-cost";
+                    } else if (volumePerHour < 2000000) {
+                        tierBadge.innerText = "Team Assistant";
+                        tierBadge.className = "result-badge badge-pinned";
+                    } else if (volumePerHour < 8000000) {
+                        tierBadge.innerText = "Enterprise Copilot";
+                        tierBadge.className = "result-badge badge-router-balanced";
+                    } else {
+                        tierBadge.innerText = "High-Volume Workflow";
+                        tierBadge.className = "result-badge badge-finetune";
+                    }
+                }
+                
+                reqSlider.addEventListener('input', calculate);
+                tokSlider.addEventListener('input', calculate);
+                priceInput.addEventListener('input', calculate);
+                
+                // Initialize
+                calculate();
+            }
+        });
+
+        function toggleCostView() {
+            const calcView = document.getElementById('calculator-view');
+            const tableView = document.getElementById('cost-table-view');
+            const btn = document.querySelector('.toggle-cost-btn');
+            
+            if (calcView.classList.contains('hidden')) {
+                calcView.classList.remove('hidden');
+                tableView.classList.add('hidden');
+                btn.innerHTML = '<i class="fas fa-table" style="margin-right: 0.5rem;"></i>Switch to Table View';
+            } else {
+                calcView.classList.add('hidden');
+                tableView.classList.remove('hidden');
+                btn.innerHTML = '<i class="fas fa-calculator" style="margin-right: 0.5rem;"></i>Switch to Calculator';
+            }
+        }
+    </script>
+
+    <!-- ELI5 Smart Glossary Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const glossaryTerms = {
+                "LLM": "Large Language Model: A deep learning algorithm that can recognize, summarize, translate, predict and generate text and other content based on knowledge gained from massive datasets.",
+                "APIM": "API Management: A service that enables organizations to publish APIs to developers to lock down, secure, rate-limit, and monitor their APIs.",
+                "TCO": "Total Cost of Ownership: A financial estimate intended to help buyers and owners determine the direct and indirect costs of a product or system.",
+                "ROI": "Return on Investment: A performance measure used to evaluate the efficiency or profitability of an investment.",
+                "FinOps": "Financial Operations: An operational framework and cultural practice that maximizes the business value of cloud and drives financial accountability.",
+                "PTU": "Provisioned Throughput Unit: A service model that reserves a specific amount of throughput capacity for an Azure OpenAI model, providing predictable latency.",
+                "SLA": "Service Level Agreement: A commitment between a service provider and a client regarding service availability and performance.",
+                "RAG": "Retrieval-Augmented Generation: An architectural pattern that optimizes the output of a large language model by referencing an authoritative, external knowledge base.",
+                "WAF": "Well-Architected Framework: A set of design principles, checklists, and best practices across five pillars (Reliability, Security, Cost Optimization, Operational Excellence, and Performance Efficiency).",
+                "TPM": "Tokens Per Minute: A rate limit metric measuring the number of text tokens processed by an AI model endpoint within a one-minute window.",
+                "RPM": "Requests Per Minute: A rate limit metric measuring the number of API calls received by a service endpoint within a one-minute window."
+            };
+            
+            const contentBlock = document.querySelector('.blog-post-content');
+            if (contentBlock && glossaryTerms && Object.keys(glossaryTerms).length > 0) {
+                const terms = Object.keys(glossaryTerms).sort((a, b) => b.length - a.length);
+                const termsRegex = new RegExp(`\\b(${terms.join('|')})\\b`, 'g');
+                
+                function replaceTextNodes(node) {
+                    if (node.nodeType === Node.TEXT_NODE) {
+                        const parent = node.parentNode;
+                        if (parent && parent.nodeName !== 'SCRIPT' && parent.nodeName !== 'STYLE' && parent.className !== 'eli5-term') {
+                            if (parent.closest && parent.closest('h1, h2, h3, h4, h5, h6, a, pre, code, figure, label, th, td')) {
+                                return; // Skip if inside an ignored container
+                            }
+                            const newHTML = node.nodeValue.replace(termsRegex, match => {
+                                const cleanTooltip = glossaryTerms[match].replace(/"/g, '&quot;');
+                                return `<span class="eli5-term" data-tooltip="${cleanTooltip}">${match}</span>`;
+                            });
+                            if (newHTML !== node.nodeValue) {
+                                const tempDiv = document.createElement('div');
+                                tempDiv.innerHTML = newHTML;
+                                while (tempDiv.firstChild) {
+                                    parent.insertBefore(tempDiv.firstChild, node);
+                                }
+                                parent.removeChild(node);
+                            }
+                        }
+                    } else {
+                        const children = Array.from(node.childNodes);
+                        children.forEach(replaceTextNodes);
+                    }
+                }
+                replaceTextNodes(contentBlock);
+            }
+        });
+    </script>
+
+    <!-- Interactive Decision Advisor Script -->
+    <script>
+        const scenarios = [
+            {
+                badgeClass: "badge-router-cost",
+                badgeText: "Model Router (Cost Mode)",
+                pattern: "Model Router: Cost-Optimized Path",
+                description: "Optimizes operational costs by default. Routes standard queries to low-tier, low-cost models. Dynamic upgrades to premium tiers only occur if complexity threshold is exceeded.",
+                metrics: [
+                    { label: "Cost Profile", val: "Workload dependent" },
+                    { label: "Latency Profile", val: "Balanced (Low simple path)" }
+                ],
+                code: "{\n  \"properties\": {\n    \"routingMode\": \"cost\",\n    \"modelSubset\": [\"smaller-model\", \"reasoning-model\"]\n  }\n}"
+            },
+            {
+                badgeClass: "badge-router-balanced",
+                badgeText: "Model Router (Balanced Mode)",
+                pattern: "Model Router: Performance & Budget",
+                description: "Dynamically classifies incoming prompts. Simple requests are routed to low-tier models to save cost, while rich semantic/reasoning queries go directly to higher-capability reasoning models.",
+                metrics: [
+                    { label: "Cost Profile", val: "Optimized (Proportional)" },
+                    { label: "Latency Profile", val: "Aggregated Average" }
+                ],
+                code: "{\n  \"properties\": {\n    \"routingMode\": \"balanced\",\n    \"modelSubset\": [\"smaller-model\", \"reasoning-model\"]\n  }\n}"
+            },
+            {
+                badgeClass: "badge-pinned",
+                badgeText: "Direct Approved Model (Pinned)",
+                pattern: "Pinned Endpoint (Bypassing Router)",
+                description: "Required when compliance, contractual controls, or strict audit policies mandate processing at a specific endpoint. Bypassing dynamic routing preserves a fixed execution boundary.",
+                metrics: [
+                    { label: "Cost Profile", val: "Fixed Tier Rates" },
+                    { label: "Latency Profile", val: "Endpoint Dependent" }
+                ],
+                code: "// Pin directly to the approved regional deployment\nconst client = new OpenAIClient(\n  \"https://sweden-pinned-endpoint.openai.azure.com/\"\n);"
+            },
+            {
+                badgeClass: "badge-pinned",
+                badgeText: "Direct Approved Model (Pinned)",
+                pattern: "Static Deployment (No Model Drift)",
+                description: "Used when prompt engineering templates and performance benchmarks are strictly dependent on a fixed model version. Disables model auto-updates to enforce absolute repeatability.",
+                metrics: [
+                    { label: "Cost Profile", val: "Standard Deployment" },
+                    { label: "Latency Profile", val: "Consistent Version Metrics" }
+                ],
+                code: "{\n  \"name\": \"pinned-model-deployment\",\n  \"properties\": {\n    \"model\": {\n      \"format\": \"OpenAI\",\n      \"name\": \"fixed-model-version\",\n      \"version\": \"approved-version\" // Pinned version\n    }\n  }\n}"
+            },
+            {
+                badgeClass: "badge-finetune",
+                badgeText: "Fine-Tuned Model",
+                pattern: "Dedicated Fine-Tuned Deployment",
+                description: "Necessary when the application requires specialized domain vocabulary, custom metadata structures, or adherence to strict formatting constraints that generic models cannot resolve.",
+                metrics: [
+                    { label: "Cost Profile", val: "Dedicated Node hosting (High)" },
+                    { label: "Latency Profile", val: "Deployment dependent" }
+                ],
+                code: "{\n  \"properties\": {\n    \"model\": {\n      \"format\": \"OpenAI\",\n      \"name\": \"custom-finetuned-model-name\"\n    }\n  }\n}"
+            },
+            {
+                badgeClass: "badge-code",
+                badgeText: "Vanilla Application Code",
+                pattern: "Native Code Execution (No LLM)",
+                description: "Do not route logical validations (like null values, pattern matching, regex, simple conditions) to LLMs. Processing deterministic logic in code is faster, completely free, and secure.",
+                metrics: [
+                    { label: "Cost Profile", val: "Zero Token Spend" },
+                    { label: "Latency Profile", val: "Sub-millisecond" }
+                ],
+                code: "// Deterministic check - skip AI model calls entirely\nif (inputData === null || inputData.trim() === \"\") {\n    return false;\n}"
+            }
+        ];
+
+        function selectScenario(index, element) {
+            // Remove active class from all scenario cards
+            const cards = document.querySelectorAll('.scenario-card');
+            cards.forEach(card => card.classList.remove('active'));
+            
+            // Add active class to clicked card
+            element.classList.add('active');
+            
+            // Update the result panel with fading transition
+            const panel = document.getElementById('advisor-result-panel');
+            panel.style.opacity = '0';
+            panel.style.transform = 'translateY(5px)';
+            
+            setTimeout(() => {
+                const data = scenarios[index];
+                let metricsHTML = '';
+                data.metrics.forEach(m => {
+                    metricsHTML += `
+                        <div class="metric-item">
+                            <span class="metric-item-label">${m.label}</span>
+                            <span class="metric-item-val">${m.val}</span>
+                        </div>
+                    `;
+                });
+                
+                panel.innerHTML = `
+                    <div class="result-header">
+                        <span class="result-badge ${data.badgeClass}">${data.badgeText}</span>
+                        <h4 class="result-pattern">${data.pattern}</h4>
+                        <p class="result-description">${data.description}</p>
+                    </div>
+                    <div class="result-metrics">
+                        ${metricsHTML}
+                    </div>
+                    <pre class="result-code-box"><code>${escapeHTML(data.code)}</code></pre>
+                `;
+                
+                panel.style.opacity = '1';
+                panel.style.transform = 'translateY(0)';
+            }, 200);
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        function toggleDecisionView() {
+            const advisorView = document.getElementById('advisor-view');
+            const tableView = document.getElementById('table-view');
+            const btn = document.querySelector('.toggle-view-btn');
+            
+            if (advisorView.classList.contains('hidden')) {
+                advisorView.classList.remove('hidden');
+                tableView.classList.add('hidden');
+                btn.innerHTML = '<i class="fas fa-table" style="margin-right: 0.5rem;"></i>Switch to Table View';
+            } else {
+                advisorView.classList.add('hidden');
+                tableView.classList.remove('hidden');
+                btn.innerHTML = '<i class="fas fa-magic" style="margin-right: 0.5rem;"></i>Switch to Advisor View';
+            }
+        }
+
+        // Initialize the first scenario on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const activeCard = document.querySelector('.scenario-card.active');
+            if (activeCard) {
+                selectScenario(0, activeCard);
+            }
+        });
+    </script>
+
+    <!-- ===== Interactive Animations Engine ===== -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // ---- 1. Scroll Reveal Observer ----
+        const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-scale');
+        if (revealElements.length > 0) {
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        revealObserver.unobserve(entry.target); // animate once
+                    }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+
+            revealElements.forEach(el => revealObserver.observe(el));
+        }
+
+        // ---- 2. Reading Progress Bar ----
+        const progressBar = document.getElementById('reading-progress');
+        if (progressBar) {
+            function updateReadingProgress() {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                progressBar.style.width = Math.min(scrollPercent, 100) + '%';
+            }
+            window.addEventListener('scroll', updateReadingProgress, { passive: true });
+            updateReadingProgress();
+        }
+
+        // ---- 3. Animated Number Counters ----
+        const counters = document.querySelectorAll('.counter-value');
+        if (counters.length > 0) {
+            let countersAnimated = false;
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !countersAnimated) {
+                        countersAnimated = true;
+                        counters.forEach(counter => {
+                            const target = parseInt(counter.getAttribute('data-target'));
+                            const suffix = counter.getAttribute('data-suffix') || '';
+                            const duration = 1500;
+                            const startTime = performance.now();
+
+                            function animateCounter(currentTime) {
+                                const elapsed = currentTime - startTime;
+                                const progress = Math.min(elapsed / duration, 1);
+                                // Ease-out cubic
+                                const eased = 1 - Math.pow(1 - progress, 3);
+                                const current = Math.round(eased * target);
+                                counter.textContent = current + suffix;
+                                if (progress < 1) {
+                                    requestAnimationFrame(animateCounter);
+                                }
+                            }
+                            requestAnimationFrame(animateCounter);
+                        });
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            // Observe the parent container of counters
+            const statRow = counters[0]?.closest('.responsive-grid');
+            if (statRow) counterObserver.observe(statRow);
+        }
+
+        // ---- 4. Back to Top Button ----
+        const backToTop = document.getElementById('back-to-top');
+        if (backToTop) {
+            function toggleBackToTop() {
+                if (window.scrollY > 400) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            }
+            window.addEventListener('scroll', toggleBackToTop, { passive: true });
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            toggleBackToTop();
+        }
+
+        // ---- 5. Add reveal classes to all h2 sections dynamically ----
+        const sectionHeaders = document.querySelectorAll('.blog-post-content h2');
+        sectionHeaders.forEach(h2 => {
+            if (!h2.classList.contains('reveal')) {
+                h2.classList.add('reveal');
+                // Also observe it
+                const revealObs = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('revealed');
+                            revealObs.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+                revealObs.observe(h2);
+            }
+        });
+    });
+    </script>
+
+    <!-- ===== V3 Interactive Decision Tree Script ===== -->
+    <script>
+        const dtState = { step: 1 };
+        const dtQContainer = document.getElementById('dt-question-container');
+        const dtRContainer = document.getElementById('dt-result-container');
+        const dtQ = document.getElementById('dt-question');
+        const dtBadge = document.getElementById('dt-badge');
+        const dtTitle = document.getElementById('dt-result-title');
+        const dtDesc = document.getElementById('dt-result-desc');
+
+        function dtAnswer(ans) {
+            if (dtState.step === 1) {
+                if (ans === 'yes') {
+                    showDTResult('badge-pinned', 'Direct Pinned Endpoint', 'Bypass the Router', 'If regulatory or audit rules mandate executing on a perfectly static environment, do not introduce a dynamic routing layer. Call the model directly.');
+                } else {
+                    dtState.step = 2;
+                    dtQ.innerText = 'Do all incoming prompts require complex reasoning, or is there a mix of simple metadata extraction and complex reasoning?';
+                    // Update buttons
+                    dtQContainer.innerHTML = `
+                        <h4 id="dt-question" style="font-size: 1.2rem; margin-top: 0; color: #e2e8f0; font-family: 'Outfit', sans-serif;">Do all incoming prompts require complex reasoning, or is there a mix of simple metadata extraction and complex reasoning?</h4>
+                        <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;">
+                            <button class="toggle-view-btn" onclick="dtAnswer('all')">All Complex</button>
+                            <button class="toggle-view-btn" onclick="dtAnswer('mix')">Mixed Workload</button>
+                        </div>
+                    `;
+                }
+            } else if (dtState.step === 2) {
+                if (ans === 'all') {
+                    showDTResult('badge-router-cost', 'Higher-Capability Model Tier', 'Direct approved model deployment', 'If 100% of the workload requires higher-capability reasoning, route directly to the approved model instead of introducing unnecessary routing overhead.');
+                } else {
+                    showDTResult('badge-router-balanced', 'Model Router', 'Deploy Model Router', 'Perfect fit! Model Router will automatically push the simple extraction tasks to cheaper models, reserving expensive premium tokens only for the complex prompts.');
+                }
+            }
+        }
+
+        function showDTResult(badgeClass, badgeText, titleText, descText) {
+            dtQContainer.classList.add('hidden');
+            dtRContainer.classList.remove('hidden');
+            dtBadge.className = 'result-badge ' + badgeClass;
+            dtBadge.innerText = badgeText;
+            dtTitle.innerText = titleText;
+            dtDesc.innerText = descText;
+        }
+
+        function dtReset() {
+            dtState.step = 1;
+            dtQContainer.classList.remove('hidden');
+            dtRContainer.classList.add('hidden');
+            dtQContainer.innerHTML = `
+                <h4 id="dt-question" style="font-size: 1.2rem; margin-top: 0; color: #e2e8f0; font-family: 'Outfit', sans-serif;">Does your workload strictly require processing by a single, specific model version for regulatory reasons?</h4>
+                <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;">
+                    <button class="toggle-view-btn" onclick="dtAnswer('yes')">Yes</button>
+                    <button class="toggle-view-btn" onclick="dtAnswer('no')">No</button>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
+
