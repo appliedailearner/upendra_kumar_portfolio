@@ -11,7 +11,7 @@
     <meta property="og:url" content="https://portfolio.upendrakumar.com/blog/2026-04-10-reliability-resiliency-azure.html">
     <meta property="og:title" content="Modern Azure Resilience: Continuity by Design in the Era of AI">
     <meta property="og:description" content="A strategic guide for executives and architects to move beyond the legacy failover mindset into high-fidelity, AZ-first availability.">
-    <meta property="og:image" content="https://portfolio.upendrakumar.com/images/profile.webp">
+    <meta property="og:image" content="https://portfolio.upendrakumar.com/images/azure_resilience_infographic.webp">
     <meta property="og:site_name" content="Upendra Kumar | Cloud Strategy & Architecture">
     <meta property="article:author" content="Upendra Kumar">
 
@@ -20,7 +20,7 @@
     <meta property="twitter:url" content="https://portfolio.upendrakumar.com/blog/2026-04-10-reliability-resiliency-azure.html">
     <meta property="twitter:title" content="Modern Azure Resilience: Continuity by Design in the Era of AI">
     <meta property="twitter:description" content="A strategic guide for executives and architects to move beyond the legacy failover mindset into high-fidelity, AZ-first availability.">
-    <meta property="twitter:image" content="https://portfolio.upendrakumar.com/images/profile.webp">
+    <meta property="twitter:image" content="https://portfolio.upendrakumar.com/images/azure_resilience_infographic.webp">
 
     <title>Modern Azure Resilience | Upendra Kumar</title>
 
@@ -39,7 +39,7 @@
       "@context": "https://schema.org",
       "@type": "Article",
       "headline": "Modern Azure Resilience: Continuity by Design in the Era of AI",
-      "image": "https://portfolio.upendrakumar.com/images/profile.webp",
+      "image": "https://portfolio.upendrakumar.com/images/azure_resilience_infographic.webp",
       "author": {
         "@type": "Person",
         "name": "Upendra Kumar",
@@ -171,7 +171,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .checklist-group {
+        .checklist-container {
             display: block !important;
             background: rgba(15, 23, 42, 0.4);
             border-radius: 12px;
@@ -185,6 +185,7 @@
             align-items: flex-start;
             gap: 1rem;
             margin-bottom: 1rem;
+            transition: opacity 0.3s ease;
         }
 
         .checklist-item input {
@@ -932,6 +933,33 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Azure App Insights SDK (RUM) -->
+    <script type="text/javascript">
+        !function (T, l, y) {
+            var S = T.location, k = "script", D = "connectionString", C = "ingestionendpoint", I = "disableExceptionTracking";
+            var _ = y.url || "https://js.monitor.azure.com/scripts/b/ai.2.min.js";
+            if (y[D]) {
+                var T = T.appInsights || (T.appInsights = {});
+                T.loadAppInsights = function () {
+                    var p = { config: y }; T.initialize = !0; T._tags = [];
+                    T.addTelemetryInitializer = function (f) { T._tags.push(f); };
+                    var v = window.fetch;
+                    T.track = function (e) {
+                        (T._tags || []).forEach(function (f) { try { f(e); } catch (ex) { } });
+                        var i = p.config.endpointUrl || "https://dc.services.visualstudio.com/v2/track";
+                        v(i, { method: "POST", body: JSON.stringify(e), mode: "cors" }).catch(function () { });
+                    };
+                    T.trackEvent = function (d) { T.track({ name: d.name || "Event", data: { baseData: d } }); };
+                    T.trackPageView = function (d) { T.track({ name: "PageView", data: { baseData: d } }); };
+                    T.trackException = function (d) { T.track({ name: "Exception", data: { baseData: d } }); };
+                }
+            }
+        }(window, document, {
+            connectionString: "InstrumentationKey=8fc596f2-bb91-49d7-8495-2ac1ecd30501;IngestionEndpoint=https://centralindia-0.in.liana.ice.azure.microsoft.com/",
+            endpointUrl: "https://centralindia-0.in.liana.ice.azure.microsoft.com/v2/track"
+        });
+    </script>
+    <script src="../js/observability.js?v=3" defer></script>
 </head>
 
 <body class="dark-theme">
@@ -986,7 +1014,7 @@
             <h4 style="color: #60a5fa; font-family: 'Outfit', sans-serif; margin-bottom: 1rem;">Navigation</h4>
             <ul style="list-style: none; padding: 0; font-size: 0.9rem;">
                 <li><a href="#shifting-paradigm" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">1. The Shifting Paradigm</a></li>
-                <li><a href="#az-first" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">2. AZ-First Strategy</a></li>
+                <li><a href="#az-first" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">2. Strategic Alignment and ROI</a></li>
                 <li><a href="#selection-matrix" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">3. Resiliency Selection Matrix</a></li>
                 <li><a href="#enterprise-playbook" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">4. Enterprise Resilience Playbook (CAF & WAF)</a></li>
                 <li><a href="#maturity-model" class="toc-link" style="color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.5rem;">5. Maturity Roadmap</a></li>
@@ -1078,7 +1106,7 @@
         <!-- Architecture Diagram 1: Regions & AZs -->
         <div class="architecture-card">
             <h4 style="color: #f8fafc; font-family: 'Outfit', sans-serif; margin-bottom: 1.5rem;">The Physical Foundation: Regions & Availability Zones</h4>
-            <img src="Reliability and Resiliency in Azure/regions-availability-zones.svg" alt="Azure Regions and Availability Zones Architecture Diagram">
+            <img src="Reliability%20and%20Resiliency%20in%20Azure/regions-availability-zones.svg" alt="Azure Regions and Availability Zones Architecture Diagram">
             <p class="diagram-caption">
                 <i class="fas fa-info-circle" style="color: #60a5fa; margin-right: 6px;"></i> 
                 Azure regions are comprised of multiple, physically isolated Availability Zones. Our "AZ-First" strategy ensures that workloads are distributed across these zones to survive localized datacenter failures without regional failover.
@@ -1222,7 +1250,7 @@
         <!-- Architecture Diagram 2: Zone Redundant -->
         <div class="architecture-card" style="background: rgba(30, 41, 59, 0.4); border-color: rgba(56, 189, 248, 0.3);">
             <h4 style="color: #f8fafc; font-family: 'Outfit', sans-serif; margin-bottom: 1.5rem;">Visualizing Survivability: Zone-Redundant Architecture</h4>
-            <img src="Reliability and Resiliency in Azure/zone-redundant.svg" alt="Azure Zone-Redundant Architecture Diagram">
+            <img src="Reliability%20and%20Resiliency%20in%20Azure/zone-redundant.svg" alt="Azure Zone-Redundant Architecture Diagram">
             <p class="diagram-caption">
                 <i class="fas fa-project-diagram" style="color: #60a5fa; margin-right: 6px;"></i> 
                 Zone-redundant services automatically replicate your data and instances across AZs. If one zone disappears, the service remains available with zero manual intervention—the ultimate "Self-Healing" pattern.
@@ -1368,23 +1396,23 @@
         <h3 style="font-family: 'Outfit', sans-serif; color: #f8fafc; margin-bottom: 1rem;">Part B: WAF Reliability Design Checklist</h3>
         <p>Operationalizing resilience requires rigorous standards. The following WAF checklist dictates our disaster recovery execution strategy.</p>
 
-        <div style="margin-bottom: 3rem; display: flex; flex-direction: column; gap: 1rem;">
-            <div style="display: flex; align-items: flex-start; gap: 1rem; padding: 1.5rem; background: rgba(30, 41, 59, 0.5); border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                <input type="checkbox" id="waf1" checked disabled style="margin-top: 0.3rem; width: 20px; height: 20px; accent-color: #38bdf8;">
-                <label for="waf1" style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5;"><strong style="color: #f8fafc; display: block; margin-bottom: 0.25rem; font-size: 1.05rem;">Define Disaster Thresholds (Health Modeling)</strong> Implement telemetry that differentiates between isolated component degradation and full catastrophic disaster.</label>
-            </div>
-            <div style="display: flex; align-items: flex-start; gap: 1rem; padding: 1.5rem; background: rgba(30, 41, 59, 0.5); border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                <input type="checkbox" id="waf2" checked disabled style="margin-top: 0.3rem; width: 20px; height: 20px; accent-color: #38bdf8;">
-                <label for="waf2" style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5;"><strong style="color: #f8fafc; display: block; margin-bottom: 0.25rem; font-size: 1.05rem;">Isolate Failback from Failover</strong> Treat failback as a distinctly modeled and documented process. Do not risk secondary outages by treating restoration casually.</label>
-            </div>
-            <div style="display: flex; align-items: flex-start; gap: 1rem; padding: 1.5rem; background: rgba(30, 41, 59, 0.5); border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                <input type="checkbox" id="waf3" checked disabled style="margin-top: 0.3rem; width: 20px; height: 20px; accent-color: #38bdf8;">
-                <label for="waf3" style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5;"><strong style="color: #f8fafc; display: block; margin-bottom: 0.25rem; font-size: 1.05rem;">Ensure Offline Accessibility</strong> Maintain DR documentation in isolated environments and pre-deploy CI/CD pipelines across all target regions.</label>
-            </div>
-            <div style="display: flex; align-items: flex-start; gap: 1rem; padding: 1.5rem; background: rgba(30, 41, 59, 0.5); border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                <input type="checkbox" id="waf4" checked disabled style="margin-top: 0.3rem; width: 20px; height: 20px; accent-color: #38bdf8;">
-                <label for="waf4" style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5;"><strong style="color: #f8fafc; display: block; margin-bottom: 0.25rem; font-size: 1.05rem;">Execute Surprise Game Days</strong> Evolve beyond scheduled tabletop exercises; implement unannounced production drills to validate true RTO/RPO targets.</label>
-            </div>
+        <div class="checklist-container" style="margin-bottom: 3rem; display: flex; flex-direction: column; gap: 1rem; background: none; border: none; padding: 0;">
+            <label class="checklist-item" for="waf1" style="align-items: flex-start; gap: 1rem; padding: 1.5rem; background: rgba(30, 41, 59, 0.5); border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); cursor: pointer;">
+                <input type="checkbox" id="waf1" style="margin-top: 0.3rem; width: 20px; height: 20px; accent-color: #38bdf8;">
+                <span style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5;"><strong style="color: #f8fafc; display: block; margin-bottom: 0.25rem; font-size: 1.05rem;">Define Disaster Thresholds (Health Modeling)</strong> Implement telemetry that differentiates between isolated component degradation and full catastrophic disaster.</span>
+            </label>
+            <label class="checklist-item" for="waf2" style="align-items: flex-start; gap: 1rem; padding: 1.5rem; background: rgba(30, 41, 59, 0.5); border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); cursor: pointer;">
+                <input type="checkbox" id="waf2" style="margin-top: 0.3rem; width: 20px; height: 20px; accent-color: #38bdf8;">
+                <span style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5;"><strong style="color: #f8fafc; display: block; margin-bottom: 0.25rem; font-size: 1.05rem;">Isolate Failback from Failover</strong> Treat failback as a distinctly modeled and documented process. Do not risk secondary outages by treating restoration casually.</span>
+            </label>
+            <label class="checklist-item" for="waf3" style="align-items: flex-start; gap: 1rem; padding: 1.5rem; background: rgba(30, 41, 59, 0.5); border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); cursor: pointer;">
+                <input type="checkbox" id="waf3" style="margin-top: 0.3rem; width: 20px; height: 20px; accent-color: #38bdf8;">
+                <span style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5;"><strong style="color: #f8fafc; display: block; margin-bottom: 0.25rem; font-size: 1.05rem;">Ensure Offline Accessibility</strong> Maintain DR documentation in isolated environments and pre-deploy CI/CD pipelines across all target regions.</span>
+            </label>
+            <label class="checklist-item" for="waf4" style="align-items: flex-start; gap: 1rem; padding: 1.5rem; background: rgba(30, 41, 59, 0.5); border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); cursor: pointer;">
+                <input type="checkbox" id="waf4" style="margin-top: 0.3rem; width: 20px; height: 20px; accent-color: #38bdf8;">
+                <span style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5;"><strong style="color: #f8fafc; display: block; margin-bottom: 0.25rem; font-size: 1.05rem;">Execute Surprise Game Days</strong> Evolve beyond scheduled tabletop exercises; implement unannounced production drills to validate true RTO/RPO targets.</span>
+            </label>
         </div>
 
         <!-- Reliability Blueprint Gallery -->
@@ -1814,7 +1842,7 @@
             }, 1500);
 
             setTimeout(() => {
-                logText.innerText = "[Result] Successful Failover. 0ms Data Loss. 0ms Downtime.";
+                logText.innerText = "[Result] Successful Failover. No Data Loss. Sub-Second Traffic Shift.";
                 log.style.background = "rgba(16, 185, 129, 0.1)";
                 log.style.borderColor = "#10b981";
                 log.style.color = "#10b981";
@@ -1852,6 +1880,26 @@
             document.getElementById(tabId).classList.add('active');
             evt.currentTarget.classList.add('active');
         }
+    </script>
+
+    <!-- Interactive Stateful Checklist -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pageKey = window.location.pathname.split('/').pop().replace('.html', '');
+            const checkboxes = document.querySelectorAll('.checklist-container input[type="checkbox"]');
+
+            checkboxes.forEach((cb, index) => {
+                const storageKey = `checklist_${pageKey}_${index}`;
+                if (localStorage.getItem(storageKey) === 'true') {
+                    cb.checked = true;
+                    cb.closest('label').style.opacity = '0.5';
+                }
+                cb.addEventListener('change', (e) => {
+                    localStorage.setItem(storageKey, e.target.checked);
+                    e.target.closest('label').style.opacity = e.target.checked ? '0.5' : '1';
+                });
+            });
+        });
     </script>
 </body>
 </html>

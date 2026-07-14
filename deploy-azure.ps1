@@ -42,9 +42,15 @@ $publishRules = @(
         Extensions = @(".html")
     },
     @{
-        Path = "blog\assets"
+        # Covers blog\assets AND every per-post asset subfolder (e.g. "blog\Reliability and
+        # Resiliency in Azure\"). Posts routinely embed images/diagrams/video in a folder
+        # named after the post rather than under blog\assets, and those were previously
+        # invisible to this script -- they only worked on Azure Storage because someone had
+        # uploaded them by hand once. Keep this recursive over all of "blog" so any future
+        # per-post folder is picked up automatically.
+        Path = "blog"
         Recurse = $true
-        Extensions = @(".png", ".jpg", ".jpeg", ".webp", ".svg", ".gif", ".pdf", ".pptx", ".zip")
+        Extensions = @(".png", ".jpg", ".jpeg", ".webp", ".svg", ".gif", ".pdf", ".pptx", ".zip", ".mp4", ".webm", ".csv")
     },
     @{
         Path = "css"
