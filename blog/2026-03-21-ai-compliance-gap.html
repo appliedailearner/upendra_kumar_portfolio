@@ -1323,6 +1323,11 @@
                         </div>
                         <div style="width: 1px; background: rgba(255, 255, 255, 0.1); margin: 0 0.5rem;"></div>
                         <div>
+                            <div style="color: rgba(255, 255, 255, 0.5); margin-bottom: 0.25rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Privacy Hits</div>
+                            <div id="privacy-hits" style="font-weight: 600; font-family: 'JetBrains Mono', monospace; color: #60a5fa;">0</div>
+                        </div>
+                        <div style="width: 1px; background: rgba(255, 255, 255, 0.1); margin: 0 0.5rem;"></div>
+                        <div>
                             <div style="color: rgba(255, 255, 255, 0.5); margin-bottom: 0.25rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Edge Node</div>
                             <div style="font-weight: 600; font-family: 'JetBrains Mono', monospace; color: #fbbf24;">IN-CENTRAL</div>
                         </div>
@@ -1465,18 +1470,8 @@
                 });
             }, { threshold: 0.1 });
             revealElements.forEach(el => revealObserver.observe(el));
-
-            // 2. Real page load time (Navigation Timing API)
-            const uxSpeed = document.getElementById('ux-speed');
-            if (uxSpeed && window.performance) {
-                window.addEventListener('load', () => {
-                    const nav = performance.getEntriesByType('navigation')[0];
-                    const loadMs = nav
-                        ? Math.round(nav.loadEventEnd - nav.startTime)
-                        : Math.round(performance.timing.loadEventEnd - performance.timing.navigationStart);
-                    if (loadMs > 0) uxSpeed.innerText = `${loadMs}ms`;
-                });
-            }
+            // #ux-speed is populated by js/observability.js (site-wide, real Navigation Timing data) —
+            // do not duplicate that logic here.
         });
     </script>
 </body>

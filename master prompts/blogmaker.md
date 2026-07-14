@@ -183,6 +183,11 @@
 4. **Mobile CSS Grids:** **NEVER** use inline grid styles for multi-column layouts (e.g., `style="display: grid; grid-template-columns: 1fr auto 1fr;"`). They will severely break responsive design on mobile devices. **Always** extract these to CSS classes with a proper `@media (max-width: 768px)` query to stack them vertically.
 5. **Mobile HTML Tables:** HTML tables do not natively wrap. Any `<table>` elements used for comparisons or matrices MUST be wrapped in a container div with `overflow-x: auto; overflow-y: hidden;` (NOT `overflow: hidden`) and given a safe minimum width (e.g., `min-width: 600px`) so mobile users can horizontally scroll without cropping the content or breaking the page margin.
 6. **CDN Caching Awareness:** Azure Blob Storage and Cloudflare caches HTML files heavily (e.g., 1-hour `max-age`). Assume that users/testers will see aggressively cached versions during testing. Suggest cache-busting URLs (e.g., appended with `?v=2`) when validating live CSS/HTML deployment fixes.
+7. **No Orphaned Interactive Widgets:** If you write CSS or JS for an interactive component (calculator, quiz, hover-explorer, dashboard, etc.), the matching HTML markup MUST be included in the same post. Before finalizing, grep every custom class/id referenced in `<script>` or `<style>` blocks against the actual body HTML — anything with no match is dead weight and must be deleted, not left "for later."
+8. **No Fabricated Live Data:** Never invent "live" counters, speeds, or pulses with `Math.random()`, a hardcoded seed value, or a fake `setInterval` "for effect." Every number shown to a reader must trace to a real, verifiable source (an actual API call, a real computed value like Navigation Timing, or a static fact). If no real source exists, don't build the widget.
+9. **Verify External Images Before Linking:** Never hotlink a diagram from an external repo (e.g., `raw.githubusercontent.com/...`) without first confirming the exact file path and extension return HTTP 200 (`curl -sI <url>` — check the actual repo directory listing, don't guess the extension). Prefer downloading a local copy into `images/` and referencing it with `loading="lazy"`, matching the pattern used elsewhere on the site — this survives upstream repo reorganizations that would otherwise 404 the image in place.
+10. **Keep the TOC in Sync:** The sticky Table of Contents must have exactly one `<li><a href="#id">` per `<h2 id="...">` in the final content, in document order. Regenerate the TOC as the last step, after the content body is finalized — not before, since sections get added/reordered during writing and a stale TOC silently stops highlighting mid-scroll.
+11. **No Empty Placeholder Shells:** Before delivery, scan the finished HTML for empty tags (`<p>\s*</p>`, `<div>\s*</div>`) left over from unfilled template slots. Every `{{PLACEHOLDER}}` must resolve to real content — an empty tag reads as an unfinished page to a visitor.
 
 ---
 
@@ -201,6 +206,8 @@
 8.  **Glossary JSON:** The generated dictionary of acronyms/terms.
 9.  **ToC HTML:** An optional sticky Table of Contents `<nav>` HTML block utilizing the `.toc-link` classes.
 10. **FILENAME:** The generated filename (e.g., `2026-02-27-title.html`).
+11. **HERO_IMAGE_FILENAME:** An article-specific image already present in `images/` (or newly generated) for `og:image`/`twitter:image`/JSON-LD. **Never default to `profile.webp`** — a headshot is not a representative social-share preview for a technical post.
+12. **CLOSING_CTA_TEXT:** One sentence introducing the Contact/Toolkit buttons at the end of the post. Required — never leave the closing `<p>` empty.
 
 ---
 
@@ -235,7 +242,7 @@
     <meta property="og:url" content="https://portfolio.upendrakumar.com/blog/{{FILENAME}}">
     <meta property="og:title" content="{{TITLE}}">
     <meta property="og:description" content="{{DESCRIPTION}}">
-    <meta property="og:image" content="https://portfolio.upendrakumar.com/images/profile.webp">
+    <meta property="og:image" content="https://portfolio.upendrakumar.com/images/{{HERO_IMAGE_FILENAME}}">
     <meta property="og:site_name" content="Upendra Kumar | Cloud Strategy & Architecture">
     <meta property="article:author" content="Upendra Kumar">
 
@@ -244,7 +251,7 @@
     <meta property="twitter:url" content="https://portfolio.upendrakumar.com/blog/{{FILENAME}}">
     <meta property="twitter:title" content="{{TITLE}}">
     <meta property="twitter:description" content="{{DESCRIPTION}}">
-    <meta property="twitter:image" content="https://portfolio.upendrakumar.com/images/profile.webp">
+    <meta property="twitter:image" content="https://portfolio.upendrakumar.com/images/{{HERO_IMAGE_FILENAME}}">
 
     <title>{{TITLE}} | Upendra Kumar</title>
 
@@ -263,7 +270,7 @@
       "@context": "https://schema.org",
       "@type": "Article",
       "headline": "{{TITLE}}",
-      "image": "https://portfolio.upendrakumar.com/images/profile.webp",
+      "image": "https://portfolio.upendrakumar.com/images/{{HERO_IMAGE_FILENAME}}",
       "author": {
         "@type": "Person",
         "name": "Upendra Kumar",
@@ -641,7 +648,7 @@
 
         <h3>Ready to operationalize your Azure journey?</h3>
         <p>
-            
+            {{CLOSING_CTA_TEXT}}
         </p>
         <div style="margin-top: 2rem; display: flex; gap: 1rem;">
             <a href="../pages/contact.html" class="btn btn-primary">Contact Me</a>
@@ -727,6 +734,12 @@
                 style="margin-top: 2rem; display: flex; flex-direction: column; align-items: center;">
                 <div
                     style="padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.08); margin-top: 1.5rem; width: 100%; max-width: 500px; backdrop-filter: blur(8px);">
+                    <!-- DO NOT rename these ids or add a per-post <script> for them. js/observability.js
+                         drives both in real time site-wide: #ux-speed from the Navigation Timing API,
+                         #privacy-hits from the actual PII-scrubbing counter in the telemetry initializer.
+                         Never substitute Math.random() or a hardcoded baseline "for a live effect" — that
+                         is fabricated data on a page and has shipped as a real bug before. If a post wants
+                         a different footer stat, it must be wired to a real, verifiable source or omitted. -->
                     <div style="display: flex; justify-content: space-around; font-size: 0.8rem; text-align: center;">
                         <div>
                             <div style="color: rgba(255, 255, 255, 0.5); margin-bottom: 0.25rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">UX Speed</div>
@@ -791,7 +804,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const pageKey = window.location.pathname.split('/').pop().replace('.html', '');
-            const checkboxes = document.querySelectorAll('.checklist-group input[type="checkbox"]');
+            const checkboxes = document.querySelectorAll('.checklist-container input[type="checkbox"]');
             
             checkboxes.forEach((cb, index) => {
                 const storageKey = `checklist_${pageKey}_${index}`;
