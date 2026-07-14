@@ -692,6 +692,35 @@
         <p>Regulators evaluating AI systems — whether under an internal model-risk framework, HIPAA, or the EU AI Act's obligations for high-risk systems — keep asking a version of the same question: <em>can you demonstrate control over what this system was allowed to do, and prove what it actually did?</em> A shared service principal cannot answer that question. It was never designed to.</p>
         <p>Zero standing privilege isn't a compliance checkbox bolted on after the fact. It's the architecture that makes the answer to "prove it" a query against a log instead of a best-effort reconstruction. That's the difference between an agentic AI program that scales past the pilot and one that stays stuck in review indefinitely.</p>
 
+        <div
+            style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(56, 189, 248, 0.2); border-left: 4px solid #38bdf8; padding: 1.5rem; border-radius: 8px; margin: 2rem 0;">
+            <h4 style="margin-top: 0; color: #f8fafc; font-size: 1.1rem; font-family: 'Outfit', sans-serif;"><i
+                    class="fas fa-code-branch" style="color: #38bdf8; margin-right: 8px;"></i> Reference
+                Architectures
+            </h4>
+            <p style="margin-bottom: 0.5rem; font-size: 0.95rem;">Do not build this from scratch. Leverage
+                Microsoft's official reference architectures:</p>
+            <ul style="margin-bottom: 0; padding-left: 1.5rem; font-size: 0.95rem;">
+                <li><a href="https://learn.microsoft.com/en-us/azure/architecture/ai-ml/architecture/baseline-microsoft-foundry-chat"
+                        target="_blank" style="color: #60a5fa; text-decoration: none;">Baseline Microsoft Foundry Chat Reference Architecture <i
+                            class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a>
+                    (Azure Architecture Center — the canonical pattern for Managed Identity flowing from Foundry Agent Service through to Azure OpenAI, behind a fully private network)</li>
+                <li style="margin-top: 0.25rem;"><a href="https://learn.microsoft.com/en-us/entra/agent-id/agent-blueprint"
+                        target="_blank" style="color: #60a5fa; text-decoration: none;">Agent Identity Blueprints in Microsoft Entra Agent ID
+                        <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a>
+                    (How one blueprint issues many distinct, individually-auditable agent identities)</li>
+                <li style="margin-top: 0.25rem;"><a
+                        href="https://learn.microsoft.com/en-us/ai/playbook/solutions/generative-ai/genai-gateway/reference-architectures/apim-based"
+                        target="_blank" style="color: #60a5fa; text-decoration: none;">GenAI Gateway Reference Architecture Using APIM <i class="fas fa-external-link-alt"
+                            style="font-size: 0.8em; margin-left: 4px;"></i></a>
+                    (Confirms Managed Identity, not API keys, as the recommended auth path between the mediation layer and backend models)</li>
+                <li style="margin-top: 0.25rem;"><a href="https://techcommunity.microsoft.com/blog/azure-ai-foundry-blog/zero-trust-agents-adding-identity-and-access-to-multi-agent-workflows/4427790" target="_blank"
+                        style="color: #60a5fa; text-decoration: none;">Zero-Trust Agents: Adding Identity and Access to Multi-Agent Workflows
+                        <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a>
+                    (Azure AI Foundry Blog — the same architectural argument from Microsoft's own product team)</li>
+            </ul>
+        </div>
+
         <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
 
         <h3>Ready to operationalize your Azure journey?</h3>
