@@ -521,8 +521,17 @@
         </div>
 
         <p class="lead" style="font-size: 1.45rem; color: #f8fafc; font-weight: 700; line-height: 1.45; margin-bottom: 1.5rem; border-left: 4px solid #38bdf8; padding-left: 1.5rem;">
-            Every agentic AI pilot I've reviewed shares the same original sin: one shared service principal, standing access to a dozen downstream systems, and a static secret sitting in a key vault nobody rotates. The demo works. The audit doesn't.
+            Almost every agentic AI pilot that reaches security review shares the same original sin: one shared service principal, standing access to a dozen downstream systems, and a static secret sitting in a key vault nobody rotates. The demo works. The audit doesn't.
         </p>
+
+        <div style="display: flex; align-items: center; gap: 1rem; background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(56, 189, 248, 0.15); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 2.5rem;">
+            <div style="width: 42px; height: 42px; flex-shrink: 0; background: rgba(56, 189, 248, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(56, 189, 248, 0.2);">
+                <i class="fas fa-user-shield" style="color: #38bdf8; font-size: 1.1rem;"></i>
+            </div>
+            <p style="margin: 0; font-size: 0.9rem; color: #94a3b8; line-height: 1.5;">
+                Written by <strong style="color: #e2e8f0;">Upendra Kumar</strong>, Microsoft Certified: <strong style="color: #e2e8f0;">Cybersecurity Architect Expert</strong> and <strong style="color: #e2e8f0;">Identity and Access Administrator Associate</strong> — the identity architecture in this post is the same pattern used to evaluate agentic AI designs against those certification tracks.
+            </p>
+        </div>
 
         <!-- Premium Executive Impact Summary -->
         <div id="executive-impact" style="margin-bottom: 4rem; position: relative;">
@@ -577,7 +586,7 @@
                         <i class="fas fa-chart-pie" style="color: #34d399; font-size: 1.2rem;"></i>
                     </div>
                     <h4 style="color: #6ee7b7; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">The Executive ROI</h4>
-                    <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">Zero standing privilege collapses an agent's effective blast radius from every downstream system it could reach to the one scoped permission it actually used for that task. In practice, that's the difference between a multi-week security review that blocks a launch and a same-week sign-off — and the difference between a page-one incident and a single rotated token.</p>
+                    <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">Zero standing privilege collapses an agent's effective blast radius from every downstream system it could reach to the one scoped permission it actually used for that task. That turns a security review into auditing one narrow, provable claim per agent instead of reverse-engineering what a shared credential could theoretically touch — and it turns incident containment into rotating one token instead of every credential the compromised service could have used.</p>
                 </div>
             </div>
         </div>
@@ -646,7 +655,7 @@
             </div>
             <div class="glass-card">
                 <h4 style="color: #a855f7; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;"><i class="fas fa-hourglass-half" style="margin-right: 8px;"></i> 2. Just-In-Time Scoped Access</h4>
-                <p style="margin: 0; font-size: 0.95rem;">Standing RBAC roles get replaced with <span class="eli5-term" data-tooltip="Permission that's switched on right before it's needed and switched back off right after — instead of being left on all the time.">JIT</span> permissions through <span class="eli5-term" data-tooltip="An Azure feature that grants elevated access only for a short, approved window instead of permanently.">Privileged Identity Management</span>. An agent is eligible for a role, not permanently assigned it — the elevation exists only for the task's duration.</p>
+                <p style="margin: 0; font-size: 0.95rem;">Standing RBAC roles get replaced with <span class="eli5-term" data-tooltip="Permission that's switched on right before it's needed and switched back off right after — instead of being left on all the time.">JIT</span> permissions through <span class="eli5-term" data-tooltip="An Azure feature that grants elevated access only for a short, approved window instead of permanently.">Privileged Identity Management</span>. An agent is eligible for a role, not permanently assigned it — the elevation exists only for the task's duration, granted through a pre-authorized policy rather than a human clicking "Activate" mid-task the way a person would.</p>
             </div>
             <div class="glass-card">
                 <h4 style="color: #34d399; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;"><i class="fas fa-route" style="margin-right: 8px;"></i> 3. Mediation as the Enforcement Point</h4>
@@ -657,6 +666,8 @@
                 <p style="margin: 0; font-size: 0.95rem;">Every action is logged against the actual agent identity that took it, not the mediation layer's identity or a shared service account. That log is what turns "we think it was fine" into a defensible answer during an audit.</p>
             </div>
         </div>
+
+        <p>None of this is free. JIT elevation for a machine identity has to be pre-authorized — an agent can't sit in an approval queue waiting for a human to click "Activate" mid-task the way a person can. The real engineering cost of this pattern isn't the identity plumbing; it's designing the policy layer that decides, ahead of time, exactly which task types earn which scoped roles automatically. Underinvest there and you've just moved the standing-privilege problem from the agent's identity to an over-broad JIT policy. That policy design is the hard part of this migration — budget for it accordingly, and expect the first version of it to be wrong.</p>
 
         <h2 id="rollout-sequence"><span class="gradient-text">The Zero Standing Privilege Rollout Sequence</span></h2>
         <p>This isn't a rip-and-replace project. It's a sequence you can run against one agent at a time without stopping the pilot.</p>
