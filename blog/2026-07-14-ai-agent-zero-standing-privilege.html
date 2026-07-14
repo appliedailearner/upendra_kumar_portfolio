@@ -599,6 +599,22 @@
             <li><strong>"What's the blast radius if this credential leaks?"</strong> The honest answer is: everything that service principal can touch. Not the one API the agent actually needed — every system the team was ever lazy enough to grant it.</li>
             <li><strong>"How do you revoke just this agent?"</strong> You can't, without breaking every other agent sharing the same identity. The only lever is "rotate the secret and redeploy everything," which nobody wants to do mid-incident.</li>
         </ul>
+
+        <div
+            style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; padding: 1.5rem; margin: 2rem 0; border-radius: 0 8px 8px 0;">
+            <h4 style="margin-top: 0; color: #93c5fd;">Composite Scenario</h4>
+            <p style="margin-bottom: 0.75rem; font-size: 0.9rem; color: #cbd5e1;">The following is a composite, illustrative walkthrough representative of a pattern seen repeatedly across regulated-industry agentic AI pilots — not a specific client engagement.</p>
+            <ul style="margin-bottom: 0;">
+                <li><strong>Fictional Company:</strong> Solstice Underwriting</li>
+                <li><strong>The Agent:</strong> "ClaimAssist" — reads policy documents and drafts adjuster recommendations</li>
+                <li><strong>The Security Architect:</strong> designed the pilot's identity model</li>
+                <li><strong>The CISO:</strong> blocked the launch at review</li>
+            </ul>
+        </div>
+
+        <p>ClaimAssist shipped in three weeks. One app registration, one client secret in Key Vault, <code>Contributor</code> on the resource group so nobody had to file a change request every time the pilot needed to touch a new storage container. In the demo, it read a claim file, cross-referenced the policy, and drafted a recommendation in under ten seconds. Leadership loved it.</p>
+        <p>Then it went to the CISO for launch sign-off, and the review asked the same three questions every review asks. Which agent instance touched this specific claim file — the logs said <code>svc-claimassist-prod</code>, which was true of every instance running that week. What could the credential reach if it leaked — the honest answer was every storage account and every Cosmos DB container in the resource group, not just the claims data ClaimAssist was built to touch. How do you shut off just this one instance without breaking the other four running in parallel — nobody had an answer that didn't involve a maintenance window.</p>
+        <p>The fix wasn't a new model or a smarter prompt. The security architect rebuilt the identity layer: each ClaimAssist instance got its own workload identity, every downstream call moved behind an API Mediation Layer, and the broad <code>Contributor</code> role was replaced with a JIT-eligible role scoped to exactly the claims container that instance was assigned. Six weeks later the same pilot went back to the CISO. Same agent, same model, same prompts — but this time every question had a one-line, log-backed answer, and it cleared review.</p>
         <p>None of this is a model problem. GPT-4, Claude, or whatever LLM is doing the reasoning is not the risk. The risk is the plumbing underneath it — the fact that most agentic AI architectures were built by borrowing the identity pattern from a 2015-era backend service, not designed for a fleet of autonomous actors that can each take independent action.</p>
 
         <!-- The Badge vs. Master Key Analogy -->
