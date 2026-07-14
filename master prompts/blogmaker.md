@@ -188,6 +188,7 @@
 9. **Verify External Images Before Linking:** Never hotlink a diagram from an external repo (e.g., `raw.githubusercontent.com/...`) without first confirming the exact file path and extension return HTTP 200 (`curl -sI <url>` — check the actual repo directory listing, don't guess the extension). Prefer downloading a local copy into `images/` and referencing it with `loading="lazy"`, matching the pattern used elsewhere on the site — this survives upstream repo reorganizations that would otherwise 404 the image in place.
 10. **Keep the TOC in Sync:** The sticky Table of Contents must have exactly one `<li><a href="#id">` per `<h2 id="...">` in the final content, in document order. Regenerate the TOC as the last step, after the content body is finalized — not before, since sections get added/reordered during writing and a stale TOC silently stops highlighting mid-scroll.
 11. **No Empty Placeholder Shells:** Before delivery, scan the finished HTML for empty tags (`<p>\s*</p>`, `<div>\s*</div>`) left over from unfilled template slots. Every `{{PLACEHOLDER}}` must resolve to real content — an empty tag reads as an unfinished page to a visitor.
+12. **Lead Paragraph Contrast:** Never style the opening `.lead` paragraph with `color: var(--primary-color)` (#0078D4) at font-weight 600 — that Azure-blue reads as washed-out and hard to read against the site's dark navy background. Use near-white text (`#f8fafc`, font-weight 700) with a `border-left: 4px solid #38bdf8; padding-left: 1.5rem;` accent bar instead, matching the pattern already fixed on `ai-compliance-gap.html` and `reliability-resiliency-azure.html`. The template below already reflects this.
 
 ---
 
@@ -636,7 +637,7 @@
     <article class="blog-post-content">
         {{TOC_HTML}}
         
-        <p class="lead" style="font-size: 1.3rem; color: var(--primary-color); font-weight: 600;">
+        <p class="lead" style="font-size: 1.45rem; color: #f8fafc; font-weight: 700; line-height: 1.45; margin-bottom: 1.5rem; border-left: 4px solid #38bdf8; padding-left: 1.5rem;">
             {{LEAD_PARAGRAPH}}
         </p>
 
