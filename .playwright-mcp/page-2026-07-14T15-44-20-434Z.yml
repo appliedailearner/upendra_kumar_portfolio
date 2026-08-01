@@ -1,0 +1,357 @@
+- generic [active] [ref=f370e1]:
+  - navigation [ref=f370e2]:
+    - generic [ref=f370e3]:
+      - generic [ref=f370e4]:
+        - link [ref=f370e5] [cursor=pointer]:
+          - /url: ../index.html
+        - generic [ref=f370e7]:
+          - generic [ref=f370e8]: Upendra Kumar
+          - paragraph [ref=f370e9]: Enterprise Cloud & AI Architecture Leader
+      - list [ref=f370e10]:
+        - listitem [ref=f370e11]:
+          - link "Home" [ref=f370e12] [cursor=pointer]:
+            - /url: ../index.html
+        - listitem [ref=f370e13]:
+          - link "Expertise" [ref=f370e14] [cursor=pointer]:
+            - /url: ../pages/expertise.html
+        - listitem [ref=f370e15]:
+          - link "Insights " [ref=f370e16] [cursor=pointer]:
+            - /url: ../blog.html
+            - text: Insights
+            - generic [ref=f370e17]: 
+        - listitem [ref=f370e18]:
+          - link "Contact" [ref=f370e19] [cursor=pointer]:
+            - /url: ../pages/contact.html
+        - listitem [ref=f370e20]:
+          - link " Executive Brief" [ref=f370e21] [cursor=pointer]:
+            - /url: ../assets/pdf/Upendra_Kumar_Resume_2026.pdf
+            - generic [ref=f370e22]: 
+            - text: Executive Brief
+  - generic [ref=f370e24]:
+    - generic [ref=f370e25]:
+      - link " Back to Insights" [ref=f370e26] [cursor=pointer]:
+        - /url: ../blog.html
+        - generic [ref=f370e27]: 
+        - text: Back to Insights
+      - generic [ref=f370e28]: Regulator-Ready
+    - heading "Who Is Your AI Agent, Really? The Zero Standing Privilege Fix for Agentic AI" [level=1] [ref=f370e29]
+    - generic [ref=f370e30]:
+      - generic [ref=f370e31]:
+        - generic [ref=f370e32]: 
+        - text: Upendra Kumar
+      - generic [ref=f370e33]:
+        - generic [ref=f370e34]: 
+        - text: July 14, 2026
+      - generic [ref=f370e35]:
+        - generic [ref=f370e36]: 
+        - text: 9 min read
+    - generic [ref=f370e37]:
+      - generic [ref=f370e38]:
+        - generic [ref=f370e39]: 
+        - text: AI Governance
+      - generic [ref=f370e40]:
+        - generic [ref=f370e41]: 
+        - text: Zero Trust
+      - generic [ref=f370e42]:
+        - generic [ref=f370e43]: 
+        - text: Identity
+      - generic [ref=f370e44]:
+        - generic [ref=f370e45]: 
+        - text: Azure
+  - article [ref=f370e46]:
+    - generic [ref=f370e47]:
+      - heading " Contents" [level=4] [ref=f370e48]:
+        - generic [ref=f370e49]: 
+        - text: Contents
+      - list [ref=f370e50]:
+        - listitem [ref=f370e51]:
+          - link "Executive Impact" [ref=f370e52] [cursor=pointer]:
+            - /url: "#executive-impact"
+        - listitem [ref=f370e53]:
+          - link "The Standing Privilege Problem" [ref=f370e54] [cursor=pointer]:
+            - /url: "#the-problem"
+        - listitem [ref=f370e55]:
+          - link "The Architecture" [ref=f370e56] [cursor=pointer]:
+            - /url: "#the-architecture"
+        - listitem [ref=f370e57]:
+          - link "Four Layers That Survive Audit" [ref=f370e58] [cursor=pointer]:
+            - /url: "#four-layers"
+        - listitem [ref=f370e59]:
+          - link "The Rollout Sequence" [ref=f370e60] [cursor=pointer]:
+            - /url: "#rollout-sequence"
+        - listitem [ref=f370e61]:
+          - link "What This Means for Your Audit" [ref=f370e62] [cursor=pointer]:
+            - /url: "#next-audit"
+    - paragraph [ref=f370e63]: "Almost every agentic AI pilot that reaches security review shares the same original sin: one shared service principal, standing access to a dozen downstream systems, and a static secret sitting in a key vault nobody rotates. The demo works. The audit doesn't."
+    - generic [ref=f370e64]:
+      - generic [ref=f370e65]: 
+      - paragraph [ref=f370e67]:
+        - text: Written by
+        - strong [ref=f370e68]: Upendra Kumar
+        - text: ", Microsoft Certified:"
+        - strong [ref=f370e69]: Cybersecurity Architect Expert
+        - text: and
+        - strong [ref=f370e70]: Identity and Access Administrator Associate
+        - text: — the identity architecture in this post is the same pattern used to evaluate agentic AI designs against those certification tracks.
+    - generic [ref=f370e71]:
+      - generic [ref=f370e73]:
+        - generic [ref=f370e74]:
+          - generic [ref=f370e75]: 
+          - text: Strategic Alignment & ROI
+        - heading "Executive Impact Summary" [level=2] [ref=f370e76]
+      - generic [ref=f370e77]:
+        - generic [ref=f370e78]:
+          - generic [ref=f370e79]: 
+          - generic [ref=f370e81]: 
+          - heading "The Business Problem" [level=4] [ref=f370e83]
+          - paragraph [ref=f370e84]: Agentic AI pilots stall in security review because every agent runs under a shared service principal with standing production access. When one agent misbehaves or gets compromised, the blast radius isn't one API call — it's every system that credential can reach. Auditors can't tell which agent did what, and the CISO won't sign off.
+        - generic [ref=f370e85]:
+          - generic [ref=f370e86]: 
+          - generic [ref=f370e88]: 
+          - heading "The Strategic Play" [level=4] [ref=f370e90]
+          - paragraph [ref=f370e91]: Retire the shared service principal. Give every agent its own workload identity (Microsoft Entra Agent ID), route every call through an API Mediation Layer, and grant just-in-time, scoped permissions instead of standing RBAC roles. Every agent gets its own identity, its own audit trail, and access that expires the moment the task ends.
+        - generic [ref=f370e92]:
+          - generic [ref=f370e93]: 
+          - generic [ref=f370e95]: 
+          - heading "The Executive ROI" [level=4] [ref=f370e97]
+          - paragraph [ref=f370e98]: Zero standing privilege collapses an agent's effective blast radius from every downstream system it could reach to the one scoped permission it actually used for that task. That turns a security review into auditing one narrow, provable claim per agent instead of reverse-engineering what a shared credential could theoretically touch — and it turns incident containment into rotating one token instead of every credential the compromised service could have used.
+    - heading "The Standing Privilege Problem" [level=2] [ref=f370e99]
+    - paragraph [ref=f370e101]:
+      - text: Here's how almost every agentic AI pilot gets built. Someone needs the agent to read from Azure AI Search, call Azure OpenAI, write results to a database, and maybe kick off a downstream workflow. Under deadline pressure, the fastest path is one service principal, one client secret, and a role assignment broad enough that nobody has to come back and ask for more access later —
+      - code [ref=f370e102]: Contributor
+      - text: on the resource group, or worse, the subscription.
+    - paragraph [ref=f370e103]: "It works. The demo ships. And then it goes to security review, where three questions kill the timeline every time:"
+    - list [ref=f370e104]:
+      - listitem [ref=f370e105]:
+        - strong [ref=f370e106]: "\"Which agent did this?\""
+        - text: Every action in the logs shows the same generic identity —
+        - code [ref=f370e107]: svc-ai-agent-prod
+        - text: — whether it was Agent A summarizing a contract or Agent B deleting a stale record. There is no per-agent audit trail.
+      - listitem [ref=f370e108]:
+        - strong [ref=f370e109]: "\"What's the blast radius if this credential leaks?\""
+        - text: "The honest answer is: everything that service principal can touch. Not the one API the agent actually needed — every system the team was ever lazy enough to grant it."
+      - listitem [ref=f370e110]:
+        - strong [ref=f370e111]: "\"How do you revoke just this agent?\""
+        - text: You can't, without breaking every other agent sharing the same identity. The only lever is "rotate the secret and redeploy everything," which nobody wants to do mid-incident.
+    - generic [ref=f370e112]:
+      - heading "Composite Scenario" [level=4] [ref=f370e113]
+      - paragraph [ref=f370e114]: The following is a composite, illustrative walkthrough representative of a pattern seen repeatedly across regulated-industry agentic AI pilots — not a specific client engagement.
+      - list [ref=f370e115]:
+        - listitem [ref=f370e116]:
+          - strong [ref=f370e117]: "Fictional Company:"
+          - text: Solstice Underwriting
+        - listitem [ref=f370e118]:
+          - strong [ref=f370e119]: "The Agent:"
+          - text: "\"ClaimAssist\" — reads policy documents and drafts adjuster recommendations"
+        - listitem [ref=f370e120]:
+          - strong [ref=f370e121]: "The Security Architect:"
+          - text: designed the pilot's identity model
+        - listitem [ref=f370e122]:
+          - strong [ref=f370e123]: "The CISO:"
+          - text: blocked the launch at review
+    - paragraph [ref=f370e124]:
+      - text: ClaimAssist shipped in three weeks. One app registration, one client secret in Key Vault,
+      - code [ref=f370e125]: Contributor
+      - text: on the resource group so nobody had to file a change request every time the pilot needed to touch a new storage container. In the demo, it read a claim file, cross-referenced the policy, and drafted a recommendation in under ten seconds. Leadership loved it.
+    - paragraph [ref=f370e126]:
+      - text: Then it went to the CISO for launch sign-off, and the review asked the same three questions every review asks. Which agent instance touched this specific claim file — the logs said
+      - code [ref=f370e127]: svc-claimassist-prod
+      - text: ", which was true of every instance running that week. What could the credential reach if it leaked — the honest answer was every storage account and every Cosmos DB container in the resource group, not just the claims data ClaimAssist was built to touch. How do you shut off just this one instance without breaking the other four running in parallel — nobody had an answer that didn't involve a maintenance window."
+    - paragraph [ref=f370e128]:
+      - text: "The fix wasn't a new model or a smarter prompt. The security architect rebuilt the identity layer: each ClaimAssist instance got its own workload identity, every downstream call moved behind an API Mediation Layer, and the broad"
+      - code [ref=f370e129]: Contributor
+      - text: role was replaced with a JIT-eligible role scoped to exactly the claims container that instance was assigned. Six weeks later the same pilot went back to the CISO. Same agent, same model, same prompts — but this time every question had a one-line, log-backed answer, and it cleared review.
+    - paragraph [ref=f370e130]: None of this is a model problem. GPT-4, Claude, or whatever LLM is doing the reasoning is not the risk. The risk is the plumbing underneath it — the fact that most agentic AI architectures were built by borrowing the identity pattern from a 2015-era backend service, not designed for a fleet of autonomous actors that can each take independent action.
+    - generic [ref=f370e131]:
+      - 'heading "Architect''s Corner: A Badge vs. a Master Key" [level=3] [ref=f370e132]'
+      - generic [ref=f370e133]:
+        - generic [ref=f370e134]:
+          - 'heading " The Legacy: One Master Key" [level=5] [ref=f370e135]':
+            - generic [ref=f370e136]: 
+            - text: "The Legacy: One Master Key"
+          - paragraph [ref=f370e137]: A shared service principal is a master key handed to every contractor on a building site. It opens every door, all day, every day — because cutting a new key for each contractor felt like too much overhead.
+          - list [ref=f370e138]:
+            - listitem [ref=f370e139]:
+              - generic [ref=f370e140]: 
+              - text: Lose the key, and every door on the site is compromised — not just the one the contractor was supposed to be in.
+            - listitem [ref=f370e141]:
+              - generic [ref=f370e142]: 
+              - text: The security log just says "master key used." It never says which contractor, or which door.
+        - generic [ref=f370e143]:
+          - 'heading " Zero Standing Privilege: A Badge" [level=5] [ref=f370e144]':
+            - generic [ref=f370e145]: 
+            - text: "Zero Standing Privilege: A Badge"
+          - paragraph [ref=f370e146]: A per-agent workload identity is a badge that only opens the specific doors that agent needs, only while it's clocked in for that specific task, and logs the exact person and door every single time.
+          - list [ref=f370e147]:
+            - listitem [ref=f370e148]:
+              - generic [ref=f370e149]: 
+              - text: Lose one badge, and exactly one contractor's access is revoked. Everyone else keeps working.
+            - listitem [ref=f370e150]:
+              - generic [ref=f370e151]: 
+              - text: The security log names the person, the door, and the minute. That's what a regulator actually wants to see.
+    - 'heading "The Architecture: Per-Agent Identity, Not Per-Application" [level=2] [ref=f370e152]'
+    - paragraph [ref=f370e154]: The fix isn't a new product — it's a different default. Instead of one identity per application (or worse, per environment), every agent instance gets its own workload identity, and every call it makes is forced through a mediation layer that enforces scope before anything reaches a backend system.
+    - generic [ref=f370e155]:
+      - heading "Per-Agent Identity Through the API Mediation Layer" [level=4] [ref=f370e156]
+      - 'img "Architecture diagram: AI agent identity flowing through an API Mediation Layer with managed identity, scoped routing to Azure AI Search and Azure OpenAI, and auditable logs"'
+      - paragraph [ref=f370e157]:
+        - generic [ref=f370e158]: 
+        - text: Every agent request carries its own identity through the mediation layer. The gateway — not the agent — holds the managed identity that talks to backend services, so no agent ever sees a raw connection string or API key. Every hop is logged against the agent that made it.
+    - paragraph [ref=f370e159]: "Three things make this different from a normal API gateway pattern:"
+    - list [ref=f370e160]:
+      - listitem [ref=f370e161]:
+        - strong [ref=f370e162]: The agent authenticates as itself, not as the application.
+        - text: Entra Agent ID (built on the same federated workload identity model as Entra Workload ID) issues a short-lived, per-instance credential — no long-lived secret to leak, rotate, or forget about.
+      - listitem [ref=f370e163]:
+        - strong [ref=f370e164]: The mediation layer decides scope, not the agent's own code.
+        - text: Azure API Management sits in front of every downstream call, validates the agent's token claims, and maps them to the narrowest possible permission — read this index, call this one model deployment, nothing else.
+      - listitem [ref=f370e165]:
+        - strong [ref=f370e166]: The mediation layer's own identity is a Managed Identity, not a secret.
+        - text: The gateway itself never stores a client secret either. The chain of trust holds all the way down.
+    - heading "Four Layers That Actually Survive Audit" [level=2] [ref=f370e167]
+    - generic [ref=f370e169]:
+      - generic [ref=f370e170]:
+        - heading " 1. Per-Agent Workload Identity" [level=4] [ref=f370e171]:
+          - generic [ref=f370e172]: 
+          - text: 1. Per-Agent Workload Identity
+        - paragraph [ref=f370e173]: Retire the shared app registration. Every agent — even every instance of the same agent — gets its own federated identity. There is no secret in a config file for an attacker to find, because there is no secret at all.
+      - generic [ref=f370e174]:
+        - heading " 2. Just-In-Time Scoped Access" [level=4] [ref=f370e175]:
+          - generic [ref=f370e176]: 
+          - text: 2. Just-In-Time Scoped Access
+        - paragraph [ref=f370e177]: Standing RBAC roles get replaced with JIT permissions through Privileged Identity Management. An agent is eligible for a role, not permanently assigned it — the elevation exists only for the task's duration, granted through a pre-authorized policy rather than a human clicking "Activate" mid-task the way a person would.
+      - generic [ref=f370e178]:
+        - heading " 3. Mediation as the Enforcement Point" [level=4] [ref=f370e179]:
+          - generic [ref=f370e180]: 
+          - text: 3. Mediation as the Enforcement Point
+        - paragraph [ref=f370e181]: No agent gets a direct connection string to a database or a raw API key to a model deployment. Every downstream call is forced through the API Mediation Layer, where policy — not agent code — decides what's allowed.
+      - generic [ref=f370e182]:
+        - heading " 4. Immutable, Per-Agent Audit Trail" [level=4] [ref=f370e183]:
+          - generic [ref=f370e184]: 
+          - text: 4. Immutable, Per-Agent Audit Trail
+        - paragraph [ref=f370e185]: Every action is logged against the actual agent identity that took it, not the mediation layer's identity or a shared service account. That log is what turns "we think it was fine" into a defensible answer during an audit.
+    - paragraph [ref=f370e186]: None of this is free. JIT elevation for a machine identity has to be pre-authorized — an agent can't sit in an approval queue waiting for a human to click "Activate" mid-task the way a person can. The real engineering cost of this pattern isn't the identity plumbing; it's designing the policy layer that decides, ahead of time, exactly which task types earn which scoped roles automatically. Underinvest there and you've just moved the standing-privilege problem from the agent's identity to an over-broad JIT policy. That policy design is the hard part of this migration — budget for it accordingly, and expect the first version of it to be wrong.
+    - heading "The Zero Standing Privilege Rollout Sequence" [level=2] [ref=f370e187]
+    - paragraph [ref=f370e189]: This isn't a rip-and-replace project. It's a sequence you can run against one agent at a time without stopping the pilot.
+    - generic [ref=f370e190]:
+      - generic [ref=f370e191]:
+        - checkbox "Inventory every existing agent and service principal. List what each one can actually reach today — not what it was designed to reach. The gap between the two is usually the finding that stalls the audit." [ref=f370e192]
+        - generic [ref=f370e193]:
+          - strong [ref=f370e194]: Inventory every existing agent and service principal.
+          - text: List what each one can actually reach today — not what it was designed to reach. The gap between the two is usually the finding that stalls the audit.
+      - generic [ref=f370e195]:
+        - checkbox "Stand up per-agent workload identities. Move each agent onto Entra Agent ID or federated Workload Identity, and retire its shared client secret the same day — don't leave the old path open \"just in case.\"" [ref=f370e196]
+        - generic [ref=f370e197]:
+          - strong [ref=f370e198]: Stand up per-agent workload identities.
+          - text: Move each agent onto Entra Agent ID or federated Workload Identity, and retire its shared client secret the same day — don't leave the old path open "just in case."
+      - generic [ref=f370e199]:
+        - checkbox "Route every agent call through the API Mediation Layer. Kill any direct backend connection string or API key still sitting in agent code or app settings." [ref=f370e200]
+        - generic [ref=f370e201]:
+          - strong [ref=f370e202]: Route every agent call through the API Mediation Layer.
+          - text: Kill any direct backend connection string or API key still sitting in agent code or app settings.
+      - generic [ref=f370e203]:
+        - checkbox "Replace standing RBAC roles with JIT-eligible ones. If an agent has a permanent Contributor or Owner assignment anywhere, that's the next one to fix." [ref=f370e204]
+        - generic [ref=f370e205]:
+          - strong [ref=f370e206]: Replace standing RBAC roles with JIT-eligible ones.
+          - text: If an agent has a permanent
+          - code [ref=f370e207]: Contributor
+          - text: or
+          - code [ref=f370e208]: Owner
+          - text: assignment anywhere, that's the next one to fix.
+      - generic [ref=f370e209]:
+        - checkbox "Wire audit logging to the agent identity, not the gateway's. Confirm you can answer \"which agent did this, and when\" from the logs alone, without cross-referencing a spreadsheet." [ref=f370e210]
+        - generic [ref=f370e211]:
+          - strong [ref=f370e212]: Wire audit logging to the agent identity, not the gateway's.
+          - text: Confirm you can answer "which agent did this, and when" from the logs alone, without cross-referencing a spreadsheet.
+      - generic [ref=f370e213]:
+        - checkbox "Run a tabletop \"compromised agent\" exercise. Time how long it takes to isolate just that one agent's access without touching any other agent's ability to run. If the answer is \"we'd have to rotate everyone's secret,\" you're not done yet." [ref=f370e214]
+        - generic [ref=f370e215]:
+          - strong [ref=f370e216]: Run a tabletop "compromised agent" exercise.
+          - text: Time how long it takes to isolate just that one agent's access without touching any other agent's ability to run. If the answer is "we'd have to rotate everyone's secret," you're not done yet.
+    - heading "What This Means for Your Next Audit" [level=2] [ref=f370e217]
+    - paragraph [ref=f370e219]:
+      - text: "Regulators evaluating AI systems — whether under an internal model-risk framework, HIPAA, or the EU AI Act's obligations for high-risk systems — keep asking a version of the same question:"
+      - emphasis [ref=f370e220]: can you demonstrate control over what this system was allowed to do, and prove what it actually did?
+      - text: A shared service principal cannot answer that question. It was never designed to.
+    - paragraph [ref=f370e221]: Zero standing privilege isn't a compliance checkbox bolted on after the fact. It's the architecture that makes the answer to "prove it" a query against a log instead of a best-effort reconstruction. That's the difference between an agentic AI program that scales past the pilot and one that stays stuck in review indefinitely.
+    - generic [ref=f370e222]:
+      - heading " Reference Architectures" [level=4] [ref=f370e223]:
+        - generic [ref=f370e224]: 
+        - text: Reference Architectures
+      - paragraph [ref=f370e225]: "Do not build this from scratch. Leverage Microsoft's official reference architectures:"
+      - list [ref=f370e226]:
+        - listitem [ref=f370e227]:
+          - link "Baseline Microsoft Foundry Chat Reference Architecture " [ref=f370e228] [cursor=pointer]:
+            - /url: https://learn.microsoft.com/en-us/azure/architecture/ai-ml/architecture/baseline-microsoft-foundry-chat
+            - text: Baseline Microsoft Foundry Chat Reference Architecture
+            - generic [ref=f370e229]: 
+          - text: (Azure Architecture Center — the canonical pattern for Managed Identity flowing from Foundry Agent Service through to Azure OpenAI, behind a fully private network)
+        - listitem [ref=f370e230]:
+          - link "Agent Identity Blueprints in Microsoft Entra Agent ID " [ref=f370e231] [cursor=pointer]:
+            - /url: https://learn.microsoft.com/en-us/entra/agent-id/agent-blueprint
+            - text: Agent Identity Blueprints in Microsoft Entra Agent ID
+            - generic [ref=f370e232]: 
+          - text: (How one blueprint issues many distinct, individually-auditable agent identities)
+        - listitem [ref=f370e233]:
+          - link "GenAI Gateway Reference Architecture Using APIM " [ref=f370e234] [cursor=pointer]:
+            - /url: https://learn.microsoft.com/en-us/ai/playbook/solutions/generative-ai/genai-gateway/reference-architectures/apim-based
+            - text: GenAI Gateway Reference Architecture Using APIM
+            - generic [ref=f370e235]: 
+          - text: (Confirms Managed Identity, not API keys, as the recommended auth path between the mediation layer and backend models)
+        - listitem [ref=f370e236]:
+          - 'link "Zero-Trust Agents: Adding Identity and Access to Multi-Agent Workflows " [ref=f370e237] [cursor=pointer]':
+            - /url: https://techcommunity.microsoft.com/blog/azure-ai-foundry-blog/zero-trust-agents-adding-identity-and-access-to-multi-agent-workflows/4427790
+            - text: "Zero-Trust Agents: Adding Identity and Access to Multi-Agent Workflows"
+            - generic [ref=f370e238]: 
+          - text: (Azure AI Foundry Blog — the same architectural argument from Microsoft's own product team)
+    - separator [ref=f370e239]
+    - heading "Ready to operationalize your Azure journey?" [level=3] [ref=f370e240]
+    - paragraph [ref=f370e241]: If your agentic AI roadmap is stuck in security review because of a shared service principal, this is the exact architecture pattern to bring to the table.
+    - generic [ref=f370e242]:
+      - link "Contact Me" [ref=f370e243] [cursor=pointer]:
+        - /url: ../pages/contact.html
+      - link "View the Toolkit" [ref=f370e244] [cursor=pointer]:
+        - /url: ../pages/azure-migration-toolkit.html
+    - generic [ref=f370e245]:
+      - paragraph [ref=f370e246]: Spread the Insight
+      - generic [ref=f370e247]:
+        - link "Share on LinkedIn" [ref=f370e248] [cursor=pointer]:
+          - /url: "#"
+          - generic [ref=f370e249]: 
+          - text: LinkedIn
+        - link "Share on Twitter" [ref=f370e250] [cursor=pointer]:
+          - /url: "#"
+          - text: Twitter
+        - link " Facebook" [ref=f370e251] [cursor=pointer]:
+          - /url: "#"
+          - generic [ref=f370e252]: 
+          - text: Facebook
+        - button "Copy Page Link" [ref=f370e253] [cursor=pointer]:
+          - generic [ref=f370e254]: 
+          - generic [ref=f370e255]: Copy Link
+    - link " Back to Insights" [ref=f370e257] [cursor=pointer]:
+      - /url: ../blog.html
+      - generic [ref=f370e258]: 
+      - text: Back to Insights
+  - contentinfo [ref=f370e259]:
+    - generic [ref=f370e260]:
+      - paragraph [ref=f370e261]: © 2026 Upendra Kumar. All rights reserved.
+      - generic [ref=f370e262]:
+        - link "LinkedIn Profile" [ref=f370e263] [cursor=pointer]:
+          - /url: https://www.linkedin.com/in/journeytocloudwithupendra/
+          - generic [ref=f370e264]: 
+        - link "GitHub Repository" [ref=f370e265] [cursor=pointer]:
+          - /url: https://github.com/appliedailearner
+          - generic [ref=f370e266]: 
+      - generic [ref=f370e267]:
+        - generic [ref=f370e269]:
+          - generic [ref=f370e270]:
+            - generic [ref=f370e271]: UX Speed
+            - generic [ref=f370e272]: "--ms"
+          - generic [ref=f370e274]:
+            - generic [ref=f370e275]: Privacy Hits
+            - generic [ref=f370e276]: "0"
+          - generic [ref=f370e278]:
+            - generic [ref=f370e279]: Edge Node
+            - generic [ref=f370e280]: IN-CENTRAL
+        - generic [ref=f370e281]: "System Status: Online"
