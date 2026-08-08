@@ -534,7 +534,7 @@
         </div>
 
         <p class="lead" style="font-size: 1.45rem; color: #f8fafc; font-weight: 700; line-height: 1.45; margin-bottom: 1.5rem; border-left: 4px solid #38bdf8; padding-left: 1.5rem;">
-            MIT's own research found that 95% of enterprise generative AI pilots deliver no measurable financial return — not because the models are weak, but because nobody can say which agent touched what, who approved it, or what it cost. Microsoft's answer is the Citadel Governance Hub: a four-layer blueprint that turns AI agents from anonymous scripts into governed, auditable, cost-attributed citizens of the enterprise. It's a genuinely good blueprint. On its own, it is not a governance program.
+            MIT found that 95% of enterprise AI pilots deliver no measurable return — not because the models are weak, but because nobody can say which agent touched what, who approved it, or what it cost. Microsoft's fix is a four-layer blueprint called the Citadel Governance Hub. It's genuinely good. On its own, it's not a governance program.
         </p>
 
         <div style="display: flex; align-items: center; gap: 1rem; background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(56, 189, 248, 0.15); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 2.5rem;">
@@ -928,7 +928,7 @@
                     if (node.nodeType === Node.TEXT_NODE) {
                         const parent = node.parentNode;
                         if (parent && parent.nodeName !== 'SCRIPT' && parent.nodeName !== 'STYLE' && parent.className !== 'eli5-term') {
-                            if (parent.closest && parent.closest('h1, h2, h3, h4, h5, h6, a, pre, code, figure')) {
+                            if (parent.closest && parent.closest('h1, h2, h3, h4, h5, h6, a, pre, code, figure, .lead')) {
                                 return;
                             }
                             const newHTML = node.nodeValue.replace(termsRegex, match => {
