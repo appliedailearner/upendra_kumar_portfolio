@@ -1,3 +1,15 @@
+## Short version (288 characters)
+
+MIT: 95% of AI pilots show no P&L impact — not weak models, but no one can say which agent did what or what it cost.
+
+Citadel Governance Hub fixes the plumbing. It won't write your policy for you.
+
+https://portfolio.upendrakumar.com/blog/2026-08-08-citadel-governance-hub-ai-at-scale.html
+
+---
+
+## Full version
+
 MIT's own research found that **95% of enterprise generative AI pilots deliver no measurable P&L impact.** Not because the models are weak — because nobody can say which agent touched what, who approved it, or what it cost.
 
 Microsoft's answer is the **Citadel Governance Hub**: a four-layer blueprint (gateway → control plane → agent identity → security fabric) that turns AI agents from anonymous scripts into governed, auditable, cost-attributed citizens of the enterprise.
