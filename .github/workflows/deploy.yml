@@ -24,14 +24,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
-      
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          # The deployable website lives in /site (see README.md). Everything
+          # else in the repo (tools/, labs/, career/, project-docs/, archive/)
+          # is source material and must not be published.
+          path: 'site'
       
       - name: Deploy to GitHub Pages
         id: deployment
