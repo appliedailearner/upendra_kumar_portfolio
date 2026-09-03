@@ -102,7 +102,9 @@ if (canvas && ctx) {
 
     // Animation Loop
     function animate() {
-        requestAnimationFrame(animate);
+        animationId = requestAnimationFrame(animate);
+        // Skip work while the tab is hidden or the hero canvas is scrolled out of view
+        if (document.hidden || window.scrollY > window.innerHeight) return;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         for (let i = 0; i < particlesArray.length; i++) {
@@ -136,10 +138,21 @@ if (canvas && ctx) {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isMobile = window.innerWidth < 768;
 
-    if (!prefersReducedMotion && !isMobile) {
+    function start() {
+        if (prefersReducedMotion || isMobile) {
+            console.log('Particles disabled for performance/accessibility');
+            return;
+        }
         init();
         animate();
+    }
+
+    // Defer to idle time after first paint so particles never compete with
+    // rendering, fonts, or the load event.
+    const kick = () => (window.requestIdleCallback || ((cb) => setTimeout(cb, 200)))(start);
+    if (document.readyState === 'complete') {
+        kick();
     } else {
-        console.log('Particles disabled for performance/accessibility');
+        window.addEventListener('load', kick, { once: true });
     }
 }

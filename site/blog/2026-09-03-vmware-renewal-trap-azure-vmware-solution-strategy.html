@@ -35,7 +35,6 @@
     <link rel="preload" href="../css/style.css?v=49" as="style">
     <link rel="preload" href="../js/navbar-component.js" as="script">
     <link rel="preload" href="../js/main.js" as="script">
-    <link rel="preload" href="../images/projects/01-datacenter-migration.webp" as="image">
 
     <!-- JSON-LD Article Schema -->
     <script type="application/ld+json">
@@ -490,13 +489,23 @@
     <!-- Performance: Preconnect to Font & Script Servers -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
-    <!-- Typography: Inter (Body) & Outfit (Headings) with Swap for Performance -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    <!-- Typography + icons: loaded non-render-blocking, swapped to stylesheet on load -->
+    <link rel="preload" as="style"
+          href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
+          onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" as="style"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-          crossorigin="anonymous" referrerpolicy="no-referrer">
+          crossorigin="anonymous" referrerpolicy="no-referrer"
+          onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+              integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+              crossorigin="anonymous" referrerpolicy="no-referrer">
+    </noscript>
     <!-- Azure App Insights SDK (RUM) -->
     <script type="text/javascript">
         !function (T, l, y) {
@@ -531,7 +540,7 @@
 
     <!-- Navigation -->
     <nav class="navbar" id="dynamic-nav"></nav>
-    <script src="../js/navbar-component.js"></script>
+    <script src="../js/navbar-component.js" defer></script>
 
     <!-- Blog Post Hero -->
     <section class="blog-post-hero">
@@ -1330,42 +1339,6 @@
                 </a>
             </div>
 
-            <div class="footer-qr-container"
-                style="margin-top: 2rem; display: flex; flex-direction: column; align-items: center;">
-                <div
-                    style="padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.08); margin-top: 1.5rem; width: 100%; max-width: 500px; backdrop-filter: blur(8px);">
-                    <!-- DO NOT rename these ids or add a per-post <script> for them. js/observability.js
-                         drives both in real time site-wide: #ux-speed from the Navigation Timing API,
-                         #privacy-hits from the actual PII-scrubbing counter in the telemetry initializer.
-                         Never substitute Math.random() or a hardcoded baseline "for a live effect" — that
-                         is fabricated data on a page and has shipped as a real bug before. If a post wants
-                         a different footer stat, it must be wired to a real, verifiable source or omitted. -->
-                    <div style="display: flex; justify-content: space-around; font-size: 0.8rem; text-align: center;">
-                        <div>
-                            <div style="color: rgba(255, 255, 255, 0.5); margin-bottom: 0.25rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">UX Speed</div>
-                            <div id="ux-speed" style="font-weight: 600; font-family: 'JetBrains Mono', monospace; color: #34d399;">--ms</div>
-                        </div>
-                        <div style="width: 1px; background: rgba(255, 255, 255, 0.1); margin: 0 0.5rem;"></div>
-                        <div>
-                            <div style="color: rgba(255, 255, 255, 0.5); margin-bottom: 0.25rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Privacy Hits</div>
-                            <div id="privacy-hits" style="font-weight: 600; font-family: 'JetBrains Mono', monospace; color: #60a5fa;">0</div>
-                        </div>
-                        <div style="width: 1px; background: rgba(255, 255, 255, 0.1); margin: 0 0.5rem;"></div>
-                        <div>
-                            <div style="color: rgba(255, 255, 255, 0.5); margin-bottom: 0.25rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Edge Node</div>
-                            <div style="font-weight: 600; font-family: 'JetBrains Mono', monospace; color: #fbbf24;">IN-CENTRAL</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div
-                    style="padding: 0.5rem; background: rgba(255, 255, 255, 0.05); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); margin-top: 1rem;">
-                    <div class="status-ticker" id="system-status">
-                        <span class="status-dot pulse"></span>
-                        <span class="status-text">System Status: <span id="status-val">Online</span></span>
-                    </div>
-                </div>
-            </div>
         </div>
     </footer>
 
@@ -1373,7 +1346,7 @@
         // Mobile menu handles are now in navbar-component.js
     </script>
 
-    <script src="../js/particles.js"></script>
+    <script src="../js/particles.js" defer></script>
     <script src="../js/main.js"></script>
 
     <!-- Table of Contents Observer -->

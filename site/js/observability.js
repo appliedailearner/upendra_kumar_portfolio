@@ -158,10 +158,16 @@
         }
     }
 
-    // Initial check and periodic polling
+    // Initial check and periodic polling — only when a page actually renders a
+    // health indicator (skips the status.json heartbeat on pages without one).
     document.addEventListener('DOMContentLoaded', () => {
-        checkSystemHealth();
-        setInterval(checkSystemHealth, 30000); // 30s heartbeat
+        const hasHealthUI = document.querySelector(
+            '#status-val, #status-val-hero, .health-status-text, .status-dot, .health-indicator, #platform-status, #azure-latency'
+        );
+        if (hasHealthUI) {
+            checkSystemHealth();
+            setInterval(checkSystemHealth, 30000); // 30s heartbeat
+        }
 
         // Global UX Speed Tracker (Modern Navigation Timing API)
         const updateUXSpeed = () => {
