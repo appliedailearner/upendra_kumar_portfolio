@@ -1020,32 +1020,39 @@
         </div>
 
         <h2 id="sequence"><span class="gradient-text">The Adoption Sequence</span></h2>
-        <p>Whether you land on Azure VMware Solution, native Azure, or a sequenced mix, the CAF's five-phase adoption path is the same. The first two phases are the decision work &mdash; they fit inside a renewal window. The rest is delivery, measured in months. Work it in order:</p>
+        <p>Whatever you land on &mdash; AVS, native Azure, or a mix &mdash; the path is the same six steps. The first two are <strong>decision work</strong>, and they fit inside the renewal window. The other four are <strong>delivery</strong>, measured in months. Do them in order &mdash; tick them off as you go.</p>
 
         <div class="checklist-container">
+            <div style="font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #93c5fd; margin: 0 0 1rem; display: flex; align-items: center; gap: 0.6rem;">
+                <i class="fas fa-flag-checkered"></i> Decide &mdash; fits inside the renewal window
+            </div>
             <label class="checklist-item">
                 <input type="checkbox">
-                <span><strong style="color: #f8fafc;">Planning and readiness.</strong> Nail down the operating model, roles and responsibilities, quotas, skills gaps, and cost management &mdash; and the portable VCF subscription from Broadcom, with the 31 October 2026 pay-as-you-go compliance date on the plan. Run Azure Migrate for dependency mapping and right-sizing, then sort every workload into four buckets: <em>modernize now</em> to PaaS, <em>rehost to native Azure VMs</em>, <em>rehost to AVS</em>, and <em>retire</em> &mdash; the zombie VMs that are typically 10&ndash;20% of an estate and should never be migrated at all. Stand up the Azure Migrate appliance early &mdash; performance-based sizing needs one to four weeks of data &mdash; and confirm the production subscription is EA, CSP, or MCA before you request host quota. This phase produces the "AVS vs native" recommendation with numbers behind it.</span>
+                <span><strong style="color: #f8fafc;"><span style="display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: rgba(96,165,250,0.18); color: #93c5fd; font-size: 0.8em; margin-right: 0.55em; flex-shrink: 0;">1</span>Plan &amp; assess.</strong> Stand up the Azure Migrate appliance first &mdash; performance sizing needs one to four weeks of real data. Use it to sort every workload into four buckets: <em>modernize to PaaS</em>, <em>rehost to Azure native</em>, <em>rehost to AVS</em>, <em>retire</em> (the 10&ndash;20% of any estate that's dead weight). Confirm the production subscription is EA, CSP, or MCA before you request host quota, and get the Broadcom VCF subscription on the plan with its 31 Oct 2026 date. <strong style="color: #cbd5e1;">Output:</strong> the "AVS vs native" call, with numbers behind it.</span>
             </label>
             <label class="checklist-item">
                 <input type="checkbox">
-                <span><strong style="color: #f8fafc;">Azure landing zone architecture.</strong> Decide the changes to your platform and application landing zones. Lock the Gen2 decision here &mdash; before anything moves. AVS lands as its own application landing zone, workload-team managed, separate from the central platform.</span>
+                <span><strong style="color: #f8fafc;"><span style="display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: rgba(96,165,250,0.18); color: #93c5fd; font-size: 0.8em; margin-right: 0.55em; flex-shrink: 0;">2</span>Design the landing zone.</strong> Decide the platform and workload landing-zone changes, and <strong style="color: #cbd5e1;">lock the Gen2 decision now</strong> &mdash; switching generations later means migrating twice. AVS sits as its own workload-team-managed landing zone, separate from the central platform.</span>
+            </label>
+
+            <div style="font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #6ee7b7; margin: 1.75rem 0 1rem; display: flex; align-items: center; gap: 0.6rem;">
+                <i class="fas fa-truck-fast"></i> Deliver &mdash; measured in months
+            </div>
+            <label class="checklist-item">
+                <input type="checkbox">
+                <span><strong style="color: #f8fafc;"><span style="display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: rgba(52,211,153,0.18); color: #6ee7b7; font-size: 0.8em; margin-right: 0.55em; flex-shrink: 0;">3</span>Set the guardrails.</strong> Policy, identity, and network baselines for AVS workloads &mdash; plus the two that keep the bill from running away: a hard limit on <em>who can add a host</em>, and a monthly cost review with the authority to scale one back down.</span>
             </label>
             <label class="checklist-item">
                 <input type="checkbox">
-                <span><strong style="color: #f8fafc;">Governance and security baselines.</strong> Establish the policy, identity, and network security baselines AVS workloads run under &mdash; including a hard guardrail on who can add hosts and a monthly cost review that can actually trigger a scale-down.</span>
+                <span><strong style="color: #f8fafc;"><span style="display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: rgba(52,211,153,0.18); color: #6ee7b7; font-size: 0.8em; margin-right: 0.55em; flex-shrink: 0;">4</span>Set operations standards.</strong> Monitoring, health, reliability, cost practice. Right-size and consolidate the source estate <em>before</em> you move it &mdash; every host you leave behind is permanent savings.</span>
             </label>
             <label class="checklist-item">
                 <input type="checkbox">
-                <span><strong style="color: #f8fafc;">Operational standards.</strong> Define monitoring, health management, reliability, and cost-management practice. Right-size and consolidate the source estate <em>now</em> &mdash; every host you don't migrate is the biggest recurring saving you'll book.</span>
+                <span><strong style="color: #f8fafc;"><span style="display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: rgba(52,211,153,0.18); color: #6ee7b7; font-size: 0.8em; margin-right: 0.55em; flex-shrink: 0;">5</span>Migrate &amp; decommission.</strong> Plan, move, verify, shut down. Cancel the colo contract and kill the hardware-refresh line the <em>same quarter</em> the last workload cuts over &mdash; the savings aren't real until the old estate is gone.</span>
             </label>
             <label class="checklist-item">
                 <input type="checkbox">
-                <span><strong style="color: #f8fafc;">Migration.</strong> Plan, prepare, execute, evaluate, and decommission. Cancel the colo contract and the hardware refresh line the same quarter the last workload cuts over &mdash; the savings are real only when the old estate is actually gone.</span>
-            </label>
-            <label class="checklist-item">
-                <input type="checkbox">
-                <span><strong style="color: #f8fafc;">Name the modernization backlog.</strong> AVS is the bridge. Write down which workloads get refactored to native Azure, in what order, funded how &mdash; so "temporary" doesn't quietly become the architecture.</span>
+                <span><strong style="color: #f8fafc;"><span style="display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: rgba(52,211,153,0.18); color: #6ee7b7; font-size: 0.8em; margin-right: 0.55em; flex-shrink: 0;">6</span>Fund the modernization backlog.</strong> AVS is the bridge. Write down which workloads refactor to native, in what order, paid for how &mdash; so "temporary" doesn't quietly become the architecture.</span>
             </label>
         </div>
 
