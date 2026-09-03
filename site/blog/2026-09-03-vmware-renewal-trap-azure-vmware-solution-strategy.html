@@ -551,7 +551,7 @@
             <div class="blog-post-meta">
                 <div><i class="fas fa-user"></i> Upendra Kumar</div>
                 <div><i class="fas fa-calendar"></i> September 3, 2026</div>
-                <div><i class="fas fa-clock"></i> 15 min read</div>
+                <div><i class="fas fa-clock"></i> 16 min read</div>
             </div>
 
             <div class="blog-post-tags">
@@ -620,7 +620,7 @@
                         <i class="fas fa-route" style="color: #60a5fa; font-size: 1.2rem;"></i>
                     </div>
                     <h4 style="color: #93c5fd; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">The Strategic Play</h4>
-                    <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">Use Microsoft's Cloud Adoption Framework test: Azure VMware Solution is right when the business value of moving to Azure is clear but the cost, risk, or time of re-architecting isn't acceptable &mdash; datacenter exit, VMware-validated workloads, deep VMware investment, DR. Wrong call when you're modernizing soon or your estate runs fine on native Azure VMs. And note: since October 2025 the AVS route carries its own Broadcom licensing clock &mdash; a portable VCF subscription, and an October 31, 2026 compliance date for pay-as-you-go deployments.</p>
+                    <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">Use Microsoft's Cloud Adoption Framework test: Azure VMware Solution is right when the business value of moving to Azure is clear but the cost, risk, or time of re-architecting isn't acceptable &mdash; datacenter exit, VMware-validated workloads, deep VMware investment, or disaster recovery. It's the wrong call when you're modernizing soon, or when your estate runs fine on native Azure VMs. And note: since October 2025 the AVS route carries its own Broadcom licensing clock &mdash; a portable VCF subscription, and an October 31, 2026 compliance date for pay-as-you-go deployments.</p>
                 </div>
 
                 <div class="glass-card" style="padding: 2rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)); border: 1px solid rgba(52, 211, 153, 0.2); border-top: 3px solid #34d399; position: relative; overflow: hidden;">
@@ -680,11 +680,12 @@
             <h4 style="margin-top: 0; color: #fcd34d; font-family: 'Outfit', sans-serif;"><i class="fas fa-hourglass-half" style="margin-right: 8px;"></i> The AVS licensing clock &mdash; the "safe" choice has one too</h4>
             <p style="margin-bottom: 0.75rem; font-size: 0.95rem;">Lifting to AVS used to sidestep the Broadcom licensing question. It no longer does. AVS is <em>not</em> being retired, but the bundled-licence route has closed and existing deployments have a compliance date:</p>
             <ul style="margin-bottom: 0.75rem; padding-left: 1.25rem; font-size: 0.95rem;">
-                <li><strong>Oct 2025:</strong> Microsoft stopped selling AVS nodes with VCF bundled. New nodes and expansions now require a <strong>portable VCF subscription purchased directly from Broadcom</strong> (BYOL).</li>
-                <li><strong>Oct 31, 2026:</strong> existing <strong>pay-as-you-go, licence-included</strong> AVS deployments must move to BYOL or fall out of compliance with Broadcom's terms &mdash; Microsoft's own guidance flags <strong>"risk of service suspension"</strong> for capacity beyond your Broadcom core entitlement.</li>
-                <li><strong>Aug 30, 2027:</strong> licence-included <strong>Reserved Instances</strong> must be exchanged for BYOL reservations, or those workloads move off AVS.</li>
+                <li><strong>15 Oct 2025:</strong> the vDefend Firewall core entitlement bundled with AVS was frozen at that day's usage &mdash; any growth beyond it is now a paid add-on.</li>
+                <li><strong>1 Nov 2025:</strong> Microsoft stopped selling AVS nodes with VCF bundled. New deployments and expansions now require a <strong>portable VCF subscription purchased directly from Broadcom</strong> (BYOL) &mdash; roughly <strong>$175&ndash;$240 per core per year</strong> at list, with Broadcom controlling future increases.</li>
+                <li><strong>31 Oct 2026:</strong> existing <strong>pay-as-you-go, licence-included</strong> AVS deployments must move to BYOL or fall out of compliance with Broadcom's terms &mdash; Microsoft's own guidance flags <strong>"risk of service suspension"</strong> for capacity beyond your Broadcom core entitlement.</li>
+                <li><strong>30 Aug 2027:</strong> licence-included <strong>Reserved Instances</strong> must be exchanged for BYOL reservations, or those workloads move off AVS.</li>
             </ul>
-            <p style="margin-bottom: 0; font-size: 0.95rem;">Net effect: AVS is now <strong>two counterparties</strong> &mdash; Microsoft for the infrastructure, Broadcom for the licence &mdash; each with its own contract, price, and renewal cycle. Factor both into the model and the decommission plan.</p>
+            <p style="margin-bottom: 0; font-size: 0.95rem;">Net effect: AVS is now <strong>two counterparties</strong> &mdash; Microsoft for the infrastructure, Broadcom for the licence &mdash; each with its own contract, price, and renewal cycle. And this isn't an Azure quirk to engineer around: AWS (VMware Cloud on AWS) and Google Cloud (GCVE) have made the same BYOL shift, so the direct-to-Broadcom relationship now follows VMware onto every hyperscaler. Factor both counterparties into the model and the decommission plan.</p>
         </div>
 
         <!-- Analogy Card -->
@@ -749,6 +750,48 @@
             <li>Most of the estate is new or could be built cloud-native from the start.</li>
         </ul>
         <p>In those cases, the CAF notes, "moving directly to Azure IaaS or PaaS services often provides greater cloud-native benefits and can reduce long-term platform costs." AVS there is an expensive way to postpone a decision you've already made.</p>
+        <p>When the signals point native, the target is workload-specific, not one-size-fits-all. The common mappings:</p>
+        <div class="table-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Signal in the estate</th>
+                        <th>Native Azure target</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Stateless or horizontally scalable app</td>
+                        <td>VM Scale Sets, AKS, App Service, or Container Apps</td>
+                    </tr>
+                    <tr>
+                        <td>Windows / Linux VM with no VMware hooks</td>
+                        <td>Azure IaaS VMs, with Azure Hybrid Benefit for Windows and SQL licences you already own</td>
+                    </tr>
+                    <tr>
+                        <td>Databases running on VMs</td>
+                        <td>Azure SQL Managed Instance, Flexible Server, or Cosmos DB &mdash; retire the database VMs</td>
+                    </tr>
+                    <tr>
+                        <td>File or object storage on vSAN</td>
+                        <td>Azure Files, Azure NetApp Files, or Blob storage</td>
+                    </tr>
+                    <tr>
+                        <td>Bursty or seasonal demand</td>
+                        <td>Native autoscale &mdash; pay for consumption instead of fixed node capacity</td>
+                    </tr>
+                    <tr>
+                        <td>DR and backup</td>
+                        <td>Azure Site Recovery and Azure Backup</td>
+                    </tr>
+                    <tr>
+                        <td>New development</td>
+                        <td>Cloud-native PaaS from day one &mdash; never routed through VMware</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p>Native wins the long game &mdash; consumption pricing with no dedicated-hardware floor, no Broadcom subscription, cleaner egress economics, and much lower exit friction. The cost is a real operating-model change and per-app migration effort, which is exactly why the renewal clock rarely leaves room to do it all at once.</p>
 
         <h2 id="tco"><span class="gradient-text">The TCO Baseline Everyone Gets Wrong</span></h2>
         <p>Here is the single most common mistake in the room when that renewal quote is on the screen: teams compare the <strong>Azure VMware Solution monthly cost</strong> to the <strong>Azure-native VM cost</strong>, see that AVS looks more expensive per unit, and conclude AVS is a bad deal.</p>
@@ -773,7 +816,7 @@
                     <tr>
                         <td>VMware / VCF licensing</td>
                         <td>Renewal at post-Broadcom rates, 72-core minimum order</td>
-                        <td>Portable VCF subscription bought separately from Broadcom (BYOL). AVS infra list price is lower than the old bundle &mdash; but the Broadcom subscription is now a second line item, on its own renewal cycle</td>
+                        <td>Portable VCF subscription bought separately from Broadcom (BYOL), roughly $175&ndash;$240 per core per year at list. AVS infra list price is lower than the old bundle &mdash; but the Broadcom subscription is now a second line item, on its own renewal cycle</td>
                     </tr>
                     <tr>
                         <td>Windows / SQL legacy licensing</td>
@@ -855,7 +898,7 @@
         <div class="checklist-container">
             <label class="checklist-item">
                 <input type="checkbox">
-                <span><strong style="color: #f8fafc;">Planning and readiness.</strong> Nail down the operating model, roles and responsibilities, quotas, skills gaps, and cost management &mdash; and the portable VCF subscription from Broadcom, with the 31 October 2026 pay-as-you-go compliance date on the plan. This phase produces the "AVS vs native" recommendation with numbers behind it.</span>
+                <span><strong style="color: #f8fafc;">Planning and readiness.</strong> Nail down the operating model, roles and responsibilities, quotas, skills gaps, and cost management &mdash; and the portable VCF subscription from Broadcom, with the 31 October 2026 pay-as-you-go compliance date on the plan. Run Azure Migrate for dependency mapping and right-sizing, then sort every workload into four buckets: <em>modernize now</em> to PaaS, <em>rehost to native Azure VMs</em>, <em>rehost to AVS</em>, and <em>retire</em> &mdash; the zombie VMs that are typically 10&ndash;20% of an estate and should never be migrated at all. This phase produces the "AVS vs native" recommendation with numbers behind it.</span>
             </label>
             <label class="checklist-item">
                 <input type="checkbox">
@@ -901,6 +944,9 @@
                 <li style="margin-top: 0.25rem;"><a href="https://techcommunity.microsoft.com/blog/azuremigrationblog/fast-cloud-migration-measurable-roi-forrester-total-economic-impact-study-of-azu/4508136" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">The Total Economic Impact of Microsoft Azure VMware Solution <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a> (Forrester Consulting, commissioned by Microsoft, March 2026 — source for the 298% ROI, ~90% hardware-refresh avoidance, and 80% downtime-reduction figures)</li>
                 <li style="margin-top: 0.25rem;"><a href="https://softwarepricingguide.com/vmware-pricing-after-broadcom-the-800-1500-price-shock-what-changed-and-your-real-alternatives-in-2025/" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">VMware Pricing After Broadcom: the 800&ndash;1,500% Price Shock <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a> (Software Pricing Guide &mdash; source for the 72-core minimum, April 10 2025 change, Gartner 300&ndash;400%, CISPE 800&ndash;1,500%, and AT&amp;T 1,050% figures)</li>
                 <li style="margin-top: 0.25rem;"><a href="https://trilio.io/resources/vmware-license-cost/" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">VMware License Cost Changes: What You Need to Know <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a> (Trilio &mdash; source for the 86%-reducing-footprint and 88%-pricing-concern survey figures)</li>
+                <li style="margin-top: 0.25rem;"><a href="https://learn.microsoft.com/en-us/azure/azure-vmware/vmware-cloud-foundations-license-portability" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">Configure portable VCF licensing for Azure VMware Solution <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a> (Microsoft Learn &mdash; the mechanics of registering a Broadcom VCF subscription against an AVS private cloud)</li>
+                <li style="margin-top: 0.25rem;"><a href="https://www.directionsonmicrosoft.com/broadcom-inserts-itself-into-azure-vmware-solution/" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">Broadcom Inserts Itself into Azure VMware Solution <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a> (Directions on Microsoft &mdash; analysis of the two-counterparty shift and the ~$175&ndash;$240 per-core VCF list range)</li>
+                <li style="margin-top: 0.25rem;"><a href="https://www.rack2cloud.com/azure-vmware-solution-vs-native-azure/" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">Azure VMware Solution vs Native Azure: trade-offs and exit risks <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a> (rack2cloud &mdash; the native-target mapping and AVS exit-cost considerations)</li>
             </ul>
         </div>
 
