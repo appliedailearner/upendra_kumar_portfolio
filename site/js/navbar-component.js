@@ -60,6 +60,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         <!-- Column 2: Migration Chronicles -->
                         <div class="dropdown-column">
                             <h4 class="dropdown-header">🚀 Migration Chronicles</h4>
+                            <a href="${base}blog/2026-09-03-vmware-renewal-trap-azure-vmware-solution-strategy.html" class="dropdown-link">
+                                <i class="fas fa-server"></i>
+                                <span>The VMware Renewal Trap</span>
+                            </a>
                             <a href="${base}blog/2026-01-26-hybrid-dns-pattern-cutover-night.html" class="dropdown-link">
                                 <i class="fas fa-network-wired"></i>
                                 <span>The Hybrid DNS Pattern</span>
