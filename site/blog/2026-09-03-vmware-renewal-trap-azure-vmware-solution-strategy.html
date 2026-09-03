@@ -551,7 +551,7 @@
             <div class="blog-post-meta">
                 <div><i class="fas fa-user"></i> Upendra Kumar</div>
                 <div><i class="fas fa-calendar"></i> September 3, 2026</div>
-                <div><i class="fas fa-clock"></i> 13 min read</div>
+                <div><i class="fas fa-clock"></i> 15 min read</div>
             </div>
 
             <div class="blog-post-tags">
@@ -620,7 +620,7 @@
                         <i class="fas fa-route" style="color: #60a5fa; font-size: 1.2rem;"></i>
                     </div>
                     <h4 style="color: #93c5fd; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">The Strategic Play</h4>
-                    <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">Use Microsoft's Cloud Adoption Framework test: Azure VMware Solution is right when the business value of moving to Azure is clear but the cost, risk, or time of re-architecting isn't acceptable &mdash; datacenter exit, VMware-validated workloads, deep VMware investment, DR. It's the wrong call when you're modernizing soon or your estate runs fine on native Azure VMs.</p>
+                    <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">Use Microsoft's Cloud Adoption Framework test: Azure VMware Solution is right when the business value of moving to Azure is clear but the cost, risk, or time of re-architecting isn't acceptable &mdash; datacenter exit, VMware-validated workloads, deep VMware investment, DR. Wrong call when you're modernizing soon or your estate runs fine on native Azure VMs. And note: since October 2025 the AVS route carries its own Broadcom licensing clock &mdash; a portable VCF subscription, and an October 31, 2026 compliance date for pay-as-you-go deployments.</p>
                 </div>
 
                 <div class="glass-card" style="padding: 2rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)); border: 1px solid rgba(52, 211, 153, 0.2); border-top: 3px solid #34d399; position: relative; overflow: hidden;">
@@ -643,6 +643,7 @@
             <div style="font-size: 0.95rem; color: #94a3b8; line-height: 1.5;">of organizations report they are <strong style="color: #e2e8f0;">actively reducing their VMware footprint</strong>, and 88% remain concerned about future pricing, per industry surveys tracking post-acquisition licensing. The renewal isn't just expensive &mdash; it has broken the trust the platform decision was built on.</div>
         </div>
 
+        <p>The urgency isn't going down. Gartner projects 35% of VMware workloads will migrate off the platform by 2028, and Microsoft's own AVS licensing changes &mdash; more on those below &mdash; put a hard date on the "lift it to AVS and deal with licensing later" plan.</p>
         <p>Here's the trap. A renewal deadline creates urgency, and urgency collapses a strategy question into a procurement question. The room stops asking "where should these workloads live for the next seven years" and starts asking "what's the fastest way to not pay this invoice." Those are different questions with different right answers.</p>
         <p>Microsoft's <span class="eli5-term" data-tooltip="Microsoft's structured guidance for planning, adopting, governing, and operating cloud &mdash; the strategy, plan, ready, and adopt methodology.">Cloud Adoption Framework</span> is unusually blunt about where <span class="eli5-term" data-tooltip="A managed Azure service that runs a full VMware stack &mdash; vSphere, vSAN, NSX, HCX &mdash; on dedicated bare-metal hosts inside Azure, so you keep VMware operations while gaining native access to Azure services.">Azure VMware Solution</span> fits: it's the right choice "when the business value of moving to Azure is clear, and the cost, risk, or time required to redesign applications aren't acceptable." That's the sentence to anchor the whole decision on.</p>
 
@@ -666,13 +667,25 @@
         <ul>
             <li>You keep operating a VMware environment &mdash; <span class="eli5-term" data-tooltip="VMware's core hypervisor and management stack: ESXi hosts managed by vCenter Server.">vSphere</span>, <span class="eli5-term" data-tooltip="VMware's software-defined storage that pools the local disks of each host into a shared datastore for the cluster.">vSAN</span>, <span class="eli5-term" data-tooltip="VMware's software-defined networking and security layer, providing virtual switching, routing, and micro-segmentation.">NSX</span> &mdash; just on hardware Microsoft racks and patches instead of hardware you own.</li>
             <li>You are billed by the <span class="eli5-term" data-tooltip="A dedicated physical server (bare-metal host) reserved for your private cloud. AVS bills per host, not per VM, so utilization efficiency drives your unit economics.">AVS host</span>, not the VM &mdash; so your unit economics are driven by how densely you pack those hosts and how well you right-size the cluster.</li>
-            <li>You still owe Broadcom a <span class="eli5-term" data-tooltip="The VMware Cloud Foundation subscription that Broadcom requires customers to bring to Azure VMware Solution. AVS host charges are separate from this license.">VCF portable subscription</span> for the software running on those hosts. AVS changes who runs the infrastructure; it does not, by itself, end the Broadcom relationship.</li>
+            <li>You still owe Broadcom a <span class="eli5-term" data-tooltip="The portable VMware Cloud Foundation subscription that Broadcom requires customers to bring to Azure VMware Solution. Since October 2025 it is bought directly from Broadcom, not bundled into the AVS node price.">VCF portable subscription</span>, now bought directly from Broadcom rather than bundled into the node price. AVS changes who runs the infrastructure; it does not end the Broadcom relationship &mdash; it splits your VMware estate across two vendors.</li>
         </ul>
         <p>None of that is a reason to avoid AVS. It's a reason to make the call deliberately, with the counter-case on the table.</p>
 
         <p>And "AVS vs. refactor" isn't the whole board either. The full slate is wider: the other hyperscalers' VMware services (AWS, Google Cloud, OCI), re-hypervisoring to Hyper-V or another platform, Nutanix on Azure, or a deliberately smaller on-premises footprint. Most of those are worse fits for a renewal-clock timeline &mdash; but a director who hasn't named them on a slide will get asked why in the board meeting, not before it.</p>
 
-        <p>One more thing the Gantt chart won't show you: the VCF portable subscription has to be approved by Broadcom, and through 2025 that approval has been inconsistent &mdash; slow-rolled, re-quoted, occasionally refused. If your AVS plan depends on a renewal-window cutover, get the licensing commitment in writing before you cancel anything.</p>
+        <p>One more thing the Gantt chart won't show you: the portable VCF subscription is bought directly from Broadcom, on Broadcom's terms and timeline. Through 2025 those quotes were inconsistent &mdash; slow to arrive, re-priced, occasionally refused. If your AVS plan depends on a renewal-window cutover, get the licensing commitment in writing before you cancel anything on the old platform.</p>
+
+        <div
+            style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(251, 191, 36, 0.25); border-left: 4px solid #fbbf24; padding: 1.5rem 1.75rem; border-radius: 8px; margin: 2rem 0;">
+            <h4 style="margin-top: 0; color: #fcd34d; font-family: 'Outfit', sans-serif;"><i class="fas fa-hourglass-half" style="margin-right: 8px;"></i> The AVS licensing clock &mdash; the "safe" choice has one too</h4>
+            <p style="margin-bottom: 0.75rem; font-size: 0.95rem;">Lifting to AVS used to sidestep the Broadcom licensing question. It no longer does. AVS is <em>not</em> being retired, but the bundled-licence route has closed and existing deployments have a compliance date:</p>
+            <ul style="margin-bottom: 0.75rem; padding-left: 1.25rem; font-size: 0.95rem;">
+                <li><strong>Oct 2025:</strong> Microsoft stopped selling AVS nodes with VCF bundled. New nodes and expansions now require a <strong>portable VCF subscription purchased directly from Broadcom</strong> (BYOL).</li>
+                <li><strong>Oct 31, 2026:</strong> existing <strong>pay-as-you-go, licence-included</strong> AVS deployments must move to BYOL or fall out of compliance with Broadcom's terms &mdash; Microsoft's own guidance flags <strong>"risk of service suspension"</strong> for capacity beyond your Broadcom core entitlement.</li>
+                <li><strong>Aug 30, 2027:</strong> licence-included <strong>Reserved Instances</strong> must be exchanged for BYOL reservations, or those workloads move off AVS.</li>
+            </ul>
+            <p style="margin-bottom: 0; font-size: 0.95rem;">Net effect: AVS is now <strong>two counterparties</strong> &mdash; Microsoft for the infrastructure, Broadcom for the licence &mdash; each with its own contract, price, and renewal cycle. Factor both into the model and the decommission plan.</p>
+        </div>
 
         <!-- Analogy Card -->
         <div class="analogy-block">
@@ -760,7 +773,7 @@
                     <tr>
                         <td>VMware / VCF licensing</td>
                         <td>Renewal at post-Broadcom rates, 72-core minimum order</td>
-                        <td>Still owed (VCF portable subscription), but decoupled from your hardware cycle</td>
+                        <td>Portable VCF subscription bought separately from Broadcom (BYOL). AVS infra list price is lower than the old bundle &mdash; but the Broadcom subscription is now a second line item, on its own renewal cycle</td>
                     </tr>
                     <tr>
                         <td>Windows / SQL legacy licensing</td>
@@ -809,7 +822,7 @@
         <p>Two levers move the AVS number more than anything else, and both are yours to pull:</p>
         <ul>
             <li><strong>Host density.</strong> Because you pay per host, a cluster running at 45% utilization is burning roughly half your spend on air. Right-sizing and consolidation before migration is the highest-ROI work in the whole program.</li>
-            <li><strong>Reserved instances.</strong> A 1- or 3-year reservation on AVS hosts changes the comparison materially against a fresh hardware capital outlay. If the workloads are staying put for three years &mdash; and if you're choosing AVS, they are &mdash; not reserving is leaving money on the table.</li>
+            <li><strong>Reserved instances.</strong> A 1- or 3-year reservation on AVS hosts changes the comparison materially against a fresh hardware capital outlay. If the workloads are staying put for three years &mdash; and if you're choosing AVS, they are &mdash; not reserving is leaving money on the table. Reservations are also a <em>compliance runway</em> now: licence-included RIs bought on or before 15 October 2025 hold their VCF terms until 30 August 2027, while any new reservation is BYOL from day one.</li>
         </ul>
 
         <h2 id="gen2"><span class="gradient-text">The Gen2 Decision You Make Once</span></h2>
@@ -842,7 +855,7 @@
         <div class="checklist-container">
             <label class="checklist-item">
                 <input type="checkbox">
-                <span><strong style="color: #f8fafc;">Planning and readiness.</strong> Nail down the operating model, roles and responsibilities, licensing (including the VCF portable subscription), quotas, skills gaps, and cost management. This phase produces the "AVS vs native" recommendation with numbers behind it.</span>
+                <span><strong style="color: #f8fafc;">Planning and readiness.</strong> Nail down the operating model, roles and responsibilities, quotas, skills gaps, and cost management &mdash; and the portable VCF subscription from Broadcom, with the 31 October 2026 pay-as-you-go compliance date on the plan. This phase produces the "AVS vs native" recommendation with numbers behind it.</span>
             </label>
             <label class="checklist-item">
                 <input type="checkbox">
@@ -881,6 +894,9 @@
             <ul style="margin-bottom: 0; padding-left: 1.5rem; font-size: 0.95rem;">
                 <li><a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/azure-vmware-solution/strategy" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">Azure VMware Solution adoption &mdash; strategy <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a> (Microsoft Cloud Adoption Framework &mdash; the primary source for the decision criteria, Gen1/Gen2, responsibility, and adoption phases in this piece)</li>
                 <li style="margin-top: 0.25rem;"><a href="https://learn.microsoft.com/en-us/azure/azure-vmware/introduction" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">What is Azure VMware Solution? <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a> (Microsoft Learn &mdash; product overview and the Microsoft-vs-customer responsibility matrix)</li>
+                <li style="margin-top: 0.25rem;"><a href="https://techcommunity.microsoft.com/blog/azuremigrationblog/updated-broadcom-vmware-licensing-changes-what-azure-vmware-solution-customers-n/4448784" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">Broadcom VMware Licensing Changes: What Azure VMware Solution Customers Need to Know <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a> (Microsoft Community Hub &mdash; primary source for the Oct 2025 node change, the 31 Oct 2026 BYOL date, and the 30 Aug 2027 Reserved Instance date)</li>
+                <li style="margin-top: 0.25rem;"><a href="https://learn.microsoft.com/en-us/azure/azure-vmware/portable-vcf-licensing-reference" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">Portable VMware Cloud Foundation licensing reference for Azure VMware Solution <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a> (Microsoft Learn &mdash; how portable VCF / BYOL works with AVS)</li>
+                <li style="margin-top: 0.25rem;"><a href="https://www.mescomputing.com/news/2026/business/azure-vmware-licensing-changes-add-urgency-to-migration-decisions" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">Azure VMware licensing changes add urgency to migration decisions <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a> (MES Computing &mdash; channel/partner view on how the deadlines change the timeline)</li>
                 <li style="margin-top: 0.25rem;"><a href="https://azure.microsoft.com/pricing/details/azure-vmware/" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">Azure VMware Solution pricing <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a> and the <a href="https://azure.microsoft.com/pricing/calculator/" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">Azure pricing calculator <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a></li>
                 <li style="margin-top: 0.25rem;"><a href="https://techcommunity.microsoft.com/blog/azuremigrationblog/fast-cloud-migration-measurable-roi-forrester-total-economic-impact-study-of-azu/4508136" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">The Total Economic Impact of Microsoft Azure VMware Solution <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a> (Forrester Consulting, commissioned by Microsoft, March 2026 — source for the 298% ROI, ~90% hardware-refresh avoidance, and 80% downtime-reduction figures)</li>
                 <li style="margin-top: 0.25rem;"><a href="https://softwarepricingguide.com/vmware-pricing-after-broadcom-the-800-1500-price-shock-what-changed-and-your-real-alternatives-in-2025/" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">VMware Pricing After Broadcom: the 800&ndash;1,500% Price Shock <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a> (Software Pricing Guide &mdash; source for the 72-core minimum, April 10 2025 change, Gartner 300&ndash;400%, CISPE 800&ndash;1,500%, and AT&amp;T 1,050% figures)</li>
