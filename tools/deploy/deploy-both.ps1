@@ -6,27 +6,35 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+$repoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
+
 Write-Host "========================================" -ForegroundColor Cyan
-Write-Host "Dual Deployment Script (v3)" -ForegroundColor Cyan
+Write-Host "Dual Deployment Script (v4)" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 
-# Step 1: Deploy to GitHub Pages
+# Step 1: Deploy to GitHub Pages (Actions publishes <repo>/site)
 Write-Host "STEP 1: GitHub Push" -ForegroundColor Yellow
-git add .
-$status = git status --porcelain
-if ($status) {
-    git commit -m "$CommitMessage"
+Push-Location $repoRoot
+try {
+    git add .
+    $status = git status --porcelain
+    if ($status) {
+        git commit -m "$CommitMessage"
+    }
+    git push origin main
 }
-git push origin main
+finally {
+    Pop-Location
+}
 
-# Step 2: Deploy to Azure Storage
+# Step 2: Deploy to Azure Storage ($web static site)
 Write-Host ""
 Write-Host "STEP 2: Azure Push" -ForegroundColor Yellow
 if ($Force) {
-    powershell.exe -ExecutionPolicy Bypass -File .\deploy-azure.ps1 -Force
+    powershell.exe -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot "deploy-azure.ps1") -Force
 }
 else {
-    powershell.exe -ExecutionPolicy Bypass -File .\deploy-azure.ps1
+    powershell.exe -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot "deploy-azure.ps1")
 }
 
 Write-Host "========================================" -ForegroundColor Cyan

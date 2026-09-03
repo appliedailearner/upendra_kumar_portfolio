@@ -10,7 +10,10 @@ $ErrorActionPreference = "Stop"
 
 Write-Host "Deploying to $StorageAccount..." -ForegroundColor Cyan
 
-$sourceDir = (Get-Location).Path
+# The deployable website lives in <repo>/site (see README.md). Resolve it from this
+# script's location so the deploy works regardless of the caller's working directory.
+$sourceDir = (Resolve-Path (Join-Path $PSScriptRoot "..\..\site")).Path
+Write-Host "Source: $sourceDir" -ForegroundColor DarkCyan
 $tempDir = Join-Path $env:TEMP "portfolio-deploy-$(Get-Date -Format 'yyyyMMddHHmmss')"
 New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
 
