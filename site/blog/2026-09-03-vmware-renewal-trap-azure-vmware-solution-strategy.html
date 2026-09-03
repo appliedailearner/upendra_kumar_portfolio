@@ -679,15 +679,19 @@
 
         <div
             style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(251, 191, 36, 0.25); border-left: 4px solid #fbbf24; padding: 1.5rem 1.75rem; border-radius: 8px; margin: 2rem 0;">
-            <h4 style="margin-top: 0; color: #fcd34d; font-family: 'Outfit', sans-serif;"><i class="fas fa-hourglass-half" style="margin-right: 8px;"></i> The AVS licensing clock &mdash; the "safe" choice has one too</h4>
-            <p style="margin-bottom: 0.75rem; font-size: 0.95rem;">Lifting to AVS used to sidestep the Broadcom licensing question. It no longer does. AVS is <em>not</em> being retired, but the bundled-licence route has closed and existing deployments have a compliance date:</p>
-            <ul style="margin-bottom: 0.75rem; padding-left: 1.25rem; font-size: 0.95rem;">
-                <li><strong>15 Oct 2025:</strong> the vDefend Firewall core entitlement bundled with AVS was frozen at that day's usage &mdash; any growth beyond it is now a paid add-on.</li>
-                <li><strong>1 Nov 2025:</strong> Microsoft stopped selling AVS nodes with VCF bundled. New deployments and expansions now require a <strong>portable VCF subscription purchased directly from Broadcom</strong> (BYOL) &mdash; roughly <strong>$175&ndash;$240 per core per year</strong> at list, with Broadcom controlling future increases.</li>
-                <li><strong>31 Oct 2026:</strong> existing <strong>pay-as-you-go, licence-included</strong> AVS deployments must move to BYOL or fall out of compliance with Broadcom's terms &mdash; Microsoft's own guidance flags <strong>"risk of service suspension"</strong> for capacity beyond your Broadcom core entitlement.</li>
-                <li><strong>30 Aug 2027:</strong> licence-included <strong>Reserved Instances</strong> must be exchanged for BYOL reservations, or those workloads move off AVS.</li>
+            <h4 style="margin-top: 0; color: #fcd34d; font-family: 'Outfit', sans-serif;"><i class="fas fa-hourglass-half" style="margin-right: 8px;"></i> The "safe" route is on a clock too</h4>
+            <p style="margin-bottom: 1rem; font-size: 0.95rem;">Teams pick AVS partly to make the Broadcom licensing problem disappear. It doesn't disappear &mdash; it just moves. AVS is <em>not</em> going away, but the all-in-one license is gone, and every existing deployment now has a deadline.</p>
+            <p style="margin: 0 0 0.4rem; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #94a3b8;">Already happened</p>
+            <ul style="margin-bottom: 1rem; padding-left: 1.25rem; font-size: 0.95rem;">
+                <li style="margin-bottom: 0.4rem;"><strong>15 Oct 2025.</strong> Your included vDefend firewall allowance was frozen at that day's usage. Use more and you pay extra.</li>
+                <li><strong>1 Nov 2025.</strong> Microsoft stopped bundling the VMware license with new AVS hosts. You now buy it straight from Broadcom &mdash; a "portable VCF" subscription at roughly <strong>$175&ndash;$240 per CPU core per year</strong>, with Broadcom (not Microsoft) setting future prices.</li>
             </ul>
-            <p style="margin-bottom: 0; font-size: 0.95rem;">Net effect: AVS is now <strong>two counterparties</strong> &mdash; Microsoft for the infrastructure, Broadcom for the licence &mdash; each with its own contract, price, and renewal cycle. And this isn't an Azure quirk to engineer around: AWS (VMware Cloud on AWS) and Google Cloud (GCVE) have made the same BYOL shift, so the direct-to-Broadcom relationship now follows VMware onto every hyperscaler. Factor both counterparties into the model and the decommission plan.</p>
+            <p style="margin: 0 0 0.4rem; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #fca5a5;">Hard deadlines</p>
+            <ul style="margin-bottom: 1rem; padding-left: 1.25rem; font-size: 0.95rem;">
+                <li style="margin-bottom: 0.4rem;"><strong>31 Oct 2026.</strong> Existing pay-as-you-go AVS on the old bundled license must switch to buy-direct. Miss it and Microsoft warns of <strong>"risk of service suspension"</strong> for any capacity above your Broadcom core count.</li>
+                <li><strong>30 Aug 2027.</strong> Same switch for reserved (1- and 3-year) AVS &mdash; convert the license or move those workloads off AVS.</li>
+            </ul>
+            <p style="margin-bottom: 0; font-size: 0.95rem;"><strong>The result:</strong> one AVS estate, <strong>two vendors to manage</strong> &mdash; Microsoft for the hardware, Broadcom for the license, each with its own bill and renewal date. And you can't dodge it by choosing AWS or Google instead: both made the identical change. The direct line to Broadcom follows VMware wherever it runs. Put both vendors in the cost model &mdash; and in the exit plan.</p>
         </div>
 
         <!-- Analogy Card -->
