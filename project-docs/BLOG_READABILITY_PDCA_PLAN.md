@@ -1,12 +1,12 @@
 # Blog Readability — PDCA Plan & To-Do Tracker
 
-**Owner:** Upendra Kumar  **Created:** 2026-09-28  **Status:** Cycle 1 not started
+**Owner:** Upendra Kumar  **Created:** 2026-09-28  **Status:** Cycle 1 done and live (2026-09-28); Cycle 2 not started
 
 **Goal:** make blog posts easy to read on desktop and phone, then make the fixes permanent so new posts don't reintroduce the problems.
 
 | Cycle | Scope | Items | Done |
 |---|---|---|---|
-| 1 | The unified SecOps post (`site/blog/2026-09-28-unified-security-operations-ai-era.html`) | 10 | 0 / 10 |
+| 1 | The unified SecOps post (`site/blog/2026-09-28-unified-security-operations-ai-era.html`) | 10 | 10 / 10 ✅ |
 | 2 | Shared blog template: `css/premium.css` and all 49 posts | 10 | 0 / 10 |
 | Act | Make it stick: BlogMaker template, publishing gate, review | 4 | 0 / 4 |
 
@@ -125,10 +125,10 @@ File for every item: `site/blog/2026-09-28-unified-security-operations-ai-era.ht
 - Desktop: three short horizontal bands, each readable in one glance.
 - Mobile: the icon sits above the text, and no card is taller than about 10 lines.
 
-- [ ] Implemented
-- [ ] Desktop validated: T03 ✅, T13 ✅, screenshot checked
-- [ ] Mobile validated: T03 ✅, T13 ✅, screenshot checked
-- [ ] Live validated
+- [x] Implemented
+- [x] Desktop validated: T03 ✅, T13 ✅, screenshot checked
+- [x] Mobile validated: T03 ✅, T13 ✅, screenshot checked
+- [x] Live validated
 
 ### C1-02 · Tables readable on phone
 
@@ -142,10 +142,10 @@ File for every item: `site/blog/2026-09-28-unified-security-operations-ai-era.ht
 - Desktop: the tables are unchanged.
 - Mobile: every field is visible without scrolling sideways, and the labels are readable.
 
-- [ ] Implemented
-- [ ] Desktop validated: T04 ✅
-- [ ] Mobile validated: T04 ✅, screenshot checked
-- [ ] Live validated
+- [x] Implemented
+- [x] Desktop validated: T04 ✅
+- [x] Mobile validated: T04 ✅, screenshot checked
+- [x] Live validated
 
 ### C1-03 · Attack-disruption timelines
 
@@ -157,10 +157,10 @@ File for every item: `site/blog/2026-09-28-unified-security-operations-ai-era.ht
 - Desktop: every step reads in 1–2 lines, and the time labels line up.
 - Mobile: the vertical line and dots stay aligned.
 
-- [ ] Implemented
-- [ ] Desktop validated: T05 ✅
-- [ ] Mobile validated: T05 ✅
-- [ ] Live validated
+- [x] Implemented
+- [x] Desktop validated: T05 ✅
+- [x] Mobile validated: T05 ✅
+- [x] Live validated
 
 ### C1-04 · Break up the text walls
 
@@ -176,10 +176,10 @@ File for every item: `site/blog/2026-09-28-unified-security-operations-ai-era.ht
 - Desktop: no block of text taller than about 4 lines without a break.
 - Mobile: the text is still comfortable to read, not cramped.
 
-- [ ] Implemented
-- [ ] Desktop validated: T06 ✅, T08 ✅
-- [ ] Mobile validated: T08 ✅
-- [ ] Live validated
+- [x] Implemented
+- [x] Desktop validated: T06 ✅, T08 ✅
+- [x] Mobile validated: T08 ✅
+- [x] Live validated
 
 ### C1-05 · Consistent type scale and readable small text
 
@@ -192,10 +192,10 @@ File for every item: `site/blog/2026-09-28-unified-security-operations-ai-era.ht
 **Look for:**
 - Both sizes: cards and body no longer feel like different documents, and grey footnotes are easy to read.
 
-- [ ] Implemented
-- [ ] Desktop validated: T07 ✅, T09 ✅
-- [ ] Mobile validated: T07 ✅, T09 ✅
-- [ ] Live validated
+- [x] Implemented
+- [x] Desktop validated: T07 ✅, T09 ✅
+- [x] Mobile validated: T07 ✅, T09 ✅
+- [x] Live validated
 
 ### C1-06 · Stat tiles
 
@@ -209,10 +209,10 @@ File for every item: `site/blog/2026-09-28-unified-security-operations-ai-era.ht
 - Desktop: all four tiles are the same height.
 - Mobile: the 2×2 grid fits in about half a screen.
 
-- [ ] Implemented
-- [ ] Desktop validated: T16 ✅
-- [ ] Mobile validated: T16 ✅, screenshot checked
-- [ ] Live validated
+- [x] Implemented
+- [x] Desktop validated: T16 ✅
+- [x] Mobile validated: T16 ✅, screenshot checked
+- [x] Live validated
 
 ### C1-07 · Opening paragraph
 
@@ -225,10 +225,10 @@ File for every item: `site/blog/2026-09-28-unified-security-operations-ai-era.ht
 **Look for:**
 - Both sizes: it reads as a hook, not a wall.
 
-- [ ] Implemented
-- [ ] Desktop validated: T15 ✅
-- [ ] Mobile validated: T15 ✅
-- [ ] Live validated
+- [x] Implemented
+- [x] Desktop validated: T15 ✅
+- [x] Mobile validated: T15 ✅
+- [x] Live validated
 
 ### C1-08 · Author note on phone
 
@@ -239,10 +239,10 @@ File for every item: `site/blog/2026-09-28-unified-security-operations-ai-era.ht
 **Look for:**
 - Mobile: the text runs the full card width.
 
-- [ ] Implemented
-- [ ] Desktop validated: no visual change
-- [ ] Mobile validated: T19 ✅
-- [ ] Live validated
+- [x] Implemented
+- [x] Desktop validated: no visual change
+- [x] Mobile validated: T19 ✅
+- [x] Live validated
 
 ### C1-09 · Hero spacing and heading orphans
 
@@ -256,35 +256,34 @@ File for every item: `site/blog/2026-09-28-unified-security-operations-ai-era.ht
 **Look for:**
 - Both sizes: the opening paragraph follows the tags without a void, and no heading ends in one lonely word.
 
-- [ ] Implemented
-- [ ] Desktop validated: T17 ✅, T18 ✅
-- [ ] Mobile validated: T17 ✅, T18 ✅
-- [ ] Live validated
+- [x] Implemented
+- [x] Desktop validated: T17 ✅, T18 ✅
+- [x] Mobile validated: T17 ✅, T18 ✅
+- [x] Live validated
 
 ### C1-10 · Sideways scroll on phone
 
-**Checks:** T01  **Baseline:** 60px overflow on mobile, which the validator traced to the hero section
+**Checks:** T01  **Baseline:** 60px overflow on mobile
 
-**Change:**
-- Open `mobile/T01-*.png` from the latest report to find the overflowing element.
-- Constrain it (`max-width: 100%`, `overflow-wrap: anywhere`, or fix the offending width).
-- If the cause turns out to be shared, move this item to C2-07.
+**Root cause (found 2026-09-28):** the hidden glossary tooltips (`.eli5-term::after`, `min-width: 200px`) still take up layout space while invisible, so the page is 450px wide instead of 390px. The first checker run blamed the hero section; that was wrong, because fixed-position layers (navbar, particle canvas) stretch to the widened page. The checker now ignores those layers.
+
+**Change made:** tooltips use `display: none` until hovered, capped at `min(300px, 80vw)`. This is a post-level override; the shared fix is C2-07.
 
 **Look for:**
 - Mobile: the page doesn't shift sideways when you swipe.
 
-- [ ] Implemented
-- [ ] Desktop validated: T01 ✅
-- [ ] Mobile validated: T01 ✅
-- [ ] Live validated
+- [x] Implemented
+- [x] Desktop validated: T01 ✅
+- [x] Mobile validated: T01 ✅
+- [x] Live validated
 
 ### Cycle 1 release
 
-- [ ] Local run: all Cycle 1 checks (T01, T03–T09, T13, T15–T19) PASS on both sizes
-- [ ] `--slices` run reviewed, desktop and mobile, top to bottom
-- [ ] Commit "Readability pass: unified SecOps post" (post file only), then `git push origin main`
-- [ ] `az account set --subscription 87cf2b93-…`, then `tools/deploy/deploy-azure.ps1`
-- [ ] `--live` run: the same checks PASS on both sizes; result logged in the test log below
+- [x] Local run: all Cycle 1 checks (T01, T03–T09, T13, T15–T19) PASS on both sizes
+- [x] `--slices` run reviewed, desktop and mobile, top to bottom
+- [x] Commit "Readability pass: unified SecOps post" (post file only), then `git push origin main`
+- [x] `az account set --subscription 87cf2b93-…`, then `tools/deploy/deploy-azure.ps1`
+- [x] `--live` run: the same checks PASS on both sizes; result logged in the test log below
 
 ---
 
@@ -385,7 +384,7 @@ Patch script for per-post edits: `tools/scripts/patch-blog-template.js`, to be w
 
 **Checks:** T01  **Scope:** `css/premium.css`, plus the posts named in the `--all` report
 
-**Change:** fix the shared cause found in C1-10. Then clear any post-specific overflow the `--all` report lists.
+**Change:** move the C1-10 tooltip fix (`display: none` until hover, `max-width: min(300px, 80vw)`) into `css/premium.css` so all 11 glossary posts get it. Then clear any post-specific overflow the `--all` report lists; 25 posts fail T01, so some have other causes.
 
 - [ ] Implemented
 - [ ] Desktop validated
@@ -500,3 +499,5 @@ Add a row after every validation run.
 |---|---|---|---|---|---|---|
 | 2026-09-28 | SecOps post | live | `20260928-104646-live` | 17 | 16 | Baseline before any changes |
 | 2026-09-28 | All 49 posts | local | `_all/20260928-104724-local` | see Cycle 2 baseline | see Cycle 2 baseline | Baseline; T21 re-run with the Cloudflare beacon excluded, 19 posts |
+| 2026-09-28 | SecOps post | local | `20260928-162648-local` | 6 | 5 | Cycle 1 done: all Cycle 1 checks pass; remaining fails are Cycle 2 (T02, T10, T11, T12, T14 desktop, T20) |
+| 2026-09-28 | SecOps post | live | `20260928-163335-live` | 6 | 5 | After deploy (commit `8654cc0`); same as local. Visual review of slices done at both sizes |
