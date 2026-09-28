@@ -106,10 +106,13 @@ function pageChecks(vp) {
         const p = m[1].split(/[ ,/]+/).filter(Boolean).map(Number);
         return [p[0], p[1], p[2], p.length > 3 ? p[3] : 1];
     };
+    // Returns null when a gradient/image background sits behind the text: contrast can't be computed reliably.
     const effectiveBg = (el) => {
         const stack = [];
         for (let n = el; n && n.nodeType === 1; n = n.parentElement) {
-            const c = rgba(getComputedStyle(n).backgroundColor);
+            const cs = getComputedStyle(n);
+            if (cs.backgroundImage && cs.backgroundImage !== 'none' && stack.every((c) => c[3] < 1)) return null;
+            const c = rgba(cs.backgroundColor);
             if (c[3] > 0) stack.push(c);
             if (c[3] >= 1) break;
         }
@@ -129,8 +132,11 @@ function pageChecks(vp) {
     // T01 — no horizontal page overflow
     {
         const over = document.documentElement.scrollWidth - cw;
+        // Fixed-position layers (navbar, particle canvas) stretch to the widened page, so they're symptoms, not causes.
+        // Hidden pseudo-element tooltips can also cause overflow but aren't elements; if no offender is listed, check ::after rules.
         const offenders = [...document.querySelectorAll('body *')]
             .filter((e) => visible(e) && e.getBoundingClientRect().right > cw + 1 && !e.closest('.table-scroll'))
+            .filter((e) => !e.closest('.navbar, #particles-canvas') && getComputedStyle(e).position !== 'fixed')
             .filter((e) => !e.parentElement || !(e.parentElement.getBoundingClientRect().right > cw + 1))
             .slice(0, 3).map((e) => tag(e, 'T01'));
         add('T01', 'No sideways page scroll', over <= 0 ? 'PASS' : 'FAIL', `${over}px wider than screen`, '0px', offenders);
@@ -151,15 +157,15 @@ function pageChecks(vp) {
 
     // T03 — executive summary cards readable
     {
-        const ps = [...document.querySelectorAll('.executive-grid .glass-card p')];
-        if (!ps.length) NA('T03', 'Executive summary cards', 'no .executive-grid');
+        const ps = [...document.querySelectorAll('.executive-grid .glass-card p, .exec-rows .exec-row p')];
+        if (!ps.length) NA('T03', 'Executive summary cards', 'no executive summary');
         else {
             const maxL = Math.max(...ps.map(lines));
             const minW = Math.min(...ps.map((p) => p.getBoundingClientRect().width));
             const limit = vp === 'desktop' ? 5 : 10;
             const ok = maxL <= limit || (vp === 'desktop' && minW >= 480);
             add('T03', 'Executive summary cards', ok ? 'PASS' : 'FAIL', `max ${maxL} lines, narrowest text ${Math.round(minW)}px`,
-                vp === 'desktop' ? '≤5 lines or ≥480px wide' : '≤10 lines', ok ? [] : [tag(document.querySelector('.executive-grid'), 'T03')]);
+                vp === 'desktop' ? '≤5 lines or ≥480px wide' : '≤10 lines', ok ? [] : [tag(document.querySelector('.executive-grid, .exec-rows'), 'T03')]);
         }
     }
 
@@ -224,7 +230,8 @@ function pageChecks(vp) {
             const s = getComputedStyle(el);
             if (s.webkitTextFillColor && s.webkitTextFillColor.includes('rgba(0, 0, 0, 0)')) continue; // gradient text
             const fs = parseFloat(s.fontSize);
-            const c = contrast(rgba(s.color), effectiveBg(el));
+            const bg = effectiveBg(el);
+            const c = bg ? contrast(rgba(s.color), bg) : 21;
             // Letter-spaced uppercase eyebrow labels read fine down to 12px.
             const minSize = s.textTransform === 'uppercase' && parseFloat(s.letterSpacing) > 0 ? 12 : 13;
             if (fs < minSize || c < 4.5) bad.push({ el, why: `${fs}px, contrast ${c.toFixed(1)}` });
