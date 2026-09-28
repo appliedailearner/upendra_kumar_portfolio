@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Attackers need 72 minutes; stolen-credential breaches take 292 days to contain. A unified SecOps and AI-security blueprint on Defender, Entra, Purview, Sentinel and Foundry.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://portfolio.upendrakumar.com/blog/2026-09-28-unified-security-operations-ai-era.html">
+    <meta property="og:title" content="72 Minutes vs 292 Days: Unified Security Operations for the AI Era">
+    <meta property="og:description"
+        content="Attackers need 72 minutes; stolen-credential breaches take 292 days to contain. A unified SecOps and AI-security blueprint on Defender, Entra, Purview, Sentinel and Foundry.">
+    <meta property="og:image" content="https://portfolio.upendrakumar.com/images/blog/2026-09-28-unified-secops-og.webp">
+    <meta property="og:site_name" content="Upendra Kumar | Cloud Strategy & Architecture">
+    <meta property="article:author" content="Upendra Kumar">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://portfolio.upendrakumar.com/blog/2026-09-28-unified-security-operations-ai-era.html">
+    <meta property="twitter:title" content="72 Minutes vs 292 Days: Unified Security Operations for the AI Era">
+    <meta property="twitter:description"
+        content="Attackers need 72 minutes; stolen-credential breaches take 292 days to contain. A unified SecOps and AI-security blueprint on Defender, Entra, Purview, Sentinel and Foundry.">
+    <meta property="twitter:image" content="https://portfolio.upendrakumar.com/images/blog/2026-09-28-unified-secops-og.webp">
+
+    <title>Unified Security Operations for the AI Era | Upendra Kumar</title>
+
+    <link rel="stylesheet" href="../css/style.css?v=49">
+    <link rel="stylesheet" href="../css/premium.css?v=49">
+    <link rel="stylesheet" href="../css/dropdown.css?v=49">
+
+    <!-- Performance: Critical Asset Preloading -->
+    <link rel="preload" href="../css/style.css?v=49" as="style">
+    <link rel="preload" href="../js/navbar-component.js" as="script">
+    <link rel="preload" href="../js/main.js" as="script">
+
+    <!-- JSON-LD Article Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "72 Minutes vs 292 Days: Unified Security Operations for the AI Era",
+      "image": "https://portfolio.upendrakumar.com/images/blog/2026-09-28-unified-secops-og.webp",
+      "author": {
+        "@type": "Person",
+        "name": "Upendra Kumar",
+        "url": "https://portfolio.upendrakumar.com/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Upendra Kumar",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://portfolio.upendrakumar.com/favicon.ico"
+        }
+      },
+      "datePublished": "2026-09-28",
+      "dateModified": "2026-09-28",
+      "description": "Attackers need 72 minutes; stolen-credential breaches take 292 days to contain. A unified SecOps and AI-security blueprint on Defender, Entra, Purview, Sentinel and Foundry.",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://portfolio.upendrakumar.com/blog/2026-09-28-unified-security-operations-ai-era.html"
+      }
+    }
+    </script>
+
+    <style>
+        .nav-logo-uk {
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+            border-radius: 8px !important;
+        }
+
+        /* Blog Post Specific Styles */
+
+        /* Glassmorphism Engine & Analyst Cards */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(56, 189, 248, 0.6);
+        }
+
+        /* Smart Glossary Tooltips */
+        .eli5-term {
+            border-bottom: 2px dashed #a855f7;
+            cursor: help;
+            position: relative;
+            font-weight: 600;
+            color: #c084fc;
+            -webkit-text-fill-color: initial;
+        }
+
+        .eli5-term::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            color: #f8fafc;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 400;
+            white-space: normal;
+            min-width: 200px;
+            max-width: 300px;
+            text-align: left;
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+            pointer-events: none;
+            line-height: 1.4;
+            -webkit-text-fill-color: initial;
+        }
+
+        .eli5-term::before {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-2px);
+            border-width: 8px;
+            border-style: solid;
+            border-color: rgba(168, 85, 247, 0.4) transparent transparent transparent;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .eli5-term:hover::after,
+        .eli5-term:hover::before {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Sticky Table of Contents */
+        .toc-container {
+            position: sticky;
+            top: 100px;
+            width: 250px;
+            float: left;
+            margin-left: -280px;
+            padding: 1.5rem;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .toc-container h4 {
+            font-family: 'Outfit', sans-serif;
+            color: #38bdf8;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-list li {
+            margin-bottom: 0.75rem;
+        }
+
+        .toc-link {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: block;
+            padding-left: 0.5rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s ease;
+            line-height: 1.4;
+        }
+
+        .toc-link:hover {
+            color: #e2e8f0;
+            border-left-color: #a855f7;
+        }
+
+        .toc-link.active {
+            color: #60a5fa;
+            font-weight: 600;
+            border-left: 3px solid #60a5fa;
+        }
+
+        @media (max-width: 1200px) {
+            .toc-container {
+                display: none;
+            }
+        }
+
+        .blog-post-hero {
+            padding: 120px 0 60px;
+            background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.15), transparent 60%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .blog-post-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .blog-post-content h2 {
+            color: var(--text-main);
+            font-size: 2rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .blog-post-content h3 {
+            color: #e2e8f0;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-post-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-post-content ul,
+        .blog-post-content ol {
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .blog-post-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-post-content code {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .blog-post-content pre {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-left: 4px solid #0ea5e9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+
+        .blog-post-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .blog-post-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .blog-post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 2rem 0;
+        }
+
+        .blog-tag {
+            background: rgba(168, 85, 247, 0.1);
+            color: #a855f7;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .btn {
+            display: inline-block;
+            font-weight: 600;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+
+        .btn-primary:hover {
+            background-color: #2563eb;
+            border-color: #2563eb;
+        }
+
+        .btn-outline {
+            color: #3b82f6;
+            background-color: transparent;
+            border-color: #3b82f6;
+        }
+
+        .btn-outline:hover {
+            color: #fff;
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .checklist-container {
+            display: block !important;
+            background: rgba(15, 23, 42, 0.4);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(56, 189, 248, 0.1);
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .checklist-item input {
+            margin-top: 0.4rem;
+        }
+
+        .responsive-grid,
+        .comparison-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: 1fr;
+            margin-bottom: 2rem;
+        }
+
+        .comparison-grid {
+            margin: 2rem 0;
+        }
+
+        @media (min-width: 992px) {
+            .blog-post-content .responsive-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+
+            .blog-post-content .comparison-grid {
+                grid-template-columns: 1fr 1fr !important;
+            }
+        }
+
+        .architecture-card {
+            margin: 3.5rem 0;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .architecture-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .architecture-card:hover img {
+            transform: scale(1.01);
+        }
+
+        .diagram-caption {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .analogy-block {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .executive-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .executive-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Responsive comparison table */
+        .table-scroll {
+            overflow-x: auto;
+            overflow-y: hidden;
+            margin: 2rem 0;
+            border-radius: 12px;
+            border: 1px solid rgba(56, 189, 248, 0.15);
+        }
+
+        .table-scroll table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 640px;
+            font-size: 0.95rem;
+        }
+
+        .table-scroll th,
+        .table-scroll td {
+            text-align: left;
+            padding: 0.9rem 1.1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            vertical-align: top;
+        }
+
+        .table-scroll thead th {
+            background: rgba(56, 189, 248, 0.08);
+            color: #e2e8f0;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+        }
+
+        .table-scroll tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table-scroll td:first-child {
+            color: #cbd5e1;
+            font-weight: 600;
+        }
+
+        /* ---- Post-specific components (unified SecOps post) ---- */
+        .stat-trio {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .stat-tile {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            border-top: 3px solid #fbbf24;
+            border-radius: 12px;
+            padding: 1.5rem 1.25rem;
+            text-align: center;
+        }
+
+        .stat-tile .stat-num {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.6rem;
+            font-weight: 800;
+            line-height: 1;
+            color: #fbbf24;
+            margin-bottom: 0.6rem;
+        }
+
+        .stat-tile .stat-label {
+            font-size: 0.92rem;
+            color: #cbd5e1;
+            line-height: 1.45;
+        }
+
+        .stat-tile .stat-src {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-top: 0.6rem;
+            line-height: 1.35;
+        }
+
+        .card-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-trio.stat-quad {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .card-grid-2,
+        .card-grid-4 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+            margin: 2rem 0;
+        }
+
+        .mini-card {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .mini-card h4 {
+            margin: 0 0 0.6rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .mini-card p {
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Horizontal incident timeline (stacks vertically on mobile) */
+        .incident {
+            background: rgba(15, 23, 42, 0.45);
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            border-radius: 14px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .incident-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .incident-head strong {
+            color: #f8fafc;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+        }
+
+        .incident-head span {
+            color: #34d399;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .incident-steps {
+            list-style: none;
+            padding: 0 !important;
+            margin: 0 !important;
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .incident-steps li {
+            flex: 1;
+            margin: 0 !important;
+            padding-top: 1.1rem;
+            border-top: 3px solid rgba(251, 191, 36, 0.6);
+            position: relative;
+            font-size: 0.85rem;
+            line-height: 1.45;
+            color: #94a3b8;
+        }
+
+        .incident-steps li::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 0;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: #fbbf24;
+        }
+
+        .incident-steps li.contain {
+            border-top-color: #38bdf8;
+            color: #e2e8f0;
+            font-weight: 600;
+        }
+
+        .incident-steps li.contain::before {
+            background: #38bdf8;
+        }
+
+        .incident-steps .t {
+            display: block;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: #fbbf24;
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .incident-steps li.contain .t {
+            color: #38bdf8;
+        }
+
+        /* Layered reference architecture */
+        .arch-stack {
+            margin: 2.5rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+
+        .arch-lane {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 1rem;
+            align-items: stretch;
+        }
+
+        .arch-lane-label {
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+        }
+
+        .arch-lane-boxes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+        }
+
+        .arch-box {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            border-radius: 10px;
+            padding: 0.9rem 1rem;
+            text-align: center;
+        }
+
+        .arch-box > strong {
+            display: block;
+            color: #f8fafc;
+            font-size: 0.95rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .arch-box > span {
+            display: block;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            margin-top: 0.25rem;
+        }
+
+        .lane-edge .arch-lane-label { color: #60a5fa; }
+        .lane-edge .arch-box { border-color: rgba(96, 165, 250, 0.45); }
+        .lane-ai .arch-lane-label { color: #38bdf8; }
+        .lane-posture .arch-lane-label { color: #c084fc; }
+        .lane-posture .arch-box { border-color: rgba(192, 132, 252, 0.45); }
+        .lane-ops .arch-lane-label { color: #34d399; }
+        .lane-ops .arch-box { border-color: rgba(52, 211, 153, 0.5); }
+
+        .arch-flow-note {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #64748b;
+            letter-spacing: 0.05em;
+        }
+
+        @media (max-width: 768px) {
+            .stat-trio,
+            .stat-trio.stat-quad,
+            .card-grid-3,
+            .card-grid-2,
+            .card-grid-4,
+            .arch-lane-boxes {
+                grid-template-columns: 1fr;
+            }
+
+            .arch-lane {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .incident-steps {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .incident-steps li {
+                border-top: none;
+                border-left: 3px solid rgba(251, 191, 36, 0.6);
+                padding: 0 0 1rem 1.25rem;
+            }
+
+            .incident-steps li.contain {
+                border-left-color: #38bdf8;
+            }
+
+            .incident-steps li::before {
+                top: 0;
+                left: -8px;
+            }
+
+            .blog-post-meta {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+        }
+    </style>
+
+    <!-- Performance: Preconnect to Font & Script Servers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
+    <!-- Typography + icons: loaded non-render-blocking, swapped to stylesheet on load -->
+    <link rel="preload" as="style"
+          href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
+          onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" as="style"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"
+          onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+              integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+              crossorigin="anonymous" referrerpolicy="no-referrer">
+    </noscript>
+    <!-- Azure App Insights SDK (RUM) -->
+    <script type="text/javascript">
+        !function (T, l, y) {
+            var S = T.location, k = "script", D = "connectionString", C = "ingestionendpoint", I = "disableExceptionTracking";
+            var _ = y.url || "https://js.monitor.azure.com/scripts/b/ai.2.min.js";
+            if (y[D]) {
+                var T = T.appInsights || (T.appInsights = {});
+                T.loadAppInsights = function () {
+                    var p = { config: y }; T.initialize = !0; T._tags = [];
+                    T.addTelemetryInitializer = function (f) { T._tags.push(f); };
+                    var v = window.fetch;
+                    T.track = function (e) {
+                        (T._tags || []).forEach(function (f) { try { f(e); } catch (ex) { } });
+                        var i = p.config.endpointUrl || "https://dc.services.visualstudio.com/v2/track";
+                        v(i, { method: "POST", body: JSON.stringify(e), mode: "cors" }).catch(function () { });
+                    };
+                    T.trackEvent = function (d) { T.track({ name: d.name || "Event", data: { baseData: d } }); };
+                    T.trackPageView = function (d) { T.track({ name: "PageView", data: { baseData: d } }); };
+                    T.trackException = function (d) { T.track({ name: "Exception", data: { baseData: d } }); };
+                }
+            }
+        }(window, document, {
+            connectionString: "InstrumentationKey=8fc596f2-bb91-49d7-8495-2ac1ecd30501;IngestionEndpoint=https://centralindia-0.in.liana.ice.azure.microsoft.com/",
+            endpointUrl: "https://centralindia-0.in.liana.ice.azure.microsoft.com/v2/track"
+        });
+    </script>
+    <script src="../js/observability.js?v=3" defer></script>
+</head>
+
+    <body class="dark-theme">
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="dynamic-nav"></nav>
+    <script src="../js/navbar-component.js" defer></script>
+
+    <!-- Blog Post Hero -->
+    <section class="blog-post-hero">
+        <div class="container" style="max-width: 1000px;">
+            <div style="margin-bottom: 2rem;">
+                <a href="../blog.html" style="color: var(--primary-color); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem;">
+                    <i class="fas fa-arrow-left"></i> Back to Insights
+                </a>
+                <br>
+                <span style="display: inline-block; padding: 0.3rem 0.8rem; background: rgba(56, 189, 248, 0.1); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 4px; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Value Architect Playbook</span>
+            </div>
+
+            <h1 style="font-family: 'Outfit', sans-serif; font-size: 3rem; line-height: 1.2; margin-bottom: 1.5rem; background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                72 Minutes vs 292 Days: Unified Security Operations for the AI Era
+            </h1>
+
+            <div class="blog-post-meta">
+                <div><i class="fas fa-user"></i> Upendra Kumar</div>
+                <div><i class="fas fa-calendar"></i> September 28, 2026</div>
+                <div><i class="fas fa-clock"></i> 18 min read</div>
+            </div>
+
+            <div class="blog-post-tags">
+                <span class="blog-tag"><i class="fas fa-tag"></i> Security</span>
+                <span class="blog-tag"><i class="fas fa-tag"></i> SecOps</span>
+                <span class="blog-tag"><i class="fas fa-tag"></i> AI Security</span>
+                <span class="blog-tag"><i class="fas fa-tag"></i> Microsoft Defender</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Post Content -->
+    <article class="blog-post-content">
+        <div class="toc-container">
+            <h4><i class="fas fa-list-ul" style="opacity: 0.8;"></i> Contents</h4>
+            <ul class="toc-list">
+                <li><a href="#executive-impact" class="toc-link">Executive Impact</a></li>
+                <li><a href="#clock" class="toc-link">The Clock Started at the Click</a></li>
+                <li><a href="#sprawl" class="toc-link">Six Consoles, Zero Context</a></li>
+                <li><a href="#predictive-soc" class="toc-link">From Reactive to Predictive</a></li>
+                <li><a href="#disruption" class="toc-link">Attack Disruption: the 17-Minute Proof</a></li>
+                <li><a href="#agentic-threats" class="toc-link">AI Agents Are the New Attack Surface</a></li>
+                <li><a href="#reference-architecture" class="toc-link">Reference Architecture</a></li>
+                <li><a href="#managed-services" class="toc-link">24/7 Without Hiring 24/7</a></li>
+                <li><a href="#economics" class="toc-link">The CFO Slide</a></li>
+                <li><a href="#partners" class="toc-link">The Partner Playbook</a></li>
+                <li><a href="#roadmap" class="toc-link">The 180-Day Roadmap</a></li>
+                <li><a href="#caveats" class="toc-link">What the Pitch Deck Won't Tell You</a></li>
+                <li><a href="#conclusion" class="toc-link">Executive Conclusion</a></li>
+            </ul>
+        </div>
+
+        <p class="lead" style="font-size: 1.45rem; color: #f8fafc; font-weight: 700; line-height: 1.45; margin-bottom: 1.5rem; border-left: 4px solid #38bdf8; padding-left: 1.5rem;">
+            An attacker needs about 72 minutes from a phishing click to your data. A breach that starts with stolen credentials takes, on average, 292 days to find and contain. That gap is not a tooling problem you fix with a seventh console. It is an architecture problem &mdash; and AI agents are about to make it wider.
+        </p>
+
+        <div style="display: flex; align-items: center; gap: 1rem; background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(56, 189, 248, 0.15); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 2.5rem;">
+            <div style="width: 42px; height: 42px; flex-shrink: 0; background: rgba(56, 189, 248, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(56, 189, 248, 0.2);">
+                <i class="fas fa-shield-halved" style="color: #38bdf8; font-size: 1.1rem;"></i>
+            </div>
+            <p style="margin: 0; font-size: 0.9rem; color: #94a3b8; line-height: 1.5;">
+                Written by <strong style="color: #e2e8f0;">Upendra Kumar</strong>, drawing on a joint Azure AI, cloud and security architecture briefing prepared for partners and customers (FY26). The statistics come from Microsoft threat intelligence, IBM and Forrester research as cited in Microsoft Security partner materials; each is attributed where it appears. Where a figure is vendor-commissioned, it is labelled as such.
+            </p>
+        </div>
+
+        <!-- Premium Executive Impact Summary -->
+        <div id="executive-impact" style="margin-bottom: 4rem; position: relative;">
+            <div style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 80%; height: 100px; background: radial-gradient(ellipse, rgba(168, 85, 247, 0.15) 0%, transparent 70%); filter: blur(30px); z-index: -1;"></div>
+
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <span style="display: inline-block; padding: 0.4rem 1rem; background: rgba(168, 85, 247, 0.1); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 20px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 1rem;">
+                    <i class="fas fa-chart-line" style="margin-right: 6px;"></i> Strategic Alignment &amp; ROI
+                </span>
+                <h2 style="margin: 0; font-family: 'Outfit', sans-serif; font-size: 2.2rem; color: #f8fafc;">Executive Impact <span style="color: transparent; background: linear-gradient(90deg, #c084fc, #3b82f6); -webkit-background-clip: text; background-clip: text;">Summary</span></h2>
+            </div>
+
+            <div class="executive-grid">
+
+                <div class="glass-card" style="padding: 2rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)); border: 1px solid rgba(248, 113, 113, 0.2); border-top: 3px solid #f87171; position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: -15px; right: -15px; opacity: 0.03; font-size: 8rem; color: #f87171;"><i class="fas fa-exclamation-triangle"></i></div>
+                    <div style="width: 45px; height: 45px; background: rgba(248, 113, 113, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(248, 113, 113, 0.2);">
+                        <i class="fas fa-fire" style="color: #f87171; font-size: 1.2rem;"></i>
+                    </div>
+                    <h4 style="color: #fca5a5; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">The Business Problem</h4>
+                    <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">Attackers move in minutes; defenders detect in months. 66% of attack paths involve identity compromise, 84% involve an internet exposure, and SOCs running six or more disconnected tools admit to missing high-priority alerts. Now every AI app and agent the business ships adds prompts, tools, tokens and data stores to the attack surface &mdash; faster than the SOC can hire for it.</p>
+                </div>
+
+                <div class="glass-card" style="padding: 2rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)); border: 1px solid rgba(96, 165, 250, 0.2); border-top: 3px solid #60a5fa; position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: -15px; right: -15px; opacity: 0.03; font-size: 8rem; color: #60a5fa;"><i class="fas fa-chess-knight"></i></div>
+                    <div style="width: 45px; height: 45px; background: rgba(96, 165, 250, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(96, 165, 250, 0.2);">
+                        <i class="fas fa-network-wired" style="color: #60a5fa; font-size: 1.2rem;"></i>
+                    </div>
+                    <h4 style="color: #93c5fd; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">The Strategic Play</h4>
+                    <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">Collapse posture, protection and SOC operations onto one signal plane &mdash; Entra, Defender XDR, Purview and Sentinel &mdash; so identity, endpoint, email, data and AI telemetry correlate into one incident. Switch on automatic attack disruption. Put Foundry guardrails in front of every model and route all AI alerts into the same SOC. Buy 24/7 coverage as a managed service instead of building a night shift.</p>
+                </div>
+
+                <div class="glass-card" style="padding: 2rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)); border: 1px solid rgba(52, 211, 153, 0.2); border-top: 3px solid #34d399; position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: -15px; right: -15px; opacity: 0.03; font-size: 8rem; color: #34d399;"><i class="fas fa-award"></i></div>
+                    <div style="width: 45px; height: 45px; background: rgba(52, 211, 153, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(52, 211, 153, 0.2);">
+                        <i class="fas fa-chart-pie" style="color: #34d399; font-size: 1.2rem;"></i>
+                    </div>
+                    <h4 style="color: #6ee7b7; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">The Executive ROI</h4>
+                    <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">Containment measured in <strong style="color:#e2e8f0;">minutes, not 292 days</strong> &mdash; two documented incidents were disrupted in ~20 and 17 minutes. For a 250-seat Business Premium tenant, the Defender Suite lists at <strong style="color:#e2e8f0;">~$54,600/yr less</strong> than the same five components bought standalone (~$96,600/yr with Purview). A commissioned Forrester study projects <strong style="color:#e2e8f0;">254% three-year ROI</strong> for managed XDR. Directional numbers &mdash; model your own.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 id="clock"><span class="gradient-text">The Clock Started at the Click</span></h2>
+        <p>The CISO asked me a simple question in a quarterly review: <em>"If someone in finance clicks the wrong link at 9:00, when do we know?"</em></p>
+        <p>The honest answer was: it depends which of our six consoles lights up, and whether anyone is looking at it.</p>
+        <p>That answer is the problem. The risks are familiar &mdash; phishing, stolen identities, exposed services. What changed is the speed and the scale.</p>
+
+        <div class="stat-trio">
+            <div class="stat-tile">
+                <div class="stat-num">67%</div>
+                <div class="stat-label">of phishing attacks used some form of AI</div>
+                <div class="stat-src">Microsoft threat intelligence</div>
+            </div>
+            <div class="stat-tile">
+                <div class="stat-num">66%</div>
+                <div class="stat-label">of attack paths involve identity compromise</div>
+                <div class="stat-src">Microsoft threat intelligence</div>
+            </div>
+            <div class="stat-tile">
+                <div class="stat-num">84%</div>
+                <div class="stat-label">of attack paths involve an internet exposure</div>
+                <div class="stat-src">Microsoft threat intelligence</div>
+            </div>
+        </div>
+
+        <p>Now put the defender's clock next to the attacker's:</p>
+
+        <div class="stat-trio">
+            <div class="stat-tile">
+                <div class="stat-num">72 min</div>
+                <div class="stat-label">median time from a phishing click to an attacker reaching data inside the environment</div>
+                <div class="stat-src">Microsoft research</div>
+            </div>
+            <div class="stat-tile">
+                <div class="stat-num">292 days</div>
+                <div class="stat-label">to identify and contain breaches involving stolen credentials</div>
+                <div class="stat-src">IBM Cost of a Data Breach, 2024</div>
+            </div>
+            <div class="stat-tile">
+                <div class="stat-num">73%</div>
+                <div class="stat-label">of security professionals admit to missing, ignoring or failing to act on high-priority alerts</div>
+                <div class="stat-src">Industry survey, as cited by Microsoft</div>
+            </div>
+        </div>
+
+        <p><strong>Seventy-two minutes versus 292 days.</strong> No amount of analyst heroics closes a gap that size. Three forces keep widening it, and each maps to a question every CISO is already asking:</p>
+        <ul>
+            <li><strong>Threats evolve faster than detections.</strong> &ldquo;How do I stay ahead of emerging threats and avoid being the next headline?&rdquo;</li>
+            <li><strong>AI raises attack frequency and velocity.</strong> &ldquo;How do I deal with alert fatigue and focus on what matters?&rdquo;</li>
+            <li><strong>The skills gap is widening and burnout is at a high.</strong> &ldquo;How do I keep 24/7 coverage without more in-house talent?&rdquo;</li>
+        </ul>
+        <p>Every section below answers one of those three questions. None of them is answered by buying another point product.</p>
+
+        <h2 id="sprawl"><span class="gradient-text">Six Consoles, Zero Context</span></h2>
+        <p>Walk into most enterprise security organisations and you'll find the same map. Functional teams &mdash; identity, AppSec, cloud security, data protection, endpoint, architecture. A point product for each &mdash; email security, network security, vulnerability management, DLP, EDR, ITDR, CASB, CSPM. And a SOC on the other side of the wall with its own stack &mdash; SIEM, SOAR, UEBA, threat intel, IDS, XDR.</p>
+        <p>Each tool is good at its job. <strong>None of them knows what the others saw.</strong></p>
+        <p>So an identity alert, an endpoint alert and a data-access alert that are really <em>one</em> attack arrive as three tickets, in three queues, triaged by three people. That is how a 72-minute attack becomes a 292-day breach.</p>
+
+        <div class="analogy-block">
+            <h3 style="margin-top: 0; color: #f8fafc; font-family: 'Outfit', sans-serif;"><i class="fas fa-plane-departure" style="color: #38bdf8; margin-right: 0.5rem;"></i> Architect's Corner: Six Checkpoints vs One Control Tower</h3>
+            <div class="comparison-grid">
+                <div class="glass-card">
+                    <h4 style="margin-top: 0; color: #fca5a5;">Six checkpoints, six logbooks</h4>
+                    <p style="margin-bottom: 0;">Imagine an airport where passport control, baggage scanning, the gate and the air marshal each keep their own paper log. A passenger with a fake passport, a flagged bag and a gate-swap looks fine at every single checkpoint. Nobody is negligent. Nobody sees the pattern.</p>
+                </div>
+                <div class="glass-card">
+                    <h4 style="margin-top: 0; color: #6ee7b7;">One control tower</h4>
+                    <p style="margin-bottom: 0;">Now feed every checkpoint into one tower that sees the passenger, the bag and the gate together &mdash; and can hold the flight on its own authority. Same guards. Same scanners. The difference is correlation and the power to act. That is what a unified SecOps platform is.</p>
+                </div>
+            </div>
+        </div>
+
+        <p>The target state isn't &ldquo;one vendor&rdquo;. It's three mutually reinforcing flywheels running on one signal plane, with generative AI across every layer:</p>
+
+        <div class="card-grid-3">
+            <div class="mini-card" style="border-top: 3px solid #60a5fa;">
+                <h4><i class="fas fa-gauge-high" style="color: #60a5fa;"></i> Posture</h4>
+                <p><strong>Pre-breach.</strong> Prevention and hardening, security controls and policies, awareness and training, governance, risk and compliance.</p>
+            </div>
+            <div class="mini-card" style="border-top: 3px solid #38bdf8;">
+                <h4><i class="fas fa-shield" style="color: #38bdf8;"></i> Protection</h4>
+                <p><strong>Post-breach.</strong> Detection and alerting, containment and eradication, recovery and restoration &mdash; and feeding lessons back into posture.</p>
+            </div>
+            <div class="mini-card" style="border-top: 3px solid #34d399;">
+                <h4><i class="fas fa-satellite-dish" style="color: #34d399;"></i> SOC toolbox</h4>
+                <p><strong>Detect, investigate, respond.</strong> Investigation, orchestrated response, workflow automation, hunting, analytics, data connectors.</p>
+            </div>
+        </div>
+        <p style="font-size: 0.95rem; color: #94a3b8;">Across all three: Security Copilot and its agents for triage, hunting and reporting.</p>
+
+        <h2 id="predictive-soc"><span class="gradient-text">From Reactive to Predictive</span></h2>
+        <p>A reactive SOC waits for an alert. A predictive SOC works on the attack path <em>before</em> it is walked. Four capabilities make the difference:</p>
+
+        <div class="card-grid-2">
+            <div class="mini-card">
+                <h4><i class="fas fa-diagram-project" style="color: #60a5fa;"></i> Predict attack paths</h4>
+                <p>Model how an attacker would chain an exposed service, a misconfigured identity and a privileged account &mdash; then harden those assets automatically.</p>
+            </div>
+            <div class="mini-card">
+                <h4><i class="fas fa-shield-halved" style="color: #93c5fd;"></i> Contain breaches</h4>
+                <p>Self-defending controls that disable the account, isolate the device and revoke the session without waiting for a human to read the alert.</p>
+            </div>
+            <div class="mini-card">
+                <h4><i class="fas fa-bullseye" style="color: #34d399;"></i> Empower analysts to hunt</h4>
+                <p>One incident with identity, endpoint, email, cloud and data context already joined &mdash; so analysts hunt instead of copy-pasting between portals.</p>
+            </div>
+            <div class="mini-card">
+                <h4><i class="fas fa-rotate" style="color: #c084fc;"></i> Continuously optimise</h4>
+                <p>A closed loop: every incident produces a posture fix, and every posture fix removes a class of incident.</p>
+            </div>
+        </div>
+
+        <h3>The two loops that do most of the work</h3>
+        <p><strong>Identity + XDR.</strong> Microsoft Entra ID delivers stronger protection; Defender XDR delivers faster operations. Wired together, they give you maximised coverage, optimised data ingestion, automated context enrichment and post-incident posture improvements. With two-thirds of attack paths running through identity, this is the loop to build first.</p>
+        <p><strong>Threat protection + data security.</strong> Threat detection without data context means missed threats and slow response. An alert that says &ldquo;suspicious download&rdquo; is noise. An alert that says &ldquo;suspicious download of 4,000 files labelled <em>Highly Confidential &ndash; M&amp;A</em>&rdquo; is a board-level incident. Defender + Purview fuse the two signals so the SOC acts on what matters before the damage is done &mdash; and without the six-tool hand-off.</p>
+
+        <h2 id="disruption"><span class="gradient-text">Attack Disruption: the 17-Minute Proof</span></h2>
+        <p>This is the capability that changes the economics of a SOC. Automatic attack disruption uses the correlated XDR signal to recognise multi-stage, multi-domain attacks &mdash; ransomware, business email compromise, adversary-in-the-middle phishing &mdash; and contains the compromised users, devices and sessions in near real time. It also predicts the next hop, to cut off lateral movement.</p>
+        <p>Two incidents from Microsoft's materials show what that looks like on a clock.</p>
+
+        <div class="incident">
+            <div class="incident-head">
+                <strong>Financial services company &mdash; January 2025</strong>
+                <span><i class="fas fa-stopwatch"></i> ~20 minutes, email to containment</span>
+            </div>
+            <ol class="incident-steps">
+                <li><span class="t">T</span>User receives phishing email</li>
+                <li><span class="t">T+10m</span>User clicks the URL (Defender for Office 365 alert)</li>
+                <li><span class="t">T+11m</span>Risky sign-in from unfamiliar location (Entra ID alerts)</li>
+                <li><span class="t">T+18m</span>Email removed post-delivery</li>
+                <li><span class="t">T+19m</span>Attacker previews a file on OneDrive</li>
+                <li class="contain"><span class="t">T+20m</span>XDR disables the user on-prem and in cloud</li>
+                <li class="contain"><span class="t">T+48h</span>Same campaign disrupted for 12 more users in 11 orgs</li>
+            </ol>
+        </div>
+
+        <div class="incident">
+            <div class="incident-head">
+                <strong>C-suite account compromise &mdash; customer testimonial</strong>
+                <span><i class="fas fa-stopwatch"></i> 17 minutes, click to containment</span>
+            </div>
+            <ol class="incident-steps">
+                <li><span class="t">T</span>Phishing email with attachment and URL</li>
+                <li><span class="t">T+234m</span>Executive clicks the phishing URL</li>
+                <li><span class="t">T+237m</span>Sign-in to Microsoft 365 from a high-risk IP</li>
+                <li class="contain"><span class="t">T+251m</span>XDR disables the user and revokes the session</li>
+            </ol>
+        </div>
+
+        <p>Look at the second one again. <strong>The attacker was in within three minutes of the click.</strong> A human SOC working a queue would not have read the alert yet. The platform had already closed the session.</p>
+        <p>Notice also what made the first one work: the email signal, the identity signal and the file-access signal were <em>already in the same incident</em>. Disruption is not a feature you bolt on. It is the dividend of unification.</p>
+        <p style="font-size: 0.95rem; color: #94a3b8;"><i class="fas fa-circle-info" style="color: #38bdf8;"></i> Licensing: attack disruption is available with Defender for Endpoint, combinations of the Defender standalones, or the Microsoft Defender Suite (formerly E5 Security). Coverage depends on which workloads are onboarded &mdash; more on that in the caveats.</p>
+
+        <h2 id="agentic-threats"><span class="gradient-text">AI Agents Are the New Attack Surface</span></h2>
+        <p>Every AI agent your business ships has planning, actions and memory. It talks to users and external apps, calls tools (email, code, APIs, the web, data sources), reaches cloud and local models with keys and tokens, and connects to other agents and MCP servers.</p>
+        <p>Each of those connections is an attack path. Here is how the threats map to the controls that belong in front of them:</p>
+
+        <div class="table-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Threat</th>
+                        <th>What it looks like</th>
+                        <th>Primary controls</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Prompt injection</td>
+                        <td>Direct or indirect instructions (hidden in a document or web page) hijack the agent's planning</td>
+                        <td>Foundry guardrails with Azure AI Content Safety Prompt Shields on inputs and outputs; Defender AI threat protection alerts</td>
+                    </tr>
+                    <tr>
+                        <td>Initial access</td>
+                        <td>Compromised users or external apps reach the agent</td>
+                        <td>Entra Conditional Access; Front Door + WAF; API Management as the AI gateway (auth, quotas)</td>
+                    </tr>
+                    <tr>
+                        <td>Malicious tool use</td>
+                        <td>The agent is coerced into abusing email, code execution, APIs or web tools</td>
+                        <td>Least-privilege tool permissions; tool calls mediated through the gateway; Defender behaviour analytics on tool activity</td>
+                    </tr>
+                    <tr>
+                        <td>Credential theft</td>
+                        <td>Keys and tokens to cloud and local models are exposed</td>
+                        <td>Managed identities and no API keys; Key Vault for anything that must remain a secret</td>
+                    </tr>
+                    <tr>
+                        <td>Lateral movement</td>
+                        <td>Pivot across apps, agents and MCP servers</td>
+                        <td>Private endpoints and network segmentation; Defender for Cloud attack-path analysis</td>
+                    </tr>
+                    <tr>
+                        <td>Data exfiltration</td>
+                        <td>Leakage from grounding data, source systems or training / fine-tuning sets</td>
+                        <td>Purview DSPM for AI, DLP and sensitivity labels; customer-managed keys on data stores</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>Developers build safely; the SOC responds with context</h3>
+        <p>The pattern that works splits the job cleanly. <strong>Developers</strong> own Foundry guardrails &mdash; Prompt Shields block prompt attacks at the application boundary before they reach the model. <strong>Security teams</strong> own Microsoft Defender, which combines that application and agent context with Microsoft Threat Intelligence and raises contextual alerts into Defender XDR or the SIEM, with automatic response.</p>
+        <p>Defender looks for two families of signal:</p>
+        <div class="card-grid-2">
+            <div class="mini-card" style="border-top: 3px solid #c084fc;">
+                <h4><i class="fas fa-file-shield" style="color: #c084fc;"></i> Suspicious content</h4>
+                <p>Jailbreaks with malicious intent, secrets and sensitive data in prompts or responses, malicious URLs, and encodings or manipulations designed to slip past filters.</p>
+            </div>
+            <div class="mini-card" style="border-top: 3px solid #60a5fa;">
+                <h4><i class="fas fa-user-gear" style="color: #60a5fa;"></i> Suspicious behaviour</h4>
+                <p>Anomalous user or agent behaviour, application behaviour, tool behaviour, and access parameters &mdash; enriched by Microsoft Threat Intelligence.</p>
+            </div>
+        </div>
+        <p>And when an AI alert fires, it arrives with the evidence to act: the prompt and response, application context, user context, the data sets involved, CNAPP posture context and a prompt-to-grounding map. That answers the three questions every investigator asks &mdash; <em>what did the user do with the model, where did the model's answer come from, and what posture change stops it happening again?</em></p>
+
+        <h2 id="reference-architecture"><span class="gradient-text">Reference Architecture: Securing AI Workloads on Azure</span></h2>
+        <p>Defence-in-depth from the edge to the model, with one SecOps plane. This is the pattern we take into design workshops:</p>
+
+        <div class="arch-stack" role="img" aria-label="Four-layer reference architecture: edge and access, AI platform, posture and data, security operations">
+            <div class="arch-lane lane-edge">
+                <div class="arch-lane-label">Edge &amp; access</div>
+                <div class="arch-lane-boxes">
+                    <div class="arch-box"><strong>Front Door + WAF</strong><span>DDoS, bot &amp; OWASP rules for users, apps &amp; agents</span></div>
+                    <div class="arch-box"><strong>API Management</strong><span>AI gateway &mdash; auth, quotas, tool mediation</span></div>
+                    <div class="arch-box"><strong>Microsoft Entra ID</strong><span>Conditional Access, managed identities</span></div>
+                </div>
+            </div>
+            <div class="arch-flow-note"><i class="fas fa-arrow-down"></i></div>
+            <div class="arch-lane lane-ai">
+                <div class="arch-lane-label">AI platform</div>
+                <div class="arch-lane-boxes">
+                    <div class="arch-box"><strong>Microsoft Foundry</strong><span>Models, agents &middot; guardrails &amp; Prompt Shields</span></div>
+                    <div class="arch-box"><strong>Azure AI Search</strong><span>Grounding / RAG index</span></div>
+                    <div class="arch-box"><strong>Storage, Cosmos DB, SQL</strong><span>Private endpoints, CMK encryption</span></div>
+                </div>
+            </div>
+            <div class="arch-flow-note"><i class="fas fa-arrow-down"></i> telemetry &amp; posture signals</div>
+            <div class="arch-lane lane-posture">
+                <div class="arch-lane-label">Posture &amp; data</div>
+                <div class="arch-lane-boxes">
+                    <div class="arch-box"><strong>Defender for Cloud &mdash; CSPM</strong><span>AI-SPM, attack paths, AI bill of materials</span></div>
+                    <div class="arch-box"><strong>Defender for Cloud &mdash; AI threat protection</strong><span>Runtime alerts on AI workloads</span></div>
+                    <div class="arch-box"><strong>Microsoft Purview</strong><span>DSPM for AI, DLP, labels, audit</span></div>
+                </div>
+            </div>
+            <div class="arch-flow-note"><i class="fas fa-arrow-down"></i> one SecOps plane</div>
+            <div class="arch-lane lane-ops">
+                <div class="arch-lane-label">Security ops</div>
+                <div class="arch-lane-boxes">
+                    <div class="arch-box"><strong>Defender XDR</strong><span>Unified incidents, attack disruption</span></div>
+                    <div class="arch-box"><strong>Microsoft Sentinel</strong><span>SIEM, data lake, playbooks</span></div>
+                    <div class="arch-box"><strong>Security Copilot &amp; agents</strong><span>Triage, hunting, reporting</span></div>
+                </div>
+            </div>
+        </div>
+
+        <p><strong>Four design principles hold it together:</strong></p>
+        <ol>
+            <li><strong>Zero Trust identity.</strong> No keys. Managed identities everywhere; Conditional Access on every human and workload path.</li>
+            <li><strong>Private networking for every data plane.</strong> Models, search indexes and data stores are not reachable from the internet.</li>
+            <li><strong>Guardrails on every model input and output.</strong> Not just the customer-facing chatbot &mdash; internal agents too.</li>
+            <li><strong>All AI telemetry routed to one SecOps plane.</strong> An AI alert in a separate console is the six-checkpoint airport all over again.</li>
+        </ol>
+
+        <h2 id="managed-services"><span class="gradient-text">24/7 Without Hiring 24/7</span></h2>
+        <p>The third CISO question &mdash; coverage without more in-house talent &mdash; is where most programmes stall. A credible follow-the-sun SOC needs multiple analysts per shift, per role, plus leave and attrition cover. Most mid-market organisations can't staff that, and shouldn't try.</p>
+        <p><strong>Microsoft Defender Experts for XDR</strong> is the managed answer: 24/7 expert-led detection and response and proactive threat hunting across endpoints, identities, email and cloud apps, with cloud workloads and partner-network signals (ingested via Sentinel) on the roadmap. Behind it: roughly 10,000 security researchers working on 80+ billion signals a day, automation and agentic AI for speed, and a named service delivery manager.</p>
+
+        <div class="stat-trio stat-quad">
+            <div class="stat-tile" style="border-top-color: #38bdf8; border-color: rgba(56,189,248,0.2);">
+                <div class="stat-num" style="color: #38bdf8;">254%</div>
+                <div class="stat-label">projected ROI over 3 years</div>
+            </div>
+            <div class="stat-tile" style="border-top-color: #38bdf8; border-color: rgba(56,189,248,0.2);">
+                <div class="stat-num" style="color: #38bdf8;">20%</div>
+                <div class="stat-label">lower likelihood of a breach</div>
+            </div>
+            <div class="stat-tile" style="border-top-color: #38bdf8; border-color: rgba(56,189,248,0.2);">
+                <div class="stat-num" style="color: #38bdf8;">50%</div>
+                <div class="stat-label">additional IT &amp; security headcount avoided</div>
+            </div>
+            <div class="stat-tile" style="border-top-color: #38bdf8; border-color: rgba(56,189,248,0.2);">
+                <div class="stat-num" style="color: #38bdf8;">50%</div>
+                <div class="stat-label">less employee downtime</div>
+            </div>
+        </div>
+        <p style="font-size: 0.9rem; color: #94a3b8;">Source: Forrester Consulting, <em>New Technology: The Projected Total Economic Impact&trade; of Microsoft Defender Experts for XDR</em>, July 2023 &mdash; commissioned by Microsoft. It models a composite organisation and is a projection, not a measured outcome for your estate.</p>
+
+        <p>When the incident is already a crisis, <strong>Microsoft Incident Response</strong> is the escalation path &mdash; on-site or remote, in three moves:</p>
+        <ol>
+            <li><strong>Investigate</strong> &mdash; determine whether systems are under targeted exploitation, including compromised cloud accounts.</li>
+            <li><strong>Tactical containment</strong> &mdash; deploy immediate countermeasures against an active attack or ransomware and restore critical identity systems.</li>
+            <li><strong>Strengthen</strong> &mdash; strategic hardening against sophisticated actors and the groundwork for recovery: evicting the attacker for good.</li>
+        </ol>
+        <p>Put an IR retainer decision on the table <em>before</em> you need it. Negotiating scope during an active ransomware event is the most expensive procurement you will ever run.</p>
+
+        <h2 id="economics"><span class="gradient-text">The CFO Slide</span></h2>
+        <p>The CFO's question is never &ldquo;is this more secure?&rdquo; It's &ldquo;what does it cost compared to what we pay now?&rdquo; For organisations on Microsoft 365 Business Premium (25&ndash;300 seats), the suite pricing makes the answer unusually clean. CSP list prices, per user per month:</p>
+
+        <div class="table-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bundle</th>
+                        <th>What's inside</th>
+                        <th>Standalone sum</th>
+                        <th>Suite price</th>
+                        <th>Delta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Defender Suite for Business Premium</td>
+                        <td>Defender for Endpoint P2 ($5.20), Defender for Office 365 P2 ($5.00), Defender for Identity ($5.50), Defender for Cloud Apps ($3.50), Entra ID P2 ($9.00)</td>
+                        <td>$28.20</td>
+                        <td>$10.00</td>
+                        <td>~65% lower</td>
+                    </tr>
+                    <tr>
+                        <td>Defender + Purview Suites for Business Premium</td>
+                        <td>All of the above, plus E5 eDiscovery &amp; Audit ($6.00), Insider Risk Management ($6.00), Information Protection &amp; Governance ($7.00)</td>
+                        <td>$47.20</td>
+                        <td>$15.00</td>
+                        <td>~68% lower</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p><strong>What that means for a 250-seat company</strong> (illustrative list-price arithmetic):</p>
+        <ul>
+            <li>Defender Suite: 250 &times; ($28.20 &minus; $10.00) &times; 12 = <strong>$54,600 a year</strong> below buying the same five components standalone.</li>
+            <li>Defender + Purview Suites: 250 &times; ($47.20 &minus; $15.00) &times; 12 = <strong>$96,600 a year</strong> below the standalone equivalent.</li>
+        </ul>
+        <p>Be precise about what that number is. It's the gap to <em>standalone Microsoft list prices</em>, not your saving. Your real business case is the suite cost minus the third-party point tools you can actually retire &mdash; email gateway, EDR, CASB, ITDR, DLP &mdash; minus the migration effort to retire them. The Security Business Case Builder (upgraded May 2025, grounded in Forrester TEI data) is built to produce exactly that customer-specific view, including vendor-consolidation savings. Prices vary by term, currency and region.</p>
+
+        <div style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(56, 189, 248, 0.2); border-left: 4px solid #38bdf8; padding: 1.5rem; border-radius: 8px; margin: 2rem 0;">
+            <h4 style="margin-top: 0; color: #f8fafc; font-family: 'Outfit', sans-serif;"><i class="fas fa-building-shield" style="color: #38bdf8; margin-right: 8px;"></i> The trust question behind the platform decision</h4>
+            <p style="margin-bottom: 0.75rem; font-size: 0.95rem;">Consolidating onto one vendor concentrates trust in that vendor. Boards will ask about it. Microsoft's answer is its Secure Future Initiative &mdash; secure by design, secure by default, secure operations &mdash; with published progress such as 95% of employees on video-based identity verification, 5.75M unused tenants eliminated, 99.3% of network assets inventoried, 85% of production pipelines on governed templates, and 90% of high-severity cloud vulnerabilities fixed within a reduced time-to-mitigate.</p>
+            <p style="margin: 0; font-size: 0.95rem;">Use those numbers as a starting point for due diligence, not a substitute for it. Ask for the progress reports, and put vendor-concentration risk on your own risk register.</p>
+        </div>
+
+        <h2 id="partners"><span class="gradient-text">The Partner Playbook</span></h2>
+        <p>For Microsoft partners, this is not one motion. FY26 organises security into three solution plays:</p>
+
+        <div class="table-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Solution play</th>
+                        <th>Business objective</th>
+                        <th>Hero products</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Modern SecOps with Unified Platform <span style="color:#94a3b8; font-weight:400;">(updated)</span></td>
+                        <td>AI-powered security operations that reduce risk across the whole attack surface</td>
+                        <td>Microsoft 365 E5, Defender Suite, Sentinel, Entra</td>
+                    </tr>
+                    <tr>
+                        <td>Data Security</td>
+                        <td>Insider risk, DLP and information protection &mdash; the foundation for safe AI and third-party apps</td>
+                        <td>Microsoft 365 E5, Purview Suite, Purview</td>
+                    </tr>
+                    <tr>
+                        <td>Protect Cloud, AI Platform and Apps <span style="color:#94a3b8; font-weight:400;">(new)</span></td>
+                        <td>Protect cloud and AI infrastructure, identity, data and apps against emerging threat vectors</td>
+                        <td>Defender for Cloud, Purview</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p><strong>The growth is in managed services.</strong> A Microsoft-commissioned Forrester TEI study (2025) found SMB-focused partners growing managed security services <strong>42% year-on-year</strong> (versus 23% overall growth), and enterprise-focused partners 24% (versus 20%). The winning pattern: license plus a recurring managed offer &mdash; Defender Suite for Business Premium paired with MXDR, SOC efficiency, incident-response automation or compliance automation.</p>
+
+        <h3>The win formula, stage by stage</h3>
+        <ol>
+            <li><strong>Listen &amp; consult &mdash; build pipeline.</strong> Campaign-in-a-box, propensity targeting (CloudAscent for SMB, Microsoft 365 Lighthouse opportunities), and 1:many Threat Protection and Data Security Immersion Briefings.</li>
+            <li><strong>Inspire &amp; design &mdash; design the solution.</strong> A rapid security assessment or cybersecurity self-service assessment, then a customer-specific business case.</li>
+            <li><strong>Empower &amp; achieve &mdash; win the deal.</strong> Structural CSP incentives apply; check the current rates in the program guide.</li>
+            <li><strong>Realise value &mdash; deploy and drive usage.</strong> Defender XDR workload usage; data security that doesn't block end users.</li>
+            <li><strong>Manage &amp; optimise &mdash; expand.</strong> Upsell and attach integration, SOC-efficiency, IR-automation and compliance-automation services.</li>
+        </ol>
+        <p>Funding helps at the top of the funnel: immersion briefings are 90-minute, 1:many sessions (5&ndash;25 eligible customers each), funded at up to $2K per briefing in FY26 for partners with the Security Solution Partner Designation for SMB. That designation is scored out of 100 &mdash; performance (20), skilling (40), usage growth (20), deployments (20) &mdash; with 70 required. Skilling is the biggest lever, and the one a practice lead controls most directly. Program terms change; confirm eligibility and rates in the current partner guide before you plan around them.</p>
+
+        <h2 id="roadmap"><span class="gradient-text">The 180-Day Roadmap</span></h2>
+        <p>Value in weeks, maturity in quarters. Three phases, in order. Tick them off as you go.</p>
+
+        <div class="checklist-container">
+            <div style="font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #93c5fd; margin: 0 0 1rem; display: flex; align-items: center; gap: 0.6rem;">
+                <i class="fas fa-trowel-bricks"></i> Days 0&ndash;30 &mdash; Secure the foundation
+            </div>
+            <label class="checklist-item">
+                <input type="checkbox">
+                <span><strong style="color: #f8fafc;">Identity first.</strong> Entra ID P2: phishing-resistant MFA, risk-based Conditional Access, Privileged Identity Management. Two-thirds of attack paths start here.</span>
+            </label>
+            <label class="checklist-item">
+                <input type="checkbox">
+                <span><strong style="color: #f8fafc;">Onboard endpoint and email.</strong> Defender for Endpoint and Defender for Office 365 across the estate &mdash; coverage gaps become disruption gaps.</span>
+            </label>
+            <label class="checklist-item">
+                <input type="checkbox">
+                <span><strong style="color: #f8fafc;">Baseline and business case.</strong> Enable Secure Score and exposure-management baselines; run the rapid assessment and build the business case with real retirement targets.</span>
+            </label>
+
+            <div style="font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #60a5fa; margin: 1.75rem 0 1rem; display: flex; align-items: center; gap: 0.6rem;">
+                <i class="fas fa-layer-group"></i> Days 30&ndash;90 &mdash; Unify security operations
+            </div>
+            <label class="checklist-item">
+                <input type="checkbox">
+                <span><strong style="color: #f8fafc;">One portal.</strong> Defender XDR and Sentinel in the unified security operations portal; tier log ingestion by value.</span>
+            </label>
+            <label class="checklist-item">
+                <input type="checkbox">
+                <span><strong style="color: #f8fafc;">Turn on automatic attack disruption.</strong> Review exclusions for critical service accounts and devices first, then let it act.</span>
+            </label>
+            <label class="checklist-item">
+                <input type="checkbox">
+                <span><strong style="color: #f8fafc;">Data context and 24/7 cover.</strong> Purview DLP, sensitivity labels and insider risk; onboard Defender Experts for XDR (or a partner MXDR) for round-the-clock coverage.</span>
+            </label>
+
+            <div style="font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #c084fc; margin: 1.75rem 0 1rem; display: flex; align-items: center; gap: 0.6rem;">
+                <i class="fas fa-brain"></i> Days 90&ndash;180 &mdash; Protect AI at scale
+            </div>
+            <label class="checklist-item">
+                <input type="checkbox">
+                <span><strong style="color: #f8fafc;">AI posture and runtime.</strong> Defender for Cloud AI-SPM and AI threat protection on every AI workload.</span>
+            </label>
+            <label class="checklist-item">
+                <input type="checkbox">
+                <span><strong style="color: #f8fafc;">Guardrails everywhere.</strong> Foundry guardrails and Prompt Shields on all apps and agents &mdash; internal ones included.</span>
+            </label>
+            <label class="checklist-item">
+                <input type="checkbox">
+                <span><strong style="color: #f8fafc;">Close the loop.</strong> Purview DSPM for AI and data governance; Security Copilot agents for triage; a monthly closed-loop posture review that turns incidents into fixes.</span>
+            </label>
+        </div>
+
+        <h2 id="caveats"><span class="gradient-text">What the Pitch Deck Won't Tell You</span></h2>
+        <p>Every one of these is solvable. None of them is solved by signing the order form.</p>
+        <ul>
+            <li><strong>Disruption is only as good as your onboarding.</strong> A device that isn't onboarded can't be contained. An identity signal that never reaches XDR can't be correlated. The 17-minute story assumes coverage you have to earn in phase one.</li>
+            <li><strong>Consolidation has a migration cost.</strong> Retiring a SIEM means migrating detections, parsers, playbooks and muscle memory. Budget for dual-running and put a named date on each tool's switch-off &mdash; or the savings never arrive.</li>
+            <li><strong>SIEM ingestion is where budgets go to die.</strong> Unified doesn't mean &ldquo;ingest everything into the analytics tier&rdquo;. Decide which logs drive detections and which only need cheap, long retention.</li>
+            <li><strong>Automated containment needs governance.</strong> Agree up front which accounts and devices are excluded, who is paged when disruption fires, and how the business is told. An executive locked out mid-board-meeting is still a better outcome than a breach &mdash; but it should never be a surprise.</li>
+            <li><strong>Prompt Shields are one layer, not the strategy.</strong> Guardrails block known attack patterns. Least-privilege tools, managed identities and private networking are what limit the blast radius when something gets through.</li>
+            <li><strong>The price table is for Business Premium.</strong> Enterprise agreements, E5 and larger estates have different economics. Don't carry the 65% figure into a 5,000-seat conversation.</li>
+        </ul>
+
+        <h2 id="conclusion"><span class="gradient-text">Executive Conclusion</span></h2>
+        <p>The attacker's clock runs in minutes. The traditional SOC's clock runs in months. You cannot hire your way across that gap, and you cannot buy your way across it one point product at a time.</p>
+        <p>What closes it is architecture: <strong>unify</strong> posture, protection and SOC on one signal plane; <strong>automate</strong> containment so real attacks stop in minutes; <strong>protect AI</strong> with guardrails, detection and investigation context for every app and agent; and <strong>extend</strong> the team with 24/7 managed expertise instead of an impossible hiring plan.</p>
+        <p style="font-size: 1.15rem; color: #f8fafc; font-weight: 600; line-height: 1.5; border-left: 4px solid #38bdf8; padding-left: 1.5rem; margin: 2rem 0;">The next step is small and concrete: run a rapid security assessment, build the business case with real retirement targets, hold an immersion briefing for the stakeholders, and agree a 90-day pilot scope. That is how 292 days becomes 20 minutes.</p>
+
+        <div
+            style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(56, 189, 248, 0.2); border-left: 4px solid #38bdf8; padding: 1.5rem; border-radius: 8px; margin: 2rem 0;">
+            <h4 style="margin-top: 0; color: #f8fafc; font-size: 1.1rem; font-family: 'Outfit', sans-serif;"><i
+                    class="fas fa-code-branch" style="color: #38bdf8; margin-right: 8px;"></i> Sources &amp; Reference Material
+            </h4>
+            <p style="margin-bottom: 0.5rem; font-size: 0.95rem;">Figures are as cited in Microsoft Security partner materials (FY26) unless noted. Prices, program terms and incentive rates change &mdash; verify against the primary source before relying on a number.</p>
+            <ul style="margin: 0; padding-left: 1.5rem; font-size: 0.95rem;">
+                <li><a href="https://learn.microsoft.com/en-us/defender-xdr/automatic-attack-disruption" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">Automatic attack disruption in Microsoft Defender XDR <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a></li>
+                <li style="margin-top: 0.25rem;"><a href="https://learn.microsoft.com/en-us/azure/ai-services/content-safety/concepts/jailbreak-detection" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">Prompt Shields in Azure AI Content Safety <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a></li>
+                <li style="margin-top: 0.25rem;"><a href="https://learn.microsoft.com/en-us/azure/defender-for-cloud/ai-threat-protection" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">Threat protection for AI services &mdash; Defender for Cloud <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a></li>
+                <li style="margin-top: 0.25rem;"><a href="https://learn.microsoft.com/en-us/purview/ai-microsoft-purview" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">Microsoft Purview data security for AI <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a></li>
+                <li style="margin-top: 0.25rem;"><a href="https://learn.microsoft.com/en-us/defender-xdr/dex-xdr-overview" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">Microsoft Defender Experts for XDR <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a></li>
+                <li style="margin-top: 0.25rem;"><a href="https://www.microsoft.com/en-us/trust-center/security/secure-future-initiative" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">Microsoft Secure Future Initiative <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a></li>
+                <li style="margin-top: 0.25rem;">IBM Security, <em>Cost of a Data Breach Report 2024</em> &mdash; 292 days to identify and contain stolen-credential breaches</li>
+                <li style="margin-top: 0.25rem;">Forrester Consulting, <em>The Projected Total Economic Impact&trade; of Microsoft Defender Experts for XDR</em>, July 2023 &mdash; commissioned by Microsoft</li>
+                <li style="margin-top: 0.25rem;">Forrester Consulting, <em>The Partner Opportunity for Microsoft Security</em>, 2025 &mdash; commissioned by Microsoft</li>
+            </ul>
+        </div>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h3>Ready to operationalize your Azure journey?</h3>
+        <p>
+            If your SOC is juggling six consoles, your AI apps are shipping without a security owner, or you need a board-ready business case for consolidating onto Defender, Entra, Purview and Sentinel &mdash; let's map your 180-day plan together.
+        </p>
+        <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+            <a href="../pages/contact.html" class="btn btn-primary">Contact Me</a>
+            <a href="../pages/azure-migration-toolkit.html" class="btn btn-outline">View the Toolkit</a>
+        </div>
+
+        <!-- Social Share Section -->
+        <div class="social-share-container">
+            <p style="color: #94a3b8; font-size: 0.8rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700;">Spread the Insight</p>
+            <div class="social-share-buttons">
+                <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn(event)" title="Share on LinkedIn" aria-label="Share on LinkedIn">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+                <a href="#" class="share-btn twitter" onclick="shareOnTwitter(event)" title="Share on X (Twitter)" aria-label="Share on Twitter">
+                    <i class="fab fa-x-twitter"></i> Twitter
+                </a>
+                <a href="#" class="share-btn facebook" onclick="shareOnFacebook(event)" title="Share on Facebook">
+                    <i class="fab fa-facebook-f"></i> Facebook
+                </a>
+                <button class="share-btn copy-link" onclick="copyPageLink(this)" title="Copy Link" aria-label="Copy Page Link">
+                    <i class="fas fa-link"></i> <span class="btn-text">Copy Link</span>
+                </button>
+            </div>
+        </div>
+
+        <script>
+            function shareOnLinkedIn(e) {
+                e.preventDefault();
+                const url = encodeURIComponent(window.location.href);
+                window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=600');
+            }
+
+            function shareOnTwitter(e) {
+                e.preventDefault();
+                const url = encodeURIComponent(window.location.href);
+                const text = encodeURIComponent(document.title);
+                window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
+            }
+
+            function shareOnFacebook(e) {
+                e.preventDefault();
+                const url = encodeURIComponent(window.location.href);
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+            }
+
+            function copyPageLink(btn) {
+                const url = window.location.href;
+                navigator.clipboard.writeText(url).then(() => {
+                    const btnText = btn.querySelector('.btn-text');
+                    const originalText = btnText.innerText;
+                    btnText.innerText = 'Copied!';
+                    btn.classList.add('copied');
+                    setTimeout(() => {
+                        btnText.innerText = originalText;
+                        btn.classList.remove('copied');
+                    }, 2000);
+                });
+            }
+        </script>
+
+        <!-- Back to Blog Button -->
+        <div style="text-align: center; margin: 4rem 0;">
+            <a href="../blog.html" class="btn btn-primary" style="display: inline-block; padding: 1rem 2rem;">
+                <i class="fas fa-arrow-left"></i> Back to Insights
+            </a>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Upendra Kumar. All rights reserved.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/journeytocloud/" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn Profile">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/appliedailearner" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub Repository">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu handles are now in navbar-component.js
+    </script>
+
+    <script src="../js/particles.js" defer></script>
+    <script src="../js/main.js"></script>
+
+    <!-- Table of Contents Observer -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tocList = document.querySelector('.toc-list');
+            if (tocList) {
+                const headers = document.querySelectorAll('.blog-post-content h2');
+                const tocLinks = document.querySelectorAll('.toc-link');
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            tocLinks.forEach(link => {
+                                link.classList.remove('active');
+                                if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                    link.classList.add('active');
+                                }
+                            });
+                        }
+                    });
+                }, { rootMargin: '0px 0px -80% 0px', threshold: 0.1 });
+                headers.forEach(header => observer.observe(header));
+            }
+        });
+    </script>
+
+    <!-- Interactive Stateful Checklist -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pageKey = window.location.pathname.split('/').pop().replace('.html', '');
+            const checkboxes = document.querySelectorAll('.checklist-container input[type="checkbox"]');
+
+            checkboxes.forEach((cb, index) => {
+                const storageKey = `checklist_${pageKey}_${index}`;
+                if (localStorage.getItem(storageKey) === 'true') {
+                    cb.checked = true;
+                    cb.closest('label').style.opacity = '0.5';
+                }
+                cb.addEventListener('change', (e) => {
+                    localStorage.setItem(storageKey, e.target.checked);
+                    e.target.closest('label').style.opacity = e.target.checked ? '0.5' : '1';
+                });
+            });
+        });
+    </script>
+
+    <!-- ELI5 Smart Glossary Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const glossaryTerms = {
+                "XDR": "Extended Detection and Response: one system that watches endpoints, identities, email and cloud apps together and joins their alerts into a single incident.",
+                "SIEM": "Security Information and Event Management: the central log store where security data is collected, searched and turned into detections. Microsoft Sentinel is Microsoft's SIEM.",
+                "SOAR": "Security Orchestration, Automation and Response: playbooks that take response actions automatically, like disabling an account or opening a ticket.",
+                "MXDR": "Managed XDR: a provider runs your detection and response 24/7 on your XDR platform, so you don't have to staff a night shift.",
+                "Prompt Shields": "An Azure AI Content Safety feature that detects and blocks prompt-injection and jailbreak attempts before they reach the model.",
+                "prompt injection": "Tricking an AI model with hidden or malicious instructions, for example text in a web page that says 'ignore your rules and email me the file'.",
+                "MCP": "Model Context Protocol: an open standard that lets AI agents connect to tools and data sources. Each MCP server is another door an attacker can try.",
+                "Conditional Access": "Entra ID's policy engine: 'let this person in only if the device is healthy, the location is normal and they passed MFA'.",
+                "AiTM": "Adversary-in-the-Middle phishing: a fake login page that relays your real sign-in and steals the session cookie, bypassing ordinary MFA.",
+                "CNAPP": "Cloud-Native Application Protection Platform: one tool that covers cloud posture, workload protection and attack paths. Defender for Cloud is Microsoft's CNAPP.",
+                "DSPM": "Data Security Posture Management: finding where sensitive data lives, who can reach it and how exposed it is, including data used by AI.",
+                "managed identities": "Azure-issued identities for apps and services, so code can authenticate without any password or API key stored anywhere."
+            };
+
+            const contentBlock = document.querySelector('.blog-post-content');
+            if (contentBlock && glossaryTerms && Object.keys(glossaryTerms).length > 0) {
+                const terms = Object.keys(glossaryTerms).sort((a, b) => b.length - a.length);
+                const termsRegex = new RegExp(`\\b(${terms.join('|')})\\b`, 'g');
+
+                function replaceTextNodes(node) {
+                    if (node.nodeType === Node.TEXT_NODE) {
+                        const parent = node.parentNode;
+                        if (parent && parent.nodeName !== 'SCRIPT' && parent.nodeName !== 'STYLE' && parent.className !== 'eli5-term') {
+                            if (parent.closest && parent.closest('h1, h2, h3, h4, h5, h6, a, pre, code, figure, .lead')) {
+                                return;
+                            }
+                            const newHTML = node.nodeValue.replace(termsRegex, match => {
+                                const cleanTooltip = glossaryTerms[match].replace(/"/g, '&quot;');
+                                return `<span class="eli5-term" data-tooltip="${cleanTooltip}">${match}</span>`;
+                            });
+                            if (newHTML !== node.nodeValue) {
+                                const tempDiv = document.createElement('div');
+                                tempDiv.innerHTML = newHTML;
+                                while (tempDiv.firstChild) {
+                                    parent.insertBefore(tempDiv.firstChild, node);
+                                }
+                                parent.removeChild(node);
+                            }
+                        }
+                    } else {
+                        const children = Array.from(node.childNodes);
+                        children.forEach(replaceTextNodes);
+                    }
+                }
+                replaceTextNodes(contentBlock);
+            }
+        });
+    </script>
+</body>
+</html>
