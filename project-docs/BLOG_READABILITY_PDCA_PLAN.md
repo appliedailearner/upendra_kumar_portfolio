@@ -9,6 +9,10 @@
 | 1 | The unified SecOps post (`site/blog/2026-09-28-unified-security-operations-ai-era.html`) | 10 | 10 / 10 ✅ |
 | 2 | Shared blog template: `css/premium.css` and all 49 posts | 10 | 10 / 10 ✅ |
 | Act | Make it stick: BlogMaker template, publishing gate, review | 4 | 3 / 4 (review due 2026-10-28) |
+| 3 | Per-post content checks (T03–T07, T09, T15–T19), all posts | 8 | 6 / 8 (T07, T09 long tail open) |
+| Speed | Sept 3 performance pass rolled out to every page | 1 | 1 / 1 ✅ |
+
+Note: Cycle 3 and the speed pass shipped on 2026-09-29, before the 30-day review (A-04). The review should compare against analytics from after this date, not the Sept 28 baseline.
 
 ---
 
@@ -471,6 +475,41 @@ Helper for T01: `node tools/qa/find-overflow.js <post> [--width=390]` names the 
 
 ---
 
+## DO — Cycle 3: per-post content checks (all posts)
+
+Started 2026-09-29 at the owner's request, ahead of the 30-day review. Wording is never changed except where noted, and every change is made by a dry-run-first script or a hand edit checked with the audit.
+
+| Item | Check | Posts failing: before → after | Change |
+|---|---|---|---|
+| C3-01 | T03 summary cards | 9 → 0 | `tools/scripts/exec-grid-to-rows.js` converted every 3-column `.executive-grid` into full-width `.exec-rows` (styles moved to `premium.css`). Two rows whose paragraphs ran 14–17 lines on phones were split at sentence ends. |
+| C3-02 | T06 text walls | 23 → 0 | `tools/scripts/split-long-paragraphs.js` split 79 paragraphs at sentence ends (it skips a break inside a link or bold, and text it can't find exactly once). 12 more split by hand; two run-on lists became bulleted lists (VMware "three things", AB-731 themes). |
+| C3-03 | T15 opening paragraph | 17 → 0 | The same script moved the tail of long openings into a normal paragraph. Openings set at 1.25–1.45rem bold wrapped to 7–12 lines on phones: a shared phone rule sizes `.lead` at 1.15rem. Six single-sentence openings split at their colon or dash; wording otherwise unchanged. |
+| C3-04 | T18 heading orphans | 33 → 0 | `text-wrap: balance` on article `h2`/`h3` (`.blog-post-content` and `.blog-content`). |
+| C3-05 | T17 hero gap | 22 → 7 | Shared rule trims the hero's bottom and the article's top padding; two `.blog-content` posts' dividers tightened. The 7 left are exceptions (content deliberately placed before the opening). |
+| C3-06 | T04 / T19 phone layout | 1 → 0 / 3 → 0 | VMware post's 7 tables became labelled cards on phones (`tools/scripts/stack-tables.js`); author notes stack on phones (`.author-note`). Both style sets now in `premium.css`. |
+| C3-07 | T09 small / low-contrast text | 34 → 12 | `tools/scripts/readable-text.js`: six dim text colours swapped for a lighter shade of the same hue (only the `color:` property); text under 13px raised to the 0.85rem caption step, while uppercase letter-spaced labels keep ≥12px; one hotspot label's background darkened. **Open:** 12 posts with one-offs (`em`-relative code sizes, captions on light diagram images, white text on a few custom buttons). |
+| C3-08 | T07 type scale | 30 → 12 | The same script snaps sizes set on `p`/`li`/`td` (inline or post CSS) to 1.15 / 0.95 / 0.85rem; display text above 1.3rem and `em` sizes left alone. **Open:** 12 posts, mostly `em`-relative sizes and post-level body rules. |
+
+**Audit changes made during Cycle 3 (both keep the checks honest, not easier):** T09 skips text inside inline SVG, whose computed size isn't the rendered size; T07 skips uppercase letter-spaced labels, matching T09's existing rule.
+
+**Lesson:** raising every small size also widened uppercase badges and pushed one page past the phone screen. Uppercase labels now have their own floor (0.75rem) in the script, and the 173 affected labels were restored to their original size.
+
+## Speed pass (2026-09-29)
+
+The Sept 3 VMware-post performance work, rolled out to all 73 pages by `patch-blog-template.js` (PERF rules): fonts and icons no longer block first paint, `navbar-component.js` and `particles.js` load with `defer`, and the footer telemetry panel was removed from the 11 pages that still had it. Full local audit: no check got worse.
+
+Measured live on a phone profile (`tools/qa/page-speed.js --mobile`, median of 3 cold loads):
+
+| Page | First content after first byte | Load | Requests |
+|---|---|---|---|
+| Homepage | 566 → 357 ms | 2319 → 1823 ms | 28 → 24 |
+| Edge-fork post | 370 → 383 ms | 2006 → 1481 ms | 22 → 19 |
+| Model-router post | 476 → 465 ms | 2588 → 2771 ms (noise range on a heavy page) | 25 → 24 |
+
+First byte is ~850 ms on every page, before and after: a Cloudflare cache miss at most edge locations. **Owner action:** in Cloudflare, turn on Caching → Tiered Cache → Smart Tiered Caching (free), so edges fetch from an upper-tier Cloudflare cache instead of GitHub Pages.
+
+---
+
 ## CHECK
 
 | Gate | How | Pass condition |
@@ -488,7 +527,9 @@ Helper for T01: `node tools/qa/find-overflow.js <post> [--width=390]` names the 
 |---|---|---|
 | `test-sync-ok.html`, T08 | A deploy test page, not a blog post | 2026-09-29 |
 | 8 LinkedIn embeds, T21 | LinkedIn returns 404 for the embeds; replaced by link cards. Owner to confirm the posts still exist | 2026-09-29 |
-| Content checks T03–T07, T09, T15–T19 | Per-post writing and layout; out of Cycle 2 scope, planned for Cycle 3 | 2026-09-29 |
+| Content checks T03–T07, T09, T15–T19 | Per-post writing and layout; out of Cycle 2 scope, done in Cycle 3 (see above) | 2026-09-29 |
+| T17 on 7 posts (edge-fork, migrate-trap, bank, databricks, agentic-pinning, ai-compliance-gap, model-router) | A cover image, audio briefing card, callout or diagram deliberately sits between the hero and the opening | 2026-09-29 |
+| `test-sync-ok.html`, T09 | A deploy test page, not a blog post | 2026-09-29 |
 
 ---
 
@@ -541,3 +582,6 @@ Add a row after every validation run.
 | 2026-09-29 | All 49 posts, template checks | local | `_all/20260929-055439-local` | 2 posts | 2 posts | Cycle 2 done locally. Left: `test-sync-ok` T08 (exception), beehiiv form T21 (file:// only) |
 | 2026-09-29 | All 49 posts, template checks | live | `_all/20260929-060926-live` | 10 posts | 10 posts | T02 failed on 9 posts live (glossary tidy ran before the post's glossary pass); everything else passed |
 | 2026-09-29 | All 49 posts, T02 | live | `_all/20260929-075207-live` | 0 | N/A (desktop run) | After glossary-tidy v2 (commit `dfdbd04`): T02 passes on every post. Cycle 2 complete |
+| 2026-09-29 | All 49 posts, all checks | local | `_all/20260929-095008-local` | — | — | After the speed pass (commit `c9e5a0a`): identical to the previous run, nothing got worse. Cycle 3 baseline: T03 9, T06 23, T07 30, T09 34, T15 17, T17 22, T18 33, T19 3, T04 1 |
+| 2026-09-29 | All 49 posts, all checks | local | `_all/20260929-104434-local` | — | — | Cycle 3 applied: T06 1 (fixed after), T07 13, T09 12, T17 7 (exceptions), rest 0 |
+| 2026-09-29 | All 49 posts, all checks | live | `_all/20260929-110002-live` | — | — | After deploy (commit `98ff85c`): T07 12, T09 13 (incl. test page), T17 7 (exceptions). T21 ×2 passed on re-run (transient). T06 on the 02-01 redirect page = Cloudflare's cached copy of the bare 02-04 URL; 02-04 itself passes |
