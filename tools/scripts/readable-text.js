@@ -7,6 +7,7 @@
  * In every post (inline style="" attributes and the post's own <style> blocks):
  *  - text colours that fall below 4.5:1 contrast on the navy background are swapped for a
  *    lighter shade of the same hue — only the `color:` property, never borders/backgrounds;
+ *  - white text on a bright blue/green/purple/amber fill gets the next darker fill shade;
  *  - font sizes under 13px are raised to the caption size (0.85rem / 13px).
  * T07 (type scale): font sizes that apply to paragraphs, list items and table cells — inline
  * style on <p>/<li>/<td>, or post CSS rules whose selector ends in p/li/td — snap to the
@@ -30,6 +31,17 @@ const COLORS = {
     '#ef4444': '#f87171', // red-500 4.2 -> 5.9
     'var(--primary-color)': '#60a5fa',
 };
+// White text on a bright fill (buttons, badges, tabs) -> the next darker shade of the same hue,
+// only in a style block that also sets the text white. All give >= 5:1 with white.
+const FILLS = {
+    '#3b82f6': '#2563eb', // blue 3.7 -> 5.2
+    'var(--premium-blue)': '#2563eb',
+    '#10b981': '#047857', // green 2.5 -> 5.5
+    '#a855f7': '#9333ea', // purple 4.0 -> 5.4
+    '#f59e0b': '#b45309', // amber 2.1 -> 5.0
+};
+const FILL_RE = new RegExp(`(background(?:-color)?\\s*:\\s*)(${Object.keys(FILLS).map((k) => k.replace(/[()-]/g, '\\$&')).join('|')})(?![\\w-])`, 'gi');
+const WHITE_TEXT = /(^|[^-\w])color\s*:\s*(white|#fff|#ffffff)\b/i;
 const COLOR_RE = new RegExp(`(^|[^-\\w])(color\\s*:\\s*)(${Object.keys(COLORS).map((k) => k.replace(/[()-]/g, '\\$&')).join('|')})(?![\\w-])`, 'gi');
 const SIZE_RE = /(font-size\s*:\s*)(\d*\.?\d+)(rem|px)\b/gi;
 const MIN = { rem: 0.85, px: 13 }; // 0.85rem = the caption step of the type scale (T07)
@@ -65,12 +77,16 @@ let total = 0;
 for (const f of fs.readdirSync(BLOG).filter((x) => x.endsWith('.html') && !['index.html', 'test-sync-ok.html'].includes(x))) {
     const file = path.join(BLOG, f);
     const html = fs.readFileSync(file, 'utf8');
-    let colors = 0, sizes = 0, scale = 0;
+    let colors = 0, sizes = 0, scale = 0, fills = 0;
     // split out inline SVG so it is never touched
     const out = html.split(/(<svg\b[\s\S]*?<\/svg>)/i).map((part) => {
         if (/^<svg\b/i.test(part)) return part;
         return typeScale(part, () => scale++)
+            // keep the template's primary-button hover one shade darker than its new base fill
+            .replace(/(\.btn-primary:hover\s*\{[^{}]*?background(?:-color)?\s*:\s*)#2563eb/gi, '$1#1d4ed8')
             .replace(COLOR_RE, (m, pre, prop, val) => { colors++; return `${pre}${prop}${COLORS[val.toLowerCase()] || COLORS[val]}`; })
+            .replace(/style="[^"]*"|\{[^{}]*\}/g, (block) => !WHITE_TEXT.test(block) ? block
+                : block.replace(FILL_RE, (m, prop, val) => { fills++; return `${prop}${FILLS[val.toLowerCase()]}`; }))
             .replace(/style="[^"]*"|\{[^{}]*\}/g, (block) => {
                 // Uppercase, letter-spaced labels read fine at 12px (the audit agrees); raising
                 // them further widened badges past the phone screen, so their floor is 0.75rem.
@@ -86,7 +102,7 @@ for (const f of fs.readdirSync(BLOG).filter((x) => x.endsWith('.html') && !['ind
     }).join('');
     if (out !== html) {
         total++;
-        console.log(`${WRITE ? 'patched' : 'would patch'}  ${f}: ${colors} colour(s), ${sizes} size(s), ${scale} snapped to the type scale`);
+        console.log(`${WRITE ? 'patched' : 'would patch'}  ${f}: ${colors} colour(s), ${fills} button fill(s), ${sizes} size(s), ${scale} snapped to the type scale`);
         if (WRITE) fs.writeFileSync(file, out);
     }
 }

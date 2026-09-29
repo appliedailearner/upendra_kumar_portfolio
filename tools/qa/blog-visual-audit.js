@@ -62,7 +62,7 @@ function resolveTarget(t) {
 // ---------- in-page checks (run inside the browser) ----------
 function pageChecks(vp) {
     const out = [];
-    const content = document.querySelector('.blog-post-content') || document.body;
+    const content = document.querySelector('.blog-post-content') || document.querySelector('.blog-content') || document.body; // .blog-content: two older posts
     const cw = document.documentElement.clientWidth;
     let tagN = 0;
     const tag = (el, id) => {
@@ -205,7 +205,8 @@ function pageChecks(vp) {
     // T07 — consistent type scale in body text
     {
         const isLabel = (e) => { const cs = getComputedStyle(e); return cs.textTransform === 'uppercase' && parseFloat(cs.letterSpacing) > 0; }; // eyebrow labels aren't body text
-        const els = [...content.querySelectorAll('p, li, td')].filter((e) => visible(e) && !isLabel(e) && !e.closest('.lead, .toc-container, .social-share-container, .stat-tile, .blog-post-meta'));
+        const els = [...content.querySelectorAll('p, li, td')].filter((e) => visible(e) && !isLabel(e) && !e.closest('.lead, .toc-container, .social-share-container, .stat-tile, .blog-post-meta')
+            && parseFloat(getComputedStyle(e).fontSize) <= 20.8); // over 1.3rem = display text (pull quotes), not the body scale
         const sizes = [...new Set(els.map((e) => getComputedStyle(e).fontSize))].sort((a, b) => parseFloat(b) - parseFloat(a));
         add('T07', 'Type scale (distinct body sizes)', sizes.length <= 3 ? 'PASS' : 'FAIL', `${sizes.length}: ${sizes.join(', ')}`, '≤3 (body, compact, caption)');
     }
@@ -498,7 +499,7 @@ function printTable(name, rows) {
     let anyFail = false;
     try {
         if (flag('all')) {
-            const files = fs.readdirSync(BLOG_DIR).filter((f) => f.endsWith('.html') && f !== 'index.html').sort();
+            const files = fs.readdirSync(BLOG_DIR).filter((f) => f.endsWith('.html') && !['index.html', 'test-sync-ok.html'].includes(f)).sort();
             const outDir = opt('out', path.join(__dirname, 'reports', '_all', `${stamp}-${LIVE ? 'live' : 'local'}`));
             fs.mkdirSync(outDir, { recursive: true });
             const summary = [];

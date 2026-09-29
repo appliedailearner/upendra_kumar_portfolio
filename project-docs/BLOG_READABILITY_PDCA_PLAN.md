@@ -1,6 +1,6 @@
 # Blog Readability — PDCA Plan & To-Do Tracker
 
-**Owner:** Upendra Kumar  **Created:** 2026-09-28  **Status:** Cycle 1 done and live (2026-09-28); Cycle 2 done and live (2026-09-29); Act 3 of 4 done (2026-09-29); 30-day review due 2026-10-28
+**Owner:** Upendra Kumar  **Created:** 2026-09-28  **Status:** Cycle 1 done and live (2026-09-28); Cycle 2 done and live (2026-09-29); Act 3 of 4 done (2026-09-29); Cycle 3 done and live (2026-09-29); 30-day review due 2026-10-28
 
 **Goal:** make blog posts easy to read on desktop and phone, then make the fixes permanent so new posts don't reintroduce the problems.
 
@@ -9,7 +9,7 @@
 | 1 | The unified SecOps post (`site/blog/2026-09-28-unified-security-operations-ai-era.html`) | 10 | 10 / 10 ✅ |
 | 2 | Shared blog template: `css/premium.css` and all 49 posts | 10 | 10 / 10 ✅ |
 | Act | Make it stick: BlogMaker template, publishing gate, review | 4 | 3 / 4 (review due 2026-10-28) |
-| 3 | Per-post content checks (T03–T07, T09, T15–T19), all posts | 8 | 6 / 8 (T07, T09 long tail open) |
+| 3 | Per-post content checks (T03–T07, T09, T15–T19), all posts | 8 | 8 / 8 ✅ (2026-09-29) |
 | Speed | Sept 3 performance pass rolled out to every page | 1 | 1 / 1 ✅ |
 
 Note: Cycle 3 and the speed pass shipped on 2026-09-29, before the 30-day review (A-04). The review should compare against analytics from after this date, not the Sept 28 baseline.
@@ -453,7 +453,7 @@ Helper for T01: `node tools/qa/find-overflow.js <post> [--width=390]` names the 
 
 **Change made:**
 - YouTube: `.webp` thumbnails are only served under `i.ytimg.com/vi_webp/`; 20 URLs in 7 posts moved there (each checked to return 200).
-- LinkedIn: the 8 post embeds return 404 even to a normal browser, so readers saw a 588px empty box. Replaced with a "Join the discussion on LinkedIn" link card to the same post. **Owner to confirm those 8 LinkedIn posts still exist.**
+- LinkedIn: the 8 post embeds return 404 even to a normal browser, so readers saw a 588px empty box. Replaced with a "Join the discussion on LinkedIn" link card to the same post. **Update 2026-09-29:** the owner confirmed those posts no longer exist (they were on the old LinkedIn account, now restricted), so the 8 cards now read "Follow Upendra on LinkedIn" and link to the current profile; the two intro lines that promised a discussion were reworded.
 - Video posters that pointed to missing files: `poster` attribute removed (4 posts). The AI gateway post's share image pointed to a missing file too; it now has `images/blog/2026-01-21/og-uklifelabs-ai-gateway.webp`, rendered from its architecture diagram.
 - Google Fonts URL typo (`wght=` → `wght@`) in 1 post.
 - The virtual-desktop post loaded two scripts that don't exist (empty footer, no particles); it now has the standard footer and `particles.js`.
@@ -487,10 +487,10 @@ Started 2026-09-29 at the owner's request, ahead of the 30-day review. Wording i
 | C3-04 | T18 heading orphans | 33 → 0 | `text-wrap: balance` on article `h2`/`h3` (`.blog-post-content` and `.blog-content`). |
 | C3-05 | T17 hero gap | 22 → 7 | Shared rule trims the hero's bottom and the article's top padding; two `.blog-content` posts' dividers tightened. The 7 left are exceptions (content deliberately placed before the opening). |
 | C3-06 | T04 / T19 phone layout | 1 → 0 / 3 → 0 | VMware post's 7 tables became labelled cards on phones (`tools/scripts/stack-tables.js`); author notes stack on phones (`.author-note`). Both style sets now in `premium.css`. |
-| C3-07 | T09 small / low-contrast text | 34 → 12 | `tools/scripts/readable-text.js`: six dim text colours swapped for a lighter shade of the same hue (only the `color:` property); text under 13px raised to the 0.85rem caption step, while uppercase letter-spaced labels keep ≥12px; one hotspot label's background darkened. **Open:** 12 posts with one-offs (`em`-relative code sizes, captions on light diagram images, white text on a few custom buttons). |
-| C3-08 | T07 type scale | 30 → 12 | The same script snaps sizes set on `p`/`li`/`td` (inline or post CSS) to 1.15 / 0.95 / 0.85rem; display text above 1.3rem and `em` sizes left alone. **Open:** 12 posts, mostly `em`-relative sizes and post-level body rules. |
+| C3-07 | T09 small / low-contrast text | 34 → 12 | `tools/scripts/readable-text.js`: six dim text colours swapped for a lighter shade of the same hue (only the `color:` property); text under 13px raised to the 0.85rem caption step, while uppercase letter-spaced labels keep ≥12px; one hotspot label's background darkened. **Follow-up (12 → 0):** white text on a bright fill (blue/green/purple/amber buttons, badges, the reviewer tab) now sits on the next darker shade (≥5:1) — a new pass in the same script, 33 posts, `.btn-primary:hover` moved one shade darker to keep its feedback; captions on white diagram panels `#94a3b8` → `#475569`; terminal-widget greys lightened; code-pane and inline-code sizes fixed; one outline button that had no styles got them. |
+| C3-08 | T07 type scale | 30 → 12 | The same script snaps sizes set on `p`/`li`/`td` (inline or post CSS) to 1.15 / 0.95 / 0.85rem; display text above 1.3rem and `em` sizes left alone. **Follow-up (12 → 0):** table cells had no size of their own and inherited 14–18px; a shared rule puts every `td` on the 0.95rem compact step. Post-level fixes: one `0.9em` note, the regulator post's 1.1rem body and 1rem captions. |
 
-**Audit changes made during Cycle 3 (both keep the checks honest, not easier):** T09 skips text inside inline SVG, whose computed size isn't the rendered size; T07 skips uppercase letter-spaced labels, matching T09's existing rule.
+**Audit changes made during Cycle 3 (both keep the checks honest, not easier):** T09 skips text inside inline SVG, whose computed size isn't the rendered size; T07 skips uppercase letter-spaced labels, matching T09's existing rule. In the follow-up: T07 skips text above 1.3rem (pull quotes — the same display-text line `readable-text.js` uses); the two older posts built on `.blog-content` are now audited on their article instead of the whole page (this counted the nav menu as body text, and it surfaced two real issues in the regulator post — 1.8 line height and two long paragraphs — both fixed); `test-sync-ok.html` is skipped by `--all`. New helper: `tools/qa/type-locate.js <post>` lists the elements behind a T07/T09 failure.
 
 **Lesson:** raising every small size also widened uppercase badges and pushed one page past the phone screen. Uppercase labels now have their own floor (0.75rem) in the script, and the 173 affected labels were restored to their original size.
 
@@ -526,7 +526,7 @@ First byte is ~850 ms on every page, before and after: a Cloudflare cache miss a
 | Item / check | Reason accepted | Date |
 |---|---|---|
 | `test-sync-ok.html`, T08 | A deploy test page, not a blog post | 2026-09-29 |
-| 8 LinkedIn embeds, T21 | LinkedIn returns 404 for the embeds; replaced by link cards. Owner to confirm the posts still exist | 2026-09-29 |
+| 8 LinkedIn embeds, T21 | LinkedIn returns 404 for the embeds; the posts were on the old (restricted) account, so the cards now link to the current profile. Closed | 2026-09-29 |
 | Content checks T03–T07, T09, T15–T19 | Per-post writing and layout; out of Cycle 2 scope, done in Cycle 3 (see above) | 2026-09-29 |
 | T17 on 7 posts (edge-fork, migrate-trap, bank, databricks, agentic-pinning, ai-compliance-gap, model-router) | A cover image, audio briefing card, callout or diagram deliberately sits between the hero and the opening | 2026-09-29 |
 | `test-sync-ok.html`, T09 | A deploy test page, not a blog post | 2026-09-29 |
@@ -563,7 +563,7 @@ First byte is ~850 ms on every page, before and after: a Cloudflare cache miss a
 
 ### A-04 · 30-day review (due 2026-10-28)
 
-**Change:** compare App Insights time on page and scroll depth for this post against the VMware post. Plan Cycle 3 with the older 2025 posts in batches of about 10.
+**Change:** compare App Insights time on page and scroll depth for the SecOps post against the VMware post, and site-wide against the pre-PDCA weeks. Cycles 2 and 3 and the speed pass all shipped by 2026-09-29, so use analytics from **after 2026-09-29** (not the Sept 28 baseline). Re-run `node tools/qa/blog-visual-audit.js --all --live` and log it below.
 
 - [ ] Done
 

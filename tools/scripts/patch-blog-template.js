@@ -24,7 +24,7 @@ const path = require('path');
 
 const SITE = path.join(__dirname, '..', '..', 'site');
 const WRITE = process.argv.includes('--write');
-const CSS_VERSION = '57';
+const CSS_VERSION = '58';
 const FA_OLD = 'font-awesome/6.4.0/css/all.min.css';
 const FA_NEW = 'font-awesome/6.5.2/css/all.min.css';
 const FA_OLD_SRI = 'sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==';
@@ -33,9 +33,9 @@ const WATERMARK = /[ \t]*<div\s+style="position: absolute;[^"]*?opacity: 0\.0[1-
 const YT_WEBP = /(?:img\.youtube\.com|i\.ytimg\.com)\/vi\/([\w-]+)\/(\w+default)\.webp/g;
 const FONT_TYPO = /family=Outfit:wght=/g;
 const LINKEDIN_EMBED = /<iframe\s[^>]*src="https:\/\/www\.linkedin\.com\/embed\/feed\/update\/(urn:li:[a-zA-Z]+:\d+)[^"]*"[^>]*>\s*<\/iframe>/g;
-const linkedinCard = (urn) => `<a href="https://www.linkedin.com/feed/update/${urn}/" target="_blank" rel="noopener"
+const linkedinCard = (urn) => `<a href="https://www.linkedin.com/in/upendra-kumar-azure-ai/" target="_blank" rel="noopener"
                 style="display: inline-flex; align-items: center; gap: 0.75rem; padding: 1rem 1.5rem; border: 1px solid rgba(10, 102, 194, 0.5); border-radius: 12px; background: rgba(10, 102, 194, 0.1); color: #e2e8f0; text-decoration: none; font-weight: 600;">
-                <i class="fab fa-linkedin" style="color: #0a66c2; font-size: 1.5rem;"></i> Join the discussion on LinkedIn</a>`;
+                <i class="fab fa-linkedin" style="color: #0a66c2; font-size: 1.5rem;"></i> Follow Upendra on LinkedIn</a>`;
 
 function htmlFiles(dir) {
     return fs.readdirSync(dir, { withFileTypes: true }).flatMap((d) => {

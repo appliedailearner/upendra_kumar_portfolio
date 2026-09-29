@@ -133,7 +133,7 @@ function splitInSource(html, ptext, cut, newTagFor) {
             await page.waitForTimeout(300);
             let leadLimit = 5;
             const measure = () => page.evaluate((leadLimit) => {
-                const content = document.querySelector('.blog-post-content');
+                const content = document.querySelector('.blog-post-content') || document.querySelector('.blog-content');
                 if (!content) return [];
                 const lines = (el) => {
                     const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);

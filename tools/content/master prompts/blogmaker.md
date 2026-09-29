@@ -178,9 +178,10 @@
 17. **No watermark icons:** never put faint (opacity ≤ 0.05), oversized icons behind cards or callouts.
 18. **Multi-column blocks:** inline grids must collapse on phones — use `grid-template-columns: repeat(auto-fit, minmax(max(240px, 45%), 1fr))` for two columns; give flex children that hold code or long URLs `min-width: 0`; never use `100vw` "break-out" widths (they overflow next to the contents sidebar).
 19. **Stat tiles:** labels of ≤ 2 lines on desktop; use `&#8209;` (non-breaking hyphen) in terms like "3&#8209;year".
-20. **Embeds and media:** no LinkedIn post `<iframe>` embeds (LinkedIn now returns 404 for them) — link to the post with a card instead. YouTube `.webp` thumbnails must use `https://i.ytimg.com/vi_webp/<id>/hqdefault.webp`. Every `poster=`, `og:image` and `<script src>` must point to a file that exists.
+20. **Embeds and media:** no LinkedIn post `<iframe>` embeds (LinkedIn now returns 404 for them) — use a "Follow Upendra on LinkedIn" card linking to the profile instead (the old account and its posts are gone, so never link to individual posts). YouTube `.webp` thumbnails must use `https://i.ytimg.com/vi_webp/<id>/hqdefault.webp`. Every `poster=`, `og:image` and `<script src>` must point to a file that exists.
 21. **Headings:** keep `h2`/`h3` short; the template sets `text-wrap: balance` so no single word wraps to its own line.
 22. **Contents sidebar:** links in page order, one per `h2`, each `href` matching a real `id`. `js/toc-tracker.js` handles highlighting — don't add a per-post IntersectionObserver.
+23. **Readable text and buttons:** text ≥ 13px (uppercase letter-spaced labels ≥ 12px) with ≥ 4.5:1 contrast. White text never sits on a bright fill — use `#2563eb` (blue), `#047857` (green), `#9333ea` (purple) or `#b45309` (amber), not `#3b82f6` / `#10b981` / `#a855f7` / `#f59e0b`. Captions on white diagram panels use `#475569`, not `#94a3b8`. Pull quotes may go above 1.3rem (display text); everything else stays on the three-step scale.
 
 ---
 
@@ -249,8 +250,8 @@
     <title>{{TITLE}} | Upendra Kumar</title>
 
     <link rel="stylesheet" href="../css/style.css?v=48">
-    <link rel="stylesheet" href="../css/premium.css?v=57">
-    <link rel="stylesheet" href="../css/dropdown.css?v=57">
+    <link rel="stylesheet" href="../css/premium.css?v=58">
+    <link rel="stylesheet" href="../css/dropdown.css?v=58">
 
     <!-- Performance: Critical Asset Preloading -->
     <link rel="preload" href="../css/style.css?v=48" as="style">
@@ -973,7 +974,7 @@ Upendra
 2.  Add the post card at the top of `site/blog.html`, and add entries to `site/sitemap.xml` and `site/feed.xml` (feed.xml is edited by hand; `generate_rss.py` has stale paths).
 3.  **Publishing gate — before deploy (must pass):**
     `node tools/qa/blog-visual-audit.js {{FILENAME}}`
-    Publish only when it exits 0 (every check PASS or N/A on desktop and phone). For a failure, fix the post and re-run. If a post scrolls sideways (T01), `node tools/qa/find-overflow.js {{FILENAME}}` names the cause. An accepted exception must be written in the Exceptions table of `project-docs/BLOG_READABILITY_PDCA_PLAN.md`.
+    Publish only when it exits 0 (every check PASS or N/A on desktop and phone). For a failure, fix the post and re-run. If a post scrolls sideways (T01), `node tools/qa/find-overflow.js {{FILENAME}}` names the cause; for T07/T09, `node tools/qa/type-locate.js {{FILENAME}}` lists the offending elements. An accepted exception must be written in the Exceptions table of `project-docs/BLOG_READABILITY_PDCA_PLAN.md`.
 4.  **Deploy:** commit the specific files, `git push origin main` (GitHub Pages), then the Azure mirror:
     `az account set --subscription 87cf2b93-5e52-4533-9e6b-7182cd7dbde6` (two subscriptions share the same name — the default is the wrong one), then `powershell tools/deploy/deploy-azure.ps1`.
 5.  **Publishing gate — after deploy:** `node tools/qa/blog-visual-audit.js {{FILENAME}} --live` must give the same result as the local run (it cache-busts past Cloudflare).
