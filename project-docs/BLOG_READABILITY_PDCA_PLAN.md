@@ -1,6 +1,6 @@
 # Blog Readability — PDCA Plan & To-Do Tracker
 
-**Owner:** Upendra Kumar  **Created:** 2026-09-28  **Status:** Cycle 1 done and live (2026-09-28); Cycle 2 done and live (2026-09-29); Act not started
+**Owner:** Upendra Kumar  **Created:** 2026-09-28  **Status:** Cycle 1 done and live (2026-09-28); Cycle 2 done and live (2026-09-29); Act 3 of 4 done (2026-09-29); 30-day review due 2026-10-28
 
 **Goal:** make blog posts easy to read on desktop and phone, then make the fixes permanent so new posts don't reintroduce the problems.
 
@@ -8,7 +8,7 @@
 |---|---|---|---|
 | 1 | The unified SecOps post (`site/blog/2026-09-28-unified-security-operations-ai-era.html`) | 10 | 10 / 10 ✅ |
 | 2 | Shared blog template: `css/premium.css` and all 49 posts | 10 | 10 / 10 ✅ |
-| Act | Make it stick: BlogMaker template, publishing gate, review | 4 | 0 / 4 |
+| Act | Make it stick: BlogMaker template, publishing gate, review | 4 | 3 / 4 (review due 2026-10-28) |
 
 ---
 
@@ -500,19 +500,25 @@ Helper for T01: `node tools/qa/find-overflow.js <post> [--width=390]` names the 
 
 **Change:** add the new standards: stacked executive cards with no watermarks, `.stack-table` for tables, first-use-only glossary, the three-size type scale, line height 1.7, Font Awesome 6.5.x, a 2-sentence lead, and `text-wrap: balance` on headings.
 
-- [ ] Done
+**Done:** Step 11 now uses the `.exec-rows` pattern (no watermarks); the template CSS carries the type scale, line height 1.7, `text-wrap: balance`, `.step-list`, `.stack-table` and the tooltip fix; Font Awesome 6.5.2; `toc-tracker.js` + `glossary-tidy.js` replace the per-post observer; readability rules 13–22 added to Phase 1.5; stale paths and the old footer telemetry panel removed (commit `96ec913`).
+
+- [x] Done
 
 ### A-02 · Publishing gate
 
 **Change:** add to BlogMaker's final steps: "Run `node tools/qa/blog-visual-audit.js <post>`; publish only if it exits 0. After deploy, run it again with `--live`."
 
-- [ ] Done
+**Done:** BlogMaker Step 6 now requires `blog-visual-audit.js <post>` to exit 0 before deploy and the `--live` run to match after deploy, with `find-overflow.js` for T01 and the Exceptions table for accepted failures. Deploy steps include the Azure subscription switch.
+
+- [x] Done
 
 ### A-03 · Record the rules
 
 **Change:** update the portfolio memory notes with the audit tool, the patch script and the new template rules.
 
-- [ ] Done
+**Done:** memory note `blog-readability-standards` records the tools, the gate, the shared-CSS sync rule and the known gotchas. Site-wide LinkedIn links also moved to `linkedin.com/in/upendra-kumar-azure-ai/` (commit `d7488d2`).
+
+- [x] Done
 
 ### A-04 · 30-day review (due 2026-10-28)
 
