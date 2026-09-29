@@ -9,8 +9,8 @@
     <title>The Hub-and-Spoke Lie: Production-Grade Networking for the Real World | Upendra Kumar</title>
 
     <link rel="stylesheet" href="../css/style.css?v=46">
-    <link rel="stylesheet" href="../css/premium.css?v=46">
-    <link rel="stylesheet" href="../css/dropdown.css">
+    <link rel="stylesheet" href="../css/premium.css?v=56">
+    <link rel="stylesheet" href="../css/dropdown.css?v=56">
 
     <!-- Performance: Critical Asset Preloading -->
     <link rel="preload" href="../css/style.css?v=46" as="style">
@@ -586,8 +586,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
 
         <!-- Azure App Insights SDK (RUM) -->
@@ -680,9 +680,9 @@
                 <li class="toc-item"><a href="#troubleshooting" class="toc-link">6. Troubleshooting</a></li>
                 <li class="toc-item"><a href="#cost" class="toc-link">7. Cost (FinOps)</a></li>
                 <li class="toc-item"><a href="#hardening" class="toc-link">8. Roadmap</a></li>
-                <li class="toc-item"><a href="#checklist" class="toc-link">Architect Checklist</a></li>
                 <li class="toc-item"><a href="#resources" class="toc-link">Resource Kit</a></li>
                 <li class="toc-item"><a href="#deploy" class="toc-link">Deploy Code</a></li>
+                <li class="toc-item"><a href="#checklist" class="toc-link">Architect Checklist</a></li>
             </ul>
         </aside>
 
@@ -1379,7 +1379,7 @@
         // Scroll Progress & Scroll Spy Logic
         const scrollProgressBar = document.getElementById('scrollProgress');
         const tocLinks = document.querySelectorAll('.toc-link');
-        const sections = document.querySelectorAll('h2[id], h3[id], div[id]');
+        const spySections = document.querySelectorAll('h2[id], h3[id], div[id]');
 
         window.addEventListener('scroll', () => {
             // 1. Update Progress Bar
@@ -1390,7 +1390,7 @@
 
             // 2. Update Scroll Spy (TOC Highlighting)
             let current = "";
-            sections.forEach(section => {
+            spySections.forEach(section => {
                 const sectionTop = section.offsetTop;
                 if (pageYOffset >= sectionTop - 150) {
                     current = section.getAttribute('id');
@@ -1488,6 +1488,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
     </script>
+    <script src="../js/toc-tracker.js?v=1" defer></script>
 </body>
 
 </html>
