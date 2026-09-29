@@ -679,7 +679,7 @@ html_content = """<!DOCTYPE html>
         <div class="container">
             <p>&copy; 2026 Upendra Kumar. All rights reserved.</p>
             <div class="social-links">
-                <a href="https://www.linkedin.com/in/journeytocloudwithupendra/" target="_blank" title="LinkedIn" aria-label="LinkedIn Profile">
+                <a href="https://www.linkedin.com/in/upendra-kumar-azure-ai/" target="_blank" title="LinkedIn" aria-label="LinkedIn Profile">
                     <i class="fab fa-linkedin"></i>
                 </a>
                 <a href="https://github.com/appliedailearner" target="_blank" title="GitHub" aria-label="GitHub Repository">
