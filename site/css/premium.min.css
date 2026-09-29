@@ -156,3 +156,69 @@ body .eli5-term::after {
         padding-right: 1rem !important;
     }
 }
+
+/* T17: the hero's bottom padding plus the article's top padding left ~155px of empty space
+   between the tags and the opening paragraph. `body` outranks each post's own rule. */
+body .blog-post-hero {
+    padding-bottom: 1.5rem;
+}
+
+body .blog-post-content {
+    padding-top: 2rem;
+}
+
+body .blog-content .lead {
+    margin-top: 0 !important; /* outranks a more specific 2rem rule in the posts */
+}
+
+/* T04 / T19 on phones: tables become one labelled card per row
+   (<div class="table-scroll stack-table">, <td data-label="…">), author note stacks. */
+@media (max-width: 768px) {
+    .stack-table table,
+    .stack-table tbody,
+    .stack-table tr,
+    .stack-table td {
+        display: block;
+        width: 100%;
+        min-width: 0 !important;
+    }
+
+    .stack-table thead {
+        display: none;
+    }
+
+    .stack-table tr {
+        padding: 1rem 1.1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .stack-table td {
+        padding: 0.2rem 0 !important;
+        border: none !important;
+    }
+
+    .stack-table td::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #7dd3fc;
+        margin-top: 0.5rem;
+    }
+
+    .stack-table td:first-child::before {
+        display: none;
+    }
+
+    .stack-table td:first-child {
+        font-weight: 700;
+        color: #f8fafc;
+    }
+
+    .author-note {
+        flex-direction: column;
+        align-items: flex-start !important;
+    }
+}

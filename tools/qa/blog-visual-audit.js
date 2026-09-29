@@ -204,7 +204,8 @@ function pageChecks(vp) {
 
     // T07 — consistent type scale in body text
     {
-        const els = [...content.querySelectorAll('p, li, td')].filter((e) => visible(e) && !e.closest('.lead, .toc-container, .social-share-container, .stat-tile, .blog-post-meta'));
+        const isLabel = (e) => { const cs = getComputedStyle(e); return cs.textTransform === 'uppercase' && parseFloat(cs.letterSpacing) > 0; }; // eyebrow labels aren't body text
+        const els = [...content.querySelectorAll('p, li, td')].filter((e) => visible(e) && !isLabel(e) && !e.closest('.lead, .toc-container, .social-share-container, .stat-tile, .blog-post-meta'));
         const sizes = [...new Set(els.map((e) => getComputedStyle(e).fontSize))].sort((a, b) => parseFloat(b) - parseFloat(a));
         add('T07', 'Type scale (distinct body sizes)', sizes.length <= 3 ? 'PASS' : 'FAIL', `${sizes.length}: ${sizes.join(', ')}`, '≤3 (body, compact, caption)');
     }
@@ -224,7 +225,7 @@ function pageChecks(vp) {
     {
         const bad = [];
         for (const el of content.querySelectorAll('*')) {
-            if (!visible(el) || el.closest('.toc-container')) continue;
+            if (!visible(el) || el.closest('.toc-container, svg')) continue; // SVG text scales with the drawing
             const hasText = [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim().length > 1);
             if (!hasText) continue;
             const s = getComputedStyle(el);

@@ -93,7 +93,7 @@
 
         .blog-tag {
             background: rgba(168, 85, 247, 0.1);
-            color: #a855f7;
+            color: #c084fc;
             padding: 0.5rem 1rem;
             border-radius: 20px;
             font-size: 0.9rem;
@@ -147,7 +147,7 @@
         }
 
         .breadcrumb a {
-            color: var(--primary-color);
+            color: #60a5fa;
             text-decoration: none;
         }
 
@@ -205,7 +205,7 @@
 
         .diagram-caption {
             font-size: 0.9rem;
-            color: #64748b;
+            color: #94a3b8;
             margin-top: 1rem;
             font-weight: 500;
             border-top: 1px solid #e2e8f0;
@@ -285,7 +285,7 @@
             <!-- Header -->
             <div style="margin-bottom: 3rem;">
                 <a href="../blog.html"
-                    style="color: var(--primary-color); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem;">
+                    style="color: #60a5fa; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem;">
                     <i class="fas fa-arrow-left"></i> Back to Insights
                 </a>
 
@@ -305,7 +305,7 @@
                     <span class="blog-tag"><i class="fas fa-tag"></i> Platform Engineering</span>
                     <span class="blog-tag"><i class="fas fa-tag"></i> Strategy</span>
                 </div>
-                <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 2rem 0;">
+                <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 1rem 0 0;">
             </div>
 
             <p class="lead"
@@ -323,10 +323,10 @@
             <p>Consultants and glossy slide decks will tell you that ALZ is a <strong>deployment</strong>. Just clone
                 the
                 <a href="https://github.com/Azure/Azure-Landing-Zones" target="_blank"
-                    style="color: #3b82f6; text-decoration: underline;">Official Azure Landing Zones Repo</a>,
+                    style="color: #60a5fa; text-decoration: underline;">Official Azure Landing Zones Repo</a>,
                 run the "Enterprise-Scale" Terraform module, and congratulations—you are now "Enterprise Ready". (If you
                 ignore the <a href="https://github.com/Azure/Azure-Landing-Zones/issues" target="_blank"
-                    style="color: #ef4444; font-weight: 600; text-decoration: underline;">hundreds of open issues</a>
+                    style="color: #f87171; font-weight: 600; text-decoration: underline;">hundreds of open issues</a>
                 that reveal the messy reality of Day 2 operations).
             </p>
 
@@ -341,7 +341,7 @@
 
             <div class="callout-box">
                 <strong
-                    style="display: block; margin-bottom: 0.5rem; color: #ef4444; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">
+                    style="display: block; margin-bottom: 0.5rem; color: #f87171; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">
                     <i class="fas fa-exclamation-triangle"></i> The Architecture Decision Record (ADR) Drift
                 </strong>
                 "We deployed strict Hub-and-Spoke. But then the Data Science team needed OpenAI access 'urgently' for a
@@ -395,7 +395,7 @@
             <h3>The "Subscription Vending" Requirement</h3>
             <p>Democratize access. You must automate subscription vending below. Microsoft's official <a
                     href="https://learn.microsoft.com/en-us/azure/architecture/landing-zones/subscription-vending"
-                    target="_blank" style="color: #3b82f6; text-decoration: underline;">Subscription Vending
+                    target="_blank" style="color: #60a5fa; text-decoration: underline;">Subscription Vending
                     Guidance</a> expressly states:
                 <i>"Subscription vending standardizes the process... so that application teams can deploy their
                     workloads faster."</i>
@@ -404,10 +404,10 @@
             <p>Don't reinvent the wheel. Use the official <strong>Azure Verified Modules (AVM)</strong>:
             <ul style="padding-left: 1.5rem; margin-bottom: 1.5rem;">
                 <li><strong>Bicep:</strong> <a href="https://aka.ms/lz-vending/bicep" target="_blank"
-                        style="color: #3b82f6; text-decoration: underline;">Sub Vending Bicep Module</a></li>
+                        style="color: #60a5fa; text-decoration: underline;">Sub Vending Bicep Module</a></li>
                 <li><strong>Terraform:</strong> <a
                         href="https://registry.terraform.io/modules/Azure/avm-ptn-alz-sub-vending/azure" target="_blank"
-                        style="color: #3b82f6; text-decoration: underline;">Sub Vending Terraform Module</a></li>
+                        style="color: #60a5fa; text-decoration: underline;">Sub Vending Terraform Module</a></li>
             </ul>
             </p>
 
@@ -427,7 +427,7 @@
 
             <p>Recently, organizations have been scrambling to adopt the <a
                     href="https://github.com/Azure/AI-Landing-Zones" target="_blank"
-                    style="color: #3b82f6; text-decoration: underline;">Azure AI Landing Zone</a> reference
+                    style="color: #60a5fa; text-decoration: underline;">Azure AI Landing Zone</a> reference
                 architectures. The pattern remains the same: <strong>Governance must enable speed.</strong></p>
 
             <p>To accelerate enterprise AI adoption, you cannot just "open the firewall." You need a dedicated
@@ -438,12 +438,12 @@
                 <li><strong>Shared AI Hub:</strong> Centralize your APIM and Cognitive Services provisioning to prevent
                     quota starvation. See the <a
                         href="https://techcommunity.microsoft.com/blog/azurearchitectureblog/ai-azure-landing-zone-shared-capabilities-and-models-to-enable-ai-as-a-platform/4455951"
-                        target="_blank" style="color: #3b82f6; text-decoration: underline;">Shared Capabilities
+                        target="_blank" style="color: #60a5fa; text-decoration: underline;">Shared Capabilities
                         Model</a>.</li>
                 <li><strong>Private Networking:</strong> OpenAI endpoints must sit behind Private Endpoints in a spoke,
                     peered to your centralized hub. No public access. Ever. (Read the <a
                         href="https://techcommunity.microsoft.com/blog/azurearchitectureblog/azure-openai-landing-zone-reference-architecture/3882102"
-                        target="_blank" style="color: #3b82f6; text-decoration: underline;">reference architecture
+                        target="_blank" style="color: #60a5fa; text-decoration: underline;">reference architecture
                         here</a>).</li>
             </ul>
 
