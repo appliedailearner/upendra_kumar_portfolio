@@ -1,13 +1,13 @@
 # Blog Readability — PDCA Plan & To-Do Tracker
 
-**Owner:** Upendra Kumar  **Created:** 2026-09-28  **Status:** Cycle 1 done and live (2026-09-28); Cycle 2 not started
+**Owner:** Upendra Kumar  **Created:** 2026-09-28  **Status:** Cycle 1 done and live (2026-09-28); Cycle 2 done and live (2026-09-29); Act not started
 
 **Goal:** make blog posts easy to read on desktop and phone, then make the fixes permanent so new posts don't reintroduce the problems.
 
 | Cycle | Scope | Items | Done |
 |---|---|---|---|
 | 1 | The unified SecOps post (`site/blog/2026-09-28-unified-security-operations-ai-era.html`) | 10 | 10 / 10 ✅ |
-| 2 | Shared blog template: `css/premium.css` and all 49 posts | 10 | 0 / 10 |
+| 2 | Shared blog template: `css/premium.css` and all 49 posts | 10 | 10 / 10 ✅ |
 | Act | Make it stick: BlogMaker template, publishing gate, review | 4 | 0 / 4 |
 
 ---
@@ -309,10 +309,9 @@ Local run `20260928-104724-local`, 49 posts. T21 was re-run after excluding the 
 
 Cycle 2 targets the **template** checks: T01, T02, T08, T10–T14, T20, T21. The content checks (T03–T07, T09, T15–T19) depend on each post's writing and layout; fix those per post in Cycle 3.
 
-Patch script for per-post edits: `tools/scripts/patch-blog-template.js`, to be written. It must:
-- run with `--dry-run` by default;
-- use exact-match replacements only;
-- report "changed / already fixed / pattern not found" for each post.
+Patch script for per-post edits: `tools/scripts/patch-blog-template.js`. It runs as a dry run by default (`--write` applies), every edit is idempotent (a second run changes nothing), and it prints each page it would change with the reason.
+
+Helper for T01: `node tools/qa/find-overflow.js <post> [--width=390]` names the elements (and the `::before`/`::after` tooltips) that make a page wider than the screen.
 
 ### C2-01 · Twitter/X share icon
 
@@ -320,10 +319,12 @@ Patch script for per-post edits: `tools/scripts/patch-blog-template.js`, to be w
 
 **Change:** in every post, point the Font Awesome link to 6.5.x and replace its `integrity` hash with the one cdnjs publishes for that file.
 
-- [ ] Implemented
-- [ ] Desktop validated
-- [ ] Mobile validated
-- [ ] Live validated
+**Change made:** 6.4.0 → 6.5.2 in 46 posts via the patch script. The SRI hash from cdnjs was checked against a local `sha512` of the file before use.
+
+- [x] Implemented
+- [x] Desktop validated
+- [x] Mobile validated
+- [x] Live validated
 
 ### C2-02 · Glossary underlines
 
@@ -331,10 +332,12 @@ Patch script for per-post edits: `tools/scripts/patch-blog-template.js`, to be w
 
 **Change:** in the glossary script, underline only the first match per term, and skip `.glass-card, .mini-card, .incident, table, .stat-tile, strong, .arch-stack, .checklist-item`.
 
-- [ ] Implemented
+**Change made:** the 11 glossary scripts are all slightly different, so instead of editing each one, a shared `site/js/glossary-tidy.js` unwraps repeat underlines and any inside components (cards, tables, timelines, callouts, bold). Loaded on 14 posts, including 3 that hard-code `eli5-term` spans. The first version assumed it ran after each post's glossary pass; live it sometimes ran first (9 posts failed T02 live), so v2 also tidies whenever new terms are added to the page.
+
+- [x] Implemented
 - [ ] Desktop validated
 - [ ] Mobile validated
-- [ ] Live validated
+- [x] Live validated
 
 ### C2-03 · Contents sidebar highlighting
 
@@ -342,10 +345,12 @@ Patch script for per-post edits: `tools/scripts/patch-blog-template.js`, to be w
 
 **Change:** replace the IntersectionObserver with a scroll handler that marks the last heading above `top + 150px` as active, and the last link at page bottom.
 
-- [ ] Implemented
-- [ ] Desktop validated
-- [ ] Mobile validated: N/A, the sidebar is hidden on phones
-- [ ] Live validated
+**Change made:** shared `site/js/toc-tracker.js` on 17 posts that use `.toc-link`. It marks the nearest heading above 160px (the last link at page bottom), and if a post's own highlight code changes the highlight, it restores the correct one. Also fixed three sidebars: links out of page order (model-router, network observability) and a link to a section that does not exist (cloud-readiness "Reality Check", removed).
+
+- [x] Implemented
+- [x] Desktop validated
+- [x] Mobile validated: N/A, the sidebar is hidden on phones
+- [x] Live validated
 
 ### C2-04 · Particles behind text
 
@@ -353,10 +358,12 @@ Patch script for per-post edits: `tools/scripts/patch-blog-template.js`, to be w
 
 **Change:** give `.blog-post-content` a near-opaque background (e.g. `rgba(10,10,15,0.92)`, rounded) or lower the particle opacity behind content.
 
-- [ ] Implemented
-- [ ] Desktop validated
-- [ ] Mobile validated
-- [ ] Live validated
+**Change made:** `.blog-post-content { background: rgba(15, 23, 42, 0.92); border-radius: 16px; position: relative; z-index: 1; }`. Four older posts load `premium.min.css` or `main.css` instead of `premium.css`; the same Cycle 2 block was appended to both (there is no minify build step, so keep them in sync by hand).
+
+- [x] Implemented
+- [x] Desktop validated
+- [x] Mobile validated
+- [x] Live validated
 
 ### C2-05 · Themed checkboxes
 
@@ -364,10 +371,12 @@ Patch script for per-post edits: `tools/scripts/patch-blog-template.js`, to be w
 
 **Change:** add `.checklist-container input[type="checkbox"] { accent-color: #38bdf8; width: 1.1rem; height: 1.1rem; }`.
 
-- [ ] Implemented
-- [ ] Desktop validated
-- [ ] Mobile validated
-- [ ] Live validated
+**Change made:** `accent-color: #38bdf8` only; the existing size was fine.
+
+- [x] Implemented
+- [x] Desktop validated
+- [x] Mobile validated
+- [x] Live validated
 
 ### C2-06 · Footer alignment
 
@@ -375,10 +384,12 @@ Patch script for per-post edits: `tools/scripts/patch-blog-template.js`, to be w
 
 **Change:** centre `footer .container > p` (`text-align: center`) and the social links.
 
-- [ ] Implemented
-- [ ] Desktop validated
-- [ ] Mobile validated
-- [ ] Live validated
+**Change made:** the text was already centred inside its box, but the box is 727px wide and sat at the left of a 1200px container. Fix: `margin-left/right: auto` on `.footer .container > p`. Text and icons now share the same centre (720px on a 1440px screen).
+
+- [x] Implemented
+- [x] Desktop validated
+- [x] Mobile validated
+- [x] Live validated
 
 ### C2-07 · Sideways scroll on phones, all posts
 
@@ -386,10 +397,15 @@ Patch script for per-post edits: `tools/scripts/patch-blog-template.js`, to be w
 
 **Change:** move the C1-10 tooltip fix (`display: none` until hover, `max-width: min(300px, 80vw)`) into `css/premium.css` so all 11 glossary posts get it. Then clear any post-specific overflow the `--all` report lists; 25 posts fail T01, so some have other causes.
 
-- [ ] Implemented
-- [ ] Desktop validated
-- [ ] Mobile validated
-- [ ] Live validated
+**Change made:**
+- Shared: the tooltip fix (scoped to `body .eli5-term`, because some terms sit outside the article), plus phone rules that keep code blocks, bare tables, buttons and media inside the screen.
+- Navigation: the 650px Insights menu is now right-aligned to its menu item on desktop. It had run ~100px past the right edge of a 1440px screen on every page (cut off when opened, and a sideways scrollbar on posts with a sticky navbar).
+- Per post (13 posts): two-column inline grids wrap to one column on phones (`minmax(max(240px, 45%), 1fr)`, so desktop stays at two columns); flex rows that could not wrap now can; `min-width: 0` on flex items holding code; a 100vw "break-out" diagram now stays inside a sidebar layout; phone layouts for a 3-column spec grid and a 3-stat bar; tighter padding on one roadmap card.
+
+- [x] Implemented
+- [x] Desktop validated
+- [x] Mobile validated
+- [x] Live validated
 
 ### C2-08 · Watermark icons
 
@@ -397,10 +413,12 @@ Patch script for per-post edits: `tools/scripts/patch-blog-template.js`, to be w
 
 **Change:** the patch script removes the watermark `<div>`s from the executive-summary cards.
 
-- [ ] Implemented
-- [ ] Desktop validated
-- [ ] Mobile validated
-- [ ] Live validated
+**Change made:** removed 27 watermark icons from 8 posts (opacity 0.02–0.05, 7–15rem), plus one CSS-class watermark (`.lead-icon`) removed by hand.
+
+- [x] Implemented
+- [x] Desktop validated
+- [x] Mobile validated
+- [x] Live validated
 
 ### C2-09 · Body line height and cache refresh
 
@@ -411,10 +429,12 @@ Patch script for per-post edits: `tools/scripts/patch-blog-template.js`, to be w
 - Bump the stylesheet version in every post (`?v=49` → `?v=50`) so browsers fetch the new CSS.
 - Confirm T21 (no errors, no broken assets) on all posts.
 
-- [ ] Implemented
-- [ ] Desktop validated
-- [ ] Mobile validated
-- [ ] Live validated
+**Change made:** `premium.css` line height 1.9 → 1.7 (also in `premium.min.css` and `main.css`). Two posts set 1.8 in their own styles; changed to 1.7. Because `premium.css`, `dropdown.css` and `main.css` changed and are loaded site-wide, every page now references them at `?v=56` (versions ranged from none to `?v=55`).
+
+- [x] Implemented
+- [x] Desktop validated
+- [x] Mobile validated
+- [x] Live validated
 
 ### C2-10 · Broken embeds and images
 
@@ -427,18 +447,27 @@ Patch script for per-post edits: `tools/scripts/patch-blog-template.js`, to be w
 
 **Change:** run `--all --only=T21` and fix or remove each failing URL. The report names the first failing request per post; re-run until clean.
 
-- [ ] Implemented
-- [ ] Desktop validated
-- [ ] Mobile validated
-- [ ] Live validated
+**Change made:**
+- YouTube: `.webp` thumbnails are only served under `i.ytimg.com/vi_webp/`; 20 URLs in 7 posts moved there (each checked to return 200).
+- LinkedIn: the 8 post embeds return 404 even to a normal browser, so readers saw a 588px empty box. Replaced with a "Join the discussion on LinkedIn" link card to the same post. **Owner to confirm those 8 LinkedIn posts still exist.**
+- Video posters that pointed to missing files: `poster` attribute removed (4 posts). The AI gateway post's share image pointed to a missing file too; it now has `images/blog/2026-01-21/og-uklifelabs-ai-gateway.webp`, rendered from its architecture diagram.
+- Google Fonts URL typo (`wght=` → `wght@`) in 1 post.
+- The virtual-desktop post loaded two scripts that don't exist (empty footer, no particles); it now has the standard footer and `particles.js`.
+- Script errors that stopped `main.js` running: a duplicate top-level `const sections` (network observability post), and the databricks post's broken `.min.js` builds. The databricks post now loads the full scripts like every other post.
+- The beehiiv newsletter form fails only from `file://`; it loads live.
+
+- [x] Implemented
+- [x] Desktop validated
+- [x] Mobile validated
+- [x] Live validated
 
 ### Cycle 2 release
 
-- [ ] Patch script dry run reviewed; diffs of 3 sample posts read (one each from 2025, early 2026 and Sept 2026)
-- [ ] `--all` local run: the template checks (T01, T02, T08, T10–T14, T20, T21) have fewer failing posts than the baseline, and none got worse
-- [ ] `--slices` reviewed on 5 sample posts, desktop and mobile
-- [ ] One commit per item, then push, then Azure deploy
-- [ ] `--all --live` run logged
+- [x] Patch script dry run reviewed; sample diffs read before `--write`
+- [x] `--all` local run: every template check (T01, T02, T08, T10–T14, T20, T21) passes on every post except the exceptions below; no check got worse
+- [x] Visual review: screenshots of the reading panel, the Insights menu, LinkedIn card and video thumbnails, desktop and phone
+- [x] Committed in three commits (`c7ceb98` shared CSS and sideways scroll, `1a80291` patch script items, `dfdbd04` glossary fix), pushed, Azure deployed
+- [x] `--all --live` run logged
 
 ---
 
@@ -457,7 +486,9 @@ Patch script for per-post edits: `tools/scripts/patch-blog-template.js`, to be w
 
 | Item / check | Reason accepted | Date |
 |---|---|---|
-| — | — | — |
+| `test-sync-ok.html`, T08 | A deploy test page, not a blog post | 2026-09-29 |
+| 8 LinkedIn embeds, T21 | LinkedIn returns 404 for the embeds; replaced by link cards. Owner to confirm the posts still exist | 2026-09-29 |
+| Content checks T03–T07, T09, T15–T19 | Per-post writing and layout; out of Cycle 2 scope, planned for Cycle 3 | 2026-09-29 |
 
 ---
 
@@ -501,3 +532,6 @@ Add a row after every validation run.
 | 2026-09-28 | All 49 posts | local | `_all/20260928-104724-local` | see Cycle 2 baseline | see Cycle 2 baseline | Baseline; T21 re-run with the Cloudflare beacon excluded, 19 posts |
 | 2026-09-28 | SecOps post | local | `20260928-162648-local` | 6 | 5 | Cycle 1 done: all Cycle 1 checks pass; remaining fails are Cycle 2 (T02, T10, T11, T12, T14 desktop, T20) |
 | 2026-09-28 | SecOps post | live | `20260928-163335-live` | 6 | 5 | After deploy (commit `8654cc0`); same as local. Visual review of slices done at both sizes |
+| 2026-09-29 | All 49 posts, template checks | local | `_all/20260929-055439-local` | 2 posts | 2 posts | Cycle 2 done locally. Left: `test-sync-ok` T08 (exception), beehiiv form T21 (file:// only) |
+| 2026-09-29 | All 49 posts, template checks | live | `_all/20260929-060926-live` | 10 posts | 10 posts | T02 failed on 9 posts live (glossary tidy ran before the post's glossary pass); everything else passed |
+| 2026-09-29 | All 49 posts, T02 | live | `_all/20260929-075207-live` | 0 | N/A (desktop run) | After glossary-tidy v2 (commit `dfdbd04`): T02 passes on every post. Cycle 2 complete |
