@@ -44,14 +44,14 @@
 
     <link rel="stylesheet" href="../css/style.min.css?v=48">
     <!-- Defer Non-Critical CSS -->
-    <link rel="preload" href="../css/premium.min.css?v=56" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="../css/premium.min.css?v=57" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
-        <link rel="stylesheet" href="../css/premium.min.css?v=56">
+        <link rel="stylesheet" href="../css/premium.min.css?v=57">
     </noscript>
 
-    <link rel="preload" href="../css/dropdown.min.css?v=56" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="../css/dropdown.min.css?v=57" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
-        <link rel="stylesheet" href="../css/dropdown.min.css?v=56">
+        <link rel="stylesheet" href="../css/dropdown.min.css?v=57">
     </noscript>
 
     <!-- Performance: Critical Asset Preloading -->
@@ -942,7 +942,9 @@
         <!-- Main Article -->
         <article class="blog-post-content">
             <p class="lead thought-leader-lead" style="font-weight: 500;">
-                The regulator didn't care about our multi-million dollar Databricks demo. They pointed at the open
+                The regulator didn't care about our multi-million dollar Databricks demo.</p>
+
+            <p>They pointed at the open
                 public
                 endpoint. Here is how we locked down the Data Lake without breaking the bank or taking the network down.
             </p>
@@ -966,72 +968,39 @@
                     </h2>
                 </div>
 
-                <style>
-                    .executive-grid {
-                        display: grid;
-                        grid-template-columns: repeat(3, 1fr);
-                        gap: 1.5rem;
-                    }
-
-                    @media (max-width: 900px) {
-                        .executive-grid {
-                            grid-template-columns: 1fr;
-                        }
-                    }
-                </style>
-                <div class="executive-grid">
-
-                    <!-- Card 1: Business Problem -->
-                    <div class="glass-card"
-                        style="padding: 2rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)); border: 1px solid rgba(248, 113, 113, 0.2); border-top: 3px solid #f87171; position: relative; overflow: hidden;">
-                        <div
-                            style="width: 45px; height: 45px; background: rgba(248, 113, 113, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(248, 113, 113, 0.2);">
-                            <i class="fas fa-fire" style="color: #f87171; font-size: 1.2rem;"></i>
-                        </div>
-                        <h4
-                            style="color: #fca5a5; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">
-                            The Business Problem</h4>
-                        <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">A Fortune 500
+                <div class="exec-rows">
+                    <div class="exec-row" style="--accent: #f87171; --accent-text: #fca5a5;">
+                        <div class="exec-icon"><i class="fas fa-fire"></i></div>
+                        <div>
+                            <h4>The Business Problem</h4>
+                            <p>A Fortune 500
                             Financial Services client faced a stalled <strong>$50M analytics modernization
                                 program</strong>. InfoSec blocked the deployment of Azure Databricks due to severe data
                             exfiltration risks, noting that a compromised internal identity could siphon terabytes of
                             PII to a rogue public Azure Storage account.</p>
-                    </div>
-
-                    <!-- Card 2: Strategic Play -->
-                    <div class="glass-card"
-                        style="padding: 2rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)); border: 1px solid rgba(96, 165, 250, 0.2); border-top: 3px solid #60a5fa; position: relative; overflow: hidden;">
-                        <div
-                            style="width: 45px; height: 45px; background: rgba(96, 165, 250, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(96, 165, 250, 0.2);">
-                            <i class="fas fa-network-wired" style="color: #60a5fa; font-size: 1.2rem;"></i>
                         </div>
-                        <h4
-                            style="color: #93c5fd; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">
-                            The Strategic Play</h4>
-                        <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">Engineered a
+                    </div>
+                    <div class="exec-row" style="--accent: #60a5fa; --accent-text: #93c5fd;">
+                        <div class="exec-icon"><i class="fas fa-network-wired"></i></div>
+                        <div>
+                            <h4>The Strategic Play</h4>
+                            <p>Engineered a
                             <strong>Zero-Trust Private Link Architecture</strong>. By leveraging a direct-path topology
                             with explicit User Defined Routes (UDRs), we avoided massive firewall transit costs
-                            while keeping all data strictly on the private Azure backbone.
-                        </p>
-                    </div>
-
-                    <!-- Card 3: Executive ROI -->
-                    <div class="glass-card"
-                        style="padding: 2rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)); border: 1px solid rgba(52, 211, 153, 0.2); border-top: 3px solid #34d399; position: relative; overflow: hidden;">
-                        <div
-                            style="width: 45px; height: 45px; background: rgba(52, 211, 153, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(52, 211, 153, 0.2);">
-                            <i class="fas fa-chart-pie" style="color: #34d399; font-size: 1.2rem;"></i>
+                            while keeping all data strictly on the private Azure backbone.</p>
                         </div>
-                        <h4
-                            style="color: #6ee7b7; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">
-                            The Executive ROI</h4>
-                        <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">Passed the rigorous
+                    </div>
+                    <div class="exec-row" style="--accent: #34d399; --accent-text: #6ee7b7;">
+                        <div class="exec-icon"><i class="fas fa-chart-pie"></i></div>
+                        <div>
+                            <h4>The Executive ROI</h4>
+                            <p>Passed the rigorous
                             InfoSec audit in under 3 weeks, unblocking the massive rollout. Furthermore, by
                             strategically routing bursty internal storage traffic to bypass the central NVA (Firewall),
                             we avoided a projected <strong>$120,000/year (30%) surcharge</strong> in firewall processing
                             fees.</p>
+                        </div>
                     </div>
-
                 </div>
             </div>
 
@@ -2024,7 +1993,9 @@
             <p>
                 Here is where textbook architecture completely falls apart in production. Standard "Hub-and-Spoke"
                 patterns dictate that all inter-spoke and internet-bound traffic routes through a central Azure Firewall
-                (NVA) in the Hub. <strong>When applied blindly to Databricks Private Endpoints, this can become a
+                (NVA) in the Hub.</p>
+
+            <p><strong>When applied blindly to Databricks Private Endpoints, this can become a
                     massive performance and billing trap unless deep packet inspection is strictly required.</strong>
             </p>
 
@@ -2470,7 +2441,9 @@ privatelink.vaultcore.azure.net</code></pre>
             <p>Properly segmenting these endpoints is critical. Placing storage private endpoints in the hub causes
                 hairpin routing and higher latency. Think of hairpin routing like sending a package to your next-door
                 neighbor by mailing it to a centralized post office in another city, only for the post office to drive
-                it all the way back to your street. It’s inefficient, expensive, and unnecessary. In Azure, this means
+                it all the way back to your street.</p>
+
+            <p>It’s inefficient, expensive, and unnecessary. In Azure, this means
                 forcing traffic from your Spoke VNet up to the Hub's firewall, just for it to turn right back around to
                 talk to a storage account in that same Spoke VNet.</p>
 

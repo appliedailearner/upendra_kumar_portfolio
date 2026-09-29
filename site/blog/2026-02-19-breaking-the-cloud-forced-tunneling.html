@@ -9,8 +9,8 @@
     <title>Breaking the Cloud: The Hidden Dangers of Azure Forced Tunneling | Upendra Kumar</title>
 
     <link rel="stylesheet" href="../css/style.css?v=48">
-    <link rel="stylesheet" href="../css/premium.css?v=56">
-    <link rel="stylesheet" href="../css/dropdown.css?v=56">
+    <link rel="stylesheet" href="../css/premium.css?v=57">
+    <link rel="stylesheet" href="../css/dropdown.css?v=57">
 
     <!-- Open Graph Social & SEO Tags for LinkedIn / Twitter -->
     <meta property="og:type" content="article" />
@@ -489,8 +489,9 @@
         <p>The mandate usually comes down from the CISO on a Friday afternoon: <strong>"All traffic must be inspected
                 on-premises. No exceptions."</strong></p>
         <p>It sounds reasonable on paper. You want unified policy enforcement, deep packet inspection (DPI) in your
-            trusted DMZ, and a single pane of glass for auditing. So, you implement <strong>Forced Tunneling</strong>.
-            You inject a <code>0.0.0.0/0</code> route via BGP (Border Gateway Protocol) or UDR (User Defined Route) that
+            trusted DMZ, and a single pane of glass for auditing. So, you implement <strong>Forced Tunneling</strong>.</p>
+
+        <p>You inject a <code>0.0.0.0/0</code> route via BGP (Border Gateway Protocol) or UDR (User Defined Route) that
             drags every single packet—from user requests
             to Windows updates—back to your data center.</p>
         <p>Then the alerts start firing: Windows VMs de-activating because they can't reach KMS (Key Management
@@ -730,7 +731,9 @@
         </div>
         <p><strong>The Scenario:</strong> An internet client connects to your Azure Firewall Public IP. The firewall
             DNATs the traffic to your backend VM. The backend VM receives the packet, but its default route points to
-            on-prem via the forced tunnel. The VM replies via the ExpressRoute. The client receives a reply from an
+            on-prem via the forced tunnel.</p>
+
+        <p>The VM replies via the ExpressRoute. The client receives a reply from an
             unexpected IP (your on-prem gateway) or the firewall state table drops the connection.</p>
 
         <h3>The Supported Alternative</h3>

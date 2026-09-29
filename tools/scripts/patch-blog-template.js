@@ -24,7 +24,7 @@ const path = require('path');
 
 const SITE = path.join(__dirname, '..', '..', 'site');
 const WRITE = process.argv.includes('--write');
-const CSS_VERSION = '56';
+const CSS_VERSION = '57';
 const FA_OLD = 'font-awesome/6.4.0/css/all.min.css';
 const FA_NEW = 'font-awesome/6.5.2/css/all.min.css';
 const FA_OLD_SRI = 'sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==';

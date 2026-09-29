@@ -25,8 +25,8 @@
     <title>Azure Model Router: The Enterprise AI Model Layer | Upendra Kumar</title>
 
     <link rel="stylesheet" href="../css/style.css?v=48">
-    <link rel="stylesheet" href="../css/premium.css?v=56">
-    <link rel="stylesheet" href="../css/dropdown.css?v=56">
+    <link rel="stylesheet" href="../css/premium.css?v=57">
+    <link rel="stylesheet" href="../css/dropdown.css?v=57">
 
     <!-- Performance: Critical Asset Preloading -->
     <link rel="preload" href="../css/style.css?v=48" as="style">
@@ -1641,7 +1641,9 @@
         </div>
         
         <p class="lead">
-            Enterprise AI is moving beyond the "pick one best model" mindset. That approach is already outdated. The critical architectural question is no longer which LLM is best, but rather: <em>Which model should handle which task, under what controls, at what cost, in which region, and with what audit trail?</em>
+            Enterprise AI is moving beyond the "pick one best model" mindset. That approach is already outdated.</p>
+
+        <p>The critical architectural question is no longer which LLM is best, but rather: <em>Which model should handle which task, under what controls, at what cost, in which region, and with what audit trail?</em>
         </p>
 
         <p>
@@ -1712,7 +1714,9 @@
         <!-- Section 3: What Azure AI Foundry Model Router does -->
         <h2 id="how-it-works"><span class="gradient-text">How Azure AI Foundry Model Router Works</span></h2>
         <p>
-            Model Router should be treated as the model decision layer. Instead of directly calling a fixed model endpoint, an application calls a Model Router deployment. Microsoft documents that the router evaluates prompt complexity and routing mode, then selects from the configured eligible model pool. The selected underlying model is returned in the API response <code>model</code> field, which makes it observable for downstream logging and audit analysis.
+            Model Router should be treated as the model decision layer. Instead of directly calling a fixed model endpoint, an application calls a Model Router deployment.</p>
+
+        <p>Microsoft documents that the router evaluates prompt complexity and routing mode, then selects from the configured eligible model pool. The selected underlying model is returned in the API response <code>model</code> field, which makes it observable for downstream logging and audit analysis.
         </p>
         <p style="font-size: 0.92rem; color: #94a3b8; margin-top: -0.25rem;">
             Source: Microsoft Learn documentation for <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/model-router" target="_blank" rel="noopener noreferrer">Model Router concepts</a> and <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/model-router-how-it-works" target="_blank" rel="noopener noreferrer">how routing works</a>.
@@ -1860,7 +1864,9 @@
         </div>
 
         <p>
-            For European workloads, Sweden Central with <strong>Data Zone Standard</strong> is a strong starting point when EU data-zone processing is required. It supports prompt and response processing within the Microsoft-defined EU data zone, but final sovereignty and compliance posture must still be validated against the customer's legal, regulatory, and contractual requirements.
+            For European workloads, Sweden Central with <strong>Data Zone Standard</strong> is a strong starting point when EU data-zone processing is required.</p>
+
+        <p>It supports prompt and response processing within the Microsoft-defined EU data zone, but final sovereignty and compliance posture must still be validated against the customer's legal, regulatory, and contractual requirements.
         </p>
 
         <div class="section-divider"></div>
@@ -1916,7 +1922,9 @@
             Model Router honors the configured deployment type and eligible model pool, including data-zone boundaries where applicable. However, enterprise enforcement still requires Azure Policy, RBAC, API gateway policy, logging, private networking, approved model governance, procurement controls, and legal review.
         </p>
         <p>
-            <strong>Provider caveat:</strong> Some model families have additional deployment requirements. For example, Microsoft documents that Claude models must be deployed separately before Model Router can route to them. Validate provider-specific setup before assuming every catalog model is immediately routable. See Microsoft Learn <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/model-router" target="_blank" rel="noopener noreferrer">Model Router how-to guidance</a>.
+            <strong>Provider caveat:</strong> Some model families have additional deployment requirements. For example, Microsoft documents that Claude models must be deployed separately before Model Router can route to them.</p>
+
+        <p>Validate provider-specific setup before assuming every catalog model is immediately routable. See Microsoft Learn <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/model-router" target="_blank" rel="noopener noreferrer">Model Router how-to guidance</a>.
         </p>
 
         <h3>3. Supports Model Abstraction</h3>
@@ -2146,7 +2154,9 @@
             </div>
         </div>
         <p>
-            In this pattern, the AI gateway handles access, policies, quotas, logging, and safety. The orchestration layer handles retrieval, prompt construction, workflow state, retries, and tool calling. Model Router handles dynamic model selection for flexible workloads. Direct approved models handle regulated or repeatable workloads. Evaluation and observability validate cost, quality, latency, grounding, and human rework.
+            In this pattern, the AI gateway handles access, policies, quotas, logging, and safety. The orchestration layer handles retrieval, prompt construction, workflow state, retries, and tool calling.</p>
+
+        <p>Model Router handles dynamic model selection for flexible workloads. Direct approved models handle regulated or repeatable workloads. Evaluation and observability validate cost, quality, latency, grounding, and human rework.
         </p>
 
         <figure class="architecture-figure architecture-figure--wide reveal-scale">

@@ -32,8 +32,8 @@
     <title>The New "Pinning Trap": Why Hardcoded API Keys in Agentic AI Are a Security Disaster | Upendra Kumar</title>
 
     <link rel="stylesheet" href="../css/style.css?v=48">
-    <link rel="stylesheet" href="../css/premium.css?v=56">
-    <link rel="stylesheet" href="../css/dropdown.css?v=56">
+    <link rel="stylesheet" href="../css/premium.css?v=57">
+    <link rel="stylesheet" href="../css/dropdown.css?v=57">
 
     <!-- Performance: Critical Asset Preloading -->
     <link rel="preload" href="../css/style.css?v=48" as="style">
@@ -655,8 +655,8 @@
                 class="eli5-term"
                 data-tooltip="The 'Foreman' that orchestrates AI tasks, telling the LLM which tools to use.">Semantic
                 Kernel</span>.
-            It is the AI equivalent of certificate pinning—brittle, un-auditable, and a massive enterprise risk.
         </blockquote>
+        <p>It is the AI equivalent of certificate pinning—brittle, un-auditable, and a massive enterprise risk.</p>
 
         <!-- Architecture Diagram inserted above the first main concept -->
         <div
@@ -690,63 +690,35 @@
                 </h2>
             </div>
 
-            <style>
-                .executive-grid {
-                    display: grid;
-                    grid-template-columns: repeat(3, 1fr);
-                    gap: 1.5rem;
-                }
-
-                @media (max-width: 900px) {
-                    .executive-grid {
-                        grid-template-columns: 1fr;
-                    }
-                }
-            </style>
-            <div class="executive-grid">
-
-                <div class="glass-card"
-                    style="padding: 2rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)); border: 1px solid rgba(248, 113, 113, 0.2); border-top: 3px solid #f87171; position: relative; overflow: hidden;">
-                    <div
-                        style="width: 45px; height: 45px; background: rgba(248, 113, 113, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(248, 113, 113, 0.2);">
-                        <i class="fas fa-fire" style="color: #f87171; font-size: 1.2rem;"></i>
-                    </div>
-                    <h4
-                        style="color: #fca5a5; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">
-                        The Business Problem</h4>
-                    <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">Letting LLMs
+            <div class="exec-rows">
+                <div class="exec-row" style="--accent: #f87171; --accent-text: #fca5a5;">
+                    <div class="exec-icon"><i class="fas fa-fire"></i></div>
+                    <div>
+                        <h4>The Business Problem</h4>
+                        <p>Letting LLMs
                         directly
                         query enterprise databases using static API keys bypasses Zero-Trust, creating catastrophic
                         audit failures and mass data exfiltration risks.</p>
-                </div>
-
-                <div class="glass-card"
-                    style="padding: 2rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)); border: 1px solid rgba(96, 165, 250, 0.2); border-top: 3px solid #60a5fa; position: relative; overflow: hidden;">
-                    <div
-                        style="width: 45px; height: 45px; background: rgba(96, 165, 250, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(96, 165, 250, 0.2);">
-                        <i class="fas fa-network-wired" style="color: #60a5fa; font-size: 1.2rem;"></i>
                     </div>
-                    <h4
-                        style="color: #93c5fd; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">
-                        The Strategic Play</h4>
-                    <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">Implementing an API
+                </div>
+                <div class="exec-row" style="--accent: #60a5fa; --accent-text: #93c5fd;">
+                    <div class="exec-icon"><i class="fas fa-network-wired"></i></div>
+                    <div>
+                        <h4>The Strategic Play</h4>
+                        <p>Implementing an API
                         Mediation Layer using Azure APIM to act as the sole broker for all Agentic tool-calling,
                         authenticated purely via Managed Identity and normalized with MCP.</p>
-                </div>
-
-                <div class="glass-card"
-                    style="padding: 2rem; background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4)); border: 1px solid rgba(52, 211, 153, 0.2); border-top: 3px solid #34d399; position: relative; overflow: hidden;">
-                    <div
-                        style="width: 45px; height: 45px; background: rgba(52, 211, 153, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(52, 211, 153, 0.2);">
-                        <i class="fas fa-chart-pie" style="color: #34d399; font-size: 1.2rem;"></i>
                     </div>
-                    <h4
-                        style="color: #6ee7b7; margin: 0 0 1rem 0; font-size: 1.1rem; font-family: 'Outfit', sans-serif;">
-                        The Executive ROI</h4>
-                    <p style="margin: 0; font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">Mitigated 100% of
+                </div>
+                <div class="exec-row" style="--accent: #34d399; --accent-text: #6ee7b7;">
+                    <div class="exec-icon"><i class="fas fa-chart-pie"></i></div>
+                    <div>
+                        <h4>The Executive ROI</h4>
+                        <p>Mitigated 100% of
                         static
                         credential sprawl for AI workloads and reduced security audit times from weeks to hours by
                         centralizing RBAC.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -950,7 +922,9 @@ kernel.ImportPluginFromOpenApi(
         </div>
 
         <p>In a modern enterprise Agentic AI architecture, you use all three: Your developer writes an MCP Server to
-            safely access an internal customer database. Under the hood, that MCP Server executes actual database
+            safely access an internal customer database.</p>
+
+        <p>Under the hood, that MCP Server executes actual database
             queries using the Azure SDK. Your Semantic Kernel agent then connects to the database via the MCP
             standard,
             bypassing the need for proprietary plugins.</p>

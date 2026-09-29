@@ -25,8 +25,8 @@
     <title>Engineering Cross-Region DR for Azure APIM, AI Search, Document Intelligence &amp; AI Foundry: A Zero-Trust Architecture Field Guide | Upendra Kumar</title>
 
     <link rel="stylesheet" href="../css/style.css?v=48">
-    <link rel="stylesheet" href="../css/premium.css?v=56">
-    <link rel="stylesheet" href="../css/dropdown.css?v=56">
+    <link rel="stylesheet" href="../css/premium.css?v=57">
+    <link rel="stylesheet" href="../css/dropdown.css?v=57">
 
     <!-- Performance: Critical Asset Preloading -->
     <link rel="preload" href="../css/style.css?v=48" as="style">
@@ -2356,7 +2356,9 @@
 
         <h2 id="scenario"><span class="gradient-text">The Scenario: Why this is harder than it looks</span></h2>
         <p>Imagine an enterprise platform serving mobile apps, partner integrations, internal business systems, and AI-assisted workflows across the Middle East. The primary region is <strong>UAE North</strong>. It leverages Azure API Management (APIM) as the gateway tier, intertwined with Azure AI Search, Document Intelligence, and Azure AI Foundry endpoints.</p>
-        <p>The business mandates a strict disaster recovery design extending into <strong>Sweden Central</strong>. Simple geography, right? Wrong. The first issue is tier reality. APIM does not support identical DR mechanisms across its versions. The second issue is service behavior. Generative AI endpoint availability and failure patterns do not mirror traditional IaaS configurations. And the third issue? UAE North to Sweden Central is an explicitly non-paired cross-geography DR design.</p>
+        <p>The business mandates a strict disaster recovery design extending into <strong>Sweden Central</strong>. Simple geography, right? Wrong. The first issue is tier reality. APIM does not support identical DR mechanisms across its versions.</p>
+
+        <p>The second issue is service behavior. Generative AI endpoint availability and failure patterns do not mirror traditional IaaS configurations. And the third issue? UAE North to Sweden Central is an explicitly non-paired cross-geography DR design.</p>
         <p>If you assume an active passive pattern is just a simple "networking flip", then your architecture looks fine in presentation slides, but completely fails under system pressure.</p>
 
         <h2 id="hard-truth"><span class="gradient-text">The First Hard Truth: APIM Tiers Matter</span></h2>
@@ -2544,7 +2546,9 @@
         </div>
 
         <h4 style="color: #e2e8f0; font-family: ‘Outfit’, sans-serif; margin-bottom: 0.75rem;"><i class="fas fa-network-wired" style="color: #60a5fa; margin-right: 6px;"></i>Multi-Region Architecture Pattern</h4>
-        <p>Deploy two completely independent AI Search services — one in UAE North, one in Sweden Central. Both services must run the same indexer pipeline against a <strong>geo-replicated source</strong> (Blob Storage with GRS/GZRS, or Cosmos DB with multi-region writes). The indexer in the secondary region runs on its own schedule and is independently queryable at all times (warm standby, not cold restore).</p>
+        <p>Deploy two completely independent AI Search services — one in UAE North, one in Sweden Central. Both services must run the same indexer pipeline against a <strong>geo-replicated source</strong> (Blob Storage with GRS/GZRS, or Cosmos DB with multi-region writes).</p>
+
+        <p>The indexer in the secondary region runs on its own schedule and is independently queryable at all times (warm standby, not cold restore).</p>
 
         <pre><code class="language-bash"># Deploy AI Search service in UAE North
 az search service create \
@@ -3174,7 +3178,9 @@ resource swedenOrigin 'Microsoft.Cdn/profiles/originGroups/origins@2023-05-01' =
 }</code></pre>
 
         <h2 id="fd-lockdown"><span class="gradient-text">Front Door + APIM Origin Lockdown Pattern</span></h2>
-        <p>A critical hardening step most architects skip: ensuring that your APIM instances <strong>only accept traffic routed through Azure Front Door</strong>, not direct public internet hits. The <a href="https://learn.microsoft.com/en-us/samples/azure/azure-quickstart-templates/front-door-standard-premium-api-management-external/" target="_blank" style="color: #c084fc; font-weight: 600; text-decoration: none;">Azure Quickstart Template: Front Door Standard/Premium with API Management <i class="fas fa-external-link-alt" style="font-size: 0.8em;"></i></a> provides the canonical reference for this pattern. Here is how you engineer it into each regional APIM instance:</p>
+        <p>A critical hardening step most architects skip: ensuring that your APIM instances <strong>only accept traffic routed through Azure Front Door</strong>, not direct public internet hits.</p>
+
+        <p>The <a href="https://learn.microsoft.com/en-us/samples/azure/azure-quickstart-templates/front-door-standard-premium-api-management-external/" target="_blank" style="color: #c084fc; font-weight: 600; text-decoration: none;">Azure Quickstart Template: Front Door Standard/Premium with API Management <i class="fas fa-external-link-alt" style="font-size: 0.8em;"></i></a> provides the canonical reference for this pattern. Here is how you engineer it into each regional APIM instance:</p>
 
         <div class="analogy-block">
             <div class="analogy-header">
@@ -3297,7 +3303,9 @@ resource nsg 'Microsoft.Network/networkSecurityGroups@2023-05-01' = {
         </ol>
 
         <h2 id="mistakes"><span class="gradient-text">The Traps to Avoid</span></h2>
-        <p>Enterprise deployments stall at the design phase due to predictable mistakes. Confusing High Availability (intra-region AZ distribution) with Disaster Recovery (cross-region localized isolation) completely misses the mark. Furthermore, expecting AI Foundry deployments to seamlessly auto-scale during a planetary-scale event without distinct RTO/RPO models is an architectural gamble you will lose.</p>
+        <p>Enterprise deployments stall at the design phase due to predictable mistakes. Confusing High Availability (intra-region AZ distribution) with Disaster Recovery (cross-region localized isolation) completely misses the mark.</p>
+
+        <p>Furthermore, expecting AI Foundry deployments to seamlessly auto-scale during a planetary-scale event without distinct RTO/RPO models is an architectural gamble you will lose.</p>
 
         <h3>Final Stance</h3>
         <p>A cross-geography DR pattern for AI and API workloads is inherently a <strong>customer-engineered resilience pattern, not a product feature bundle</strong>. If you are going this route, commit to Standard v2 with twin regional instances, separate regional AI model commitments, and a DNS governance strategy that actually survives cutover night.</p>

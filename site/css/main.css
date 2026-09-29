@@ -5787,3 +5787,84 @@ body .eli5-term::after {
         max-width: 100%;
     }
 }
+
+/* =========================================
+   Blog readability (PDCA Cycle 3)
+   ========================================= */
+
+/* T18: no single word stranded on a heading's last line (.blog-content: two older posts) */
+.blog-post-content h2,
+.blog-post-content h3,
+.blog-content h2,
+.blog-content h3 {
+    text-wrap: balance;
+}
+
+/* T03: executive summary as full-width rows (was a 3-column card grid) */
+.exec-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.exec-row {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 1.25rem;
+    align-items: start;
+    padding: 1.5rem 1.75rem;
+    background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4));
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    border-left: 4px solid var(--accent, #60a5fa);
+    border-radius: 12px;
+}
+
+.exec-row .exec-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--accent, #60a5fa) 12%, transparent);
+    color: var(--accent, #60a5fa);
+    font-size: 1.2rem;
+}
+
+.exec-row h4 {
+    margin: 0 0 0.4rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.1rem;
+    color: var(--accent-text, #93c5fd);
+}
+
+.blog-post-content .exec-row p {
+    margin: 0;
+    color: #cbd5e1;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .exec-row {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        padding: 1.25rem;
+    }
+}
+
+/* T15: the opening paragraph is set large (often inline 1.25-1.45rem, bold); on phones that
+   wrapped a two-sentence lead to 7-12 lines. Inline sizes need !important to be overridden. */
+@media (max-width: 768px) {
+    .blog-post-content .lead {
+        font-size: 1.15rem !important;
+        line-height: 1.5 !important;
+        padding-left: 1rem !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .blog-post-content blockquote.lead {
+        padding-right: 1rem !important;
+    }
+}
