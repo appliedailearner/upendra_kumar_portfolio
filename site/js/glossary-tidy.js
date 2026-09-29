@@ -2,9 +2,12 @@
  * glossary-tidy.js — keeps glossary underlines readable.
  *
  * Each post's own script wraps glossary terms in <span class="eli5-term">.
- * This runs after it and unwraps the ones that add noise:
+ * This unwraps the ones that add noise:
  *   - terms inside cards, tables, timelines, callouts or bold text;
  *   - every occurrence of a term after the first one in running text.
+ *
+ * It does not rely on running after the post's script (script order can differ
+ * live): it tidies on load and again whenever new terms are added.
  */
 (function () {
     var COMPONENTS = [
@@ -32,8 +35,28 @@
         }
     }
 
-    // Posts add their underlines on DOMContentLoaded; run after that pass.
-    function schedule() { setTimeout(tidy, 0); }
+    var queued = false;
+    function schedule() {
+        if (queued) return;
+        queued = true;
+        setTimeout(function () { queued = false; tidy(); }, 0);
+    }
+
+    function addsTerms(mutations) {
+        for (var i = 0; i < mutations.length; i++) {
+            var added = mutations[i].addedNodes;
+            for (var j = 0; j < added.length; j++) {
+                var n = added[j];
+                if (n.nodeType === 1 && (n.classList.contains('eli5-term') || n.querySelector('.eli5-term'))) return true;
+            }
+        }
+        return false;
+    }
+
+    new MutationObserver(function (m) { if (addsTerms(m)) schedule(); })
+        .observe(document.documentElement, { childList: true, subtree: true });
+
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', schedule);
     else schedule();
+    window.addEventListener('load', schedule);
 })();
