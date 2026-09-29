@@ -13,6 +13,11 @@
  *          Google Fonts "wght=" typo, and LinkedIn post embeds that now return 404
  *          (replaced by a link card to the same post)
  *   CSS    cache-bust premium / dropdown / main stylesheets (all pages) to ?v=56
+ *   PERF   (all pages) the 2026-09-03 speed pass from the VMware post:
+ *          - Google Fonts and Font Awesome load without blocking first paint
+ *            (preload + onload swap, with a <noscript> fallback); exact duplicates dropped
+ *          - navbar-component.js and particles.js get `defer` (both wait for DOMContentLoaded/load anyway)
+ *          - the footer telemetry panel (UX Speed / Privacy Hits / Edge Node / System Status) is removed
  */
 const fs = require('fs');
 const path = require('path');
@@ -47,6 +52,56 @@ function addScript(html, src) {
     return i < 0 ? html : `${html.slice(0, i)}    <script src="${src}?v=1" defer></script>${eol}${html.slice(i)}`;
 }
 
+// PERF: render-blocking font / icon stylesheets -> preload + onload swap (outside <noscript> only)
+const BLOCKING_FONT_LINK = /<link\b[^>]*>/g;
+function nonBlockingFonts(html) {
+    const eol = html.includes('\r\n') ? '\r\n' : '\n';
+    const parts = html.split(/(<noscript>[\s\S]*?<\/noscript>)/);
+    const loaded = new Set();
+    let changed = 0;
+    for (const p of parts) {
+        if (p.startsWith('<noscript>')) continue;
+        for (const t of p.match(BLOCKING_FONT_LINK) || []) {
+            const href = (t.match(/href="([^"]+)"/) || [])[1];
+            if (href && /rel="preload"/.test(t) && /onload=/.test(t)) loaded.add(href);
+        }
+    }
+    for (let i = 0; i < parts.length; i++) {
+        if (parts[i].startsWith('<noscript>')) continue;
+        parts[i] = parts[i].replace(BLOCKING_FONT_LINK, (tag, offset, str) => {
+            if (!/rel="stylesheet"/.test(tag) || !/fonts\.googleapis\.com\/css2|font-awesome\//.test(tag)) return tag;
+            const href = (tag.match(/href="([^"]+)"/) || [])[1];
+            changed++;
+            if (loaded.has(href)) return '\u0000DROP\u0000'; // already loaded without blocking
+            loaded.add(href);
+            const indent = (str.slice(0, offset).match(/[ \t]*$/) || [''])[0];
+            const swap = tag.replace('rel="stylesheet"', `rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'"`);
+            return `${swap}${eol}${indent}<noscript>${tag}</noscript>`;
+        });
+    }
+    // remove the duplicate tags together with their line
+    return { html: parts.join('').replace(/[ \t]*\u0000DROP\u0000[ \t]*(\r?\n)?/g, ''), changed };
+}
+
+// PERF: remove the footer telemetry panel (balanced <div> match)
+function removeTelemetryPanel(html) {
+    const start = html.indexOf('<div class="footer-qr-container"');
+    if (start < 0) return html;
+    const re = /<\/?div\b/g;
+    re.lastIndex = start;
+    let depth = 0, m;
+    while ((m = re.exec(html))) {
+        depth += m[0] === '<div' ? 1 : -1;
+        if (depth === 0) {
+            const end = html.indexOf('>', m.index) + 1;
+            let lineStart = html.lastIndexOf('\n', start);
+            if (html[lineStart - 1] === '\r') lineStart--; // keep CRLF files intact
+            return html.slice(0, lineStart) + html.slice(end);
+        }
+    }
+    return html;
+}
+
 const totals = {};
 const count = (k) => { totals[k] = (totals[k] || 0) + 1; };
 
@@ -63,6 +118,16 @@ for (const file of htmlFiles(SITE)) {
         notes.push(`${name}${v || ''} -> ?v=${CSS_VERSION}`); count('css version');
         return `${name}?v=${CSS_VERSION}"`;
     });
+
+    // PERF (all pages)
+    const fonts = nonBlockingFonts(html);
+    if (fonts.changed) { html = fonts.html; notes.push(`${fonts.changed} blocking font/icon stylesheet(s)`); count('PERF fonts'); }
+    html = html.replace(/<script src="((?:\.\.\/)?js\/(?:navbar-component|particles)\.js)"><\/script>/g, (m, src) => {
+        notes.push(`defer ${path.basename(src)}`); count('PERF defer');
+        return `<script src="${src}" defer></script>`;
+    });
+    const noPanel = removeTelemetryPanel(html);
+    if (noPanel !== html) { html = noPanel; notes.push('telemetry panel removed'); count('PERF telemetry panel'); }
 
     if (isPost) {
         if (html.includes(FA_OLD)) {

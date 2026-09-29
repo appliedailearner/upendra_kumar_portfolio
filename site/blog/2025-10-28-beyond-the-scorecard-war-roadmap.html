@@ -127,8 +127,12 @@
 
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"></noscript>
+    <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></noscript>
     <!-- Microsoft Clarity -->
     <script type="text/javascript">
         (function(c,l,a,r,i,t,y){
@@ -172,7 +176,7 @@
     <canvas id="particles-canvas"></canvas>
     <!-- Navigation -->
     <nav class="navbar" id="dynamic-nav"></nav>
-    <script src="../js/navbar-component.js"></script>
+    <script src="../js/navbar-component.js" defer></script>
 
     <!-- Blog Post Hero -->
     <section class="blog-post-hero">
@@ -663,7 +667,7 @@ Resources
     <!-- Smooth Navigation Enhancement -->
     <script src="../js/case-study-nav.js"></script>
 
-    <script src="../js/particles.js"></script>
+    <script src="../js/particles.js" defer></script>
     <!-- Cloudflare Web Analytics -->
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
         data-cf-beacon='{"token": "0b89fb05ee3844079b659405bc3f5428"}'></script><!-- End Cloudflare Web Analytics -->

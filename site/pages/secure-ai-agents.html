@@ -34,10 +34,14 @@
     </style>
     <link rel="stylesheet" href="../css/hero-typography.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+    <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></noscript>
     <!-- Microsoft Clarity -->
     <script type="text/javascript">
         (function (c, l, a, r, i, t, y) {
@@ -55,7 +59,7 @@
         style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;"></canvas>
     <!-- Navigation -->
     <nav class="navbar" id="dynamic-nav"></nav>
-    <script src="../js/navbar-component.js"></script>
+    <script src="../js/navbar-component.js" defer></script>
     <script src="../js/main.js"></script>
 
     <header class="hero" style="min-height: 50vh; padding-top: 150px;">
@@ -156,7 +160,7 @@
         </div>
     </footer>
 
-    <script src="../js/particles.js"></script>
+    <script src="../js/particles.js" defer></script>
     <!-- Cloudflare Web Analytics -->
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
         data-cf-beacon='{"token": "0b89fb05ee3844079b659405bc3f5428"}'></script><!-- End Cloudflare Web Analytics -->

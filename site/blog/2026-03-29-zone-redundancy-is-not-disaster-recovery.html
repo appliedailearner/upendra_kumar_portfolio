@@ -290,14 +290,16 @@
         }
         #focus-btn:hover { background: #2563eb; }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+    <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></noscript>
 </head>
 
 <body class="dark-theme">
     <canvas id="particles-canvas"></canvas>
     <nav class="navbar" id="dynamic-nav"></nav>
-    <script src="../js/navbar-component.js"></script>
+    <script src="../js/navbar-component.js" defer></script>
 
     <section class="blog-post-hero">
         <div class="container" style="max-width: 1000px;">
@@ -700,7 +702,7 @@
         <p>&copy; 2026 Upendra Kumar. All rights reserved.</p>
     </footer>
 
-    <script src="../js/particles.js"></script>
+    <script src="../js/particles.js" defer></script>
     <script src="../js/main.js"></script>
     <script src="../js/glossary-tidy.js?v=2" defer></script>
 </body>

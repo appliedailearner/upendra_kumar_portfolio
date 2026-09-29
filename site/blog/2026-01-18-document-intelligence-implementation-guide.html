@@ -13,7 +13,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+        rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"></noscript>
     <link rel="stylesheet" href="../css/style.css?v=25">
     <link rel="stylesheet" href="../css/premium.css?v=56">
     <style>
@@ -281,10 +284,12 @@
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></noscript>
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet"></noscript>
 
     <!-- Cloudflare Web Analytics -->
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
@@ -333,7 +338,7 @@
     <!-- Navigation -->
     <!-- Navigation -->
     <nav class="navbar" id="dynamic-nav"></nav>
-    <script src="../js/navbar-component.js"></script>
+    <script src="../js/navbar-component.js" defer></script>
 
     <!-- Hero Section -->
     <section class="blog-post-hero">
@@ -1165,7 +1170,7 @@ locust -f tests/load/locustfile.py \
 
     <!-- JavaScript -->
     <script src="../js/main.js"></script>
-    <script src="../js/particles.js"></script>
+    <script src="../js/particles.js" defer></script>
     <script>
         // Load Video Function
         function loadVideo(card) {

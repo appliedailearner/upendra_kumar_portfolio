@@ -666,10 +666,14 @@
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 
     <!-- Typography: Inter (Body) & Outfit (Headings) with Swap for Performance -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" 
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+    <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" 
           integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" 
           crossorigin="anonymous" referrerpolicy="no-referrer">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" 
+          integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" 
+          crossorigin="anonymous" referrerpolicy="no-referrer"></noscript>
     <!-- Azure App Insights SDK (RUM) -->
     <script type="text/javascript">
         !function (T, l, y) {
@@ -747,7 +751,7 @@
     
     <!-- Navigation -->
     <nav class="navbar" id="dynamic-nav"></nav>
-    <script src="../js/navbar-component.js"></script>
+    <script src="../js/navbar-component.js" defer></script>
 
     <!-- Blog Post Hero -->
     <section class="blog-post-hero">
@@ -1312,36 +1316,6 @@
                 </a>
             </div>
             
-            <div class="footer-qr-container"
-                style="margin-top: 2rem; display: flex; flex-direction: column; align-items: center;">
-                <div
-                    style="padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.08); margin-top: 1.5rem; width: 100%; max-width: 500px; backdrop-filter: blur(8px);">
-                    <div style="display: flex; justify-content: space-around; font-size: 0.8rem; text-align: center;">
-                        <div>
-                            <div style="color: rgba(255, 255, 255, 0.5); margin-bottom: 0.25rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Page Load</div>
-                            <div id="ux-speed" style="font-weight: 600; font-family: 'JetBrains Mono', monospace; color: #34d399;">--ms</div>
-                        </div>
-                        <div style="width: 1px; background: rgba(255, 255, 255, 0.1); margin: 0 0.5rem;"></div>
-                        <div>
-                            <div style="color: rgba(255, 255, 255, 0.5); margin-bottom: 0.25rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Privacy Hits</div>
-                            <div id="privacy-hits" style="font-weight: 600; font-family: 'JetBrains Mono', monospace; color: #60a5fa;">0</div>
-                        </div>
-                        <div style="width: 1px; background: rgba(255, 255, 255, 0.1); margin: 0 0.5rem;"></div>
-                        <div>
-                            <div style="color: rgba(255, 255, 255, 0.5); margin-bottom: 0.25rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Edge Node</div>
-                            <div style="font-weight: 600; font-family: 'JetBrains Mono', monospace; color: #fbbf24;">IN-CENTRAL</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div
-                    style="padding: 0.5rem; background: rgba(255, 255, 255, 0.05); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); margin-top: 1rem;">
-                    <div class="status-ticker" id="system-status">
-                        <span class="status-dot pulse"></span>
-                        <span class="status-text">System Status: <span id="status-val">Online</span></span>
-                    </div>
-                </div>
-            </div>
         </div>
     </footer>
 
@@ -1349,7 +1323,7 @@
         // Mobile menu handles are now in navbar-component.js
     </script>
 
-    <script src="../js/particles.js"></script>
+    <script src="../js/particles.js" defer></script>
     <script src="../js/main.js"></script>
 
     <!-- Table of Contents Observer -->
