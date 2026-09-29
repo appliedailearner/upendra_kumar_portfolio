@@ -159,6 +159,11 @@
             border-right: 1px solid rgba(255, 255, 255, 0.05);
         }
         .hud-stat:last-child { border-right: none; }
+        @media (max-width: 600px) {
+            .executive-hud { grid-template-columns: 1fr; }
+            .hud-stat { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+            .hud-stat:last-child { border-bottom: none; }
+        }
         .hud-value { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 800; color: #f8fafc; display: block; }
         .hud-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: #64748b; font-weight: 700; margin-top: 0.2rem; display: block; }
 
@@ -432,9 +437,9 @@
             </div>
             
             <!-- Quick-Audit Scenarios -->
-            <div style="display: flex; gap: 1.5rem; padding: 1.5rem; background: rgba(30, 41, 59, 0.4); border-radius: 0 0 20px 20px; border: 1px solid var(--glass-border); border-top: none;" class="reveal">
+            <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; padding: 1.5rem; background: rgba(30, 41, 59, 0.4); border-radius: 0 0 20px 20px; border: 1px solid var(--glass-border); border-top: none;" class="reveal">
                 <div style="color: #64748b; font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">Audit Scenarios:</div>
-                <div style="display: flex; gap: 2rem;">
+                <div style="display: flex; flex-wrap: wrap; gap: 0.75rem 2rem;">
                     <span style="font-size: 0.85rem; color: #94a3b8;"><i class="fas fa-database" style="color: #3b82f6; margin-right: 6px;"></i> SQL Outage (UK South)</span>
                     <span style="font-size: 0.85rem; color: #94a3b8;"><i class="fas fa-cloud" style="color: #a855f7; margin-right: 6px;"></i> Front Door Global Failover</span>
                     <span style="font-size: 0.85rem; color: #94a3b8;"><i class="fas fa-shield-halved" style="color: #10b981; margin-right: 6px;"></i> Key Vault Partition Sync</span>

@@ -2312,7 +2312,7 @@ body {
 .blog-post-content ol {
     font-family: 'Inter', sans-serif;
     font-size: 1.15rem;
-    line-height: 1.9;
+    line-height: 1.7;
     color: #e2e8f0;
 }
 
@@ -5710,5 +5710,80 @@ section,
 @media (max-width: 768px) {
     .status-ticker {
         margin-top: 1rem;
+    }
+}
+/* =========================================
+   Blog readability (PDCA Cycle 2)
+   ========================================= */
+
+/* C2-04: solid reading panel so the particle canvas never shows through text */
+.blog-post-content {
+    background: rgba(15, 23, 42, 0.92);
+    border-radius: 16px;
+    position: relative;
+    z-index: 1;
+}
+
+/* C2-05: checklist checkboxes match the site accent */
+.checklist-container input[type="checkbox"] {
+    accent-color: #38bdf8;
+}
+
+/* C2-06: footer copyright line centred over the social icons */
+.footer .container > p {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+/* C2-07: glossary tooltips take no layout space until shown (fixes phone sideways scroll) */
+body .eli5-term::after,
+body .eli5-term::before {
+    display: none;
+}
+
+body .eli5-term:hover::after,
+body .eli5-term:hover::before,
+body .eli5-term:focus-visible::after,
+body .eli5-term:focus-visible::before {
+    display: block;
+}
+
+body .eli5-term::after {
+    max-width: min(300px, 80vw);
+}
+
+/* C2-07b: keep wide content inside the phone screen (code, tables, buttons, media) */
+@media (max-width: 768px) {
+    .blog-post-content {
+        overflow-wrap: break-word;
+    }
+
+    .blog-post-content pre {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    .blog-post-content :not(pre) > code {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .blog-post-content > table,
+    .blog-post-content :not(.table-scroll):not(.table-responsive) > table {
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    .blog-post-content .btn {
+        white-space: normal;
+        max-width: 100%;
+    }
+
+    .blog-post-content img,
+    .blog-post-content video,
+    .blog-post-content iframe {
+        max-width: 100%;
     }
 }
