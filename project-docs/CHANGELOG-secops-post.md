@@ -143,3 +143,41 @@ The site's existing figure ("18 min") works out to 200 words a minute on the ful
 1. Resolve or accept each VERIFY item, and confirm or drop P1–P5.
 2. Delete the `CONFIRM PUBLIC` comment block (and the VERIFY comments) from the HTML.
 3. Re-run `node tools/qa/blog-visual-audit.js <post>` for both posts. Then commit, push, run the Azure deploy and the `--live` audit.
+
+---
+
+## Audit round 2 (1 October 2026)
+
+An expert review of both live posts found 19 issues. All of them are fixed except #13 and #16, which stay open.
+
+| # | Fix |
+|---|---|
+| 1 | **New share images.** Each post has its own: `images/blog/2026-09-28-minutes-vs-months-og.webp` and `2026-09-30-partner-playbook-og.webp`. The old image still said "72 minutes vs 292 days". New script: `tools/scripts/make-og-image.js <config.json>`. |
+| 2 | **EDR objection now states the trade-off.** Automatic disruption contains devices and users only through Defender for Endpoint, so a third-party EDR loses cross-domain containment. |
+| 3 | **IBM finding reworded as a comparison, not a cause.** It now reads "organisations using security AI and automation extensively had lifecycles 65 days shorter and costs $1.93M lower", in the executive summary, the conclusion and the sources list. |
+| 4 | **9:09 honesty line.** The attacker still opened a file before containment: disruption shrinks the blast radius, it doesn't promise zero access. |
+| 5 | **72 minutes.** "median" removed from the stat tile and sources; the 2022 report's wording is unconfirmed. |
+| 6 | **MFA figure.** Now "over 99% of identity-based attacks", not "of them". |
+| 7 | **Timeline 9:08.** Now "Phishing email auto-removed", not "pulled everywhere". |
+| 8 | **Copilot allowance.** New line: agents draw on it continuously, so measure a month of use first. |
+| 9 | **Roadmap Days 0–30.** Adds Defender for Identity sensors on domain controllers, which disabling on-premises accounts requires. |
+| 10 | **Design principle 2.** Now "Private networking and controlled egress", with an allow-listed outbound path (Azure Firewall or a network security perimeter). |
+| 11 | **Two new threat-table rows.** "Grounding data poisoning" (OWASP LLM04/LLM08; ATLAS AML.T0070 RAG Poisoning) and "Runaway consumption" (LLM10; ATLAS AML.T0034 Cost Harvesting), each with its controls. |
+| 12 | **Lock-in answer.** Attack disruption now acts on Okta users and AWS IAM through Sentinel (preview), per Microsoft Learn. |
+| 13 | **OPEN:** the Forrester partner figure "versus 23% overall growth" is still ambiguous; confirm against the study (now **V12**). |
+| 14 | **Post B offer map.** New table: phase, offer, commercial model (fixed fee or recurring). |
+| 15 | **Post B certifications.** Names public paths: SC-200, SC-100 and SC-401, linked to Microsoft Learn. |
+| 16 | **OPEN:** V9 (FY27 solution-play names) and P1–P5 are unchanged. |
+| 17 | **Search snippets.** Post A's description cut to 152 characters (meta, og, twitter, JSON-LD, listing, feed). `<title>` shortened on both posts. |
+| 18 | **Leftover script removed.** Post A's per-post contents-tracker script is gone (`js/toc-tracker.js` handles it). |
+| 19 | **Sources linked.** Adds links to IBM 2026, MDDR 2022, the Forrester Defender Experts TEI PDF, API Management token limits and network security perimeter. |
+| extra | **Forrester ROI range.** The study's 254% is its high-impact scenario only. The page now gives the full range: 43% (low) to 254% (high), with 147% as medium. |
+| extra | **Stale airport reference.** It was left after the analogy was cut and is now removed ("the six-console problem again"). |
+
+**Post A's licensing note was removed.** The onboarding step and the EDR objection now cover it.
+
+**Reading time:**
+- Post A: 2,398 words, 12.0 minutes (same method: 200 wpm, excluding the Contents and Sources lists).
+- Post B: 885 words, 4.4 minutes (shown as "4 min read").
+
+**Checks:** both posts pass all 21 audit checks locally. All internal links resolve, and the three SVGs were re-checked in dark and light mode at desktop and phone widths.
