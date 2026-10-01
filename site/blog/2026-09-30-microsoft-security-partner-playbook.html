@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="For Microsoft partners: the security solution plays, where managed-services growth is, four dated conversation starters and the win formula for a SecOps practice.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://portfolio.upendrakumar.com/blog/2026-09-30-microsoft-security-partner-playbook.html">
+    <meta property="og:title" content="The Microsoft Security Partner Playbook: Turning the SOC Gap into a Services Practice">
+    <meta property="og:description"
+        content="For Microsoft partners: the security solution plays, where managed-services growth is, four dated conversation starters and the win formula for a SecOps practice.">
+    <meta property="og:image" content="https://portfolio.upendrakumar.com/images/blog/2026-09-28-unified-secops-og.webp">
+    <meta property="og:site_name" content="Upendra Kumar | Cloud Strategy & Architecture">
+    <meta property="article:author" content="Upendra Kumar">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://portfolio.upendrakumar.com/blog/2026-09-30-microsoft-security-partner-playbook.html">
+    <meta property="twitter:title" content="The Microsoft Security Partner Playbook: Turning the SOC Gap into a Services Practice">
+    <meta property="twitter:description"
+        content="For Microsoft partners: the security solution plays, where managed-services growth is, four dated conversation starters and the win formula for a SecOps practice.">
+    <meta property="twitter:image" content="https://portfolio.upendrakumar.com/images/blog/2026-09-28-unified-secops-og.webp">
+
+    <title>The Microsoft Security Partner Playbook: Turning the SOC Gap into a Services Practice | Upendra Kumar</title>
+    <link rel="canonical" href="https://portfolio.upendrakumar.com/blog/2026-09-30-microsoft-security-partner-playbook.html">
+
+    <link rel="stylesheet" href="../css/style.css?v=49">
+    <link rel="stylesheet" href="../css/premium.css?v=58">
+    <link rel="stylesheet" href="../css/dropdown.css?v=58">
+
+    <!-- Performance: Critical Asset Preloading -->
+    <link rel="preload" href="../css/style.css?v=49" as="style">
+    <link rel="preload" href="../js/navbar-component.js" as="script">
+    <link rel="preload" href="../js/main.js" as="script">
+
+    <!-- JSON-LD Article Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "The Microsoft Security Partner Playbook: Turning the SOC Gap into a Services Practice",
+      "image": "https://portfolio.upendrakumar.com/images/blog/2026-09-28-unified-secops-og.webp",
+      "author": {
+        "@type": "Person",
+        "name": "Upendra Kumar",
+        "url": "https://portfolio.upendrakumar.com/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Upendra Kumar",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://portfolio.upendrakumar.com/favicon.ico"
+        }
+      },
+      "datePublished": "2026-09-30",
+      "dateModified": "2026-09-30",
+      "description": "For Microsoft partners: the security solution plays, where managed-services growth is, four dated conversation starters and the win formula for a SecOps practice.",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://portfolio.upendrakumar.com/blog/2026-09-30-microsoft-security-partner-playbook.html"
+      }
+    }
+    </script>
+
+    <style>
+        .nav-logo-uk {
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%) !important;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+            border-radius: 8px !important;
+        }
+
+
+        /* Inline SVG diagrams: own panel, dark palette by default, light palette when the OS asks for it */
+        .svg-figure {
+            margin: 2.5rem 0;
+        }
+
+        .svg-figure svg {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-width: 640px;
+            margin: 0 auto;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+
+        .svg-figure-strip svg {
+            max-width: 600px;
+        }
+
+        .svg-figure figcaption {
+            text-align: center;
+            margin-top: 0.75rem;
+        }
+
+        .dg-panel { fill: #0b1222; stroke: #334155; stroke-width: 1.5; }
+        .dg-band { fill: rgba(148, 163, 184, 0.06); stroke-width: 1.5; }
+        .dg-box { fill: #1e293b; stroke-width: 1.5; }
+        .dg-inner { fill: #0f172a; stroke-width: 1.2; }
+        .dg-chip { fill: #1e293b; stroke: #475569; stroke-width: 1.2; }
+        .dg-ext { fill: none; stroke: #64748b; stroke-width: 1.5; stroke-dasharray: 6 5; }
+        .dg-arrow { fill: none; stroke: #94a3b8; stroke-width: 2; }
+        .dg-head { fill: #94a3b8; }
+        .dg-axis { stroke: #64748b; stroke-width: 3; }
+        .dg-bracket { fill: none; stroke: #34d399; stroke-width: 2; }
+        .dg-dot { stroke: #0b1222; stroke-width: 3; }
+        .dg-t { fill: #f1f5f9; }
+        .dg-s { fill: #cbd5e1; }
+        .dg-m { fill: #94a3b8; }
+        .dg-cap { font-size: 15px; font-weight: 800; letter-spacing: 0.08em; }
+        .dg-md { font-size: 17px; }
+        .dg-sm { font-size: 15px; }
+        .dg-xs { font-size: 13.5px; }
+        .dg-bold { font-weight: 700; }
+        .dg-k-red { fill: #f87171; } .dg-b-red { stroke: #f87171; } .dg-f-red { fill: #f87171; }
+        .dg-k-green { fill: #34d399; } .dg-b-green { stroke: #34d399; } .dg-f-green { fill: #34d399; }
+        .dg-k-blue { fill: #60a5fa; } .dg-b-blue { stroke: #60a5fa; }
+        .dg-k-purple { fill: #c084fc; } .dg-b-purple { stroke: #c084fc; }
+        .dg-k-sky { fill: #38bdf8; } .dg-b-sky { stroke: #38bdf8; }
+        .dg-f-amber { fill: #fbbf24; }
+
+        @media (prefers-color-scheme: light) {
+            .dg-panel { fill: #ffffff; stroke: #cbd5e1; }
+            .dg-band { fill: rgba(15, 23, 42, 0.03); }
+            .dg-box, .dg-chip { fill: #f1f5f9; }
+            .dg-inner { fill: #ffffff; }
+            .dg-chip { stroke: #94a3b8; }
+            .dg-ext { stroke: #64748b; }
+            .dg-arrow { stroke: #475569; }
+            .dg-head { fill: #475569; }
+            .dg-axis { stroke: #94a3b8; }
+            .dg-bracket { stroke: #047857; }
+            .dg-dot { stroke: #ffffff; }
+            .dg-t { fill: #0f172a; }
+            .dg-s { fill: #334155; }
+            .dg-m { fill: #475569; }
+            .dg-k-red { fill: #b91c1c; } .dg-b-red { stroke: #b91c1c; } .dg-f-red { fill: #dc2626; }
+            .dg-k-green { fill: #047857; } .dg-b-green { stroke: #047857; } .dg-f-green { fill: #059669; }
+            .dg-k-blue { fill: #1d4ed8; } .dg-b-blue { stroke: #1d4ed8; }
+            .dg-k-purple { fill: #7e22ce; } .dg-b-purple { stroke: #7e22ce; }
+            .dg-k-sky { fill: #0369a1; } .dg-b-sky { stroke: #0369a1; }
+            .dg-f-amber { fill: #d97706; }
+        }
+
+        /* Blog Post Specific Styles */
+
+        /* Glassmorphism Engine & Analyst Cards */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(56, 189, 248, 0.6);
+        }
+
+        /* Smart Glossary Tooltips */
+        .eli5-term {
+            border-bottom: 2px dashed #a855f7;
+            cursor: help;
+            position: relative;
+            font-weight: 600;
+            color: #c084fc;
+            -webkit-text-fill-color: initial;
+        }
+
+        .eli5-term::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            color: #f8fafc;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 400;
+            white-space: normal;
+            min-width: 200px;
+            max-width: 300px;
+            text-align: left;
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+            pointer-events: none;
+            line-height: 1.4;
+            -webkit-text-fill-color: initial;
+        }
+
+        .eli5-term::before {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-2px);
+            border-width: 8px;
+            border-style: solid;
+            border-color: rgba(168, 85, 247, 0.4) transparent transparent transparent;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .eli5-term:hover::after,
+        .eli5-term:hover::before {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Sticky Table of Contents */
+        .toc-container {
+            position: sticky;
+            top: 100px;
+            width: 250px;
+            float: left;
+            margin-left: -280px;
+            padding: 1.5rem;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .toc-container h4 {
+            font-family: 'Outfit', sans-serif;
+            color: #38bdf8;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-list li {
+            margin-bottom: 0.75rem;
+        }
+
+        .toc-link {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: block;
+            padding-left: 0.5rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s ease;
+            line-height: 1.4;
+        }
+
+        .toc-link:hover {
+            color: #e2e8f0;
+            border-left-color: #a855f7;
+        }
+
+        .toc-link.active {
+            color: #60a5fa;
+            font-weight: 600;
+            border-left: 3px solid #60a5fa;
+        }
+
+        @media (max-width: 1200px) {
+            .toc-container {
+                display: none;
+            }
+        }
+
+        .blog-post-hero {
+            padding: 120px 0 1.5rem;
+            background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.15), transparent 60%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .blog-post-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 2rem 4rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        .blog-post-content h2 {
+            color: var(--text-main);
+            font-size: 2rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .blog-post-content h3 {
+            color: #e2e8f0;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-post-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-post-content ul,
+        .blog-post-content ol {
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .blog-post-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-post-content code {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .blog-post-content pre {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-left: 4px solid #0ea5e9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+
+        .blog-post-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .blog-post-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .blog-post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 2rem 0;
+        }
+
+        .blog-tag {
+            background: rgba(168, 85, 247, 0.1);
+            color: #c084fc;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .btn {
+            display: inline-block;
+            font-weight: 600;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #2563eb;
+            border-color: #3b82f6;
+        }
+
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+            border-color: #2563eb;
+        }
+
+        .btn-outline {
+            color: #60a5fa;
+            background-color: transparent;
+            border-color: #3b82f6;
+        }
+
+        .btn-outline:hover {
+            color: #fff;
+            background-color: #2563eb;
+            border-color: #3b82f6;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .checklist-container {
+            display: block !important;
+            background: rgba(15, 23, 42, 0.4);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(56, 189, 248, 0.1);
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .checklist-item input {
+            margin-top: 0.4rem;
+        }
+
+        .responsive-grid,
+        .comparison-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: 1fr;
+            margin-bottom: 2rem;
+        }
+
+        .comparison-grid {
+            margin: 2rem 0;
+        }
+
+        @media (min-width: 992px) {
+            .blog-post-content .responsive-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+
+            .blog-post-content .comparison-grid {
+                grid-template-columns: 1fr 1fr !important;
+            }
+        }
+
+        .architecture-card {
+            margin: 3.5rem 0;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .architecture-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .architecture-card:hover img {
+            transform: scale(1.01);
+        }
+
+        .diagram-caption {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .analogy-block {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .executive-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .executive-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Responsive comparison table */
+        .table-scroll {
+            overflow-x: auto;
+            overflow-y: hidden;
+            margin: 2rem 0;
+            border-radius: 12px;
+            border: 1px solid rgba(56, 189, 248, 0.15);
+        }
+
+        .table-scroll table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 640px;
+            font-size: 0.95rem;
+        }
+
+        .table-scroll th,
+        .table-scroll td {
+            text-align: left;
+            padding: 0.9rem 1.1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            vertical-align: top;
+        }
+
+        .table-scroll thead th {
+            background: rgba(56, 189, 248, 0.08);
+            color: #e2e8f0;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+        }
+
+        .table-scroll tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table-scroll td:first-child {
+            color: #cbd5e1;
+            font-weight: 600;
+        }
+
+        /* ---- Post-specific components (unified SecOps post) ---- */
+        .stat-trio {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .stat-tile {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            border-top: 3px solid #fbbf24;
+            border-radius: 12px;
+            padding: 1.5rem 1.25rem;
+            text-align: center;
+        }
+
+        .stat-tile .stat-num {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.6rem;
+            font-weight: 800;
+            line-height: 1;
+            color: #fbbf24;
+            margin-bottom: 0.6rem;
+        }
+
+        .stat-tile .stat-label {
+            font-size: 0.92rem;
+            color: #cbd5e1;
+            line-height: 1.45;
+        }
+
+        .stat-tile .stat-src {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-top: 0.6rem;
+            line-height: 1.35;
+        }
+
+        .card-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-trio.stat-quad {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .card-grid-2,
+        .card-grid-4 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+            margin: 2rem 0;
+        }
+
+        .mini-card {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .mini-card h4 {
+            margin: 0 0 0.6rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .mini-card p {
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Horizontal incident timeline (stacks vertically on mobile) */
+        .incident {
+            background: rgba(15, 23, 42, 0.45);
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            border-radius: 14px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .incident-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .incident-head strong {
+            color: #f8fafc;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+        }
+
+        .incident-head span {
+            color: #34d399;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .incident-steps {
+            list-style: none;
+            padding: 0 !important;
+            margin: 0 !important;
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .incident-steps li {
+            flex: 1;
+            margin: 0 !important;
+            padding-top: 1.1rem;
+            border-top: 3px solid rgba(251, 191, 36, 0.6);
+            position: relative;
+            font-size: 0.85rem;
+            line-height: 1.45;
+            color: #94a3b8;
+        }
+
+        .incident-steps li::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 0;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: #fbbf24;
+        }
+
+        .incident-steps li.contain {
+            border-top-color: #38bdf8;
+            color: #e2e8f0;
+            font-weight: 600;
+        }
+
+        .incident-steps li.contain::before {
+            background: #38bdf8;
+        }
+
+        .incident-steps .t {
+            display: block;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: #fbbf24;
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .incident-steps li.contain .t {
+            color: #38bdf8;
+        }
+
+        /* Layered reference architecture */
+        .arch-stack {
+            margin: 2.5rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+
+        .arch-lane {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 1rem;
+            align-items: stretch;
+        }
+
+        .arch-lane-label {
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+        }
+
+        .arch-lane-boxes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+        }
+
+        .arch-box {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            border-radius: 10px;
+            padding: 0.9rem 1rem;
+            text-align: center;
+        }
+
+        .arch-box > strong {
+            display: block;
+            color: #f8fafc;
+            font-size: 0.95rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .arch-box > span {
+            display: block;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin-top: 0.25rem;
+        }
+
+        .lane-edge .arch-lane-label { color: #60a5fa; }
+        .lane-edge .arch-box { border-color: rgba(96, 165, 250, 0.45); }
+        .lane-ai .arch-lane-label { color: #38bdf8; }
+        .lane-posture .arch-lane-label { color: #c084fc; }
+        .lane-posture .arch-box { border-color: rgba(192, 132, 252, 0.45); }
+        .lane-ops .arch-lane-label { color: #34d399; }
+        .lane-ops .arch-box { border-color: rgba(52, 211, 153, 0.5); }
+
+        .arch-flow-note {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            letter-spacing: 0.05em;
+        }
+
+        @media (max-width: 768px) {
+            .stat-trio,
+            .card-grid-3,
+            .card-grid-2,
+            .card-grid-4,
+            .arch-lane-boxes {
+                grid-template-columns: 1fr;
+            }
+
+            .arch-lane {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .incident-steps {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .incident-steps li {
+                border-top: none;
+                border-left: 3px solid rgba(251, 191, 36, 0.6);
+                padding: 0 0 1rem 1.25rem;
+            }
+
+            .incident-steps li.contain {
+                border-left-color: #38bdf8;
+            }
+
+            .incident-steps li::before {
+                top: 0;
+                left: -8px;
+            }
+
+            .blog-post-meta {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+        }
+
+        /* ---- Readability pass (PDCA Cycle 1) ---- */
+        /* Type scale: body 1.1rem, compact 0.95rem, caption 0.85rem; overrides the shared 1.15rem/1.9 rule. */
+        .blog-post-content p,
+        .blog-post-content li {
+            font-size: 1.15rem;
+            line-height: 1.7;
+        }
+
+        .blog-post-content .mini-card p,
+        .blog-post-content .glass-card p,
+        .blog-post-content .table-scroll td,
+        .blog-post-content .step-list li,
+        .blog-post-content .author-note p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .blog-post-content .incident-steps li,
+        .blog-post-content .caption,
+        .blog-post-content .sources-box li,
+        .blog-post-content .sources-box p {
+            font-size: 0.85rem;
+            line-height: 1.55;
+        }
+
+        .blog-post-content .caption {
+            color: #94a3b8;
+        }
+
+        .blog-post-content h2,
+        .blog-post-content h3 {
+            text-wrap: balance;
+        }
+
+        /* Executive summary: full-width rows instead of three narrow columns */
+        .exec-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .exec-row {
+            display: grid;
+            grid-template-columns: 48px 1fr;
+            gap: 1.25rem;
+            align-items: start;
+            padding: 1.5rem 1.75rem;
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.4));
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            border-left: 4px solid var(--accent);
+            border-radius: 12px;
+        }
+
+        .exec-row .exec-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: color-mix(in srgb, var(--accent) 12%, transparent);
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .exec-row h4 {
+            margin: 0 0 0.4rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            color: var(--accent-text);
+        }
+
+        .exec-row p {
+            margin: 0;
+            color: #cbd5e1;
+        }
+
+        /* Numbered stage cards */
+        .step-list {
+            list-style: none;
+            padding: 0 !important;
+            counter-reset: step;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .step-list li {
+            counter-increment: step;
+            position: relative;
+            margin: 0 !important;
+            padding: 1rem 1.25rem 1rem 3.5rem;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            border-radius: 12px;
+        }
+
+        .step-list li::before {
+            content: counter(step);
+            position: absolute;
+            left: 1.1rem;
+            top: 1rem;
+            width: 1.6rem;
+            height: 1.6rem;
+            border-radius: 50%;
+            background: rgba(56, 189, 248, 0.15);
+            color: #7dd3fc;
+            font-weight: 700;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step-list li strong {
+            display: block;
+            color: #f8fafc;
+            margin-bottom: 0.2rem;
+        }
+
+        /* Glossary tooltips: take no space until hovered (hidden ones were widening the page on phones) */
+        .eli5-term::after,
+        .eli5-term::before {
+            display: none;
+        }
+
+        .eli5-term:hover::after,
+        .eli5-term:hover::before {
+            display: block;
+        }
+
+        .eli5-term::after {
+            max-width: min(300px, 80vw);
+        }
+
+        @media (max-width: 768px) {
+            .blog-post-content .lead {
+                font-size: 1.2rem !important;
+                padding-left: 1rem !important;
+            }
+
+            .stat-trio.stat-quad {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+
+            .stat-trio.stat-quad .stat-num {
+                font-size: 2rem;
+            }
+
+            .author-note {
+                flex-direction: column;
+                align-items: flex-start !important;
+            }
+
+            .exec-row {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+                padding: 1.25rem;
+            }
+
+            /* Tables become one card per row, every field labelled */
+            .stack-table table,
+            .stack-table tbody,
+            .stack-table tr,
+            .stack-table td {
+                display: block;
+                width: 100%;
+                min-width: 0 !important;
+            }
+
+            .stack-table thead {
+                display: none;
+            }
+
+            .stack-table tr {
+                padding: 1rem 1.1rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            }
+
+            .stack-table td {
+                padding: 0.2rem 0 !important;
+                border: none !important;
+            }
+
+            .stack-table td::before {
+                content: attr(data-label);
+                display: block;
+                font-size: 0.75rem;
+                font-weight: 700;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: #7dd3fc;
+                margin-top: 0.5rem;
+            }
+
+            .stack-table td:first-child::before {
+                display: none;
+            }
+
+            .stack-table td:first-child {
+                font-weight: 700;
+                color: #f8fafc;
+            }
+        }
+    </style>
+
+    <!-- Performance: Preconnect to Font & Script Servers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
+    <!-- Typography + icons: loaded non-render-blocking, swapped to stylesheet on load -->
+    <link rel="preload" as="style"
+          href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
+          onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" as="style"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+          integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"
+          onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+              integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+              crossorigin="anonymous" referrerpolicy="no-referrer">
+    </noscript>
+    <!-- Azure App Insights SDK (RUM) -->
+    <script type="text/javascript">
+        !function (T, l, y) {
+            var S = T.location, k = "script", D = "connectionString", C = "ingestionendpoint", I = "disableExceptionTracking";
+            var _ = y.url || "https://js.monitor.azure.com/scripts/b/ai.2.min.js";
+            if (y[D]) {
+                var T = T.appInsights || (T.appInsights = {});
+                T.loadAppInsights = function () {
+                    var p = { config: y }; T.initialize = !0; T._tags = [];
+                    T.addTelemetryInitializer = function (f) { T._tags.push(f); };
+                    var v = window.fetch;
+                    T.track = function (e) {
+                        (T._tags || []).forEach(function (f) { try { f(e); } catch (ex) { } });
+                        var i = p.config.endpointUrl || "https://dc.services.visualstudio.com/v2/track";
+                        v(i, { method: "POST", body: JSON.stringify(e), mode: "cors" }).catch(function () { });
+                    };
+                    T.trackEvent = function (d) { T.track({ name: d.name || "Event", data: { baseData: d } }); };
+                    T.trackPageView = function (d) { T.track({ name: "PageView", data: { baseData: d } }); };
+                    T.trackException = function (d) { T.track({ name: "Exception", data: { baseData: d } }); };
+                }
+            }
+        }(window, document, {
+            connectionString: "InstrumentationKey=8fc596f2-bb91-49d7-8495-2ac1ecd30501;IngestionEndpoint=https://centralindia-0.in.liana.ice.azure.microsoft.com/",
+            endpointUrl: "https://centralindia-0.in.liana.ice.azure.microsoft.com/v2/track"
+        });
+    </script>
+    <script src="../js/observability.js?v=3" defer></script>
+</head>
+
+    <body class="dark-theme">
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="dynamic-nav"></nav>
+    <script src="../js/navbar-component.js" defer></script>
+
+    <!-- Blog Post Hero -->
+    <section class="blog-post-hero">
+        <div class="container" style="max-width: 1000px;">
+            <div style="margin-bottom: 2rem;">
+                <a href="../blog.html" style="color: #60a5fa; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem;">
+                    <i class="fas fa-arrow-left"></i> Back to Insights
+                </a>
+                <br>
+                <span style="display: inline-block; padding: 0.3rem 0.8rem; background: rgba(56, 189, 248, 0.1); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 4px; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Partner Playbook</span>
+            </div>
+
+            <h1 style="font-family: 'Outfit', sans-serif; font-size: 3rem; line-height: 1.2; margin-bottom: 1.5rem; background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                The Microsoft Security Partner Playbook: Turning the SOC Gap into a Services Practice
+            </h1>
+
+            <div class="blog-post-meta">
+                <div><i class="fas fa-user"></i> Upendra Kumar</div>
+                <div><i class="fas fa-calendar"></i> September 30, 2026</div>
+                <div><i class="fas fa-rotate"></i> Last updated September 30, 2026</div>
+                <div><i class="fas fa-clock"></i> 4 min read</div>
+            </div>
+
+            <div class="blog-post-tags">
+                <span class="blog-tag"><i class="fas fa-tag"></i> Microsoft Partners</span>
+                <span class="blog-tag"><i class="fas fa-tag"></i> Security</span>
+                <span class="blog-tag"><i class="fas fa-tag"></i> Managed Services</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Post Content -->
+    <article class="blog-post-content">
+        <div class="toc-container">
+            <h4><i class="fas fa-list-ul" style="opacity: 0.8;"></i> Contents</h4>
+            <ul class="toc-list">
+                <li><a href="#plays" class="toc-link">Three Solution Plays</a></li>
+                <li><a href="#growth" class="toc-link">Where the Growth Is</a></li>
+                <li><a href="#triggers" class="toc-link">Four Conversation Starters</a></li>
+                <li><a href="#win-formula" class="toc-link">The Win Formula</a></li>
+                <li><a href="#funding" class="toc-link">Funding and Designation</a></li>
+                <li><a href="#delivery" class="toc-link">From Pitch to Delivery</a></li>
+            </ul>
+        </div>
+
+        <p class="lead" style="font-size: 1.45rem; color: #f8fafc; font-weight: 700; line-height: 1.45; margin-bottom: 1.5rem; border-left: 4px solid #38bdf8; padding-left: 1.5rem;">
+            Your customers' SOC gap is your services opportunity. This is the partner half of the story: what to sell, to whom, and how to deliver it.
+        </p>
+
+        <div class="author-note" style="display: flex; align-items: center; gap: 1rem; background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(56, 189, 248, 0.15); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 2.5rem;">
+            <div style="width: 42px; height: 42px; flex-shrink: 0; background: rgba(56, 189, 248, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(56, 189, 248, 0.2);">
+                <i class="fas fa-handshake" style="color: #38bdf8; font-size: 1.1rem;"></i>
+            </div>
+            <p style="margin: 0; color: #94a3b8;">
+                Written by <strong style="color: #e2e8f0;">Upendra Kumar</strong> for Microsoft partners. The customer-facing case &mdash; the two clocks, the architecture and the 180-day roadmap &mdash; is in <a href="2026-09-28-unified-security-operations-ai-era.html" style="color: #60a5fa;">Minutes vs. Months: Closing the SOC Gap in the Age of AI Agents</a>. Microsoft's fiscal year 2027 began on 1 July 2026; program names and terms change each year, so check Partner Center before you plan around them.
+            </p>
+        </div>
+
+        <h2 id="plays"><span class="gradient-text">Three Solution Plays</span></h2>
+        <p>Microsoft doesn't sell security as one motion. Its partner guidance for FY26 organised it into three solution plays, and each needs a different conversation:</p>
+
+        <div class="table-scroll stack-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Solution play</th>
+                        <th>Business objective</th>
+                        <th>Hero products</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="Solution play">Modern SecOps with Unified Platform</td>
+                        <td data-label="Business objective">AI-powered security operations that reduce risk across the whole attack surface</td>
+                        <td data-label="Hero products">Microsoft 365 E5, Defender Suite, Sentinel, Entra</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Solution play">Data Security</td>
+                        <td data-label="Business objective">Insider risk, DLP and information protection &mdash; the foundation for safe AI and third-party apps</td>
+                        <td data-label="Hero products">Microsoft 365 E5, Purview Suite, Purview</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Solution play">Protect Cloud, AI Platform and Apps</td>
+                        <td data-label="Business objective">Protect cloud and AI infrastructure, identity, data and apps against emerging threats</td>
+                        <td data-label="Hero products">Defender for Cloud, Purview</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="caption">Solution plays as published for FY26. FY27 names may differ; confirm in the current partner guidance.</p>
+
+        <h2 id="growth"><span class="gradient-text">Where the Growth Is</span></h2>
+        <p><strong>The growth is in managed services, not licences.</strong> A Forrester study commissioned by Microsoft (<em>The Partner Opportunity for Microsoft Security</em>, 2025) found SMB-focused partners growing managed security services 42% year-on-year, against 23% overall growth. Enterprise-focused partners grew them 24%, against 20%.</p>
+        <p>Treat that as a vendor-commissioned signal, not a forecast for your practice. The pattern behind it holds, though: a licence plus a recurring managed offer. Pair Defender Suite for Business Premium with MXDR, SOC efficiency, incident-response automation or compliance automation.</p>
+        <p>One decision now sits at the centre of every MXDR practice. Microsoft's own <strong>Defender Experts MDR</strong> Plan 2 extends to non-Microsoft sources through Sentinel (announced July 2026). Decide deliberately where you co-sell it and where your own SOC is the differentiator.</p>
+
+        <h2 id="triggers"><span class="gradient-text">Four Conversation Starters</span></h2>
+        <p>Four dated changes give you a reason to call a customer this quarter:</p>
+        <div class="card-grid-2">
+            <div class="mini-card" style="border-top: 3px solid #60a5fa;">
+                <h4><i class="fas fa-calendar-xmark" style="color: #60a5fa;"></i> Sentinel portal deadline</h4>
+                <p>Managing Sentinel in the Azure portal ends on 31 March 2027. Every Sentinel customer needs a Defender portal move &mdash; a fixed-scope migration offer.</p>
+            </div>
+            <div class="mini-card" style="border-top: 3px solid #c084fc;">
+                <h4><i class="fas fa-robot" style="color: #c084fc;"></i> Security Copilot in E5 and E7</h4>
+                <p>Included from 24 September 2026 (MC1478465), with 400 SCUs a month per 1,000 users. Customers own capacity they haven't used &mdash; offer agent deployment and tuning.</p>
+            </div>
+            <div class="mini-card" style="border-top: 3px solid #34d399;">
+                <h4><i class="fas fa-id-badge" style="color: #34d399;"></i> Agent identity</h4>
+                <p>Entra Agent ID is generally available, and Conditional Access for agents comes with Agent 365 or E7 (MC1395007). Offer an agent inventory and governance sprint.</p>
+            </div>
+            <div class="mini-card" style="border-top: 3px solid #fbbf24;">
+                <h4><i class="fas fa-chart-line" style="color: #fbbf24;"></i> New breach benchmarks</h4>
+                <p>IBM's <em>Cost of a Data Breach 2026</em>: a 247-day average lifecycle and $4.99M average cost. Refresh every business case built on older figures.</p>
+            </div>
+        </div>
+
+        <h2 id="win-formula"><span class="gradient-text">The Win Formula, Stage by Stage</span></h2>
+        <ol class="step-list">
+            <li><strong>Listen &amp; consult: build pipeline</strong>Campaign-in-a-box, propensity targeting (CloudAscent for SMB, Microsoft 365 Lighthouse opportunities) and 1:many Threat Protection and Data Security Immersion Briefings.</li>
+            <li><strong>Inspire &amp; design: design the solution</strong>A rapid security assessment, then a customer-specific business case. The Security Business Case Builder models vendor-consolidation savings.</li>
+            <li><strong>Empower &amp; achieve: win the deal</strong>Check which CSP incentives apply in the current program guide.</li>
+            <li><strong>Realise value: deploy and drive usage</strong>Defender XDR workload usage, and data security that doesn't block end users.</li>
+            <li><strong>Manage &amp; optimise: expand</strong>Attach integration, SOC-efficiency, IR-automation and compliance-automation services.</li>
+        </ol>
+        <p>One honesty rule for the business case: the Business Premium suite prices compare against standalone list prices, and Business Premium already includes Defender for Business and Entra ID P1. Show the customer the uplift and the tools they'll actually retire, not the headline delta. The full caveat is in <a href="2026-09-28-unified-security-operations-ai-era.html#economics" style="color: #60a5fa;">the CFO slide</a>.</p>
+
+        <h2 id="funding"><span class="gradient-text">Funding and Designation</span></h2>
+        <p>Microsoft funds some pre-sales activity, such as immersion briefings for groups of customers, and runs a Security solutions partner designation that gates parts of that funding. Skilling is usually the lever a practice lead controls most directly.</p>
+        <p>Amounts, eligibility and scoring change every fiscal year. Check Partner Center and the FY27 partner incentives guide before you build a plan around them.</p>
+
+        <h2 id="delivery"><span class="gradient-text">From Pitch to Delivery</span></h2>
+        <p>The customer's plan is the <a href="2026-09-28-unified-security-operations-ai-era.html#roadmap" style="color: #60a5fa;">180-day roadmap</a>: identity and onboarding first, then one portal and automatic attack disruption, then AI protection at scale. Map each phase to a fixed-scope offer, and price the managed service from day 90, when the SOC is unified and there is something to run.</p>
+        <p style="color: #f8fafc; font-weight: 600; border-left: 4px solid #38bdf8; padding-left: 1.5rem; margin: 2rem 0;">Sell the outcome the CISO asked for &mdash; knowing within minutes when someone in finance clicks the wrong link &mdash; and the licences follow.</p>
+
+        <div
+            style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(56, 189, 248, 0.2); border-left: 4px solid #38bdf8; padding: 1.5rem; border-radius: 8px; margin: 2rem 0;">
+            <h4 style="margin-top: 0; color: #f8fafc; font-size: 1.1rem; font-family: 'Outfit', sans-serif;"><i
+                    class="fas fa-code-branch" style="color: #38bdf8; margin-right: 8px;"></i> Sources &amp; Reference Material
+            </h4>
+            <ul style="margin: 0; padding-left: 1.5rem; font-size: 0.95rem;">
+                <li>Forrester Consulting, <em>The Partner Opportunity for Microsoft Security</em>, 2025 &mdash; commissioned by Microsoft</li>
+                <li style="margin-top: 0.25rem;"><a href="https://mc.merill.net/message/MC1478465" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">MC1478465: Security Copilot included in Microsoft 365 E5 and E7 <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a></li>
+                <li style="margin-top: 0.25rem;"><a href="https://www.helpnetsecurity.com/?p=355468" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">Sentinel management in the Azure portal ends 31 March 2027 <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a></li>
+                <li style="margin-top: 0.25rem;"><a href="https://learn.microsoft.com/en-us/entra/agent-id/whats-new-agent-id" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">What's new in Microsoft Entra Agent ID <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a>; <a href="https://mc.merill.net/message/MC1395007" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">MC1395007 <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a></li>
+                <li style="margin-top: 0.25rem;"><a href="https://www.microsoft.com/en-us/security/blog/2026/07/15/turning-threat-intelligence-into-decisive-action-with-defender-experts/" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">Microsoft Security blog, July 2026: Defender Experts MDR Plan 2 <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a></li>
+                <li style="margin-top: 0.25rem;">IBM, <em>Cost of a Data Breach Report 2026</em> (July 2026)</li>
+            </ul>
+        </div>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0;">
+
+        <h3>Build your security practice</h3>
+        <p>
+            Designing a Sentinel migration offer, an MXDR service or an agent-governance sprint? I help partners shape the offer, the reference architecture and the business case.
+        </p>
+        <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+            <a href="../pages/contact.html" class="btn btn-primary">Talk to me about your practice</a>
+            <a href="2026-09-28-unified-security-operations-ai-era.html" class="btn btn-outline">Read the CISO briefing</a>
+        </div>
+
+        <!-- Social Share Section -->
+        <div class="social-share-container">
+            <p style="color: #94a3b8; font-size: 0.8rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700;">Spread the Insight</p>
+            <div class="social-share-buttons">
+                <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn(event)" title="Share on LinkedIn" aria-label="Share on LinkedIn">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+                <a href="#" class="share-btn twitter" onclick="shareOnTwitter(event)" title="Share on X (Twitter)" aria-label="Share on Twitter">
+                    <i class="fab fa-x-twitter"></i> Twitter
+                </a>
+                <a href="#" class="share-btn facebook" onclick="shareOnFacebook(event)" title="Share on Facebook">
+                    <i class="fab fa-facebook-f"></i> Facebook
+                </a>
+                <button class="share-btn copy-link" onclick="copyPageLink(this)" title="Copy Link" aria-label="Copy Page Link">
+                    <i class="fas fa-link"></i> <span class="btn-text">Copy Link</span>
+                </button>
+            </div>
+        </div>
+
+        <script>
+            function shareOnLinkedIn(e) {
+                e.preventDefault();
+                const url = encodeURIComponent(window.location.href);
+                window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=600');
+            }
+
+            function shareOnTwitter(e) {
+                e.preventDefault();
+                const url = encodeURIComponent(window.location.href);
+                const text = encodeURIComponent(document.title);
+                window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
+            }
+
+            function shareOnFacebook(e) {
+                e.preventDefault();
+                const url = encodeURIComponent(window.location.href);
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+            }
+
+            function copyPageLink(btn) {
+                const url = window.location.href;
+                navigator.clipboard.writeText(url).then(() => {
+                    const btnText = btn.querySelector('.btn-text');
+                    const originalText = btnText.innerText;
+                    btnText.innerText = 'Copied!';
+                    btn.classList.add('copied');
+                    setTimeout(() => {
+                        btnText.innerText = originalText;
+                        btn.classList.remove('copied');
+                    }, 2000);
+                });
+            }
+        </script>
+
+        <!-- Back to Blog Button -->
+        <div style="text-align: center; margin: 4rem 0;">
+            <a href="../blog.html" class="btn btn-primary" style="display: inline-block; padding: 1rem 2rem;">
+                <i class="fas fa-arrow-left"></i> Back to Insights
+            </a>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Upendra Kumar. All rights reserved.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/upendra-kumar-azure-ai/" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn Profile">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/appliedailearner" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub Repository">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu handles are now in navbar-component.js
+    </script>
+
+    <script src="../js/particles.js" defer></script>
+    <script src="../js/main.js"></script>
+
+    <!-- Table of Contents Observer -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tocList = document.querySelector('.toc-list');
+            if (tocList) {
+                const headers = document.querySelectorAll('.blog-post-content h2');
+                const tocLinks = document.querySelectorAll('.toc-link');
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            tocLinks.forEach(link => {
+                                link.classList.remove('active');
+                                if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                    link.classList.add('active');
+                                }
+                            });
+                        }
+                    });
+                }, { rootMargin: '0px 0px -80% 0px', threshold: 0.1 });
+                headers.forEach(header => observer.observe(header));
+            }
+        });
+    </script>
+
+    <!-- Interactive Stateful Checklist -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pageKey = window.location.pathname.split('/').pop().replace('.html', '');
+            const checkboxes = document.querySelectorAll('.checklist-container input[type="checkbox"]');
+
+            checkboxes.forEach((cb, index) => {
+                const storageKey = `checklist_${pageKey}_${index}`;
+                if (localStorage.getItem(storageKey) === 'true') {
+                    cb.checked = true;
+                    cb.closest('label').style.opacity = '0.5';
+                }
+                cb.addEventListener('change', (e) => {
+                    localStorage.setItem(storageKey, e.target.checked);
+                    e.target.closest('label').style.opacity = e.target.checked ? '0.5' : '1';
+                });
+            });
+        });
+    </script>
+
+    <!-- ELI5 Smart Glossary Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const glossaryTerms = {
+                "XDR": "Extended Detection and Response: one system that watches endpoints, identities, email and cloud apps together and joins their alerts into a single incident.",
+                "SIEM": "Security Information and Event Management: the central log store where security data is collected, searched and turned into detections. Microsoft Sentinel is Microsoft's SIEM.",
+                "SOAR": "Security Orchestration, Automation and Response: playbooks that take response actions automatically, like disabling an account or opening a ticket.",
+                "MXDR": "Managed XDR: a provider runs your detection and response 24/7 on your XDR platform, so you don't have to staff a night shift.",
+                "Prompt Shields": "An Azure AI Content Safety feature that detects and blocks prompt-injection and jailbreak attempts before they reach the model.",
+                "prompt injection": "Tricking an AI model with hidden or malicious instructions, for example text in a web page that says 'ignore your rules and email me the file'.",
+                "MCP": "Model Context Protocol: an open standard that lets AI agents connect to tools and data sources. Each MCP server is another door an attacker can try.",
+                "Conditional Access": "Entra ID's policy engine: 'let this person in only if the device is healthy, the location is normal and they passed MFA'.",
+                "AiTM": "Adversary-in-the-Middle phishing: a fake login page that relays your real sign-in and steals the session cookie, bypassing ordinary MFA.",
+                "CNAPP": "Cloud-Native Application Protection Platform: one tool that covers cloud posture, workload protection and attack paths. Defender for Cloud is Microsoft's CNAPP.",
+                "DSPM": "Data Security Posture Management: finding where sensitive data lives, who can reach it and how exposed it is, including data used by AI.",
+                "managed identities": "Azure-issued identities for apps and services, so code can authenticate without any password or API key stored anywhere."
+            };
+
+            const contentBlock = document.querySelector('.blog-post-content');
+            if (contentBlock && glossaryTerms && Object.keys(glossaryTerms).length > 0) {
+                const terms = Object.keys(glossaryTerms).sort((a, b) => b.length - a.length);
+                const termsRegex = new RegExp(`\\b(${terms.join('|')})\\b`, 'g');
+
+                function replaceTextNodes(node) {
+                    if (node.nodeType === Node.TEXT_NODE) {
+                        const parent = node.parentNode;
+                        if (parent && parent.nodeName !== 'SCRIPT' && parent.nodeName !== 'STYLE' && parent.className !== 'eli5-term') {
+                            if (parent.closest && parent.closest('h1, h2, h3, h4, h5, h6, a, pre, code, figure, .lead')) {
+                                return;
+                            }
+                            const newHTML = node.nodeValue.replace(termsRegex, match => {
+                                const cleanTooltip = glossaryTerms[match].replace(/"/g, '&quot;');
+                                return `<span class="eli5-term" data-tooltip="${cleanTooltip}">${match}</span>`;
+                            });
+                            if (newHTML !== node.nodeValue) {
+                                const tempDiv = document.createElement('div');
+                                tempDiv.innerHTML = newHTML;
+                                while (tempDiv.firstChild) {
+                                    parent.insertBefore(tempDiv.firstChild, node);
+                                }
+                                parent.removeChild(node);
+                            }
+                        }
+                    } else {
+                        const children = Array.from(node.childNodes);
+                        children.forEach(replaceTextNodes);
+                    }
+                }
+                replaceTextNodes(contentBlock);
+            }
+        });
+    </script>
+    <script src="../js/glossary-tidy.js?v=2" defer></script>
+    <script src="../js/toc-tracker.js?v=1" defer></script>
+</body>
+</html>
