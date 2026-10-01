@@ -181,3 +181,33 @@ An expert review of both live posts found 19 issues. All of them are fixed excep
 - Post B: 885 words, 4.4 minutes (shown as "4 min read").
 
 **Checks:** both posts pass all 21 audit checks locally. All internal links resolve, and the three SVGs were re-checked in dark and light mode at desktop and phone widths.
+
+---
+
+## Open items closed (1 October 2026)
+
+| Item | Finding | What changed on the page |
+|---|---|---|
+| **V12** Forrester partner figures | **The page's figures were wrong.** Forrester's *The Partner Opportunity For Microsoft Security Partners* (November 2025, commissioned by Microsoft) models expected revenue from **one new enterprise customer**, based on 15 partner interviews. The model grew 20% year on year. Managed services is the largest stream ($23.35 of $54.35 per user per month) and grew 24%; advisory grew fastest at 35%. **There is no SMB cohort.** The "42%" in the study is the blended attach rate, not a growth figure. The July 2024 edition shows SMB managed services +53% and enterprise +17%; it doesn't support 42/23 either. | Post B, "Where the Growth Is", was rewritten with the November 2025 figures and their caveats, and the source is linked. The "SMB 42% vs 23%" claim is removed. "The growth is in managed services" is corrected to: managed services is the largest stream, advisory the fastest-growing. |
+| **V9** FY27 solution plays | Microsoft's public Security Partners site lists the FY27 plays: **Establish a trusted & secure platform for AI** (enterprise; Microsoft 365 E7, Agent 365), **AI-ready productivity & security for every employee** (enterprise; Copilot, Microsoft 365 security) and **Run your Business Securely** (SMB; Business Premium). The FY26 play names are no longer listed there. | Post B's play table is replaced with the FY27 plays and featured products. A caption notes the FY26 names. |
+| **P1** Immersion briefings | Public in Microsoft partner news: 90-minute partner-led briefings for SMB customers on three topics (Threat Protection, Data Security, Advanced Security for Business Premium). Partners can claim co-op funding for delivery costs and have up to 20 submissions open at a time. **"5–25 customers" was not found in any public source.** | Published, without the customer count. |
+| **P2** "$2K per briefing" | Not found in any public source. | **Not published.** The page says to check amounts in Partner Center. |
+| **P3** Designation scoring | **Public on Microsoft Learn.** The minimum is 70 of 100 points, with at least 1 point in each of four metrics: net customer adds, intermediate certifications, deployments and usage growth. Net customer adds, deployments and usage growth are each capped at 20. There are SMB and enterprise paths, and the better score counts. The required certifications: Azure Security Engineer (retired 31 Aug 2026) or Cloud and AI Security Engineer, plus SC-200; points then come from SC-100, SC-300 or SC-401. **The old deck's "performance 20, skilling 40, usage 20, deployments 20" matched in total, but "deployments" is a customer-success metric.** | Published with the Learn link. The certification guidance now follows the designation's actual required path. |
+| **P4** CSP incentive details | Only third-party summaries were found. | **Not published.** The step stays generic ("check the current program guide"). |
+| **P5** Business Case Builder "upgraded May 2025" | Not verified. | **Not published.** The tool is named only. |
+| **V4** Case-study incidents | No public Microsoft case study was found for either incident. | Attributed honestly: "Two incidents from Microsoft partner materials (FY26; not public case studies)". |
+| **V5** Prices | Suite prices ($10 and $15) are confirmed on Microsoft's SMB security add-on pricing page. The $47.20 standalone total matches independent breakdowns. | Price line re-sourced and the pricing page linked. Component prices are still attributed to partner materials. |
+| **V6** Sentinel data grant | Confirmed: Microsoft 365 E5, E7, A5, F5 and G5 include up to 5 MB per user per day of Microsoft 365 data ingested into Sentinel (Azure offer page). | The ingestion-cost objection now states it, with a link. |
+| **V8** Agent 365 GA | Confirmed by the Microsoft Security blog, 1 May 2026. | The Tech Community source is replaced. |
+
+**Still open (low risk, not on the page as unsourced numbers):**
+- **V7:** the exact DPDP commencement date; the page says "May 2027".
+- **V10:** IBM 247 days. IBM's own page confirms $4.99M and $1.93M; the 247 days comes from two independent summaries.
+- **V11:** the 72-minute wording; the page now says "about 72 minutes".
+- **V1–V3:** figures that were removed from the page and stay off.
+
+**Reading time:**
+- Post A: 2,400 words, 12.0 minutes.
+- Post B: 1,032 words, 5.2 minutes (shown as "5 min read" on the post and in the listing).
+
+**Checks:** both posts pass all 21 audit checks, and all internal links resolve.

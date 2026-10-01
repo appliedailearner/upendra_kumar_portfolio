@@ -1337,7 +1337,7 @@
             <figcaption class="caption">Illustrative and not to scale: the finance click on case 1's timings.</figcaption>
         </figure>
 
-        <p>Ten minutes &mdash; but look at 9:09. The attacker still opened a file before the account was disabled. Disruption shrinks the blast radius; it doesn't promise zero access, so labels and DLP still matter. Two documented incidents show the pattern:</p>
+        <p>Ten minutes &mdash; but look at 9:09. The attacker still opened a file before the account was disabled. Disruption shrinks the blast radius; it doesn't promise zero access, so labels and DLP still matter. Two incidents from Microsoft partner materials (FY26; not public case studies) show the pattern:</p>
 
         <div class="incident">
             <div class="incident-head">
@@ -1374,7 +1374,7 @@
         <p>Every AI agent calls tools, holds credentials and connects to other agents and MCP servers. Each connection is an attack path.</p>
 
         <h3>Every agent needs its own identity</h3>
-        <p>Most agents run on a shared app registration or a developer's API key: no owner, no expiry.</p>
+        <p>Most agents run on a shared app registration or a developer's key: no owner, no expiry.</p>
         <p><strong>Microsoft Entra Agent ID</strong>, now generally available, gives each agent its own identity, a named sponsor and a lifecycle.</p>
 
         <p><strong>Conditional Access and ID Protection for agents</strong> apply the risk-based controls you use for people; they come with Microsoft Agent 365 or Microsoft 365 E7 (message center MC1395007).</p>
@@ -1565,7 +1565,7 @@
         <p>Attack disruption now acts beyond Microsoft too: it can suspend Okta users and deny AWS IAM access through Sentinel (preview). Defender Experts MDR Plan 2 covers non-Microsoft sources ingested through Sentinel.</p>
 
         <h2 id="economics"><span class="gradient-text">The CFO Slide</span></h2>
-        <p>The CFO asks what it costs against what you pay now. For Microsoft 365 Business Premium tenants (up to 300 seats), the answer is clean. CSP list prices per user per month, as cited in Microsoft Security partner materials (FY26):</p>
+        <p>The CFO asks what it costs against what you pay now. For Microsoft 365 Business Premium tenants (up to 300 seats), the answer is clean. List prices per user per month: suite prices from Microsoft's SMB security pricing page, component prices from Microsoft partner materials (FY26):</p>
 
         <div class="table-scroll stack-table">
             <table>
@@ -1614,7 +1614,7 @@
         <p>Sentinel data lake compute, Logic Apps and third-party agents still cost extra. Agents draw on it continuously; measure a month of use before treating it as free.</p>
 
         <h3>24/7 without hiring 24/7</h3>
-        <p>Few mid-market organisations can staff a follow-the-sun SOC. <strong>Microsoft Defender Experts MDR</strong> (formerly Defender Experts for XDR) provides 24/7 detection and response, drawing on more than 10,000 security researchers (Microsoft Security blog, August 2026).</p>
+        <p><strong>Microsoft Defender Experts MDR</strong> (formerly Defender Experts for XDR) provides 24/7 detection and response, drawing on more than 10,000 security researchers (Microsoft Security blog, August 2026).</p>
 
         <p>Forrester projected a three-year ROI of 43% to 254% across its low- to high-impact scenarios (<em>Projected TEI of Microsoft Defender Experts for XDR</em>, July 2023, commissioned by Microsoft) &mdash; a <strong>dated</strong> projection, not a measured result.</p>
 
@@ -1661,8 +1661,7 @@
         </div>
 
         <h2 id="roadmap"><span class="gradient-text">The 180-Day Roadmap</span></h2>
-        <p>Value in weeks, maturity in quarters.</p>
-
+        
         <div class="checklist-container">
             <div style="font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #93c5fd; margin: 0 0 1rem; display: flex; align-items: center; gap: 0.6rem;">
                 <i class="fas fa-trowel-bricks"></i> Days 0&ndash;30 &mdash; Secure the foundation
@@ -1714,8 +1713,7 @@
         </div>
 
         <h2 id="caveats"><span class="gradient-text">What the Pitch Deck Won't Tell You</span></h2>
-        <p>All solvable; none solved by signing the order form.</p>
-        <ul>
+                <ul>
             <li><strong>Disruption is only as good as your onboarding.</strong> A device that isn't onboarded can't be contained. The &ldquo;minutes&rdquo; stories assume coverage you earn in phase one.</li>
             <li><strong>Consolidation has a migration cost.</strong> Budget for dual-running and date each tool's switch-off, or the savings never arrive.</li>
             <li><strong>SIEM ingestion is where budgets go to die.</strong> Detection-grade logs (Entra ID sign-ins, EDR and email alerts) go to the analytics tier, where rules run. Long-retention logs (firewall or NetFlow kept a year for forensics) go to the cheaper data lake tier, which runs no analytics rules.</li>
@@ -1727,7 +1725,7 @@
         <h2 id="objections"><span class="gradient-text">Objections You'll Hear</span></h2>
         <p><strong>&ldquo;We already run CrowdStrike, Palo Alto or Splunk.&rdquo;</strong> Good &mdash; don't rip and replace; bring their signals into Sentinel first. But know the trade-off: automatic disruption contains devices and users only through Defender for Endpoint, so where a third-party EDR stays primary you lose cross-domain containment on those endpoints.</p>
         <p><strong>&ldquo;What if Microsoft itself is breached?&rdquo;</strong> Then concentration risk is real: ask for the <a href="#trust" style="color: #60a5fa;">Secure Future Initiative evidence</a>, keep break-glass accounts and an out-of-band incident channel outside the tenant, and test them.</p>
-        <p><strong>&ldquo;What will Sentinel ingestion cost at our volume?&rdquo;</strong> Nobody can answer honestly without your gigabytes per day, by source. Measure, tier, check the data grants in your Microsoft 365 licences, and model it in the Azure pricing calculator.</p>
+        <p><strong>&ldquo;What will Sentinel ingestion cost at our volume?&rdquo;</strong> Nobody can answer honestly without your gigabytes per day, by source. Measure and tier it. E5 and E7 include up to 5 MB per user per day of Microsoft 365 data at no charge; model the rest in the Azure pricing calculator.</p>
 
         <div style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(52, 211, 153, 0.2); border-left: 4px solid #34d399; padding: 1.5rem; border-radius: 8px; margin: 2rem 0;">
             <h4 style="margin-top: 0; color: #f8fafc; font-family: 'Outfit', sans-serif;"><i class="fas fa-location-dot" style="color: #34d399; margin-right: 8px;"></i> A note for readers in India</h4>
@@ -1759,7 +1757,7 @@
                 <li style="margin-top: 0.25rem;"><a href="https://learn.microsoft.com/en-us/azure/sentinel/datalake/sentinel-lake-log-ingestion-guidance" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">Which logs to ingest into the Microsoft Sentinel data lake <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a></li>
                 <li style="margin-top: 0.25rem;"><a href="https://genai.owasp.org/llm-top-10/" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">OWASP Top 10 for LLM Applications 2025 <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a>; <a href="https://atlas.mitre.org/" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">MITRE ATLAS <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a></li>
                 <li style="margin-top: 0.25rem;"><a href="https://www.microsoft.com/en-us/security/blog/2026/07/15/turning-threat-intelligence-into-decisive-action-with-defender-experts/" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">Microsoft Security blog, July 2026: Defender Experts MDR (rename, Plan 2) <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a>; <a href="https://www.microsoft.com/en-us/security/blog/2026/08/10/microsoft-named-a-leader-in-the-2026-idc-marketscape-for-mdr-mxdr-for-the-enterprise/" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">August 2026: 10,000+ security researchers <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a></li>
-                <li style="margin-top: 0.25rem;"><a href="https://techcommunity.microsoft.com/discussions/agent-365-discussions/agent-365-will-be-generally-available-on-may-1-2026/4500380" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">Microsoft Tech Community: Agent 365 general availability <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a></li>
+                <li style="margin-top: 0.25rem;"><a href="https://www.microsoft.com/en-us/security/pricing/small-medium-business/security-add-on-plans" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">Microsoft 365 security add-on pricing for business <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a>; <a href="https://azure.microsoft.com/en-us/pricing/offers/sentinel-microsoft-365-offer" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">Microsoft 365 E5 benefit offer with Microsoft Sentinel <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a></li>
                 <li style="margin-top: 0.25rem;"><a href="https://www.microsoft.com/content/dam/microsoft/final/en-us/microsoft-brand/documents/Forrester-New-Tech-TEI-XDR.pdf" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">Forrester Consulting, <em>The Projected Total Economic Impact&trade; of Microsoft Defender Experts for XDR</em> <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a>, July 2023 &mdash; commissioned by Microsoft</li>
                 <li style="margin-top: 0.25rem;"><a href="https://www.microsoft.com/en-us/trust-center/security/secure-future-initiative" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">Microsoft Secure Future Initiative <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a></li>
                 <li style="margin-top: 0.25rem;"><a href="https://static.pib.gov.in/WriteReadData/specificdocs/documents/2025/nov/doc20251117695301.pdf" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">Digital Personal Data Protection Rules, 2025 (PIB) <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 4px;"></i></a></li>
