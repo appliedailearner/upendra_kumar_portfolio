@@ -200,10 +200,12 @@ An expert review of both live posts found 19 issues. All of them are fixed excep
 | **V6** Sentinel data grant | Confirmed: Microsoft 365 E5, E7, A5, F5 and G5 include up to 5 MB per user per day of Microsoft 365 data ingested into Sentinel (Azure offer page). | The ingestion-cost objection now states it, with a link. |
 | **V8** Agent 365 GA | Confirmed by the Microsoft Security blog, 1 May 2026. | The Tech Community source is replaced. |
 
-**Still open (low risk, not on the page as unsourced numbers):**
-- **V7:** the exact DPDP commencement date; the page says "May 2027".
-- **V10:** IBM 247 days. IBM's own page confirms $4.99M and $1.93M; the 247 days comes from two independent summaries.
-- **V11:** the 72-minute wording; the page now says "about 72 minutes".
+**Closed 1 October 2026:**
+- **V7:** DPDP obligations apply from 13 May 2027, 18 months after the Rules were notified on 13 November 2025 (Legal500, PrivacyWorld). The page now gives the exact date.
+- **V10:** IBM 247 days = 183 to identify + 64 to contain. Help Net Security, HIPAA Journal and Security Boulevard all report it the same way; IBM's landing page shows only the cost figures. The source list now gives the split and links Help Net Security.
+- **V11:** Microsoft's MDDR 2022 gives a **median** of 1 hour 12 minutes. The source list now says so; the body keeps "about 72 minutes".
+
+**Still off the page:**
 - **V1–V3:** figures that were removed from the page and stay off.
 
 **Reading time:**
