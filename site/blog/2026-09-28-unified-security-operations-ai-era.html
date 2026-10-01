@@ -1218,7 +1218,7 @@
 
         <p>These aren't the same measurement: one is the <strong>attacker's clock</strong>, the other the <strong>defender's</strong>. The gap between them is the risk you carry.</p>
         <p>The clock usually starts at identity. Phishing was the top initial attack vector for the fourth year running (IBM 2026), and MFA blocks over 99% of identity-based attacks (Microsoft Digital Defense Report 2025).</p>
-        
+
         <h2 id="sprawl"><span class="gradient-text">Six Consoles, Zero Context</span></h2>
         <p>Most estates run a point product per domain &mdash; email security, EDR, ITDR, CASB, DLP &mdash; and a SOC with its own SIEM and SOAR.</p>
         <p>Each tool is good at its job. <strong>None of them knows what the others saw.</strong> Three alerts that are really <em>one</em> attack arrive as three tickets for three people. That's how minutes become months.</p>
@@ -1458,97 +1458,113 @@
         <p>Defence in depth from the edge to the model. This is the pattern I take into design workshops:</p>
 
         <figure class="svg-figure">
-            <svg viewBox="0 0 560 720" role="img" aria-labelledby="dgB-title dgB-desc" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 560 768" role="img" aria-labelledby="dgB-title dgB-desc" xmlns="http://www.w3.org/2000/svg">
                 <title id="dgB-title">Layered reference architecture for securing AI workloads on Azure</title>
                 <desc id="dgB-desc">Four layers from top to bottom. Edge and access: Azure Front Door with WAF, API Management as the AI gateway with an MCP allow-list, and Microsoft Entra ID with Agent ID, applying Conditional Access and ID Protection to users and agents. AI platform: Microsoft Foundry with models, agents, guardrails and Prompt Shields; Azure AI Search as the grounding index; data stores on private endpoints with customer-managed keys. Posture and data signals: Defender for Cloud AI security posture and attack paths, Defender AI threat protection, and Microsoft Purview DSPM for AI. Unified SecOps plane: Defender XDR, Microsoft Sentinel with its data lake, and Security Copilot agents. Non-Microsoft signals from AWS, Google Cloud, firewalls, SaaS and OT enter through Sentinel connectors.</desc>
-                <rect class="dg-panel" x="1" y="1" width="558" height="718" rx="16"/>
+                <rect class="dg-panel" x="1" y="1" width="558" height="766" rx="16"/>
 
-                <rect class="dg-band dg-b-blue" x="12" y="16" width="536" height="144" rx="12"/>
+                <rect class="dg-band dg-b-blue" x="12" y="16" width="536" height="156" rx="12"/>
                 <text class="dg-k-blue dg-cap" x="28" y="42">EDGE &amp; ACCESS</text>
                 <g class="dg-b-blue">
-                    <rect class="dg-box" x="24" y="56" width="160" height="92" rx="8"/>
-                    <rect class="dg-box" x="200" y="56" width="160" height="92" rx="8"/>
-                    <rect class="dg-box" x="376" y="56" width="160" height="92" rx="8"/>
+                    <rect class="dg-box" x="24" y="56" width="160" height="104" rx="8"/>
+                    <rect class="dg-box" x="200" y="56" width="160" height="104" rx="8"/>
+                    <rect class="dg-box" x="376" y="56" width="160" height="104" rx="8"/>
+                </g>
+                <g class="dg-icons">
+                    <image href="../assets/icons/azure/front-door.svg" x="95" y="68" width="18" height="18"><title>Azure Front Door</title></image>
+                    <image href="../assets/icons/azure/api-management.svg" x="271" y="68" width="18" height="18"><title>Azure API Management</title></image>
+                    <image href="../assets/icons/azure/entra-id-protection.svg" x="447" y="68" width="18" height="18"><title>Microsoft Entra ID Protection</title></image>
                 </g>
                 <g text-anchor="middle">
-                    <text class="dg-t dg-sm dg-bold" x="104" y="84">Front Door + WAF</text>
-                    <text class="dg-s dg-xs" x="104" y="108">DDoS, bot and</text>
-                    <text class="dg-s dg-xs" x="104" y="126">OWASP rules</text>
-                    <text class="dg-t dg-sm dg-bold" x="280" y="84">API Management</text>
-                    <text class="dg-s dg-xs" x="280" y="108">AI gateway,</text>
-                    <text class="dg-s dg-xs" x="280" y="126">MCP allow-list</text>
-                    <text class="dg-t dg-sm dg-bold" x="456" y="84">Entra ID + Agent ID</text>
-                    <text class="dg-s dg-xs" x="456" y="108">CA + ID Protection</text>
-                    <text class="dg-s dg-xs" x="456" y="126">for users &amp; agents</text>
+                    <text class="dg-t dg-sm dg-bold" x="104" y="104">Front Door + WAF</text>
+                    <text class="dg-s dg-xs" x="104" y="126">DDoS, bot and</text>
+                    <text class="dg-s dg-xs" x="104" y="144">OWASP rules</text>
+                    <text class="dg-t dg-sm dg-bold" x="280" y="104">API Management</text>
+                    <text class="dg-s dg-xs" x="280" y="126">AI gateway,</text>
+                    <text class="dg-s dg-xs" x="280" y="144">MCP allow-list</text>
+                    <text class="dg-t dg-sm dg-bold" x="456" y="104">Entra ID + Agent ID</text>
+                    <text class="dg-s dg-xs" x="456" y="126">CA + ID Protection</text>
+                    <text class="dg-s dg-xs" x="456" y="144">for users &amp; agents</text>
                 </g>
-                <line class="dg-arrow" x1="280" y1="160" x2="280" y2="176" marker-end="url(#dgB-head)"/>
+                <line class="dg-arrow" x1="280" y1="172" x2="280" y2="188" marker-end="url(#dgB-head)"/>
 
-                <rect class="dg-band dg-b-purple" x="12" y="180" width="536" height="144" rx="12"/>
-                <text class="dg-k-purple dg-cap" x="28" y="206">AI PLATFORM</text>
+                <rect class="dg-band dg-b-purple" x="12" y="192" width="536" height="156" rx="12"/>
+                <text class="dg-k-purple dg-cap" x="28" y="218">AI PLATFORM</text>
                 <g class="dg-b-purple">
-                    <rect class="dg-box" x="24" y="220" width="160" height="92" rx="8"/>
-                    <rect class="dg-box" x="200" y="220" width="160" height="92" rx="8"/>
-                    <rect class="dg-box" x="376" y="220" width="160" height="92" rx="8"/>
+                    <rect class="dg-box" x="24" y="232" width="160" height="104" rx="8"/>
+                    <rect class="dg-box" x="200" y="232" width="160" height="104" rx="8"/>
+                    <rect class="dg-box" x="376" y="232" width="160" height="104" rx="8"/>
+                </g>
+                <g class="dg-icons">
+                    <image href="../assets/icons/azure/ai-foundry.svg" x="95" y="244" width="18" height="18"><title>Microsoft Foundry</title></image>
+                    <image href="../assets/icons/azure/ai-search.svg" x="271" y="244" width="18" height="18"><title>Azure AI Search</title></image>
+                    <image href="../assets/icons/azure/private-endpoints.svg" x="447" y="244" width="18" height="18"><title>Private endpoints</title></image>
                 </g>
                 <g text-anchor="middle">
-                    <text class="dg-t dg-sm dg-bold" x="104" y="248">Microsoft Foundry</text>
-                    <text class="dg-s dg-xs" x="104" y="272">models, agents,</text>
-                    <text class="dg-s dg-xs" x="104" y="290">Prompt Shields</text>
-                    <text class="dg-t dg-sm dg-bold" x="280" y="248">Azure AI Search</text>
-                    <text class="dg-s dg-xs" x="280" y="272">grounding /</text>
-                    <text class="dg-s dg-xs" x="280" y="290">RAG index</text>
-                    <text class="dg-t dg-sm dg-bold" x="456" y="248">Data stores</text>
-                    <text class="dg-s dg-xs" x="456" y="272">private endpoints,</text>
-                    <text class="dg-s dg-xs" x="456" y="290">CMK encryption</text>
+                    <text class="dg-t dg-sm dg-bold" x="104" y="280">Microsoft Foundry</text>
+                    <text class="dg-s dg-xs" x="104" y="302">models, agents,</text>
+                    <text class="dg-s dg-xs" x="104" y="320">Prompt Shields</text>
+                    <text class="dg-t dg-sm dg-bold" x="280" y="280">Azure AI Search</text>
+                    <text class="dg-s dg-xs" x="280" y="302">grounding /</text>
+                    <text class="dg-s dg-xs" x="280" y="320">RAG index</text>
+                    <text class="dg-t dg-sm dg-bold" x="456" y="280">Data stores</text>
+                    <text class="dg-s dg-xs" x="456" y="302">private endpoints,</text>
+                    <text class="dg-s dg-xs" x="456" y="320">CMK encryption</text>
                 </g>
-                <line class="dg-arrow" x1="280" y1="324" x2="280" y2="340" marker-end="url(#dgB-head)"/>
+                <line class="dg-arrow" x1="280" y1="348" x2="280" y2="364" marker-end="url(#dgB-head)"/>
 
-                <rect class="dg-band dg-b-sky" x="12" y="344" width="536" height="144" rx="12"/>
-                <text class="dg-k-sky dg-cap" x="28" y="370">POSTURE &amp; DATA SIGNALS</text>
+                <rect class="dg-band dg-b-sky" x="12" y="368" width="536" height="156" rx="12"/>
+                <text class="dg-k-sky dg-cap" x="28" y="394">POSTURE &amp; DATA SIGNALS</text>
                 <g class="dg-b-sky">
-                    <rect class="dg-box" x="24" y="384" width="160" height="92" rx="8"/>
-                    <rect class="dg-box" x="200" y="384" width="160" height="92" rx="8"/>
-                    <rect class="dg-box" x="376" y="384" width="160" height="92" rx="8"/>
+                    <rect class="dg-box" x="24" y="408" width="160" height="104" rx="8"/>
+                    <rect class="dg-box" x="200" y="408" width="160" height="104" rx="8"/>
+                    <rect class="dg-box" x="376" y="408" width="160" height="104" rx="8"/>
+                </g>
+                <g class="dg-icons">
+                    <image href="../assets/icons/azure/defender-for-cloud.svg" x="95" y="420" width="18" height="18"><title>Microsoft Defender for Cloud</title></image>
                 </g>
                 <g text-anchor="middle">
-                    <text class="dg-t dg-sm dg-bold" x="104" y="412">Defender for Cloud</text>
-                    <text class="dg-s dg-xs" x="104" y="436">AI security posture,</text>
-                    <text class="dg-s dg-xs" x="104" y="454">attack paths</text>
-                    <text class="dg-t dg-sm dg-bold" x="280" y="412">AI threat protection</text>
-                    <text class="dg-s dg-xs" x="280" y="436">runtime alerts on</text>
-                    <text class="dg-s dg-xs" x="280" y="454">AI workloads</text>
-                    <text class="dg-t dg-sm dg-bold" x="456" y="412">Microsoft Purview</text>
-                    <text class="dg-s dg-xs" x="456" y="436">DSPM for AI,</text>
-                    <text class="dg-s dg-xs" x="456" y="454">DLP, labels</text>
+                    <text class="dg-t dg-sm dg-bold" x="104" y="456">Defender for Cloud</text>
+                    <text class="dg-s dg-xs" x="104" y="478">AI security posture,</text>
+                    <text class="dg-s dg-xs" x="104" y="496">attack paths</text>
+                    <text class="dg-t dg-sm dg-bold" x="280" y="456">AI threat protection</text>
+                    <text class="dg-s dg-xs" x="280" y="478">runtime alerts on</text>
+                    <text class="dg-s dg-xs" x="280" y="496">AI workloads</text>
+                    <text class="dg-t dg-sm dg-bold" x="456" y="456">Microsoft Purview</text>
+                    <text class="dg-s dg-xs" x="456" y="478">DSPM for AI,</text>
+                    <text class="dg-s dg-xs" x="456" y="496">DLP, labels</text>
                 </g>
-                <line class="dg-arrow" x1="280" y1="488" x2="280" y2="504" marker-end="url(#dgB-head)"/>
+                <line class="dg-arrow" x1="280" y1="524" x2="280" y2="540" marker-end="url(#dgB-head)"/>
 
-                <rect class="dg-band dg-b-green" x="12" y="508" width="536" height="144" rx="12"/>
-                <text class="dg-k-green dg-cap" x="28" y="534">UNIFIED SECOPS PLANE</text>
+                <rect class="dg-band dg-b-green" x="12" y="544" width="536" height="156" rx="12"/>
+                <text class="dg-k-green dg-cap" x="28" y="570">UNIFIED SECOPS PLANE</text>
                 <g class="dg-b-green">
-                    <rect class="dg-box" x="24" y="548" width="160" height="92" rx="8"/>
-                    <rect class="dg-box" x="200" y="548" width="160" height="92" rx="8"/>
-                    <rect class="dg-box" x="376" y="548" width="160" height="92" rx="8"/>
+                    <rect class="dg-box" x="24" y="584" width="160" height="104" rx="8"/>
+                    <rect class="dg-box" x="200" y="584" width="160" height="104" rx="8"/>
+                    <rect class="dg-box" x="376" y="584" width="160" height="104" rx="8"/>
+                </g>
+                <g class="dg-icons">
+                    <image href="../assets/icons/azure/sentinel.svg" x="271" y="596" width="18" height="18"><title>Microsoft Sentinel</title></image>
                 </g>
                 <g text-anchor="middle">
-                    <text class="dg-t dg-sm dg-bold" x="104" y="576">Defender XDR</text>
-                    <text class="dg-s dg-xs" x="104" y="600">unified incidents,</text>
-                    <text class="dg-s dg-xs" x="104" y="618">attack disruption</text>
-                    <text class="dg-t dg-sm dg-bold" x="280" y="576">Microsoft Sentinel</text>
-                    <text class="dg-s dg-xs" x="280" y="600">SIEM, data lake,</text>
-                    <text class="dg-s dg-xs" x="280" y="618">playbooks</text>
-                    <text class="dg-t dg-sm dg-bold" x="456" y="576">Security Copilot</text>
-                    <text class="dg-s dg-xs" x="456" y="600">agents for triage,</text>
-                    <text class="dg-s dg-xs" x="456" y="618">hunting, reporting</text>
+                    <text class="dg-t dg-sm dg-bold" x="104" y="632">Defender XDR</text>
+                    <text class="dg-s dg-xs" x="104" y="654">unified incidents,</text>
+                    <text class="dg-s dg-xs" x="104" y="672">attack disruption</text>
+                    <text class="dg-t dg-sm dg-bold" x="280" y="632">Microsoft Sentinel</text>
+                    <text class="dg-s dg-xs" x="280" y="654">SIEM, data lake,</text>
+                    <text class="dg-s dg-xs" x="280" y="672">playbooks</text>
+                    <text class="dg-t dg-sm dg-bold" x="456" y="632">Security Copilot</text>
+                    <text class="dg-s dg-xs" x="456" y="654">agents for triage,</text>
+                    <text class="dg-s dg-xs" x="456" y="672">hunting, reporting</text>
                 </g>
 
-                <rect class="dg-ext" x="12" y="668" width="536" height="40" rx="10"/>
-                <text class="dg-m dg-xs" x="280" y="693" text-anchor="middle">&#8593; Non-Microsoft: AWS &#183; GCP &#183; firewalls &#183; SaaS &#183; OT via Sentinel</text>
+                <rect class="dg-ext" x="12" y="720" width="536" height="40" rx="10"/>
+                <text class="dg-m dg-xs" x="280" y="745" text-anchor="middle">&#8593; Non-Microsoft: AWS &#183; GCP &#183; firewalls &#183; SaaS &#183; OT via Sentinel</text>
                 <defs>
                     <marker id="dgB-head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="dg-head" d="M0 0 L10 5 L0 10 z"/></marker>
                 </defs>
             </svg>
-            <figcaption class="caption">Securing AI on Azure: four layers, one SecOps plane.</figcaption>
+            <figcaption class="caption">Securing AI on Azure: four layers, one SecOps plane. Icons: Microsoft Azure architecture icons.</figcaption>
         </figure>
 
         <p><strong>Four design principles hold it together:</strong></p>
@@ -1754,7 +1770,7 @@
         </div>
 
         <h2 id="roadmap"><span class="gradient-text">The 180-Day Roadmap</span></h2>
-        
+
         <div class="checklist-container">
             <div style="font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #93c5fd; margin: 0 0 1rem; display: flex; align-items: center; gap: 0.6rem;">
                 <i class="fas fa-trowel-bricks"></i> Days 0&ndash;30 &mdash; Secure the foundation
