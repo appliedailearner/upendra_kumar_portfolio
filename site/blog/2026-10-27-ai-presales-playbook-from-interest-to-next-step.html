@@ -1516,10 +1516,47 @@
 
         <p>Someone outside the original conversation should be able to pick it up without restarting discovery. Here is one, filled in for the insurance case:</p>
 
-        <figure style="margin: 2rem 0;">
-            <a href="../images/blog/2026-10-27-handoff-note-filled.webp" target="_blank" rel="noopener" aria-label="Open the filled-in handoff note full size"><img src="../images/blog/2026-10-27-handoff-note-filled.webp" width="1400" height="1624" loading="lazy" style="width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(148, 163, 184, 0.25);" alt="Handoff note for the insurance document review. Verdict: ready for a validation session, not ready for a technical handoff; three fields known, two assumed, two unknown. Use case, known: at intake, AI flags missing documents and a person confirms and requests the rest. Owners, unknown: workflow and exceptions owners not yet named; to close, name both before any handoff. Evidence so far, known: the business asked for five things at once and missing documents is the lowest risk. Value hypothesis, assumed: incomplete files cause much of the delay, so flagging gaps early could cut rework; to close, time a complete file today. Route and alternatives, assumed: Azure AI landing zone first, rules-only and model-based checks compared on cost and accuracy; to close, run the comparison on real files. Risks and unknowns, unknown: time for a complete file and accuracy on the customer's documents are not measured; to close, measure both on the customer's own documents. Next action, known: run a validation session, starting by timing a complete file today."></a>
-            <figcaption class="caption" style="margin-top: 0.75rem; text-align: center;">A handoff note filled in for the insurance case. The verdict: ready for a validation session, not for a technical handoff. Tap to enlarge.</figcaption>
-        </figure>
+        <style>
+            .ho-card { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(148, 163, 184, 0.25); border-radius: 12px; padding: 1.75rem; margin: 2rem 0; font-size: 0.95rem; line-height: 1.6; color: #e2e8f0; }
+            .ho-card, .ho-card:hover { transform: none; backdrop-filter: none; box-shadow: none; }
+            .ho-meta { font-size: 0.85rem; color: #94a3b8; margin-bottom: 0.25rem; }
+            .ho-title { font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 800; color: #f8fafc; margin: 0 0 0.35rem; }
+            .ho-verdict { font-size: 1.3rem; font-weight: 700; line-height: 1.4; color: #f8fafc; margin: 1rem 0 0.9rem; }
+            .ho-verdict span { color: #fcd34d; }
+            .ho-bar { display: flex; gap: 4px; height: 8px; margin-bottom: 0.6rem; }
+            .ho-bar span { border-radius: 4px; }
+            .ho-count { font-size: 0.85rem; color: #cbd5e1; display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; margin-bottom: 1.5rem; }
+            .ho-count i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 0.4rem; }
+            .ho-group { font-weight: 700; color: #f8fafc; font-size: 0.95rem; margin: 1.5rem 0 0.6rem; padding-top: 1.1rem; border-top: 1px solid rgba(148, 163, 184, 0.2); }
+            .ho-item { display: grid; grid-template-columns: 10px 1fr; gap: 0.85rem; margin-bottom: 0.9rem; }
+            .ho-dot { width: 10px; height: 10px; border-radius: 50%; margin-top: 0.5rem; }
+            .ho-item strong { color: #f8fafc; }
+            .ho-tag { font-size: 0.85rem; color: #94a3b8; margin-left: 0.35rem; }
+            .ho-text { color: #cbd5e1; }
+            .ho-close { color: #e2e8f0; margin-top: 0.2rem; }
+            .ho-next { border-left: 4px solid #38bdf8; background: rgba(56, 189, 248, 0.07); border-radius: 8px; padding: 0.9rem 1.1rem; color: #f1f5f9; }
+        </style>
+<div class="ho-card glass-card" role="group" aria-label="Handoff note for the insurance document review">
+            <div class="ho-meta">Handoff note &middot; Draft &middot; Prepared by Upendra Kumar &middot; 27 October 2026 &middot; For the next owner</div>
+            <div class="ho-title">Insurance document review</div>
+            <div class="ho-verdict">Ready for a validation session. <span>Not ready for a technical handoff.</span></div>
+            <div class="ho-bar" aria-hidden="true"><span style="flex: 3; background: #6ee7b7;"></span><span style="flex: 2; background: #fcd34d;"></span><span style="flex: 2; background: #fca5a5;"></span></div>
+            <div class="ho-count"><span><i style="background: #6ee7b7;"></i>3 known</span><span><i style="background: #fcd34d;"></i>2 assumed</span><span><i style="background: #fca5a5;"></i>2 unknown</span><span>of 7 fields</span></div>
+
+            <div class="ho-group" style="border-top: none; padding-top: 0; margin-top: 0;">What we know</div>
+            <div class="ho-item"><span class="ho-dot" style="background: #6ee7b7;" aria-hidden="true"></span><div><div><strong>Use case</strong></div><div class="ho-text">At intake, AI flags missing documents in each customer file. A person confirms and requests the rest.</div></div></div>
+            <div class="ho-item"><span class="ho-dot" style="background: #6ee7b7;" aria-hidden="true"></span><div><div><strong>Evidence so far</strong></div><div class="ho-text">The business asked for five things at once. Split by risk, missing documents is the lowest.</div></div></div>
+
+            <div class="ho-group">What blocks a technical handoff</div>
+            <div class="ho-item"><span class="ho-dot" style="background: #fca5a5;" aria-hidden="true"></span><div><div><strong>Owners</strong> <span class="ho-tag">Unknown</span></div><div class="ho-text">The workflow owner and the exceptions owner are not yet named.</div><div class="ho-close">&rarr; To close: name both before any handoff.</div></div></div>
+            <div class="ho-item"><span class="ho-dot" style="background: #fcd34d;" aria-hidden="true"></span><div><div><strong>Value hypothesis</strong> <span class="ho-tag">Assumed</span></div><div class="ho-text">Incomplete files cause much of the delay, so flagging gaps early could cut rework.</div><div class="ho-close">&rarr; To close: time a complete file today.</div></div></div>
+            <div class="ho-item"><span class="ho-dot" style="background: #fcd34d;" aria-hidden="true"></span><div><div><strong>Route and alternatives</strong> <span class="ho-tag">Assumed</span></div><div class="ho-text">Azure AI landing zone first. Rules-only and model-based checks are compared on cost and accuracy.</div><div class="ho-close">&rarr; To close: run the comparison on real files.</div></div></div>
+            <div class="ho-item"><span class="ho-dot" style="background: #fca5a5;" aria-hidden="true"></span><div><div><strong>Risks and unknowns</strong> <span class="ho-tag">Unknown</span></div><div class="ho-text">Time for a complete file and accuracy on the customer&rsquo;s documents are not measured.</div><div class="ho-close">&rarr; To close: measure both on the customer&rsquo;s own documents.</div></div></div>
+
+            <div class="ho-group">Next action</div>
+            <div class="ho-next"><strong>Run a validation session.</strong> Start by timing a complete file today.</div>
+        </div>
+        <p class="caption" style="text-align: center; margin-top: -1rem;">A handoff note filled in for the insurance case.</p>
 
         <div style="background: rgba(56, 189, 248, 0.06); border: 1px solid rgba(56, 189, 248, 0.25); border-left: 4px solid #38bdf8; border-radius: 12px; padding: 1.1rem 1.4rem; margin: 2rem 0;">
             <p style="margin: 0; color: #e2e8f0;"><strong style="color: #7dd3fc;">In the insurance case.</strong> The next step is a validation session, not a technical handoff. It starts with timing a complete file today, so the first claim has a baseline.</p>
