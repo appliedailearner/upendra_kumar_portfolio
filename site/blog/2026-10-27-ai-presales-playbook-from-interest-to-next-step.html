@@ -1425,48 +1425,19 @@
 
         <p>That&rsquo;s five projects, not one. I split them by risk:</p>
 
-        <div class="table-scroll stack-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Project</th>
-                        <th>Risk</th>
-                        <th>Approach</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td data-label="Project">Missing documents</td>
-                        <td data-label="Risk">Low</td>
-                        <td data-label="Approach">Start here. Easy to measure.</td>
-                    </tr>
-                    <tr>
-                        <td data-label="Project">KYC gaps</td>
-                        <td data-label="Risk">Medium</td>
-                        <td data-label="Approach">AI flags, a person confirms.</td>
-                    </tr>
-                    <tr>
-                        <td data-label="Project">Fraud signals</td>
-                        <td data-label="Risk">High</td>
-                        <td data-label="Approach">AI flags, a person decides. Always.</td>
-                    </tr>
-                    <tr>
-                        <td data-label="Project">Cross-sell</td>
-                        <td data-label="Risk">Later</td>
-                        <td data-label="Approach">Needs clean data first.</td>
-                    </tr>
-                    <tr>
-                        <td data-label="Project">Profitability</td>
-                        <td data-label="Risk">Later</td>
-                        <td data-label="Approach">Needs today&rsquo;s numbers to compare against.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <figure style="margin: 2rem auto; max-width: 560px;">
+            <img src="../images/blog/2026-10-27-insurance-five-projects.webp" width="900" height="900" loading="lazy" style="width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(148, 163, 184, 0.25);" alt="One ask, five projects, split by risk: 1 Missing documents (low risk, start here); 2 KYC gaps (medium, a person confirms); 3 Fraud signals (high risk, AI flags and a person decides); 4 Cross-sell (later, needs clean data first); 5 Profitability (later, needs today's numbers).">
+            <figcaption class="caption" style="margin-top: 0.75rem; text-align: center;">One ask, five projects: split by risk, start with the lowest.</figcaption>
+        </figure>
 
         <p>The <strong>first target</strong> is narrow: at intake, AI flags missing documents in each customer file, and people confirm and request the rest. The <strong>value hypothesis</strong> is modest: incomplete files cause much of the delay, so flagging gaps early could cut rework. It is a bet to test, not a claim.</p>
 
         <p>The landing zone comes first: identity, private networking, audit logging and the right data region. You can&rsquo;t add these after the demo.</p>
+
+        <figure style="margin: 2rem 0;">
+            <img src="../images/blog/2026-10-27-insurance-landing-zone-intake.webp" width="1200" height="700" loading="lazy" style="width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(148, 163, 184, 0.25);" alt="Intake flow for finding missing documents inside an Azure AI landing zone: a customer file goes into private storage, Document Intelligence reads pages and gives confidence, a Foundry project checks the file against required-document rules with AI Search for policy lookup, a review queue has a person confirm each flag, then the customer is asked for the missing documents. Managed identity, private endpoints, audit logs on every step and in-region data are built first.">
+            <figcaption class="caption" style="margin-top: 0.75rem; text-align: center;">The first target: intake flow for finding missing documents. Green steps are automated, the amber step is a person.</figcaption>
+        </figure>
 
         <div class="glass-card" style="margin: 2rem 0; padding: 1.5rem 1.75rem;">
             <p style="margin: 0 0 0.75rem; color: #f8fafc;"><strong>A confidence score is not a truth score.</strong></p>
