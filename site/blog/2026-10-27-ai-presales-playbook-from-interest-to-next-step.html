@@ -1668,36 +1668,79 @@
 
         <p>Tick each stage only when you can back it with evidence. Your progress is saved in this browser.</p>
 
-        <div class="checklist-container">
-            <label class="checklist-item">
-                <input type="checkbox">
-                <span><strong style="color: #f8fafc;">Discover.</strong> I know who does the work and where the friction is, without naming a product.</span>
+        <style>
+            .stage-track { display: flex; gap: 6px; margin: 1.25rem 0 0.5rem; }
+            .stage-track span { flex: 1; height: 10px; border-radius: 5px; background: rgba(148, 163, 184, 0.25); transition: background 0.3s ease; }
+            .stage-track span.on { background: var(--c); }
+            .stage-status { margin: 0 0 1.5rem; color: #cbd5e1; font-weight: 600; }
+            .stage-cards .checklist-item { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem; margin: 0 0 0.75rem; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(148, 163, 184, 0.2); border-left: 5px solid var(--c); border-radius: 12px; cursor: pointer; opacity: 1 !important; transition: background 0.3s ease, border-color 0.3s ease; }
+            .stage-cards .checklist-item:has(input:checked) { background: color-mix(in srgb, var(--c) 14%, #0f172a); border-color: var(--c); }
+            .stage-cards .stage-ic { flex: 0 0 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: color-mix(in srgb, var(--c) 18%, transparent); color: var(--c); font-size: 1.2rem; }
+            .stage-cards .stage-txt { flex: 1; min-width: 0; font-size: 0.95rem; line-height: 1.55; color: #cbd5e1; }
+            .stage-cards .stage-n { display: block; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--c); }
+            .stage-cards .stage-txt strong { color: #f8fafc; font-size: 1.1rem; }
+            .stage-cards input[type="checkbox"] { flex: 0 0 auto; order: 3; }
+            .stage-cards.checklist-container { padding: 0 !important; background: none !important; border: none !important; box-shadow: none !important; }
+            @media (max-width: 768px) { .stage-cards .checklist-item { gap: 0.75rem; padding: 0.85rem 0.9rem; } .stage-cards .stage-ic { flex-basis: 36px; height: 36px; font-size: 1rem; } }
+        </style>
+
+        <div class="stage-track" aria-hidden="true"><span style="--c: #38bdf8;"></span><span style="--c: #a78bfa;"></span><span style="--c: #34d399;"></span><span style="--c: #fbbf24;"></span><span style="--c: #f87171;"></span><span style="--c: #fb923c;"></span><span style="--c: #2dd4bf;"></span></div>
+        <p class="stage-status" id="stage-status" aria-live="polite">0 of 7 stages evidenced. Tick a stage when you can back it with evidence.</p>
+
+        <div class="checklist-container stage-cards">
+            <label class="checklist-item" style="--c: #38bdf8;">
+                <span class="stage-ic" aria-hidden="true"><i class="fas fa-magnifying-glass"></i></span>
+                <span class="stage-txt"><span class="stage-n">Stage 1</span><strong>Discover</strong><br>I know who does the work and where the friction is, without naming a product.</span>
+                <input type="checkbox" aria-label="Discover: I know who does the work and where the friction is, without naming a product.">
             </label>
-            <label class="checklist-item">
-                <input type="checkbox">
-                <span><strong style="color: #f8fafc;">Define.</strong> I can fill all five parts of the use-case sentence, including the human role.</span>
+            <label class="checklist-item" style="--c: #a78bfa;">
+                <span class="stage-ic" aria-hidden="true"><i class="fas fa-pen-to-square"></i></span>
+                <span class="stage-txt"><span class="stage-n">Stage 2</span><strong>Define</strong><br>I can fill all five parts of the use-case sentence, including the human role.</span>
+                <input type="checkbox" aria-label="Define: I can fill all five parts of the use-case sentence, including the human role.">
             </label>
-            <label class="checklist-item">
-                <input type="checkbox">
-                <span><strong style="color: #f8fafc;">Evaluate.</strong> The candidate is meaningful, practical and ready to test.</span>
+            <label class="checklist-item" style="--c: #34d399;">
+                <span class="stage-ic" aria-hidden="true"><i class="fas fa-scale-balanced"></i></span>
+                <span class="stage-txt"><span class="stage-n">Stage 3</span><strong>Evaluate</strong><br>The candidate is meaningful, practical and ready to test.</span>
+                <input type="checkbox" aria-label="Evaluate: The candidate is meaningful, practical and ready to test.">
             </label>
-            <label class="checklist-item">
-                <input type="checkbox">
-                <span><strong style="color: #f8fafc;">Prioritize.</strong> I picked the best first project from the viable ones, not the biggest idea.</span>
+            <label class="checklist-item" style="--c: #fbbf24;">
+                <span class="stage-ic" aria-hidden="true"><i class="fas fa-ranking-star"></i></span>
+                <span class="stage-txt"><span class="stage-n">Stage 4</span><strong>Prioritize</strong><br>I picked the best first project from the viable ones, not the biggest idea.</span>
+                <input type="checkbox" aria-label="Prioritize: I picked the best first project from the viable ones, not the biggest idea.">
             </label>
-            <label class="checklist-item">
-                <input type="checkbox">
-                <span><strong style="color: #f8fafc;">Prove.</strong> I have a success signal, a baseline and a list of what is known versus assumed.</span>
+            <label class="checklist-item" style="--c: #f87171;">
+                <span class="stage-ic" aria-hidden="true"><i class="fas fa-flask"></i></span>
+                <span class="stage-txt"><span class="stage-n">Stage 5</span><strong>Prove</strong><br>I have a success signal, a baseline and a list of what is known versus assumed.</span>
+                <input type="checkbox" aria-label="Prove: I have a success signal, a baseline and a list of what is known versus assumed.">
             </label>
-            <label class="checklist-item">
-                <input type="checkbox">
-                <span><strong style="color: #f8fafc;">Route.</strong> I answered the three routing questions: surface, capability, deployment and control.</span>
+            <label class="checklist-item" style="--c: #fb923c;">
+                <span class="stage-ic" aria-hidden="true"><i class="fas fa-route"></i></span>
+                <span class="stage-txt"><span class="stage-n">Stage 6</span><strong>Route</strong><br>I answered the three routing questions: surface, capability, deployment and control.</span>
+                <input type="checkbox" aria-label="Route: I answered the three routing questions: surface, capability, deployment and control.">
             </label>
-            <label class="checklist-item">
-                <input type="checkbox">
-                <span><strong style="color: #f8fafc;">Progress.</strong> The next step matches the evidence, and a named person owns it.</span>
+            <label class="checklist-item" style="--c: #2dd4bf;">
+                <span class="stage-ic" aria-hidden="true"><i class="fas fa-flag-checkered"></i></span>
+                <span class="stage-txt"><span class="stage-n">Stage 7</span><strong>Progress</strong><br>The next step matches the evidence, and a named person owns it.</span>
+                <input type="checkbox" aria-label="Progress: The next step matches the evidence, and a named person owns it.">
             </label>
         </div>
+
+        <script>
+            (function () {
+                var boxes = document.querySelectorAll('.stage-cards input[type="checkbox"]');
+                var segs = document.querySelectorAll('.stage-track span');
+                var status = document.getElementById('stage-status');
+                var msgs = ['Tick a stage when you can back it with evidence.', 'Good start. Keep going.', 'Good start. Keep going.', 'Halfway. The evidence stages come next.', 'Halfway. The evidence stages come next.', 'Almost there. Close the remaining gaps before any handoff.', 'Almost there. Close the remaining gaps before any handoff.', 'All seven stages evidenced. You are ready for a structured handoff.'];
+                function update() {
+                    var n = 0;
+                    boxes.forEach(function (b, i) { if (b.checked) n++; if (segs[i]) segs[i].classList.toggle('on', b.checked); });
+                    if (status) status.textContent = n + ' of ' + boxes.length + ' stages evidenced. ' + msgs[n];
+                }
+                boxes.forEach(function (b) { b.addEventListener('change', update); });
+                window.addEventListener('load', function () { setTimeout(update, 0); });
+                update();
+            })();
+        </script>
 
         <h2 id="closing"><span class="gradient-text">Closing Thought</span></h2>
 
