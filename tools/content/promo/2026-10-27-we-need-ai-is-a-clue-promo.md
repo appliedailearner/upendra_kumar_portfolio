@@ -14,7 +14,7 @@ Subject: "We need AI" is a clue, not a requirement
 
 Team,
 
-A customer says, "We need a chatbot." Six weeks later, nobody can say in one sentence what work would change.
+An insurer asked AI to find missing documents, spot KYC gaps, catch fraud, cross-sell and stay profitable. That is five projects, not one, and funding them as one is how pilots stall.
 
 In my latest post, I break down:
 *   **The Problem:** AI opportunities stall because the demo comes before the use case, and the ROI number comes before the baseline.
@@ -33,9 +33,9 @@ Beehiiv: Dashboard -> Write -> Posts -> Start Writing, paste the text, add a `/b
 
 ## 2. LinkedIn post A (the hook, text only)
 
-A customer says, "We need a chatbot."
+An insurer asked AI to find missing documents, spot KYC gaps, catch fraud, cross-sell and stay profitable.
 
-Six weeks later, nobody can say in one sentence what work would change.
+That is five projects, not one, and funding them as one is how pilots stall.
 
 I just finished OpenAI's Consultative Solutions Practitioner program, and I build on Azure. Here is the chain I now run every early AI opportunity through:
 
