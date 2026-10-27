@@ -93,7 +93,7 @@ Free one-page template and the full playbook: https://portfolio.upendrakumar.com
 1. Cover: "We Need AI" Is a Clue, Not a Requirement
 2. The chain: workflow problem → use case → value hypothesis → solution route → next step
 3. The one-sentence use case template
-4. One ask, five projects (use `site/images/blog/2026-10-27-insurance-five-projects.webp`)
+4. One ask, five projects (use `site/images/blog/2026-10-27-five-projects-risk-map.webp`)
 5. Pick the first project: hits real pain, produces evidence fast, has visible support
 6. Saved time is not saved money (known / assumed / next validation step)
 7. Route in three questions: where, what, how it is controlled, then what next
