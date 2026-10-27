@@ -1592,47 +1592,118 @@
 
         <h2 id="reference-builds"><span class="gradient-text">What a Public Reference Build Proves, and What It Doesn&rsquo;t</span></h2>
 
-        <p>You don&rsquo;t have to start from a blank page.</p>
+        <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(56, 189, 248, 0.25); border-left: 4px solid #38bdf8; border-radius: 12px; padding: 1.25rem 1.5rem; margin: 1.5rem 0;">
+            <p style="margin: 0; color: #f8fafc; font-weight: 700;">Public reference builds shorten the build. They don&rsquo;t prove the outcome.</p>
+        </div>
 
-        <p>Microsoft published an open-source hackathon, <a href="https://github.com/microsoft/claims-processing-hack" target="_blank" rel="noopener" style="color: #60a5fa;">Claims Processing with Microsoft Foundry Agents</a> (MIT license; the owner archived it in August 2026, so it is read-only).</p>
+        <p>A sample build shows that something <em>can</em> work. It doesn&rsquo;t show that it <em>will</em> work for your customer.</p>
 
-        <p>A second public repo, <a href="https://github.com/michalmar/MicroHack-AI" target="_blank" rel="noopener" style="color: #60a5fa;">MicroHack-AI</a>, covers similar ground with multi-agent claims handling. Both are training material, not customer deployments, and I treat them that way.</p>
+        <p>Microsoft published an open-source hackathon, <a href="https://github.com/microsoft/claims-processing-hack" target="_blank" rel="noopener" style="color: #60a5fa;">Claims Processing with Microsoft Foundry Agents</a> (MIT license; the owner archived it on 9 August 2026, so it is read-only).</p>
 
-        <p>The shape of the Microsoft build is a useful pattern:</p>
+        <p>A second public repo, <a href="https://github.com/michalmar/MicroHack-AI" target="_blank" rel="noopener" style="color: #60a5fa;">MicroHack-AI</a>, covers similar ground with separate agents for policy checking, claim review and risk analysis, ending in a summary for human review. Both are training material, not customer deployments, and I treat them that way.</p>
 
-        <ol class="step-list">
-            <li><strong>Read:</strong> claim images and policy documents go through an OCR agent (Mistral in this build).</li>
-            <li><strong>Structure:</strong> a GPT-4.1-mini agent turns the text into structured JSON.</li>
-            <li><strong>Retrieve:</strong> Azure AI Search provides vectorized and hybrid retrieval over the policy documents.</li>
-            <li><strong>Validate:</strong> separate steps handle policy matching and coverage validation.</li>
-            <li><strong>Observe and expose:</strong> tracing and monitoring come before the web interface, and the workflow is exposed through an API.</li>
-        </ol>
+        <figure style="margin: 2rem 0;">
+            <a href="../images/blog/2026-10-27-reference-build-pattern.webp" target="_blank" rel="noopener" aria-label="Open the reference build pattern full size"><img src="../images/blog/2026-10-27-reference-build-pattern.webp" width="1500" height="800" loading="lazy" style="width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(148, 163, 184, 0.25);" alt="Reference build pattern in five steps, each with a question a leader should ask. 1 Read: an OCR agent reads claim images and policy documents; how clean are the scans? 2 Structure: a small model turns the text into structured JSON; which fields actually matter? 3 Retrieve: AI Search finds the right policy passages using hybrid retrieval; is the policy source current? 4 Validate: separate steps match policy and check coverage; who decides coverage? 5 Observe and expose: tracing and monitoring first, then an API; can we see what it did?"></a>
+            <figcaption class="caption" style="margin-top: 0.75rem; text-align: center;">The Microsoft build as a pattern, with the question a leader should ask at each step. Tap to enlarge.</figcaption>
+        </figure>
 
-        <p>Three design choices stand out:</p>
+        <h3>What the Microsoft build gives you, and what it leaves out</h3>
+
+        <div class="table-scroll stack-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>It gives you</th>
+                        <th>It does not give you</th>
+                        <th>Leader&rsquo;s action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="It gives you">A working pipeline pattern</td>
+                        <td data-label="It does not give you">Measured accuracy or a baseline. Neither repo publishes evaluation results.</td>
+                        <td data-label="Leader’s action">Treat it as a head start, not evidence.</td>
+                    </tr>
+                    <tr>
+                        <td data-label="It gives you">A comparison of document-processing methods</td>
+                        <td data-label="It does not give you">Identity, networking, audit and data-region design for a regulated buyer.</td>
+                        <td data-label="Leader’s action">Add your own landing-zone plan.</td>
+                    </tr>
+                    <tr>
+                        <td data-label="It gives you">Tracing and monitoring before the user interface</td>
+                        <td data-label="It does not give you">Ongoing fixes. The Microsoft repo is archived and read-only.</td>
+                        <td data-label="Leader’s action">Confirm ownership, license and model versions before reuse.</td>
+                    </tr>
+                    <tr>
+                        <td data-label="It gives you">Policy matching as its own step</td>
+                        <td data-label="It does not give you">A customer&rsquo;s own documents.</td>
+                        <td data-label="Leader’s action">Test on the customer&rsquo;s files before any claim.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p>Three design choices are worth copying:</p>
 
         <ul>
-            <li><strong>It compares document-processing methods instead of assuming one.</strong> Azure Document Intelligence is one of three approaches the exercise tests, alongside GPT-4.1-mini vision and Mistral Document AI, though it is not in the reference architecture diagram. Pick the method from your own documents, not from a slide.</li>
-            <li><strong>Observability is its own challenge.</strong> In a regulated workflow, you need to see what the system did before you let anyone rely on it.</li>
-            <li><strong>Policy matching is a separate step.</strong> Extracting a field and deciding whether the policy covers it are different jobs, and the build keeps them apart.</li>
+            <li><strong>Compare methods on your own documents, not on a slide.</strong> The exercise tests three approaches: Azure Document Intelligence, GPT-4.1-mini vision and Mistral Document AI.</li>
+            <li><strong>See what the system did before anyone relies on it.</strong> Tracing and monitoring come before the interface.</li>
+            <li><strong>Keep extraction and policy matching apart.</strong> Reading a field and deciding coverage are different jobs.</li>
         </ul>
 
-        <p>MicroHack-AI adds one more pattern worth copying: separate agents for policy checking, claim review and risk analysis, ending in a summary for human review.</p>
+        <h3>The gate before a customer sees it</h3>
 
-        <h3>What these repos do not answer</h3>
+        <p>Both repos expect you to deploy resources yourself in a supported region, and neither covers what a buyer&rsquo;s security team asks first. That gap is where pre-sales work lives. Five things must exist before a sample like this goes near a customer:</p>
 
-        <p>A sample build shows that something <em>can</em> work. It does not tell a customer that it <em>will</em> work for them. Neither repo publishes evaluation results, so there is no measured accuracy, no baseline and no review thresholds to borrow.</p>
+        <div class="table-scroll stack-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Before it goes near a customer</th>
+                        <th>Why it matters</th>
+                        <th>Suggested owner</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="Gate">A baseline: how long a complete file takes today</td>
+                        <td data-label="Why it matters">No starting number, no claim.</td>
+                        <td data-label="Suggested owner">Workflow owner</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Gate">Measured accuracy on the customer&rsquo;s own documents</td>
+                        <td data-label="Why it matters">Shows it works for them, not for a sample.</td>
+                        <td data-label="Suggested owner">Delivery lead</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Gate">Review thresholds set from those measured errors</td>
+                        <td data-label="Why it matters">Decides what a person must check.</td>
+                        <td data-label="Suggested owner">Delivery lead with the workflow owner</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Gate">An identity, networking, audit and data-region plan</td>
+                        <td data-label="Why it matters">It is what the buyer&rsquo;s security team asks first.</td>
+                        <td data-label="Suggested owner">Security architect</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Gate">A named owner for exceptions</td>
+                        <td data-label="Why it matters">Someone must own what the AI gets wrong.</td>
+                        <td data-label="Suggested owner">Workflow owner</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-        <p>Both also assume you can already deploy resources in a supported region with Owner rights. Neither covers the parts a buyer&rsquo;s security team asks about first. That gap is where pre-sales work lives. Before a sample like this goes near a customer, I would still need:</p>
+        <p class="caption">Owners are suggestions. Match them to your own team.</p>
 
-        <ul>
-            <li>A baseline of how long a complete file takes today.</li>
-            <li>Measured accuracy on the customer&rsquo;s own documents.</li>
-            <li>Review thresholds set from those measured errors.</li>
-            <li>An identity, networking, audit and data-region plan.</li>
-            <li>A named owner for exceptions.</li>
-        </ul>
-
-        <p><strong>Use the public repo to shorten the build. Don&rsquo;t use it as evidence of the outcome.</strong></p>
+        <div class="glass-card" style="margin: 2rem 0; padding: 1.5rem 1.75rem;">
+            <p style="margin: 0 0 0.75rem; color: #f8fafc;"><strong>Three questions for a sponsor</strong></p>
+            <ul style="margin: 0; color: #cbd5e1;">
+                <li>Does the sample cover our documents?</li>
+                <li>Who maintains it?</li>
+                <li>What evidence will we produce before we rely on it?</li>
+            </ul>
+        </div>
 
         <h2 id="cheat-sheet"><span class="gradient-text">The One-Page Cheat Sheet</span></h2>
 
