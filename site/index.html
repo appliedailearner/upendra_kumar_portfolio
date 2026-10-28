@@ -336,20 +336,30 @@
                 #about .proof-tile { background: rgba(56, 189, 248, 0.07); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 12px; padding: 0.9rem 0.75rem; text-align: center; }
                 #about .proof-tile strong { display: block; font-family: 'Outfit', sans-serif; font-size: 1.45rem; line-height: 1.2; color: #f8fafc; }
                 #about .proof-tile span { display: block; margin-top: 0.25rem; font-size: 0.85rem; line-height: 1.35; color: #94a3b8; }
-                @media (max-width: 768px) { #about .about-content { padding: 1.5rem 1.25rem; } #about .proof-row { grid-template-columns: repeat(2, 1fr); } #about .about-text .lead { font-size: 1.15rem; } }
+                #about .how-i-work { list-style: none; counter-reset: step; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin: 0 0 1.75rem; padding: 0; }
+                #about .how-i-work li { counter-increment: step; border-left: 3px solid #a78bfa; padding: 0.15rem 0 0.15rem 0.85rem; }
+                #about .how-i-work li strong { display: block; font-family: 'Outfit', sans-serif; font-size: 1.05rem; color: #f8fafc; }
+                #about .how-i-work li strong::before { content: counter(step) ". "; color: #a78bfa; }
+                #about .how-i-work li span { display: block; margin-top: 0.2rem; font-size: 0.9rem; line-height: 1.45; color: #94a3b8; }
+                #about .about-text p strong { color: #f1f5f9; }
+                @media (max-width: 768px) { #about .about-content { padding: 1.5rem 1.25rem; } #about .proof-row { grid-template-columns: repeat(2, 1fr); } #about .about-text .lead { font-size: 1.15rem; } #about .how-i-work { grid-template-columns: 1fr; } }
             </style>
             <div class="about-content reading-container">
                 <div class="about-text">
-                    <p class="lead">I help enterprises decide what to build on Azure, and what it will cost, before they commit. As Senior Manager, Azure Pre-Sales in Cognizant&rsquo;s Microsoft Business Group, I own the solution and commercial model behind each pursuit, and the delivery plan that has to stand behind it.</p>
+                    <p class="lead">Many Azure and AI programs are in trouble before the contract is signed, because scope and price get committed before anyone has estimated them. As Senior Manager, Azure Pre-Sales in Cognizant&rsquo;s Microsoft Business Group, I own the solution, commercial model and delivery plan behind each pursuit, so what we sell is what we can build.</p>
                     <div class="proof-row">
                         <div class="proof-tile"><strong>20+ years</strong><span>Enterprise cloud and infrastructure</span></div>
                         <div class="proof-tile"><strong>50&ndash;4,000+</strong><span>Workloads per engagement</span></div>
                         <div class="proof-tile"><strong>$2M&ndash;$8M</strong><span>TCV per pursuit</span></div>
-                        <div class="proof-tile"><strong>AI governance</strong><span>Framework on Azure AI Foundry</span></div>
+                        <div class="proof-tile"><strong>3 programs</strong><span>Microsoft partner funding used</span></div>
                     </div>
-                    <p>I came to pre-sales from delivery, after leading Azure Landing Zone and migration programs, including in regulated environments. That is why my proposals hold up after the deal closes: I have built the architecture, the Zero Trust and governance model and the Terraform automation behind them, not just drawn them.</p>
-                    <p>I build pursuits alongside Microsoft account teams, and I shape how the first phase gets funded. I have used Microsoft partner programs, including Azure Migrate &amp; Modernize, ECIF and Azure Accelerate, to lower the client&rsquo;s cost and risk of getting started.</p>
-                    <p>On AI, I built an AI compliance and governance framework on Azure AI Foundry, so clients can move GenAI from pilot into production with controls their risk and compliance teams accept.</p>
+                    <ol class="how-i-work" aria-label="How I work">
+                        <li><strong>Discover</strong><span>The business problem, the stakeholders and today&rsquo;s baseline.</span></li>
+                        <li><strong>Estimate</strong><span>Effort, assumptions and risks, worked out before a price is proposed.</span></li>
+                        <li><strong>Commit</strong><span>A funded first phase and a delivery plan reviewed with the delivery team.</span></li>
+                    </ol>
+                    <p><strong>Proposals that survive delivery.</strong> Before pre-sales I led Azure Landing Zone and migration programs, including in regulated environments. I have built the architecture, Zero Trust model and Terraform automation I now propose.</p>
+                    <p><strong>Microsoft-aligned and AI-ready.</strong> I build pursuits with Microsoft account teams and use partner funding (Azure Migrate &amp; Modernize, ECIF, Azure Accelerate) to lower the client&rsquo;s cost of getting started. My AI governance framework on Azure AI Foundry helps clients move GenAI from pilot to production with controls their risk teams accept.</p>
                 </div>
             </div>
             <div class="leadership-pillars-grid">
