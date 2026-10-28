@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </a>
             <div>
                 <div class="brand-title">Upendra Kumar</div>
-                <p class="nav-tagline">Enterprise Cloud & AI Architecture Leader</p>
+                <p class="nav-tagline">Azure Pre-Sales Leader · Cloud & AI Architecture</p>
             </div>
         </div>
         <ul class="nav-menu">
