@@ -312,7 +312,6 @@
                         <h4><i class="fas fa-info-circle"></i> Project Snapshot</h4>
                         <p style="margin:0;">**Role:** Migration Technical Consultant<br>
                             **Scope:** Full Date Center Exit (238+ VMs, 60 Applications, 30TB Data)<br>
-                            **Budget:** $500k CapEx Avoidance<br>
                             **Team:** 6 (1 Cloud Architect, 2 DevOps, 1 NetOps, 1 DB Admin, 1 SecOps)</p>
                     </div>
 
@@ -322,19 +321,19 @@
                     <div style="margin-bottom: 2rem; border-left: 3px solid #f59e0b; padding-left: 1.5rem;">
                         <p style="font-style: italic; color: #cbd5e1;"><strong>Board-Level Risk:</strong> Relying on
                             end-of-life hardware exposed the firm to potential catastrophic failure and compliance
-                            fines. The "do nothing" cost was estimated at $50k/month in maintenance and lost agility.
+                            fines.
                         </p>
                     </div>
 
-                    <p>Faced with a critical hardware refresh cycle (+40% YoY cost increase) and an expiring data center
+                    <p>Faced with a costly hardware refresh cycle and an expiring data center
                         lease, I led the strategic migration of the organization's core financial systems to Azure. This
                         program was not merely a "lift and shift" but a foundational modernization effort.</p>
                     <ul>
                         <li><strong>Objective:</strong> Exit Data Center within 8 months (Hard Deadline).</li>
                         <li><strong>Constraint:</strong> Zero unplanned downtime for mission-critical SQL workloads.
                         </li>
-                        <li><strong>Outcome:</strong> Delivered 2 weeks early, achieving 30% TCO reduction and enabling
-                            first-time agile deployment capabilities.</li>
+                        <li><strong>Outcome:</strong> Delivered 2 weeks early, moving the organization from hardware
+                            refresh cycles to Azure consumption and enabling first-time agile deployment capabilities.</li>
                     </ul>
 
                     <BR>
@@ -359,7 +358,7 @@
 
                     <h2 id="app-profiling">Application Profiling & Mapping</h2>
                     <p>A common pitfall in migrations is server-only focus. I led a <strong>Service-Oriented
-                            Discovery</strong> phase using Azure Migrate and Service Map to categorize our 238+ VMs into
+                            Discovery</strong> phase using Azure Migrate and Service Map to categorize the 238+ VMs into
                         functional clusters:</p>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 2rem 0;">
                         <div class="glass-card"
@@ -394,12 +393,12 @@
                     <div class="stats-grid"
                         style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin: 3rem 0;">
                         <div class="stat-card">
-                            <span class="stat-value">30%</span>
-                            <span class="stat-label">TCO Reduction<br>(vs On-Prem Refresh)</span>
+                            <span class="stat-value">238+</span>
+                            <span class="stat-label">VMs Migrated<br>(60 Applications)</span>
                         </div>
                         <div class="stat-card">
-                            <span class="stat-value">100%</span>
-                            <span class="stat-label">SLA Adherence<br>(During Cutover)</span>
+                            <span class="stat-value">30 TB</span>
+                            <span class="stat-label">Data Moved<br>(Data Center Exit)</span>
                         </div>
                         <div class="stat-card">
                             <span class="stat-value">2 Wks</span>
@@ -419,8 +418,8 @@
                         patching responsibility to Microsoft (PaaS).</p>
 
                     <h3>3. Retire (Cost Avoidance) - 15%</h3>
-                    <p>Identified "Zombie Servers" during the assessment phase. Decommissioning these <strong>saved
-                            $2k/month</strong> immediately, fully funding the ExpressRoute circuit.</p>
+                    <p>Identified "Zombie Servers" during the assessment phase. Decommissioning these <strong>removed
+                            their run costs</strong> before migration began, instead of paying to move them.</p>
 
                     <h2 id="security-governance">Security & Governance Enforcement</h2>
                     <p>For this mission-critical migration, we bypassed the public internet for all discovery and
@@ -508,8 +507,8 @@
                         <h4><i class="fas fa-undo-alt"></i> Roll-back Strategy</h4>
                         <p style="margin: 0; font-size: 0.95rem;"><strong>The Point of No Return:</strong> 4:00 AM (2
                             hours before business open). If data consistency or latentcy checks failed, we triggered an
-                            automated fallback to the on-prem replica, ensuring 100% service availability for the
-                            business.</p>
+                            automated fallback to the on-prem replica, so the business always opened on a working
+                            system.</p>
                     </div>
 
                     <h2 id="challenges">Critical Challenge: Hardcoded IPs</h2>
@@ -533,8 +532,7 @@
                         <li><strong>Financial Alignment:</strong> Shifted from lumpy CapEx spikes to predictable OpEx
                             utility
                             billing, optimized via Azure Hybrid Benefit.</li>
-                        <li><strong>Operational Velocity:</strong> Reduced VM provisioning time from 3 weeks to 4 hours
-                            via
+                        <li><strong>Operational Velocity:</strong> Replaced ticket-based VM provisioning with
                             Terraform-based Landing Zone automation.</li>
                         <li><strong>Risk Mitigation:</strong> Established a "Cloud Foundation" capability, enabling the
                             organization to handle advanced AI and Analytics workloads securely.</li>
@@ -547,8 +545,8 @@
 
     <footer>
         <div class="container" style="text-align: center; padding: 2rem; color: var(--text-muted);">
-            <small>&copy; 2025 Upendra Kumar. All rights reserved. This content is personal and not affiliated with
-                Rackspace Technology.</small>
+            <small>&copy; 2025 Upendra Kumar. All rights reserved. Client details anonymized. Views are my
+                own.</small>
         </div>
     </footer>
     <!-- Cloudflare Web Analytics -->
